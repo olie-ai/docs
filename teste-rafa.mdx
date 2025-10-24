@@ -1,0 +1,187 @@
+---
+title: 'Olie Framework: Conceitos e Metodologia'
+description: 'Uma visão geral da lógica, hierarquia e entidades principais da plataforma Olie.'
+---
+
+<Info>
+  **Documento em Rascunho (Draft)**
+  
+  Esta documentação é baseada em uma apresentação de rascunho do Olie Framework. O objetivo é fornecer clareza sobre a lógica e a metodologia da plataforma para equipes em fase de implantação.
+</Info>
+
+## Introdução à Lógica Olie
+
+O Olie Framework foi desenhado para ser uma metodologia flexível que se adapta a processos estratégicos, táticos e operacionais. A lógica central gira em torno de quatro elementos principais que compõem o ambiente de execução.
+
+## Os 4 Elementos Principais da Execução
+
+O ambiente de execução da Olie é composto por quatro elementos fundamentais:
+
+1.  **Área de Negócio (Workspace):**
+    * É o container de mais alto nível; um conjunto de Funis.
+    * Pode ser usada para representar uma **Unidade Empresarial**, um **Departamento** ou um **Processo** macro.
+
+2.  **Funil (Pipeline/Industrial Conveyor):**
+    * É o seu espaço de trabalho. Pode ser comparado a um "Quadro" (como no Trello) ou a uma "Esteira Industrial".
+    * Representa a **trilha horizontal de uma esteira de execução**.
+    * Pode ser de natureza estratégica, tática ou operacional (nível de atividades ou micro-atividades).
+
+3.  **Etapa (Stage):**
+    * É considerado o **"cérebro"** do Funil. É onde a maior parte da inteligência e das configurações é aplicada.
+    * As Etapas controlam métricas de tempo, SLAs (Service Level Agreements) e, futuramente, o "timesheeting" (apontamento de horas) da execução.
+
+4.  **Projeto (Project):**
+    * É a unidade de trabalho central que se move através dos Funis e Etapas.
+    * Dependendo do contexto, um Projeto pode ser chamado de:
+        * Card
+        * Deal (Negócio)
+        * Ticket (Chamado)
+        * Pasta
+        * Base de Conhecimento
+
+## Modelo de Hierarquia Relacional
+
+A plataforma Olie utiliza um modelo de dados relacional que conecta essas entidades.
+
+### Entidades Principais
+
+As entidades centrais que você irá gerenciar são:
+* Cliente
+* Contato
+* Projeto
+* Área de Negócio
+* Funil
+* Etapa
+* Formulário
+
+### Relações de Cardinalidade
+
+* `1:N` **Formulário para Entidade:** Existe um formulário principal único que pode ser vinculado às entidades `Cliente`, `Contato` e `Projeto`. Isso significa que todos os clientes cadastrados, por exemplo, compartilharão o mesmo formulário base da entidade "Cliente".
+* `N:N` **Cliente e Contato:** Um `Cliente` pode ter vários `Contatos`, e um `Contato` pode estar vinculado a vários `Clientes`.
+* `1:N` **Projeto e Cliente:** Um `Projeto` pode ter apenas um `Cliente` vinculado.
+* `N:N` **Projeto e Contato:** Um `Projeto` pode ter vários `Contatos` vinculados.
+
+### Hierarquia de Projetos (Pai/Filho)
+
+O Olie suporta uma hierarquia de projetos aninhados com até 4 níveis de profundidade, permitindo o gerenciamento de dependências complexas.
+
+* **Nível 1:** Projeto (Pai)
+* **Nível 2:** Projetos Filhos
+* **Nível 3:** Projetos Netos
+* **Nível 4:** Projetos Bisnetos
+
+### Hierarquia Organizacional
+
+A estrutura de trabalho segue uma lógica clara de aninhamento:
+
+* `1:N` **Área de Negócio → Funis:** Uma Área de Negócio pode conter vários Funis.
+* `1:N` **Funil → Etapas:** Um Funil pode conter várias Etapas.
+* `N:N` **Etapa ↔ Projetos:** Uma Etapa pode conter vários Projetos, e um Projeto pode existir em várias Etapas (veja [O Projeto Onipresente](#o-projeto-onipresente)).
+
+## Aprofundamento (Deep Dives)
+
+### Anatomia de um Projeto
+
+Cada Projeto agrega um conjunto rico de informações e funcionalidades:
+
+* **Informações (Conteúdo):** O histórico de chat e comunicação do projeto.
+* **Caderno (Estilo OneNote):** Um espaço para notas, documentação, atas de reunião e base de conhecimento. Futuramente, poderá ser público (similar ao Notion).
+* **Valor de Receita:** O valor financeiro esperado do projeto.
+* **Custo por Etapa:** (Funcionalidade em desenvolvimento).
+* **Arquivos:** Um repositório central para todos os anexos (links, mídias) da conversa.
+* **Respostas de Formulários:** Consolida todas as respostas de formulários vinculados.
+* **Visão Geral das Etapas:** Mostra em quais etapas o projeto se encontra.
+* **Vínculos:** Links diretos para o `Cliente`, `Contatos` e `Atribuídos` (usuários responsáveis).
+* **Projetos Vinculados:** Gerencia a hierarquia de projetos (Pai, Filhos, Netos, Bisnetos).
+
+### Anatomia de um Funil
+
+O Funil é o container para as Etapas e possui suas próprias configurações:
+
+* **1 Formulário:** O Funil possui um formulário principal que define os campos visíveis na visão Kanban.
+* **N Etiquetas (Labels/Tags):** Pode ter múltiplas etiquetas que podem ser usadas em **condicionais de decisão**.
+* **N Status:** Pode ter múltiplos status customizados que também podem ser usados em **condicionais de decisão**.
+* **N Anexos:** Pode armazenar anexos relevantes para o contexto geral do Funil.
+
+### Anatomia de uma Etapa (O Cérebro)
+
+A Etapa é onde a maior parte da lógica do processo é configurada. Ela controla o que acontece quando um projeto entra ou se move através dela.
+
+* **1 Vídeo de Treinamento:** Permite anexar um vídeo instrutivo para a etapa.
+* **1 Checklist:** Um checklist que pode ser obrigatório para mover o projeto para a próxima etapa.
+* **1 Formulário Condicionado:** Um formulário específico que aparece para o usuário no momento da execução ou movimentação da etapa.
+* **N Anexos:** Anexos específicos da etapa.
+* **N Agentes de IA:** A etapa pode ter múltiplos Agentes de IA com diferentes papéis:
+    * Criadores
+    * Analistas
+    * Executores
+    * Tomadores de Decisão
+* **N Restrições:** Regras de negócio e validações (ex: "só pode mover se o campo X estiver preenchido").
+* **N Automações:** Gatilhos e execuções automatizadas (ex: enviar e-mail, mover projeto, integrações).
+* **N SLAs:** Múltiplos controles de tempo e ociosidade.
+* **N KPI/OKR:** Métricas de performance específicas da etapa.
+
+### Anatomia de um Formulário (A Entidade Inteligente)
+
+O Formulário na Olie é mais do que uma simples coleta de dados; é uma entidade inteligente e uma **base de dados exportável** (.xlsx).
+
+#### Funcionalidades Principais
+* **Formulário Público:** Pode ser acessado via link público.
+* **Catálogo de Solicitações:** Pode ser usado para criar um catálogo de serviços interno ou externo.
+
+#### Locais de Preenchimento (Onde pode ser preenchido)
+Um formulário pode ser preenchido a partir de:
+* Agentes de IA
+* APIs
+* Link Público
+* Catálogo de Solicitações
+* Projeto Avulso (dentro de um projeto existente)
+* Avanço de Etapa (como formulário condicionado)
+* Dentro do Funil (no projeto)
+* Dentro da página do Cliente
+
+#### Poder dos Campos (O que pode ser feito com os campos)
+Cada campo individual em um formulário pode:
+* Ser um **gatilho de automação** ao ser preenchido.
+* Ser um **gatilho de automação** ao ter seu valor alterado.
+* Ativar um **gatilho ou ação condicional** baseado no tipo de resposta.
+* Servir como **base de dados para Agentes de IA** consultarem ou usarem como gatilho.
+* Conter **restrições** de preenchimento.
+* Ser usado para **análise de respostas e tomadas de decisão** automatizadas.
+
+#### Locais de Vínculo (Onde pode vincular formulários)
+Formulários podem ser vinculados diretamente às seguintes entidades:
+* `Cliente`
+* `Contato`
+* `Usuário`
+* `Funil`
+* `Etapa`
+* `Projeto`
+
+## Conceitos-Chave da Metodologia
+
+### O Projeto Onipresente
+
+Este é um conceito central da Olie. Um mesmo projeto (ex: "Projeto ID-XPTO") pode existir simultaneamente em múltiplos funis e múltiplas etapas.
+
+* **Exemplo:** O "Projeto ID-XPTO" pode estar na `Etapa 2` do `Funil A` (Comercial) e, ao mesmo tempo, na `Etapa 1` do `Funil B` (Financeiro) e na `Etapa 3` do `Funil C` (Implantação).
+* **Por que isso é possível?** Porque **"a maioria da inteligência está na Etapa, e não no Projeto"**.
+* **Benefício:** Isso permite uma **fluidez intradepartamental** real. O projeto pode ter status, atributos, etiquetas e regras diferentes em cada contexto (Funil/Etapa) onde ele se encontra.
+
+<Tip>
+  **Recomendação de Design de Processo:**
+  
+  Ao construir processos intradepartamentais, crie "etapas de retorno" (ex: uma etapa no Funil A que reflete o status do projeto no Funil B). Embora o usuário do Funil A não possa mover o card para essa etapa (ela pode ser restrita), ele ganha visibilidade em tempo real de onde o projeto está em outro departamento.
+</Tip>
+
+### Esteira Horizontal vs. Intercomunicação Vertical
+
+A Olie é desenhada para gerenciar as duas dimensões do trabalho:
+
+1.  **Esteira de Execução (Horizontal):**
+    * Representa o fluxo de processo horizontal (Processo Horizontal).
+    * É onde as atividades, o plano macro, o plano estratégico e o tático são executados.
+
+2.  **Inter Comunicação (Vertical):**
+    * Representa a comunicação vertical entre áreas, empresas, fluxos e departamentos.
+    * É a "cadeia de distribuição" da informação e do trabalho.
