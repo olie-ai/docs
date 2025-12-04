@@ -39,6 +39,29 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Referência da API",
+        "groups": [
+          {
+            "group": "Introdução a API",
+            "pages": [
+              "api-reference/introduction",
+              "api-reference/filters",
+              "api-reference/pagination"
+            ]
+          },
+          {
+            "group": "Endpoint examples",
+            "pages": [ 
+            ]
+          },
+          {
+            "group": "API reference",
+            "openapi": "api-reference/openapi.json",
+            "pages": []
+          }
+        ]
       }
     ]
   },

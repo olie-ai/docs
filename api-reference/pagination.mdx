@@ -1,0 +1,284 @@
+---
+title: 'Paginação'
+description: 'Como navegar através de grandes conjuntos de dados usando paginação na API da Olie'
+---
+
+## Visão geral da paginação
+
+Ao consultar endpoints que retornam listas de recursos, a API da Olie utiliza paginação para dividir grandes conjuntos de dados em páginas menores e mais gerenciáveis.
+
+<Info>
+A paginação melhora a performance da API e facilita o processamento dos dados no lado do cliente.
+</Info>
+
+## Estrutura da resposta paginada
+
+Respostas paginadas incluem um objeto `meta` com informações detalhadas sobre a paginação atual:
+
+```json
+{
+  "data": [...],
+  "meta": {
+    "current_page": 1,
+    "from": 1,
+    "last_page": 19,
+    "per_page": 30,
+    "to": 30,
+    "total": 546
+  }
+}
+```
+
+## Campos do objeto `meta`
+
+<ResponseField name="current_page" type="integer">
+Página atual da resposta. Começa em 1.
+</ResponseField>
+
+<ResponseField name="from" type="integer">
+Índice do primeiro item retornado na página atual (baseado em 1).
+</ResponseField>
+
+<ResponseField name="last_page" type="integer">
+Número total de páginas disponíveis com base no total de itens e itens por página.
+</ResponseField>
+
+<ResponseField name="per_page" type="integer">
+Quantidade de itens retornados por página. Valor padrão: 30.
+</ResponseField>
+
+<ResponseField name="to" type="integer">
+Índice do último item retornado na página atual (baseado em 1).
+</ResponseField>
+
+<ResponseField name="total" type="integer">
+Total geral de itens disponíveis na listagem, considerando todos os filtros aplicados.
+</ResponseField>
+
+## Como navegar entre páginas
+
+Para navegar entre páginas, utilize o parâmetro `page` na URL:
+
+```http
+GET /api/v1/projects?page=2
+```
+
+<Tip>
+Você pode combinar paginação com filtros para navegar através de subconjuntos específicos de dados.
+</Tip>
+
+## Exemplos práticos
+
+### Navegação básica
+
+<Tabs>
+<Tab title="Primeira página">
+```bash
+curl -X GET "https://api.olie.ai/api/v1/projects?page=1" \
+  -H "Authorization: Bearer SEU_TOKEN_AQUI"
+```
+</Tab>
+
+<Tab title="Página específica">
+```bash
+curl -X GET "https://api.olie.ai/api/v1/projects?page=5" \
+  -H "Authorization: Bearer SEU_TOKEN_AQUI"
+```
+</Tab>
+
+<Tab title="Com filtros">
+```bash
+curl -X GET "https://api.olie.ai/api/v1/projects?page=2&filter[status]=ativo" \
+  -H "Authorization: Bearer SEU_TOKEN_AQUI"
+```
+</Tab>
+</Tabs>
+
+### Implementação de navegação
+
+<CodeGroup>
+```javascript JavaScript
+async function getAllProjects() {
+  const allProjects = [];
+  let currentPage = 1;
+  let lastPage = 1;
+
+  do {
+    const response = await fetch(
+      `https://api.olie.ai/api/v1/projects?page=${currentPage}`,
+      {
+        headers: {
+          'Authorization': 'Bearer SEU_TOKEN_AQUI'
+        }
+      }
+    );
+
+    const data = await response.json();
+    
+    // Add projects from current page
+    allProjects.push(...data.data);
+    
+    // Update pagination info
+    lastPage = data.meta.last_page;
+    currentPage++;
+    
+  } while (currentPage <= lastPage);
+
+  return allProjects;
+}
+```
+
+```python Python
+import requests
+
+def get_all_projects():
+    all_projects = []
+    current_page = 1
+    last_page = 1
+    
+    url = "https://api.olie.ai/api/v1/projects"
+    headers = {"Authorization": "Bearer SEU_TOKEN_AQUI"}
+    
+    while current_page <= last_page:
+        params = {"page": current_page}
+        response = requests.get(url, params=params, headers=headers)
+        data = response.json()
+        
+        # Add projects from current page
+        all_projects.extend(data["data"])
+        
+        # Update pagination info
+        last_page = data["meta"]["last_page"]
+        current_page += 1
+    
+    return all_projects
+```
+
+```php PHP
+<?php
+
+function getAllProjects($token) {
+    $allProjects = [];
+    $currentPage = 1;
+    $lastPage = 1;
+    
+    $baseUrl = "https://api.olie.ai/api/v1/projects";
+    
+    do {
+        $url = $baseUrl . "?page=" . $currentPage;
+        
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Authorization: Bearer " . $token
+        ]);
+        
+        $response = curl_exec($ch);
+        curl_close($ch);
+        
+        $data = json_decode($response, true);
+        
+        // Add projects from current page
+        $allProjects = array_merge($allProjects, $data['data']);
+        
+        // Update pagination info
+        $lastPage = $data['meta']['last_page'];
+        $currentPage++;
+        
+    } while ($currentPage <= $lastPage);
+    
+    return $allProjects;
+}
+```
+</CodeGroup>
+
+## Calculando informações de paginação
+
+Use o objeto `meta` para calcular informações úteis:
+
+<AccordionGroup>
+<Accordion title="Verificar se há próxima página">
+```javascript
+const hasNextPage = meta.current_page < meta.last_page;
+```
+</Accordion>
+
+<Accordion title="Verificar se há página anterior">
+```javascript
+const hasPreviousPage = meta.current_page > 1;
+```
+</Accordion>
+
+<Accordion title="Calcular progresso">
+```javascript
+const progress = (meta.to / meta.total) * 100;
+console.log(`${progress.toFixed(2)}% completo`);
+```
+</Accordion>
+
+<Accordion title="Calcular itens restantes">
+```javascript
+const remainingItems = meta.total - meta.to;
+console.log(`${remainingItems} itens restantes`);
+```
+</Accordion>
+</AccordionGroup>
+
+## Boas práticas
+
+<Steps>
+<Step title="Use paginação sempre">
+Nunca tente buscar todos os registros de uma só vez. Sempre use paginação para melhor performance.
+</Step>
+
+<Step title="Armazene o meta">
+Guarde as informações do objeto `meta` para implementar navegação inteligente.
+</Step>
+
+<Step title="Implemente cache">
+Considere implementar cache local para páginas já visitadas e reduzir requisições.
+</Step>
+
+<Step title="Mostre progresso">
+Use as informações de paginação para mostrar indicadores de progresso ao usuário.
+</Step>
+</Steps>
+
+<Warning>
+Não assuma que o número de itens por página (`per_page`) será sempre o mesmo. Sempre use o valor retornado no objeto `meta`.
+</Warning>
+
+## Exemplo de resposta completa
+
+```json
+{
+  "response": true,
+  "data": [
+    {
+      "id": 1,
+      "name": "Projeto A",
+      "status": "ativo"
+    },
+    {
+      "id": 2,
+      "name": "Projeto B",
+      "status": "concluido"
+    }
+    // ... mais 28 itens
+  ],
+  "meta": {
+    "current_page": 1,
+    "from": 1,
+    "last_page": 19,
+    "per_page": 30,
+    "to": 30,
+    "total": 546
+  }
+}
+```
+
+<Check>
+Com essas informações, você pode implementar uma navegação eficiente e intuitiva através dos dados da API!
+</Check>
+
+

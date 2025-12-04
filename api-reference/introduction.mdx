@@ -1,33 +1,143 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: 'Introdução à API da Olie'
+description: 'Documentação completa da API da Olie para integração e gerenciamento de processos empresariais'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## Visão geral
 
-## Welcome
+A API da Olie é uma interface poderosa e flexível que permite integrar e gerenciar processos dentro de uma empresa de forma eficiente e automatizada. A Olie foi projetada para simplificar o gerenciamento de tarefas, fluxos de trabalho e recursos, garantindo que os processos empresariais sejam realizados de maneira mais ágil e controlada.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+Para fazer requisições, é necessário autenticar cada pedido com as credenciais da sua aplicação. Se você ainda não tem uma, veja os passos básicos para começar a implementar as nossas soluções.
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+## Base URL
 
-## Authentication
+A URL base para a API da Olie é:
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+```bash
+https://api.olie.ai/api/v1
+```
+
+<Tip>
+Todas as requisições devem ser feitas utilizando esta URL base como prefixo.
+</Tip>
+
+## Autenticação
+
+As solicitações para a API da Olie são autenticadas com um token de acesso da API. O token deve ser passado como um OAuth Bearer token no cabeçalho da requisição:
+
+```bash
+curl -H "Authorization: Bearer SEU_TOKEN_AQUI" https://api.olie.ai/api/v1/...
+```
+
+<Warning>
+Mantenha seu token de acesso em segurança. Nunca compartilhe ou exponha seu token em repositórios públicos ou código cliente.
+</Warning>
+
+## Como obter o token de acesso
+
+<Steps>
+<Step title="Acesse a plataforma">
+Acesse a sua empresa em [https://olie.ai/frames](https://olie.ai/frames) e depois vá em **Ajustes**.
+
+<Frame>
+<img src="https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/4US0yBiC8q3uPlJhz1vcYgjwdAorK9MZ2VnL-image.png" alt="Menu de Ajustes da Olie" />
+</Frame>
+</Step>
+
+<Step title="Navegue até Aplicações">
+Após isso, clique em **"Aplicações"**.
+
+<Frame>
+<img src="https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/J016pB2cNgZjxDzMfhm8vysCRaXWnoLPq5Kr-image.png" alt="Seção de Aplicações" />
+</Frame>
+</Step>
+
+<Step title="Crie uma aplicação">
+Crie uma aplicação clicando no botão **"Criar aplicação"** e preencha os campos obrigatórios. Após isso, você verá o token de acesso gerado.
+
+<Frame>
+<img src="https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/PkbKmJC7zQ4OZlja3VLyNTDF8YWrox9wd1iX-image.png" alt="Token de acesso gerado" />
+</Frame>
+
+<Warning>
+Guarde o token em um local seguro, pois ele não será exibido novamente.
+</Warning>
+</Step>
+
+<Step title="Use o token">
+Feito isso, você pode usar o token de acesso para fazer requisições à API da Olie.
+
+<Check>
+Seu token está pronto para uso! Adicione-o ao cabeçalho Authorization de suas requisições.
+</Check>
+</Step>
+</Steps>
+
+## Formato das respostas da API
+
+As respostas da API seguem um formato padronizado para facilitar o tratamento dos dados. A seguir, veja exemplos de como interpretar os retornos em diferentes situações.
+
+### Exemplo de resposta de sucesso
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+{
+  "response": true,
+  ...
+}
 ```
+
+<Info>
+Esta resposta indica que a requisição foi bem-sucedida. Campos adicionais (representados por `...`) podem conter os dados retornados pela operação.
+</Info>
+
+### Exemplo de resposta de erro
+
+```json
+{
+  "response": false,
+  "message": "nome_ou_tipo_do_erro",
+  "error": "mensagem_detalhada_do_erro"
+}
+```
+
+<Info>
+Essa resposta indica que houve um erro na requisição. A chave `message` descreve o tipo de erro, enquanto `error` detalha a causa.
+</Info>
+
+## Próximos passos
+
+Explore os tópicos abaixo para aprender mais sobre como utilizar a API da Olie:
+
+<CardGroup cols={2}>
+<Card
+  title="Filtros"
+  icon="filter"
+  href="/api-reference/filters"
+>
+Aprenda a usar filtros dinâmicos para refinar suas consultas.
+</Card>
+
+<Card
+  title="Paginação"
+  icon="list"
+  href="/api-reference/pagination"
+>
+Entenda como navegar através de grandes conjuntos de dados.
+</Card>
+
+<Card
+  title="Explorar Endpoints"
+  icon="code"
+  href="#"
+>
+Confira a referência completa de todos os endpoints disponíveis.
+</Card>
+
+<Card
+  title="Exemplos de código"
+  icon="terminal"
+  href="#"
+>
+Veja exemplos práticos de integração em diferentes linguagens.
+</Card>
+</CardGroup>
