@@ -1664,14 +1664,14 @@
               "type": "string",
               "example": ""
             },
-            "description": "Permite aplicar filtros aos resultados da listagem. Use a sintaxe `filter[campo]=valor` para filtrar por campos específicos. Campos disponíveis variam por recurso."
+            "description": "Permite aplicar filtros aos resultados da listagem. Use a sintaxe `filter[campo]=valor` para filtrar por campos específicos. Campos disponíveis variam por recurso. Consulte a documentação sobre [filtros básicos](https://docs.olie.ai/api-reference/general/basic-filters)"
           },
           {
             "name": "search",
             "in": "query",
             "schema": {
               "type": "string",
-              "example": "<string>"
+              "example": "Hopper"
             },
             "description": "Filtrar projetos pelo nome ou código"
           },
@@ -1680,7 +1680,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "example": "<boolean>"
+              "example": "true"
             },
             "description": "Filtrar deletados"
           },
@@ -1689,16 +1689,16 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "example": "<boolean>"
+              "example": "true"
             },
-            "description": "Filtrar projetos que são templates"
+            "description": "Filtrar projetos templates"
           },
           {
             "name": "sort",
             "in": "query",
             "schema": {
               "type": "string",
-              "example": "<string>"
+              "example": "name"
             },
             "description": "Campo usado para ordenação. Ex: name, created_at, etc."
           },
