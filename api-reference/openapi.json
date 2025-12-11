@@ -2647,7 +2647,7 @@
           "projects"
         ],
         "summary": "Busca avançada",
-        "description": "Retorna uma lista de projetos, com alguns detalhes adicionais.\n\nEssa requisição comporta a uma **filtragem** complexa e **ordenação.**",
+        "description": "Retorna uma lista de projetos, com alguns detalhes adicionais.\n\nConsulte:\n\n- [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search)",
         "operationId": "buscaAvanAda",
         "parameters": [
           {
