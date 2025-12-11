@@ -1712,16 +1712,21 @@
             "description": "Direção da ordenação: asc (crescente) ou desc (decrescente)."
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "Listar projetos": {
+                  "value": ""
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Sucesso",
             "headers": {
-              "CF-RAY": {
-                "schema": {
-                  "type": "string",
-                  "example": "9ac895da7fe3f235-GRU"
-                }
-              },
               "Cache-Control": {
                 "schema": {
                   "type": "string",
@@ -1746,30 +1751,6 @@
                   "example": "Thu, 11 Dec 2025 22:58:12 GMT"
                 }
               },
-              "Nel": {
-                "schema": {
-                  "type": "string",
-                  "example": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
-                }
-              },
-              "Report-To": {
-                "schema": {
-                  "type": "string",
-                  "example": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=6VT2%2B7Yj5uQohJacoZQrSF%2Fw4M3EQE9yzwXjWuwtYulNsANcPL%2FgAARs2dUmuw8XJ16sRaXjfKBgS7yC8rKFwWcmsRJa7nQKkrvunnCa3v6XxZtBBBjv\"}]}"
-                }
-              },
-              "Server": {
-                "schema": {
-                  "type": "string",
-                  "example": "cloudflare"
-                }
-              },
-              "Set-Cookie": {
-                "schema": {
-                  "type": "string",
-                  "example": "AWSALBCORS=YTCIkY71CsaSS1niVCVDozFgttkXWzaeU4Kk4xxsdmOdR3ako7FIjuqmYiuO1wZqn8oAXvosCsAZ+bHZI14bmUX1pb31Y4kINekKztl8Aw8WHdTKD6L9LM7rmvai; Expires=Thu, 18 Dec 2025 22:58:12 GMT; Path=/; SameSite=None; Secure"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
@@ -1786,18 +1767,6 @@
                 "schema": {
                   "type": "string",
                   "example": "*"
-                }
-              },
-              "alt-svc": {
-                "schema": {
-                  "type": "string",
-                  "example": "h3=\":443\"; ma=86400"
-                }
-              },
-              "cf-cache-status": {
-                "schema": {
-                  "type": "string",
-                  "example": "DYNAMIC"
                 }
               },
               "x-content-type-options": {
@@ -2349,7 +2318,87 @@
             }
           },
           "401": {
-            "description": "Não autorizado",
+            "description": "Listar projetos",
+            "headers": {
+              "CF-RAY": {
+                "schema": {
+                  "type": "string",
+                  "example": "9ac8b53e5ad777f4-GRU"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "no-cache, private"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Thu, 11 Dec 2025 23:19:38 GMT"
+                }
+              },
+              "Nel": {
+                "schema": {
+                  "type": "string",
+                  "example": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+                }
+              },
+              "Report-To": {
+                "schema": {
+                  "type": "string",
+                  "example": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=GqkDKwrMTfUCYX4X%2Br7I1iexZKv%2FxUy8SlwiYOxsuNBMPMs6F4%2B9%2BnJlaqaw9ZlAjdGrq9tE70AEHfjdWqpYGGR6J24GhYRucaF1tio6XSFjU9aDfA%2Fk\"}]}"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "cloudflare"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "AWSALBCORS=08BpoYUZc+e5EENc8WhI29wkdGCANZCU5W4k6vG51gZT01HQj87Wrv6WmY933XczGCRcbAkW8dYmd6gfob48gx7ONYsjJltFYKwVOvlIFelLQpCquJeBIeJOJv2m; Expires=Thu, 18 Dec 2025 23:19:37 GMT; Path=/; SameSite=None; Secure"
+                }
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "chunked"
+                }
+              },
+              "access-control-allow-origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "access-control-expose-headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "alt-svc": {
+                "schema": {
+                  "type": "string",
+                  "example": "h3=\":443\"; ma=86400"
+                }
+              },
+              "cf-cache-status": {
+                "schema": {
+                  "type": "string",
+                  "example": "DYNAMIC"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2357,24 +2406,24 @@
                   "properties": {
                     "error": {
                       "type": "string",
-                      "example": "<string>"
+                      "example": "Unauthenticated."
                     },
                     "message": {
                       "type": "string",
-                      "example": "<string>"
+                      "example": "unauthorized"
                     },
                     "response": {
-                      "type": "string",
-                      "example": "<boolean>"
+                      "type": "boolean",
+                      "example": false
                     }
                   }
                 },
                 "examples": {
-                  "Não autorizado": {
+                  "Listar projetos": {
                     "value": {
-                      "error": "<string>",
-                      "message": "<string>",
-                      "response": "<boolean>"
+                      "error": "Unauthenticated.",
+                      "message": "unauthorized",
+                      "response": false
                     }
                   }
                 }
