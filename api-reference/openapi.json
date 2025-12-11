@@ -1714,7 +1714,123 @@
         ],
         "responses": {
           "200": {
-            "description": "Lista de projetos retornada com sucesso",
+            "description": "Lista de projetos retornada com sucesso / Lista de projetos retornada com sucesso Copy / Sucesso",
+            "headers": {
+              "CF-RAY": {
+                "schema": {
+                  "type": "string",
+                  "example": "9ac895da7fe3f235-GRU"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "no-cache, private"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Content-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "br"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Thu, 11 Dec 2025 22:58:12 GMT"
+                }
+              },
+              "Nel": {
+                "schema": {
+                  "type": "string",
+                  "example": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+                }
+              },
+              "Report-To": {
+                "schema": {
+                  "type": "string",
+                  "example": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=6VT2%2B7Yj5uQohJacoZQrSF%2Fw4M3EQE9yzwXjWuwtYulNsANcPL%2FgAARs2dUmuw8XJ16sRaXjfKBgS7yC8rKFwWcmsRJa7nQKkrvunnCa3v6XxZtBBBjv\"}]}"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "cloudflare"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "AWSALBCORS=YTCIkY71CsaSS1niVCVDozFgttkXWzaeU4Kk4xxsdmOdR3ako7FIjuqmYiuO1wZqn8oAXvosCsAZ+bHZI14bmUX1pb31Y4kINekKztl8Aw8WHdTKD6L9LM7rmvai; Expires=Thu, 18 Dec 2025 22:58:12 GMT; Path=/; SameSite=None; Secure"
+                }
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "chunked"
+                }
+              },
+              "access-control-allow-origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "access-control-expose-headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "alt-svc": {
+                "schema": {
+                  "type": "string",
+                  "example": "h3=\":443\"; ma=86400"
+                }
+              },
+              "cf-cache-status": {
+                "schema": {
+                  "type": "string",
+                  "example": "DYNAMIC"
+                }
+              },
+              "x-content-type-options": {
+                "schema": {
+                  "type": "string",
+                  "example": "nosniff"
+                }
+              },
+              "x-frame-options": {
+                "schema": {
+                  "type": "string",
+                  "example": "SAMEORIGIN"
+                }
+              },
+              "x-ratelimit-limit": {
+                "schema": {
+                  "type": "string",
+                  "example": "160"
+                }
+              },
+              "x-ratelimit-remaining": {
+                "schema": {
+                  "type": "string",
+                  "example": "159"
+                }
+              },
+              "x-xss-protection": {
+                "schema": {
+                  "type": "string",
+                  "example": "1; mode=block"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1724,28 +1840,82 @@
                       "type": "object",
                       "properties": {
                         "current_page": {
-                          "type": "string",
-                          "example": "<integer>"
+                          "example": "<integer>",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "example": "<integer>"
+                            },
+                            {
+                              "type": "number",
+                              "example": 1
+                            }
+                          ]
                         },
                         "from": {
-                          "type": "string",
-                          "example": "<integer>"
+                          "example": "<integer>",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "example": "<integer>"
+                            },
+                            {
+                              "type": "number",
+                              "example": 1
+                            }
+                          ]
                         },
                         "last_page": {
-                          "type": "string",
-                          "example": "<integer>"
+                          "example": "<integer>",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "example": "<integer>"
+                            },
+                            {
+                              "type": "number",
+                              "example": 1
+                            }
+                          ]
                         },
                         "per_page": {
-                          "type": "string",
-                          "example": "<integer>"
+                          "example": "<integer>",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "example": "<integer>"
+                            },
+                            {
+                              "type": "number",
+                              "example": 30
+                            }
+                          ]
                         },
                         "to": {
-                          "type": "string",
-                          "example": "<integer>"
+                          "example": "<integer>",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "example": "<integer>"
+                            },
+                            {
+                              "type": "number",
+                              "example": 2
+                            }
+                          ]
                         },
                         "total": {
-                          "type": "string",
-                          "example": "<integer>"
+                          "example": "<integer>",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "example": "<integer>"
+                            },
+                            {
+                              "type": "number",
+                              "example": 2
+                            }
+                          ]
                         }
                       }
                     },
@@ -1932,8 +2102,17 @@
                       ]
                     },
                     "response": {
-                      "type": "string",
-                      "example": "<boolean>"
+                      "example": "<boolean>",
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "example": "<boolean>"
+                        },
+                        {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      ]
                     }
                   }
                 },
@@ -2011,6 +2190,214 @@
                         }
                       ],
                       "response": "<boolean>"
+                    }
+                  },
+                  "Lista de projetos retornada com sucesso Copy": {
+                    "value": {
+                      "meta": {
+                        "current_page": "<integer>",
+                        "from": "<integer>",
+                        "last_page": "<integer>",
+                        "per_page": "<integer>",
+                        "to": "<integer>",
+                        "total": "<integer>"
+                      },
+                      "projects": [
+                        {
+                          "budget": "<float>",
+                          "code": "<string>",
+                          "contact": {},
+                          "contact_id": "<integer>",
+                          "costs": {},
+                          "created_at": "<dateTime>",
+                          "created_by": "<string>",
+                          "customer": {},
+                          "customer_id": "<string>",
+                          "deleted_at": "<dateTime>",
+                          "description": "<string>",
+                          "form": {},
+                          "forum": {},
+                          "frame": {},
+                          "frame_id": "<string>",
+                          "id": "<uuid>",
+                          "impact": "<integer>",
+                          "is_template": "<boolean>",
+                          "merged_id": "<string>",
+                          "merged_project": {},
+                          "name": "<string>",
+                          "old_id": "<string>",
+                          "parent_id": "<string>",
+                          "share_settings": "<string>",
+                          "share_token": "<string>",
+                          "status": "<integer>",
+                          "step_form": {},
+                          "updated_at": "<dateTime>"
+                        },
+                        {
+                          "budget": "<float>",
+                          "code": "<string>",
+                          "contact": {},
+                          "contact_id": "<integer>",
+                          "costs": {},
+                          "created_at": "<dateTime>",
+                          "created_by": "<string>",
+                          "customer": {},
+                          "customer_id": "<string>",
+                          "deleted_at": "<dateTime>",
+                          "description": "<string>",
+                          "form": {},
+                          "forum": {},
+                          "frame": {},
+                          "frame_id": "<string>",
+                          "id": "<uuid>",
+                          "impact": "<integer>",
+                          "is_template": "<boolean>",
+                          "merged_id": "<string>",
+                          "merged_project": {},
+                          "name": "<string>",
+                          "old_id": "<string>",
+                          "parent_id": "<string>",
+                          "share_settings": "<string>",
+                          "share_token": "<string>",
+                          "status": "<integer>",
+                          "step_form": {},
+                          "updated_at": "<dateTime>"
+                        }
+                      ],
+                      "response": "<boolean>"
+                    }
+                  },
+                  "Sucesso": {
+                    "value": {
+                      "meta": {
+                        "current_page": 1,
+                        "from": 1,
+                        "last_page": 1,
+                        "per_page": 30,
+                        "to": 2,
+                        "total": 2
+                      },
+                      "projects": [
+                        {
+                          "budget": 100000,
+                          "code": "P-2",
+                          "contact": null,
+                          "contact_id": null,
+                          "costs": null,
+                          "created_at": "2025-12-11T22:57:33.000000Z",
+                          "created_by": "78be4cc7-8b9b-4351-b280-4669c7f3901f",
+                          "customer": null,
+                          "customer_id": null,
+                          "deleted_at": null,
+                          "description": "Companhia de energia",
+                          "executors": [],
+                          "form": null,
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b0f9f-e161-71eb-93ac-dad119479a14",
+                            "model_forms": null,
+                            "name": "demo-api",
+                            "subdomain": "demoapi"
+                          },
+                          "frame_id": "019b0f9f-e161-71eb-93ac-dad119479a14",
+                          "funnel_steps": [],
+                          "funnels": [],
+                          "groups": [],
+                          "id": "019b0fa2-4b59-7261-91e7-82fd98245f07",
+                          "impact": 3,
+                          "is_template": false,
+                          "merged_id": null,
+                          "name": "Hawkins Lab's",
+                          "old_id": null,
+                          "parent_id": null,
+                          "share_settings": null,
+                          "share_token": null,
+                          "status": 1,
+                          "tags": [],
+                          "tasks": [],
+                          "updated_at": "2025-12-11T22:57:33.000000Z",
+                          "users": [
+                            {
+                              "avatar_url": "https://olie-main.s3.sa-east-1.amazonaws.com/app/avatars/P14xMWfk6lhBz9ZqesyCOjIXuS0EGiwAdKN2-avatar-1764178989.png",
+                              "id": "78be4cc7-8b9b-4351-b280-4669c7f3901f",
+                              "name": "Guilherme Henrique da Silva",
+                              "pivot": {
+                                "created_at": "2025-12-11T22:57:33.000000Z",
+                                "project_id": "019b0fa2-4b59-7261-91e7-82fd98245f07",
+                                "role": "creator",
+                                "updated_at": "2025-12-11T22:57:33.000000Z",
+                                "user_id": "78be4cc7-8b9b-4351-b280-4669c7f3901f"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "budget": 11,
+                          "code": "P-1",
+                          "contact": null,
+                          "contact_id": null,
+                          "costs": null,
+                          "created_at": "2025-12-11T22:56:30.000000Z",
+                          "created_by": "78be4cc7-8b9b-4351-b280-4669c7f3901f",
+                          "customer": null,
+                          "customer_id": null,
+                          "deleted_at": null,
+                          "description": "Está tudo de cabeça para baixo",
+                          "executors": [],
+                          "form": null,
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b0f9f-e161-71eb-93ac-dad119479a14",
+                            "model_forms": null,
+                            "name": "demo-api",
+                            "subdomain": "demoapi"
+                          },
+                          "frame_id": "019b0f9f-e161-71eb-93ac-dad119479a14",
+                          "funnel_steps": [],
+                          "funnels": [],
+                          "groups": [],
+                          "id": "019b0fa1-557d-72e7-9092-22991f7061da",
+                          "impact": 1,
+                          "is_template": false,
+                          "merged_id": null,
+                          "name": "Up side down",
+                          "old_id": null,
+                          "parent_id": null,
+                          "share_settings": null,
+                          "share_token": null,
+                          "status": 2,
+                          "tags": [],
+                          "tasks": [],
+                          "updated_at": "2025-12-11T22:56:30.000000Z",
+                          "users": [
+                            {
+                              "avatar_url": "https://olie-main.s3.sa-east-1.amazonaws.com/app/avatars/P14xMWfk6lhBz9ZqesyCOjIXuS0EGiwAdKN2-avatar-1764178989.png",
+                              "id": "78be4cc7-8b9b-4351-b280-4669c7f3901f",
+                              "name": "Guilherme Henrique da Silva",
+                              "pivot": {
+                                "created_at": "2025-12-11T22:56:30.000000Z",
+                                "project_id": "019b0fa1-557d-72e7-9092-22991f7061da",
+                                "role": "creator",
+                                "updated_at": "2025-12-11T22:56:30.000000Z",
+                                "user_id": "78be4cc7-8b9b-4351-b280-4669c7f3901f"
+                              }
+                            },
+                            {
+                              "avatar_url": "https://olie-main.s3.sa-east-1.amazonaws.com/app/avatars/P14xMWfk6lhBz9ZqesyCOjIXuS0EGiwAdKN2-avatar-1764178989.png",
+                              "id": "78be4cc7-8b9b-4351-b280-4669c7f3901f",
+                              "name": "Guilherme Henrique da Silva",
+                              "pivot": {
+                                "created_at": "2025-12-11T22:56:30.000000Z",
+                                "project_id": "019b0fa1-557d-72e7-9092-22991f7061da",
+                                "role": "assignee",
+                                "updated_at": "2025-12-11T22:56:30.000000Z",
+                                "user_id": "78be4cc7-8b9b-4351-b280-4669c7f3901f"
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "response": true
                     }
                   }
                 }
