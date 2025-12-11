@@ -1636,7 +1636,7 @@
           "projects"
         ],
         "summary": "Listar projetos",
-        "description": "Este request é normalmente utilizado para campos de autocomplete, e buscas mais simples, pois é um request que entrega menos informações que uma busca avançada. Se você estiver buscando encontrar projetos baseado em um conjunto de filtros avançados e específicos, considere usar a busca avançada.\n\nPossui paginação e aceita alguns filtros via query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)\n    \n\nteste ;)",
+        "description": "Este request é normalmente utilizado para campos de autocomplete, e buscas mais simples, pois é um request que entrega menos informações que uma busca avançada. Se você estiver buscando encontrar projetos baseado em um conjunto de filtros avançados e específicos, considere usar a busca avançada.\n\nPossui paginação e aceita alguns filtros via query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)",
         "operationId": "listarProjetos",
         "parameters": [
           {
@@ -2383,6 +2383,642 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Criar projeto",
+        "description": "Cria um novo projeto com os dados fornecidos.",
+        "operationId": "criarProjeto",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "budget": {
+                    "nullable": true,
+                    "example": null
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "impact": {
+                    "type": "number",
+                    "example": 55
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "status": {
+                    "type": "number",
+                    "example": 9999
+                  }
+                }
+              },
+              "examples": {
+                "Criar projeto": {
+                  "value": {
+                    "budget": null,
+                    "description": "",
+                    "impact": 55,
+                    "name": "",
+                    "status": 9999
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "headers": {
+              "CF-RAY": {
+                "schema": {
+                  "type": "string",
+                  "example": "9ac8e501f9f3f227-GRU"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "no-cache, private"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Content-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "br"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Thu, 11 Dec 2025 23:52:14 GMT"
+                }
+              },
+              "Nel": {
+                "schema": {
+                  "type": "string",
+                  "example": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+                }
+              },
+              "Report-To": {
+                "schema": {
+                  "type": "string",
+                  "example": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=f7MqEcoJhwm3QmuCkjdyTnfpd554sOM4pkj0NmERdg%2F8JE%2Bn8HVP8ES73apHJCT7Gkm3jg3BE4wJV5X97%2FP93Jn7CRDUlvASMrcEJaJcyJVZI6WLXt1i\"}]}"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "cloudflare"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "AWSALBCORS=1KPsxr4S0LtH6iW2LpYsyYGEwgamZg6yHZ5rh3F7VeNHZLjyLX/t52OMYNQzrDDe+zuYySPQpGE81lMSHW4eXypMrmk2Iw5o83NsKmh7o5CzHKcg5/YZdZZ3BnU1; Expires=Thu, 18 Dec 2025 23:52:14 GMT; Path=/; SameSite=None; Secure"
+                }
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "chunked"
+                }
+              },
+              "access-control-allow-origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "access-control-expose-headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "alt-svc": {
+                "schema": {
+                  "type": "string",
+                  "example": "h3=\":443\"; ma=86400"
+                }
+              },
+              "cf-cache-status": {
+                "schema": {
+                  "type": "string",
+                  "example": "DYNAMIC"
+                }
+              },
+              "x-content-type-options": {
+                "schema": {
+                  "type": "string",
+                  "example": "nosniff"
+                }
+              },
+              "x-frame-options": {
+                "schema": {
+                  "type": "string",
+                  "example": "SAMEORIGIN"
+                }
+              },
+              "x-ratelimit-limit": {
+                "schema": {
+                  "type": "string",
+                  "example": "160"
+                }
+              },
+              "x-ratelimit-remaining": {
+                "schema": {
+                  "type": "string",
+                  "example": "148"
+                }
+              },
+              "x-xss-protection": {
+                "schema": {
+                  "type": "string",
+                  "example": "1; mode=block"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "project": {
+                      "type": "object",
+                      "properties": {
+                        "budget": {
+                          "type": "number",
+                          "example": 25000
+                        },
+                        "code": {
+                          "type": "string",
+                          "example": "P-11"
+                        },
+                        "contact_id": {
+                          "nullable": true,
+                          "example": null
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "example": "2025-12-11T23:52:14.000000Z"
+                        },
+                        "customer_id": {
+                          "nullable": true,
+                          "example": null
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": "Ad nihil veniam est quidem. Neque sequi cumque laboriosam cum. Assumenda repellat nihil omnis ipsa dignissimos occaecati a cum ut. Deleniti ut harum iusto ut. Cumque aut ea."
+                        },
+                        "frame": {
+                          "type": "object",
+                          "properties": {
+                            "cockpit_access": {
+                              "type": "number",
+                              "example": 0
+                            },
+                            "frame_billing_data_id": {
+                              "nullable": true,
+                              "example": null
+                            },
+                            "id": {
+                              "type": "string",
+                              "example": "019b0f9f-e161-71eb-93ac-dad119479a14"
+                            },
+                            "logo_img": {
+                              "nullable": true,
+                              "example": null
+                            },
+                            "model_forms": {
+                              "nullable": true,
+                              "example": null
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "demo-api"
+                            },
+                            "old_id": {
+                              "nullable": true,
+                              "example": null
+                            },
+                            "status": {
+                              "type": "number",
+                              "example": 1
+                            },
+                            "subdomain": {
+                              "type": "string",
+                              "example": "demoapi"
+                            },
+                            "type": {
+                              "type": "number",
+                              "example": 2
+                            }
+                          }
+                        },
+                        "frame_id": {
+                          "type": "string",
+                          "example": "019b0f9f-e161-71eb-93ac-dad119479a14"
+                        },
+                        "id": {
+                          "type": "string",
+                          "example": "019b0fd4-5d85-72aa-ae45-af8f67bb66f5"
+                        },
+                        "impact": {
+                          "type": "number",
+                          "example": 5
+                        },
+                        "is_template": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "consequatur eveniet in"
+                        },
+                        "status": {
+                          "type": "number",
+                          "example": 3
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "example": "2025-12-11T23:52:14.000000Z"
+                        }
+                      }
+                    },
+                    "response": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                },
+                "examples": {
+                  "Sucesso": {
+                    "value": {
+                      "project": {
+                        "budget": 25000,
+                        "code": "P-11",
+                        "contact_id": null,
+                        "created_at": "2025-12-11T23:52:14.000000Z",
+                        "customer_id": null,
+                        "description": "Ad nihil veniam est quidem. Neque sequi cumque laboriosam cum. Assumenda repellat nihil omnis ipsa dignissimos occaecati a cum ut. Deleniti ut harum iusto ut. Cumque aut ea.",
+                        "frame": {
+                          "cockpit_access": 0,
+                          "frame_billing_data_id": null,
+                          "id": "019b0f9f-e161-71eb-93ac-dad119479a14",
+                          "logo_img": null,
+                          "model_forms": null,
+                          "name": "demo-api",
+                          "old_id": null,
+                          "status": 1,
+                          "subdomain": "demoapi",
+                          "type": 2
+                        },
+                        "frame_id": "019b0f9f-e161-71eb-93ac-dad119479a14",
+                        "id": "019b0fd4-5d85-72aa-ae45-af8f67bb66f5",
+                        "impact": 5,
+                        "is_template": false,
+                        "name": "consequatur eveniet in",
+                        "status": 3,
+                        "updated_at": "2025-12-11T23:52:14.000000Z"
+                      },
+                      "response": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado / Não autorizado",
+            "headers": {
+              "CF-RAY": {
+                "schema": {
+                  "type": "string",
+                  "example": "9ac8e7f8780cf181-GRU"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "no-cache, private"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Thu, 11 Dec 2025 23:54:15 GMT"
+                }
+              },
+              "Nel": {
+                "schema": {
+                  "type": "string",
+                  "example": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+                }
+              },
+              "Report-To": {
+                "schema": {
+                  "type": "string",
+                  "example": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=g1PWjFjjzO1e4Ost%2B5gg3PwNP%2BFhX9Z7jyDcl%2FYDhUgBxgj3ul5PjzIJxA3HbpvIviDQeRdLN0fyyLtvOkKxWCn1gQv6Xch%2FYUOh5eAZI7Q0luSyW7fE\"}]}"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "cloudflare"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "AWSALBCORS=qGeCjSFWDSkN8ta8cZ5sIne+d9AUQZHdQ+4Kn+AY8oFkB+jj0Y1s7nVhYZ5rHUr2AhTsqffPyYBPoURaOUYJTn1h+SKEh6lxIEF9G3Zn8pVhupnlTlTMtuepo8e9; Expires=Thu, 18 Dec 2025 23:54:15 GMT; Path=/; SameSite=None; Secure"
+                }
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "chunked"
+                }
+              },
+              "access-control-allow-origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "access-control-expose-headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "alt-svc": {
+                "schema": {
+                  "type": "string",
+                  "example": "h3=\":443\"; ma=86400"
+                }
+              },
+              "cf-cache-status": {
+                "schema": {
+                  "type": "string",
+                  "example": "DYNAMIC"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "<string>"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "<string>"
+                    },
+                    "response": {
+                      "example": "<boolean>",
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "example": "<boolean>"
+                        },
+                        {
+                          "type": "boolean",
+                          "example": false
+                        }
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "Não autorizado": {
+                    "value": {
+                      "error": "Unauthenticated.",
+                      "message": "unauthorized",
+                      "response": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "headers": {
+              "CF-RAY": {
+                "schema": {
+                  "type": "string",
+                  "example": "9ac8e9616988f181-GRU"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "no-cache, private"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Thu, 11 Dec 2025 23:55:13 GMT"
+                }
+              },
+              "Nel": {
+                "schema": {
+                  "type": "string",
+                  "example": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+                }
+              },
+              "Report-To": {
+                "schema": {
+                  "type": "string",
+                  "example": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ynkyJWDb%2Frqz7wRHJ9sNVdLEy45JOAp9sBwfrxkucUjGEW7roPBzWXETP3q2ZnYi9iS9QS7OcE4y%2FOh85JHT9KSgOYKD%2Fl664OOEJluGkOKKrpu%2BUfnN\"}]}"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "cloudflare"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "AWSALBCORS=oVNY25AoL+R7Flj0PcRvOjPhsuD5JNflyXgJdiI9NudGy+c9oensZOX3hNRgdFIY5gtISd8bTOvE2qDowoCXO28YM5Rrw/vwlsMqYEMC6r3eeCzKHTk3tzYbchFM; Expires=Thu, 18 Dec 2025 23:55:13 GMT; Path=/; SameSite=None; Secure"
+                }
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "chunked"
+                }
+              },
+              "access-control-allow-origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "access-control-expose-headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "alt-svc": {
+                "schema": {
+                  "type": "string",
+                  "example": "h3=\":443\"; ma=86400"
+                }
+              },
+              "cf-cache-status": {
+                "schema": {
+                  "type": "string",
+                  "example": "DYNAMIC"
+                }
+              },
+              "x-ratelimit-limit": {
+                "schema": {
+                  "type": "string",
+                  "example": "160"
+                }
+              },
+              "x-ratelimit-remaining": {
+                "schema": {
+                  "type": "string",
+                  "example": "155"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "O campo nome é obrigatório. (and 3 more errors)"
+                    },
+                    "file": {
+                      "nullable": true,
+                      "example": null
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "validation_errors"
+                    },
+                    "response": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "stacktrace": {
+                      "nullable": true,
+                      "example": null
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "O campo descrição deve ser uma string."
+                          },
+                          "example": [
+                            "O campo descrição deve ser uma string."
+                          ]
+                        },
+                        "impact": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "O campo impact não pode ser superior a 10."
+                          },
+                          "example": [
+                            "O campo impact não pode ser superior a 10."
+                          ]
+                        },
+                        "name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "O campo nome é obrigatório."
+                          },
+                          "example": [
+                            "O campo nome é obrigatório."
+                          ]
+                        },
+                        "status": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "O status selecionado é inválido."
+                          },
+                          "example": [
+                            "O status selecionado é inválido."
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Erro de validação": {
+                    "value": {
+                      "error": "O campo nome é obrigatório. (and 3 more errors)",
+                      "file": null,
+                      "message": "validation_errors",
+                      "response": false,
+                      "stacktrace": null,
+                      "validation": {
+                        "description": [
+                          "O campo descrição deve ser uma string."
+                        ],
+                        "impact": [
+                          "O campo impact não pode ser superior a 10."
+                        ],
+                        "name": [
+                          "O campo nome é obrigatório."
+                        ],
+                        "status": [
+                          "O status selecionado é inválido."
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/management/projects/search": {
@@ -2415,118 +3051,48 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "arguments": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "example": "<string>"
-                          },
-                          "example": [
-                            "<string>",
-                            "<string>"
-                          ]
-                        },
                         "field": {
                           "type": "string",
-                          "example": "<string>"
-                        },
-                        "logical_operator": {
-                          "type": "string",
-                          "example": "<string>"
+                          "example": "nonExistsFilterField"
                         },
                         "operator": {
                           "type": "string",
-                          "example": "<string>"
+                          "example": "contains"
                         },
                         "value": {
                           "type": "string",
-                          "example": "<string>"
+                          "example": "down"
                         }
                       }
                     },
                     "example": [
                       {
-                        "arguments": [
-                          "<string>",
-                          "<string>"
-                        ],
-                        "field": "<string>",
-                        "logical_operator": "<string>",
-                        "operator": "<string>",
-                        "value": "<string>"
-                      },
-                      {
-                        "arguments": [
-                          "<string>",
-                          "<string>"
-                        ],
-                        "field": "<string>",
-                        "logical_operator": "<string>",
-                        "operator": "<string>",
-                        "value": "<string>"
+                        "field": "nonExistsFilterField",
+                        "operator": "contains",
+                        "value": "down"
                       }
                     ]
                   },
                   "page": {
-                    "type": "string",
-                    "example": "<integer>"
+                    "type": "number",
+                    "example": 1
                   },
                   "perPage": {
-                    "type": "string",
-                    "example": "<integer>"
+                    "type": "number",
+                    "example": 30
                   },
                   "sorting": {
                     "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "arguments": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "example": "<string>"
-                          },
-                          "example": [
-                            "<string>",
-                            "<string>"
-                          ]
-                        },
-                        "direction": {
-                          "type": "string",
-                          "example": "asc"
-                        },
-                        "field": {
-                          "type": "string",
-                          "example": "<string>"
-                        }
-                      }
-                    },
-                    "example": [
-                      {
-                        "arguments": [
-                          "<string>",
-                          "<string>"
-                        ],
-                        "direction": "asc",
-                        "field": "<string>"
-                      },
-                      {
-                        "arguments": [
-                          "<string>",
-                          "<string>"
-                        ],
-                        "direction": "desc",
-                        "field": "<string>"
-                      }
-                    ]
+                    "items": {},
+                    "example": []
                   },
                   "template": {
-                    "type": "string",
-                    "example": "<boolean>"
+                    "type": "boolean",
+                    "example": false
                   },
                   "trashed": {
-                    "type": "string",
-                    "example": "<boolean>"
+                    "type": "boolean",
+                    "example": false
                   }
                 }
               },
@@ -2535,48 +3101,16 @@
                   "value": {
                     "filters": [
                       {
-                        "arguments": [
-                          "<string>",
-                          "<string>"
-                        ],
-                        "field": "<string>",
-                        "logical_operator": "<string>",
-                        "operator": "<string>",
-                        "value": "<string>"
-                      },
-                      {
-                        "arguments": [
-                          "<string>",
-                          "<string>"
-                        ],
-                        "field": "<string>",
-                        "logical_operator": "<string>",
-                        "operator": "<string>",
-                        "value": "<string>"
+                        "field": "nonExistsFilterField",
+                        "operator": "contains",
+                        "value": "down"
                       }
                     ],
-                    "page": "<integer>",
-                    "perPage": "<integer>",
-                    "sorting": [
-                      {
-                        "arguments": [
-                          "<string>",
-                          "<string>"
-                        ],
-                        "direction": "asc",
-                        "field": "<string>"
-                      },
-                      {
-                        "arguments": [
-                          "<string>",
-                          "<string>"
-                        ],
-                        "direction": "desc",
-                        "field": "<string>"
-                      }
-                    ],
-                    "template": "<boolean>",
-                    "trashed": "<boolean>"
+                    "page": 1,
+                    "perPage": 30,
+                    "sorting": [],
+                    "template": false,
+                    "trashed": false
                   }
                 }
               }
@@ -2585,7 +3119,123 @@
         },
         "responses": {
           "200": {
-            "description": "Lista de projetos retornada com sucesso",
+            "description": "Lista de projetos retornada com sucesso / Uso do filtro para buscar por nome",
+            "headers": {
+              "CF-RAY": {
+                "schema": {
+                  "type": "string",
+                  "example": "9ac8eac76bacf181-GRU"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "no-cache, private"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Content-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "br"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Thu, 11 Dec 2025 23:56:10 GMT"
+                }
+              },
+              "Nel": {
+                "schema": {
+                  "type": "string",
+                  "example": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+                }
+              },
+              "Report-To": {
+                "schema": {
+                  "type": "string",
+                  "example": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=35ey9tTeKvDYGFNMgMfjS%2BBrvZ2XPAWjbmM%2FohF9mFvDDvfUT4vlwoVNeiQgx%2BnfvHW0xVTjxrsPmT4BmTBV4ZADMaSKZqabRIPxVt%2B%2B5JPAlfMrMtvg\"}]}"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "cloudflare"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "AWSALBCORS=Dpd7FKiHPNdsA1VFPUMGrArH0dyRSWetBwBh4+FU03GQY+1DxPl8U0sCALRVvZ23wBYzuc4gvGzRWsTVRLfSzKJVT6P6mPy54GfQ/DQpVsIjErs9dsEzbhfBCxxp; Expires=Thu, 18 Dec 2025 23:56:10 GMT; Path=/; SameSite=None; Secure"
+                }
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "chunked"
+                }
+              },
+              "access-control-allow-origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "access-control-expose-headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "alt-svc": {
+                "schema": {
+                  "type": "string",
+                  "example": "h3=\":443\"; ma=86400"
+                }
+              },
+              "cf-cache-status": {
+                "schema": {
+                  "type": "string",
+                  "example": "DYNAMIC"
+                }
+              },
+              "x-content-type-options": {
+                "schema": {
+                  "type": "string",
+                  "example": "nosniff"
+                }
+              },
+              "x-frame-options": {
+                "schema": {
+                  "type": "string",
+                  "example": "SAMEORIGIN"
+                }
+              },
+              "x-ratelimit-limit": {
+                "schema": {
+                  "type": "string",
+                  "example": "160"
+                }
+              },
+              "x-ratelimit-remaining": {
+                "schema": {
+                  "type": "string",
+                  "example": "158"
+                }
+              },
+              "x-xss-protection": {
+                "schema": {
+                  "type": "string",
+                  "example": "1; mode=block"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2595,28 +3245,82 @@
                       "type": "object",
                       "properties": {
                         "current_page": {
-                          "type": "string",
-                          "example": "<integer>"
+                          "example": "<integer>",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "example": "<integer>"
+                            },
+                            {
+                              "type": "number",
+                              "example": 1
+                            }
+                          ]
                         },
                         "from": {
-                          "type": "string",
-                          "example": "<integer>"
+                          "example": "<integer>",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "example": "<integer>"
+                            },
+                            {
+                              "type": "number",
+                              "example": 1
+                            }
+                          ]
                         },
                         "last_page": {
-                          "type": "string",
-                          "example": "<integer>"
+                          "example": "<integer>",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "example": "<integer>"
+                            },
+                            {
+                              "type": "number",
+                              "example": 1
+                            }
+                          ]
                         },
                         "per_page": {
-                          "type": "string",
-                          "example": "<integer>"
+                          "example": "<integer>",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "example": "<integer>"
+                            },
+                            {
+                              "type": "number",
+                              "example": 30
+                            }
+                          ]
                         },
                         "to": {
-                          "type": "string",
-                          "example": "<integer>"
+                          "example": "<integer>",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "example": "<integer>"
+                            },
+                            {
+                              "type": "number",
+                              "example": 1
+                            }
+                          ]
                         },
                         "total": {
-                          "type": "string",
-                          "example": "<integer>"
+                          "example": "<integer>",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "example": "<integer>"
+                            },
+                            {
+                              "type": "number",
+                              "example": 1
+                            }
+                          ]
                         }
                       }
                     },
@@ -2839,8 +3543,17 @@
                       ]
                     },
                     "response": {
-                      "type": "string",
-                      "example": "<boolean>"
+                      "example": "<boolean>",
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "example": "<boolean>"
+                        },
+                        {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      ]
                     }
                   }
                 },
@@ -2931,564 +3644,85 @@
                       ],
                       "response": "<boolean>"
                     }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Não autorizado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string",
-                      "example": "<string>"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "<string>"
-                    },
-                    "response": {
-                      "type": "string",
-                      "example": "<boolean>"
-                    }
-                  }
-                },
-                "examples": {
-                  "Não autorizado": {
+                  },
+                  "Uso do filtro para buscar por nome": {
                     "value": {
-                      "error": "<string>",
-                      "message": "<string>",
-                      "response": "<boolean>"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects": {
-      "post": {
-        "tags": [
-          "projects"
-        ],
-        "summary": "Criar projeto",
-        "description": "Cria um novo projeto com os dados fornecidos.",
-        "operationId": "criarProjeto",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "budget": {
-                    "type": "string",
-                    "example": "<float>"
-                  },
-                  "contact_id": {
-                    "type": "string",
-                    "example": "<string>"
-                  },
-                  "customer_id": {
-                    "type": "string",
-                    "example": "<string>"
-                  },
-                  "description": {
-                    "type": "string",
-                    "example": "<string>"
-                  },
-                  "forecast_dates": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "date": {
-                          "type": "string",
-                          "example": "<date>"
-                        },
-                        "project_funnel_id": {
-                          "type": "string",
-                          "example": "<integer>"
-                        }
-                      }
-                    },
-                    "example": [
-                      {
-                        "date": "<date>",
-                        "project_funnel_id": "<integer>"
+                      "meta": {
+                        "current_page": 1,
+                        "from": 1,
+                        "last_page": 1,
+                        "per_page": 30,
+                        "to": 1,
+                        "total": 1
                       },
-                      {
-                        "date": "<date>",
-                        "project_funnel_id": "<integer>"
-                      }
-                    ]
-                  },
-                  "funnel_status": {
-                    "type": "object",
-                    "properties": {
-                      "funnel_status_id": {
-                        "type": "string",
-                        "example": "<integer>"
-                      },
-                      "project_funnel_id": {
-                        "type": "string",
-                        "example": "<integer>"
-                      }
-                    }
-                  },
-                  "funnels": {
-                    "type": "object",
-                    "properties": {
-                      "to_add": {
-                        "type": "array",
-                        "items": {
-                          "type": "string",
-                          "example": "<integer>"
-                        },
-                        "example": [
-                          "<integer>",
-                          "<integer>"
-                        ]
-                      },
-                      "to_rem": {
-                        "type": "array",
-                        "items": {
-                          "type": "string",
-                          "example": "<integer>"
-                        },
-                        "example": [
-                          "<integer>",
-                          "<integer>"
-                        ]
-                      }
-                    }
-                  },
-                  "groups": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "to_add": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "example": "<uuid>"
+                      "projects": [
+                        {
+                          "budget": 11,
+                          "code": "P-1",
+                          "contact": null,
+                          "contact_id": null,
+                          "costs": null,
+                          "created_at": "2025-12-11T22:56:30.000000Z",
+                          "created_by": "78be4cc7-8b9b-4351-b280-4669c7f3901f",
+                          "customer": null,
+                          "customer_id": null,
+                          "deleted_at": null,
+                          "description": "Está tudo de cabeça para baixo",
+                          "executors": [],
+                          "form": null,
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b0f9f-e161-71eb-93ac-dad119479a14",
+                            "model_forms": null,
+                            "name": "demo-api",
+                            "subdomain": "demoapi"
                           },
-                          "example": [
-                            "<uuid>",
-                            "<uuid>"
-                          ]
-                        },
-                        "to_rem": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "example": "<uuid>"
-                          },
-                          "example": [
-                            "<uuid>",
-                            "<uuid>"
+                          "frame_id": "019b0f9f-e161-71eb-93ac-dad119479a14",
+                          "funnel_steps": [],
+                          "funnels": [],
+                          "groups": [],
+                          "id": "019b0fa1-557d-72e7-9092-22991f7061da",
+                          "impact": 1,
+                          "is_template": false,
+                          "merged_id": null,
+                          "name": "Up side down",
+                          "old_id": null,
+                          "parent_id": null,
+                          "share_settings": null,
+                          "share_token": null,
+                          "status": 2,
+                          "tags": [],
+                          "tasks": [],
+                          "updated_at": "2025-12-11T22:56:30.000000Z",
+                          "users": [
+                            {
+                              "avatar_url": "https://olie-main.s3.sa-east-1.amazonaws.com/app/avatars/P14xMWfk6lhBz9ZqesyCOjIXuS0EGiwAdKN2-avatar-1764178989.png",
+                              "id": "78be4cc7-8b9b-4351-b280-4669c7f3901f",
+                              "name": "Guilherme Henrique da Silva",
+                              "pivot": {
+                                "created_at": "2025-12-11T22:56:30.000000Z",
+                                "project_id": "019b0fa1-557d-72e7-9092-22991f7061da",
+                                "role": "creator",
+                                "updated_at": "2025-12-11T22:56:30.000000Z",
+                                "user_id": "78be4cc7-8b9b-4351-b280-4669c7f3901f"
+                              }
+                            },
+                            {
+                              "avatar_url": "https://olie-main.s3.sa-east-1.amazonaws.com/app/avatars/P14xMWfk6lhBz9ZqesyCOjIXuS0EGiwAdKN2-avatar-1764178989.png",
+                              "id": "78be4cc7-8b9b-4351-b280-4669c7f3901f",
+                              "name": "Guilherme Henrique da Silva",
+                              "pivot": {
+                                "created_at": "2025-12-11T22:56:30.000000Z",
+                                "project_id": "019b0fa1-557d-72e7-9092-22991f7061da",
+                                "role": "assignee",
+                                "updated_at": "2025-12-11T22:56:30.000000Z",
+                                "user_id": "78be4cc7-8b9b-4351-b280-4669c7f3901f"
+                              }
+                            }
                           ]
                         }
-                      }
-                    },
-                    "example": [
-                      {
-                        "to_add": [
-                          "<uuid>",
-                          "<uuid>"
-                        ],
-                        "to_rem": [
-                          "<uuid>",
-                          "<uuid>"
-                        ]
-                      },
-                      {
-                        "to_add": [
-                          "<uuid>",
-                          "<uuid>"
-                        ],
-                        "to_rem": [
-                          "<uuid>",
-                          "<uuid>"
-                        ]
-                      }
-                    ]
-                  },
-                  "impact": {
-                    "type": "string",
-                    "example": "<integer>"
-                  },
-                  "is_template": {
-                    "type": "string",
-                    "example": "<boolean>"
-                  },
-                  "name": {
-                    "type": "string",
-                    "example": "<string>"
-                  },
-                  "prefix": {
-                    "type": "string",
-                    "example": "<string>"
-                  },
-                  "status": {
-                    "type": "string",
-                    "example": "4"
-                  },
-                  "tags": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "to_add": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "example": "<integer>"
-                          },
-                          "example": [
-                            "<integer>",
-                            "<integer>"
-                          ]
-                        },
-                        "to_rem": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "example": "<integer>"
-                          },
-                          "example": [
-                            "<integer>",
-                            "<integer>"
-                          ]
-                        }
-                      }
-                    },
-                    "example": [
-                      {
-                        "to_add": [
-                          "<integer>",
-                          "<integer>"
-                        ],
-                        "to_rem": [
-                          "<integer>",
-                          "<integer>"
-                        ]
-                      },
-                      {
-                        "to_add": [
-                          "<integer>",
-                          "<integer>"
-                        ],
-                        "to_rem": [
-                          "<integer>",
-                          "<integer>"
-                        ]
-                      }
-                    ]
-                  },
-                  "users": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "action": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "role": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "user_id": {
-                          "type": "string",
-                          "example": "<uuid>"
-                        }
-                      }
-                    },
-                    "example": [
-                      {
-                        "action": "<string>",
-                        "role": "<string>",
-                        "user_id": "<uuid>"
-                      },
-                      {
-                        "action": "<string>",
-                        "role": "<string>",
-                        "user_id": "<uuid>"
-                      }
-                    ]
-                  }
-                }
-              },
-              "examples": {
-                "Criar projeto": {
-                  "value": {
-                    "budget": "<float>",
-                    "contact_id": "<string>",
-                    "customer_id": "<string>",
-                    "description": "<string>",
-                    "forecast_dates": [
-                      {
-                        "date": "<date>",
-                        "project_funnel_id": "<integer>"
-                      },
-                      {
-                        "date": "<date>",
-                        "project_funnel_id": "<integer>"
-                      }
-                    ],
-                    "funnel_status": {
-                      "funnel_status_id": "<integer>",
-                      "project_funnel_id": "<integer>"
-                    },
-                    "funnels": {
-                      "to_add": [
-                        "<integer>",
-                        "<integer>"
                       ],
-                      "to_rem": [
-                        "<integer>",
-                        "<integer>"
-                      ]
-                    },
-                    "groups": [
-                      {
-                        "to_add": [
-                          "<uuid>",
-                          "<uuid>"
-                        ],
-                        "to_rem": [
-                          "<uuid>",
-                          "<uuid>"
-                        ]
-                      },
-                      {
-                        "to_add": [
-                          "<uuid>",
-                          "<uuid>"
-                        ],
-                        "to_rem": [
-                          "<uuid>",
-                          "<uuid>"
-                        ]
-                      }
-                    ],
-                    "impact": "<integer>",
-                    "is_template": "<boolean>",
-                    "name": "<string>",
-                    "prefix": "<string>",
-                    "status": "4",
-                    "tags": [
-                      {
-                        "to_add": [
-                          "<integer>",
-                          "<integer>"
-                        ],
-                        "to_rem": [
-                          "<integer>",
-                          "<integer>"
-                        ]
-                      },
-                      {
-                        "to_add": [
-                          "<integer>",
-                          "<integer>"
-                        ],
-                        "to_rem": [
-                          "<integer>",
-                          "<integer>"
-                        ]
-                      }
-                    ],
-                    "users": [
-                      {
-                        "action": "<string>",
-                        "role": "<string>",
-                        "user_id": "<uuid>"
-                      },
-                      {
-                        "action": "<string>",
-                        "role": "<string>",
-                        "user_id": "<uuid>"
-                      }
-                    ]
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Projeto criado com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "project": {
-                      "type": "object",
-                      "properties": {
-                        "budget": {
-                          "type": "string",
-                          "example": "<float>"
-                        },
-                        "code": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "contact": {
-                          "type": "object",
-                          "properties": {}
-                        },
-                        "contact_id": {
-                          "type": "string",
-                          "example": "<integer>"
-                        },
-                        "costs": {
-                          "type": "object",
-                          "properties": {}
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "example": "<dateTime>"
-                        },
-                        "created_by": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "customer": {
-                          "type": "object",
-                          "properties": {}
-                        },
-                        "customer_id": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "deleted_at": {
-                          "type": "string",
-                          "example": "<dateTime>"
-                        },
-                        "description": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "form": {
-                          "type": "object",
-                          "properties": {}
-                        },
-                        "forum": {
-                          "type": "object",
-                          "properties": {}
-                        },
-                        "frame": {
-                          "type": "object",
-                          "properties": {}
-                        },
-                        "frame_id": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "id": {
-                          "type": "string",
-                          "example": "<uuid>"
-                        },
-                        "impact": {
-                          "type": "string",
-                          "example": "<integer>"
-                        },
-                        "is_template": {
-                          "type": "string",
-                          "example": "<boolean>"
-                        },
-                        "merged_id": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "merged_project": {
-                          "type": "object",
-                          "properties": {}
-                        },
-                        "name": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "old_id": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "parent_id": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "share_settings": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "share_token": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "status": {
-                          "type": "string",
-                          "example": "<integer>"
-                        },
-                        "step_form": {
-                          "type": "object",
-                          "properties": {}
-                        },
-                        "updated_at": {
-                          "type": "string",
-                          "example": "<dateTime>"
-                        }
-                      }
-                    },
-                    "response": {
-                      "type": "string",
-                      "example": "<boolean>"
-                    }
-                  }
-                },
-                "examples": {
-                  "Projeto criado com sucesso": {
-                    "value": {
-                      "project": {
-                        "budget": "<float>",
-                        "code": "<string>",
-                        "contact": {},
-                        "contact_id": "<integer>",
-                        "costs": {},
-                        "created_at": "<dateTime>",
-                        "created_by": "<string>",
-                        "customer": {},
-                        "customer_id": "<string>",
-                        "deleted_at": "<dateTime>",
-                        "description": "<string>",
-                        "form": {},
-                        "forum": {},
-                        "frame": {},
-                        "frame_id": "<string>",
-                        "id": "<uuid>",
-                        "impact": "<integer>",
-                        "is_template": "<boolean>",
-                        "merged_id": "<string>",
-                        "merged_project": {},
-                        "name": "<string>",
-                        "old_id": "<string>",
-                        "parent_id": "<string>",
-                        "share_settings": "<string>",
-                        "share_token": "<string>",
-                        "status": "<integer>",
-                        "step_form": {},
-                        "updated_at": "<dateTime>"
-                      },
-                      "response": "<boolean>"
+                      "response": true
                     }
                   }
                 }
@@ -3529,7 +3763,99 @@
             }
           },
           "422": {
-            "description": "Erro de validação",
+            "description": "Filtro inválido",
+            "headers": {
+              "CF-RAY": {
+                "schema": {
+                  "type": "string",
+                  "example": "9ac8ebff7a63f181-GRU"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "no-cache, private"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Thu, 11 Dec 2025 23:57:00 GMT"
+                }
+              },
+              "Nel": {
+                "schema": {
+                  "type": "string",
+                  "example": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+                }
+              },
+              "Report-To": {
+                "schema": {
+                  "type": "string",
+                  "example": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=9rNVQ21iQskzUWIG%2FzA7pTsqxBQufDlLGR50Lex8ssCt9Qg1ZJlrKPy2GKywwxyD45e24w4Rs5cJDtg%2BK9hRTPKPyShOgGlAD8hTDA1EhANu%2FvPFdcDE\"}]}"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "cloudflare"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "AWSALBCORS=5ZCx+XtKGkuNaPLR95PJzEElzMXUh3rx0ymKklSxrQlM0YqHDztAqNq/V9sROzRD0/2d5OtGyZt26o5t1vCpaV7a+hNE1+Bi+pHGOcz5RNo8h/QpIR7GpgbjYLDj; Expires=Thu, 18 Dec 2025 23:57:00 GMT; Path=/; SameSite=None; Secure"
+                }
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "chunked"
+                }
+              },
+              "access-control-allow-origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "access-control-expose-headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "alt-svc": {
+                "schema": {
+                  "type": "string",
+                  "example": "h3=\":443\"; ma=86400"
+                }
+              },
+              "cf-cache-status": {
+                "schema": {
+                  "type": "string",
+                  "example": "DYNAMIC"
+                }
+              },
+              "x-ratelimit-limit": {
+                "schema": {
+                  "type": "string",
+                  "example": "160"
+                }
+              },
+              "x-ratelimit-remaining": {
+                "schema": {
+                  "type": "string",
+                  "example": "156"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3537,29 +3863,54 @@
                   "properties": {
                     "error": {
                       "type": "string",
-                      "example": "<string>"
+                      "example": "O campo nonExistsFilterField selecionado é inválido."
+                    },
+                    "file": {
+                      "nullable": true,
+                      "example": null
                     },
                     "message": {
                       "type": "string",
-                      "example": "<string>"
+                      "example": "validation_errors"
                     },
                     "response": {
-                      "type": "string",
-                      "example": "<boolean>"
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "stacktrace": {
+                      "nullable": true,
+                      "example": null
                     },
                     "validation": {
                       "type": "object",
-                      "properties": {}
+                      "properties": {
+                        "field": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "O campo nonExistsFilterField selecionado é inválido."
+                          },
+                          "example": [
+                            "O campo nonExistsFilterField selecionado é inválido."
+                          ]
+                        }
+                      }
                     }
                   }
                 },
                 "examples": {
-                  "Erro de validação": {
+                  "Filtro inválido": {
                     "value": {
-                      "error": "<string>",
-                      "message": "<string>",
-                      "response": "<boolean>",
-                      "validation": {}
+                      "error": "O campo nonExistsFilterField selecionado é inválido.",
+                      "file": null,
+                      "message": "validation_errors",
+                      "response": false,
+                      "stacktrace": null,
+                      "validation": {
+                        "field": [
+                          "O campo nonExistsFilterField selecionado é inválido."
+                        ]
+                      }
                     }
                   }
                 }
