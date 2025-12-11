@@ -1,0 +1,209 @@
+---
+title: 'Paginação'
+icon: 'list-ul'
+description: 'Como navegar através de grandes conjuntos de dados usando paginação.'
+---
+
+# Visão geral da paginação
+
+Alguns endpoints que retornam listas de recursos utilizam a paginação para facilitar a navegação em grandes volumes de dados. Com a paginação da API da Olie, você acessa conjuntos menores e mais fáceis de gerenciar, garantindo melhor desempenho e controle sobre os resultados retornados.
+
+<Info>
+A paginação melhora a performance da API e facilita o processamento dos dados no lado do cliente.
+</Info>
+
+# Estrutura da resposta paginada
+
+Respostas paginadas incluem um objeto `meta` com informações detalhadas sobre a paginação atual:
+
+```json
+{
+  "...": [/** lista de itens retornados */],
+  "meta": {
+    "current_page": 1,
+    "from": 1,
+    "last_page": 19,
+    "per_page": 30,
+    "to": 30,
+    "total": 546
+  }
+}
+```
+
+# Esquema do atributo `meta`
+
+<ResponseField name="current_page" type="integer">
+Página atual da resposta. Começa em 1.
+</ResponseField>
+
+<ResponseField name="from" type="integer">
+Índice do primeiro item retornado na página atual (baseado em 1).
+</ResponseField>
+
+<ResponseField name="to" type="integer">
+Índice do último item retornado na página atual (baseado em 1).
+</ResponseField>
+
+<ResponseField name="last_page" type="integer">
+Número total de páginas disponíveis com base no total de itens e itens por página.
+</ResponseField>
+
+<ResponseField name="per_page" type="integer">
+Quantidade de itens retornados por página. Valor padrão é `30` e o máximo permitido é `100`. Este valor reflete o parâmetro `perPage` utilizado na requisição (ou o padrão aplicado).
+</ResponseField>
+
+<ResponseField name="total" type="integer">
+Total geral de itens disponíveis na listagem, considerando todos os filtros aplicados.
+</ResponseField>
+
+# Parâmetros de paginação
+
+A paginação é controlada através de dois parâmetros de query que podem ser passados na URL via query params ou no payload de uma requisição `POST`:
+
+<ParamField query="page" type="integer" default="1">
+Número da página que deseja acessar. Deve ser um número inteiro maior ou igual a 1. Se não for fornecido ou for inválido, o padrão é 1.
+</ParamField>
+
+<ParamField query="perPage" type="integer" default="30">
+Quantidade de itens retornados por página. Deve ser um número inteiro entre 1 e 100. Se não for fornecido, o padrão é 30. Valores acima de 100 serão automaticamente limitados a 100.
+</ParamField>
+
+<Tip>
+Você pode combinar paginação com filtros para navegar através de subconjuntos específicos de dados.
+</Tip>
+
+# Exemplos práticos
+
+## Navegação básica
+
+As consultas básicas `GET` aceitam paginação via query params, utilizando os parâmetros `page` e `perPage`.
+
+<Tabs>
+  <Tab title="Primeira página (padrão)">
+    ```http
+    GET /api/management/projects
+    ```
+    
+    Retorna a primeira página com 30 itens (valores padrão).
+  </Tab>
+
+  <Tab title="Página específica">
+    ```http
+    GET /api/management/projects?page=5
+    ```
+    
+    Retorna a página 5 com 30 itens por página.
+  </Tab>
+
+  <Tab title="Personalizar itens por página">
+    ```http
+    GET /api/management/projects?perPage=50
+    ```
+    
+    Retorna a primeira página com 50 itens por página.
+  </Tab>
+
+  <Tab title="Combinar page e perPage">
+    ```http
+    GET /api/management/projects?page=2&perPage=50
+    ```
+    
+    Retorna a página 2 com 50 itens por página.
+  </Tab>
+
+  <Tab title="Com filtros simples">
+    ```http
+    GET /api/management/projects?page=2&perPage=20&filter[status]=1
+    ```
+
+    <Tip>
+    Consulte se o endpoint suporta filtros simples.
+    </Tip>
+  </Tab>
+</Tabs>
+
+## Navegação com filtros complexos (busca avançada)
+
+Quando os endpoints suportam filtros complexos, você provavelmente vai querer utilizar o parâmetro `filter` no payload da sua requisição `POST`. Os parâmetros de paginação também podem ser incluídos no payload.
+
+```http
+POST /api/management/projects/search
+{
+  "page": 1,
+  "perPage": 50,
+  "filter": [/** array de filtros complexos */]
+}
+```
+
+<Info>
+Quando os parâmetros `page` e `perPage` são fornecidos no payload de uma requisição `POST`, eles têm precedência sobre os parâmetros de query string, se houver.
+</Info>
+
+Consulte a documentação de [filtros](/api-reference/filters) para mais informações sobre como utilizar a busca avançada.
+
+## Boas práticas
+
+<Steps>
+<Step title="Use paginação sempre">
+Nunca tente buscar todos os registros de uma só vez. Sempre use paginação para melhor performance.
+</Step>
+
+<Step title="Armazene o meta">
+Guarde as informações do objeto `meta` para implementar navegação inteligente.
+</Step>
+
+<Step title="Implemente cache">
+Considere implementar cache local para páginas visitadas muitas vezes e reduzir requisições.
+</Step> 
+</Steps>
+
+<Warning>
+Não assuma que o número de itens por página (`per_page`) será sempre o mesmo. Sempre use o valor retornado no objeto `meta` para garantir que sua aplicação funcione corretamente.
+</Warning>
+
+## Validação e comportamento
+
+A API valida automaticamente os parâmetros de paginação e aplica correções quando necessário:
+
+- **`page` inválido** (menor que 1 ou não numérico): será ajustado para 1
+- **`perPage` inválido** (menor que 1 ou não numérico): será ajustado para 30 (padrão)
+- **`perPage` maior que 100**: será limitado automaticamente a 100
+
+<Info>
+Mesmo que você envie valores inválidos, a API sempre retornará uma resposta válida, aplicando os valores padrão ou limites quando necessário. O objeto `meta` na resposta sempre refletirá os valores efetivamente utilizados.
+</Info>
+
+## Exemplo de resposta completa
+
+```json
+{
+  "response": true,
+  "data": [
+    {
+      "id": 1,
+      "name": "Projeto A",
+      "status": "ativo"
+    },
+    {
+      "id": 2,
+      "name": "Projeto B",
+      "status": "concluido"
+    }
+    // ... mais 28 itens
+  ],
+  "meta": {
+    "current_page": 1,
+    "from": 1,
+    "last_page": 19,
+    "per_page": 30,
+    "to": 30,
+    "total": 546
+  }
+}
+```
+
+<Check>
+Com essas informações, você pode implementar uma navegação eficiente e intuitiva através dos dados da API!
+</Check>
+
+

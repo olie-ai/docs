@@ -1,143 +1,55 @@
 ---
-title: 'Introdução à API da Olie'
-description: 'Documentação completa da API da Olie para integração e gerenciamento de processos empresariais'
+title: 'Introdução'
+icon: 'rocket'
+description: 'Documentação completa da API da Olie Flow AI para integração.'
 ---
 
-## Visão geral
+# Olá 👋
 
-A API da Olie é uma interface poderosa e flexível que permite integrar e gerenciar processos dentro de uma empresa de forma eficiente e automatizada. A Olie foi projetada para simplificar o gerenciamento de tarefas, fluxos de trabalho e recursos, garantindo que os processos empresariais sejam realizados de maneira mais ágil e controlada.
+Bem vindo(a), esta é a documentação oficial da API da [olie.ai](https://olie.ai/) aqui você poderá encontrar instruções de uso, dicas e referência sobre nossa API.
 
-Para fazer requisições, é necessário autenticar cada pedido com as credenciais da sua aplicação. Se você ainda não tem uma, veja os passos básicos para começar a implementar as nossas soluções.
+# Começando 🚀
 
-## Base URL
+Nossa API foi projetada para atender todas as demandas da plataforma, com as mesmas funções que usamos em nossas interfaces. Todos os requests são HTTPS via domínio [api.olie.ai](https://api.olie.ai), utilizando o padrão REST.
 
-A URL base para a API da Olie é:
+# Dica
 
-```bash
-https://api.olie.ai/api/v1
-```
+Você pode usar o [Postman](https://www.postman.com/) para explorar, testar e documentar nossa API de forma interativa. Mantemos uma [coleção oficial no Postman](https://www.postman.com/olieai/workspace/olie-s-public-workspace/collection/49535030-f6786f52-3575-41f2-967a-9b4b71270ee8?active-environment=49535030-67d0fe41-9d71-4d0f-9629-297b50a55f03) que é atualizada frequentemente, refletindo todos os endpoints documentados aqui. Use a coleção para executar requisições reais e entender rapidamente a estrutura dos endpoints.
 
-<Tip>
-Todas as requisições devem ser feitas utilizando esta URL base como prefixo.
-</Tip>
+# Próximos passos
 
-## Autenticação
-
-As solicitações para a API da Olie são autenticadas com um token de acesso da API. O token deve ser passado como um OAuth Bearer token no cabeçalho da requisição:
-
-```bash
-curl -H "Authorization: Bearer SEU_TOKEN_AQUI" https://api.olie.ai/api/v1/...
-```
-
-<Warning>
-Mantenha seu token de acesso em segurança. Nunca compartilhe ou exponha seu token em repositórios públicos ou código cliente.
-</Warning>
-
-## Como obter o token de acesso
-
-<Steps>
-<Step title="Acesse a plataforma">
-Acesse a sua empresa em [https://olie.ai/frames](https://olie.ai/frames) e depois vá em **Ajustes**.
-
-<Frame>
-<img src="https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/4US0yBiC8q3uPlJhz1vcYgjwdAorK9MZ2VnL-image.png" alt="Menu de Ajustes da Olie" />
-</Frame>
-</Step>
-
-<Step title="Navegue até Aplicações">
-Após isso, clique em **"Aplicações"**.
-
-<Frame>
-<img src="https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/J016pB2cNgZjxDzMfhm8vysCRaXWnoLPq5Kr-image.png" alt="Seção de Aplicações" />
-</Frame>
-</Step>
-
-<Step title="Crie uma aplicação">
-Crie uma aplicação clicando no botão **"Criar aplicação"** e preencha os campos obrigatórios. Após isso, você verá o token de acesso gerado.
-
-<Frame>
-<img src="https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/PkbKmJC7zQ4OZlja3VLyNTDF8YWrox9wd1iX-image.png" alt="Token de acesso gerado" />
-</Frame>
-
-<Warning>
-Guarde o token em um local seguro, pois ele não será exibido novamente.
-</Warning>
-</Step>
-
-<Step title="Use o token">
-Feito isso, você pode usar o token de acesso para fazer requisições à API da Olie.
-
-<Check>
-Seu token está pronto para uso! Adicione-o ao cabeçalho Authorization de suas requisições.
-</Check>
-</Step>
-</Steps>
-
-## Formato das respostas da API
-
-As respostas da API seguem um formato padronizado para facilitar o tratamento dos dados. A seguir, veja exemplos de como interpretar os retornos em diferentes situações.
-
-### Exemplo de resposta de sucesso
-
-```json
-{
-  "response": true,
-  ...
-}
-```
-
-<Info>
-Esta resposta indica que a requisição foi bem-sucedida. Campos adicionais (representados por `...`) podem conter os dados retornados pela operação.
-</Info>
-
-### Exemplo de resposta de erro
-
-```json
-{
-  "response": false,
-  "message": "nome_ou_tipo_do_erro",
-  "error": "mensagem_detalhada_do_erro"
-}
-```
-
-<Info>
-Essa resposta indica que houve um erro na requisição. A chave `message` descreve o tipo de erro, enquanto `error` detalha a causa.
-</Info>
-
-## Próximos passos
-
-Explore os tópicos abaixo para aprender mais sobre como utilizar a API da Olie:
+Explore os tópicos abaixo para aprender mais sobre como utilizar a API
 
 <CardGroup cols={2}>
 <Card
-  title="Filtros"
-  icon="filter"
-  href="/api-reference/filters"
+  title="Autenticação e segurança"
+  icon="key"
+  href="/api-reference/introduction/authentication"
 >
-Aprenda a usar filtros dinâmicos para refinar suas consultas.
+Como se autenticar e garantir a segurança das suas requisições.
+</Card>
+
+<Card
+  title="Detalhes"
+  icon="info-circle"
+  href="/api-reference/introduction/details"
+>
+Informações essenciais sobre a configuração e comportamento da API para facilitar sua integração.
+</Card>
+
+<Card
+  title="Estrutura de resposta"
+  icon="code"
+  href="/api-reference/general/response-structure"
+>
+Como interpretar as respostas da API.
 </Card>
 
 <Card
   title="Paginação"
   icon="list"
-  href="/api-reference/pagination"
+  href="/api-reference/general/pagination"
 >
 Entenda como navegar através de grandes conjuntos de dados.
-</Card>
-
-<Card
-  title="Explorar Endpoints"
-  icon="code"
-  href="#"
->
-Confira a referência completa de todos os endpoints disponíveis.
-</Card>
-
-<Card
-  title="Exemplos de código"
-  icon="terminal"
-  href="#"
->
-Veja exemplos práticos de integração em diferentes linguagens.
 </Card>
 </CardGroup>

@@ -1,0 +1,134 @@
+---
+title: 'Filtros básico'
+icon: 'search'
+description: 'Aprenda a usar filtros simples nos endpoints da API usando query parameters'
+---
+
+<Info>
+Essa documentação é sobre filtros simples aplicados no URL, se você estiver procurando por filtros complexos, consulte a documentação de [Busca Avançada](/api-reference/general/advanced-search).
+</Info>
+
+Alguns endpoints da API fornecem filtragem e ordenação simples através de parâmetros de query string. Este sistema é ideal para casos de uso básicos onde você precisa filtrar por campos específicos ou ordenar resultados.
+
+## Como Funciona
+
+O sistema de filtro simples utiliza parâmetros de query string na URL da requisição. Você pode combinar múltiplos filtros e ordenação em uma única requisição.
+
+## Filtros
+
+Para aplicar filtros, use o parâmetro `filter` seguido do nome do campo entre colchetes:
+
+```http
+GET /api/endpoint?filter[campo]=valor
+```
+
+### Filtros Múltiplos
+
+Você pode aplicar vários filtros simultaneamente:
+
+```http
+GET /api/endpoint?filter[name]=Mike&filter[email]=mike@example.com
+```
+
+### Tipos de Filtros
+
+Os filtros disponíveis variam por endpoint. Alguns exemplos comuns incluem:
+
+- **Filtro exato**: `filter[id]=123`
+- **Filtro por status**: `filter[status]=1`
+- **Filtros customizados**: Alguns endpoints oferecem filtros especiais através de callbacks
+
+<Info>
+Os campos disponíveis para filtragem são definidos por cada endpoint. Consulte a documentação específica do endpoint para ver quais filtros estão disponíveis.
+</Info>
+
+## Ordenação
+
+Para ordenar os resultados, use o parâmetro `sort`:
+
+```http
+GET /api/endpoint?sort=campo
+```
+
+### Ordenação Descendente
+
+Para ordenar em ordem decrescente, adicione um hífen (`-`) antes do nome do campo:
+
+```http
+GET /api/endpoint?sort=-created_at
+```
+
+### Múltiplas Ordenações
+
+Alguns endpoints suportam múltiplas ordenações separadas por vírgula:
+
+```http
+GET /api/endpoint?sort=name,-created_at
+```
+
+<Info>
+Os valores possíveis para o campo de ordenação variam por endpoint. Consulte a documentação específica do endpoint para ver quais campos estão disponíveis.
+</Info>
+ 
+## Filtros Especiais
+
+### Filtro de Itens Deletados
+
+Alguns endpoints suportam o filtro `trashed` para incluir itens deletados:
+
+```http
+GET /api/endpoint?filter[trashed]=with
+```
+
+Valores possíveis:
+- `with`: Inclui apenas itens deletados
+- `only`: Retorna apenas itens deletados
+- `without`: Exclui itens deletados (padrão)
+
+### Filtros com Callbacks
+
+Alguns endpoints oferecem filtros avançados através de callbacks. Estes filtros podem realizar consultas mais complexas:
+
+<Info>
+O filtro `search` em alguns casos busca o termo em múltiplos campos (nome, email, ID) simultaneamente, para facilitar buscas.
+</Info>
+
+## Limitações
+
+O sistema de filtro simples tem algumas limitações:
+
+- **Operadores limitados**: Geralmente suporta apenas igualdade (`=`) e alguns operadores específicos por campo
+- **Sem operadores lógicos**: Não é possível combinar filtros com `AND` ou `OR` de forma explícita
+- **Sem filtros aninhados**: Não suporta filtros em relacionamentos complexos
+
+<Tip>
+Para necessidades mais complexas de filtragem, use o sistema de [Busca Avançada](/busca-avancada) que oferece operadores relacionais, lógicos e filtros em relacionamentos.
+</Tip>
+
+## Campos Disponíveis
+
+Os campos disponíveis para filtragem e ordenação variam por endpoint. Para descobrir quais campos estão disponíveis:
+
+1. Consulte a documentação específica do endpoint
+2. Verifique a resposta de erro quando usar um campo inválido
+3. Alguns endpoints expõem metadados sobre campos disponíveis
+
+## Tratamento de Erros
+
+Se você usar um campo inválido ou um valor incorreto, a API retornará um erro de validação:
+ 
+```json Error
+{
+  "response": false,
+  "message": "validation_error",
+  "error": "The filter field 'campo_invalido' is not allowed."
+}
+``` 
+
+## Resumo
+
+- Use `filter[campo]=valor` para aplicar filtros
+- Use `sort=campo` ou `sort=-campo` para ordenação
+- Combine múltiplos filtros na mesma requisição 
+- Consulte a documentação do endpoint para campos disponíveis
+- Para filtros complexos, considere usar o sistema de [Busca Avançada](/api-reference/general/advanced-search)

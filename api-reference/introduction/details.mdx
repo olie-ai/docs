@@ -1,0 +1,49 @@
+---
+title: 'Detalhes'
+icon: 'info-circle'
+description: 'Informações essenciais sobre a configuração e comportamento da API para facilitar sua integração.'
+---
+
+# Base URL
+
+A URL base para todas as requisições da API é:
+
+```bash
+https://api.olie.ai/api/
+```
+
+<Tip>
+Todas as requisições devem ser feitas utilizando essa URL base. Todos os endpoints da API começam com esta URL.
+</Tip>
+
+# Formato de resposta
+
+A API retorna todas as respostas no formato **JSON** com codificação **UTF-8**. Certifique-se de que sua aplicação esteja configurada para processar corretamente esse formato.
+
+<Info>
+As respostas seguem uma estrutura padronizada para facilitar o tratamento dos dados. Para mais detalhes sobre como interpretar as respostas, consulte a [documentação de estrutura de respostas](/api-reference/response-structure).
+</Info>
+
+# Rate limit
+
+A API possui um limite de taxa de requisições de o padrão costuma ser **160 requisições por minuto** por empresa. Se você tiver um valor diferente, poderá consultar no header `X-RateLimit-Limit` da resposta.
+
+## Headers de rate limit
+
+Todas as respostas bem sucedidas da API incluem headers informativos sobre o rate limit:
+
+- `X-RateLimit-Limit`: Indica o número máximo de requisições permitidas por minuto (160)
+- `X-RateLimit-Remaining`: Indica quantas requisições ainda estão disponíveis no período atual
+- `Retry-After`: Quando o limite é excedido, este header indica quantos segundos você deve aguardar antes de fazer uma nova requisição
+
+<Info>
+Monitore os headers `X-RateLimit-Remaining` para evitar exceder o limite e garantir o funcionamento contínuo da sua aplicação.
+</Info>
+
+<Warning>
+Exceder o limite de taxa resultará em respostas com status HTTP 429 (Too Many Requests). O uso abusivo ou repetido de exceder os limites pode resultar em bloqueio temporário ou suspensão permanente da sua chave de API.
+</Warning>
+
+<Tip>
+Para aplicações que precisam fazer muitas requisições, considere implementar cache ou agrupar múltiplas operações em uma única requisição quando possível.
+</Tip>

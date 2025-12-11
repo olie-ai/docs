@@ -9,6 +9,59 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
+    "products": [
+      {
+        "product": "Flow AI",
+        "description": "Execução inteligente em ambiente multi-agentico",
+        "icon": "chart-diagram",
+        "tabs": [
+          {
+            "tab": "Guides",
+            "groups": [
+              {
+                "group": "Começando",
+                "pages": [
+                  "index"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Referência da API",
+            "groups": [
+              {
+                "group": "Introdução",
+                "pages": [
+                  "api-reference/introduction",
+                  "api-reference/introduction/authentication",
+                  "api-reference/introduction/details"
+                ]
+              },
+              {
+                "group": "Geral",
+                "pages": [
+                  "api-reference/general/response-structure",
+                  "api-reference/general/pagination",
+                  {
+                    "group": "Filtros",
+                    "icon": "filter",
+                    "pages": [
+                      "api-reference/general/basic-filters",
+                      "api-reference/general/advanced-search"
+                    ]
+                  }
+                ]
+              }, 
+              {
+                "group": "Referência da API",
+                "openapi": "api-reference/openapi.json",
+                "pages": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "global": {
       "anchors": [
         {
@@ -27,43 +80,7 @@
           "href": "https://blog.olie.ai"
         }
       ]
-    },
-    "tabs": [
-      {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Começando",
-            "pages": [
-              "index"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Referência da API",
-        "groups": [
-          {
-            "group": "Introdução a API",
-            "pages": [
-              "api-reference/introduction",
-              "api-reference/filters",
-              "api-reference/pagination"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [ 
-            ]
-          },
-          {
-            "group": "API reference",
-            "openapi": "api-reference/openapi.json",
-            "pages": []
-          }
-        ]
-      }
-    ]
+    }
   },
   "logo": {
     "light": "/logo/light.svg",

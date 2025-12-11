@@ -1,0 +1,48 @@
+---
+title: 'Estrutura de respostas'
+icon: 'file-text'
+description: 'Como interpretar as respostas.'
+---
+
+
+# Formato das respostas
+
+As respostas costumam a seguir um formato padronizado de resposta para facilitar o tratamento dos dados. Normalmente, todas as [respostas são retornadas em JSON](/api-reference/details#formato-de-resposta).
+
+## Exemplo de sucesso
+
+```json
+{
+  "response": true,
+  ...
+}
+```
+<ResponseField name="response" type="boolean" required>
+  Indica se a requisição foi bem-sucedida. Onde quando o `response` for `true`, indica que a requisição executou o que se espera.
+</ResponseField>
+
+<Info>
+Campos adicionais (representados por `...`) representam todos os outros dados retornados pelas requisições.
+</Info>
+
+## Exemplo de erro
+
+```json
+{
+  "response": false,
+  "message": "nome_ou_tipo_do_erro",
+  "error": "mensagem_detalhada_do_erro"
+}
+```
+
+<ResponseField name="response" type="boolean" required>
+  Indica se a requisição foi bem-sucedida. Onde quando o `response` for `false`, indica que houve um erro na requisição.
+</ResponseField>
+
+<ResponseField name="message" type="string" required>
+  Descrição do tipo de erro. Retorna o nome do erro, exemplo: `invalid_request`, `unauthorized`, `not_found`, etc.
+</ResponseField>
+
+<ResponseField name="error" type="string" required>
+  Descrição detalhada do erro.
+</ResponseField>
