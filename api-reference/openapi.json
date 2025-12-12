@@ -3894,7 +3894,7 @@
         }
       }
     },
-    "/funnel-steps/{funnel_step_id}/projects": {
+    "/api/management/funnel-steps/{funnel_step_id}/projects": {
       "post": {
         "tags": [
           "funnel-steps",
