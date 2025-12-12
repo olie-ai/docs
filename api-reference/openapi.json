@@ -3894,6 +3894,297 @@
         }
       }
     },
+    "/api/management/projects/quick-store": {
+      "post": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Criação rápida",
+        "description": "O endpoint de criação rápida de projetos permite criar um novo projeto com apenas as informações essenciais, que no endpoint de criação comum, são obrigatórios. Este método é ideal para criação rápida de projetos quando você não precisa configurar todos os detalhes imediatamente.",
+        "operationId": "criaORPida",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "funnel_step_id": {
+                    "type": "number",
+                    "example": 3808
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Demogorgon"
+                  }
+                }
+              },
+              "examples": {
+                "Criação rápida": {
+                  "value": {
+                    "funnel_step_id": 3808,
+                    "name": "Demogorgon"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso / Com vínculo em etapa",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "private, must-revalidate"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Fri, 12 Dec 2025 19:31:38 GMT"
+                }
+              },
+              "Host": {
+                "schema": {
+                  "type": "string",
+                  "example": "api.olie.localhost"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "nginx/1.29.3"
+                }
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "chunked"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.3.28"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "schema": {
+                  "type": "string",
+                  "example": "160"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "schema": {
+                  "type": "string",
+                  "example": "149"
+                }
+              },
+              "expires": {
+                "schema": {
+                  "type": "string",
+                  "example": "-1"
+                }
+              },
+              "pragma": {
+                "schema": {
+                  "type": "string",
+                  "example": "no-cache"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "project": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "example": "P-78"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "example": "2025-12-12T19:29:36.000000Z"
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "example": "019aeaa3-2370-731c-9008-be759795f449"
+                        },
+                        "customer_id": {
+                          "nullable": true,
+                          "example": null
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": "Criação rápida"
+                        },
+                        "frame": {
+                          "type": "object",
+                          "properties": {
+                            "cockpit_access": {
+                              "type": "number",
+                              "example": 0
+                            },
+                            "frame_billing_data_id": {
+                              "nullable": true,
+                              "example": null
+                            },
+                            "id": {
+                              "type": "string",
+                              "example": "019aeaa3-2778-73ec-8f8d-59d06cc59dca"
+                            },
+                            "logo_img": {
+                              "nullable": true,
+                              "example": null
+                            },
+                            "model_forms": {
+                              "nullable": true,
+                              "example": null
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "OlieDev Company "
+                            },
+                            "old_id": {
+                              "nullable": true,
+                              "example": null
+                            },
+                            "status": {
+                              "type": "number",
+                              "example": 1
+                            },
+                            "subdomain": {
+                              "type": "string",
+                              "example": "devframe"
+                            },
+                            "type": {
+                              "type": "number",
+                              "example": 2
+                            }
+                          }
+                        },
+                        "frame_id": {
+                          "type": "string",
+                          "example": "019aeaa3-2778-73ec-8f8d-59d06cc59dca"
+                        },
+                        "id": {
+                          "type": "string",
+                          "example": "019b140a-4503-7141-9e4f-bc720d0f09a3"
+                        },
+                        "impact": {
+                          "type": "number",
+                          "example": 10
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Demogorgon"
+                        },
+                        "status": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "example": "2025-12-12T19:29:36.000000Z"
+                        }
+                      }
+                    },
+                    "response": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                },
+                "examples": {
+                  "Com vínculo em etapa": {
+                    "value": {
+                      "project": {
+                        "code": "P-80",
+                        "created_at": "2025-12-12T19:31:38.000000Z",
+                        "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                        "customer_id": null,
+                        "description": "Criação rápida",
+                        "frame": {
+                          "cockpit_access": 0,
+                          "frame_billing_data_id": null,
+                          "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                          "logo_img": null,
+                          "model_forms": null,
+                          "name": "OlieDev Company ",
+                          "old_id": null,
+                          "status": 1,
+                          "subdomain": "devframe",
+                          "type": 2
+                        },
+                        "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "id": "019b140c-235d-73ee-96df-3d2afbf7d13d",
+                        "impact": 10,
+                        "name": "Demogorgon",
+                        "status": 1,
+                        "updated_at": "2025-12-12T19:31:38.000000Z"
+                      },
+                      "response": true
+                    }
+                  },
+                  "Sucesso": {
+                    "value": {
+                      "project": {
+                        "code": "P-78",
+                        "created_at": "2025-12-12T19:29:36.000000Z",
+                        "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                        "customer_id": null,
+                        "description": "Criação rápida",
+                        "frame": {
+                          "cockpit_access": 0,
+                          "frame_billing_data_id": null,
+                          "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                          "logo_img": null,
+                          "model_forms": null,
+                          "name": "OlieDev Company ",
+                          "old_id": null,
+                          "status": 1,
+                          "subdomain": "devframe",
+                          "type": 2
+                        },
+                        "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "id": "019b140a-4503-7141-9e4f-bc720d0f09a3",
+                        "impact": 10,
+                        "name": "Demogorgon",
+                        "status": 1,
+                        "updated_at": "2025-12-12T19:29:36.000000Z"
+                      },
+                      "response": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/management/funnel-steps/{funnel_step_id}/projects": {
       "post": {
         "tags": [
