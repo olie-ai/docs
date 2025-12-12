@@ -3119,7 +3119,7 @@
         },
         "responses": {
           "200": {
-            "description": "Lista de projetos retornada com sucesso / Uso do filtro para buscar por nome",
+            "description": "Busca por nome com sucesso / Uso do filtro para buscar por nome",
             "headers": {
               "CF-RAY": {
                 "schema": {
@@ -3245,82 +3245,28 @@
                       "type": "object",
                       "properties": {
                         "current_page": {
-                          "example": "<integer>",
-                          "anyOf": [
-                            {
-                              "type": "string",
-                              "example": "<integer>"
-                            },
-                            {
-                              "type": "number",
-                              "example": 1
-                            }
-                          ]
+                          "type": "number",
+                          "example": 1
                         },
                         "from": {
-                          "example": "<integer>",
-                          "anyOf": [
-                            {
-                              "type": "string",
-                              "example": "<integer>"
-                            },
-                            {
-                              "type": "number",
-                              "example": 1
-                            }
-                          ]
+                          "type": "number",
+                          "example": 1
                         },
                         "last_page": {
-                          "example": "<integer>",
-                          "anyOf": [
-                            {
-                              "type": "string",
-                              "example": "<integer>"
-                            },
-                            {
-                              "type": "number",
-                              "example": 1
-                            }
-                          ]
+                          "type": "number",
+                          "example": 1
                         },
                         "per_page": {
-                          "example": "<integer>",
-                          "anyOf": [
-                            {
-                              "type": "string",
-                              "example": "<integer>"
-                            },
-                            {
-                              "type": "number",
-                              "example": 30
-                            }
-                          ]
+                          "type": "number",
+                          "example": 30
                         },
                         "to": {
-                          "example": "<integer>",
-                          "anyOf": [
-                            {
-                              "type": "string",
-                              "example": "<integer>"
-                            },
-                            {
-                              "type": "number",
-                              "example": 1
-                            }
-                          ]
+                          "type": "number",
+                          "example": 1
                         },
                         "total": {
-                          "example": "<integer>",
-                          "anyOf": [
-                            {
-                              "type": "string",
-                              "example": "<integer>"
-                            },
-                            {
-                              "type": "number",
-                              "example": 1
-                            }
-                          ]
+                          "type": "number",
+                          "example": 1
                         }
                       }
                     },
@@ -3329,320 +3275,348 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "branch": {
-                            "type": "string",
-                            "example": "<string>"
-                          },
                           "budget": {
-                            "type": "string",
-                            "example": "<float>"
+                            "type": "number",
+                            "example": 100000
                           },
                           "code": {
                             "type": "string",
-                            "example": "<string>"
-                          },
-                          "completed_count": {
-                            "type": "string",
-                            "example": "<integer>"
-                          },
-                          "completed_percentage": {
-                            "type": "string",
-                            "example": "<float>"
+                            "example": "P-2"
                           },
                           "contact": {
-                            "type": "object",
-                            "properties": {}
+                            "nullable": true,
+                            "example": null
                           },
                           "contact_id": {
-                            "type": "string",
-                            "example": "<integer>"
+                            "nullable": true,
+                            "example": null
                           },
                           "costs": {
-                            "type": "object",
-                            "properties": {}
+                            "nullable": true,
+                            "example": null
                           },
                           "created_at": {
                             "type": "string",
-                            "example": "<dateTime>"
+                            "example": "2025-12-11T22:57:33.000000Z"
                           },
                           "created_by": {
                             "type": "string",
-                            "example": "<string>"
+                            "example": "78be4cc7-8b9b-4351-b280-4669c7f3901f"
                           },
                           "customer": {
-                            "type": "object",
-                            "properties": {}
+                            "nullable": true,
+                            "example": null
                           },
                           "customer_id": {
-                            "type": "string",
-                            "example": "<string>"
+                            "nullable": true,
+                            "example": null
                           },
                           "deleted_at": {
-                            "type": "string",
-                            "example": "<dateTime>"
+                            "nullable": true,
+                            "example": null
                           },
                           "description": {
                             "type": "string",
-                            "example": "<string>"
+                            "example": "Companhia de energia"
                           },
-                          "expected_finish": {
-                            "type": "string",
-                            "example": "<date>"
+                          "executors": {
+                            "type": "array",
+                            "items": {},
+                            "example": []
                           },
                           "form": {
-                            "type": "object",
-                            "properties": {}
+                            "nullable": true,
+                            "example": null
                           },
-                          "forum": {
-                            "type": "object",
-                            "properties": {}
+                          "form_answers": {
+                            "type": "array",
+                            "items": {},
+                            "example": []
                           },
                           "frame": {
                             "type": "object",
-                            "properties": {}
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "example": "019b0f9f-e161-71eb-93ac-dad119479a14"
+                              },
+                              "model_forms": {
+                                "nullable": true,
+                                "example": null
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "demo-api"
+                              },
+                              "subdomain": {
+                                "type": "string",
+                                "example": "demoapi"
+                              }
+                            }
                           },
                           "frame_id": {
                             "type": "string",
-                            "example": "<string>"
+                            "example": "019b0f9f-e161-71eb-93ac-dad119479a14"
                           },
-                          "headquarter": {
-                            "type": "string",
-                            "example": "<string>"
+                          "funnel_steps": {
+                            "type": "array",
+                            "items": {},
+                            "example": []
+                          },
+                          "funnels": {
+                            "type": "array",
+                            "items": {},
+                            "example": []
+                          },
+                          "groups": {
+                            "type": "array",
+                            "items": {},
+                            "example": []
                           },
                           "id": {
                             "type": "string",
-                            "example": "<uuid>"
+                            "example": "019b0fa2-4b59-7261-91e7-82fd98245f07"
                           },
                           "impact": {
-                            "type": "string",
-                            "example": "<integer>"
+                            "type": "number",
+                            "example": 3
                           },
                           "is_template": {
-                            "type": "string",
-                            "example": "<boolean>"
+                            "type": "boolean",
+                            "example": false
                           },
                           "merged_id": {
-                            "type": "string",
-                            "example": "<string>"
-                          },
-                          "merged_project": {
-                            "type": "object",
-                            "properties": {}
+                            "nullable": true,
+                            "example": null
                           },
                           "name": {
                             "type": "string",
-                            "example": "<string>"
+                            "example": "Hawkins Lab's"
                           },
                           "old_id": {
-                            "type": "string",
-                            "example": "<string>"
+                            "nullable": true,
+                            "example": null
                           },
                           "parent_id": {
-                            "type": "string",
-                            "example": "<string>"
+                            "nullable": true,
+                            "example": null
                           },
                           "share_settings": {
-                            "type": "string",
-                            "example": "<string>"
+                            "nullable": true,
+                            "example": null
                           },
                           "share_token": {
-                            "type": "string",
-                            "example": "<string>"
+                            "nullable": true,
+                            "example": null
                           },
                           "status": {
-                            "type": "string",
-                            "example": "<integer>"
+                            "type": "number",
+                            "example": 1
                           },
-                          "step_form": {
-                            "type": "object",
-                            "properties": {}
+                          "tags": {
+                            "type": "array",
+                            "items": {},
+                            "example": []
                           },
-                          "tasks_count": {
-                            "type": "string",
-                            "example": "<integer>"
+                          "tasks": {
+                            "type": "array",
+                            "items": {},
+                            "example": []
                           },
                           "updated_at": {
                             "type": "string",
-                            "example": "<dateTime>"
+                            "example": "2025-12-11T22:57:33.000000Z"
+                          },
+                          "users": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "avatar_url": {
+                                  "type": "string",
+                                  "example": "https://olie-main.s3.sa-east-1.amazonaws.com/app/avatars/P14xMWfk6lhBz9ZqesyCOjIXuS0EGiwAdKN2-avatar-1764178989.png"
+                                },
+                                "id": {
+                                  "type": "string",
+                                  "example": "78be4cc7-8b9b-4351-b280-4669c7f3901f"
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "example": "Guilherme Henrique da Silva"
+                                },
+                                "pivot": {
+                                  "type": "object",
+                                  "properties": {
+                                    "created_at": {
+                                      "type": "string",
+                                      "example": "2025-12-11T22:57:33.000000Z"
+                                    },
+                                    "project_id": {
+                                      "type": "string",
+                                      "example": "019b0fa2-4b59-7261-91e7-82fd98245f07"
+                                    },
+                                    "role": {
+                                      "type": "string",
+                                      "example": "creator"
+                                    },
+                                    "updated_at": {
+                                      "type": "string",
+                                      "example": "2025-12-11T22:57:33.000000Z"
+                                    },
+                                    "user_id": {
+                                      "type": "string",
+                                      "example": "78be4cc7-8b9b-4351-b280-4669c7f3901f"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "example": [
+                              {
+                                "avatar_url": "https://olie-main.s3.sa-east-1.amazonaws.com/app/avatars/P14xMWfk6lhBz9ZqesyCOjIXuS0EGiwAdKN2-avatar-1764178989.png",
+                                "id": "78be4cc7-8b9b-4351-b280-4669c7f3901f",
+                                "name": "Guilherme Henrique da Silva",
+                                "pivot": {
+                                  "created_at": "2025-12-11T22:57:33.000000Z",
+                                  "project_id": "019b0fa2-4b59-7261-91e7-82fd98245f07",
+                                  "role": "creator",
+                                  "updated_at": "2025-12-11T22:57:33.000000Z",
+                                  "user_id": "78be4cc7-8b9b-4351-b280-4669c7f3901f"
+                                }
+                              }
+                            ]
                           }
                         }
                       },
                       "example": [
                         {
-                          "branch": "<string>",
-                          "budget": "<float>",
-                          "code": "<string>",
-                          "completed_count": "<integer>",
-                          "completed_percentage": "<float>",
-                          "contact": {},
-                          "contact_id": "<integer>",
-                          "costs": {},
-                          "created_at": "<dateTime>",
-                          "created_by": "<string>",
-                          "customer": {},
-                          "customer_id": "<string>",
-                          "deleted_at": "<dateTime>",
-                          "description": "<string>",
-                          "expected_finish": "<date>",
-                          "form": {},
-                          "forum": {},
-                          "frame": {},
-                          "frame_id": "<string>",
-                          "headquarter": "<string>",
-                          "id": "<uuid>",
-                          "impact": "<integer>",
-                          "is_template": "<boolean>",
-                          "merged_id": "<string>",
-                          "merged_project": {},
-                          "name": "<string>",
-                          "old_id": "<string>",
-                          "parent_id": "<string>",
-                          "share_settings": "<string>",
-                          "share_token": "<string>",
-                          "status": "<integer>",
-                          "step_form": {},
-                          "tasks_count": "<integer>",
-                          "updated_at": "<dateTime>"
-                        },
-                        {
-                          "branch": "<string>",
-                          "budget": "<float>",
-                          "code": "<string>",
-                          "completed_count": "<integer>",
-                          "completed_percentage": "<float>",
-                          "contact": {},
-                          "contact_id": "<integer>",
-                          "costs": {},
-                          "created_at": "<dateTime>",
-                          "created_by": "<string>",
-                          "customer": {},
-                          "customer_id": "<string>",
-                          "deleted_at": "<dateTime>",
-                          "description": "<string>",
-                          "expected_finish": "<date>",
-                          "form": {},
-                          "forum": {},
-                          "frame": {},
-                          "frame_id": "<string>",
-                          "headquarter": "<string>",
-                          "id": "<uuid>",
-                          "impact": "<integer>",
-                          "is_template": "<boolean>",
-                          "merged_id": "<string>",
-                          "merged_project": {},
-                          "name": "<string>",
-                          "old_id": "<string>",
-                          "parent_id": "<string>",
-                          "share_settings": "<string>",
-                          "share_token": "<string>",
-                          "status": "<integer>",
-                          "step_form": {},
-                          "tasks_count": "<integer>",
-                          "updated_at": "<dateTime>"
+                          "budget": 100000,
+                          "code": "P-2",
+                          "contact": null,
+                          "contact_id": null,
+                          "costs": null,
+                          "created_at": "2025-12-11T22:57:33.000000Z",
+                          "created_by": "78be4cc7-8b9b-4351-b280-4669c7f3901f",
+                          "customer": null,
+                          "customer_id": null,
+                          "deleted_at": null,
+                          "description": "Companhia de energia",
+                          "executors": [],
+                          "form": null,
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b0f9f-e161-71eb-93ac-dad119479a14",
+                            "model_forms": null,
+                            "name": "demo-api",
+                            "subdomain": "demoapi"
+                          },
+                          "frame_id": "019b0f9f-e161-71eb-93ac-dad119479a14",
+                          "funnel_steps": [],
+                          "funnels": [],
+                          "groups": [],
+                          "id": "019b0fa2-4b59-7261-91e7-82fd98245f07",
+                          "impact": 3,
+                          "is_template": false,
+                          "merged_id": null,
+                          "name": "Hawkins Lab's",
+                          "old_id": null,
+                          "parent_id": null,
+                          "share_settings": null,
+                          "share_token": null,
+                          "status": 1,
+                          "tags": [],
+                          "tasks": [],
+                          "updated_at": "2025-12-11T22:57:33.000000Z",
+                          "users": [
+                            {
+                              "avatar_url": "https://olie-main.s3.sa-east-1.amazonaws.com/app/avatars/P14xMWfk6lhBz9ZqesyCOjIXuS0EGiwAdKN2-avatar-1764178989.png",
+                              "id": "78be4cc7-8b9b-4351-b280-4669c7f3901f",
+                              "name": "Guilherme Henrique da Silva",
+                              "pivot": {
+                                "created_at": "2025-12-11T22:57:33.000000Z",
+                                "project_id": "019b0fa2-4b59-7261-91e7-82fd98245f07",
+                                "role": "creator",
+                                "updated_at": "2025-12-11T22:57:33.000000Z",
+                                "user_id": "78be4cc7-8b9b-4351-b280-4669c7f3901f"
+                              }
+                            }
+                          ]
                         }
                       ]
                     },
                     "response": {
-                      "example": "<boolean>",
-                      "anyOf": [
-                        {
-                          "type": "string",
-                          "example": "<boolean>"
-                        },
-                        {
-                          "type": "boolean",
-                          "example": true
-                        }
-                      ]
+                      "type": "boolean",
+                      "example": true
                     }
                   }
                 },
                 "examples": {
-                  "Lista de projetos retornada com sucesso": {
+                  "Busca por nome com sucesso": {
                     "value": {
                       "meta": {
-                        "current_page": "<integer>",
-                        "from": "<integer>",
-                        "last_page": "<integer>",
-                        "per_page": "<integer>",
-                        "to": "<integer>",
-                        "total": "<integer>"
+                        "current_page": 1,
+                        "from": 1,
+                        "last_page": 1,
+                        "per_page": 30,
+                        "to": 1,
+                        "total": 1
                       },
                       "projects": [
                         {
-                          "branch": "<string>",
-                          "budget": "<float>",
-                          "code": "<string>",
-                          "completed_count": "<integer>",
-                          "completed_percentage": "<float>",
-                          "contact": {},
-                          "contact_id": "<integer>",
-                          "costs": {},
-                          "created_at": "<dateTime>",
-                          "created_by": "<string>",
-                          "customer": {},
-                          "customer_id": "<string>",
-                          "deleted_at": "<dateTime>",
-                          "description": "<string>",
-                          "expected_finish": "<date>",
-                          "form": {},
-                          "forum": {},
-                          "frame": {},
-                          "frame_id": "<string>",
-                          "headquarter": "<string>",
-                          "id": "<uuid>",
-                          "impact": "<integer>",
-                          "is_template": "<boolean>",
-                          "merged_id": "<string>",
-                          "merged_project": {},
-                          "name": "<string>",
-                          "old_id": "<string>",
-                          "parent_id": "<string>",
-                          "share_settings": "<string>",
-                          "share_token": "<string>",
-                          "status": "<integer>",
-                          "step_form": {},
-                          "tasks_count": "<integer>",
-                          "updated_at": "<dateTime>"
-                        },
-                        {
-                          "branch": "<string>",
-                          "budget": "<float>",
-                          "code": "<string>",
-                          "completed_count": "<integer>",
-                          "completed_percentage": "<float>",
-                          "contact": {},
-                          "contact_id": "<integer>",
-                          "costs": {},
-                          "created_at": "<dateTime>",
-                          "created_by": "<string>",
-                          "customer": {},
-                          "customer_id": "<string>",
-                          "deleted_at": "<dateTime>",
-                          "description": "<string>",
-                          "expected_finish": "<date>",
-                          "form": {},
-                          "forum": {},
-                          "frame": {},
-                          "frame_id": "<string>",
-                          "headquarter": "<string>",
-                          "id": "<uuid>",
-                          "impact": "<integer>",
-                          "is_template": "<boolean>",
-                          "merged_id": "<string>",
-                          "merged_project": {},
-                          "name": "<string>",
-                          "old_id": "<string>",
-                          "parent_id": "<string>",
-                          "share_settings": "<string>",
-                          "share_token": "<string>",
-                          "status": "<integer>",
-                          "step_form": {},
-                          "tasks_count": "<integer>",
-                          "updated_at": "<dateTime>"
+                          "budget": 100000,
+                          "code": "P-2",
+                          "contact": null,
+                          "contact_id": null,
+                          "costs": null,
+                          "created_at": "2025-12-11T22:57:33.000000Z",
+                          "created_by": "78be4cc7-8b9b-4351-b280-4669c7f3901f",
+                          "customer": null,
+                          "customer_id": null,
+                          "deleted_at": null,
+                          "description": "Companhia de energia",
+                          "executors": [],
+                          "form": null,
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b0f9f-e161-71eb-93ac-dad119479a14",
+                            "model_forms": null,
+                            "name": "demo-api",
+                            "subdomain": "demoapi"
+                          },
+                          "frame_id": "019b0f9f-e161-71eb-93ac-dad119479a14",
+                          "funnel_steps": [],
+                          "funnels": [],
+                          "groups": [],
+                          "id": "019b0fa2-4b59-7261-91e7-82fd98245f07",
+                          "impact": 3,
+                          "is_template": false,
+                          "merged_id": null,
+                          "name": "Hawkins Lab's",
+                          "old_id": null,
+                          "parent_id": null,
+                          "share_settings": null,
+                          "share_token": null,
+                          "status": 1,
+                          "tags": [],
+                          "tasks": [],
+                          "updated_at": "2025-12-11T22:57:33.000000Z",
+                          "users": [
+                            {
+                              "avatar_url": "https://olie-main.s3.sa-east-1.amazonaws.com/app/avatars/P14xMWfk6lhBz9ZqesyCOjIXuS0EGiwAdKN2-avatar-1764178989.png",
+                              "id": "78be4cc7-8b9b-4351-b280-4669c7f3901f",
+                              "name": "Guilherme Henrique da Silva",
+                              "pivot": {
+                                "created_at": "2025-12-11T22:57:33.000000Z",
+                                "project_id": "019b0fa2-4b59-7261-91e7-82fd98245f07",
+                                "role": "creator",
+                                "updated_at": "2025-12-11T22:57:33.000000Z",
+                                "user_id": "78be4cc7-8b9b-4351-b280-4669c7f3901f"
+                              }
+                            }
+                          ]
                         }
                       ],
-                      "response": "<boolean>"
+                      "response": true
                     }
                   },
                   "Uso do filtro para buscar por nome": {
