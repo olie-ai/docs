@@ -11389,7 +11389,7 @@
                       },
                       "project_id": {
                         "type": "string",
-                        "example": "019b277f-e453-733d-a00e-6d26d444008b"
+                        "example": "019b277f-e453-733d-a00e-1d26d444008b"
                       },
                       "unlink_others": {
                         "type": "boolean",
@@ -11401,7 +11401,7 @@
                     "Vincular projeto a uma etapa": {
                       "value": {
                         "force_funnel_link": true,
-                        "project_id": "019b277f-e453-733d-a00e-6d26d444008b",
+                        "project_id": "019b277f-e453-733d-a00e-1d26d444008b",
                         "unlink_others": true
                       }
                     }
@@ -11740,7 +11740,7 @@
                 }
               },
               "422": {
-                "description": "Erro de validação ou regras de negócio / Erro: projeto já vinculado / Erro: projeto já vinculado Copy",
+                "description": "Erro: projeto já vinculado / Erro: etapa/projeto não encontrado",
                 "headers": {
                   "Access-Control-Allow-Origin": {
                     "schema": {
@@ -11769,7 +11769,7 @@
                   "Date": {
                     "schema": {
                       "type": "string",
-                      "example": "Tue, 16 Dec 2025 14:28:34 GMT"
+                      "example": "Tue, 16 Dec 2025 14:30:06 GMT"
                     }
                   },
                   "Host": {
@@ -11805,7 +11805,7 @@
                   "X-RateLimit-Remaining": {
                     "schema": {
                       "type": "string",
-                      "example": "159"
+                      "example": "156"
                     }
                   },
                   "expires": {
@@ -11828,11 +11828,11 @@
                       "properties": {
                         "error": {
                           "type": "string",
-                          "example": "<string>"
+                          "example": "The project already is linked with that funnel step"
                         },
                         "message": {
                           "type": "string",
-                          "example": "<string>"
+                          "example": "project_already_linked_to_that_step"
                         },
                         "requirements": {
                           "type": "array",
@@ -11840,21 +11840,8 @@
                           "example": []
                         },
                         "response": {
-                          "example": "<boolean>",
-                          "anyOf": [
-                            {
-                              "type": "string",
-                              "example": "<boolean>"
-                            },
-                            {
-                              "type": "boolean",
-                              "example": false
-                            },
-                            {
-                              "type": "boolean",
-                              "example": false
-                            }
-                          ]
+                          "type": "boolean",
+                          "example": false
                         },
                         "service": {
                           "type": "string",
@@ -11862,29 +11849,48 @@
                         },
                         "validation": {
                           "type": "object",
-                          "properties": {}
+                          "properties": {
+                            "funnel_step_id": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "example": "The selected funnel step id is invalid."
+                              },
+                              "example": [
+                                "The selected funnel step id is invalid."
+                              ]
+                            },
+                            "project_id": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "example": "The selected project id is invalid."
+                              },
+                              "example": [
+                                "The selected project id is invalid."
+                              ]
+                            }
+                          }
                         }
                       }
                     },
                     "examples": {
-                      "Erro de validação ou regras de negócio": {
+                      "Erro: etapa/projeto não encontrado": {
                         "value": {
-                          "error": "<string>",
-                          "message": "<string>",
-                          "response": "<boolean>",
-                          "validation": {}
+                          "error": "The selected project id is invalid. (and 1 more error)",
+                          "message": "validation_errors",
+                          "response": false,
+                          "validation": {
+                            "funnel_step_id": [
+                              "The selected funnel step id is invalid."
+                            ],
+                            "project_id": [
+                              "The selected project id is invalid."
+                            ]
+                          }
                         }
                       },
                       "Erro: projeto já vinculado": {
-                        "value": {
-                          "error": "The project already is linked with that funnel step",
-                          "message": "project_already_linked_to_that_step",
-                          "requirements": [],
-                          "response": false,
-                          "service": "App\\Exceptions\\Services\\ProjectFunnel\\FunnelSteps\\LinkProjectToFunnelStepException"
-                        }
-                      },
-                      "Erro: projeto já vinculado Copy": {
                         "value": {
                           "error": "The project already is linked with that funnel step",
                           "message": "project_already_linked_to_that_step",
@@ -11915,11 +11921,10 @@
         "/api/management/dynamic-forms/set-form-answers": {
           "post": {
             "tags": [
-              "dynamic-forms",
-              "set-form-answers"
+              "dynamic-forms"
             ],
             "summary": "Responder formulário dinâmico",
-            "description": "Recebe respostas de um formulário dinâmico vinculado a um projeto e retorna os campos vinculados a esse formulário.",
+            "description": "Responder formulários dinâmico. Essa requisição recebe dois principais atributos:\n\n- Identificação do formulário (\\`\\`\u001b)",
             "operationId": "responderFormulRioDinMico",
             "requestBody": {
               "content": {
@@ -12195,8 +12200,7 @@
         "/api/management/dynamic-forms/get-form-answers": {
           "post": {
             "tags": [
-              "dynamic-forms",
-              "get-form-answers"
+              "dynamic-forms"
             ],
             "summary": "Consultar respostas de formulário dinâmico",
             "description": "Recebe informações de vínculo entre um modelo e um formulário dinâmico, e retorna as respostas previamente salvas para esse formulário.",
@@ -12472,12 +12476,6 @@
         },
         {
           "name": "dynamic-forms"
-        },
-        {
-          "name": "set-form-answers"
-        },
-        {
-          "name": "get-form-answers"
         }
       ]
     }
