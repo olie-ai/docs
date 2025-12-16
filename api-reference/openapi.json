@@ -905,20 +905,20 @@
                     "type": "object",
                     "properties": {
                       "description": {
-                        "type": "string",
-                        "example": "Companhia de energia da cidade de Hawkins"
+                        "nullable": true,
+                        "example": null
                       },
                       "impact": {
                         "type": "number",
-                        "example": 5
+                        "example": 150
                       }
                     }
                   },
                   "examples": {
                     "Editar projeto": {
                       "value": {
-                        "description": "Companhia de energia da cidade de Hawkins",
-                        "impact": 5
+                        "description": null,
+                        "impact": 150
                       }
                     }
                   }
@@ -927,7 +927,7 @@
             },
             "responses": {
               "200": {
-                "description": "Projeto atualizado com sucesso / Editado com sucesso",
+                "description": "Editado com sucesso",
                 "headers": {
                   "Access-Control-Allow-Origin": {
                     "schema": {
@@ -1017,71 +1017,36 @@
                           "type": "object",
                           "properties": {
                             "budget": {
-                              "example": "<float>",
-                              "anyOf": [
-                                {
-                                  "type": "string",
-                                  "example": "<float>"
-                                },
-                                {
-                                  "type": "number",
-                                  "example": 950000
-                                }
-                              ]
+                              "type": "number",
+                              "example": 950000
                             },
                             "code": {
                               "type": "string",
-                              "example": "<string>"
-                            },
-                            "contact": {
-                              "type": "object",
-                              "properties": {}
+                              "example": "P-83"
                             },
                             "contact_id": {
-                              "example": "<integer>",
-                              "anyOf": [
-                                {
-                                  "type": "string",
-                                  "example": "<integer>"
-                                },
-                                {
-                                  "type": "number",
-                                  "example": 12597
-                                }
-                              ]
-                            },
-                            "costs": {
-                              "type": "object",
-                              "properties": {}
+                              "type": "number",
+                              "example": 12597
                             },
                             "created_at": {
                               "type": "string",
-                              "example": "<dateTime>"
+                              "example": "2025-12-16T14:10:51.000000Z"
                             },
                             "created_by": {
                               "type": "string",
-                              "example": "<string>"
-                            },
-                            "customer": {
-                              "type": "object",
-                              "properties": {}
+                              "example": "019aeaa3-2370-731c-9008-be759795f449"
                             },
                             "customer_id": {
                               "type": "string",
-                              "example": "<string>"
+                              "example": "019b277d-c615-723f-a1dd-f03940bce866"
                             },
                             "deleted_at": {
-                              "type": "string",
                               "nullable": true,
-                              "example": "<dateTime>"
+                              "example": null
                             },
                             "description": {
                               "type": "string",
-                              "example": "<string>"
-                            },
-                            "form": {
-                              "type": "object",
-                              "properties": {}
+                              "example": "Companhia de energia da cidade de Hawkins"
                             },
                             "form_answers": {
                               "type": "array",
@@ -1132,10 +1097,6 @@
                                   "updated_at": "2025-12-16T14:45:52.000000Z"
                                 }
                               ]
-                            },
-                            "forum": {
-                              "type": "object",
-                              "properties": {}
                             },
                             "frame": {
                               "type": "object",
@@ -1202,106 +1163,57 @@
                             },
                             "frame_id": {
                               "type": "string",
-                              "example": "<string>"
+                              "example": "019aeaa3-2778-73ec-8f8d-59d06cc59dca"
                             },
                             "id": {
                               "type": "string",
-                              "example": "<uuid>"
+                              "example": "019b277f-e453-733d-a00e-6d26d444008b"
                             },
                             "impact": {
-                              "example": "<integer>",
-                              "anyOf": [
-                                {
-                                  "type": "string",
-                                  "example": "<integer>"
-                                },
-                                {
-                                  "type": "number",
-                                  "example": 5
-                                }
-                              ]
+                              "type": "number",
+                              "example": 5
                             },
                             "is_template": {
-                              "example": "<boolean>",
-                              "anyOf": [
-                                {
-                                  "type": "string",
-                                  "example": "<boolean>"
-                                },
-                                {
-                                  "type": "boolean",
-                                  "example": false
-                                }
-                              ]
+                              "type": "boolean",
+                              "example": false
                             },
                             "merged_id": {
-                              "type": "string",
                               "nullable": true,
-                              "example": "<string>"
-                            },
-                            "merged_project": {
-                              "type": "object",
-                              "properties": {}
+                              "example": null
                             },
                             "name": {
                               "type": "string",
-                              "example": "<string>"
+                              "example": "Laboratório Hawkins"
                             },
                             "old_id": {
-                              "type": "string",
                               "nullable": true,
-                              "example": "<string>"
+                              "example": null
                             },
                             "parent_id": {
-                              "type": "string",
                               "nullable": true,
-                              "example": "<string>"
+                              "example": null
                             },
                             "share_settings": {
-                              "type": "string",
                               "nullable": true,
-                              "example": "<string>"
+                              "example": null
                             },
                             "share_token": {
-                              "type": "string",
                               "nullable": true,
-                              "example": "<string>"
+                              "example": null
                             },
                             "status": {
-                              "example": "<integer>",
-                              "anyOf": [
-                                {
-                                  "type": "string",
-                                  "example": "<integer>"
-                                },
-                                {
-                                  "type": "number",
-                                  "example": 1
-                                }
-                              ]
-                            },
-                            "step_form": {
-                              "type": "object",
-                              "properties": {}
+                              "type": "number",
+                              "example": 1
                             },
                             "updated_at": {
                               "type": "string",
-                              "example": "<dateTime>"
+                              "example": "2025-12-16T18:49:13.000000Z"
                             }
                           }
                         },
                         "response": {
-                          "example": "<boolean>",
-                          "anyOf": [
-                            {
-                              "type": "string",
-                              "example": "<boolean>"
-                            },
-                            {
-                              "type": "boolean",
-                              "example": true
-                            }
-                          ]
+                          "type": "boolean",
+                          "example": true
                         }
                       }
                     },
@@ -1366,41 +1278,6 @@
                             "updated_at": "2025-12-16T18:49:13.000000Z"
                           },
                           "response": true
-                        }
-                      },
-                      "Projeto atualizado com sucesso": {
-                        "value": {
-                          "project": {
-                            "budget": "<float>",
-                            "code": "<string>",
-                            "contact": {},
-                            "contact_id": "<integer>",
-                            "costs": {},
-                            "created_at": "<dateTime>",
-                            "created_by": "<string>",
-                            "customer": {},
-                            "customer_id": "<string>",
-                            "deleted_at": "<dateTime>",
-                            "description": "<string>",
-                            "form": {},
-                            "forum": {},
-                            "frame": {},
-                            "frame_id": "<string>",
-                            "id": "<uuid>",
-                            "impact": "<integer>",
-                            "is_template": "<boolean>",
-                            "merged_id": "<string>",
-                            "merged_project": {},
-                            "name": "<string>",
-                            "old_id": "<string>",
-                            "parent_id": "<string>",
-                            "share_settings": "<string>",
-                            "share_token": "<string>",
-                            "status": "<integer>",
-                            "step_form": {},
-                            "updated_at": "<dateTime>"
-                          },
-                          "response": "<boolean>"
                         }
                       }
                     }
@@ -1475,6 +1352,86 @@
               },
               "422": {
                 "description": "Erro de validação",
+                "headers": {
+                  "Access-Control-Allow-Origin": {
+                    "schema": {
+                      "type": "string",
+                      "example": "*"
+                    }
+                  },
+                  "Access-Control-Expose-Headers": {
+                    "schema": {
+                      "type": "string",
+                      "example": "*"
+                    }
+                  },
+                  "Cache-Control": {
+                    "schema": {
+                      "type": "string",
+                      "example": "private, must-revalidate"
+                    }
+                  },
+                  "Connection": {
+                    "schema": {
+                      "type": "string",
+                      "example": "keep-alive"
+                    }
+                  },
+                  "Date": {
+                    "schema": {
+                      "type": "string",
+                      "example": "Tue, 16 Dec 2025 18:52:00 GMT"
+                    }
+                  },
+                  "Host": {
+                    "schema": {
+                      "type": "string",
+                      "example": "api.olie.localhost"
+                    }
+                  },
+                  "Server": {
+                    "schema": {
+                      "type": "string",
+                      "example": "nginx/1.29.3"
+                    }
+                  },
+                  "Transfer-Encoding": {
+                    "schema": {
+                      "type": "string",
+                      "example": "chunked"
+                    }
+                  },
+                  "X-Powered-By": {
+                    "schema": {
+                      "type": "string",
+                      "example": "PHP/8.3.28"
+                    }
+                  },
+                  "X-RateLimit-Limit": {
+                    "schema": {
+                      "type": "string",
+                      "example": "160"
+                    }
+                  },
+                  "X-RateLimit-Remaining": {
+                    "schema": {
+                      "type": "string",
+                      "example": "158"
+                    }
+                  },
+                  "expires": {
+                    "schema": {
+                      "type": "string",
+                      "example": "-1"
+                    }
+                  },
+                  "pragma": {
+                    "schema": {
+                      "type": "string",
+                      "example": "no-cache"
+                    }
+                  }
+                },
                 "content": {
                   "application/json": {
                     "schema": {
@@ -1482,29 +1439,57 @@
                       "properties": {
                         "error": {
                           "type": "string",
-                          "example": "<string>"
+                          "example": "The descrição must be a string. (and 1 more error)"
                         },
                         "message": {
                           "type": "string",
-                          "example": "<string>"
+                          "example": "validation_errors"
                         },
                         "response": {
-                          "type": "string",
-                          "example": "<boolean>"
+                          "type": "boolean",
+                          "example": false
                         },
                         "validation": {
                           "type": "object",
-                          "properties": {}
+                          "properties": {
+                            "description": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "example": "The descrição must be a string."
+                              },
+                              "example": [
+                                "The descrição must be a string."
+                              ]
+                            },
+                            "impact": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "example": "The impact must not be greater than 10."
+                              },
+                              "example": [
+                                "The impact must not be greater than 10."
+                              ]
+                            }
+                          }
                         }
                       }
                     },
                     "examples": {
                       "Erro de validação": {
                         "value": {
-                          "error": "<string>",
-                          "message": "<string>",
-                          "response": "<boolean>",
-                          "validation": {}
+                          "error": "The descrição must be a string. (and 1 more error)",
+                          "message": "validation_errors",
+                          "response": false,
+                          "validation": {
+                            "description": [
+                              "The descrição must be a string."
+                            ],
+                            "impact": [
+                              "The impact must not be greater than 10."
+                            ]
+                          }
                         }
                       }
                     }
