@@ -6425,7 +6425,7 @@
                           "properties": {
                             "field": {
                               "type": "string",
-                              "example": "nonExistsFilterField"
+                              "example": "nonExistentFilterField"
                             },
                             "operator": {
                               "type": "string",
@@ -6439,7 +6439,7 @@
                         },
                         "example": [
                           {
-                            "field": "nonExistsFilterField",
+                            "field": "nonExistentFilterField",
                             "operator": "contains",
                             "value": "down"
                           }
@@ -6473,7 +6473,7 @@
                       "value": {
                         "filters": [
                           {
-                            "field": "nonExistsFilterField",
+                            "field": "nonExistentFilterField",
                             "operator": "contains",
                             "value": "down"
                           }
@@ -11384,25 +11384,25 @@
                     "type": "object",
                     "properties": {
                       "force_funnel_link": {
-                        "type": "string",
-                        "example": "<boolean>"
+                        "type": "boolean",
+                        "example": true
                       },
                       "project_id": {
                         "type": "string",
-                        "example": "<string>"
+                        "example": "019b277f-e453-733d-a00e-6d26d444008b"
                       },
                       "unlink_others": {
-                        "type": "string",
-                        "example": "<boolean>"
+                        "type": "boolean",
+                        "example": true
                       }
                     }
                   },
                   "examples": {
                     "Vincular projeto a uma etapa": {
                       "value": {
-                        "force_funnel_link": "<boolean>",
-                        "project_id": "<string>",
-                        "unlink_others": "<boolean>"
+                        "force_funnel_link": true,
+                        "project_id": "019b277f-e453-733d-a00e-6d26d444008b",
+                        "unlink_others": true
                       }
                     }
                   }
@@ -11412,6 +11412,86 @@
             "responses": {
               "200": {
                 "description": "Projeto vinculado com sucesso",
+                "headers": {
+                  "Access-Control-Allow-Origin": {
+                    "schema": {
+                      "type": "string",
+                      "example": "*"
+                    }
+                  },
+                  "Access-Control-Expose-Headers": {
+                    "schema": {
+                      "type": "string",
+                      "example": "*"
+                    }
+                  },
+                  "Cache-Control": {
+                    "schema": {
+                      "type": "string",
+                      "example": "private, must-revalidate"
+                    }
+                  },
+                  "Connection": {
+                    "schema": {
+                      "type": "string",
+                      "example": "keep-alive"
+                    }
+                  },
+                  "Date": {
+                    "schema": {
+                      "type": "string",
+                      "example": "Tue, 16 Dec 2025 14:24:13 GMT"
+                    }
+                  },
+                  "Host": {
+                    "schema": {
+                      "type": "string",
+                      "example": "api.olie.localhost"
+                    }
+                  },
+                  "Server": {
+                    "schema": {
+                      "type": "string",
+                      "example": "nginx/1.29.3"
+                    }
+                  },
+                  "Transfer-Encoding": {
+                    "schema": {
+                      "type": "string",
+                      "example": "chunked"
+                    }
+                  },
+                  "X-Powered-By": {
+                    "schema": {
+                      "type": "string",
+                      "example": "PHP/8.3.28"
+                    }
+                  },
+                  "X-RateLimit-Limit": {
+                    "schema": {
+                      "type": "string",
+                      "example": "160"
+                    }
+                  },
+                  "X-RateLimit-Remaining": {
+                    "schema": {
+                      "type": "string",
+                      "example": "136"
+                    }
+                  },
+                  "expires": {
+                    "schema": {
+                      "type": "string",
+                      "example": "-1"
+                    }
+                  },
+                  "pragma": {
+                    "schema": {
+                      "type": "string",
+                      "example": "no-cache"
+                    }
+                  }
+                },
                 "content": {
                   "application/json": {
                     "schema": {
@@ -11421,90 +11501,105 @@
                           "type": "object",
                           "properties": {
                             "budget": {
-                              "type": "string",
-                              "example": "<float>"
+                              "type": "number",
+                              "example": 950000
                             },
                             "code": {
                               "type": "string",
-                              "example": "<string>"
+                              "example": "P-83"
                             },
                             "contact_id": {
-                              "type": "string",
-                              "example": "<integer>"
+                              "type": "number",
+                              "example": 12597
                             },
                             "created_at": {
                               "type": "string",
-                              "example": "<dateTime>"
+                              "example": "2025-12-16T14:10:51.000000Z"
                             },
                             "created_by": {
                               "type": "string",
-                              "example": "<string>"
+                              "example": "019aeaa3-2370-731c-9008-be759795f449"
                             },
                             "customer_id": {
                               "type": "string",
-                              "example": "<string>"
+                              "example": "019b277d-c615-723f-a1dd-f03940bce866"
                             },
                             "deleted_at": {
-                              "type": "string",
-                              "example": "<dateTime>"
+                              "nullable": true,
+                              "example": null
                             },
                             "description": {
                               "type": "string",
-                              "example": "<string>"
+                              "example": "Companhia de energia"
                             },
                             "frame_id": {
                               "type": "string",
-                              "example": "<string>"
+                              "example": "019aeaa3-2778-73ec-8f8d-59d06cc59dca"
+                            },
+                            "funnel_steps": {
+                              "type": "array",
+                              "items": {},
+                              "example": []
+                            },
+                            "funnels": {
+                              "type": "array",
+                              "items": {},
+                              "example": []
                             },
                             "id": {
                               "type": "string",
-                              "example": "<uuid>"
+                              "example": "019b277f-e453-733d-a00e-6d26d444008b"
                             },
                             "impact": {
-                              "type": "string",
-                              "example": "<integer>"
+                              "type": "number",
+                              "example": 1
                             },
                             "is_template": {
-                              "type": "string",
-                              "example": "<boolean>"
+                              "type": "boolean",
+                              "example": false
                             },
                             "merged_id": {
-                              "type": "string",
-                              "example": "<string>"
+                              "nullable": true,
+                              "example": null
                             },
                             "name": {
                               "type": "string",
-                              "example": "<string>"
+                              "example": "Laboratório Hawkins"
                             },
                             "old_id": {
-                              "type": "string",
-                              "example": "<string>"
+                              "nullable": true,
+                              "example": null
                             },
                             "parent_id": {
-                              "type": "string",
-                              "example": "<string>"
+                              "nullable": true,
+                              "example": null
                             },
                             "share_settings": {
-                              "type": "string",
-                              "example": "<string>"
+                              "nullable": true,
+                              "example": null
                             },
                             "share_token": {
-                              "type": "string",
-                              "example": "<string>"
+                              "nullable": true,
+                              "example": null
                             },
                             "status": {
-                              "type": "string",
-                              "example": "<integer>"
+                              "type": "number",
+                              "example": 1
+                            },
+                            "tags": {
+                              "type": "array",
+                              "items": {},
+                              "example": []
                             },
                             "updated_at": {
                               "type": "string",
-                              "example": "<dateTime>"
+                              "example": "2025-12-16T14:10:51.000000Z"
                             }
                           }
                         },
                         "response": {
-                          "type": "string",
-                          "example": "<boolean>"
+                          "type": "boolean",
+                          "example": true
                         }
                       }
                     },
@@ -11512,28 +11607,31 @@
                       "Projeto vinculado com sucesso": {
                         "value": {
                           "project": {
-                            "budget": "<float>",
-                            "code": "<string>",
-                            "contact_id": "<integer>",
-                            "created_at": "<dateTime>",
-                            "created_by": "<string>",
-                            "customer_id": "<string>",
-                            "deleted_at": "<dateTime>",
-                            "description": "<string>",
-                            "frame_id": "<string>",
-                            "id": "<uuid>",
-                            "impact": "<integer>",
-                            "is_template": "<boolean>",
-                            "merged_id": "<string>",
-                            "name": "<string>",
-                            "old_id": "<string>",
-                            "parent_id": "<string>",
-                            "share_settings": "<string>",
-                            "share_token": "<string>",
-                            "status": "<integer>",
-                            "updated_at": "<dateTime>"
+                            "budget": 950000,
+                            "code": "P-83",
+                            "contact_id": 12597,
+                            "created_at": "2025-12-16T14:10:51.000000Z",
+                            "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                            "customer_id": "019b277d-c615-723f-a1dd-f03940bce866",
+                            "deleted_at": null,
+                            "description": "Companhia de energia",
+                            "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                            "funnel_steps": [],
+                            "funnels": [],
+                            "id": "019b277f-e453-733d-a00e-6d26d444008b",
+                            "impact": 1,
+                            "is_template": false,
+                            "merged_id": null,
+                            "name": "Laboratório Hawkins",
+                            "old_id": null,
+                            "parent_id": null,
+                            "share_settings": null,
+                            "share_token": null,
+                            "status": 1,
+                            "tags": [],
+                            "updated_at": "2025-12-16T14:10:51.000000Z"
                           },
-                          "response": "<boolean>"
+                          "response": true
                         }
                       }
                     }
@@ -11542,6 +11640,74 @@
               },
               "401": {
                 "description": "Não autorizado",
+                "headers": {
+                  "Access-Control-Allow-Origin": {
+                    "schema": {
+                      "type": "string",
+                      "example": "*"
+                    }
+                  },
+                  "Access-Control-Expose-Headers": {
+                    "schema": {
+                      "type": "string",
+                      "example": "*"
+                    }
+                  },
+                  "Cache-Control": {
+                    "schema": {
+                      "type": "string",
+                      "example": "private, must-revalidate"
+                    }
+                  },
+                  "Connection": {
+                    "schema": {
+                      "type": "string",
+                      "example": "keep-alive"
+                    }
+                  },
+                  "Date": {
+                    "schema": {
+                      "type": "string",
+                      "example": "Tue, 16 Dec 2025 14:27:44 GMT"
+                    }
+                  },
+                  "Host": {
+                    "schema": {
+                      "type": "string",
+                      "example": "api.olie.localhost"
+                    }
+                  },
+                  "Server": {
+                    "schema": {
+                      "type": "string",
+                      "example": "nginx/1.29.3"
+                    }
+                  },
+                  "Transfer-Encoding": {
+                    "schema": {
+                      "type": "string",
+                      "example": "chunked"
+                    }
+                  },
+                  "X-Powered-By": {
+                    "schema": {
+                      "type": "string",
+                      "example": "PHP/8.3.28"
+                    }
+                  },
+                  "expires": {
+                    "schema": {
+                      "type": "string",
+                      "example": "-1"
+                    }
+                  },
+                  "pragma": {
+                    "schema": {
+                      "type": "string",
+                      "example": "no-cache"
+                    }
+                  }
+                },
                 "content": {
                   "application/json": {
                     "schema": {
@@ -11549,24 +11715,24 @@
                       "properties": {
                         "error": {
                           "type": "string",
-                          "example": "<string>"
+                          "example": "Unauthenticated."
                         },
                         "message": {
                           "type": "string",
-                          "example": "<string>"
+                          "example": "unauthorized"
                         },
                         "response": {
-                          "type": "string",
-                          "example": "<boolean>"
+                          "type": "boolean",
+                          "example": false
                         }
                       }
                     },
                     "examples": {
                       "Não autorizado": {
                         "value": {
-                          "error": "<string>",
-                          "message": "<string>",
-                          "response": "<boolean>"
+                          "error": "Unauthenticated.",
+                          "message": "unauthorized",
+                          "response": false
                         }
                       }
                     }
@@ -11574,7 +11740,87 @@
                 }
               },
               "422": {
-                "description": "Erro de validação ou regras de negócio",
+                "description": "Erro de validação ou regras de negócio / Erro: projeto já vinculado / Erro: projeto já vinculado Copy",
+                "headers": {
+                  "Access-Control-Allow-Origin": {
+                    "schema": {
+                      "type": "string",
+                      "example": "*"
+                    }
+                  },
+                  "Access-Control-Expose-Headers": {
+                    "schema": {
+                      "type": "string",
+                      "example": "*"
+                    }
+                  },
+                  "Cache-Control": {
+                    "schema": {
+                      "type": "string",
+                      "example": "private, must-revalidate"
+                    }
+                  },
+                  "Connection": {
+                    "schema": {
+                      "type": "string",
+                      "example": "keep-alive"
+                    }
+                  },
+                  "Date": {
+                    "schema": {
+                      "type": "string",
+                      "example": "Tue, 16 Dec 2025 14:28:34 GMT"
+                    }
+                  },
+                  "Host": {
+                    "schema": {
+                      "type": "string",
+                      "example": "api.olie.localhost"
+                    }
+                  },
+                  "Server": {
+                    "schema": {
+                      "type": "string",
+                      "example": "nginx/1.29.3"
+                    }
+                  },
+                  "Transfer-Encoding": {
+                    "schema": {
+                      "type": "string",
+                      "example": "chunked"
+                    }
+                  },
+                  "X-Powered-By": {
+                    "schema": {
+                      "type": "string",
+                      "example": "PHP/8.3.28"
+                    }
+                  },
+                  "X-RateLimit-Limit": {
+                    "schema": {
+                      "type": "string",
+                      "example": "160"
+                    }
+                  },
+                  "X-RateLimit-Remaining": {
+                    "schema": {
+                      "type": "string",
+                      "example": "159"
+                    }
+                  },
+                  "expires": {
+                    "schema": {
+                      "type": "string",
+                      "example": "-1"
+                    }
+                  },
+                  "pragma": {
+                    "schema": {
+                      "type": "string",
+                      "example": "no-cache"
+                    }
+                  }
+                },
                 "content": {
                   "application/json": {
                     "schema": {
@@ -11588,9 +11834,31 @@
                           "type": "string",
                           "example": "<string>"
                         },
+                        "requirements": {
+                          "type": "array",
+                          "items": {},
+                          "example": []
+                        },
                         "response": {
+                          "example": "<boolean>",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "example": "<boolean>"
+                            },
+                            {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            {
+                              "type": "boolean",
+                              "example": false
+                            }
+                          ]
+                        },
+                        "service": {
                           "type": "string",
-                          "example": "<boolean>"
+                          "example": "App\\Exceptions\\Services\\ProjectFunnel\\FunnelSteps\\LinkProjectToFunnelStepException"
                         },
                         "validation": {
                           "type": "object",
@@ -11605,6 +11873,24 @@
                           "message": "<string>",
                           "response": "<boolean>",
                           "validation": {}
+                        }
+                      },
+                      "Erro: projeto já vinculado": {
+                        "value": {
+                          "error": "The project already is linked with that funnel step",
+                          "message": "project_already_linked_to_that_step",
+                          "requirements": [],
+                          "response": false,
+                          "service": "App\\Exceptions\\Services\\ProjectFunnel\\FunnelSteps\\LinkProjectToFunnelStepException"
+                        }
+                      },
+                      "Erro: projeto já vinculado Copy": {
+                        "value": {
+                          "error": "The project already is linked with that funnel step",
+                          "message": "project_already_linked_to_that_step",
+                          "requirements": [],
+                          "response": false,
+                          "service": "App\\Exceptions\\Services\\ProjectFunnel\\FunnelSteps\\LinkProjectToFunnelStepException"
                         }
                       }
                     }
