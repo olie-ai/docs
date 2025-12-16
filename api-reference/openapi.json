@@ -82,7 +82,87 @@
                 }
               },
               "404": {
-                "description": "Projeto não encontrado",
+                "description": "Não encontrado",
+                "headers": {
+                  "Access-Control-Allow-Origin": {
+                    "schema": {
+                      "type": "string",
+                      "example": "*"
+                    }
+                  },
+                  "Access-Control-Expose-Headers": {
+                    "schema": {
+                      "type": "string",
+                      "example": "*"
+                    }
+                  },
+                  "Cache-Control": {
+                    "schema": {
+                      "type": "string",
+                      "example": "private, must-revalidate"
+                    }
+                  },
+                  "Connection": {
+                    "schema": {
+                      "type": "string",
+                      "example": "keep-alive"
+                    }
+                  },
+                  "Date": {
+                    "schema": {
+                      "type": "string",
+                      "example": "Tue, 16 Dec 2025 13:03:13 GMT"
+                    }
+                  },
+                  "Host": {
+                    "schema": {
+                      "type": "string",
+                      "example": "api.olie.localhost"
+                    }
+                  },
+                  "Server": {
+                    "schema": {
+                      "type": "string",
+                      "example": "nginx/1.29.3"
+                    }
+                  },
+                  "Transfer-Encoding": {
+                    "schema": {
+                      "type": "string",
+                      "example": "chunked"
+                    }
+                  },
+                  "X-Powered-By": {
+                    "schema": {
+                      "type": "string",
+                      "example": "PHP/8.3.28"
+                    }
+                  },
+                  "X-RateLimit-Limit": {
+                    "schema": {
+                      "type": "string",
+                      "example": "160"
+                    }
+                  },
+                  "X-RateLimit-Remaining": {
+                    "schema": {
+                      "type": "string",
+                      "example": "157"
+                    }
+                  },
+                  "expires": {
+                    "schema": {
+                      "type": "string",
+                      "example": "-1"
+                    }
+                  },
+                  "pragma": {
+                    "schema": {
+                      "type": "string",
+                      "example": "no-cache"
+                    }
+                  }
+                },
                 "content": {
                   "application/json": {
                     "schema": {
@@ -90,24 +170,24 @@
                       "properties": {
                         "error": {
                           "type": "string",
-                          "example": "<string>"
+                          "example": "No query results for model [App\\Models\\Project] :id"
                         },
                         "message": {
                           "type": "string",
-                          "example": "<string>"
+                          "example": "project_model_not_found"
                         },
                         "response": {
-                          "type": "string",
-                          "example": "<boolean>"
+                          "type": "boolean",
+                          "example": false
                         }
                       }
                     },
                     "examples": {
-                      "Projeto não encontrado": {
+                      "Não encontrado": {
                         "value": {
-                          "error": "<string>",
-                          "message": "<string>",
-                          "response": "<boolean>"
+                          "error": "No query results for model [App\\Models\\Project] :id",
+                          "message": "project_model_not_found",
+                          "response": false
                         }
                       }
                     }
