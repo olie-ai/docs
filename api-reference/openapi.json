@@ -10897,50 +10897,23 @@
               },
               "401": {
                 "description": "Não autorizado",
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "type": "object",
-                      "properties": {
-                        "error": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "message": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "response": {
-                          "type": "string",
-                          "example": "<boolean>"
-                        }
-                      }
-                    },
-                    "examples": {
-                      "Não autorizado": {
-                        "value": {
-                          "error": "<string>",
-                          "message": "<string>",
-                          "response": "<boolean>"
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "422": {
-                "description": "Filtro inválido",
                 "headers": {
-                  "CF-RAY": {
+                  "Access-Control-Allow-Origin": {
                     "schema": {
                       "type": "string",
-                      "example": "9ac8ebff7a63f181-GRU"
+                      "example": "*"
+                    }
+                  },
+                  "Access-Control-Expose-Headers": {
+                    "schema": {
+                      "type": "string",
+                      "example": "*"
                     }
                   },
                   "Cache-Control": {
                     "schema": {
                       "type": "string",
-                      "example": "no-cache, private"
+                      "example": "private, must-revalidate"
                     }
                   },
                   "Connection": {
@@ -10952,31 +10925,19 @@
                   "Date": {
                     "schema": {
                       "type": "string",
-                      "example": "Thu, 11 Dec 2025 23:57:00 GMT"
+                      "example": "Tue, 16 Dec 2025 14:15:28 GMT"
                     }
                   },
-                  "Nel": {
+                  "Host": {
                     "schema": {
                       "type": "string",
-                      "example": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
-                    }
-                  },
-                  "Report-To": {
-                    "schema": {
-                      "type": "string",
-                      "example": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=9rNVQ21iQskzUWIG%2FzA7pTsqxBQufDlLGR50Lex8ssCt9Qg1ZJlrKPy2GKywwxyD45e24w4Rs5cJDtg%2BK9hRTPKPyShOgGlAD8hTDA1EhANu%2FvPFdcDE\"}]}"
+                      "example": "api.olie.localhost"
                     }
                   },
                   "Server": {
                     "schema": {
                       "type": "string",
-                      "example": "cloudflare"
-                    }
-                  },
-                  "Set-Cookie": {
-                    "schema": {
-                      "type": "string",
-                      "example": "AWSALBCORS=5ZCx+XtKGkuNaPLR95PJzEElzMXUh3rx0ymKklSxrQlM0YqHDztAqNq/V9sROzRD0/2d5OtGyZt26o5t1vCpaV7a+hNE1+Bi+pHGOcz5RNo8h/QpIR7GpgbjYLDj; Expires=Thu, 18 Dec 2025 23:57:00 GMT; Path=/; SameSite=None; Secure"
+                      "example": "nginx/1.29.3"
                     }
                   },
                   "Transfer-Encoding": {
@@ -10985,40 +10946,69 @@
                       "example": "chunked"
                     }
                   },
-                  "access-control-allow-origin": {
+                  "X-Powered-By": {
                     "schema": {
                       "type": "string",
-                      "example": "*"
+                      "example": "PHP/8.3.28"
                     }
                   },
-                  "access-control-expose-headers": {
+                  "expires": {
                     "schema": {
                       "type": "string",
-                      "example": "*"
+                      "example": "-1"
                     }
                   },
-                  "alt-svc": {
+                  "pragma": {
                     "schema": {
                       "type": "string",
-                      "example": "h3=\":443\"; ma=86400"
+                      "example": "no-cache"
+                    }
+                  }
+                },
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string",
+                          "example": "Unauthenticated."
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "unauthorized"
+                        },
+                        "response": {
+                          "type": "boolean",
+                          "example": false
+                        }
+                      }
+                    },
+                    "examples": {
+                      "Não autorizado": {
+                        "value": {
+                          "error": "Unauthenticated.",
+                          "message": "unauthorized",
+                          "response": false
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "422": {
+                "description": "Filtro inválido",
+                "headers": {
+                  "Connection": {
+                    "schema": {
+                      "type": "string",
+                      "example": "keep-alive"
                     }
                   },
-                  "cf-cache-status": {
+                  "Transfer-Encoding": {
                     "schema": {
                       "type": "string",
-                      "example": "DYNAMIC"
-                    }
-                  },
-                  "x-ratelimit-limit": {
-                    "schema": {
-                      "type": "string",
-                      "example": "160"
-                    }
-                  },
-                  "x-ratelimit-remaining": {
-                    "schema": {
-                      "type": "string",
-                      "example": "156"
+                      "example": "chunked"
                     }
                   }
                 },
