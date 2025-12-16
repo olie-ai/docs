@@ -904,338 +904,21 @@
                   "schema": {
                     "type": "object",
                     "properties": {
-                      "budget": {
-                        "type": "string",
-                        "example": "<float>"
-                      },
-                      "contact_id": {
-                        "type": "string",
-                        "example": "<string>"
-                      },
-                      "customer_id": {
-                        "type": "string",
-                        "example": "<string>"
-                      },
                       "description": {
                         "type": "string",
-                        "example": "<string>"
-                      },
-                      "forecast_dates": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "date": {
-                              "type": "string",
-                              "example": "<date>"
-                            },
-                            "project_funnel_id": {
-                              "type": "string",
-                              "example": "<integer>"
-                            }
-                          }
-                        },
-                        "example": [
-                          {
-                            "date": "<date>",
-                            "project_funnel_id": "<integer>"
-                          },
-                          {
-                            "date": "<date>",
-                            "project_funnel_id": "<integer>"
-                          }
-                        ]
-                      },
-                      "funnel_status": {
-                        "type": "object",
-                        "properties": {
-                          "funnel_status_id": {
-                            "type": "string",
-                            "example": "<integer>"
-                          },
-                          "project_funnel_id": {
-                            "type": "string",
-                            "example": "<integer>"
-                          }
-                        }
-                      },
-                      "funnels": {
-                        "type": "object",
-                        "properties": {
-                          "to_add": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "example": "<integer>"
-                            },
-                            "example": [
-                              "<integer>",
-                              "<integer>"
-                            ]
-                          },
-                          "to_rem": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "example": "<integer>"
-                            },
-                            "example": [
-                              "<integer>",
-                              "<integer>"
-                            ]
-                          }
-                        }
-                      },
-                      "groups": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "to_add": {
-                              "type": "array",
-                              "items": {
-                                "type": "string",
-                                "example": "<uuid>"
-                              },
-                              "example": [
-                                "<uuid>",
-                                "<uuid>"
-                              ]
-                            },
-                            "to_rem": {
-                              "type": "array",
-                              "items": {
-                                "type": "string",
-                                "example": "<uuid>"
-                              },
-                              "example": [
-                                "<uuid>",
-                                "<uuid>"
-                              ]
-                            }
-                          }
-                        },
-                        "example": [
-                          {
-                            "to_add": [
-                              "<uuid>",
-                              "<uuid>"
-                            ],
-                            "to_rem": [
-                              "<uuid>",
-                              "<uuid>"
-                            ]
-                          },
-                          {
-                            "to_add": [
-                              "<uuid>",
-                              "<uuid>"
-                            ],
-                            "to_rem": [
-                              "<uuid>",
-                              "<uuid>"
-                            ]
-                          }
-                        ]
+                        "example": "Companhia de energia da cidade de Hawkins"
                       },
                       "impact": {
-                        "type": "string",
-                        "example": "<integer>"
-                      },
-                      "is_template": {
-                        "type": "string",
-                        "example": "<boolean>"
-                      },
-                      "name": {
-                        "type": "string",
-                        "example": "<string>"
-                      },
-                      "prefix": {
-                        "type": "string",
-                        "example": "<string>"
-                      },
-                      "status": {
-                        "type": "string",
-                        "example": "3"
-                      },
-                      "tags": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "to_add": {
-                              "type": "array",
-                              "items": {
-                                "type": "string",
-                                "example": "<integer>"
-                              },
-                              "example": [
-                                "<integer>",
-                                "<integer>"
-                              ]
-                            },
-                            "to_rem": {
-                              "type": "array",
-                              "items": {
-                                "type": "string",
-                                "example": "<integer>"
-                              },
-                              "example": [
-                                "<integer>",
-                                "<integer>"
-                              ]
-                            }
-                          }
-                        },
-                        "example": [
-                          {
-                            "to_add": [
-                              "<integer>",
-                              "<integer>"
-                            ],
-                            "to_rem": [
-                              "<integer>",
-                              "<integer>"
-                            ]
-                          },
-                          {
-                            "to_add": [
-                              "<integer>",
-                              "<integer>"
-                            ],
-                            "to_rem": [
-                              "<integer>",
-                              "<integer>"
-                            ]
-                          }
-                        ]
-                      },
-                      "users": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "action": {
-                              "type": "string",
-                              "example": "<string>"
-                            },
-                            "role": {
-                              "type": "string",
-                              "example": "<string>"
-                            },
-                            "user_id": {
-                              "type": "string",
-                              "example": "<uuid>"
-                            }
-                          }
-                        },
-                        "example": [
-                          {
-                            "action": "<string>",
-                            "role": "<string>",
-                            "user_id": "<uuid>"
-                          },
-                          {
-                            "action": "<string>",
-                            "role": "<string>",
-                            "user_id": "<uuid>"
-                          }
-                        ]
+                        "type": "number",
+                        "example": 5
                       }
                     }
                   },
                   "examples": {
                     "Editar projeto": {
                       "value": {
-                        "budget": "<float>",
-                        "contact_id": "<string>",
-                        "customer_id": "<string>",
-                        "description": "<string>",
-                        "forecast_dates": [
-                          {
-                            "date": "<date>",
-                            "project_funnel_id": "<integer>"
-                          },
-                          {
-                            "date": "<date>",
-                            "project_funnel_id": "<integer>"
-                          }
-                        ],
-                        "funnel_status": {
-                          "funnel_status_id": "<integer>",
-                          "project_funnel_id": "<integer>"
-                        },
-                        "funnels": {
-                          "to_add": [
-                            "<integer>",
-                            "<integer>"
-                          ],
-                          "to_rem": [
-                            "<integer>",
-                            "<integer>"
-                          ]
-                        },
-                        "groups": [
-                          {
-                            "to_add": [
-                              "<uuid>",
-                              "<uuid>"
-                            ],
-                            "to_rem": [
-                              "<uuid>",
-                              "<uuid>"
-                            ]
-                          },
-                          {
-                            "to_add": [
-                              "<uuid>",
-                              "<uuid>"
-                            ],
-                            "to_rem": [
-                              "<uuid>",
-                              "<uuid>"
-                            ]
-                          }
-                        ],
-                        "impact": "<integer>",
-                        "is_template": "<boolean>",
-                        "name": "<string>",
-                        "prefix": "<string>",
-                        "status": "3",
-                        "tags": [
-                          {
-                            "to_add": [
-                              "<integer>",
-                              "<integer>"
-                            ],
-                            "to_rem": [
-                              "<integer>",
-                              "<integer>"
-                            ]
-                          },
-                          {
-                            "to_add": [
-                              "<integer>",
-                              "<integer>"
-                            ],
-                            "to_rem": [
-                              "<integer>",
-                              "<integer>"
-                            ]
-                          }
-                        ],
-                        "users": [
-                          {
-                            "action": "<string>",
-                            "role": "<string>",
-                            "user_id": "<uuid>"
-                          },
-                          {
-                            "action": "<string>",
-                            "role": "<string>",
-                            "user_id": "<uuid>"
-                          }
-                        ]
+                        "description": "Companhia de energia da cidade de Hawkins",
+                        "impact": 5
                       }
                     }
                   }
@@ -1244,7 +927,87 @@
             },
             "responses": {
               "200": {
-                "description": "Projeto atualizado com sucesso",
+                "description": "Projeto atualizado com sucesso / Editado com sucesso",
+                "headers": {
+                  "Access-Control-Allow-Origin": {
+                    "schema": {
+                      "type": "string",
+                      "example": "*"
+                    }
+                  },
+                  "Access-Control-Expose-Headers": {
+                    "schema": {
+                      "type": "string",
+                      "example": "*"
+                    }
+                  },
+                  "Cache-Control": {
+                    "schema": {
+                      "type": "string",
+                      "example": "private, must-revalidate"
+                    }
+                  },
+                  "Connection": {
+                    "schema": {
+                      "type": "string",
+                      "example": "keep-alive"
+                    }
+                  },
+                  "Date": {
+                    "schema": {
+                      "type": "string",
+                      "example": "Tue, 16 Dec 2025 18:49:13 GMT"
+                    }
+                  },
+                  "Host": {
+                    "schema": {
+                      "type": "string",
+                      "example": "api.olie.localhost"
+                    }
+                  },
+                  "Server": {
+                    "schema": {
+                      "type": "string",
+                      "example": "nginx/1.29.3"
+                    }
+                  },
+                  "Transfer-Encoding": {
+                    "schema": {
+                      "type": "string",
+                      "example": "chunked"
+                    }
+                  },
+                  "X-Powered-By": {
+                    "schema": {
+                      "type": "string",
+                      "example": "PHP/8.3.28"
+                    }
+                  },
+                  "X-RateLimit-Limit": {
+                    "schema": {
+                      "type": "string",
+                      "example": "160"
+                    }
+                  },
+                  "X-RateLimit-Remaining": {
+                    "schema": {
+                      "type": "string",
+                      "example": "159"
+                    }
+                  },
+                  "expires": {
+                    "schema": {
+                      "type": "string",
+                      "example": "-1"
+                    }
+                  },
+                  "pragma": {
+                    "schema": {
+                      "type": "string",
+                      "example": "no-cache"
+                    }
+                  }
+                },
                 "content": {
                   "application/json": {
                     "schema": {
@@ -1254,8 +1017,17 @@
                           "type": "object",
                           "properties": {
                             "budget": {
-                              "type": "string",
-                              "example": "<float>"
+                              "example": "<float>",
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "example": "<float>"
+                                },
+                                {
+                                  "type": "number",
+                                  "example": 950000
+                                }
+                              ]
                             },
                             "code": {
                               "type": "string",
@@ -1266,8 +1038,17 @@
                               "properties": {}
                             },
                             "contact_id": {
-                              "type": "string",
-                              "example": "<integer>"
+                              "example": "<integer>",
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "example": "<integer>"
+                                },
+                                {
+                                  "type": "number",
+                                  "example": 12597
+                                }
+                              ]
                             },
                             "costs": {
                               "type": "object",
@@ -1291,6 +1072,7 @@
                             },
                             "deleted_at": {
                               "type": "string",
+                              "nullable": true,
                               "example": "<dateTime>"
                             },
                             "description": {
@@ -1301,13 +1083,122 @@
                               "type": "object",
                               "properties": {}
                             },
+                            "form_answers": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "answer": {
+                                    "nullable": true,
+                                    "example": null
+                                  },
+                                  "answered_by": {
+                                    "nullable": true,
+                                    "example": null
+                                  },
+                                  "id": {
+                                    "type": "number",
+                                    "example": 2130
+                                  },
+                                  "label": {
+                                    "type": "string",
+                                    "example": "Texto curto"
+                                  },
+                                  "model": {
+                                    "type": "string",
+                                    "example": "Project"
+                                  },
+                                  "updated_at": {
+                                    "type": "string",
+                                    "example": "2025-12-16T14:45:52.000000Z"
+                                  }
+                                }
+                              },
+                              "example": [
+                                {
+                                  "answer": null,
+                                  "answered_by": null,
+                                  "id": 2130,
+                                  "label": "Texto curto",
+                                  "model": "Project",
+                                  "updated_at": "2025-12-16T14:45:52.000000Z"
+                                },
+                                {
+                                  "answer": null,
+                                  "answered_by": null,
+                                  "id": 2131,
+                                  "label": "Texto longo",
+                                  "model": "Project",
+                                  "updated_at": "2025-12-16T14:45:52.000000Z"
+                                }
+                              ]
+                            },
                             "forum": {
                               "type": "object",
                               "properties": {}
                             },
                             "frame": {
                               "type": "object",
-                              "properties": {}
+                              "properties": {
+                                "cockpit_access": {
+                                  "type": "number",
+                                  "example": 0
+                                },
+                                "frame_billing_data_id": {
+                                  "nullable": true,
+                                  "example": null
+                                },
+                                "id": {
+                                  "type": "string",
+                                  "example": "019aeaa3-2778-73ec-8f8d-59d06cc59dca"
+                                },
+                                "logo_img": {
+                                  "nullable": true,
+                                  "example": null
+                                },
+                                "model_forms": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "class": {
+                                        "type": "string",
+                                        "example": "App\\Models\\Project"
+                                      },
+                                      "id": {
+                                        "type": "number",
+                                        "example": 377
+                                      }
+                                    }
+                                  },
+                                  "example": [
+                                    {
+                                      "class": "App\\Models\\Project",
+                                      "id": 377
+                                    }
+                                  ]
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "example": "OlieDev Company "
+                                },
+                                "old_id": {
+                                  "nullable": true,
+                                  "example": null
+                                },
+                                "status": {
+                                  "type": "number",
+                                  "example": 1
+                                },
+                                "subdomain": {
+                                  "type": "string",
+                                  "example": "devframe"
+                                },
+                                "type": {
+                                  "type": "number",
+                                  "example": 2
+                                }
+                              }
                             },
                             "frame_id": {
                               "type": "string",
@@ -1318,15 +1209,34 @@
                               "example": "<uuid>"
                             },
                             "impact": {
-                              "type": "string",
-                              "example": "<integer>"
+                              "example": "<integer>",
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "example": "<integer>"
+                                },
+                                {
+                                  "type": "number",
+                                  "example": 5
+                                }
+                              ]
                             },
                             "is_template": {
-                              "type": "string",
-                              "example": "<boolean>"
+                              "example": "<boolean>",
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "example": "<boolean>"
+                                },
+                                {
+                                  "type": "boolean",
+                                  "example": false
+                                }
+                              ]
                             },
                             "merged_id": {
                               "type": "string",
+                              "nullable": true,
                               "example": "<string>"
                             },
                             "merged_project": {
@@ -1339,23 +1249,36 @@
                             },
                             "old_id": {
                               "type": "string",
+                              "nullable": true,
                               "example": "<string>"
                             },
                             "parent_id": {
                               "type": "string",
+                              "nullable": true,
                               "example": "<string>"
                             },
                             "share_settings": {
                               "type": "string",
+                              "nullable": true,
                               "example": "<string>"
                             },
                             "share_token": {
                               "type": "string",
+                              "nullable": true,
                               "example": "<string>"
                             },
                             "status": {
-                              "type": "string",
-                              "example": "<integer>"
+                              "example": "<integer>",
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "example": "<integer>"
+                                },
+                                {
+                                  "type": "number",
+                                  "example": 1
+                                }
+                              ]
                             },
                             "step_form": {
                               "type": "object",
@@ -1368,12 +1291,83 @@
                           }
                         },
                         "response": {
-                          "type": "string",
-                          "example": "<boolean>"
+                          "example": "<boolean>",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "example": "<boolean>"
+                            },
+                            {
+                              "type": "boolean",
+                              "example": true
+                            }
+                          ]
                         }
                       }
                     },
                     "examples": {
+                      "Editado com sucesso": {
+                        "value": {
+                          "project": {
+                            "budget": 950000,
+                            "code": "P-83",
+                            "contact_id": 12597,
+                            "created_at": "2025-12-16T14:10:51.000000Z",
+                            "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                            "customer_id": "019b277d-c615-723f-a1dd-f03940bce866",
+                            "deleted_at": null,
+                            "description": "Companhia de energia da cidade de Hawkins",
+                            "form_answers": [
+                              {
+                                "answer": null,
+                                "answered_by": null,
+                                "id": 2130,
+                                "label": "Texto curto",
+                                "model": "Project",
+                                "updated_at": "2025-12-16T14:45:52.000000Z"
+                              },
+                              {
+                                "answer": null,
+                                "answered_by": null,
+                                "id": 2131,
+                                "label": "Texto longo",
+                                "model": "Project",
+                                "updated_at": "2025-12-16T14:45:52.000000Z"
+                              }
+                            ],
+                            "frame": {
+                              "cockpit_access": 0,
+                              "frame_billing_data_id": null,
+                              "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                              "logo_img": null,
+                              "model_forms": [
+                                {
+                                  "class": "App\\Models\\Project",
+                                  "id": 377
+                                }
+                              ],
+                              "name": "OlieDev Company ",
+                              "old_id": null,
+                              "status": 1,
+                              "subdomain": "devframe",
+                              "type": 2
+                            },
+                            "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                            "id": "019b277f-e453-733d-a00e-6d26d444008b",
+                            "impact": 5,
+                            "is_template": false,
+                            "merged_id": null,
+                            "name": "Laboratório Hawkins",
+                            "old_id": null,
+                            "parent_id": null,
+                            "share_settings": null,
+                            "share_token": null,
+                            "status": 1,
+                            "updated_at": "2025-12-16T18:49:13.000000Z"
+                          },
+                          "response": true
+                        }
+                      },
                       "Projeto atualizado com sucesso": {
                         "value": {
                           "project": {
