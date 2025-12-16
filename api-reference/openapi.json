@@ -83,86 +83,6 @@
               },
               "404": {
                 "description": "Não encontrado",
-                "headers": {
-                  "Access-Control-Allow-Origin": {
-                    "schema": {
-                      "type": "string",
-                      "example": "*"
-                    }
-                  },
-                  "Access-Control-Expose-Headers": {
-                    "schema": {
-                      "type": "string",
-                      "example": "*"
-                    }
-                  },
-                  "Cache-Control": {
-                    "schema": {
-                      "type": "string",
-                      "example": "private, must-revalidate"
-                    }
-                  },
-                  "Connection": {
-                    "schema": {
-                      "type": "string",
-                      "example": "keep-alive"
-                    }
-                  },
-                  "Date": {
-                    "schema": {
-                      "type": "string",
-                      "example": "Tue, 16 Dec 2025 13:03:13 GMT"
-                    }
-                  },
-                  "Host": {
-                    "schema": {
-                      "type": "string",
-                      "example": "api.olie.localhost"
-                    }
-                  },
-                  "Server": {
-                    "schema": {
-                      "type": "string",
-                      "example": "nginx/1.29.3"
-                    }
-                  },
-                  "Transfer-Encoding": {
-                    "schema": {
-                      "type": "string",
-                      "example": "chunked"
-                    }
-                  },
-                  "X-Powered-By": {
-                    "schema": {
-                      "type": "string",
-                      "example": "PHP/8.3.28"
-                    }
-                  },
-                  "X-RateLimit-Limit": {
-                    "schema": {
-                      "type": "string",
-                      "example": "160"
-                    }
-                  },
-                  "X-RateLimit-Remaining": {
-                    "schema": {
-                      "type": "string",
-                      "example": "157"
-                    }
-                  },
-                  "expires": {
-                    "schema": {
-                      "type": "string",
-                      "example": "-1"
-                    }
-                  },
-                  "pragma": {
-                    "schema": {
-                      "type": "string",
-                      "example": "no-cache"
-                    }
-                  }
-                },
                 "content": {
                   "application/json": {
                     "schema": {
@@ -11938,24 +11858,23 @@
                           "type": "object",
                           "properties": {
                             "answer": {
-                              "type": "number",
-                              "nullable": true,
-                              "example": 123
+                              "type": "string",
+                              "example": ""
                             },
                             "id": {
                               "type": "number",
-                              "example": 2136
+                              "example": 0
                             }
                           }
                         },
                         "example": [
                           {
-                            "answer": 123,
-                            "id": 2136
+                            "answer": "",
+                            "id": 0
                           },
                           {
-                            "answer": null,
-                            "id": 2137
+                            "answer": "",
+                            "id": 0
                           }
                         ]
                       },
@@ -11968,23 +11887,35 @@
                           },
                           "father_id": {
                             "type": "string",
-                            "example": "019b277f-e453-733d-a00e-6d26d444008b"
+                            "example": "00000000-0000-0000-0000-000000000000"
                           },
                           "form_id": {
                             "type": "number",
-                            "example": 380
+                            "example": 0
+                          },
+                          "funnel_step_id": {
+                            "type": "number",
+                            "example": 0
                           },
                           "id": {
-                            "type": "number",
-                            "example": 619213
+                            "type": "string",
+                            "example": "00000000-0000-0000-0000-000000000000"
                           },
                           "pivot_class": {
                             "type": "string",
-                            "example": "ProjectLooseForm"
+                            "example": "project"
+                          },
+                          "project_funnel_id": {
+                            "type": "number",
+                            "example": 0
                           },
                           "project_id": {
                             "type": "string",
-                            "example": "019b277f-e453-733d-a00e-6d26d444008b"
+                            "example": "00000000-0000-0000-0000-000000000000"
+                          },
+                          "related_model_attribute_id": {
+                            "type": "string",
+                            "example": "00000000-0000-0000-0000-000000000000"
                           }
                         }
                       }
@@ -11992,26 +11923,7 @@
                   },
                   "examples": {
                     "Responder formulário dinâmico": {
-                      "value": {
-                        "form_answers": [
-                          {
-                            "answer": 123,
-                            "id": 2136
-                          },
-                          {
-                            "answer": null,
-                            "id": 2137
-                          }
-                        ],
-                        "target": {
-                          "father_class": "project",
-                          "father_id": "019b277f-e453-733d-a00e-6d26d444008b",
-                          "form_id": 380,
-                          "id": 619213,
-                          "pivot_class": "ProjectLooseForm",
-                          "project_id": "019b277f-e453-733d-a00e-6d26d444008b"
-                        }
-                      }
+                      "value": "{\n    \"target\": {\n        \"pivot_class\": \"ProjectLooseForm\",\n        \"form_id\": 380,\n        \"id\": 619, \n        \"project_id\": \"019b277f-e453-733d-a00e-6d26d444008b\",\n        \"father_class\": \"project\",\n        \"father_id\": \"019b277f-e453-733d-a00e-6d26d444008b\"\n    },\n    \"form_answers\": [\n        {\n            \"id\": 2136,\n            \"answer\": 123\n        },\n        {\n            \"id\": 2137,\n            \"answer\": \"Teste 1\" // este campo deveria ser um array, pois o campo de ID 2137 é do tipo checkbox e espera um array\n        }\n    ]\n}"
                     }
                   }
                 }
@@ -12452,7 +12364,7 @@
                 }
               },
               "422": {
-                "description": "Resposta: Formulário avulso do projeto Copy",
+                "description": "Erro: Objeto sem relação com o formulário / Erro: Validação para resposta inválida",
                 "headers": {
                   "Access-Control-Allow-Origin": {
                     "schema": {
@@ -12481,7 +12393,7 @@
                   "Date": {
                     "schema": {
                       "type": "string",
-                      "example": "Tue, 16 Dec 2025 15:06:23 GMT"
+                      "example": "Tue, 16 Dec 2025 15:08:47 GMT"
                     }
                   },
                   "Host": {
@@ -12517,7 +12429,7 @@
                   "X-RateLimit-Remaining": {
                     "schema": {
                       "type": "string",
-                      "example": "154"
+                      "example": "157"
                     }
                   },
                   "expires": {
@@ -12538,6 +12450,97 @@
                     "schema": {
                       "type": "object",
                       "properties": {
+                        "edge": {
+                          "type": "object",
+                          "properties": {
+                            "conditional": {
+                              "nullable": true,
+                              "example": null
+                            },
+                            "conditional_action": {
+                              "nullable": true,
+                              "example": null
+                            },
+                            "conditionals": {
+                              "type": "array",
+                              "items": {},
+                              "example": []
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "example": "2025-12-16T14:47:06.000000Z"
+                            },
+                            "custom_validation": {
+                              "nullable": true,
+                              "example": null
+                            },
+                            "deleted_at": {
+                              "nullable": true,
+                              "example": null
+                            },
+                            "description": {
+                              "nullable": true,
+                              "example": null
+                            },
+                            "form_id": {
+                              "type": "number",
+                              "example": 380
+                            },
+                            "help_text": {
+                              "nullable": true,
+                              "example": null
+                            },
+                            "id": {
+                              "type": "number",
+                              "example": 2137
+                            },
+                            "index": {
+                              "type": "number",
+                              "example": 1
+                            },
+                            "is_migrated": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "is_multiple": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "label": {
+                              "type": "string",
+                              "example": "Checkbox"
+                            },
+                            "logical_operator": {
+                              "type": "string",
+                              "example": "and"
+                            },
+                            "options": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "example": "Teste 1"
+                              },
+                              "example": [
+                                "Teste 1",
+                                "Teste 2",
+                                "Teste 3",
+                                "Teste 4"
+                              ]
+                            },
+                            "required": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "type": {
+                              "type": "string",
+                              "example": "checkbox"
+                            },
+                            "updated_at": {
+                              "type": "string",
+                              "example": "2025-12-16T15:08:47.000000Z"
+                            }
+                          }
+                        },
                         "error": {
                           "type": "string",
                           "example": "The father class possibilities has none compatible form with given attributes"
@@ -12557,12 +12560,45 @@
                       }
                     },
                     "examples": {
-                      "Resposta: Formulário avulso do projeto Copy": {
+                      "Erro: Objeto sem relação com o formulário": {
                         "value": {
                           "error": "The father class possibilities has none compatible form with given attributes",
                           "message": "father_df_options_has_none_compatible_possibility",
                           "response": false,
                           "service": "App\\Exceptions\\Services\\Form\\FormException"
+                        }
+                      },
+                      "Erro: Validação para resposta inválida": {
+                        "value": {
+                          "edge": {
+                            "conditional": null,
+                            "conditional_action": null,
+                            "conditionals": [],
+                            "created_at": "2025-12-16T14:47:06.000000Z",
+                            "custom_validation": null,
+                            "deleted_at": null,
+                            "description": null,
+                            "form_id": 380,
+                            "help_text": null,
+                            "id": 2137,
+                            "index": 1,
+                            "is_migrated": false,
+                            "is_multiple": false,
+                            "label": "Checkbox",
+                            "logical_operator": "and",
+                            "options": [
+                              "Teste 1",
+                              "Teste 2",
+                              "Teste 3",
+                              "Teste 4"
+                            ],
+                            "required": false,
+                            "type": "checkbox",
+                            "updated_at": "2025-12-16T15:08:47.000000Z"
+                          },
+                          "error": "An checkbox input has a invalid option",
+                          "message": "form_answer_input_invalid_option",
+                          "response": false
                         }
                       }
                     }
