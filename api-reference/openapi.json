@@ -963,22 +963,10 @@
                   "example": "api.olie.localhost"
                 }
               },
-              "Server": {
-                "schema": {
-                  "type": "string",
-                  "example": "nginx/1.29.3"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
                   "example": "chunked"
-                }
-              },
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "PHP/8.3.28"
                 }
               },
               "X-RateLimit-Limit": {
@@ -1387,22 +1375,10 @@
                   "example": "api.olie.localhost"
                 }
               },
-              "Server": {
-                "schema": {
-                  "type": "string",
-                  "example": "nginx/1.29.3"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
                   "example": "chunked"
-                }
-              },
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "PHP/8.3.28"
                 }
               },
               "X-RateLimit-Limit": {
@@ -1731,22 +1707,10 @@
                   "example": "api.olie.localhost"
                 }
               },
-              "Server": {
-                "schema": {
-                  "type": "string",
-                  "example": "nginx/1.29.3"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
                   "example": "chunked"
-                }
-              },
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "PHP/8.3.28"
                 }
               },
               "X-RateLimit-Limit": {
@@ -5908,22 +5872,10 @@
                   "example": "api.olie.localhost"
                 }
               },
-              "Server": {
-                "schema": {
-                  "type": "string",
-                  "example": "nginx/1.29.3"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
                   "example": "chunked"
-                }
-              },
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "PHP/8.3.28"
                 }
               },
               "X-RateLimit-Limit": {
@@ -6426,22 +6378,10 @@
                   "example": "api.olie.localhost"
                 }
               },
-              "Server": {
-                "schema": {
-                  "type": "string",
-                  "example": "nginx/1.29.3"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
                   "example": "chunked"
-                }
-              },
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "PHP/8.3.28"
                 }
               },
               "X-RateLimit-Limit": {
@@ -10831,22 +10771,10 @@
                   "example": "api.olie.localhost"
                 }
               },
-              "Server": {
-                "schema": {
-                  "type": "string",
-                  "example": "nginx/1.29.3"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
                   "example": "chunked"
-                }
-              },
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "PHP/8.3.28"
                 }
               },
               "expires": {
@@ -11048,22 +10976,10 @@
                   "example": "api.olie.localhost"
                 }
               },
-              "Server": {
-                "schema": {
-                  "type": "string",
-                  "example": "nginx/1.29.3"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
                   "example": "chunked"
-                }
-              },
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "PHP/8.3.28"
                 }
               },
               "X-RateLimit-Limit": {
@@ -11346,22 +11262,10 @@
                   "example": "api.olie.localhost"
                 }
               },
-              "Server": {
-                "schema": {
-                  "type": "string",
-                  "example": "nginx/1.29.3"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
                   "example": "chunked"
-                }
-              },
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "PHP/8.3.28"
                 }
               },
               "X-RateLimit-Limit": {
@@ -11574,22 +11478,10 @@
                   "example": "api.olie.localhost"
                 }
               },
-              "Server": {
-                "schema": {
-                  "type": "string",
-                  "example": "nginx/1.29.3"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
                   "example": "chunked"
-                }
-              },
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "PHP/8.3.28"
                 }
               },
               "expires": {
@@ -11675,22 +11567,10 @@
                   "example": "api.olie.localhost"
                 }
               },
-              "Server": {
-                "schema": {
-                  "type": "string",
-                  "example": "nginx/1.29.3"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
                   "example": "chunked"
-                }
-              },
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "PHP/8.3.28"
                 }
               },
               "X-RateLimit-Limit": {
@@ -11946,22 +11826,10 @@
                   "example": "api.olie.localhost"
                 }
               },
-              "Server": {
-                "schema": {
-                  "type": "string",
-                  "example": "nginx/1.29.3"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
                   "example": "chunked"
-                }
-              },
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "PHP/8.3.28"
                 }
               },
               "X-RateLimit-Limit": {
@@ -12186,22 +12054,10 @@
                   "example": "api.olie.localhost"
                 }
               },
-              "Server": {
-                "schema": {
-                  "type": "string",
-                  "example": "nginx/1.29.3"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
                   "example": "chunked"
-                }
-              },
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "PHP/8.3.28"
                 }
               },
               "expires": {
@@ -12287,22 +12143,10 @@
                   "example": "api.olie.localhost"
                 }
               },
-              "Server": {
-                "schema": {
-                  "type": "string",
-                  "example": "nginx/1.29.3"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
                   "example": "chunked"
-                }
-              },
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "PHP/8.3.28"
                 }
               },
               "X-RateLimit-Limit": {
@@ -12379,22 +12223,10 @@
                   "example": "api.olie.localhost"
                 }
               },
-              "Server": {
-                "schema": {
-                  "type": "string",
-                  "example": "nginx/1.29.3"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
                   "example": "chunked"
-                }
-              },
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "PHP/8.3.28"
                 }
               },
               "X-RateLimit-Limit": {
