@@ -12175,10 +12175,31 @@
               }
             },
             "content": {
-              "text/plain": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "No query results for model [App\\Models\\Project] 00000000-0000-0000-0000-000000000000"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "project_model_not_found"
+                    },
+                    "response": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                },
                 "examples": {
                   "Erro: Objeto não encontrado": {
-                    "value": "{\n    \"response\": false,\n    \"message\": \"project_model_not_found\",\n    \"error\": \"No query results for model [App\\\\Models\\\\Project] 00000000-0000-0000-0000-000000000000\",\n}"
+                    "value": {
+                      "error": "No query results for model [App\\Models\\Project] 00000000-0000-0000-0000-000000000000",
+                      "message": "project_model_not_found",
+                      "response": false
+                    }
                   }
                 }
               }
