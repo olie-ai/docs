@@ -12678,6 +12678,207 @@
           }
         }
       }
+    },
+    "/api/management/form-publications/{form_publication_id}/restore": {
+      "post": {
+        "tags": [
+          "form-publications",
+          "restore1"
+        ],
+        "summary": "Restaurar publicação do formulário",
+        "description": "Restaurar publicação do formulário",
+        "operationId": "restaurarPublicaODoFormulRio",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "form_publication_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "example": "019b8f40-ce05-73b8-8c20-b29eb6e5b299"
+          }
+        }
+      ]
+    },
+    "/api/management/form-publications/{form_publication}/change-token": {
+      "post": {
+        "tags": [
+          "form-publications",
+          "change-token"
+        ],
+        "summary": "Alterar token de uma publicação de formulário",
+        "description": "Alterar token de uma publicação de formulário",
+        "operationId": "alterarTokenDeUmaPublicaODeFormulRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "form_publication",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/form-publications/{form_publication}/responses": {
+      "get": {
+        "tags": [
+          "form-publications",
+          "responses"
+        ],
+        "summary": "Obter respostas de uma publicação de formulário",
+        "description": "Obter respostas de uma publicação de formulário",
+        "operationId": "obterRespostasDeUmaPublicaODeFormulRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "form_publication",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "example": ""
+          }
+        }
+      ]
+    },
+    "/api/management/form-publications": {
+      "get": {
+        "tags": [
+          "form-publications"
+        ],
+        "summary": "Listar publicações de formulários",
+        "description": "Listar publicações de formulários",
+        "operationId": "listarPublicaEsDeFormulRios",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "form-publications"
+        ],
+        "summary": "Criar publicação de formulário",
+        "description": "Criar publicação de formulário",
+        "operationId": "criarPublicaODeFormulRio",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {},
+                "example": []
+              },
+              "examples": {
+                "Criar publicação de formulário": {
+                  "value": []
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/form-publications/{form_publication}": {
+      "get": {
+        "tags": [
+          "form-publications"
+        ],
+        "summary": "Obter uma publicação de formulário",
+        "description": "Obter uma publicação de formulário",
+        "operationId": "obterUmaPublicaODeFormulRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "form-publications"
+        ],
+        "summary": "Editar publicação de formulário",
+        "description": "Editar publicação de formulário",
+        "operationId": "editarPublicaODeFormulRio",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {},
+                "example": []
+              },
+              "examples": {
+                "Editar publicação de formulário": {
+                  "value": []
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "form-publications"
+        ],
+        "summary": "Deletar publicação de formulário",
+        "description": "Deletar publicação de formulário",
+        "operationId": "deletarPublicaODeFormulRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "form_publication",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
     }
   },
   "components": {
@@ -12717,6 +12918,18 @@
     },
     {
       "name": "dynamic-forms"
+    },
+    {
+      "name": "form-publications"
+    },
+    {
+      "name": "restore1"
+    },
+    {
+      "name": "change-token"
+    },
+    {
+      "name": "responses"
     }
   ]
 }
