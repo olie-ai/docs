@@ -646,9 +646,9 @@
           "projects",
           "{id}"
         ],
-        "summary": "Exibir um projeto",
+        "summary": "Obter um projeto",
         "description": "Retorna os detalhes de um projeto específico pelo ID.",
-        "operationId": "exibirUmProjeto",
+        "operationId": "obterUmProjeto",
         "responses": {
           "200": {
             "description": "Projeto retornado com sucesso",
@@ -12686,7 +12686,7 @@
           "restore1"
         ],
         "summary": "Restaurar publicação do formulário",
-        "description": "Restaurar publicação do formulário",
+        "description": "Restaura uma publicação de formulário que foi deletada.",
         "operationId": "restaurarPublicaODoFormulRio",
         "requestBody": {
           "content": {
@@ -12723,7 +12723,7 @@
           "change-token"
         ],
         "summary": "Alterar token de uma publicação de formulário",
-        "description": "Alterar token de uma publicação de formulário",
+        "description": "Altera o token de acesso de uma publicação de formulário.",
         "operationId": "alterarTokenDeUmaPublicaODeFormulRio",
         "responses": {
           "200": {
@@ -12749,7 +12749,7 @@
           "responses"
         ],
         "summary": "Obter respostas de uma publicação de formulário",
-        "description": "Obter respostas de uma publicação de formulário",
+        "description": "Lista todas as respostas de uma publicação de formulário.",
         "operationId": "obterRespostasDeUmaPublicaODeFormulRio",
         "responses": {
           "200": {
@@ -12775,7 +12775,7 @@
           "form-publications"
         ],
         "summary": "Listar publicações de formulários",
-        "description": "Listar publicações de formulários",
+        "description": "Lista todas as publicações de formulários.",
         "operationId": "listarPublicaEsDeFormulRios",
         "responses": {
           "200": {
@@ -12788,7 +12788,7 @@
           "form-publications"
         ],
         "summary": "Criar publicação de formulário",
-        "description": "Criar publicação de formulário",
+        "description": "Cria uma nova publicação de formulário.",
         "operationId": "criarPublicaODeFormulRio",
         "requestBody": {
           "content": {
@@ -12819,7 +12819,7 @@
           "form-publications"
         ],
         "summary": "Obter uma publicação de formulário",
-        "description": "Obter uma publicação de formulário",
+        "description": "Exibe os detalhes de uma publicação de formulário.",
         "operationId": "obterUmaPublicaODeFormulRio",
         "responses": {
           "200": {
@@ -12832,7 +12832,7 @@
           "form-publications"
         ],
         "summary": "Editar publicação de formulário",
-        "description": "Editar publicação de formulário",
+        "description": "Atualiza uma publicação de formulário.",
         "operationId": "editarPublicaODeFormulRio",
         "requestBody": {
           "content": {
@@ -12861,7 +12861,7 @@
           "form-publications"
         ],
         "summary": "Deletar publicação de formulário",
-        "description": "Deletar publicação de formulário",
+        "description": "Deleta uma publicação de formulário.",
         "operationId": "deletarPublicaODeFormulRio",
         "responses": {
           "200": {
