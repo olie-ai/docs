@@ -14209,7 +14209,7 @@
     "/api/management/toggle-primary-user-alias": {
       "post": {
         "tags": [
-          "toggle-primary-user-alias"
+          "user-alias"
         ],
         "summary": "Definer ou remover o alias primário de um usuário",
         "description": "Define ou remove o alias primário de um usuário. Se um alias_id for fornecido, define-o como primário (apenas se já estiver verificado). Se alias_id for nulo, remove o alias primário atual.",
@@ -14224,7 +14224,7 @@
     "/api/management/get-user": {
       "post": {
         "tags": [
-          "get-user"
+          "users1"
         ],
         "summary": "Obter detalhes de um usuário específico",
         "description": "Obter detalhes de um usuário específico",
@@ -14436,6 +14436,680 @@
           }
         }
       ]
+    },
+    "/api/management/system/get-meta-data": {
+      "get": {
+        "tags": [
+          "system",
+          "get-meta-data"
+        ],
+        "summary": "Obter meta dados de uma URL",
+        "description": "Obter meta dados de uma URL fornecida, extraindo as meta tags (Open Graph, description, etc.) do HTML retornado. Pode retornar os dados em formato EditorJs se especificado. Não funciona com URLs localhost.",
+        "operationId": "obterMetaDadosDeUmaUrl",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/system/params/{model_name}": {
+      "get": {
+        "tags": [
+          "system",
+          "params"
+        ],
+        "summary": "Listar parâmetros disponíveis para filtragem de um modelo",
+        "description": "Listar parâmetros disponíveis para filtragem de um modelo específico.",
+        "operationId": "listarParMetrosDisponVeisParaFiltragemDeUmModelo",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "model_name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/system/bulk-update/{model_name}": {
+      "post": {
+        "tags": [
+          "system",
+          "bulk-update"
+        ],
+        "summary": "Atualizar múltiplos registros de um modelo de uma vez",
+        "description": "Atualizar múltiplos registros de um modelo de uma vez",
+        "operationId": "atualizarMLtiplosRegistrosDeUmModeloDeUmaVez",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "model_name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/customers/search": {
+      "post": {
+        "tags": [
+          "customers",
+          "search"
+        ],
+        "summary": "Busca avançada de clientes",
+        "description": "Buscar clientes com filtros e critérios específicos.",
+        "operationId": "buscaAvanAdaDeClientes",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/customers/{customer}/restore": {
+      "post": {
+        "tags": [
+          "customers",
+          "restore12"
+        ],
+        "summary": "Restaurar cliente",
+        "description": "Restaurar um cliente que foi arquivado anteriormente.",
+        "operationId": "restaurarCliente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "customer",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/customers/{customer}/media": {
+      "get": {
+        "tags": [
+          "customers",
+          "media"
+        ],
+        "summary": "Listar conteúdos de projetos associados ao cliente",
+        "description": "Listar conteúdos de projetos associados ao cliente",
+        "operationId": "listarConteDosDeProjetosAssociadosAoCliente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "customer",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/customers/{customer}/project-medias": {
+      "get": {
+        "tags": [
+          "customers",
+          "project-medias"
+        ],
+        "summary": "Listar conteúdos de projetos associados ao cliente com arquivos",
+        "description": "Listar conteúdos de projetos associados ao cliente com arquivos",
+        "operationId": "listarConteDosDeProjetosAssociadosAoClienteComArquivos",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "customer",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/customers": {
+      "get": {
+        "tags": [
+          "customers"
+        ],
+        "summary": "Listar clientes",
+        "description": "Listar todos os clientes.",
+        "operationId": "listarClientes",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "customers"
+        ],
+        "summary": "Criar cliente",
+        "description": "Criar um novo cliente.",
+        "operationId": "criarCliente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/customers/{customer}": {
+      "get": {
+        "tags": [
+          "customers"
+        ],
+        "summary": "Obter cliente específico",
+        "description": "Obter detalhes de um cliente específico.",
+        "operationId": "obterClienteEspecFico",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "customers"
+        ],
+        "summary": "Atualizar cliente",
+        "description": "Atualizar dados de um cliente específico.",
+        "operationId": "atualizarCliente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "customers"
+        ],
+        "summary": "Arquivar cliente",
+        "description": "Arquivar cliente expecífico",
+        "operationId": "arquivarCliente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "customer",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/contacts/search": {
+      "post": {
+        "tags": [
+          "contacts",
+          "search1"
+        ],
+        "summary": "Buscar avançada de contatos",
+        "description": "Buscar contatos com filtros e critérios específicos.",
+        "operationId": "buscarAvanAdaDeContatos",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/contacts/{contact}/restore": {
+      "post": {
+        "tags": [
+          "contacts",
+          "restore123"
+        ],
+        "summary": "Restaurar contato",
+        "description": "Restaurar um contato que foi arquivado anteriormente.",
+        "operationId": "restaurarContato",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "contact",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/contacts": {
+      "get": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Listar contatos",
+        "description": "Listar todos os contatos.",
+        "operationId": "listarContatos",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Criar contato",
+        "description": "Criar um novo contato.",
+        "operationId": "criarContato",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/contacts/{contact}": {
+      "get": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Obter contato específico",
+        "description": "Obter detalhes de um contato específico.",
+        "operationId": "obterContatoEspecFico",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Atualizar contato",
+        "description": "Atualizar dados de um contato específico.",
+        "operationId": "atualizarContato",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Arquivar contato",
+        "description": "Arquivar um contato específico.",
+        "operationId": "arquivarContato",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "contact",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/business-areas/{id}/restore": {
+      "post": {
+        "tags": [
+          "business-areas",
+          "restore1234"
+        ],
+        "summary": "Restaurar área de negócio",
+        "description": "Restaurar uma área de negócio que foi arquivada anteriormente.",
+        "operationId": "restaurarReaDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/business-areas/reorder": {
+      "post": {
+        "tags": [
+          "business-areas",
+          "reorder1"
+        ],
+        "summary": "Reordenar áreas de negócio",
+        "description": "Reordenar a sequência das áreas de negócio no sistema.",
+        "operationId": "reordenarReasDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/business-areas": {
+      "get": {
+        "tags": [
+          "business-areas"
+        ],
+        "summary": "Listar áreas de negócio",
+        "description": "Listar todas as áreas de negócio.",
+        "operationId": "listarReasDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "business-areas"
+        ],
+        "summary": "Criar área de negócio",
+        "description": "Criar uma nova área de negócio.",
+        "operationId": "criarReaDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/business-areas/{business_area}": {
+      "put": {
+        "tags": [
+          "business-areas"
+        ],
+        "summary": "Atualizar área de negócio",
+        "description": "Atualizar dados de uma área de negócio específica.",
+        "operationId": "atualizarReaDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "business-areas"
+        ],
+        "summary": "Arquivar área de negócio",
+        "description": "Arquivar uma área de negócio específica do sistema.",
+        "operationId": "arquivarReaDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "business_area",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/project-funnel-link-toggle": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "project-funnel-link-toggle"
+        ],
+        "summary": "Alternar vínculo do funil de projeto",
+        "description": "Alternar o estado do vínculo entre projeto e funil.",
+        "operationId": "alternarVNculoDoFunilDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/update-project-funnel-status": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "update-project-funnel-status"
+        ],
+        "summary": "Atualizar status do funil de projeto",
+        "description": "Atualizar o status de um funil de projeto específico.",
+        "operationId": "atualizarStatusDoFunilDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/get-project-funnels": {
+      "get": {
+        "tags": [
+          "project-funnels",
+          "get-project-funnels"
+        ],
+        "summary": "Listar funis de projeto",
+        "description": "Listar todos os funis de projeto.",
+        "operationId": "listarFunisDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "project-funnels",
+          "get-project-funnels"
+        ],
+        "summary": "Obter funil de projeto",
+        "description": "Obter detalhes de um funil de projeto específico.",
+        "operationId": "obterFunilDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/toggle-funnel-tag": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "toggle-funnel-tag"
+        ],
+        "summary": "Alternar vínculo de etiqueta do funil de um projeto",
+        "description": "Alternar vínculo de etiqueta do funil de um projeto.",
+        "operationId": "alternarVNculoDeEtiquetaDoFunilDeUmProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/delete-funnel": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "delete-funnel"
+        ],
+        "summary": "Arquivar funil",
+        "description": "Arquivar funil um funil específico.",
+        "operationId": "arquivarFunil",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/restore-funnel": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "restore-funnel"
+        ],
+        "summary": "Restaurar funil",
+        "description": "Restaurar um funil que foi arquivado anteriormente.",
+        "operationId": "restaurarFunil",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/clone-funnel": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "clone-funnel"
+        ],
+        "summary": "Clonar funil",
+        "description": "Clonar um funil existente criando uma cópia.",
+        "operationId": "clonarFunil",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/project-funnels/reorder": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "reorder12"
+        ],
+        "summary": "Reordenar funis de projeto",
+        "description": "Reordenar funis de projeto no sistema.",
+        "operationId": "reordenarFunisDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/project-funnel": {
+      "post": {
+        "tags": [
+          "project-funnels"
+        ],
+        "summary": "Criar ou atualizar funil de projeto",
+        "description": "Criar ou atualizar funil de projeto.",
+        "operationId": "criarOuAtualizarFunilDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/project-funnels/{project_funnel}": {
+      "put": {
+        "tags": [
+          "project-funnels"
+        ],
+        "summary": "Atualizar funil de projeto",
+        "description": "Atualizar dados de um funil de projeto específico.",
+        "operationId": "atualizarFunilDeProjeto",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "funnel_config_template_id": {
+                    "type": "number",
+                    "example": 5
+                  }
+                }
+              },
+              "examples": {
+                "Atualizar funil de projeto": {
+                  "value": {
+                    "funnel_config_template_id": 5
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project_funnel",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
     }
   },
   "components": {
@@ -14570,10 +15244,7 @@
       "name": "user-alias"
     },
     {
-      "name": "toggle-primary-user-alias"
-    },
-    {
-      "name": "get-user"
+      "name": "users1"
     },
     {
       "name": "project-groups"
@@ -14586,6 +15257,78 @@
     },
     {
       "name": "reorder"
+    },
+    {
+      "name": "system"
+    },
+    {
+      "name": "get-meta-data"
+    },
+    {
+      "name": "params"
+    },
+    {
+      "name": "bulk-update"
+    },
+    {
+      "name": "customers"
+    },
+    {
+      "name": "search"
+    },
+    {
+      "name": "restore12"
+    },
+    {
+      "name": "media"
+    },
+    {
+      "name": "project-medias"
+    },
+    {
+      "name": "contacts"
+    },
+    {
+      "name": "search1"
+    },
+    {
+      "name": "restore123"
+    },
+    {
+      "name": "business-areas"
+    },
+    {
+      "name": "restore1234"
+    },
+    {
+      "name": "reorder1"
+    },
+    {
+      "name": "project-funnels"
+    },
+    {
+      "name": "project-funnel-link-toggle"
+    },
+    {
+      "name": "update-project-funnel-status"
+    },
+    {
+      "name": "get-project-funnels"
+    },
+    {
+      "name": "toggle-funnel-tag"
+    },
+    {
+      "name": "delete-funnel"
+    },
+    {
+      "name": "restore-funnel"
+    },
+    {
+      "name": "clone-funnel"
+    },
+    {
+      "name": "reorder12"
     }
   ]
 }
