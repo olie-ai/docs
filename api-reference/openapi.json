@@ -422,9 +422,9 @@
           "{id}",
           "step-metrics"
         ],
-        "summary": "Retorna métricas computadas das etapas (steps) de um projeto específico no funil",
-        "description": "Retorna métricas computadas das etapas (steps) de um projeto específico no funil",
-        "operationId": "retornaMTricasComputadasDasEtapasStepsDeUmProjetoEspecFicoNoFunil",
+        "summary": "Obter métricas computadas das etapas de um projeto específico no funil",
+        "description": "Obter métricas computadas das etapas de um projeto específico no funil",
+        "operationId": "obterMTricasComputadasDasEtapasDeUmProjetoEspecFicoNoFunil",
         "responses": {
           "200": {
             "description": ""
@@ -449,9 +449,9 @@
           "{id}",
           "files"
         ],
-        "summary": "Retorna todos os arquivos associados a um projeto",
+        "summary": "Listar todos os arquivos associados a um projeto",
         "description": "Retorna todos os arquivos associados a um projeto específico.",
-        "operationId": "retornaTodosOsArquivosAssociadosAUmProjeto",
+        "operationId": "listarTodosOsArquivosAssociadosAUmProjeto",
         "responses": {
           "200": {
             "description": ""
@@ -476,9 +476,9 @@
           "{id}",
           "clone"
         ],
-        "summary": "Cria uma cópia de um projeto",
+        "summary": "Clonar um projeto",
         "description": "Cria uma cópia de um projeto existente. Permite configurar quais elementos serão clonados (funis, tags, checklists, respostas de formulários, mídias, fórum, grupos, atribuições, etc.).",
-        "operationId": "criaUmaCPiaDeUmProjeto",
+        "operationId": "clonarUmProjeto",
         "responses": {
           "200": {
             "description": ""
@@ -503,9 +503,9 @@
           "{id}",
           "share"
         ],
-        "summary": "Configura ou atualiza as opções de compartilhamento de um projeto",
+        "summary": "Compartilhar projeto",
         "description": "Configura ou atualiza as opções de compartilhamento de um projeto, incluindo geração de token de compartilhamento e configurações de acesso.",
-        "operationId": "configuraOuAtualizaAsOpEsDeCompartilhamentoDeUmProjeto",
+        "operationId": "compartilharProjeto",
         "responses": {
           "200": {
             "description": ""
@@ -531,9 +531,9 @@
           "hierarchy",
           "children"
         ],
-        "summary": "Retorna todos os projetos filhos de um projeto",
+        "summary": "Listar todos os projetos filhos de um projeto",
         "description": "Retorna todos os projetos filhos de um projeto específico, incluindo informações sobre o projeto pai. Suporta filtros para projetos excluídos e templates.",
-        "operationId": "retornaTodosOsProjetosFilhosDeUmProjeto",
+        "operationId": "listarTodosOsProjetosFilhosDeUmProjeto",
         "responses": {
           "200": {
             "description": ""
@@ -559,9 +559,9 @@
           "hierarchy",
           "tree"
         ],
-        "summary": "Retorna a árvore completa de hierarquia de um projeto",
+        "summary": "Listar a árvore completa de hierarquia de um projeto",
         "description": "Retorna a árvore completa de hierarquia de um projeto, incluindo todos os descendentes, estatísticas da hierarquia e breadcrumb do projeto atual.",
-        "operationId": "retornaARvoreCompletaDeHierarquiaDeUmProjeto",
+        "operationId": "listarARvoreCompletaDeHierarquiaDeUmProjeto",
         "responses": {
           "200": {
             "description": ""
@@ -587,9 +587,9 @@
           "hierarchy",
           "stats"
         ],
-        "summary": "Retorna estatísticas detalhadas da hierarquia de um projeto",
+        "summary": "Listar estatísticas da hierarquia de um projeto",
         "description": "Retorna estatísticas detalhadas da hierarquia de um projeto, incluindo contagem de irmãos, ancestrais e informações sobre a estrutura hierárquica.",
-        "operationId": "retornaEstatSticasDetalhadasDaHierarquiaDeUmProjeto",
+        "operationId": "listarEstatSticasDaHierarquiaDeUmProjeto",
         "responses": {
           "200": {
             "description": ""
@@ -615,9 +615,9 @@
           "hierarchy",
           "analytics"
         ],
-        "summary": "Retorna análises agregadas de todos os projetos descendentes",
+        "summary": "Listar análises agregadas de todos os projetos descendentes",
         "description": "Retorna análises agregadas de todos os projetos descendentes.",
-        "operationId": "retornaAnLisesAgregadasDeTodosOsProjetosDescendentes",
+        "operationId": "listarAnLisesAgregadasDeTodosOsProjetosDescendentes",
         "responses": {
           "200": {
             "description": ""
@@ -643,9 +643,9 @@
           "hierarchy",
           "attach-child"
         ],
-        "summary": "Remove a relação de hierarquia entre um projeto pai e seu projeto filho",
+        "summary": "Remover a relação de hierarquia entre um projeto pai e seu projeto filho",
         "description": "Vincula um projeto como filho de outro projeto, criando uma relação de hierarquia pai-filho.",
-        "operationId": "removeARelaODeHierarquiaEntreUmProjetoPaiESeuProjetoFilho",
+        "operationId": "removerARelaODeHierarquiaEntreUmProjetoPaiESeuProjetoFilho",
         "responses": {
           "200": {
             "description": ""
@@ -671,9 +671,9 @@
           "hierarchy",
           "detach-child"
         ],
-        "summary": "[DELETE] api/management/projects/{project}/hierarchy/detach-child/{child}",
-        "description": "[DELETE] api/management/projects/{project}/hierarchy/detach-child/{child}",
-        "operationId": "deleteApiManagementProjectsProjectHierarchyDetachChildChild",
+        "summary": "Remover a relação de hierarquia entre um projeto pai e seu projeto filho",
+        "description": "Remove a relação de hierarquia entre um projeto pai e seu projeto filho, promovendo o filho para o nível raiz.",
+        "operationId": "removerARelaODeHierarquiaEntreUmProjetoPaiESeuProjetoFilho1",
         "responses": {
           "200": {
             "description": ""
@@ -707,9 +707,9 @@
           "hierarchy",
           "move-to-parent"
         ],
-        "summary": "Move um projeto para ser filho de outro projeto",
+        "summary": "Mover um projeto para ser filho de outro projeto",
         "description": "Move um projeto para ser filho de outro projeto, alterando sua posição na hierarquia.",
-        "operationId": "moveUmProjetoParaSerFilhoDeOutroProjeto",
+        "operationId": "moverUmProjetoParaSerFilhoDeOutroProjeto",
         "responses": {
           "200": {
             "description": ""
@@ -735,9 +735,9 @@
           "hierarchy",
           "promote-to-root"
         ],
-        "summary": "Remove um projeto de sua hierarquia atual",
+        "summary": "Remover um projeto de sua hierarquia atual",
         "description": "Remove um projeto de sua hierarquia atual, promovendo-o para o nível raiz (sem projeto pai).",
-        "operationId": "removeUmProjetoDeSuaHierarquiaAtual",
+        "operationId": "removerUmProjetoDeSuaHierarquiaAtual",
         "responses": {
           "200": {
             "description": ""
@@ -762,9 +762,9 @@
           "{id}",
           "loose-checklist"
         ],
-        "summary": "Retorna todos os checklists avulsos associados a um projeto",
+        "summary": "Listar todos os checklists avulsos associados a um projeto",
         "description": "Retorna todos os checklists avulsos associados a um projeto específico ordenados. Inclui informações sobre quem marcou como concluído e o autor de cada item.",
-        "operationId": "retornaTodosOsChecklistsAvulsosAssociadosAUmProjeto",
+        "operationId": "listarTodosOsChecklistsAvulsosAssociadosAUmProjeto",
         "responses": {
           "200": {
             "description": ""
@@ -777,9 +777,9 @@
           "{id}",
           "loose-checklist"
         ],
-        "summary": "Cria um novo item de checklist avulso para um projeto",
+        "summary": "Criar um novo item de checklist avulso para um projeto",
         "description": "Cria um novo item de checklist avulso para um projeto. O item é adicionado ao final da lista (ordem baseada na contagem existente).",
-        "operationId": "criaUmNovoItemDeChecklistAvulsoParaUmProjeto",
+        "operationId": "criarUmNovoItemDeChecklistAvulsoParaUmProjeto",
         "responses": {
           "200": {
             "description": ""
@@ -804,9 +804,9 @@
           "{id}",
           "loose-checklist"
         ],
-        "summary": "Atualiza um item de checklist avulso existente",
+        "summary": "Atualizar um item de checklist avulso",
         "description": "Atualiza um item de checklist avulso existente. Permite atualizar informações como data de conclusão, autor e quem marcou como concluído. A ordem pode ser ajustada automaticamente.",
-        "operationId": "atualizaUmItemDeChecklistAvulsoExistente",
+        "operationId": "atualizarUmItemDeChecklistAvulso",
         "responses": {
           "200": {
             "description": ""
@@ -819,9 +819,9 @@
           "{id}",
           "loose-checklist"
         ],
-        "summary": "Remove um item de checklist avulso de um projeto",
+        "summary": "Remover um item de checklist avulso de um projeto",
         "description": "Remove um item de checklist avulso de um projeto. A ordem dos itens restantes é ajustada automaticamente.",
-        "operationId": "removeUmItemDeChecklistAvulsoDeUmProjeto",
+        "operationId": "removerUmItemDeChecklistAvulsoDeUmProjeto",
         "responses": {
           "200": {
             "description": ""
@@ -854,9 +854,9 @@
           "{id}",
           "loose-forms"
         ],
-        "summary": "Retorna todos os formulários avulsos associados a um projeto",
+        "summary": "Listar formulários avulsos associados a um projeto",
         "description": "Retorna todos os formulários avulsos associados a um projeto específico, incluindo informações do formulário relacionado.",
-        "operationId": "retornaTodosOsFormulRiosAvulsosAssociadosAUmProjeto",
+        "operationId": "listarFormulRiosAvulsosAssociadosAUmProjeto",
         "responses": {
           "200": {
             "description": ""
@@ -869,9 +869,9 @@
           "{id}",
           "loose-forms"
         ],
-        "summary": "Associa um formulário avulso a um projeto",
-        "description": "Associa um formulário avulso a um projeto",
-        "operationId": "associaUmFormulRioAvulsoAUmProjeto",
+        "summary": "Vincula um formulário avulso a um projeto",
+        "description": "Vincula um formulário avulso a um projeto",
+        "operationId": "vinculaUmFormulRioAvulsoAUmProjeto",
         "responses": {
           "200": {
             "description": ""
@@ -896,9 +896,9 @@
           "{id}",
           "loose-forms"
         ],
-        "summary": "Remove a associação de um formulário avulso de um projeto.",
-        "description": "Remove a associação de um formulário avulso de um projeto.",
-        "operationId": "removeAAssociaODeUmFormulRioAvulsoDeUmProjeto",
+        "summary": "Desvincula um formulário avulso de um projeto",
+        "description": "Desvincula um formulário avulso de um projeto",
+        "operationId": "desvinculaUmFormulRioAvulsoDeUmProjeto",
         "responses": {
           "200": {
             "description": ""
@@ -1891,9 +1891,9 @@
           "projects",
           "ids"
         ],
-        "summary": "Retorna uma lista de IDs de projetos",
+        "summary": "Listar IDs de projetos",
         "description": "Retorna uma lista de IDs de projetos que correspondem aos filtros aplicados na requisição.",
-        "operationId": "retornaUmaListaDeIdsDeProjetos",
+        "operationId": "listarIdsDeProjetos",
         "responses": {
           "200": {
             "description": ""
@@ -12258,9 +12258,9 @@
           "pivot-accessor",
           "reply"
         ],
-        "summary": "Permite responder um formulário dinâmico através de uma URL assinada de pivot accessor",
+        "summary": "Responder formulário dinâmico através de uma URL assinada",
         "description": "Permite responder um formulário dinâmico através de uma URL assinada de pivot accessor. Valida expiração e uso único antes de processar a resposta.",
-        "operationId": "permiteResponderUmFormulRioDinMicoAtravSDeUmaUrlAssinadaDePivotAccessor",
+        "operationId": "responderFormulRioDinMicoAtravSDeUmaUrlAssinada",
         "responses": {
           "200": {
             "description": ""
@@ -12275,9 +12275,9 @@
           "pivot-accessor",
           "decode"
         ],
-        "summary": "Decodifica uma URL assinada de pivot accessor e retorna as informações do formulário",
+        "summary": "Decodificar URL assinada de pivot accessor",
         "description": "Decodifica uma URL assinada de pivot accessor e retorna as informações do formulário, respostas existentes e URL de resposta. Valida expiração e uso único.",
-        "operationId": "decodificaUmaUrlAssinadaDePivotAccessorERetornaAsInformaEsDoFormulRio",
+        "operationId": "decodificarUrlAssinadaDePivotAccessor",
         "responses": {
           "200": {
             "description": ""
@@ -12292,9 +12292,9 @@
           "pivot-accessor",
           "url-generate"
         ],
-        "summary": "Gera URLs assinadas para acesso temporário a um formulário dinâmico",
+        "summary": "Gerar URL assinada para acesso temporário a um formulário dinâmico",
         "description": "Gera URLs assinadas para acesso temporário a formulários dinâmicos através de um pivot accessor, permitindo controle de expiração e acesso único.",
-        "operationId": "geraUrlsAssinadasParaAcessoTemporRioAUmFormulRioDinMico",
+        "operationId": "gerarUrlAssinadaParaAcessoTemporRioAUmFormulRioDinMico",
         "responses": {
           "200": {
             "description": ""
@@ -12307,9 +12307,9 @@
         "tags": [
           "dynamic-forms"
         ],
-        "summary": "Retorna todos os formulários dinâmicos relacionados a um modelo específico",
-        "description": "Retorna todos os formulários dinâmicos relacionados a um modelo específico",
-        "operationId": "retornaTodosOsFormulRiosDinMicosRelacionadosAUmModeloEspecFico",
+        "summary": "Listar todos os formulários dinâmicos relacionados a um modelo específico",
+        "description": "Listar todos os formulários dinâmicos relacionados a um modelo específico",
+        "operationId": "listarTodosOsFormulRiosDinMicosRelacionadosAUmModeloEspecFico",
         "responses": {
           "200": {
             "description": ""
@@ -13552,9 +13552,9 @@
           "goals",
           "results"
         ],
-        "summary": "Retorna todos os resultados de uma meta",
+        "summary": "Listar resultados de uma meta",
         "description": "Retorna todos os resultados de uma meta específica, ordenados por período (period).",
-        "operationId": "retornaTodosOsResultadosDeUmaMeta",
+        "operationId": "listarResultadosDeUmaMeta",
         "responses": {
           "200": {
             "description": ""
@@ -13578,9 +13578,9 @@
           "goals",
           "results"
         ],
-        "summary": "Remove um resultado específico de uma meta",
-        "description": "Remove um resultado específico de uma meta",
-        "operationId": "removeUmResultadoEspecFicoDeUmaMeta",
+        "summary": "Deletar resultado específico de uma meta",
+        "description": "Deletar resultado específico de uma meta",
+        "operationId": "deletarResultadoEspecFicoDeUmaMeta",
         "responses": {
           "200": {
             "description": ""
@@ -13611,9 +13611,9 @@
         "tags": [
           "goals"
         ],
-        "summary": "Retorna uma lista de todas as metas",
+        "summary": "Listar metas",
         "description": "Retorna uma lista de todas as metas, ordenadas por status (ativas primeiro) e data de criação. Inclui o último resultado, filhas e contagem de resultados",
-        "operationId": "retornaUmaListaDeTodasAsMetas",
+        "operationId": "listarMetas",
         "responses": {
           "200": {
             "description": ""
@@ -13624,9 +13624,9 @@
         "tags": [
           "goals"
         ],
-        "summary": "Cria uma nova meta",
+        "summary": "Criar meta",
         "description": "Cria uma nova meta. Permite associar metas filhas (children) para metas compostas. Após a criação, executa o cálculo persistente do progresso.",
-        "operationId": "criaUmaNovaMeta",
+        "operationId": "criarMeta",
         "requestBody": {
           "content": {
             "application/json": {
@@ -13701,7 +13701,7 @@
                 }
               },
               "examples": {
-                "Cria uma nova meta": {
+                "Criar meta": {
                   "value": {
                     "children": [
                       []
@@ -13738,9 +13738,9 @@
         "tags": [
           "goals"
         ],
-        "summary": "Retorna os detalhes de uma meta específica",
+        "summary": "Obter detalhes de uma meta",
         "description": "Retorna os detalhes de uma meta específica, incluindo contagem de resultados e metas filhas. Aceita parâmetro de query \\`refresh\\` para recalcular o progresso.",
-        "operationId": "retornaOsDetalhesDeUmaMetaEspecFica",
+        "operationId": "obterDetalhesDeUmaMeta",
         "responses": {
           "200": {
             "description": ""
@@ -13751,9 +13751,9 @@
         "tags": [
           "goals"
         ],
-        "summary": "Atualiza as informações de uma meta",
+        "summary": "Atualizar informações de uma meta",
         "description": "Atualiza as informações de uma meta existente, incluindo a sincronização de metas filhas (children). Após a atualização, executa o cálculo persistente do progresso.",
-        "operationId": "atualizaAsInformaEsDeUmaMeta",
+        "operationId": "atualizarInformaEsDeUmaMeta",
         "requestBody": {
           "content": {
             "application/json": {
@@ -13828,7 +13828,7 @@
                 }
               },
               "examples": {
-                "Atualiza as informações de uma meta": {
+                "Atualizar informações de uma meta": {
                   "value": {
                     "children": [
                       []
@@ -13863,9 +13863,9 @@
         "tags": [
           "goals"
         ],
-        "summary": "Deleta uma meta",
-        "description": "Deleta uma meta",
-        "operationId": "deletaUmaMeta",
+        "summary": "Deletar uma meta",
+        "description": "Deletar uma meta",
+        "operationId": "deletarUmaMeta",
         "responses": {
           "200": {
             "description": ""
@@ -13889,9 +13889,9 @@
           "squads",
           "users"
         ],
-        "summary": "Retorna todos os usuários associados a um squad específico",
-        "description": "Retorna todos os usuários associados a um squad específico",
-        "operationId": "retornaTodosOsUsuRiosAssociadosAUmSquadEspecFico",
+        "summary": "Listar usuários associados a um squad",
+        "description": "Listar usuários associados a um squad",
+        "operationId": "listarUsuRiosAssociadosAUmSquad",
         "responses": {
           "200": {
             "description": ""
@@ -13903,9 +13903,9 @@
           "squads",
           "users"
         ],
-        "summary": "Adiciona um ou mais usuários a um squad como membros",
-        "description": "Adiciona um ou mais usuários a um squad como membros",
-        "operationId": "adicionaUmOuMaisUsuRiosAUmSquadComoMembros",
+        "summary": "Adicionar um ou mais usuários a um squad como membros",
+        "description": "Adicionar um ou mais usuários a um squad como membros",
+        "operationId": "adicionarUmOuMaisUsuRiosAUmSquadComoMembros",
         "requestBody": {
           "content": {
             "application/json": {
@@ -13915,7 +13915,7 @@
                 "example": []
               },
               "examples": {
-                "Adiciona um ou mais usuários a um squad como membros": {
+                "Adicionar um ou mais usuários a um squad como membros": {
                   "value": []
                 }
               }
@@ -13945,9 +13945,9 @@
           "squads",
           "users"
         ],
-        "summary": "Atualiza o tipo de um usuário no squad",
+        "summary": "Atualizar tipo de um usuário no squad",
         "description": "Atualiza o tipo de um usuário no squad (MEMBER, LEADER, LEADER_SUBSTITUTE). Ao definir LEADER ou LEADER_SUBSTITUTE, remove automaticamente o tipo anterior de outros usuários.",
-        "operationId": "atualizaOTipoDeUmUsuRioNoSquad",
+        "operationId": "atualizarTipoDeUmUsuRioNoSquad",
         "requestBody": {
           "content": {
             "application/json": {
@@ -13961,7 +13961,7 @@
                 }
               },
               "examples": {
-                "Atualiza o tipo de um usuário no squad": {
+                "Atualizar tipo de um usuário no squad": {
                   "value": {
                     "type": "sample_text"
                   }
@@ -13981,9 +13981,9 @@
           "squads",
           "users"
         ],
-        "summary": "Remove um usuário específico de um squad",
+        "summary": "Remover usuário específico de um squad",
         "description": "Remove um usuário específico de um squad, desvinculando-o completamente.",
-        "operationId": "removeUmUsuRioEspecFicoDeUmSquad",
+        "operationId": "removerUsuRioEspecFicoDeUmSquad",
         "responses": {
           "200": {
             "description": ""
@@ -14014,9 +14014,9 @@
         "tags": [
           "squads"
         ],
-        "summary": "Retorna uma lista de todos os squads",
+        "summary": "Listar squads",
         "description": "Retorna uma lista de todos os squads do frame atual, incluindo até 10 usuários de cada squad.",
-        "operationId": "retornaUmaListaDeTodosOsSquads",
+        "operationId": "listarSquads",
         "responses": {
           "200": {
             "description": ""
@@ -14027,9 +14027,9 @@
         "tags": [
           "squads"
         ],
-        "summary": "Cria um novo squad",
-        "description": "Cria um novo squad",
-        "operationId": "criaUmNovoSquad",
+        "summary": "Criar squad",
+        "description": "Criar squad",
+        "operationId": "criarSquad",
         "requestBody": {
           "content": {
             "application/json": {
@@ -14051,7 +14051,7 @@
                 }
               },
               "examples": {
-                "Cria um novo squad": {
+                "Criar squad": {
                   "value": {
                     "code": "sample_text",
                     "description": "sample_text",
@@ -14074,9 +14074,9 @@
         "tags": [
           "squads"
         ],
-        "summary": "Retorna os detalhes de um squad específico",
+        "summary": "Obter detalhes de um squad",
         "description": "Retorna os detalhes de um squad específico, incluindo todos os seus usuários.",
-        "operationId": "retornaOsDetalhesDeUmSquadEspecFico",
+        "operationId": "obterDetalhesDeUmSquad",
         "responses": {
           "200": {
             "description": ""
@@ -14087,9 +14087,9 @@
         "tags": [
           "squads"
         ],
-        "summary": "Atualiza as informações de um squad",
+        "summary": "Atualizar informações de um squad",
         "description": "Atualiza as informações de um squad existente (código, nome e descrição).",
-        "operationId": "atualizaAsInformaEsDeUmSquad",
+        "operationId": "atualizarInformaEsDeUmSquad",
         "requestBody": {
           "content": {
             "application/json": {
@@ -14111,7 +14111,7 @@
                 }
               },
               "examples": {
-                "Atualiza as informações de um squad": {
+                "Atualizar informações de um squad": {
                   "value": {
                     "code": "sample_text",
                     "description": "sample_text",
@@ -14132,9 +14132,9 @@
         "tags": [
           "squads"
         ],
-        "summary": "Deleta um squad",
+        "summary": "Deletar um squad",
         "description": "Delete um squad. Desvincula todos os usuários antes de excluir.",
-        "operationId": "deletaUmSquad",
+        "operationId": "deletarUmSquad",
         "responses": {
           "200": {
             "description": ""
@@ -14158,9 +14158,9 @@
         "tags": [
           "user-alias"
         ],
-        "summary": "Cria um novo alias de email para um usuário",
+        "summary": "Criar alias de email para um usuário",
         "description": "Cria um novo alias de email para um usuário. Envia notificação de verificação de email para o alias criado.",
-        "operationId": "criaUmNovoAliasDeEmailParaUmUsuRio",
+        "operationId": "criarAliasDeEmailParaUmUsuRio",
         "responses": {
           "200": {
             "description": ""
@@ -14173,9 +14173,9 @@
         "tags": [
           "user-alias"
         ],
-        "summary": "Retorna todos os aliases de email de um usuário",
+        "summary": "Listar aliases de email de um usuário",
         "description": "Retorna todos os aliases de email de um usuário específico, incluindo o email primário.",
-        "operationId": "retornaTodosOsAliasesDeEmailDeUmUsuRio",
+        "operationId": "listarAliasesDeEmailDeUmUsuRio",
         "responses": {
           "200": {
             "description": ""
@@ -14186,9 +14186,9 @@
         "tags": [
           "user-alias"
         ],
-        "summary": "Remove um alias de email de um usuário",
+        "summary": "Deletar alias de email de um usuário",
         "description": "Remove um alias de email de um usuário.",
-        "operationId": "removeUmAliasDeEmailDeUmUsuRio",
+        "operationId": "deletarAliasDeEmailDeUmUsuRio",
         "responses": {
           "200": {
             "description": ""
@@ -14211,9 +14211,9 @@
         "tags": [
           "toggle-primary-user-alias"
         ],
-        "summary": "Define ou remove o alias primário de um usuário",
+        "summary": "Definer ou remover o alias primário de um usuário",
         "description": "Define ou remove o alias primário de um usuário. Se um alias_id for fornecido, define-o como primário (apenas se já estiver verificado). Se alias_id for nulo, remove o alias primário atual.",
-        "operationId": "defineOuRemoveOAliasPrimRioDeUmUsuRio",
+        "operationId": "definerOuRemoverOAliasPrimRioDeUmUsuRio",
         "responses": {
           "200": {
             "description": ""
@@ -14226,9 +14226,9 @@
         "tags": [
           "get-user"
         ],
-        "summary": "Retorna os detalhes de um usuário específico",
-        "description": "Retorna os detalhes de um usuário específico",
-        "operationId": "retornaOsDetalhesDeUmUsuRioEspecFico",
+        "summary": "Obter detalhes de um usuário específico",
+        "description": "Obter detalhes de um usuário específico",
+        "operationId": "obterDetalhesDeUmUsuRioEspecFico",
         "responses": {
           "200": {
             "description": ""
@@ -14363,9 +14363,9 @@
         "tags": [
           "project-groups"
         ],
-        "summary": "Retorna uma lista de grupos de projetos",
+        "summary": "Listar grupos de projetos",
         "description": "Retorna uma lista de grupos de projetos. Inclui contagem de projetos em cada grupo. Suporta filtros por ID e busca por nome.",
-        "operationId": "retornaUmaListaDeGruposDeProjetos",
+        "operationId": "listarGruposDeProjetos",
         "responses": {
           "200": {
             "description": ""
@@ -14376,9 +14376,9 @@
         "tags": [
           "project-groups"
         ],
-        "summary": "Cria um novo grupo de projetos",
-        "description": "Cria um novo grupo de projetos",
-        "operationId": "criaUmNovoGrupoDeProjetos",
+        "summary": "Criar grupo de projetos",
+        "description": "Criar grupo de projetos",
+        "operationId": "criarGrupoDeProjetos",
         "responses": {
           "200": {
             "description": ""
@@ -14391,9 +14391,9 @@
         "tags": [
           "project-groups"
         ],
-        "summary": "Retorna os detalhes de um grupo de projetos",
-        "description": "Retorna os detalhes de um grupo de projetos",
-        "operationId": "retornaOsDetalhesDeUmGrupoDeProjetos",
+        "summary": "Obter detalhes de um grupo de projetos",
+        "description": "Obter detalhes de um grupo de projetos",
+        "operationId": "obterDetalhesDeUmGrupoDeProjetos",
         "responses": {
           "200": {
             "description": ""
@@ -14404,9 +14404,9 @@
         "tags": [
           "project-groups"
         ],
-        "summary": "Atualiza as informações de um grupo de projetos",
-        "description": "Atualiza as informações de um grupo de projetos",
-        "operationId": "atualizaAsInformaEsDeUmGrupoDeProjetos",
+        "summary": "Atualizar informações de um grupo de projetos",
+        "description": "Atualizar informações de um grupo de projetos",
+        "operationId": "atualizarInformaEsDeUmGrupoDeProjetos",
         "responses": {
           "200": {
             "description": ""
@@ -14417,9 +14417,9 @@
         "tags": [
           "project-groups"
         ],
-        "summary": "Deleta um grupo de projetos",
-        "description": "Deleta um grupo de projetos",
-        "operationId": "deletaUmGrupoDeProjetos",
+        "summary": "Deletar grupo de projetos",
+        "description": "Deletar grupo de projetos",
+        "operationId": "deletarGrupoDeProjetos",
         "responses": {
           "200": {
             "description": ""
