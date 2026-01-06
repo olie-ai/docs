@@ -14939,7 +14939,7 @@
         }
       }
     },
-    "/api/management/get-project-funnels": {
+    "/": {
       "get": {
         "tags": [
           "project-funnels",
@@ -14953,7 +14953,9 @@
             "description": ""
           }
         }
-      },
+      }
+    },
+    "/api/management/get-project-funnels": {
       "post": {
         "tags": [
           "project-funnels",
