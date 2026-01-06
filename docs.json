@@ -9,11 +9,30 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Dashboard",
+          "icon": "house",
+          "href": "https://olie.ai/"
+        },
+        {
+          "anchor": "Documentação",
+          "icon": "book-open-cover",
+          "href": "https://docs.olie.ai"
+        },
+        {
+          "anchor": "Blog",
+          "icon": "newspaper",
+          "href": "https://blog.olie.ai"
+        }
+      ]
+    },
     "products": [
       {
         "product": "Flow AI",
-        "description": "Execução inteligente em ambiente multi-agentico",
         "icon": "chart-diagram",
+        "description": "Execução inteligente em ambiente multi-agentico",
         "tabs": [
           {
             "tab": "Guides",
@@ -51,36 +70,16 @@
                     ]
                   }
                 ]
-              }, 
+              },
               {
                 "group": "Referência da API",
-                "openapi": "api-reference/openapi.json",
-                "pages": []
+                "openapi": "api-reference/openapi.json"
               }
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Dashboard",
-          "icon": "house",
-          "href": "https://olie.ai/"
-        },
-        {
-          "anchor": "Documentação",
-          "icon": "book-open-cover",
-          "href": "https://docs.olie.ai"
-        },
-        {
-          "anchor": "Blog",
-          "icon": "newspaper",
-          "href": "https://blog.olie.ai"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
@@ -117,5 +116,6 @@
       "github": "https://github.com/olie-ai",
       "linkedin": "https://www.linkedin.com/company/olieflow/"
     }
-  }
+  },
+  "description": "Explore os guias e exemplos para integrar a Olie, conheça todo o eco-sistema "
 }

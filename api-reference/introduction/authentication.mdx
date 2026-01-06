@@ -1,10 +1,11 @@
 ---
-title: 'Autenticação e segurança'
-icon: 'key'
-description: 'Como se autenticar e garantir a segurança das suas requisições.'
+title: "Autenticação e segurança"
+icon: "key"
+description: "Como se autenticar e garantir a segurança das suas requisições."
 ---
 
 # Autenticação 🔑
+
 Para fazer requisições, é necessário autenticar cada pedido com as credenciais da sua aplicação.
 
 As solicitações são autenticadas com um token de acesso da aplicação. O token deve ser passado como um `Bearer token`, no cabeçalho da requisição:
@@ -12,49 +13,45 @@ As solicitações são autenticadas com um token de acesso da aplicação. O tok
 ```bash cURL
 curl -H "Authorization: {{token_de_acesso}}" https://api.olie.ai/...
 ```
-  
+
 <Warning>
-Mantenha seu token de acesso em segurança. Nunca compartilhe ou exponha seu token em repositórios públicos.
+  Mantenha seu token de acesso em segurança. Nunca compartilhe ou exponha seu token em repositórios públicos.
 </Warning>
 
 # Como obter o token de acesso
 
 <Steps>
-<Step title="Acesse a plataforma">
-Acesse a sua empresa em [https://olie.ai/frames](https://olie.ai/frames) e depois vá em **Ajustes**.
+  <Step title="Acesse a plataforma">
+    Acesse a sua empresa em https://olie.ai/frames e depois vá em **Ajustes**.
 
-<Frame>
-<img src="https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/4US0yBiC8q3uPlJhz1vcYgjwdAorK9MZ2VnL-image.png" alt="Menu de Ajustes da Olie" />
-</Frame>
-</Step>
+    <Frame>
+      ![Menu de Ajustes da Olie](https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/4US0yBiC8q3uPlJhz1vcYgjwdAorK9MZ2VnL-image.png)
+    </Frame>
+  </Step>
+  <Step title="Navegue até Aplicações">
+    Após isso, clique em **"Aplicações"**.
 
-<Step title="Navegue até Aplicações">
-Após isso, clique em **"Aplicações"**.
+    <Frame>
+      ![Seção de Aplicações](https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/J016pB2cNgZjxDzMfhm8vysCRaXWnoLPq5Kr-image.png)
+    </Frame>
+  </Step>
+  <Step title="Crie uma aplicação">
+    Crie uma aplicação clicando no botão **"Criar aplicação"** e preencha os campos obrigatórios. Após isso, você verá o token de acesso gerado.
 
-<Frame>
-<img src="https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/J016pB2cNgZjxDzMfhm8vysCRaXWnoLPq5Kr-image.png" alt="Seção de Aplicações" />
-</Frame>
-</Step>
+    <Frame>
+      ![Token de acesso gerado](https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/PkbKmJC7zQ4OZlja3VLyNTDF8YWrox9wd1iX-image.png)
+    </Frame>
+    <Warning>
+      Guarde o token em um local seguro, pois ele não será exibido novamente.
+    </Warning>
+  </Step>
+  <Step title="Use o token">
+    Feito isso, você pode usar o token de acesso para fazer requisições à API da Olie.
 
-<Step title="Crie uma aplicação">
-Crie uma aplicação clicando no botão **"Criar aplicação"** e preencha os campos obrigatórios. Após isso, você verá o token de acesso gerado.
-
-<Frame>
-<img src="https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/PkbKmJC7zQ4OZlja3VLyNTDF8YWrox9wd1iX-image.png" alt="Token de acesso gerado" />
-</Frame>
-
-<Warning>
-Guarde o token em um local seguro, pois ele não será exibido novamente.
-</Warning>
-</Step>
-
-<Step title="Use o token">
-Feito isso, você pode usar o token de acesso para fazer requisições à API da Olie.
-
-<Check>
-Seu token está pronto para uso! Adicione-o ao cabeçalho Authorization de suas requisições.
-</Check>
-</Step>
+    <Check>
+      Seu token está pronto para uso! Adicione-o ao cabeçalho Authorization de suas requisições.
+    </Check>
+  </Step>
 </Steps>
 
 # Segurança e permissões
@@ -65,41 +62,21 @@ As permissões atribuidas a uma aplicação são de mesmo nível proprietário, 
   Em breve será possível atribuir permissões específicas para uma aplicação. Até lá, se atente a isso, a API é um **acesso privilegiado** as funcionalidades da plataforma.
 </Warning>
 
-
 ## Próximos passos
 
 Explore os tópicos abaixo para aprender mais sobre como utilizar a API da Olie:
 
 <CardGroup cols={2}>
-<Card
-  title="Filtros"
-  icon="filter"
-  href="/api-reference/filters"
->
-Aprenda a usar filtros dinâmicos para refinar suas consultas.
-</Card>
-
-<Card
-  title="Paginação"
-  icon="list"
-  href="/api-reference/pagination"
->
-Entenda como navegar através de grandes conjuntos de dados.
-</Card>
-
-<Card
-  title="Explorar Endpoints"
-  icon="code"
-  href="#"
->
-Confira a referência completa de todos os endpoints disponíveis.
-</Card>
-
-<Card
-  title="Exemplos de código"
-  icon="terminal"
-  href="#"
->
-Veja exemplos práticos de integração em diferentes linguagens.
-</Card>
+  <Card title="Filtros" icon="filter" href="/api-reference/filters">
+    Aprenda a usar filtros dinâmicos para refinar suas consultas.
+  </Card>
+  <Card title="Paginação" icon="list" href="/api-reference/pagination">
+    Entenda como navegar através de grandes conjuntos de dados.
+  </Card>
+  <Card title="Explorar Endpoints" icon="code" href="#">
+    Confira a referência completa de todos os endpoints disponíveis.
+  </Card>
+  <Card title="Exemplos de código" icon="terminal" href="#">
+    Veja exemplos práticos de integração em diferentes linguagens.
+  </Card>
 </CardGroup>
