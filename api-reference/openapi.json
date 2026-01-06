@@ -127,7 +127,7 @@
         }
       ]
     },
-    "/api/management/projects/{id}/medias": {
+    "/api/management/projects/{id}/media": {
       "get": {
         "tags": [
           "projects",
@@ -402,231 +402,6 @@
           }
         }
       },
-      "post": {
-        "tags": [
-          "projects",
-          "{id}",
-          "medias"
-        ],
-        "summary": "Enviar conteúdo no projeto",
-        "description": "Envia um novo conteúdo para o projeto.",
-        "operationId": "enviarConteDoNoProjeto",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "audio": {
-                    "type": "string",
-                    "example": "<binary>"
-                  },
-                  "file[0]": {
-                    "type": "string",
-                    "example": "<binary>"
-                  },
-                  "text": {
-                    "type": "string",
-                    "example": "<string>"
-                  },
-                  "type": {
-                    "type": "number",
-                    "example": 3
-                  }
-                }
-              },
-              "examples": {
-                "Enviar conteúdo no projeto": {
-                  "value": {
-                    "audio": "<binary>",
-                    "file[0]": "<binary>",
-                    "text": "<string>",
-                    "type": 3
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Conteúdo enviado com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "media": {
-                      "type": "object",
-                      "properties": {
-                        "created_at": {
-                          "type": "string",
-                          "example": "<dateTime>"
-                        },
-                        "deleted_at": {
-                          "type": "string",
-                          "example": "<dateTime>"
-                        },
-                        "extension": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "file_url": {
-                          "type": "string",
-                          "example": "<uri>"
-                        },
-                        "frame_id": {
-                          "type": "string",
-                          "example": "<uuid>"
-                        },
-                        "id": {
-                          "type": "string",
-                          "example": "<uuid>"
-                        },
-                        "log": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "name": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "project_id": {
-                          "type": "string",
-                          "example": "<uuid>"
-                        },
-                        "technical_name": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "text": {
-                          "type": "string",
-                          "example": "<string>"
-                        },
-                        "type": {
-                          "type": "string",
-                          "example": "<integer>"
-                        },
-                        "updated_at": {
-                          "type": "string",
-                          "example": "<dateTime>"
-                        },
-                        "user": {
-                          "type": "object",
-                          "properties": {}
-                        },
-                        "user_id": {
-                          "type": "string",
-                          "example": "<uuid>"
-                        }
-                      }
-                    },
-                    "response": {
-                      "type": "string",
-                      "example": "<boolean>"
-                    }
-                  }
-                },
-                "examples": {
-                  "Conteúdo enviado com sucesso": {
-                    "value": {
-                      "media": {
-                        "created_at": "<dateTime>",
-                        "deleted_at": "<dateTime>",
-                        "extension": "<string>",
-                        "file_url": "<uri>",
-                        "frame_id": "<uuid>",
-                        "id": "<uuid>",
-                        "log": "<string>",
-                        "name": "<string>",
-                        "project_id": "<uuid>",
-                        "technical_name": "<string>",
-                        "text": "<string>",
-                        "type": "<integer>",
-                        "updated_at": "<dateTime>",
-                        "user": {},
-                        "user_id": "<uuid>"
-                      },
-                      "response": "<boolean>"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Não autorizado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string",
-                      "example": "<string>"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "<string>"
-                    },
-                    "response": {
-                      "type": "string",
-                      "example": "<boolean>"
-                    }
-                  }
-                },
-                "examples": {
-                  "Não autorizado": {
-                    "value": {
-                      "error": "<string>",
-                      "message": "<string>",
-                      "response": "<boolean>"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Erro de validação",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string",
-                      "example": "<string>"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "<string>"
-                    },
-                    "response": {
-                      "type": "string",
-                      "example": "<boolean>"
-                    },
-                    "validation": {
-                      "type": "object",
-                      "properties": {}
-                    }
-                  }
-                },
-                "examples": {
-                  "Erro de validação": {
-                    "value": {
-                      "error": "<string>",
-                      "message": "<string>",
-                      "response": "<boolean>",
-                      "validation": {}
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
       "parameters": [
         {
           "name": "id",
@@ -637,6 +412,515 @@
             "example": "<string>"
           },
           "description": "ID do projeto"
+        }
+      ]
+    },
+    "/api/management/projects/{project}/step-metrics": {
+      "get": {
+        "tags": [
+          "projects",
+          "{id}",
+          "step-metrics"
+        ],
+        "summary": "Retorna métricas computadas das etapas (steps) de um projeto específico no funil",
+        "description": "Retorna métricas computadas das etapas (steps) de um projeto específico no funil",
+        "operationId": "retornaMTricasComputadasDasEtapasStepsDeUmProjetoEspecFicoNoFunil",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/projects/{project}/files": {
+      "get": {
+        "tags": [
+          "projects",
+          "{id}",
+          "files"
+        ],
+        "summary": "Retorna todos os arquivos associados a um projeto",
+        "description": "Retorna todos os arquivos associados a um projeto específico.",
+        "operationId": "retornaTodosOsArquivosAssociadosAUmProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/projects/{project}/clone": {
+      "post": {
+        "tags": [
+          "projects",
+          "{id}",
+          "clone"
+        ],
+        "summary": "Cria uma cópia de um projeto",
+        "description": "Cria uma cópia de um projeto existente. Permite configurar quais elementos serão clonados (funis, tags, checklists, respostas de formulários, mídias, fórum, grupos, atribuições, etc.).",
+        "operationId": "criaUmaCPiaDeUmProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/projects/{project}/share": {
+      "post": {
+        "tags": [
+          "projects",
+          "{id}",
+          "share"
+        ],
+        "summary": "Configura ou atualiza as opções de compartilhamento de um projeto",
+        "description": "Configura ou atualiza as opções de compartilhamento de um projeto, incluindo geração de token de compartilhamento e configurações de acesso.",
+        "operationId": "configuraOuAtualizaAsOpEsDeCompartilhamentoDeUmProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/projects/{project}/hierarchy/children": {
+      "get": {
+        "tags": [
+          "projects",
+          "{id}",
+          "hierarchy",
+          "children"
+        ],
+        "summary": "Retorna todos os projetos filhos de um projeto",
+        "description": "Retorna todos os projetos filhos de um projeto específico, incluindo informações sobre o projeto pai. Suporta filtros para projetos excluídos e templates.",
+        "operationId": "retornaTodosOsProjetosFilhosDeUmProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/projects/{project}/hierarchy/tree": {
+      "get": {
+        "tags": [
+          "projects",
+          "{id}",
+          "hierarchy",
+          "tree"
+        ],
+        "summary": "Retorna a árvore completa de hierarquia de um projeto",
+        "description": "Retorna a árvore completa de hierarquia de um projeto, incluindo todos os descendentes, estatísticas da hierarquia e breadcrumb do projeto atual.",
+        "operationId": "retornaARvoreCompletaDeHierarquiaDeUmProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/projects/{project}/hierarchy/stats": {
+      "get": {
+        "tags": [
+          "projects",
+          "{id}",
+          "hierarchy",
+          "stats"
+        ],
+        "summary": "Retorna estatísticas detalhadas da hierarquia de um projeto",
+        "description": "Retorna estatísticas detalhadas da hierarquia de um projeto, incluindo contagem de irmãos, ancestrais e informações sobre a estrutura hierárquica.",
+        "operationId": "retornaEstatSticasDetalhadasDaHierarquiaDeUmProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/projects/{project}/hierarchy/analytics": {
+      "get": {
+        "tags": [
+          "projects",
+          "{id}",
+          "hierarchy",
+          "analytics"
+        ],
+        "summary": "Retorna análises agregadas de todos os projetos descendentes",
+        "description": "Retorna análises agregadas de todos os projetos descendentes.",
+        "operationId": "retornaAnLisesAgregadasDeTodosOsProjetosDescendentes",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/projects/{project}/hierarchy/attach-child": {
+      "post": {
+        "tags": [
+          "projects",
+          "{id}",
+          "hierarchy",
+          "attach-child"
+        ],
+        "summary": "Remove a relação de hierarquia entre um projeto pai e seu projeto filho",
+        "description": "Vincula um projeto como filho de outro projeto, criando uma relação de hierarquia pai-filho.",
+        "operationId": "removeARelaODeHierarquiaEntreUmProjetoPaiESeuProjetoFilho",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/projects/{project}/hierarchy/detach-child/{child}": {
+      "delete": {
+        "tags": [
+          "projects",
+          "{id}",
+          "hierarchy",
+          "detach-child"
+        ],
+        "summary": "[DELETE] api/management/projects/{project}/hierarchy/detach-child/{child}",
+        "description": "[DELETE] api/management/projects/{project}/hierarchy/detach-child/{child}",
+        "operationId": "deleteApiManagementProjectsProjectHierarchyDetachChildChild",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "child",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/projects/{project}/hierarchy/move-to-parent": {
+      "put": {
+        "tags": [
+          "projects",
+          "{id}",
+          "hierarchy",
+          "move-to-parent"
+        ],
+        "summary": "Move um projeto para ser filho de outro projeto",
+        "description": "Move um projeto para ser filho de outro projeto, alterando sua posição na hierarquia.",
+        "operationId": "moveUmProjetoParaSerFilhoDeOutroProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/projects/{project}/hierarchy/promote-to-root": {
+      "put": {
+        "tags": [
+          "projects",
+          "{id}",
+          "hierarchy",
+          "promote-to-root"
+        ],
+        "summary": "Remove um projeto de sua hierarquia atual",
+        "description": "Remove um projeto de sua hierarquia atual, promovendo-o para o nível raiz (sem projeto pai).",
+        "operationId": "removeUmProjetoDeSuaHierarquiaAtual",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/projects/{project}/loose-checklist": {
+      "get": {
+        "tags": [
+          "projects",
+          "{id}",
+          "loose-checklist"
+        ],
+        "summary": "Retorna todos os checklists avulsos associados a um projeto",
+        "description": "Retorna todos os checklists avulsos associados a um projeto específico ordenados. Inclui informações sobre quem marcou como concluído e o autor de cada item.",
+        "operationId": "retornaTodosOsChecklistsAvulsosAssociadosAUmProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "projects",
+          "{id}",
+          "loose-checklist"
+        ],
+        "summary": "Cria um novo item de checklist avulso para um projeto",
+        "description": "Cria um novo item de checklist avulso para um projeto. O item é adicionado ao final da lista (ordem baseada na contagem existente).",
+        "operationId": "criaUmNovoItemDeChecklistAvulsoParaUmProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/projects/{project}/loose-checklist/{loose_checklist}": {
+      "put": {
+        "tags": [
+          "projects",
+          "{id}",
+          "loose-checklist"
+        ],
+        "summary": "Atualiza um item de checklist avulso existente",
+        "description": "Atualiza um item de checklist avulso existente. Permite atualizar informações como data de conclusão, autor e quem marcou como concluído. A ordem pode ser ajustada automaticamente.",
+        "operationId": "atualizaUmItemDeChecklistAvulsoExistente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "projects",
+          "{id}",
+          "loose-checklist"
+        ],
+        "summary": "Remove um item de checklist avulso de um projeto",
+        "description": "Remove um item de checklist avulso de um projeto. A ordem dos itens restantes é ajustada automaticamente.",
+        "operationId": "removeUmItemDeChecklistAvulsoDeUmProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "loose_checklist",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/projects/{project}/loose-forms": {
+      "get": {
+        "tags": [
+          "projects",
+          "{id}",
+          "loose-forms"
+        ],
+        "summary": "Retorna todos os formulários avulsos associados a um projeto",
+        "description": "Retorna todos os formulários avulsos associados a um projeto específico, incluindo informações do formulário relacionado.",
+        "operationId": "retornaTodosOsFormulRiosAvulsosAssociadosAUmProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "projects",
+          "{id}",
+          "loose-forms"
+        ],
+        "summary": "Associa um formulário avulso a um projeto",
+        "description": "Associa um formulário avulso a um projeto",
+        "operationId": "associaUmFormulRioAvulsoAUmProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/projects/{project}/loose-forms/{loose_form}": {
+      "delete": {
+        "tags": [
+          "projects",
+          "{id}",
+          "loose-forms"
+        ],
+        "summary": "Remove a associação de um formulário avulso de um projeto.",
+        "description": "Remove a associação de um formulário avulso de um projeto.",
+        "operationId": "removeAAssociaODeUmFormulRioAvulsoDeUmProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "loose_form",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
         }
       ]
     },
@@ -1584,6 +1868,278 @@
           "description": "ID do projeto"
         }
       ]
+    },
+    "/api/management/projects/merge": {
+      "post": {
+        "tags": [
+          "projects",
+          "merge"
+        ],
+        "summary": "Mesclar projetos",
+        "description": "Mesclar projetos",
+        "operationId": "mesclarProjetos",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/projects/ids": {
+      "post": {
+        "tags": [
+          "projects",
+          "ids"
+        ],
+        "summary": "Retorna uma lista de IDs de projetos",
+        "description": "Retorna uma lista de IDs de projetos que correspondem aos filtros aplicados na requisição.",
+        "operationId": "retornaUmaListaDeIdsDeProjetos",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/save-media": {
+      "post": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Enviar conteúdo no projeto",
+        "description": "Envia um novo conteúdo para o projeto.",
+        "operationId": "enviarConteDoNoProjeto",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "audio": {
+                    "type": "string",
+                    "example": "<binary>"
+                  },
+                  "file[0]": {
+                    "type": "string",
+                    "example": "<binary>"
+                  },
+                  "project_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "example": "<string>"
+                    },
+                    "example": [
+                      "<string>",
+                      "<string>"
+                    ]
+                  },
+                  "text": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
+                  "type": {
+                    "type": "number",
+                    "example": 3
+                  }
+                }
+              },
+              "examples": {
+                "Enviar conteúdo no projeto": {
+                  "value": {
+                    "audio": "<binary>",
+                    "file[0]": "<binary>",
+                    "project_ids": [
+                      "<string>",
+                      "<string>"
+                    ],
+                    "text": "<string>",
+                    "type": 3
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Conteúdo enviado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "media": {
+                      "type": "object",
+                      "properties": {
+                        "created_at": {
+                          "type": "string",
+                          "example": "<dateTime>"
+                        },
+                        "deleted_at": {
+                          "type": "string",
+                          "example": "<dateTime>"
+                        },
+                        "extension": {
+                          "type": "string",
+                          "example": "<string>"
+                        },
+                        "file_url": {
+                          "type": "string",
+                          "example": "<uri>"
+                        },
+                        "frame_id": {
+                          "type": "string",
+                          "example": "<uuid>"
+                        },
+                        "id": {
+                          "type": "string",
+                          "example": "<uuid>"
+                        },
+                        "log": {
+                          "type": "string",
+                          "example": "<string>"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "<string>"
+                        },
+                        "project_id": {
+                          "type": "string",
+                          "example": "<uuid>"
+                        },
+                        "technical_name": {
+                          "type": "string",
+                          "example": "<string>"
+                        },
+                        "text": {
+                          "type": "string",
+                          "example": "<string>"
+                        },
+                        "type": {
+                          "type": "string",
+                          "example": "<integer>"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "example": "<dateTime>"
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {}
+                        },
+                        "user_id": {
+                          "type": "string",
+                          "example": "<uuid>"
+                        }
+                      }
+                    },
+                    "response": {
+                      "type": "string",
+                      "example": "<boolean>"
+                    }
+                  }
+                },
+                "examples": {
+                  "Conteúdo enviado com sucesso": {
+                    "value": {
+                      "media": {
+                        "created_at": "<dateTime>",
+                        "deleted_at": "<dateTime>",
+                        "extension": "<string>",
+                        "file_url": "<uri>",
+                        "frame_id": "<uuid>",
+                        "id": "<uuid>",
+                        "log": "<string>",
+                        "name": "<string>",
+                        "project_id": "<uuid>",
+                        "technical_name": "<string>",
+                        "text": "<string>",
+                        "type": "<integer>",
+                        "updated_at": "<dateTime>",
+                        "user": {},
+                        "user_id": "<uuid>"
+                      },
+                      "response": "<boolean>"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "<string>"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "<string>"
+                    },
+                    "response": {
+                      "type": "string",
+                      "example": "<boolean>"
+                    }
+                  }
+                },
+                "examples": {
+                  "Não autorizado": {
+                    "value": {
+                      "error": "<string>",
+                      "message": "<string>",
+                      "response": "<boolean>"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "<string>"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "<string>"
+                    },
+                    "response": {
+                      "type": "string",
+                      "example": "<boolean>"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "Erro de validação": {
+                    "value": {
+                      "error": "<string>",
+                      "message": "<string>",
+                      "response": "<boolean>",
+                      "validation": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/api/management/projects": {
       "get": {
@@ -11695,6 +12251,90 @@
         }
       ]
     },
+    "/api/management/dynamic-forms/pivot-accessor/reply": {
+      "post": {
+        "tags": [
+          "dynamic-forms",
+          "pivot-accessor",
+          "reply"
+        ],
+        "summary": "Permite responder um formulário dinâmico através de uma URL assinada de pivot accessor",
+        "description": "Permite responder um formulário dinâmico através de uma URL assinada de pivot accessor. Valida expiração e uso único antes de processar a resposta.",
+        "operationId": "permiteResponderUmFormulRioDinMicoAtravSDeUmaUrlAssinadaDePivotAccessor",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/dynamic-forms/pivot-accessor/decode": {
+      "get": {
+        "tags": [
+          "dynamic-forms",
+          "pivot-accessor",
+          "decode"
+        ],
+        "summary": "Decodifica uma URL assinada de pivot accessor e retorna as informações do formulário",
+        "description": "Decodifica uma URL assinada de pivot accessor e retorna as informações do formulário, respostas existentes e URL de resposta. Valida expiração e uso único.",
+        "operationId": "decodificaUmaUrlAssinadaDePivotAccessorERetornaAsInformaEsDoFormulRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/dynamic-forms/pivot-accessor/url-generate": {
+      "post": {
+        "tags": [
+          "dynamic-forms",
+          "pivot-accessor",
+          "url-generate"
+        ],
+        "summary": "Gera URLs assinadas para acesso temporário a um formulário dinâmico",
+        "description": "Gera URLs assinadas para acesso temporário a formulários dinâmicos através de um pivot accessor, permitindo controle de expiração e acesso único.",
+        "operationId": "geraUrlsAssinadasParaAcessoTemporRioAUmFormulRioDinMico",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/dynamic-forms/{model}/{model_id}": {
+      "get": {
+        "tags": [
+          "dynamic-forms"
+        ],
+        "summary": "Retorna todos os formulários dinâmicos relacionados a um modelo específico",
+        "description": "Retorna todos os formulários dinâmicos relacionados a um modelo específico",
+        "operationId": "retornaTodosOsFormulRiosDinMicosRelacionadosAUmModeloEspecFico",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "model",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "model_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
     "/api/management/dynamic-forms/set-form-answers": {
       "post": {
         "tags": [
@@ -12679,6 +13319,32 @@
         }
       }
     },
+    "/api/management/form-publications/{form_publication_token}/form": {
+      "get": {
+        "tags": [
+          "form-publications",
+          "form"
+        ],
+        "summary": "Obter formulário da publicação de formulário",
+        "description": "Obter formulário da publicação de formulário",
+        "operationId": "obterFormulRioDaPublicaODeFormulRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "form_publication_token",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
     "/api/management/form-publications/{form_publication_id}/restore": {
       "post": {
         "tags": [
@@ -12879,6 +13545,897 @@
           }
         }
       ]
+    },
+    "/api/management/goals/{goal}/results": {
+      "get": {
+        "tags": [
+          "goals",
+          "results"
+        ],
+        "summary": "Retorna todos os resultados de uma meta",
+        "description": "Retorna todos os resultados de uma meta específica, ordenados por período (period).",
+        "operationId": "retornaTodosOsResultadosDeUmaMeta",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "goal",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/goals/{goal}/results/{result}": {
+      "delete": {
+        "tags": [
+          "goals",
+          "results"
+        ],
+        "summary": "Remove um resultado específico de uma meta",
+        "description": "Remove um resultado específico de uma meta",
+        "operationId": "removeUmResultadoEspecFicoDeUmaMeta",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "goal",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "result",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/goals": {
+      "get": {
+        "tags": [
+          "goals"
+        ],
+        "summary": "Retorna uma lista de todas as metas",
+        "description": "Retorna uma lista de todas as metas, ordenadas por status (ativas primeiro) e data de criação. Inclui o último resultado, filhas e contagem de resultados",
+        "operationId": "retornaUmaListaDeTodasAsMetas",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "goals"
+        ],
+        "summary": "Cria uma nova meta",
+        "description": "Cria uma nova meta. Permite associar metas filhas (children) para metas compostas. Após a criação, executa o cálculo persistente do progresso.",
+        "operationId": "criaUmaNovaMeta",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "children": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {},
+                      "example": []
+                    },
+                    "example": [
+                      []
+                    ]
+                  },
+                  "comparison_mode": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "end_date": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "periodicity": {
+                    "type": "number",
+                    "example": 27
+                  },
+                  "start_date": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "status": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "target": {
+                    "type": "number",
+                    "example": 4
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "type_options": {
+                    "type": "object",
+                    "properties": {
+                      "0": {
+                        "type": "array",
+                        "items": {},
+                        "example": []
+                      },
+                      "step_id": {
+                        "type": "number",
+                        "example": 7
+                      },
+                      "user_id": {
+                        "type": "string",
+                        "example": "sample_text"
+                      }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "Cria uma nova meta": {
+                  "value": {
+                    "children": [
+                      []
+                    ],
+                    "comparison_mode": "sample_text",
+                    "description": "sample_text",
+                    "end_date": "sample_text",
+                    "periodicity": 27,
+                    "start_date": "sample_text",
+                    "status": "sample_text",
+                    "target": 4,
+                    "title": "sample_text",
+                    "type": "sample_text",
+                    "type_options": {
+                      "0": [],
+                      "step_id": 7,
+                      "user_id": "sample_text"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/goals/{goal}": {
+      "get": {
+        "tags": [
+          "goals"
+        ],
+        "summary": "Retorna os detalhes de uma meta específica",
+        "description": "Retorna os detalhes de uma meta específica, incluindo contagem de resultados e metas filhas. Aceita parâmetro de query \\`refresh\\` para recalcular o progresso.",
+        "operationId": "retornaOsDetalhesDeUmaMetaEspecFica",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "goals"
+        ],
+        "summary": "Atualiza as informações de uma meta",
+        "description": "Atualiza as informações de uma meta existente, incluindo a sincronização de metas filhas (children). Após a atualização, executa o cálculo persistente do progresso.",
+        "operationId": "atualizaAsInformaEsDeUmaMeta",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "children": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {},
+                      "example": []
+                    },
+                    "example": [
+                      []
+                    ]
+                  },
+                  "comparison_mode": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "end_date": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "periodicity": {
+                    "type": "number",
+                    "example": 72
+                  },
+                  "start_date": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "status": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "target": {
+                    "type": "number",
+                    "example": 10
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "type_options": {
+                    "type": "object",
+                    "properties": {
+                      "0": {
+                        "type": "array",
+                        "items": {},
+                        "example": []
+                      },
+                      "step_id": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "user_id": {
+                        "type": "string",
+                        "example": "sample_text"
+                      }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "Atualiza as informações de uma meta": {
+                  "value": {
+                    "children": [
+                      []
+                    ],
+                    "comparison_mode": "sample_text",
+                    "description": "sample_text",
+                    "end_date": "sample_text",
+                    "periodicity": 72,
+                    "start_date": "sample_text",
+                    "status": "sample_text",
+                    "target": 10,
+                    "title": "sample_text",
+                    "type": "sample_text",
+                    "type_options": {
+                      "0": [],
+                      "step_id": 0,
+                      "user_id": "sample_text"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "goals"
+        ],
+        "summary": "Deleta uma meta",
+        "description": "Deleta uma meta",
+        "operationId": "deletaUmaMeta",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "goal",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/squads/{squad}/users": {
+      "get": {
+        "tags": [
+          "squads",
+          "users"
+        ],
+        "summary": "Retorna todos os usuários associados a um squad específico",
+        "description": "Retorna todos os usuários associados a um squad específico",
+        "operationId": "retornaTodosOsUsuRiosAssociadosAUmSquadEspecFico",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "squads",
+          "users"
+        ],
+        "summary": "Adiciona um ou mais usuários a um squad como membros",
+        "description": "Adiciona um ou mais usuários a um squad como membros",
+        "operationId": "adicionaUmOuMaisUsuRiosAUmSquadComoMembros",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {},
+                "example": []
+              },
+              "examples": {
+                "Adiciona um ou mais usuários a um squad como membros": {
+                  "value": []
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "squad",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/squads/{squad}/users/{user}": {
+      "put": {
+        "tags": [
+          "squads",
+          "users"
+        ],
+        "summary": "Atualiza o tipo de um usuário no squad",
+        "description": "Atualiza o tipo de um usuário no squad (MEMBER, LEADER, LEADER_SUBSTITUTE). Ao definir LEADER ou LEADER_SUBSTITUTE, remove automaticamente o tipo anterior de outros usuários.",
+        "operationId": "atualizaOTipoDeUmUsuRioNoSquad",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "sample_text"
+                  }
+                }
+              },
+              "examples": {
+                "Atualiza o tipo de um usuário no squad": {
+                  "value": {
+                    "type": "sample_text"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "squads",
+          "users"
+        ],
+        "summary": "Remove um usuário específico de um squad",
+        "description": "Remove um usuário específico de um squad, desvinculando-o completamente.",
+        "operationId": "removeUmUsuRioEspecFicoDeUmSquad",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "squad",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "user",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/squads": {
+      "get": {
+        "tags": [
+          "squads"
+        ],
+        "summary": "Retorna uma lista de todos os squads",
+        "description": "Retorna uma lista de todos os squads do frame atual, incluindo até 10 usuários de cada squad.",
+        "operationId": "retornaUmaListaDeTodosOsSquads",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "squads"
+        ],
+        "summary": "Cria um novo squad",
+        "description": "Cria um novo squad",
+        "operationId": "criaUmNovoSquad",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "sample_text"
+                  }
+                }
+              },
+              "examples": {
+                "Cria um novo squad": {
+                  "value": {
+                    "code": "sample_text",
+                    "description": "sample_text",
+                    "name": "sample_text"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/squads/{squad}": {
+      "get": {
+        "tags": [
+          "squads"
+        ],
+        "summary": "Retorna os detalhes de um squad específico",
+        "description": "Retorna os detalhes de um squad específico, incluindo todos os seus usuários.",
+        "operationId": "retornaOsDetalhesDeUmSquadEspecFico",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "squads"
+        ],
+        "summary": "Atualiza as informações de um squad",
+        "description": "Atualiza as informações de um squad existente (código, nome e descrição).",
+        "operationId": "atualizaAsInformaEsDeUmSquad",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "sample_text"
+                  }
+                }
+              },
+              "examples": {
+                "Atualiza as informações de um squad": {
+                  "value": {
+                    "code": "sample_text",
+                    "description": "sample_text",
+                    "name": "sample_text"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "squads"
+        ],
+        "summary": "Deleta um squad",
+        "description": "Delete um squad. Desvincula todos os usuários antes de excluir.",
+        "operationId": "deletaUmSquad",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "squad",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "example": ""
+          }
+        }
+      ]
+    },
+    "/api/management/user-alias": {
+      "post": {
+        "tags": [
+          "user-alias"
+        ],
+        "summary": "Cria um novo alias de email para um usuário",
+        "description": "Cria um novo alias de email para um usuário. Envia notificação de verificação de email para o alias criado.",
+        "operationId": "criaUmNovoAliasDeEmailParaUmUsuRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/user-alias/{user_alias}": {
+      "get": {
+        "tags": [
+          "user-alias"
+        ],
+        "summary": "Retorna todos os aliases de email de um usuário",
+        "description": "Retorna todos os aliases de email de um usuário específico, incluindo o email primário.",
+        "operationId": "retornaTodosOsAliasesDeEmailDeUmUsuRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user-alias"
+        ],
+        "summary": "Remove um alias de email de um usuário",
+        "description": "Remove um alias de email de um usuário.",
+        "operationId": "removeUmAliasDeEmailDeUmUsuRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "user_alias",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/toggle-primary-user-alias": {
+      "post": {
+        "tags": [
+          "toggle-primary-user-alias"
+        ],
+        "summary": "Define ou remove o alias primário de um usuário",
+        "description": "Define ou remove o alias primário de um usuário. Se um alias_id for fornecido, define-o como primário (apenas se já estiver verificado). Se alias_id for nulo, remove o alias primário atual.",
+        "operationId": "defineOuRemoveOAliasPrimRioDeUmUsuRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/get-user": {
+      "post": {
+        "tags": [
+          "get-user"
+        ],
+        "summary": "Retorna os detalhes de um usuário específico",
+        "description": "Retorna os detalhes de um usuário específico",
+        "operationId": "retornaOsDetalhesDeUmUsuRioEspecFico",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/project-groups/{project_group}/projects/index": {
+      "post": {
+        "tags": [
+          "project-groups",
+          "projects12",
+          "index"
+        ],
+        "summary": "Retorna uma lista de projetos associados a um grupo",
+        "description": "Retorna uma lista paginada de projetos associados a um grupo específico, ordenados pela ordem definida no grupo. Inclui informações de porcentagem de conclusão e respostas de formulários dinâmicos. Suporta filtros e busca.",
+        "operationId": "retornaUmaListaDeProjetosAssociadosAUmGrupo",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project_group",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/project-groups/{project_group}/projects/{project_id}/reorder": {
+      "post": {
+        "tags": [
+          "project-groups",
+          "projects12",
+          "reorder"
+        ],
+        "summary": "Altera a ordem de um projeto dentro de um grupo",
+        "description": "Altera a ordem de um projeto dentro de um grupo específico, definindo uma nova posição para o projeto.",
+        "operationId": "alteraAOrdemDeUmProjetoDentroDeUmGrupo",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project_group",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/project-groups/{project_group}/projects": {
+      "post": {
+        "tags": [
+          "project-groups",
+          "projects12"
+        ],
+        "summary": "Associa um projeto a um grupo de projetos",
+        "description": "Associa um projeto existente a um grupo de projetos. O projeto é adicionado ao final da lista do grupo.",
+        "operationId": "associaUmProjetoAUmGrupoDeProjetos",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project_group",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/project-groups/{project_group}/projects/{project}": {
+      "delete": {
+        "tags": [
+          "project-groups",
+          "projects12"
+        ],
+        "summary": "Remove a associação de um projeto de um grupo de projetos",
+        "description": "Remove a associação de um projeto de um grupo de projetos",
+        "operationId": "removeAAssociaODeUmProjetoDeUmGrupoDeProjetos",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project_group",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/project-groups": {
+      "get": {
+        "tags": [
+          "project-groups"
+        ],
+        "summary": "Retorna uma lista de grupos de projetos",
+        "description": "Retorna uma lista de grupos de projetos. Inclui contagem de projetos em cada grupo. Suporta filtros por ID e busca por nome.",
+        "operationId": "retornaUmaListaDeGruposDeProjetos",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "project-groups"
+        ],
+        "summary": "Cria um novo grupo de projetos",
+        "description": "Cria um novo grupo de projetos",
+        "operationId": "criaUmNovoGrupoDeProjetos",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/project-groups/{project_group}": {
+      "get": {
+        "tags": [
+          "project-groups"
+        ],
+        "summary": "Retorna os detalhes de um grupo de projetos",
+        "description": "Retorna os detalhes de um grupo de projetos",
+        "operationId": "retornaOsDetalhesDeUmGrupoDeProjetos",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "project-groups"
+        ],
+        "summary": "Atualiza as informações de um grupo de projetos",
+        "description": "Atualiza as informações de um grupo de projetos",
+        "operationId": "atualizaAsInformaEsDeUmGrupoDeProjetos",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "project-groups"
+        ],
+        "summary": "Deleta um grupo de projetos",
+        "description": "Deleta um grupo de projetos",
+        "operationId": "deletaUmGrupoDeProjetos",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project_group",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
     }
   },
   "components": {
@@ -12908,6 +14465,57 @@
       "name": "medias"
     },
     {
+      "name": "step-metrics"
+    },
+    {
+      "name": "files"
+    },
+    {
+      "name": "clone"
+    },
+    {
+      "name": "share"
+    },
+    {
+      "name": "hierarchy"
+    },
+    {
+      "name": "children"
+    },
+    {
+      "name": "tree"
+    },
+    {
+      "name": "stats"
+    },
+    {
+      "name": "analytics"
+    },
+    {
+      "name": "attach-child"
+    },
+    {
+      "name": "detach-child"
+    },
+    {
+      "name": "move-to-parent"
+    },
+    {
+      "name": "promote-to-root"
+    },
+    {
+      "name": "loose-checklist"
+    },
+    {
+      "name": "loose-forms"
+    },
+    {
+      "name": "merge"
+    },
+    {
+      "name": "ids"
+    },
+    {
       "name": "funnel-steps"
     },
     {
@@ -12920,7 +14528,22 @@
       "name": "dynamic-forms"
     },
     {
+      "name": "pivot-accessor"
+    },
+    {
+      "name": "reply"
+    },
+    {
+      "name": "decode"
+    },
+    {
+      "name": "url-generate"
+    },
+    {
       "name": "form-publications"
+    },
+    {
+      "name": "form"
     },
     {
       "name": "restore1"
@@ -12930,6 +14553,39 @@
     },
     {
       "name": "responses"
+    },
+    {
+      "name": "goals"
+    },
+    {
+      "name": "results"
+    },
+    {
+      "name": "squads"
+    },
+    {
+      "name": "users"
+    },
+    {
+      "name": "user-alias"
+    },
+    {
+      "name": "toggle-primary-user-alias"
+    },
+    {
+      "name": "get-user"
+    },
+    {
+      "name": "project-groups"
+    },
+    {
+      "name": "projects12"
+    },
+    {
+      "name": "index"
+    },
+    {
+      "name": "reorder"
     }
   ]
 }
