@@ -11787,7 +11787,7 @@
           "delete-funnel"
         ],
         "summary": "Arquivar funil",
-        "description": "Arquivar funil um funil específico.",
+        "description": "Arquivar um funil específico.",
         "operationId": "arquivarFunil",
         "responses": {
           "200": {
