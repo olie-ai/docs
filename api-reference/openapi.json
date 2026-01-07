@@ -6708,10 +6708,6 @@
                       "type": "string",
                       "example": "O campo nome é obrigatório. (and 3 more errors)"
                     },
-                    "file": {
-                      "nullable": true,
-                      "example": null
-                    },
                     "message": {
                       "type": "string",
                       "example": "validation_errors"
@@ -6719,10 +6715,6 @@
                     "response": {
                       "type": "boolean",
                       "example": false
-                    },
-                    "stacktrace": {
-                      "nullable": true,
-                      "example": null
                     },
                     "validation": {
                       "type": "object",
@@ -6775,10 +6767,8 @@
                   "Erro de validação": {
                     "value": {
                       "error": "O campo nome é obrigatório. (and 3 more errors)",
-                      "file": null,
                       "message": "validation_errors",
                       "response": false,
-                      "stacktrace": null,
                       "validation": {
                         "description": [
                           "O campo descrição deve ser uma string."
@@ -7050,7 +7040,7 @@
                               },
                               "name": {
                                 "type": "string",
-                                "example": "Daniella Vila Verdugo"
+                                "example": "Contact Name Example"
                               },
                               "phone": {
                                 "type": "string",
@@ -7093,7 +7083,7 @@
                               },
                               "name": {
                                 "type": "string",
-                                "example": "Dr. Emílio Rico Leal"
+                                "example": "Customer Name Example"
                               },
                               "parent": {
                                 "nullable": true,
@@ -7247,7 +7237,7 @@
                             "email": "email@example.org",
                             "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
                             "id": 12560,
-                            "name": "Daniella Vila Verdugo",
+                            "name": "Contact Name Example",
                             "phone": "(91) 99999-0000",
                             "role": "blanditiis",
                             "updated_at": "2025-12-04T18:33:07.000000Z"
@@ -7258,7 +7248,7 @@
                           "created_by": null,
                           "customer": {
                             "id": "019aeaa3-afaa-7294-b6f9-c9ab2653c84e",
-                            "name": "Dr. Emílio Rico Leal",
+                            "name": "Customer Name Example",
                             "parent": null,
                             "parent_id": null
                           },
@@ -7729,7 +7719,7 @@
                           "created_by": null,
                           "customer": {
                             "id": "019aeaa3-afaa-7294-b6f9-c9ab2653c84e",
-                            "name": "Dr. Emílio Rico Leal",
+                            "name": "Customer Name Example",
                             "parent": null,
                             "parent_id": null
                           },
@@ -8122,7 +8112,7 @@
                             "email": "email@example.org",
                             "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
                             "id": 12560,
-                            "name": "Daniella Vila Verdugo",
+                            "name": "Contact Name Example",
                             "phone": "(91) 99999-0000",
                             "role": "blanditiis",
                             "updated_at": "2025-12-04T18:33:07.000000Z"
@@ -9328,7 +9318,7 @@
                             "email": "email@example.org",
                             "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
                             "id": 12560,
-                            "name": "Daniella Vila Verdugo",
+                            "name": "Contact Name Example",
                             "phone": "(91) 99999-0000",
                             "role": "blanditiis",
                             "updated_at": "2025-12-04T18:33:07.000000Z"
@@ -9339,7 +9329,7 @@
                           "created_by": null,
                           "customer": {
                             "id": "019aeaa3-afaa-7294-b6f9-c9ab2653c84e",
-                            "name": "Dr. Emílio Rico Leal",
+                            "name": "Customer Name Example",
                             "parent": null,
                             "parent_id": null
                           },
@@ -9810,7 +9800,7 @@
                           "created_by": null,
                           "customer": {
                             "id": "019aeaa3-afaa-7294-b6f9-c9ab2653c84e",
-                            "name": "Dr. Emílio Rico Leal",
+                            "name": "Customer Name Example",
                             "parent": null,
                             "parent_id": null
                           },
@@ -10203,7 +10193,7 @@
                             "email": "email@example.org",
                             "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
                             "id": 12560,
-                            "name": "Daniella Vila Verdugo",
+                            "name": "Contact Name Example",
                             "phone": "(91) 99999-0000",
                             "role": "blanditiis",
                             "updated_at": "2025-12-04T18:33:07.000000Z"
@@ -11467,7 +11457,7 @@
           "projects"
         ],
         "summary": "Criação rápida",
-        "description": "O endpoint de criação rápida de projetos permite criar um novo projeto com apenas as informações essenciais, que no endpoint de criação comum, são obrigatórios. Este método é ideal para criação rápida de projetos quando você não precisa configurar todos os detalhes imediatamente.",
+        "description": "O endpoint de criação rápida de projetos permite criar um novo projeto com apenas as informações essenciais, que no endpoint de criação comum, são obrigatórias. Este método é ideal para criação rápida de projetos quando você não precisa configurar todos os detalhes imediatamente.",
         "operationId": "criaORPida",
         "requestBody": {
           "content": {
@@ -11528,12 +11518,6 @@
                 "schema": {
                   "type": "string",
                   "example": "Fri, 12 Dec 2025 19:31:38 GMT"
-                }
-              },
-              "Host": {
-                "schema": {
-                  "type": "string",
-                  "example": "api.olie.localhost"
                 }
               },
               "Transfer-Encoding": {
@@ -13559,12 +13543,6 @@
                   "example": "Tue, 16 Dec 2025 14:58:25 GMT"
                 }
               },
-              "Host": {
-                "schema": {
-                  "type": "string",
-                  "example": "api.olie.localhost"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
@@ -13787,12 +13765,6 @@
                   "example": "Tue, 16 Dec 2025 15:01:12 GMT"
                 }
               },
-              "Host": {
-                "schema": {
-                  "type": "string",
-                  "example": "api.olie.localhost"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
@@ -13874,12 +13846,6 @@
                 "schema": {
                   "type": "string",
                   "example": "Tue, 16 Dec 2025 15:03:37 GMT"
-                }
-              },
-              "Host": {
-                "schema": {
-                  "type": "string",
-                  "example": "api.olie.localhost"
                 }
               },
               "Transfer-Encoding": {
@@ -13975,12 +13941,6 @@
                 "schema": {
                   "type": "string",
                   "example": "Tue, 16 Dec 2025 15:08:47 GMT"
-                }
-              },
-              "Host": {
-                "schema": {
-                  "type": "string",
-                  "example": "api.olie.localhost"
                 }
               },
               "Transfer-Encoding": {
