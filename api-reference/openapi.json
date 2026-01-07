@@ -11752,6 +11752,212 @@
         }
       }
     },
+    "/api/management/project-funnel-link-toggle": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "project-funnel-link-toggle"
+        ],
+        "summary": "Alternar vínculo do funil de projeto",
+        "description": "Alternar o estado do vínculo entre projeto e funil.",
+        "operationId": "alternarVNculoDoFunilDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/update-project-funnel-status": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "update-project-funnel-status"
+        ],
+        "summary": "Atualizar status do funil de projeto",
+        "description": "Atualizar o status de um funil de projeto específico.",
+        "operationId": "atualizarStatusDoFunilDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "project-funnels",
+          "get-project-funnels"
+        ],
+        "summary": "Listar funis de projeto",
+        "description": "Listar todos os funis de projeto.",
+        "operationId": "listarFunisDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/get-project-funnels": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "get-project-funnels"
+        ],
+        "summary": "Obter funil de projeto",
+        "description": "Obter detalhes de um funil de projeto específico.",
+        "operationId": "obterFunilDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/toggle-funnel-tag": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "toggle-funnel-tag"
+        ],
+        "summary": "Alternar vínculo de etiqueta do funil de um projeto",
+        "description": "Alternar vínculo de etiqueta do funil de um projeto.",
+        "operationId": "alternarVNculoDeEtiquetaDoFunilDeUmProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/delete-funnel": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "delete-funnel"
+        ],
+        "summary": "Arquivar funil",
+        "description": "Arquivar funil um funil específico.",
+        "operationId": "arquivarFunil",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/restore-funnel": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "restore-funnel"
+        ],
+        "summary": "Restaurar funil",
+        "description": "Restaurar um funil que foi arquivado anteriormente.",
+        "operationId": "restaurarFunil",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/clone-funnel": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "clone-funnel"
+        ],
+        "summary": "Clonar funil",
+        "description": "Clonar um funil existente criando uma cópia.",
+        "operationId": "clonarFunil",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/project-funnels/reorder": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "reorder"
+        ],
+        "summary": "Reordenar funis de projeto",
+        "description": "Reordenar funis de projeto no sistema.",
+        "operationId": "reordenarFunisDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/project-funnel": {
+      "post": {
+        "tags": [
+          "project-funnels"
+        ],
+        "summary": "Criar ou atualizar funil de projeto",
+        "description": "Criar ou atualizar funil de projeto.",
+        "operationId": "criarOuAtualizarFunilDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/project-funnels/{project_funnel}": {
+      "put": {
+        "tags": [
+          "project-funnels"
+        ],
+        "summary": "Atualizar funil de projeto",
+        "description": "Atualizar dados de um funil de projeto específico.",
+        "operationId": "atualizarFunilDeProjeto",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "funnel_config_template_id": {
+                    "type": "number",
+                    "example": 5
+                  }
+                }
+              },
+              "examples": {
+                "Atualizar funil de projeto": {
+                  "value": {
+                    "funnel_config_template_id": 5
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project_funnel",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
     "/api/management/funnel-steps/{funnel_step_id}/projects": {
       "post": {
         "tags": [
@@ -12771,15 +12977,31 @@
         }
       ]
     },
-    "/api/management/business-areas/{id}/restore": {
+    "/api/management/customers/search": {
       "post": {
         "tags": [
-          "business-areas",
+          "customers",
+          "search"
+        ],
+        "summary": "Busca avançada de clientes",
+        "description": "Buscar clientes com filtros e critérios específicos.",
+        "operationId": "buscaAvanAdaDeClientes",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/customers/{customer}/restore": {
+      "post": {
+        "tags": [
+          "customers",
           "restore1"
         ],
-        "summary": "Restaurar área de negócio",
-        "description": "Restaurar uma área de negócio que foi arquivada anteriormente.",
-        "operationId": "restaurarReaDeNegCio",
+        "summary": "Restaurar cliente",
+        "description": "Restaurar um cliente que foi arquivado anteriormente.",
+        "operationId": "restaurarCliente",
         "responses": {
           "200": {
             "description": ""
@@ -12788,7 +13010,7 @@
       },
       "parameters": [
         {
-          "name": "id",
+          "name": "customer",
           "in": "path",
           "required": true,
           "schema": {
@@ -12797,30 +13019,66 @@
         }
       ]
     },
-    "/api/management/business-areas/reorder": {
-      "post": {
+    "/api/management/customers/{customer}/media": {
+      "get": {
         "tags": [
-          "business-areas",
-          "reorder"
+          "customers",
+          "media"
         ],
-        "summary": "Reordenar áreas de negócio",
-        "description": "Reordenar a sequência das áreas de negócio no sistema.",
-        "operationId": "reordenarReasDeNegCio",
+        "summary": "Listar conteúdos de projetos associados ao cliente",
+        "description": "Listar conteúdos de projetos associados ao cliente",
+        "operationId": "listarConteDosDeProjetosAssociadosAoCliente",
         "responses": {
           "200": {
             "description": ""
           }
         }
-      }
+      },
+      "parameters": [
+        {
+          "name": "customer",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
     },
-    "/api/management/business-areas": {
+    "/api/management/customers/{customer}/project-medias": {
       "get": {
         "tags": [
-          "business-areas"
+          "customers",
+          "project-medias"
         ],
-        "summary": "Listar áreas de negócio",
-        "description": "Listar todas as áreas de negócio.",
-        "operationId": "listarReasDeNegCio",
+        "summary": "Listar conteúdos de projetos associados ao cliente com arquivos",
+        "description": "Listar conteúdos de projetos associados ao cliente com arquivos",
+        "operationId": "listarConteDosDeProjetosAssociadosAoClienteComArquivos",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "customer",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/customers": {
+      "get": {
+        "tags": [
+          "customers"
+        ],
+        "summary": "Listar clientes",
+        "description": "Listar todos os clientes.",
+        "operationId": "listarClientes",
         "responses": {
           "200": {
             "description": ""
@@ -12829,11 +13087,11 @@
       },
       "post": {
         "tags": [
-          "business-areas"
+          "customers"
         ],
-        "summary": "Criar área de negócio",
-        "description": "Criar uma nova área de negócio.",
-        "operationId": "criarReaDeNegCio",
+        "summary": "Criar cliente",
+        "description": "Criar um novo cliente.",
+        "operationId": "criarCliente",
         "responses": {
           "200": {
             "description": ""
@@ -12841,14 +13099,27 @@
         }
       }
     },
-    "/api/management/business-areas/{business_area}": {
+    "/api/management/customers/{customer}": {
+      "get": {
+        "tags": [
+          "customers"
+        ],
+        "summary": "Obter cliente específico",
+        "description": "Obter detalhes de um cliente específico.",
+        "operationId": "obterClienteEspecFico",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
       "put": {
         "tags": [
-          "business-areas"
+          "customers"
         ],
-        "summary": "Atualizar área de negócio",
-        "description": "Atualizar dados de uma área de negócio específica.",
-        "operationId": "atualizarReaDeNegCio",
+        "summary": "Atualizar cliente",
+        "description": "Atualizar dados de um cliente específico.",
+        "operationId": "atualizarCliente",
         "responses": {
           "200": {
             "description": ""
@@ -12857,11 +13128,11 @@
       },
       "delete": {
         "tags": [
-          "business-areas"
+          "customers"
         ],
-        "summary": "Arquivar área de negócio",
-        "description": "Arquivar uma área de negócio específica do sistema.",
-        "operationId": "arquivarReaDeNegCio",
+        "summary": "Arquivar cliente",
+        "description": "Arquivar cliente expecífico",
+        "operationId": "arquivarCliente",
         "responses": {
           "200": {
             "description": ""
@@ -12870,7 +13141,7 @@
       },
       "parameters": [
         {
-          "name": "business_area",
+          "name": "customer",
           "in": "path",
           "required": true,
           "schema": {
@@ -12879,15 +13150,15 @@
         }
       ]
     },
-    "/api/management/project-funnel-link-toggle": {
+    "/api/management/contacts/search": {
       "post": {
         "tags": [
-          "project-funnels",
-          "project-funnel-link-toggle"
+          "contacts",
+          "search1"
         ],
-        "summary": "Alternar vínculo do funil de projeto",
-        "description": "Alternar o estado do vínculo entre projeto e funil.",
-        "operationId": "alternarVNculoDoFunilDeProjeto",
+        "summary": "Buscar avançada de contatos",
+        "description": "Buscar contatos com filtros e critérios específicos.",
+        "operationId": "buscarAvanAdaDeContatos",
         "responses": {
           "200": {
             "description": ""
@@ -12895,179 +13166,15 @@
         }
       }
     },
-    "/api/management/update-project-funnel-status": {
+    "/api/management/contacts/{contact}/restore": {
       "post": {
         "tags": [
-          "project-funnels",
-          "update-project-funnel-status"
+          "contacts",
+          "restore12"
         ],
-        "summary": "Atualizar status do funil de projeto",
-        "description": "Atualizar o status de um funil de projeto específico.",
-        "operationId": "atualizarStatusDoFunilDeProjeto",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/": {
-      "get": {
-        "tags": [
-          "project-funnels",
-          "get-project-funnels"
-        ],
-        "summary": "Listar funis de projeto",
-        "description": "Listar todos os funis de projeto.",
-        "operationId": "listarFunisDeProjeto",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/get-project-funnels": {
-      "post": {
-        "tags": [
-          "project-funnels",
-          "get-project-funnels"
-        ],
-        "summary": "Obter funil de projeto",
-        "description": "Obter detalhes de um funil de projeto específico.",
-        "operationId": "obterFunilDeProjeto",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/toggle-funnel-tag": {
-      "post": {
-        "tags": [
-          "project-funnels",
-          "toggle-funnel-tag"
-        ],
-        "summary": "Alternar vínculo de etiqueta do funil de um projeto",
-        "description": "Alternar vínculo de etiqueta do funil de um projeto.",
-        "operationId": "alternarVNculoDeEtiquetaDoFunilDeUmProjeto",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/delete-funnel": {
-      "post": {
-        "tags": [
-          "project-funnels",
-          "delete-funnel"
-        ],
-        "summary": "Arquivar funil",
-        "description": "Arquivar funil um funil específico.",
-        "operationId": "arquivarFunil",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/restore-funnel": {
-      "post": {
-        "tags": [
-          "project-funnels",
-          "restore-funnel"
-        ],
-        "summary": "Restaurar funil",
-        "description": "Restaurar um funil que foi arquivado anteriormente.",
-        "operationId": "restaurarFunil",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/clone-funnel": {
-      "post": {
-        "tags": [
-          "project-funnels",
-          "clone-funnel"
-        ],
-        "summary": "Clonar funil",
-        "description": "Clonar um funil existente criando uma cópia.",
-        "operationId": "clonarFunil",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/project-funnels/reorder": {
-      "post": {
-        "tags": [
-          "project-funnels",
-          "reorder1"
-        ],
-        "summary": "Reordenar funis de projeto",
-        "description": "Reordenar funis de projeto no sistema.",
-        "operationId": "reordenarFunisDeProjeto",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/project-funnel": {
-      "post": {
-        "tags": [
-          "project-funnels"
-        ],
-        "summary": "Criar ou atualizar funil de projeto",
-        "description": "Criar ou atualizar funil de projeto.",
-        "operationId": "criarOuAtualizarFunilDeProjeto",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/project-funnels/{project_funnel}": {
-      "put": {
-        "tags": [
-          "project-funnels"
-        ],
-        "summary": "Atualizar funil de projeto",
-        "description": "Atualizar dados de um funil de projeto específico.",
-        "operationId": "atualizarFunilDeProjeto",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "funnel_config_template_id": {
-                    "type": "number",
-                    "example": 5
-                  }
-                }
-              },
-              "examples": {
-                "Atualizar funil de projeto": {
-                  "value": {
-                    "funnel_config_template_id": 5
-                  }
-                }
-              }
-            }
-          }
-        },
+        "summary": "Restaurar contato",
+        "description": "Restaurar um contato que foi arquivado anteriormente.",
+        "operationId": "restaurarContato",
         "responses": {
           "200": {
             "description": ""
@@ -13076,7 +13183,86 @@
       },
       "parameters": [
         {
-          "name": "project_funnel",
+          "name": "contact",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/contacts": {
+      "get": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Listar contatos",
+        "description": "Listar todos os contatos.",
+        "operationId": "listarContatos",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Criar contato",
+        "description": "Criar um novo contato.",
+        "operationId": "criarContato",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/contacts/{contact}": {
+      "get": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Obter contato específico",
+        "description": "Obter detalhes de um contato específico.",
+        "operationId": "obterContatoEspecFico",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Atualizar contato",
+        "description": "Atualizar dados de um contato específico.",
+        "operationId": "atualizarContato",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Arquivar contato",
+        "description": "Arquivar um contato específico.",
+        "operationId": "arquivarContato",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "contact",
           "in": "path",
           "required": true,
           "schema": {
@@ -14274,7 +14460,7 @@
       "post": {
         "tags": [
           "form-publications",
-          "restore12"
+          "restore123"
         ],
         "summary": "Restaurar publicação do formulário",
         "description": "Restaura uma publicação de formulário que foi deletada.",
@@ -14535,6 +14721,517 @@
       "parameters": [
         {
           "name": "answers_history",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/ai/agents/executions": {
+      "get": {
+        "tags": [
+          "ai-agents",
+          "agents",
+          "executions"
+        ],
+        "summary": "Listar execuções de agentes",
+        "description": "Listar todas as execuções de agentes de IA.",
+        "operationId": "listarExecuEsDeAgentes",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/ai/agents/executions/{execution}": {
+      "get": {
+        "tags": [
+          "ai-agents",
+          "agents",
+          "executions"
+        ],
+        "summary": "Obter execução de agente específica",
+        "description": "Obter detalhes de uma execução específica de agente de IA.",
+        "operationId": "obterExecuODeAgenteEspecFica",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "execution",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/ai/agents/{agentId}/execute": {
+      "post": {
+        "tags": [
+          "ai-agents",
+          "agents",
+          "execute"
+        ],
+        "summary": "Executar agente",
+        "description": "Executar um agente de IA específico.",
+        "operationId": "executarAgente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "agentId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/ai/agents/{agentId}/contexts/reorder": {
+      "put": {
+        "tags": [
+          "ai-agents",
+          "agents",
+          "contexts",
+          "reorder1"
+        ],
+        "summary": "Reordenar contextos do agente",
+        "description": "Reordenar a sequência dos contextos de um agente de IA.",
+        "operationId": "reordenarContextosDoAgente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "agentId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/ai/agents/{agentId}/contexts": {
+      "get": {
+        "tags": [
+          "ai-agents",
+          "agents",
+          "contexts"
+        ],
+        "summary": "Listar contextos do agente",
+        "description": "Listar todos os contextos associados a um agente de IA específico.",
+        "operationId": "listarContextosDoAgente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ai-agents",
+          "agents",
+          "contexts"
+        ],
+        "summary": "Criar contexto do agente",
+        "description": "Criar um novo contexto para um agente de IA específico.",
+        "operationId": "criarContextoDoAgente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "agentId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/ai/agents/{agentId}/contexts/{contextId}": {
+      "put": {
+        "tags": [
+          "ai-agents",
+          "agents",
+          "contexts"
+        ],
+        "summary": "Atualizar contexto do agente",
+        "description": "Atualizar dados de um contexto específico de um agente de IA.",
+        "operationId": "atualizarContextoDoAgente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ai-agents",
+          "agents",
+          "contexts"
+        ],
+        "summary": "Deletar contexto do agente",
+        "description": "Deletar um contexto específico de um agente de IA.",
+        "operationId": "deletarContextoDoAgente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "agentId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "contextId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/ai/agents": {
+      "get": {
+        "tags": [
+          "ai-agents",
+          "agents"
+        ],
+        "summary": "Listar agentes de IA",
+        "description": "Listar todos os agentes de IA.",
+        "operationId": "listarAgentesDeIa",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ai-agents",
+          "agents"
+        ],
+        "summary": "Criar agente de IA",
+        "description": "Criar um novo agente de IA.",
+        "operationId": "criarAgenteDeIa",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "base_prompt": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "default_model": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "default_provider": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "tools": {
+                    "type": "array",
+                    "items": {},
+                    "example": []
+                  }
+                }
+              },
+              "examples": {
+                "Criar agente de IA": {
+                  "value": {
+                    "base_prompt": "sample_text",
+                    "default_model": "sample_text",
+                    "default_provider": "sample_text",
+                    "description": "sample_text",
+                    "name": "sample_text",
+                    "tools": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/ai/agents/{agent}": {
+      "get": {
+        "tags": [
+          "ai-agents",
+          "agents"
+        ],
+        "summary": "Obter agente de IA específico",
+        "description": "Obter detalhes de um agente de IA específico.",
+        "operationId": "obterAgenteDeIaEspecFico",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ai-agents",
+          "agents"
+        ],
+        "summary": "Atualizar agente de IA",
+        "description": "Atualizar dados de um agente de IA específico.",
+        "operationId": "atualizarAgenteDeIa",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "base_prompt": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "default_model": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "default_provider": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "tools": {
+                    "type": "array",
+                    "items": {},
+                    "example": []
+                  }
+                }
+              },
+              "examples": {
+                "Atualizar agente de IA": {
+                  "value": {
+                    "base_prompt": "sample_text",
+                    "default_model": "sample_text",
+                    "default_provider": "sample_text",
+                    "description": "sample_text",
+                    "name": "sample_text",
+                    "tools": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ai-agents",
+          "agents"
+        ],
+        "summary": "Deletar agente de IA",
+        "description": "Deletar um agente de IA específico do sistema.",
+        "operationId": "deletarAgenteDeIa",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "agent",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/ai/available-models": {
+      "get": {
+        "tags": [
+          "ai-agents",
+          "available-models"
+        ],
+        "summary": "Listar modelos disponíveis",
+        "description": "Listar todos os modelos de IA disponíveis para uso.",
+        "operationId": "listarModelosDisponVeis",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/ai/available-tools": {
+      "get": {
+        "tags": [
+          "ai-agents",
+          "available-tools"
+        ],
+        "summary": "Listar ferramentas disponíveis",
+        "description": "Listar todas as ferramentas disponíveis para uso com agentes de IA.",
+        "operationId": "listarFerramentasDisponVeis",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/business-areas/{id}/restore": {
+      "post": {
+        "tags": [
+          "business-areas",
+          "restore1234"
+        ],
+        "summary": "Restaurar área de negócio",
+        "description": "Restaurar uma área de negócio que foi arquivada anteriormente.",
+        "operationId": "restaurarReaDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/business-areas/reorder": {
+      "post": {
+        "tags": [
+          "business-areas",
+          "reorder12"
+        ],
+        "summary": "Reordenar áreas de negócio",
+        "description": "Reordenar a sequência das áreas de negócio no sistema.",
+        "operationId": "reordenarReasDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/business-areas": {
+      "get": {
+        "tags": [
+          "business-areas"
+        ],
+        "summary": "Listar áreas de negócio",
+        "description": "Listar todas as áreas de negócio.",
+        "operationId": "listarReasDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "business-areas"
+        ],
+        "summary": "Criar área de negócio",
+        "description": "Criar uma nova área de negócio.",
+        "operationId": "criarReaDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/business-areas/{business_area}": {
+      "put": {
+        "tags": [
+          "business-areas"
+        ],
+        "summary": "Atualizar área de negócio",
+        "description": "Atualizar dados de uma área de negócio específica.",
+        "operationId": "atualizarReaDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "business-areas"
+        ],
+        "summary": "Arquivar área de negócio",
+        "description": "Arquivar uma área de negócio específica do sistema.",
+        "operationId": "arquivarReaDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "business_area",
           "in": "path",
           "required": true,
           "schema": {
@@ -14985,402 +15682,14 @@
         }
       ]
     },
-    "/api/management/ai/agents/executions": {
-      "get": {
-        "tags": [
-          "ai",
-          "agents",
-          "executions"
-        ],
-        "summary": "Listar execuções de agentes",
-        "description": "Listar todas as execuções de agentes de IA.",
-        "operationId": "listarExecuEsDeAgentes",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/ai/agents/executions/{execution}": {
-      "get": {
-        "tags": [
-          "ai",
-          "agents",
-          "executions"
-        ],
-        "summary": "Obter execução de agente específica",
-        "description": "Obter detalhes de uma execução específica de agente de IA.",
-        "operationId": "obterExecuODeAgenteEspecFica",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "execution",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    },
-    "/api/management/ai/agents/{agentId}/execute": {
+    "/api/management/get-user": {
       "post": {
         "tags": [
-          "ai",
-          "agents",
-          "execute"
+          "users"
         ],
-        "summary": "Executar agente",
-        "description": "Executar um agente de IA específico.",
-        "operationId": "executarAgente",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "agentId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    },
-    "/api/management/ai/agents/{agentId}/contexts/reorder": {
-      "put": {
-        "tags": [
-          "ai",
-          "agents",
-          "contexts",
-          "reorder12"
-        ],
-        "summary": "Reordenar contextos do agente",
-        "description": "Reordenar a sequência dos contextos de um agente de IA.",
-        "operationId": "reordenarContextosDoAgente",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "agentId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    },
-    "/api/management/ai/agents/{agentId}/contexts": {
-      "get": {
-        "tags": [
-          "ai",
-          "agents",
-          "contexts"
-        ],
-        "summary": "Listar contextos do agente",
-        "description": "Listar todos os contextos associados a um agente de IA específico.",
-        "operationId": "listarContextosDoAgente",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "ai",
-          "agents",
-          "contexts"
-        ],
-        "summary": "Criar contexto do agente",
-        "description": "Criar um novo contexto para um agente de IA específico.",
-        "operationId": "criarContextoDoAgente",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "agentId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    },
-    "/api/management/ai/agents/{agentId}/contexts/{contextId}": {
-      "put": {
-        "tags": [
-          "ai",
-          "agents",
-          "contexts"
-        ],
-        "summary": "Atualizar contexto do agente",
-        "description": "Atualizar dados de um contexto específico de um agente de IA.",
-        "operationId": "atualizarContextoDoAgente",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "ai",
-          "agents",
-          "contexts"
-        ],
-        "summary": "Deletar contexto do agente",
-        "description": "Deletar um contexto específico de um agente de IA.",
-        "operationId": "deletarContextoDoAgente",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "agentId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        },
-        {
-          "name": "contextId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    },
-    "/api/management/ai/agents": {
-      "get": {
-        "tags": [
-          "ai",
-          "agents"
-        ],
-        "summary": "Listar agentes de IA",
-        "description": "Listar todos os agentes de IA.",
-        "operationId": "listarAgentesDeIa",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "ai",
-          "agents"
-        ],
-        "summary": "Criar agente de IA",
-        "description": "Criar um novo agente de IA.",
-        "operationId": "criarAgenteDeIa",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "base_prompt": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "default_model": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "default_provider": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "description": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "name": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "tools": {
-                    "type": "array",
-                    "items": {},
-                    "example": []
-                  }
-                }
-              },
-              "examples": {
-                "Criar agente de IA": {
-                  "value": {
-                    "base_prompt": "sample_text",
-                    "default_model": "sample_text",
-                    "default_provider": "sample_text",
-                    "description": "sample_text",
-                    "name": "sample_text",
-                    "tools": []
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/ai/agents/{agent}": {
-      "get": {
-        "tags": [
-          "ai",
-          "agents"
-        ],
-        "summary": "Obter agente de IA específico",
-        "description": "Obter detalhes de um agente de IA específico.",
-        "operationId": "obterAgenteDeIaEspecFico",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "ai",
-          "agents"
-        ],
-        "summary": "Atualizar agente de IA",
-        "description": "Atualizar dados de um agente de IA específico.",
-        "operationId": "atualizarAgenteDeIa",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "base_prompt": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "default_model": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "default_provider": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "description": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "name": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "tools": {
-                    "type": "array",
-                    "items": {},
-                    "example": []
-                  }
-                }
-              },
-              "examples": {
-                "Atualizar agente de IA": {
-                  "value": {
-                    "base_prompt": "sample_text",
-                    "default_model": "sample_text",
-                    "default_provider": "sample_text",
-                    "description": "sample_text",
-                    "name": "sample_text",
-                    "tools": []
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "ai",
-          "agents"
-        ],
-        "summary": "Deletar agente de IA",
-        "description": "Deletar um agente de IA específico do sistema.",
-        "operationId": "deletarAgenteDeIa",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "agent",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    },
-    "/api/management/ai/available-models": {
-      "get": {
-        "tags": [
-          "ai",
-          "available-models"
-        ],
-        "summary": "Listar modelos disponíveis",
-        "description": "Listar todos os modelos de IA disponíveis para uso.",
-        "operationId": "listarModelosDisponVeis",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/ai/available-tools": {
-      "get": {
-        "tags": [
-          "ai",
-          "available-tools"
-        ],
-        "summary": "Listar ferramentas disponíveis",
-        "description": "Listar todas as ferramentas disponíveis para uso com agentes de IA.",
-        "operationId": "listarFerramentasDisponVeis",
+        "summary": "Obter detalhes de um usuário específico",
+        "description": "Obter detalhes de um usuário específico",
+        "operationId": "obterDetalhesDeUmUsuRioEspecFico",
         "responses": {
           "200": {
             "description": ""
@@ -15392,7 +15701,7 @@
       "get": {
         "tags": [
           "squads",
-          "users"
+          "users1"
         ],
         "summary": "Listar usuários associados a um squad",
         "description": "Listar usuários associados a um squad",
@@ -15406,7 +15715,7 @@
       "post": {
         "tags": [
           "squads",
-          "users"
+          "users1"
         ],
         "summary": "Adicionar um ou mais usuários a um squad como membros",
         "description": "Adicionar um ou mais usuários a um squad como membros",
@@ -15448,7 +15757,7 @@
       "put": {
         "tags": [
           "squads",
-          "users"
+          "users1"
         ],
         "summary": "Atualizar tipo de um usuário no squad",
         "description": "Atualiza o tipo de um usuário no squad (MEMBER, LEADER, LEADER_SUBSTITUTE). Ao definir LEADER ou LEADER_SUBSTITUTE, remove automaticamente o tipo anterior de outros usuários.",
@@ -15484,7 +15793,7 @@
       "delete": {
         "tags": [
           "squads",
-          "users"
+          "users1"
         ],
         "summary": "Remover usuário específico de um squad",
         "description": "Remove um usuário específico de um squad, desvinculando-o completamente.",
@@ -15719,21 +16028,6 @@
         "summary": "Definer ou remover o alias primário de um usuário",
         "description": "Define ou remove o alias primário de um usuário. Se um alias_id for fornecido, define-o como primário (apenas se já estiver verificado). Se alias_id for nulo, remove o alias primário atual.",
         "operationId": "definerOuRemoverOAliasPrimRioDeUmUsuRio",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/get-user": {
-      "post": {
-        "tags": [
-          "users1"
-        ],
-        "summary": "Obter detalhes de um usuário específico",
-        "description": "Obter detalhes de um usuário específico",
-        "operationId": "obterDetalhesDeUmUsuRioEspecFico",
         "responses": {
           "200": {
             "description": ""
@@ -16010,300 +16304,6 @@
         }
       ]
     },
-    "/api/management/customers/search": {
-      "post": {
-        "tags": [
-          "customers",
-          "search"
-        ],
-        "summary": "Busca avançada de clientes",
-        "description": "Buscar clientes com filtros e critérios específicos.",
-        "operationId": "buscaAvanAdaDeClientes",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/customers/{customer}/restore": {
-      "post": {
-        "tags": [
-          "customers",
-          "restore123"
-        ],
-        "summary": "Restaurar cliente",
-        "description": "Restaurar um cliente que foi arquivado anteriormente.",
-        "operationId": "restaurarCliente",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "customer",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    },
-    "/api/management/customers/{customer}/media": {
-      "get": {
-        "tags": [
-          "customers",
-          "media"
-        ],
-        "summary": "Listar conteúdos de projetos associados ao cliente",
-        "description": "Listar conteúdos de projetos associados ao cliente",
-        "operationId": "listarConteDosDeProjetosAssociadosAoCliente",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "customer",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    },
-    "/api/management/customers/{customer}/project-medias": {
-      "get": {
-        "tags": [
-          "customers",
-          "project-medias"
-        ],
-        "summary": "Listar conteúdos de projetos associados ao cliente com arquivos",
-        "description": "Listar conteúdos de projetos associados ao cliente com arquivos",
-        "operationId": "listarConteDosDeProjetosAssociadosAoClienteComArquivos",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "customer",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    },
-    "/api/management/customers": {
-      "get": {
-        "tags": [
-          "customers"
-        ],
-        "summary": "Listar clientes",
-        "description": "Listar todos os clientes.",
-        "operationId": "listarClientes",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "customers"
-        ],
-        "summary": "Criar cliente",
-        "description": "Criar um novo cliente.",
-        "operationId": "criarCliente",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/customers/{customer}": {
-      "get": {
-        "tags": [
-          "customers"
-        ],
-        "summary": "Obter cliente específico",
-        "description": "Obter detalhes de um cliente específico.",
-        "operationId": "obterClienteEspecFico",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "customers"
-        ],
-        "summary": "Atualizar cliente",
-        "description": "Atualizar dados de um cliente específico.",
-        "operationId": "atualizarCliente",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "customers"
-        ],
-        "summary": "Arquivar cliente",
-        "description": "Arquivar cliente expecífico",
-        "operationId": "arquivarCliente",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "customer",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    },
-    "/api/management/contacts/search": {
-      "post": {
-        "tags": [
-          "contacts",
-          "search1"
-        ],
-        "summary": "Buscar avançada de contatos",
-        "description": "Buscar contatos com filtros e critérios específicos.",
-        "operationId": "buscarAvanAdaDeContatos",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/contacts/{contact}/restore": {
-      "post": {
-        "tags": [
-          "contacts",
-          "restore1234"
-        ],
-        "summary": "Restaurar contato",
-        "description": "Restaurar um contato que foi arquivado anteriormente.",
-        "operationId": "restaurarContato",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "contact",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    },
-    "/api/management/contacts": {
-      "get": {
-        "tags": [
-          "contacts"
-        ],
-        "summary": "Listar contatos",
-        "description": "Listar todos os contatos.",
-        "operationId": "listarContatos",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "contacts"
-        ],
-        "summary": "Criar contato",
-        "description": "Criar um novo contato.",
-        "operationId": "criarContato",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/contacts/{contact}": {
-      "get": {
-        "tags": [
-          "contacts"
-        ],
-        "summary": "Obter contato específico",
-        "description": "Obter detalhes de um contato específico.",
-        "operationId": "obterContatoEspecFico",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "contacts"
-        ],
-        "summary": "Atualizar contato",
-        "description": "Atualizar dados de um contato específico.",
-        "operationId": "atualizarContato",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "contacts"
-        ],
-        "summary": "Arquivar contato",
-        "description": "Arquivar um contato específico.",
-        "operationId": "arquivarContato",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "contact",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    },
     "/api/management/tags": {
       "get": {
         "tags": [
@@ -16512,6 +16512,33 @@
       "name": "get-projects-by-forecast-dates"
     },
     {
+      "name": "project-funnels"
+    },
+    {
+      "name": "project-funnel-link-toggle"
+    },
+    {
+      "name": "update-project-funnel-status"
+    },
+    {
+      "name": "get-project-funnels"
+    },
+    {
+      "name": "toggle-funnel-tag"
+    },
+    {
+      "name": "delete-funnel"
+    },
+    {
+      "name": "restore-funnel"
+    },
+    {
+      "name": "clone-funnel"
+    },
+    {
+      "name": "reorder"
+    },
+    {
       "name": "funnel-steps"
     },
     {
@@ -16551,40 +16578,28 @@
       "name": "execution-logs"
     },
     {
-      "name": "business-areas"
+      "name": "customers"
+    },
+    {
+      "name": "search"
     },
     {
       "name": "restore1"
     },
     {
-      "name": "reorder"
+      "name": "media"
     },
     {
-      "name": "project-funnels"
+      "name": "project-medias"
     },
     {
-      "name": "project-funnel-link-toggle"
+      "name": "contacts"
     },
     {
-      "name": "update-project-funnel-status"
+      "name": "search1"
     },
     {
-      "name": "get-project-funnels"
-    },
-    {
-      "name": "toggle-funnel-tag"
-    },
-    {
-      "name": "delete-funnel"
-    },
-    {
-      "name": "restore-funnel"
-    },
-    {
-      "name": "clone-funnel"
-    },
-    {
-      "name": "reorder1"
+      "name": "restore12"
     },
     {
       "name": "dynamic-forms"
@@ -16614,7 +16629,7 @@
       "name": "form"
     },
     {
-      "name": "restore12"
+      "name": "restore123"
     },
     {
       "name": "change-token"
@@ -16632,19 +16647,7 @@
       "name": "export"
     },
     {
-      "name": "goals"
-    },
-    {
-      "name": "results"
-    },
-    {
-      "name": "automations"
-    },
-    {
-      "name": "logs"
-    },
-    {
-      "name": "ai"
+      "name": "ai-agents"
     },
     {
       "name": "agents"
@@ -16659,7 +16662,7 @@
       "name": "contexts"
     },
     {
-      "name": "reorder12"
+      "name": "reorder1"
     },
     {
       "name": "available-models"
@@ -16668,16 +16671,37 @@
       "name": "available-tools"
     },
     {
-      "name": "squads"
+      "name": "business-areas"
+    },
+    {
+      "name": "restore1234"
+    },
+    {
+      "name": "reorder12"
+    },
+    {
+      "name": "goals"
+    },
+    {
+      "name": "results"
+    },
+    {
+      "name": "automations"
+    },
+    {
+      "name": "logs"
     },
     {
       "name": "users"
     },
     {
-      "name": "user-alias"
+      "name": "squads"
     },
     {
       "name": "users1"
+    },
+    {
+      "name": "user-alias"
     },
     {
       "name": "project-groups"
@@ -16702,30 +16726,6 @@
     },
     {
       "name": "bulk-update"
-    },
-    {
-      "name": "customers"
-    },
-    {
-      "name": "search"
-    },
-    {
-      "name": "restore123"
-    },
-    {
-      "name": "media"
-    },
-    {
-      "name": "project-medias"
-    },
-    {
-      "name": "contacts"
-    },
-    {
-      "name": "search1"
-    },
-    {
-      "name": "restore1234"
     },
     {
       "name": "tags"
