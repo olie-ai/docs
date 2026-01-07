@@ -643,9 +643,9 @@
           "hierarchy",
           "attach-child"
         ],
-        "summary": "Remover a relação de hierarquia entre um projeto pai e seu projeto filho",
+        "summary": "Vincular projeto como filho de outro projeto",
         "description": "Vincula um projeto como filho de outro projeto, criando uma relação de hierarquia pai-filho.",
-        "operationId": "removerARelaODeHierarquiaEntreUmProjetoPaiESeuProjetoFilho",
+        "operationId": "vincularProjetoComoFilhoDeOutroProjeto",
         "responses": {
           "200": {
             "description": ""
@@ -673,7 +673,7 @@
         ],
         "summary": "Remover a relação de hierarquia entre um projeto pai e seu projeto filho",
         "description": "Remove a relação de hierarquia entre um projeto pai e seu projeto filho, promovendo o filho para o nível raiz.",
-        "operationId": "removerARelaODeHierarquiaEntreUmProjetoPaiESeuProjetoFilho1",
+        "operationId": "removerARelaODeHierarquiaEntreUmProjetoPaiESeuProjetoFilho",
         "responses": {
           "200": {
             "description": ""
@@ -1241,12 +1241,6 @@
                   "example": "Tue, 16 Dec 2025 18:49:13 GMT"
                 }
               },
-              "Host": {
-                "schema": {
-                  "type": "string",
-                  "example": "api.olie.localhost"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
@@ -1651,12 +1645,6 @@
                 "schema": {
                   "type": "string",
                   "example": "Tue, 16 Dec 2025 18:52:00 GMT"
-                }
-              },
-              "Host": {
-                "schema": {
-                  "type": "string",
-                  "example": "api.olie.localhost"
                 }
               },
               "Transfer-Encoding": {
@@ -13271,6 +13259,81 @@
         }
       ]
     },
+    "/api/management/save-form": {
+      "post": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Salvar formulário",
+        "description": "Salvar um novo formulário ou atualizar um formulário existente.",
+        "operationId": "salvarFormulRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/get-forms": {
+      "get": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Listar formulários",
+        "description": "Listar todos os formulários.",
+        "operationId": "listarFormulRios",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/get-form": {
+      "post": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Obter formulário",
+        "description": "Obter detalhes de um formulário específico.",
+        "operationId": "obterFormulRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/delete-form": {
+      "post": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Deletar formulário",
+        "description": "Deletar formulário",
+        "operationId": "deletarFormulRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/set-model-forms": {
+      "post": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Definir formulários do objeto",
+        "description": "Definir quais formulários estão associados a um objeto específico.",
+        "operationId": "definirFormulRiosDoObjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/management/dynamic-forms/pivot-accessor/reply": {
       "post": {
         "tags": [
@@ -13377,7 +13440,7 @@
           "dynamic-forms"
         ],
         "summary": "Responder formulário dinâmico",
-        "description": "Responder formulários dinâmico. Essa requisição recebe dois principais atributos:\n\n- Identificação do formulário (`target`): Aqui é usado um objeto com propriedades variáveis são usados para identificar qual formulário será respondido.\n- Respostas (`answers`): Um array com objetos, cada objeto contendo `id` e `answer`, sendo o ID do campo do formulário e answer sendo a resposta que este campo receberá. ",
+        "description": "Responder formulários dinâmicos. Essa requisição recebe dois principais atributos:\n\n- Identificação do formulário (`target`): Aqui é usado um objeto com propriedades variáveis são usados para identificar qual formulário será respondido.\n    \n- Respostas (`answers`): Um array com objetos, cada objeto contendo `id` e `answer`, sendo o ID do campo do formulário e answer sendo a resposta que este campo receberá.",
         "operationId": "responderFormulRioDinMico",
         "requestBody": {
           "content": {
@@ -14351,81 +14414,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/api/management/save-form": {
-      "post": {
-        "tags": [
-          "forms"
-        ],
-        "summary": "Salvar formulário",
-        "description": "Salvar um novo formulário ou atualizar um formulário existente.",
-        "operationId": "salvarFormulRio",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/get-forms": {
-      "get": {
-        "tags": [
-          "forms"
-        ],
-        "summary": "Listar formulários",
-        "description": "Listar todos os formulários.",
-        "operationId": "listarFormulRios",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/get-form": {
-      "post": {
-        "tags": [
-          "forms"
-        ],
-        "summary": "Obter formulário",
-        "description": "Obter detalhes de um formulário específico.",
-        "operationId": "obterFormulRio",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/delete-form": {
-      "post": {
-        "tags": [
-          "forms"
-        ],
-        "summary": "Deletar formulário",
-        "description": "Deletar formulário",
-        "operationId": "deletarFormulRio",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/set-model-forms": {
-      "post": {
-        "tags": [
-          "forms"
-        ],
-        "summary": "Definir formulários do objeto",
-        "description": "Definir quais formulários estão associados a um objeto específico.",
-        "operationId": "definirFormulRiosDoObjeto",
-        "responses": {
-          "200": {
-            "description": ""
           }
         }
       }
@@ -16602,6 +16590,9 @@
       "name": "restore12"
     },
     {
+      "name": "forms"
+    },
+    {
       "name": "dynamic-forms"
     },
     {
@@ -16618,9 +16609,6 @@
     },
     {
       "name": "dynamic-forms-answers-file"
-    },
-    {
-      "name": "forms"
     },
     {
       "name": "form-publications"
