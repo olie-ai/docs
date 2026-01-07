@@ -13156,9 +13156,9 @@
           "contacts",
           "search1"
         ],
-        "summary": "Buscar avançada de contatos",
+        "summary": "Busca avançada de contatos",
         "description": "Buscar contatos com filtros e critérios específicos.",
-        "operationId": "buscarAvanAdaDeContatos",
+        "operationId": "buscaAvanAdaDeContatos",
         "responses": {
           "200": {
             "description": ""
@@ -16025,9 +16025,9 @@
         "tags": [
           "user-alias"
         ],
-        "summary": "Definer ou remover o alias primário de um usuário",
+        "summary": "Definir ou remover o alias primário de um usuário",
         "description": "Define ou remove o alias primário de um usuário. Se um alias_id for fornecido, define-o como primário (apenas se já estiver verificado). Se alias_id for nulo, remove o alias primário atual.",
-        "operationId": "definerOuRemoverOAliasPrimRioDeUmUsuRio",
+        "operationId": "definirOuRemoverOAliasPrimRioDeUmUsuRio",
         "responses": {
           "200": {
             "description": ""
