@@ -1901,6 +1901,22 @@
         }
       }
     },
+    "/api/management/get-projects-by-forecast-dates": {
+      "post": {
+        "tags": [
+          "projects",
+          "get-projects-by-forecast-dates"
+        ],
+        "summary": "Obter projetos por datas de previsão",
+        "description": "Obter projetos filtrados por datas de previsão específicas.",
+        "operationId": "obterProjetosPorDatasDePrevisO",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/management/save-media": {
       "post": {
         "tags": [
@@ -12251,6 +12267,824 @@
         }
       ]
     },
+    "/api/management/project-bulk-step-move": {
+      "post": {
+        "tags": [
+          "funnel-steps",
+          "project-bulk-step-move"
+        ],
+        "summary": "Mover múltiplos projetos de etapa",
+        "description": "Mover múltiplos projetos de etapa em uma única operação.",
+        "operationId": "moverMLtiplosProjetosDeEtapa",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/get-available-steps": {
+      "get": {
+        "tags": [
+          "funnel-steps",
+          "get-available-steps"
+        ],
+        "summary": "Listar etapas disponíveis",
+        "description": "Listar todas as etapas disponíveis para associação com projetos.",
+        "operationId": "listarEtapasDisponVeis",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/unlink-project-from-funnel-step": {
+      "post": {
+        "tags": [
+          "funnel-steps",
+          "unlink-project-from-funnel-step"
+        ],
+        "summary": "Desvincular projeto da etapa do funil",
+        "description": "Desvincular um projeto de uma etapa específica do funil.",
+        "operationId": "desvincularProjetoDaEtapaDoFunil",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/get-step-data": {
+      "post": {
+        "tags": [
+          "funnel-steps",
+          "get-step-data"
+        ],
+        "summary": "Obter dados da etapa",
+        "description": "Obter dados e informações de uma etapa específica.",
+        "operationId": "obterDadosDaEtapa",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/get-step-attachments": {
+      "get": {
+        "tags": [
+          "funnel-steps",
+          "get-step-attachments"
+        ],
+        "summary": "Obter anexos da etapa",
+        "description": "Obter todos os anexos associados a uma etapa específica.",
+        "operationId": "obterAnexosDaEtapa",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/update-required-step-attachment": {
+      "post": {
+        "tags": [
+          "funnel-steps",
+          "update-required-step-attachment"
+        ],
+        "summary": "Atualizar vídeo obrigatório da etapa",
+        "description": "Atualizar a configuração de vídeo obrigatório de uma etapa.",
+        "operationId": "atualizarVDeoObrigatRioDaEtapa",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/steps/{step}/metrics": {
+      "get": {
+        "tags": [
+          "funnel-steps",
+          "metrics"
+        ],
+        "summary": "Obter métricas da etapa",
+        "description": "Obter métricas e estatísticas de uma etapa específica.",
+        "operationId": "obterMTricasDaEtapa",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "step",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/step-assistants/{step_assistant}/execute-manually": {
+      "post": {
+        "tags": [
+          "step-assistants",
+          "execute-manually"
+        ],
+        "summary": "Executar assistente de etapa manualmente",
+        "description": "Executar manualmente um assistente de etapa específico.",
+        "operationId": "executarAssistenteDeEtapaManualmente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "step_assistant",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/steps/{step}/assistants/execution-logs": {
+      "get": {
+        "tags": [
+          "step-assistants",
+          "execution-logs"
+        ],
+        "summary": "Obter registros de execução dos assistentes",
+        "description": "Obter registros de execução dos assistentes associados a uma etapa específica.",
+        "operationId": "obterRegistrosDeExecuODosAssistentes",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "step",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/step-assistants": {
+      "get": {
+        "tags": [
+          "step-assistants"
+        ],
+        "summary": "Listar todos os assistentes de etapa",
+        "description": "Listar todos os assistentes de etapa cadastrados no sistema.",
+        "operationId": "listarTodosOsAssistentesDeEtapa",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/steps/{step}/assistants": {
+      "get": {
+        "tags": [
+          "step-assistants"
+        ],
+        "summary": "Listar assistentes de uma etapa específica",
+        "description": "Listar todos os assistentes associados a uma etapa específica.",
+        "operationId": "listarAssistentesDeUmaEtapaEspecFica",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "step-assistants"
+        ],
+        "summary": "Criar assistente da etapa",
+        "description": "Criar um novo assistente para uma etapa específica.",
+        "operationId": "criarAssistenteDaEtapa",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "active": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "ai_agent_id": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "execute_on": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "failure_funnel_step_id": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "funnel_step_id": {
+                    "type": "number",
+                    "example": 3
+                  },
+                  "manual_execution_enabled": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "prompt": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "result_as_dynamic_form": {
+                    "type": "object",
+                    "properties": {
+                      "edge_id": {
+                        "type": "number",
+                        "example": 9
+                      },
+                      "form_id": {
+                        "type": "number",
+                        "example": 8
+                      },
+                      "funnel_step_id": {
+                        "type": "string",
+                        "example": "sample_text"
+                      },
+                      "id": {
+                        "type": "string",
+                        "example": "sample_text"
+                      },
+                      "loose_form_id": {
+                        "type": "string",
+                        "example": "sample_text"
+                      },
+                      "pivot_class": {
+                        "type": "string",
+                        "example": "sample_text"
+                      },
+                      "project_funnel_id": {
+                        "type": "string",
+                        "example": "sample_text"
+                      },
+                      "project_id": {
+                        "type": "string",
+                        "example": "sample_text"
+                      }
+                    }
+                  },
+                  "result_as_media": {
+                    "type": "number",
+                    "example": 1
+                  }
+                }
+              },
+              "examples": {
+                "Criar assistente da etapa": {
+                  "value": {
+                    "active": 1,
+                    "ai_agent_id": "sample_text",
+                    "execute_on": "sample_text",
+                    "failure_funnel_step_id": "sample_text",
+                    "funnel_step_id": 3,
+                    "manual_execution_enabled": 0,
+                    "name": "sample_text",
+                    "prompt": "sample_text",
+                    "result_as_dynamic_form": {
+                      "edge_id": 9,
+                      "form_id": 8,
+                      "funnel_step_id": "sample_text",
+                      "id": "sample_text",
+                      "loose_form_id": "sample_text",
+                      "pivot_class": "sample_text",
+                      "project_funnel_id": "sample_text",
+                      "project_id": "sample_text"
+                    },
+                    "result_as_media": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "step",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/steps/{step}/assistants/{assistant}": {
+      "get": {
+        "tags": [
+          "step-assistants"
+        ],
+        "summary": "Obter assistente da etapa",
+        "description": "Obter detalhes de um assistente específico de uma etapa.",
+        "operationId": "obterAssistenteDaEtapa",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "step-assistants"
+        ],
+        "summary": "Atualizar assistente da etapa",
+        "description": "Atualizar dados de um assistente específico de uma etapa.",
+        "operationId": "atualizarAssistenteDaEtapa",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "active": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "ai_agent_id": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "execute_on": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "failure_funnel_step_id": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "funnel_step_id": {
+                    "type": "number",
+                    "example": 3
+                  },
+                  "manual_execution_enabled": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "prompt": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "result_as_dynamic_form": {
+                    "type": "object",
+                    "properties": {
+                      "edge_id": {
+                        "type": "number",
+                        "example": 7
+                      },
+                      "form_id": {
+                        "type": "number",
+                        "example": 8
+                      },
+                      "funnel_step_id": {
+                        "type": "string",
+                        "example": "sample_text"
+                      },
+                      "id": {
+                        "type": "string",
+                        "example": "sample_text"
+                      },
+                      "loose_form_id": {
+                        "type": "string",
+                        "example": "sample_text"
+                      },
+                      "pivot_class": {
+                        "type": "string",
+                        "example": "sample_text"
+                      },
+                      "project_funnel_id": {
+                        "type": "string",
+                        "example": "sample_text"
+                      },
+                      "project_id": {
+                        "type": "string",
+                        "example": "sample_text"
+                      }
+                    }
+                  },
+                  "result_as_media": {
+                    "type": "number",
+                    "example": 1
+                  }
+                }
+              },
+              "examples": {
+                "Atualizar assistente da etapa": {
+                  "value": {
+                    "active": 1,
+                    "ai_agent_id": "sample_text",
+                    "execute_on": "sample_text",
+                    "failure_funnel_step_id": "sample_text",
+                    "funnel_step_id": 3,
+                    "manual_execution_enabled": 0,
+                    "name": "sample_text",
+                    "prompt": "sample_text",
+                    "result_as_dynamic_form": {
+                      "edge_id": 7,
+                      "form_id": 8,
+                      "funnel_step_id": "sample_text",
+                      "id": "sample_text",
+                      "loose_form_id": "sample_text",
+                      "pivot_class": "sample_text",
+                      "project_funnel_id": "sample_text",
+                      "project_id": "sample_text"
+                    },
+                    "result_as_media": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "step-assistants"
+        ],
+        "summary": "Deletar assistente da etapa",
+        "description": "Deletar um assistente específico de uma etapa.",
+        "operationId": "deletarAssistenteDaEtapa",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "step",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "assistant",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/business-areas/{id}/restore": {
+      "post": {
+        "tags": [
+          "business-areas",
+          "restore1"
+        ],
+        "summary": "Restaurar área de negócio",
+        "description": "Restaurar uma área de negócio que foi arquivada anteriormente.",
+        "operationId": "restaurarReaDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/business-areas/reorder": {
+      "post": {
+        "tags": [
+          "business-areas",
+          "reorder"
+        ],
+        "summary": "Reordenar áreas de negócio",
+        "description": "Reordenar a sequência das áreas de negócio no sistema.",
+        "operationId": "reordenarReasDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/business-areas": {
+      "get": {
+        "tags": [
+          "business-areas"
+        ],
+        "summary": "Listar áreas de negócio",
+        "description": "Listar todas as áreas de negócio.",
+        "operationId": "listarReasDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "business-areas"
+        ],
+        "summary": "Criar área de negócio",
+        "description": "Criar uma nova área de negócio.",
+        "operationId": "criarReaDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/business-areas/{business_area}": {
+      "put": {
+        "tags": [
+          "business-areas"
+        ],
+        "summary": "Atualizar área de negócio",
+        "description": "Atualizar dados de uma área de negócio específica.",
+        "operationId": "atualizarReaDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "business-areas"
+        ],
+        "summary": "Arquivar área de negócio",
+        "description": "Arquivar uma área de negócio específica do sistema.",
+        "operationId": "arquivarReaDeNegCio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "business_area",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/project-funnel-link-toggle": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "project-funnel-link-toggle"
+        ],
+        "summary": "Alternar vínculo do funil de projeto",
+        "description": "Alternar o estado do vínculo entre projeto e funil.",
+        "operationId": "alternarVNculoDoFunilDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/update-project-funnel-status": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "update-project-funnel-status"
+        ],
+        "summary": "Atualizar status do funil de projeto",
+        "description": "Atualizar o status de um funil de projeto específico.",
+        "operationId": "atualizarStatusDoFunilDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "project-funnels",
+          "get-project-funnels"
+        ],
+        "summary": "Listar funis de projeto",
+        "description": "Listar todos os funis de projeto.",
+        "operationId": "listarFunisDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/get-project-funnels": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "get-project-funnels"
+        ],
+        "summary": "Obter funil de projeto",
+        "description": "Obter detalhes de um funil de projeto específico.",
+        "operationId": "obterFunilDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/toggle-funnel-tag": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "toggle-funnel-tag"
+        ],
+        "summary": "Alternar vínculo de etiqueta do funil de um projeto",
+        "description": "Alternar vínculo de etiqueta do funil de um projeto.",
+        "operationId": "alternarVNculoDeEtiquetaDoFunilDeUmProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/delete-funnel": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "delete-funnel"
+        ],
+        "summary": "Arquivar funil",
+        "description": "Arquivar funil um funil específico.",
+        "operationId": "arquivarFunil",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/restore-funnel": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "restore-funnel"
+        ],
+        "summary": "Restaurar funil",
+        "description": "Restaurar um funil que foi arquivado anteriormente.",
+        "operationId": "restaurarFunil",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/clone-funnel": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "clone-funnel"
+        ],
+        "summary": "Clonar funil",
+        "description": "Clonar um funil existente criando uma cópia.",
+        "operationId": "clonarFunil",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/project-funnels/reorder": {
+      "post": {
+        "tags": [
+          "project-funnels",
+          "reorder1"
+        ],
+        "summary": "Reordenar funis de projeto",
+        "description": "Reordenar funis de projeto no sistema.",
+        "operationId": "reordenarFunisDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/project-funnel": {
+      "post": {
+        "tags": [
+          "project-funnels"
+        ],
+        "summary": "Criar ou atualizar funil de projeto",
+        "description": "Criar ou atualizar funil de projeto.",
+        "operationId": "criarOuAtualizarFunilDeProjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/project-funnels/{project_funnel}": {
+      "put": {
+        "tags": [
+          "project-funnels"
+        ],
+        "summary": "Atualizar funil de projeto",
+        "description": "Atualizar dados de um funil de projeto específico.",
+        "operationId": "atualizarFunilDeProjeto",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "funnel_config_template_id": {
+                    "type": "number",
+                    "example": 5
+                  }
+                }
+              },
+              "examples": {
+                "Atualizar funil de projeto": {
+                  "value": {
+                    "funnel_config_template_id": 5
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "project_funnel",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
     "/api/management/dynamic-forms/pivot-accessor/reply": {
       "post": {
         "tags": [
@@ -12295,6 +13129,22 @@
         "summary": "Gerar URL assinada para acesso temporário a um formulário dinâmico",
         "description": "Gera URLs assinadas para acesso temporário a formulários dinâmicos através de um pivot accessor, permitindo controle de expiração e acesso único.",
         "operationId": "gerarUrlAssinadaParaAcessoTemporRioAUmFormulRioDinMico",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/dynamic-forms-answers-file": {
+      "post": {
+        "tags": [
+          "dynamic-forms",
+          "dynamic-forms-answers-file"
+        ],
+        "summary": "Enviar arquivo de resposta de formulário dinâmico",
+        "description": "Enviar arquivo como resposta em um formulário dinâmico.",
+        "operationId": "enviarArquivoDeRespostaDeFormulRioDinMico",
         "responses": {
           "200": {
             "description": ""
@@ -13319,6 +14169,81 @@
         }
       }
     },
+    "/api/management/save-form": {
+      "post": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Salvar formulário",
+        "description": "Salvar um novo formulário ou atualizar um formulário existente.",
+        "operationId": "salvarFormulRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/get-forms": {
+      "get": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Listar formulários",
+        "description": "Listar todos os formulários.",
+        "operationId": "listarFormulRios",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/get-form": {
+      "post": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Obter formulário",
+        "description": "Obter detalhes de um formulário específico.",
+        "operationId": "obterFormulRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/delete-form": {
+      "post": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Deletar formulário",
+        "description": "Deletar formulário",
+        "operationId": "deletarFormulRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/set-model-forms": {
+      "post": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Definir formulários do objeto",
+        "description": "Definir quais formulários estão associados a um objeto específico.",
+        "operationId": "definirFormulRiosDoObjeto",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/management/form-publications/{form_publication_token}/form": {
       "get": {
         "tags": [
@@ -13349,7 +14274,7 @@
       "post": {
         "tags": [
           "form-publications",
-          "restore1"
+          "restore12"
         ],
         "summary": "Restaurar publicação do formulário",
         "description": "Restaura uma publicação de formulário que foi deletada.",
@@ -13538,6 +14463,78 @@
       "parameters": [
         {
           "name": "form_publication",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/answers-history/index": {
+      "post": {
+        "tags": [
+          "answers-history",
+          "index"
+        ],
+        "summary": "Listar histórico de respostas de formulário",
+        "description": "Listar registros do histórico de respostas de formulário com filtros e critérios específicos.",
+        "operationId": "listarHistRicoDeRespostasDeFormulRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/answers-history/export": {
+      "post": {
+        "tags": [
+          "answers-history",
+          "export"
+        ],
+        "summary": "Exportar histórico de respostas de formulário",
+        "description": "Exportar histórico de respostas de formulário para um arquivo excel.",
+        "operationId": "exportarHistRicoDeRespostasDeFormulRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/answers-history": {
+      "post": {
+        "tags": [
+          "answers-history"
+        ],
+        "summary": "Criar histórico de respostas de um formulário",
+        "description": "Criar um novo registro de histórico de respostas de um formulário.",
+        "operationId": "criarHistRicoDeRespostasDeUmFormulRio",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/answers-history/{answers_history}": {
+      "get": {
+        "tags": [
+          "answers-history"
+        ],
+        "summary": "Obter histórico de respostas de formulário específico",
+        "description": "Obter detalhes de um registro específico do histórico de respostas de formulário.",
+        "operationId": "obterHistRicoDeRespostasDeFormulRioEspecFico",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "answers_history",
           "in": "path",
           "required": true,
           "schema": {
@@ -13882,6 +14879,514 @@
           }
         }
       ]
+    },
+    "/api/management/automations/{automation}/logs": {
+      "get": {
+        "tags": [
+          "automations",
+          "logs"
+        ],
+        "summary": "Obter registro de execuções da automação",
+        "description": "Obter registro de execução de uma automação específica.",
+        "operationId": "obterRegistroDeExecuEsDaAutomaO",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "automation",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/automations": {
+      "get": {
+        "tags": [
+          "automations"
+        ],
+        "summary": "Listar automações",
+        "description": "Listar todas as automações.",
+        "operationId": "listarAutomaEs",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "automations"
+        ],
+        "summary": "Criar automação",
+        "description": "Criar uma nova automação.",
+        "operationId": "criarAutomaO",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/automations/{automation}": {
+      "get": {
+        "tags": [
+          "automations"
+        ],
+        "summary": "Obter automação específica",
+        "description": "Obter detalhes de uma automação específica.",
+        "operationId": "obterAutomaOEspecFica",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "automations"
+        ],
+        "summary": "Atualizar automação",
+        "description": "Atualizar dados de uma automação específica.",
+        "operationId": "atualizarAutomaO",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "automations"
+        ],
+        "summary": "Deletar automação",
+        "description": "Deletar uma automação específica.",
+        "operationId": "deletarAutomaO",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "automation",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/ai/agents/executions": {
+      "get": {
+        "tags": [
+          "ai",
+          "agents",
+          "executions"
+        ],
+        "summary": "Listar execuções de agentes",
+        "description": "Listar todas as execuções de agentes de IA.",
+        "operationId": "listarExecuEsDeAgentes",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/ai/agents/executions/{execution}": {
+      "get": {
+        "tags": [
+          "ai",
+          "agents",
+          "executions"
+        ],
+        "summary": "Obter execução de agente específica",
+        "description": "Obter detalhes de uma execução específica de agente de IA.",
+        "operationId": "obterExecuODeAgenteEspecFica",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "execution",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/ai/agents/{agentId}/execute": {
+      "post": {
+        "tags": [
+          "ai",
+          "agents",
+          "execute"
+        ],
+        "summary": "Executar agente",
+        "description": "Executar um agente de IA específico.",
+        "operationId": "executarAgente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "agentId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/ai/agents/{agentId}/contexts/reorder": {
+      "put": {
+        "tags": [
+          "ai",
+          "agents",
+          "contexts",
+          "reorder12"
+        ],
+        "summary": "Reordenar contextos do agente",
+        "description": "Reordenar a sequência dos contextos de um agente de IA.",
+        "operationId": "reordenarContextosDoAgente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "agentId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/ai/agents/{agentId}/contexts": {
+      "get": {
+        "tags": [
+          "ai",
+          "agents",
+          "contexts"
+        ],
+        "summary": "Listar contextos do agente",
+        "description": "Listar todos os contextos associados a um agente de IA específico.",
+        "operationId": "listarContextosDoAgente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ai",
+          "agents",
+          "contexts"
+        ],
+        "summary": "Criar contexto do agente",
+        "description": "Criar um novo contexto para um agente de IA específico.",
+        "operationId": "criarContextoDoAgente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "agentId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/ai/agents/{agentId}/contexts/{contextId}": {
+      "put": {
+        "tags": [
+          "ai",
+          "agents",
+          "contexts"
+        ],
+        "summary": "Atualizar contexto do agente",
+        "description": "Atualizar dados de um contexto específico de um agente de IA.",
+        "operationId": "atualizarContextoDoAgente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ai",
+          "agents",
+          "contexts"
+        ],
+        "summary": "Deletar contexto do agente",
+        "description": "Deletar um contexto específico de um agente de IA.",
+        "operationId": "deletarContextoDoAgente",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "agentId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "contextId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/ai/agents": {
+      "get": {
+        "tags": [
+          "ai",
+          "agents"
+        ],
+        "summary": "Listar agentes de IA",
+        "description": "Listar todos os agentes de IA.",
+        "operationId": "listarAgentesDeIa",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ai",
+          "agents"
+        ],
+        "summary": "Criar agente de IA",
+        "description": "Criar um novo agente de IA.",
+        "operationId": "criarAgenteDeIa",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "base_prompt": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "default_model": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "default_provider": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "tools": {
+                    "type": "array",
+                    "items": {},
+                    "example": []
+                  }
+                }
+              },
+              "examples": {
+                "Criar agente de IA": {
+                  "value": {
+                    "base_prompt": "sample_text",
+                    "default_model": "sample_text",
+                    "default_provider": "sample_text",
+                    "description": "sample_text",
+                    "name": "sample_text",
+                    "tools": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/ai/agents/{agent}": {
+      "get": {
+        "tags": [
+          "ai",
+          "agents"
+        ],
+        "summary": "Obter agente de IA específico",
+        "description": "Obter detalhes de um agente de IA específico.",
+        "operationId": "obterAgenteDeIaEspecFico",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ai",
+          "agents"
+        ],
+        "summary": "Atualizar agente de IA",
+        "description": "Atualizar dados de um agente de IA específico.",
+        "operationId": "atualizarAgenteDeIa",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "base_prompt": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "default_model": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "default_provider": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "sample_text"
+                  },
+                  "tools": {
+                    "type": "array",
+                    "items": {},
+                    "example": []
+                  }
+                }
+              },
+              "examples": {
+                "Atualizar agente de IA": {
+                  "value": {
+                    "base_prompt": "sample_text",
+                    "default_model": "sample_text",
+                    "default_provider": "sample_text",
+                    "description": "sample_text",
+                    "name": "sample_text",
+                    "tools": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ai",
+          "agents"
+        ],
+        "summary": "Deletar agente de IA",
+        "description": "Deletar um agente de IA específico do sistema.",
+        "operationId": "deletarAgenteDeIa",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "agent",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/ai/available-models": {
+      "get": {
+        "tags": [
+          "ai",
+          "available-models"
+        ],
+        "summary": "Listar modelos disponíveis",
+        "description": "Listar todos os modelos de IA disponíveis para uso.",
+        "operationId": "listarModelosDisponVeis",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/ai/available-tools": {
+      "get": {
+        "tags": [
+          "ai",
+          "available-tools"
+        ],
+        "summary": "Listar ferramentas disponíveis",
+        "description": "Listar todas as ferramentas disponíveis para uso com agentes de IA.",
+        "operationId": "listarFerramentasDisponVeis",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
     },
     "/api/management/squads/{squad}/users": {
       "get": {
@@ -14241,7 +15746,7 @@
         "tags": [
           "project-groups",
           "projects12",
-          "index"
+          "index1"
         ],
         "summary": "Retorna uma lista de projetos associados a um grupo",
         "description": "Retorna uma lista paginada de projetos associados a um grupo específico, ordenados pela ordem definida no grupo. Inclui informações de porcentagem de conclusão e respostas de formulários dinâmicos. Suporta filtros e busca.",
@@ -14268,7 +15773,7 @@
         "tags": [
           "project-groups",
           "projects12",
-          "reorder"
+          "reorder123"
         ],
         "summary": "Altera a ordem de um projeto dentro de um grupo",
         "description": "Altera a ordem de um projeto dentro de um grupo específico, definindo uma nova posição para o projeto.",
@@ -14525,7 +16030,7 @@
       "post": {
         "tags": [
           "customers",
-          "restore12"
+          "restore123"
         ],
         "summary": "Restaurar cliente",
         "description": "Restaurar um cliente que foi arquivado anteriormente.",
@@ -14698,7 +16203,7 @@
       "post": {
         "tags": [
           "contacts",
-          "restore123"
+          "restore1234"
         ],
         "summary": "Restaurar contato",
         "description": "Restaurar um contato que foi arquivado anteriormente.",
@@ -14799,56 +16304,14 @@
         }
       ]
     },
-    "/api/management/business-areas/{id}/restore": {
-      "post": {
-        "tags": [
-          "business-areas",
-          "restore1234"
-        ],
-        "summary": "Restaurar área de negócio",
-        "description": "Restaurar uma área de negócio que foi arquivada anteriormente.",
-        "operationId": "restaurarReaDeNegCio",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    },
-    "/api/management/business-areas/reorder": {
-      "post": {
-        "tags": [
-          "business-areas",
-          "reorder1"
-        ],
-        "summary": "Reordenar áreas de negócio",
-        "description": "Reordenar a sequência das áreas de negócio no sistema.",
-        "operationId": "reordenarReasDeNegCio",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/business-areas": {
+    "/api/management/tags": {
       "get": {
         "tags": [
-          "business-areas"
+          "tags"
         ],
-        "summary": "Listar áreas de negócio",
-        "description": "Listar todas as áreas de negócio.",
-        "operationId": "listarReasDeNegCio",
+        "summary": "Listar etiquetas",
+        "description": "Listar todas as etiquetas cadastradas no sistema.",
+        "operationId": "listarEtiquetas",
         "responses": {
           "200": {
             "description": ""
@@ -14857,240 +16320,66 @@
       },
       "post": {
         "tags": [
-          "business-areas"
+          "tags"
         ],
-        "summary": "Criar área de negócio",
-        "description": "Criar uma nova área de negócio.",
-        "operationId": "criarReaDeNegCio",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/business-areas/{business_area}": {
-      "put": {
-        "tags": [
-          "business-areas"
-        ],
-        "summary": "Atualizar área de negócio",
-        "description": "Atualizar dados de uma área de negócio específica.",
-        "operationId": "atualizarReaDeNegCio",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "business-areas"
-        ],
-        "summary": "Arquivar área de negócio",
-        "description": "Arquivar uma área de negócio específica do sistema.",
-        "operationId": "arquivarReaDeNegCio",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "business_area",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    },
-    "/api/management/project-funnel-link-toggle": {
-      "post": {
-        "tags": [
-          "project-funnels",
-          "project-funnel-link-toggle"
-        ],
-        "summary": "Alternar vínculo do funil de projeto",
-        "description": "Alternar o estado do vínculo entre projeto e funil.",
-        "operationId": "alternarVNculoDoFunilDeProjeto",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/update-project-funnel-status": {
-      "post": {
-        "tags": [
-          "project-funnels",
-          "update-project-funnel-status"
-        ],
-        "summary": "Atualizar status do funil de projeto",
-        "description": "Atualizar o status de um funil de projeto específico.",
-        "operationId": "atualizarStatusDoFunilDeProjeto",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/": {
-      "get": {
-        "tags": [
-          "project-funnels",
-          "get-project-funnels"
-        ],
-        "summary": "Listar funis de projeto",
-        "description": "Listar todos os funis de projeto.",
-        "operationId": "listarFunisDeProjeto",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/get-project-funnels": {
-      "post": {
-        "tags": [
-          "project-funnels",
-          "get-project-funnels"
-        ],
-        "summary": "Obter funil de projeto",
-        "description": "Obter detalhes de um funil de projeto específico.",
-        "operationId": "obterFunilDeProjeto",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/toggle-funnel-tag": {
-      "post": {
-        "tags": [
-          "project-funnels",
-          "toggle-funnel-tag"
-        ],
-        "summary": "Alternar vínculo de etiqueta do funil de um projeto",
-        "description": "Alternar vínculo de etiqueta do funil de um projeto.",
-        "operationId": "alternarVNculoDeEtiquetaDoFunilDeUmProjeto",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/delete-funnel": {
-      "post": {
-        "tags": [
-          "project-funnels",
-          "delete-funnel"
-        ],
-        "summary": "Arquivar funil",
-        "description": "Arquivar funil um funil específico.",
-        "operationId": "arquivarFunil",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/restore-funnel": {
-      "post": {
-        "tags": [
-          "project-funnels",
-          "restore-funnel"
-        ],
-        "summary": "Restaurar funil",
-        "description": "Restaurar um funil que foi arquivado anteriormente.",
-        "operationId": "restaurarFunil",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/clone-funnel": {
-      "post": {
-        "tags": [
-          "project-funnels",
-          "clone-funnel"
-        ],
-        "summary": "Clonar funil",
-        "description": "Clonar um funil existente criando uma cópia.",
-        "operationId": "clonarFunil",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/project-funnels/reorder": {
-      "post": {
-        "tags": [
-          "project-funnels",
-          "reorder12"
-        ],
-        "summary": "Reordenar funis de projeto",
-        "description": "Reordenar funis de projeto no sistema.",
-        "operationId": "reordenarFunisDeProjeto",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/project-funnel": {
-      "post": {
-        "tags": [
-          "project-funnels"
-        ],
-        "summary": "Criar ou atualizar funil de projeto",
-        "description": "Criar ou atualizar funil de projeto.",
-        "operationId": "criarOuAtualizarFunilDeProjeto",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/management/project-funnels/{project_funnel}": {
-      "put": {
-        "tags": [
-          "project-funnels"
-        ],
-        "summary": "Atualizar funil de projeto",
-        "description": "Atualizar dados de um funil de projeto específico.",
-        "operationId": "atualizarFunilDeProjeto",
+        "summary": "Criar etiqueta",
+        "description": "Criar uma nova etiqueta no sistema.",
+        "operationId": "criarEtiqueta",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "funnel_config_template_id": {
-                    "type": "number",
-                    "example": 5
-                  }
-                }
+                "type": "array",
+                "items": {},
+                "example": []
               },
               "examples": {
-                "Atualizar funil de projeto": {
-                  "value": {
-                    "funnel_config_template_id": 5
-                  }
+                "Criar etiqueta": {
+                  "value": []
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/management/tags/{tag}": {
+      "get": {
+        "tags": [
+          "tags"
+        ],
+        "summary": "Obter etiqueta específica",
+        "description": "Obter detalhes de uma etiqueta específica.",
+        "operationId": "obterEtiquetaEspecFica",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "tags"
+        ],
+        "summary": "Atualizar etiqueta",
+        "description": "Atualizar dados de uma etiqueta específica.",
+        "operationId": "atualizarEtiqueta",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {},
+                "example": []
+              },
+              "examples": {
+                "Atualizar etiqueta": {
+                  "value": []
                 }
               }
             }
@@ -15102,9 +16391,22 @@
           }
         }
       },
+      "delete": {
+        "tags": [
+          "tags"
+        ],
+        "summary": "Deletar etiqueta",
+        "description": "Deletar uma tag específica do sistema.",
+        "operationId": "deletarEtiqueta",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
       "parameters": [
         {
-          "name": "project_funnel",
+          "name": "tag",
           "in": "path",
           "required": true,
           "schema": {
@@ -15112,6 +16414,21 @@
           }
         }
       ]
+    },
+    "/api/management/search-activities": {
+      "post": {
+        "tags": [
+          "search-activities"
+        ],
+        "summary": "Buscar registros de alterações",
+        "description": "Buscar registros de alterações do sistema com filtros e critérios específicos.",
+        "operationId": "buscarRegistrosDeAlteraEs",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
     }
   },
   "components": {
@@ -15192,6 +16509,9 @@
       "name": "ids"
     },
     {
+      "name": "get-projects-by-forecast-dates"
+    },
+    {
       "name": "funnel-steps"
     },
     {
@@ -15201,109 +16521,43 @@
       "name": "projects1"
     },
     {
-      "name": "dynamic-forms"
+      "name": "project-bulk-step-move"
     },
     {
-      "name": "pivot-accessor"
+      "name": "get-available-steps"
     },
     {
-      "name": "reply"
+      "name": "unlink-project-from-funnel-step"
     },
     {
-      "name": "decode"
+      "name": "get-step-data"
     },
     {
-      "name": "url-generate"
+      "name": "get-step-attachments"
     },
     {
-      "name": "form-publications"
+      "name": "update-required-step-attachment"
     },
     {
-      "name": "form"
+      "name": "metrics"
     },
     {
-      "name": "restore1"
+      "name": "step-assistants"
     },
     {
-      "name": "change-token"
+      "name": "execute-manually"
     },
     {
-      "name": "responses"
-    },
-    {
-      "name": "goals"
-    },
-    {
-      "name": "results"
-    },
-    {
-      "name": "squads"
-    },
-    {
-      "name": "users"
-    },
-    {
-      "name": "user-alias"
-    },
-    {
-      "name": "users1"
-    },
-    {
-      "name": "project-groups"
-    },
-    {
-      "name": "projects12"
-    },
-    {
-      "name": "index"
-    },
-    {
-      "name": "reorder"
-    },
-    {
-      "name": "system"
-    },
-    {
-      "name": "get-meta-data"
-    },
-    {
-      "name": "params"
-    },
-    {
-      "name": "bulk-update"
-    },
-    {
-      "name": "customers"
-    },
-    {
-      "name": "search"
-    },
-    {
-      "name": "restore12"
-    },
-    {
-      "name": "media"
-    },
-    {
-      "name": "project-medias"
-    },
-    {
-      "name": "contacts"
-    },
-    {
-      "name": "search1"
-    },
-    {
-      "name": "restore123"
+      "name": "execution-logs"
     },
     {
       "name": "business-areas"
     },
     {
-      "name": "restore1234"
+      "name": "restore1"
     },
     {
-      "name": "reorder1"
+      "name": "reorder"
     },
     {
       "name": "project-funnels"
@@ -15330,7 +16584,154 @@
       "name": "clone-funnel"
     },
     {
+      "name": "reorder1"
+    },
+    {
+      "name": "dynamic-forms"
+    },
+    {
+      "name": "pivot-accessor"
+    },
+    {
+      "name": "reply"
+    },
+    {
+      "name": "decode"
+    },
+    {
+      "name": "url-generate"
+    },
+    {
+      "name": "dynamic-forms-answers-file"
+    },
+    {
+      "name": "forms"
+    },
+    {
+      "name": "form-publications"
+    },
+    {
+      "name": "form"
+    },
+    {
+      "name": "restore12"
+    },
+    {
+      "name": "change-token"
+    },
+    {
+      "name": "responses"
+    },
+    {
+      "name": "answers-history"
+    },
+    {
+      "name": "index"
+    },
+    {
+      "name": "export"
+    },
+    {
+      "name": "goals"
+    },
+    {
+      "name": "results"
+    },
+    {
+      "name": "automations"
+    },
+    {
+      "name": "logs"
+    },
+    {
+      "name": "ai"
+    },
+    {
+      "name": "agents"
+    },
+    {
+      "name": "executions"
+    },
+    {
+      "name": "execute"
+    },
+    {
+      "name": "contexts"
+    },
+    {
       "name": "reorder12"
+    },
+    {
+      "name": "available-models"
+    },
+    {
+      "name": "available-tools"
+    },
+    {
+      "name": "squads"
+    },
+    {
+      "name": "users"
+    },
+    {
+      "name": "user-alias"
+    },
+    {
+      "name": "users1"
+    },
+    {
+      "name": "project-groups"
+    },
+    {
+      "name": "projects12"
+    },
+    {
+      "name": "index1"
+    },
+    {
+      "name": "reorder123"
+    },
+    {
+      "name": "system"
+    },
+    {
+      "name": "get-meta-data"
+    },
+    {
+      "name": "params"
+    },
+    {
+      "name": "bulk-update"
+    },
+    {
+      "name": "customers"
+    },
+    {
+      "name": "search"
+    },
+    {
+      "name": "restore123"
+    },
+    {
+      "name": "media"
+    },
+    {
+      "name": "project-medias"
+    },
+    {
+      "name": "contacts"
+    },
+    {
+      "name": "search1"
+    },
+    {
+      "name": "restore1234"
+    },
+    {
+      "name": "tags"
+    },
+    {
+      "name": "search-activities"
     }
   ]
 }
