@@ -2151,7 +2151,7 @@
           "projects"
         ],
         "summary": "Listar projetos",
-        "description": "Este request é normalmente utilizado para campos de autocomplete, e buscas mais simples, pois é um request que entrega menos informações que uma busca avançada. Se você estiver buscando encontrar projetos baseado em um conjunto de filtros avançados e específicos, considere usar a busca avançada.\n\nPossui paginação e aceita alguns filtros via query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)",
+        "description": "Esta requisição é normalmente utilizado para campos de autocomplete, e buscas mais simples, pois é um request que entrega menos informações que uma busca avançada. Se você estiver buscando encontrar projetos baseado em um conjunto de filtros avançados e específicos, considere usar a busca avançada.\n\nPossui paginação e aceita alguns filtros via query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)",
         "operationId": "listarProjetos",
         "parameters": [
           {
@@ -13382,7 +13382,7 @@
           "dynamic-forms"
         ],
         "summary": "Responder formulário dinâmico",
-        "description": "Responder formulários dinâmicos. Essa requisição recebe dois principais atributos:\n\n- Identificação do formulário (`target`): Aqui é usado um objeto com propriedades variáveis são usados para identificar qual formulário será respondido.\n    \n- Respostas (`answers`): Um array com objetos, cada objeto contendo `id` e `answer`, sendo o ID do campo do formulário e answer sendo a resposta que este campo receberá.",
+        "description": "Responder formulários dinâmicos. Essa requisição recebe dois principais atributos:\n\n- Identificação do formulário (`target`): Aqui é usado um objeto com propriedades variáveis, são usados para identificar qual formulário será respondido.\n    \n- Respostas (`answers`): Um array com objetos, cada objeto contendo `id` e `answer`, sendo o ID do campo do formulário e answer sendo a resposta que este campo receberá.",
         "operationId": "responderFormulRioDinMico",
         "requestBody": {
           "content": {
@@ -13599,7 +13599,7 @@
                       "edges": [
                         {
                           "answer": "123",
-                          "answered_by": "019aeaa3-2370-731c-9008-be759795f449",
+                          "answered_by": "123e4567-e89b-12d3-a456-426614174000",
                           "id": 2136,
                           "label": "Numérico",
                           "model": "ProjectLooseForm",
@@ -13607,7 +13607,7 @@
                         },
                         {
                           "answer": "[\"Teste 1\",\"Teste 2\",\"Teste 3\"]",
-                          "answered_by": "019aeaa3-2370-731c-9008-be759795f449",
+                          "answered_by": "123e4567-e89b-12d3-a456-426614174000",
                           "id": 2137,
                           "label": "Checkbox",
                           "model": "ProjectLooseForm",
