@@ -2261,12 +2261,6 @@
                   "example": "Tue, 16 Dec 2025 12:23:39 GMT"
                 }
               },
-              "Host": {
-                "schema": {
-                  "type": "string",
-                  "example": "api.olie.localhost"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
@@ -6426,12 +6420,6 @@
                   "example": "Tue, 16 Dec 2025 12:57:45 GMT"
                 }
               },
-              "Host": {
-                "schema": {
-                  "type": "string",
-                  "example": "api.olie.localhost"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
@@ -6920,12 +6908,6 @@
                 "schema": {
                   "type": "string",
                   "example": "Tue, 16 Dec 2025 14:11:06 GMT"
-                }
-              },
-              "Host": {
-                "schema": {
-                  "type": "string",
-                  "example": "api.olie.localhost"
                 }
               },
               "Transfer-Encoding": {
@@ -11315,12 +11297,6 @@
                   "example": "Tue, 16 Dec 2025 14:15:28 GMT"
                 }
               },
-              "Host": {
-                "schema": {
-                  "type": "string",
-                  "example": "api.olie.localhost"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
@@ -12006,12 +11982,6 @@
                   "example": "Tue, 16 Dec 2025 14:24:13 GMT"
                 }
               },
-              "Host": {
-                "schema": {
-                  "type": "string",
-                  "example": "api.olie.localhost"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
@@ -12222,12 +12192,6 @@
                   "example": "Tue, 16 Dec 2025 14:27:44 GMT"
                 }
               },
-              "Host": {
-                "schema": {
-                  "type": "string",
-                  "example": "api.olie.localhost"
-                }
-              },
               "Transfer-Encoding": {
                 "schema": {
                   "type": "string",
@@ -12309,12 +12273,6 @@
                 "schema": {
                   "type": "string",
                   "example": "Tue, 16 Dec 2025 14:30:06 GMT"
-                }
-              },
-              "Host": {
-                "schema": {
-                  "type": "string",
-                  "example": "api.olie.localhost"
                 }
               },
               "Transfer-Encoding": {
@@ -16190,9 +16148,9 @@
           "system",
           "get-meta-data"
         ],
-        "summary": "Obter meta dados de uma URL",
-        "description": "Obter meta dados de uma URL fornecida, extraindo as meta tags (Open Graph, description, etc.) do HTML retornado. Pode retornar os dados em formato EditorJs se especificado. Não funciona com URLs localhost.",
-        "operationId": "obterMetaDadosDeUmaUrl",
+        "summary": "Obter metadados de uma URL",
+        "description": "Obter metadados de uma URL fornecida, extraindo as meta tags (Open Graph, description, etc.) do HTML retornado. Pode retornar os dados em formato EditorJs se especificado. Não funciona com URLs localhost.",
+        "operationId": "obterMetadadosDeUmaUrl",
         "responses": {
           "200": {
             "description": ""
