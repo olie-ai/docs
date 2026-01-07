@@ -1754,7 +1754,7 @@
         "operationId": "deletarProjeto",
         "responses": {
           "200": {
-            "description": "Response de sucesso",
+            "description": "Resposta de sucesso",
             "content": {
               "application/json": {
                 "schema": {
@@ -1767,7 +1767,7 @@
                   }
                 },
                 "examples": {
-                  "Response de sucesso": {
+                  "Resposta de sucesso": {
                     "value": {
                       "response": "<boolean>"
                     }
@@ -2151,7 +2151,7 @@
           "projects"
         ],
         "summary": "Listar projetos",
-        "description": "Esta requisição é normalmente utilizado para campos de autocomplete, e buscas mais simples, pois é um request que entrega menos informações que uma busca avançada. Se você estiver buscando encontrar projetos baseado em um conjunto de filtros avançados e específicos, considere usar a busca avançada.\n\nPossui paginação e aceita alguns filtros via query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)",
+        "description": "Esta rota é normalmente utilizada para campos de autocomplete, e buscas mais simples, pois é uma rota que entrega menos informações que uma busca avançada. Se você estiver buscando encontrar projetos baseado em um conjunto de filtros avançados e específicos, considere usar a busca avançada.\n\nPossui paginação e aceita alguns filtros via query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)",
         "operationId": "listarProjetos",
         "parameters": [
           {
@@ -11614,7 +11614,7 @@
                         },
                         "name": {
                           "type": "string",
-                          "example": "Demogorgon"
+                          "example": "Project name"
                         },
                         "status": {
                           "type": "number",
@@ -11686,7 +11686,7 @@
                         "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
                         "id": "019b140a-4503-7141-9e4f-bc720d0f09a3",
                         "impact": 10,
-                        "name": "Demogorgon",
+                        "name": "Project name",
                         "status": 1,
                         "updated_at": "2025-12-12T19:29:36.000000Z"
                       },
