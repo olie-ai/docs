@@ -1977,7 +1977,7 @@
         },
         "responses": {
           "200": {
-            "description": "Enviar arquivo em um projeto / Enviar áudio",
+            "description": "Conteúdo enviado a vários projetos / Enviar arquivo em um projeto / Enviar áudio",
             "headers": {
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -2127,6 +2127,143 @@
                         }
                       }
                     },
+                    "medias": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "created_at": {
+                            "type": "string",
+                            "example": "2026-01-15T19:01:51.000000Z"
+                          },
+                          "frame_id": {
+                            "type": "string",
+                            "example": "019b329a-4346-7064-bba3-e7c19057cda4"
+                          },
+                          "id": {
+                            "type": "string",
+                            "example": "019bc309-175d-7211-9524-29646278c39f"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "description.4fea17cab04852a3b32d401766a84d5e"
+                          },
+                          "project_id": {
+                            "type": "string",
+                            "example": "019bbcd3-2249-7357-ac43-8ab6209ec54c"
+                          },
+                          "technical_name": {
+                            "type": "string",
+                            "example": "description.4fea17cab04852a3b32d401766a84d5e"
+                          },
+                          "text": {
+                            "type": "string",
+                            "example": "Cada porta pode ser uma porta para outro mundo."
+                          },
+                          "type": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "example": "2026-01-15T19:01:51.000000Z"
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "avatar_url": {
+                                "type": "string",
+                                "example": "https://via.placeholder.com/124x124.png/00eebb?text=vero"
+                              },
+                              "description": {
+                                "type": "string",
+                                "example": "Nostrum debitis pariatur dolorum sapiente."
+                              },
+                              "email": {
+                                "type": "string",
+                                "example": "tester@olie.ai"
+                              },
+                              "email_verified_at": {
+                                "type": "string",
+                                "example": "2025-12-18 14:55:28"
+                              },
+                              "id": {
+                                "type": "string",
+                                "example": "019b329a-3f1f-7198-89e5-008dc4e2bd60"
+                              },
+                              "lang": {
+                                "type": "string",
+                                "example": "en"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "Test User"
+                              },
+                              "old_id": {
+                                "nullable": true,
+                                "example": null
+                              },
+                              "status": {
+                                "type": "number",
+                                "example": 1
+                              }
+                            }
+                          },
+                          "user_id": {
+                            "type": "string",
+                            "example": "019b329a-3f1f-7198-89e5-008dc4e2bd60"
+                          }
+                        }
+                      },
+                      "example": [
+                        {
+                          "created_at": "2026-01-15T19:01:51.000000Z",
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": "019bc309-175d-7211-9524-29646278c39f",
+                          "name": "description.4fea17cab04852a3b32d401766a84d5e",
+                          "project_id": "019bbcd3-2249-7357-ac43-8ab6209ec54c",
+                          "technical_name": "description.4fea17cab04852a3b32d401766a84d5e",
+                          "text": "Cada porta pode ser uma porta para outro mundo.",
+                          "type": 1,
+                          "updated_at": "2026-01-15T19:01:51.000000Z",
+                          "user": {
+                            "avatar_url": "https://via.placeholder.com/124x124.png/00eebb?text=vero",
+                            "description": "Nostrum debitis pariatur dolorum sapiente.",
+                            "email": "tester@olie.ai",
+                            "email_verified_at": "2025-12-18 14:55:28",
+                            "id": "019b329a-3f1f-7198-89e5-008dc4e2bd60",
+                            "lang": "en",
+                            "name": "Test User",
+                            "old_id": null,
+                            "status": 1
+                          },
+                          "user_id": "019b329a-3f1f-7198-89e5-008dc4e2bd60"
+                        },
+                        {
+                          "created_at": "2026-01-15T19:01:51.000000Z",
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": "019bc309-1777-71e5-98c3-bff91d787182",
+                          "name": "description.4fea17cab04852a3b32d401766a84d5e",
+                          "project_id": "019bc2c3-5404-707f-be4d-9690f6bb8179",
+                          "technical_name": "description.4fea17cab04852a3b32d401766a84d5e",
+                          "text": "Cada porta pode ser uma porta para outro mundo.",
+                          "type": 1,
+                          "updated_at": "2026-01-15T19:01:51.000000Z",
+                          "user": {
+                            "avatar_url": "https://via.placeholder.com/124x124.png/00eebb?text=vero",
+                            "description": "Nostrum debitis pariatur dolorum sapiente.",
+                            "email": "tester@olie.ai",
+                            "email_verified_at": "2025-12-18 14:55:28",
+                            "id": "019b329a-3f1f-7198-89e5-008dc4e2bd60",
+                            "lang": "en",
+                            "name": "Test User",
+                            "old_id": null,
+                            "status": 1
+                          },
+                          "user_id": "019b329a-3f1f-7198-89e5-008dc4e2bd60"
+                        }
+                      ]
+                    },
                     "response": {
                       "type": "boolean",
                       "example": true
@@ -2134,6 +2271,59 @@
                   }
                 },
                 "examples": {
+                  "Conteúdo enviado a vários projetos": {
+                    "value": {
+                      "medias": [
+                        {
+                          "created_at": "2026-01-15T19:01:51.000000Z",
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": "019bc309-175d-7211-9524-29646278c39f",
+                          "name": "description.4fea17cab04852a3b32d401766a84d5e",
+                          "project_id": "019bbcd3-2249-7357-ac43-8ab6209ec54c",
+                          "technical_name": "description.4fea17cab04852a3b32d401766a84d5e",
+                          "text": "Cada porta pode ser uma porta para outro mundo.",
+                          "type": 1,
+                          "updated_at": "2026-01-15T19:01:51.000000Z",
+                          "user": {
+                            "avatar_url": "https://via.placeholder.com/124x124.png/00eebb?text=vero",
+                            "description": "Nostrum debitis pariatur dolorum sapiente.",
+                            "email": "tester@olie.ai",
+                            "email_verified_at": "2025-12-18 14:55:28",
+                            "id": "019b329a-3f1f-7198-89e5-008dc4e2bd60",
+                            "lang": "en",
+                            "name": "Test User",
+                            "old_id": null,
+                            "status": 1
+                          },
+                          "user_id": "019b329a-3f1f-7198-89e5-008dc4e2bd60"
+                        },
+                        {
+                          "created_at": "2026-01-15T19:01:51.000000Z",
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": "019bc309-1777-71e5-98c3-bff91d787182",
+                          "name": "description.4fea17cab04852a3b32d401766a84d5e",
+                          "project_id": "019bc2c3-5404-707f-be4d-9690f6bb8179",
+                          "technical_name": "description.4fea17cab04852a3b32d401766a84d5e",
+                          "text": "Cada porta pode ser uma porta para outro mundo.",
+                          "type": 1,
+                          "updated_at": "2026-01-15T19:01:51.000000Z",
+                          "user": {
+                            "avatar_url": "https://via.placeholder.com/124x124.png/00eebb?text=vero",
+                            "description": "Nostrum debitis pariatur dolorum sapiente.",
+                            "email": "tester@olie.ai",
+                            "email_verified_at": "2025-12-18 14:55:28",
+                            "id": "019b329a-3f1f-7198-89e5-008dc4e2bd60",
+                            "lang": "en",
+                            "name": "Test User",
+                            "old_id": null,
+                            "status": 1
+                          },
+                          "user_id": "019b329a-3f1f-7198-89e5-008dc4e2bd60"
+                        }
+                      ],
+                      "response": true
+                    }
+                  },
                   "Enviar arquivo em um projeto": {
                     "value": {
                       "media": {
@@ -6675,7 +6865,7 @@
                   },
                   "description": {
                     "type": "string",
-                    "example": "Officiis magni assumenda nihil facilis corrupti aut. Ipsum sint labore nostrum sunt voluptate. Doloremque consequuntur fugiat vel aut saepe vel sit. Quo tempora perspiciatis dolorem. Amet aspernatur fugiat similique consequatur."
+                    "example": "Temporibus et dolores sint nostrum commodi ipsam. In et omnis labore aut incidunt. Repellat architecto ullam."
                   },
                   "forecast_dates": {
                     "type": "array",
@@ -6795,7 +6985,7 @@
                   },
                   "name": {
                     "type": "string",
-                    "example": "voluptates iure ut"
+                    "example": "ut nisi occaecati"
                   },
                   "prefix": {
                     "type": "string",
@@ -6873,7 +7063,7 @@
                     },
                     "contact_id": "770e8400-e29b-41d4-a716-446655440001",
                     "customer_id": "880e8400-e29b-41d4-a716-446655440001",
-                    "description": "Officiis magni assumenda nihil facilis corrupti aut. Ipsum sint labore nostrum sunt voluptate. Doloremque consequuntur fugiat vel aut saepe vel sit. Quo tempora perspiciatis dolorem. Amet aspernatur fugiat similique consequatur.",
+                    "description": "Temporibus et dolores sint nostrum commodi ipsam. In et omnis labore aut incidunt. Repellat architecto ullam.",
                     "forecast_dates": [
                       {
                         "date": "2025-06-01",
@@ -6915,7 +7105,7 @@
                     },
                     "impact": 5,
                     "is_template": false,
-                    "name": "voluptates iure ut",
+                    "name": "ut nisi occaecati",
                     "prefix": "PRJ",
                     "status": 3,
                     "tags": {
