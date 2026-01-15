@@ -6675,7 +6675,7 @@
                   },
                   "description": {
                     "type": "string",
-                    "example": "Voluptates doloremque consequatur quis incidunt velit illo dolorum illo qui. Dignissimos sit odit impedit nihil in. Ut ut autem culpa qui omnis similique unde nisi."
+                    "example": "Officiis magni assumenda nihil facilis corrupti aut. Ipsum sint labore nostrum sunt voluptate. Doloremque consequuntur fugiat vel aut saepe vel sit. Quo tempora perspiciatis dolorem. Amet aspernatur fugiat similique consequatur."
                   },
                   "forecast_dates": {
                     "type": "array",
@@ -6795,7 +6795,7 @@
                   },
                   "name": {
                     "type": "string",
-                    "example": "et error molestiae"
+                    "example": "voluptates iure ut"
                   },
                   "prefix": {
                     "type": "string",
@@ -6873,7 +6873,7 @@
                     },
                     "contact_id": "770e8400-e29b-41d4-a716-446655440001",
                     "customer_id": "880e8400-e29b-41d4-a716-446655440001",
-                    "description": "Voluptates doloremque consequatur quis incidunt velit illo dolorum illo qui. Dignissimos sit odit impedit nihil in. Ut ut autem culpa qui omnis similique unde nisi.",
+                    "description": "Officiis magni assumenda nihil facilis corrupti aut. Ipsum sint labore nostrum sunt voluptate. Doloremque consequuntur fugiat vel aut saepe vel sit. Quo tempora perspiciatis dolorem. Amet aspernatur fugiat similique consequatur.",
                     "forecast_dates": [
                       {
                         "date": "2025-06-01",
@@ -6915,7 +6915,7 @@
                     },
                     "impact": 5,
                     "is_template": false,
-                    "name": "et error molestiae",
+                    "name": "voluptates iure ut",
                     "prefix": "PRJ",
                     "status": 3,
                     "tags": {
