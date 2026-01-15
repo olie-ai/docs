@@ -6487,6 +6487,73 @@
                           "type": "string",
                           "example": "Eveniet modi inventore laboriosam voluptatum consectetur officia. Et vel blanditiis dolor neque tenetur nam nobis fuga. Eum sequi quis accusamus dolorem ut."
                         },
+                        "form_answers": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "answer": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": "Resposta do campo"
+                              },
+                              "answered_by": {
+                                "type": "string",
+                                "example": "019bc286-5e87-7168-965d-720b922f8187"
+                              },
+                              "id": {
+                                "type": "number",
+                                "example": 1
+                              },
+                              "label": {
+                                "type": "string",
+                                "example": "eos quod"
+                              },
+                              "model": {
+                                "type": "string",
+                                "example": "Project"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "example": "2026-01-15T17:17:16.000000Z"
+                              }
+                            }
+                          },
+                          "example": [
+                            {
+                              "answer": "Resposta do campo",
+                              "answered_by": "019bc286-5e87-7168-965d-720b922f8187",
+                              "id": 1,
+                              "label": "eos quod",
+                              "model": "Project",
+                              "updated_at": "2026-01-15T17:17:16.000000Z"
+                            },
+                            {
+                              "answer": "Resposta do campo",
+                              "answered_by": "019bc286-5e87-7168-965d-720b922f8187",
+                              "id": 2,
+                              "label": "deleniti veniam",
+                              "model": "Project",
+                              "updated_at": "2026-01-15T17:17:16.000000Z"
+                            },
+                            {
+                              "answer": null,
+                              "answered_by": "019bc286-5e87-7168-965d-720b922f8187",
+                              "id": 3,
+                              "label": "dolorem fugiat",
+                              "model": "Project",
+                              "updated_at": "2026-01-15T17:17:16.000000Z"
+                            },
+                            {
+                              "answer": null,
+                              "answered_by": "019bc286-5e87-7168-965d-720b922f8187",
+                              "id": 4,
+                              "label": "sequi qui",
+                              "model": "Project",
+                              "updated_at": "2026-01-15T17:17:16.000000Z"
+                            }
+                          ]
+                        },
                         "frame": {
                           "type": "object",
                           "properties": {
@@ -6579,6 +6646,40 @@
                         "created_by": "019aeaa3-2370-731c-9008-be759795f449",
                         "customer_id": null,
                         "description": "Eveniet modi inventore laboriosam voluptatum consectetur officia. Et vel blanditiis dolor neque tenetur nam nobis fuga. Eum sequi quis accusamus dolorem ut.",
+                        "form_answers": [
+                          {
+                            "answer": "Resposta do campo",
+                            "answered_by": "019bc286-5e87-7168-965d-720b922f8187",
+                            "id": 1,
+                            "label": "eos quod",
+                            "model": "Project",
+                            "updated_at": "2026-01-15T17:17:16.000000Z"
+                          },
+                          {
+                            "answer": "Resposta do campo",
+                            "answered_by": "019bc286-5e87-7168-965d-720b922f8187",
+                            "id": 2,
+                            "label": "deleniti veniam",
+                            "model": "Project",
+                            "updated_at": "2026-01-15T17:17:16.000000Z"
+                          },
+                          {
+                            "answer": null,
+                            "answered_by": "019bc286-5e87-7168-965d-720b922f8187",
+                            "id": 3,
+                            "label": "dolorem fugiat",
+                            "model": "Project",
+                            "updated_at": "2026-01-15T17:17:16.000000Z"
+                          },
+                          {
+                            "answer": null,
+                            "answered_by": "019bc286-5e87-7168-965d-720b922f8187",
+                            "id": 4,
+                            "label": "sequi qui",
+                            "model": "Project",
+                            "updated_at": "2026-01-15T17:17:16.000000Z"
+                          }
+                        ],
                         "frame": {
                           "cockpit_access": 0,
                           "frame_billing_data_id": null,
@@ -11441,9 +11542,27 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Project name"
+                  }
+                }
+              },
+              "examples": {
+                "Criação rápida": {
+                  "value": {
+                    "name": "Project name"
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
                   "funnel_step_id": {
-                    "type": "number",
-                    "example": 3808
+                    "type": "string",
+                    "example": "3808"
                   },
                   "name": {
                     "type": "string",
@@ -11454,7 +11573,7 @@
               "examples": {
                 "Criação rápida": {
                   "value": {
-                    "funnel_step_id": 3808,
+                    "funnel_step_id": "3808",
                     "name": "Demogorgon"
                   }
                 }
@@ -11913,9 +12032,9 @@
           "{funnel_step_id}",
           "projects1"
         ],
-        "summary": "Vincular projeto a uma etapa",
+        "summary": "Vincular um projeto a uma etapa",
         "description": "Vincula um projeto a uma etapa do funil",
-        "operationId": "vincularProjetoAUmaEtapa",
+        "operationId": "vincularUmProjetoAUmaEtapa",
         "requestBody": {
           "content": {
             "application/json": {
@@ -11937,7 +12056,7 @@
                 }
               },
               "examples": {
-                "Vincular projeto a uma etapa": {
+                "Vincular um projeto a uma etapa": {
                   "value": {
                     "force_funnel_link": true,
                     "project_id": "019b277f-e453-733d-a00e-1d26d444008b",
