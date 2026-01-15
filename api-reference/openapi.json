@@ -11542,27 +11542,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
-                    "type": "string",
-                    "example": "Project name"
-                  }
-                }
-              },
-              "examples": {
-                "Criação rápida": {
-                  "value": {
-                    "name": "Project name"
-                  }
-                }
-              }
-            },
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
                   "funnel_step_id": {
-                    "type": "string",
-                    "example": "3808"
+                    "type": "number",
+                    "example": 3808
                   },
                   "name": {
                     "type": "string",
@@ -11573,8 +11555,31 @@
               "examples": {
                 "Criação rápida": {
                   "value": {
-                    "funnel_step_id": "3808",
+                    "funnel_step_id": 3808,
                     "name": "Demogorgon"
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "funnel_step_id": {
+                    "type": "string",
+                    "example": "448"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "teste"
+                  }
+                }
+              },
+              "examples": {
+                "Criação rápida": {
+                  "value": {
+                    "funnel_step_id": "448",
+                    "name": "teste"
                   }
                 }
               }
