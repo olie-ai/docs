@@ -1911,7 +1911,7 @@
           "projects"
         ],
         "summary": "Enviar conteúdo no projeto",
-        "description": "Envia um novo conteúdo para o projeto.",
+        "description": "Save Media\nEndpoint para salvar diferentes tipos de mídia (descrição, áudio ou arquivo) em um ou múltiplos projetos.\n\nAutenticação\nRequer token de autenticação Bearer e permissão projects.media.{project_id} para cada projeto.\n\nParâmetros Obrigatórios\nframe_id (UUID): Identificador único do frame\ntype (integer): Tipo da mídia\n1 - Descrição (texto)\n2 - Áudio\n3 - Arquivo\nParâmetros Condicionais\nproject_ids (array): Array de UUIDs dos projetos. Obrigatório quando source não está presente\nsource (string): Origem da mídia quando associada a tarefa (new-task ou update-task)\ntask_id (UUID): ID da tarefa. Obrigatório quando source = update-task\nParâmetros por Tipo\nTipo 1 - Descrição\ntext (string, obrigatório): Conteúdo de texto. Suporta menções no formato @username\nTipo 2 - Áudio\naudio (file, obrigatório): Arquivo de áudio (multipart/form-data)\nuser_generated_content (string, opcional): \"true\" ou \"false\"\nTipo 3 - Arquivo\nfile (array, obrigatório): Array de arquivos (multipart/form-data)\ntext (string, opcional): Texto descritivo\nuser_generated_content (string, opcional): \"true\" ou \"false\"\nResposta de Sucesso\n{\n  \"response\": true,\n  \"media\": {\n    \"id\": \"uuid\",\n    \"type\": 1,\n    \"name\": \"description.hash\",\n    \"technical_name\": \"description.hash\",\n    \"text\": \"Conteúdo da mídia\",\n    \"file_url\": null,\n    \"extension\": null,\n    \"user_id\": \"uuid\",\n    \"project_id\": \"uuid\",\n    \"frame_id\": \"uuid\",\n    \"task_id\": null,\n    \"created_at\": \"2026-01-15T14:30:00.000000Z\",\n    \"updated_at\": \"2026-01-15T14:30:00.000000Z\"\n  }\n}\nNota: Quando múltiplas mídias são criadas, o retorno usa medias (array) ao invés de media (objeto).\n\nErros Comuns\n401: Token de autenticação inválido ou ausente\n403: Sem permissão no projeto especificado\n422: Dados de validação inválidos\nFrame ID inexistente\nProjeto merged (mesclado)\nCampos obrigatórios ausentes\nTask ID ausente quando source=update-task\nObservações\nProjetos merged não podem receber novas mídias\nMúltiplos arquivos geram múltiplas entradas de mídia\nMenções em descrições processam notificações automaticamente\nArquivos são armazenados no CDN com URLs permanentes",
         "operationId": "enviarConteDoNoProjeto",
         "requestBody": {
           "content": {
@@ -6675,7 +6675,7 @@
                   },
                   "description": {
                     "type": "string",
-                    "example": "Illo voluptatum odio natus nesciunt. Voluptatem delectus quaerat sit tenetur. Dolore esse illo vel rerum ut. Dicta earum illum repudiandae quasi repudiandae consectetur deserunt in corrupti."
+                    "example": "Quia et ad dolore ipsam perspiciatis in. Ut voluptate nemo cum ut maiores temporibus. Iure cupiditate dolores perspiciatis est ea commodi magnam ullam dignissimos. Voluptas ullam impedit."
                   },
                   "forecast_dates": {
                     "type": "array",
@@ -6795,7 +6795,7 @@
                   },
                   "name": {
                     "type": "string",
-                    "example": "et enim sint"
+                    "example": "culpa nihil quia"
                   },
                   "prefix": {
                     "type": "string",
@@ -6873,7 +6873,7 @@
                     },
                     "contact_id": "770e8400-e29b-41d4-a716-446655440001",
                     "customer_id": "880e8400-e29b-41d4-a716-446655440001",
-                    "description": "Illo voluptatum odio natus nesciunt. Voluptatem delectus quaerat sit tenetur. Dolore esse illo vel rerum ut. Dicta earum illum repudiandae quasi repudiandae consectetur deserunt in corrupti.",
+                    "description": "Quia et ad dolore ipsam perspiciatis in. Ut voluptate nemo cum ut maiores temporibus. Iure cupiditate dolores perspiciatis est ea commodi magnam ullam dignissimos. Voluptas ullam impedit.",
                     "forecast_dates": [
                       {
                         "date": "2025-06-01",
@@ -6915,7 +6915,7 @@
                     },
                     "impact": 5,
                     "is_template": false,
-                    "name": "et enim sint",
+                    "name": "culpa nihil quia",
                     "prefix": "PRJ",
                     "status": 3,
                     "tags": {
