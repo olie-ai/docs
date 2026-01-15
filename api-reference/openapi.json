@@ -6351,35 +6351,302 @@
                 "type": "object",
                 "properties": {
                   "budget": {
+                    "type": "number",
+                    "example": 25000
+                  },
+                  "childrens": {
+                    "type": "object",
+                    "properties": {
+                      "to_add": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "example": "550e8400-e29b-41d4-a716-446655440002"
+                        },
+                        "example": [
+                          "550e8400-e29b-41d4-a716-446655440002"
+                        ]
+                      },
+                      "to_rem": {
+                        "type": "array",
+                        "items": {},
+                        "example": []
+                      }
+                    }
+                  },
+                  "contact_id": {
+                    "nullable": true,
+                    "example": null
+                  },
+                  "customer_id": {
                     "nullable": true,
                     "example": null
                   },
                   "description": {
                     "type": "string",
-                    "example": ""
+                    "example": "Ipsum delectus suscipit vitae consequuntur. Occaecati aut qui perspiciatis voluptatem incidunt ipsa aliquid officia. Quia tempore qui voluptate rerum officia quidem ab quas. Aut quibusdam veritatis dolor sit tempora iste mollitia nulla."
+                  },
+                  "forecast_dates": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string",
+                          "example": "2025-06-01"
+                        },
+                        "project_funnel_id": {
+                          "type": "number",
+                          "example": 4
+                        }
+                      }
+                    },
+                    "example": [
+                      {
+                        "date": "2025-06-01",
+                        "project_funnel_id": 4
+                      },
+                      {
+                        "date": "2025-07-15",
+                        "project_funnel_id": 5
+                      }
+                    ]
+                  },
+                  "form_answers": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "answer": {
+                          "type": "string",
+                          "example": "Resposta do campo"
+                        },
+                        "id": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    },
+                    "example": [
+                      {
+                        "answer": "Resposta do campo",
+                        "id": 1
+                      },
+                      {
+                        "answer": "Resposta do campo",
+                        "id": 2
+                      }
+                    ]
+                  },
+                  "funnel_status": {
+                    "type": "object",
+                    "properties": {
+                      "funnel_status_id": {
+                        "type": "number",
+                        "example": 2
+                      },
+                      "project_funnel_id": {
+                        "type": "number",
+                        "example": 5
+                      }
+                    }
+                  },
+                  "funnels": {
+                    "type": "object",
+                    "properties": {
+                      "to_add": {
+                        "type": "array",
+                        "items": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "example": [
+                          1,
+                          2,
+                          3
+                        ]
+                      },
+                      "to_rem": {
+                        "type": "array",
+                        "items": {},
+                        "example": []
+                      }
+                    }
+                  },
+                  "groups": {
+                    "type": "object",
+                    "properties": {
+                      "to_add": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "example": "550e8400-e29b-41d4-a716-446655440000"
+                        },
+                        "example": [
+                          "550e8400-e29b-41d4-a716-446655440000",
+                          "550e8400-e29b-41d4-a716-446655440001"
+                        ]
+                      },
+                      "to_rem": {
+                        "type": "array",
+                        "items": {},
+                        "example": []
+                      }
+                    }
                   },
                   "impact": {
                     "type": "number",
-                    "example": 55
+                    "example": 5
+                  },
+                  "is_template": {
+                    "type": "boolean",
+                    "example": false
                   },
                   "name": {
                     "type": "string",
-                    "example": ""
+                    "example": "optio vero maxime"
+                  },
+                  "prefix": {
+                    "type": "string",
+                    "example": "PRJ"
                   },
                   "status": {
                     "type": "number",
-                    "example": 9999
+                    "example": 3
+                  },
+                  "tags": {
+                    "type": "object",
+                    "properties": {
+                      "to_add": {
+                        "type": "array",
+                        "items": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "example": [
+                          1,
+                          2,
+                          3
+                        ]
+                      },
+                      "to_rem": {
+                        "type": "array",
+                        "items": {},
+                        "example": []
+                      }
+                    }
+                  },
+                  "users": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "example": "add"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "assignee"
+                        },
+                        "user_id": {
+                          "type": "string",
+                          "example": "550e8400-e29b-41d4-a716-446655440000"
+                        }
+                      }
+                    },
+                    "example": [
+                      {
+                        "action": "add",
+                        "role": "assignee",
+                        "user_id": "550e8400-e29b-41d4-a716-446655440000"
+                      },
+                      {
+                        "action": "add",
+                        "role": "follower",
+                        "user_id": "550e8400-e29b-41d4-a716-446655440001"
+                      }
+                    ]
                   }
                 }
               },
               "examples": {
                 "Criar projeto": {
                   "value": {
-                    "budget": null,
-                    "description": "",
-                    "impact": 55,
-                    "name": "",
-                    "status": 9999
+                    "budget": 25000,
+                    "childrens": {
+                      "to_add": [
+                        "550e8400-e29b-41d4-a716-446655440002"
+                      ],
+                      "to_rem": []
+                    },
+                    "contact_id": null,
+                    "customer_id": null,
+                    "description": "Ipsum delectus suscipit vitae consequuntur. Occaecati aut qui perspiciatis voluptatem incidunt ipsa aliquid officia. Quia tempore qui voluptate rerum officia quidem ab quas. Aut quibusdam veritatis dolor sit tempora iste mollitia nulla.",
+                    "forecast_dates": [
+                      {
+                        "date": "2025-06-01",
+                        "project_funnel_id": 4
+                      },
+                      {
+                        "date": "2025-07-15",
+                        "project_funnel_id": 5
+                      }
+                    ],
+                    "form_answers": [
+                      {
+                        "answer": "Resposta do campo",
+                        "id": 1
+                      },
+                      {
+                        "answer": "Resposta do campo",
+                        "id": 2
+                      }
+                    ],
+                    "funnel_status": {
+                      "funnel_status_id": 2,
+                      "project_funnel_id": 5
+                    },
+                    "funnels": {
+                      "to_add": [
+                        1,
+                        2,
+                        3
+                      ],
+                      "to_rem": []
+                    },
+                    "groups": {
+                      "to_add": [
+                        "550e8400-e29b-41d4-a716-446655440000",
+                        "550e8400-e29b-41d4-a716-446655440001"
+                      ],
+                      "to_rem": []
+                    },
+                    "impact": 5,
+                    "is_template": false,
+                    "name": "optio vero maxime",
+                    "prefix": "PRJ",
+                    "status": 3,
+                    "tags": {
+                      "to_add": [
+                        1,
+                        2,
+                        3
+                      ],
+                      "to_rem": []
+                    },
+                    "users": [
+                      {
+                        "action": "add",
+                        "role": "assignee",
+                        "user_id": "550e8400-e29b-41d4-a716-446655440000"
+                      },
+                      {
+                        "action": "add",
+                        "role": "follower",
+                        "user_id": "550e8400-e29b-41d4-a716-446655440001"
+                      }
+                    ]
                   }
                 }
               }
