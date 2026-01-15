@@ -5647,7 +5647,7 @@
           "project-funnel-link-toggle"
         ],
         "summary": "Alternar vínculo do funil de projeto",
-        "description": "Alternar o estado do vínculo entre projeto e funil.",
+        "description": "Alternar o estado do vínculo entre projeto e funil.",
         "operationId": "alternarVNculoDoFunilDeProjeto",
         "responses": {
           "200": {
@@ -5695,13 +5695,959 @@
           "get-project-funnels"
         ],
         "summary": "Obter funil de projeto",
-        "description": "Obter detalhes de um funil de projeto específico.",
+        "description": "Retorna os dados completos de um funil de projeto específico, incluindo todas as suas etapas, configurações de visualização, restrições de fluxo e recursos disponíveis.\n\n**Objetos retornados:**\n\n- **project_funnel**: Dados do funil incluindo:\n    \n    - **steps**: Etapas sequenciais do funil com suas restrições de movimentação, assistentes de IA, checklists e formulário\n        \n    - **restrictions**: Regras que controlam a movimentação de itens entre etapas (incoming/outgoing)\n        \n    - **assistants**: Assistentes de IA configurados para executar ações automatizadas em etapas específicas\n        \n    - **business_area**: Área de negócio à qual o funil pertence\n        \n    - **tags**: Etiquetas disponíveis para categorizar itens no funil\n        \n    - **funnel_status**: Status disponíveis para itens (ex: Urgente) com seus bloqueios de etapa\n        \n    - **form**: Formulário principal associado ao funil",
         "operationId": "obterFunilDeProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Cache-Control": {
+                "deprecated": false,
+                "schema": {},
+                "example": "no-cache, private"
+              },
+              "Date": {
+                "deprecated": false,
+                "schema": {},
+                "example": "Thu, 15 Jan 2026 20:33:09 GMT"
+              },
+              "Host": {
+                "deprecated": false,
+                "schema": {},
+                "example": "api.olie.localhost"
+              },
+              "X-Ratelimit-Limit": {
+                "deprecated": false,
+                "schema": {},
+                "example": "160"
+              },
+              "X-Ratelimit-Remaining": {
+                "deprecated": false,
+                "schema": {},
+                "example": "159"
+              },
+              "Transfer-Encoding": {
+                "deprecated": false,
+                "schema": {},
+                "example": "chunked"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "response",
+                    "project_funnel",
+                    "funnel_view_configs"
+                  ],
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Indica se a requisição foi bem-sucedida"
+                    },
+                    "project_funnel": {
+                      "type": "object",
+                      "description": "Dados completos do funil de projeto incluindo etapas, restrições, tags e configurações",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": "Identificador único do funil de projeto"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Nome do funil de projeto"
+                        },
+                        "prefix": {
+                          "type": "string",
+                          "description": "Prefixo usado na criação de projetos para que o prefixo do código do projeto seja criado com esse prefixo"
+                        },
+                        "order": {
+                          "type": "integer",
+                          "description": "Ordem de exibição do funil em relação a outros funis"
+                        },
+                        "condition": {
+                          "type": "string",
+                          "enum": [
+                            "active",
+                            "inactive"
+                          ],
+                          "description": "Condição atual do funil (ativo ou inativo)"
+                        },
+                        "business_area_id": {
+                          "type": "integer",
+                          "description": "ID da área de negócio à qual o funil pertence"
+                        },
+                        "form_id": {
+                          "type": "integer",
+                          "description": "ID do formulário associado ao funil (opcional)",
+                          "nullable": true
+                        },
+                        "frame_id": {
+                          "type": "string",
+                          "format": "uuid",
+                          "description": "UUID do frame/contexto no qual o funil está inserido"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Data e hora de criação do funil"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Data e hora da última atualização do funil"
+                        },
+                        "deleted_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Data e hora de exclusão (soft delete), null se não excluído",
+                          "nullable": true
+                        },
+                        "funnel_config_template_id": {
+                          "type": "integer",
+                          "description": "ID do template de configuração (visualização do usuário)",
+                          "nullable": true
+                        },
+                        "access": {
+                          "type": "array",
+                          "description": "Lista de controles de acesso/permissões para o funil",
+                          "items": {}
+                        },
+                        "steps": {
+                          "type": "array",
+                          "description": "Etapas do funil em ordem sequencial",
+                          "items": {
+                            "type": "object",
+                            "description": "Uma etapa individual do funil com suas configurações e restrições",
+                            "required": [
+                              "id",
+                              "name",
+                              "project_funnel_id",
+                              "sensation_amount",
+                              "step_forward_id",
+                              "step_backward_id",
+                              "order",
+                              "help_text",
+                              "form_id",
+                              "sort_config",
+                              "created_at",
+                              "updated_at",
+                              "step_forward",
+                              "step_backward",
+                              "checklists",
+                              "restrictions",
+                              "attachments",
+                              "form",
+                              "assistants"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "ID único da etapa"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Nome da etapa do funil"
+                              },
+                              "project_funnel_id": {
+                                "type": "integer",
+                                "description": "ID do funil ao qual a etapa pertence"
+                              },
+                              "sensation_amount": {
+                                "type": "integer",
+                                "description": "Valor de sensação/peso associado à etapa"
+                              },
+                              "step_forward_id": {
+                                "type": "integer",
+                                "description": "ID da etapa seguinte padrão (opcional)",
+                                "nullable": true
+                              },
+                              "step_backward_id": {
+                                "type": "integer",
+                                "description": "ID da etapa anterior padrão (opcional)",
+                                "nullable": true
+                              },
+                              "order": {
+                                "type": "integer",
+                                "description": "Ordem sequencial da etapa no funil"
+                              },
+                              "help_text": {
+                                "type": "string",
+                                "description": "Texto de ajuda/orientação para a etapa",
+                                "nullable": true
+                              },
+                              "form_id": {
+                                "type": "integer",
+                                "description": "ID do formulário associado à etapa (opcional)",
+                                "nullable": true
+                              },
+                              "sort_config": {
+                                "type": "object",
+                                "description": "Configuração de ordenação dos itens dentro da etapa",
+                                "properties": {
+                                  "field": {
+                                    "type": "string",
+                                    "description": "Campo usado para ordenação"
+                                  },
+                                  "arguments": {
+                                    "type": "array",
+                                    "description": "Argumentos adicionais para a ordenação",
+                                    "items": {}
+                                  },
+                                  "direction": {
+                                    "type": "string",
+                                    "enum": [
+                                      "asc",
+                                      "desc"
+                                    ],
+                                    "description": "Direção da ordenação (ascendente ou descendente)"
+                                  }
+                                },
+                                "nullable": true
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Data e hora de criação da etapa"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Data e hora da última atualização da etapa"
+                              },
+                              "step_forward": {
+                                "description": "Dados da etapa seguinte (carregado por relacionamento)",
+                                "nullable": true
+                              },
+                              "step_backward": {
+                                "description": "Dados da etapa anterior (carregado por relacionamento)",
+                                "nullable": true
+                              },
+                              "checklists": {
+                                "type": "array",
+                                "description": "Lista de checklists associados à etapa",
+                                "items": {}
+                              },
+                              "restrictions": {
+                                "type": "array",
+                                "description": "Restrições de movimentação de/para esta etapa",
+                                "items": {
+                                  "type": "object",
+                                  "description": "Regra que controla a movimentação de itens entre etapas",
+                                  "required": [
+                                    "id",
+                                    "name",
+                                    "step_id",
+                                    "direction",
+                                    "restriction_type",
+                                    "target_step_id",
+                                    "target_tag_id",
+                                    "target_status_id",
+                                    "target_saved_filter_id",
+                                    "target_filter",
+                                    "hierarchy_scope",
+                                    "hierarchy_depth",
+                                    "created_at",
+                                    "updated_at"
+                                  ],
+                                  "properties": {
+                                    "id": {
+                                      "type": "integer",
+                                      "description": "Identificador único da restrição"
+                                    },
+                                    "name": {
+                                      "type": "string",
+                                      "description": "Nome descritivo da restrição (opcional)",
+                                      "nullable": true
+                                    },
+                                    "step_id": {
+                                      "type": "integer",
+                                      "description": "ID da etapa à qual a restrição pertence"
+                                    },
+                                    "direction": {
+                                      "type": "string",
+                                      "enum": [
+                                        "incoming",
+                                        "outgoing"
+                                      ],
+                                      "description": "Direção da restrição (entrada ou saída da etapa)"
+                                    },
+                                    "restriction_type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "step",
+                                        "filter",
+                                        "tag",
+                                        "status"
+                                      ],
+                                      "description": "Tipo de restrição aplicada"
+                                    },
+                                    "target_step_id": {
+                                      "type": "integer",
+                                      "description": "ID da etapa alvo (quando restriction_type é 'step')",
+                                      "nullable": true
+                                    },
+                                    "target_tag_id": {
+                                      "type": "integer",
+                                      "description": "ID da tag alvo (quando restriction_type é 'tag')",
+                                      "nullable": true
+                                    },
+                                    "target_status_id": {
+                                      "type": "integer",
+                                      "description": "ID do status alvo (quando restriction_type é 'status')",
+                                      "nullable": true
+                                    },
+                                    "target_saved_filter_id": {
+                                      "type": "string",
+                                      "format": "uuid",
+                                      "description": "UUID do filtro salvo (quando restriction_type é 'filter')",
+                                      "nullable": true
+                                    },
+                                    "target_filter": {
+                                      "description": "Configuração de filtro inline (alternativa ao filtro salvo)",
+                                      "nullable": true
+                                    },
+                                    "hierarchy_scope": {
+                                      "type": "string",
+                                      "enum": [
+                                        "current",
+                                        "parent",
+                                        "child",
+                                        "all"
+                                      ],
+                                      "description": "Escopo hierárquico da restrição"
+                                    },
+                                    "hierarchy_depth": {
+                                      "type": "integer",
+                                      "description": "Profundidade hierárquica da restrição (opcional)",
+                                      "nullable": true
+                                    },
+                                    "created_at": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Data e hora de criação da restrição"
+                                    },
+                                    "updated_at": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Data e hora da última atualização da restrição"
+                                    }
+                                  }
+                                }
+                              },
+                              "attachments": {
+                                "type": "array",
+                                "description": "Anexos associados à etapa",
+                                "items": {}
+                              },
+                              "form": {
+                                "description": "Dados do formulário associado (carregado por relacionamento)",
+                                "nullable": true
+                              },
+                              "assistants": {
+                                "type": "array",
+                                "description": "Assistentes de IA configurados para esta etapa",
+                                "items": {
+                                  "type": "object",
+                                  "description": "Assistente de IA que executa ações automatizadas na etapa",
+                                  "required": [
+                                    "id",
+                                    "name",
+                                    "active",
+                                    "funnel_step_id",
+                                    "ai_agent_id",
+                                    "prompt",
+                                    "execute_on",
+                                    "manual_execution_enabled",
+                                    "result_as_media",
+                                    "result_as_dynamic_form",
+                                    "failure_funnel_step_id",
+                                    "created_at",
+                                    "updated_at",
+                                    "deleted_at"
+                                  ],
+                                  "properties": {
+                                    "id": {
+                                      "type": "string",
+                                      "format": "uuid",
+                                      "description": "UUID do assistente"
+                                    },
+                                    "name": {
+                                      "type": "string",
+                                      "description": "Nome do assistente de IA"
+                                    },
+                                    "active": {
+                                      "type": "boolean",
+                                      "description": "Indica se o assistente está ativo"
+                                    },
+                                    "funnel_step_id": {
+                                      "type": "integer",
+                                      "description": "ID da etapa à qual o assistente pertence"
+                                    },
+                                    "ai_agent_id": {
+                                      "type": "string",
+                                      "format": "uuid",
+                                      "description": "UUID do agente de IA usado pelo assistente"
+                                    },
+                                    "prompt": {
+                                      "type": "string",
+                                      "description": "Template do prompt enviado ao agente de IA"
+                                    },
+                                    "execute_on": {
+                                      "type": "string",
+                                      "enum": [
+                                        "manual",
+                                        "automatic",
+                                        "scheduled"
+                                      ],
+                                      "description": "Momento de execução do assistente"
+                                    },
+                                    "manual_execution_enabled": {
+                                      "type": "boolean",
+                                      "description": "Permite execução manual pelo usuário"
+                                    },
+                                    "result_as_media": {
+                                      "type": "boolean",
+                                      "description": "Salva o resultado como mídia/anexo"
+                                    },
+                                    "result_as_dynamic_form": {
+                                      "type": "object",
+                                      "description": "Configuração para transformar resultado em formulário dinâmico",
+                                      "properties": {
+                                        "edge_id": {
+                                          "type": "integer",
+                                          "description": "ID da aresta/conexão do formulário"
+                                        },
+                                        "form_id": {
+                                          "type": "integer",
+                                          "description": "ID do formulário dinâmico"
+                                        },
+                                        "project_id": {
+                                          "type": "string",
+                                          "description": "Template para ID do projeto (usa variáveis)"
+                                        },
+                                        "pivot_class": {
+                                          "type": "string",
+                                          "description": "Classe do modelo pivot para relacionamento"
+                                        },
+                                        "project_funnel_id": {
+                                          "type": "integer",
+                                          "description": "ID do funil do projeto"
+                                        }
+                                      },
+                                      "nullable": true
+                                    },
+                                    "failure_funnel_step_id": {
+                                      "type": "integer",
+                                      "description": "ID da etapa para onde mover em caso de falha (opcional)",
+                                      "nullable": true
+                                    },
+                                    "created_at": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Data e hora de criação do assistente"
+                                    },
+                                    "updated_at": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Data e hora da última atualização do assistente"
+                                    },
+                                    "deleted_at": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Data e hora de exclusão (soft delete)",
+                                      "nullable": true
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "business_area": {
+                          "type": "object",
+                          "description": "Área de negócio à qual o funil pertence",
+                          "required": [
+                            "id",
+                            "name",
+                            "order",
+                            "frame_id",
+                            "deleted_at"
+                          ],
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "description": "Identificador único da área de negócio"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Nome da área de negócio"
+                            },
+                            "order": {
+                              "type": "integer",
+                              "description": "Ordem de exibição da área de negócio"
+                            },
+                            "frame_id": {
+                              "type": "string",
+                              "format": "uuid",
+                              "description": "UUID do frame/contexto da área"
+                            },
+                            "deleted_at": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Data e hora de exclusão (soft delete)",
+                              "nullable": true
+                            }
+                          }
+                        },
+                        "attachments": {
+                          "type": "array",
+                          "description": "Anexos associados ao funil",
+                          "items": {}
+                        },
+                        "form": {
+                          "type": "object",
+                          "description": "Formulário principal associado ao funil",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "description": "Identificador único do formulário"
+                            },
+                            "title": {
+                              "type": "string",
+                              "description": "Título do formulário"
+                            }
+                          },
+                          "nullable": true
+                        },
+                        "template_projects": {
+                          "type": "array",
+                          "description": "Projetos template associados ao funil",
+                          "items": {}
+                        },
+                        "tags": {
+                          "type": "array",
+                          "description": "Etiquetas/tags disponíveis para categorizar itens no funil",
+                          "items": {
+                            "type": "object",
+                            "description": "Etiqueta para categorização de itens no funil",
+                            "required": [
+                              "id",
+                              "name",
+                              "color",
+                              "project_funnel_id",
+                              "deleted_at",
+                              "funnel_step_blockings"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "Identificador único da tag"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Nome da tag"
+                              },
+                              "color": {
+                                "type": "string",
+                                "pattern": "^#[0-9a-fA-F]{6}$",
+                                "description": "Cor da tag em formato hexadecimal"
+                              },
+                              "project_funnel_id": {
+                                "type": "integer",
+                                "description": "ID do funil ao qual a tag pertence"
+                              },
+                              "deleted_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Data e hora de exclusão (soft delete)",
+                                "nullable": true
+                              },
+                              "funnel_step_blockings": {
+                                "type": "array",
+                                "description": "Bloqueios de etapas associados a esta tag",
+                                "items": {}
+                              }
+                            }
+                          }
+                        },
+                        "funnel_status": {
+                          "type": "array",
+                          "description": "Status de funil disponíveis para projetos no funil",
+                          "items": {
+                            "type": "object",
+                            "description": "Status que pode ser atribuído a projetos no funil",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "ID único do status"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Nome do status"
+                              },
+                              "color": {
+                                "type": "string",
+                                "pattern": "^#[0-9a-fA-F]{6}$",
+                                "description": "Cor do status em formato hexadecimal"
+                              },
+                              "project_funnel_id": {
+                                "type": "integer",
+                                "description": "ID do funil ao qual o status pertence"
+                              },
+                              "is_conclusive": {
+                                "type": "boolean",
+                                "description": "Indica se este status marca o item como concluído no prazo"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Data e hora de criação do status"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Data e hora da última atualização do status"
+                              },
+                              "deleted_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Data e hora de exclusão (soft delete)",
+                                "nullable": true
+                              },
+                              "funnel_step_blockings": {
+                                "type": "array",
+                                "description": "Bloqueios de etapas quando este status está ativo",
+                                "items": {
+                                  "type": "object",
+                                  "description": "Bloqueio que impede movimentação de item em determinada etapa",
+                                  "properties": {
+                                    "id": {
+                                      "type": "integer",
+                                      "description": "Identificador único do bloqueio"
+                                    },
+                                    "automation_bypass": {
+                                      "type": "boolean",
+                                      "description": "Permite que automações ignorem este bloqueio"
+                                    },
+                                    "funnel_step_id": {
+                                      "type": "integer",
+                                      "description": "ID da etapa bloqueada"
+                                    },
+                                    "funnel_status_id": {
+                                      "type": "integer",
+                                      "description": "ID do status que causa o bloqueio (opcional)",
+                                      "nullable": true
+                                    },
+                                    "funnel_tag_id": {
+                                      "type": "integer",
+                                      "description": "ID da tag que causa o bloqueio (opcional)",
+                                      "nullable": true
+                                    },
+                                    "created_at": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Data e hora de criação do bloqueio"
+                                    },
+                                    "updated_at": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Data e hora da última atualização do bloqueio"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "funnel_view_configs": {
+                      "type": "array",
+                      "description": "Configurações de visualização do funil (visibilidade de campos, botões, etc.)",
+                      "items": {
+                        "type": "object",
+                        "description": "Uma configuração específica de visualização",
+                        "required": [
+                          "key",
+                          "value",
+                          "form_edge_id"
+                        ],
+                        "properties": {
+                          "key": {
+                            "type": "string",
+                            "description": "Chave da configuração (ex: 'card.weight', 'info.show.tags')"
+                          },
+                          "value": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "integer"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "description": "Valor da configuração (pode ser string, boolean ou número)"
+                          },
+                          "form_edge_id": {
+                            "type": "integer",
+                            "description": "ID da aresta do formulário relacionada (opcional)",
+                            "nullable": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": "{\n    \"response\": true,\n    \"project_funnel\": {\n        \"id\": 74,\n        \"name\": \"Desenvolvimento\",\n        \"prefix\": \"DL19\",\n        \"order\": 0,\n        \"condition\": \"active\",\n        \"business_area_id\": 83,\n        \"form_id\": 18,\n        \"frame_id\": \"019b329a-4346-7064-bba3-e7c19057cda4\",\n        \"created_at\": \"2026-01-09T20:51:29.000000Z\",\n        \"updated_at\": \"2026-01-09T20:51:29.000000Z\",\n        \"deleted_at\": null,\n        \"funnel_config_template_id\": null,\n        \"access\": [],\n        \"steps\": [\n            {\n                \"id\": 441,\n                \"name\": \"Levantamento de Requisitos\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 1,\n                \"help_text\": \"Entender o problema a ser resolvido\",\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 190,\n                        \"name\": null,\n                        \"step_id\": 441,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 442,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            },\n            {\n                \"id\": 442,\n                \"name\": \"Planejamento\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 2,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": {\n                    \"field\": \"impact\",\n                    \"arguments\": [],\n                    \"direction\": \"desc\"\n                },\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 191,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 443,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 192,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 193,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 441,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 194,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 195,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 443,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 196,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 441,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": [\n                    {\n                        \"id\": \"019ba487-5289-734a-ab6f-30fc0c22cf61\",\n                        \"name\": \"Gerador de branch\",\n                        \"active\": true,\n                        \"funnel_step_id\": 442,\n                        \"ai_agent_id\": \"019ba487-5276-7333-968f-90d353740216\",\n                        \"prompt\": \"Sugira um nome de branch para um item que tem os seguintes dados, seguindo o formato \\\"{code}-{branch}\\\" sendo code o código do item e branch a sugestão\\n\\nCódigo: \"{{project.code}}\"\\nNome: \"{{project.name}}\"\\nDescrição: \"{{project.description}}\"\",\n                        \"execute_on\": \"manual\",\n                        \"manual_execution_enabled\": false,\n                        \"result_as_media\": true,\n                        \"result_as_dynamic_form\": {\n                            \"edge_id\": 1,\n                            \"form_id\": 1,\n                            \"project_id\": \"{{project.id}}\",\n                            \"pivot_class\": \"App\\\\Models\\\\ProjectFunnelAssignment\",\n                            \"project_funnel_id\": 1\n                        },\n                        \"failure_funnel_step_id\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"deleted_at\": null\n                    }\n                ]\n            },\n            {\n                \"id\": 443,\n                \"name\": \"Design\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 3,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 197,\n                        \"name\": null,\n                        \"step_id\": 443,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 442,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 198,\n                        \"name\": null,\n                        \"step_id\": 443,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 199,\n                        \"name\": null,\n                        \"step_id\": 443,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 200,\n                        \"name\": null,\n                        \"step_id\": 443,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 442,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 201,\n                        \"name\": null,\n                        \"step_id\": 443,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"filter\",\n                        \"target_step_id\": null,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": \"019ba487-4f91-72d0-82c1-ecd757e034ed\",\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            },\n            {\n                \"id\": 444,\n                \"name\": \"Desenvolvimento\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 4,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 202,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 442,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 203,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 443,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 204,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 445,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 205,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 442,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 206,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 443,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 207,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 446,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 208,\n                        \"name\": \"Atribua uma etiqueta que defina o item\",\n                        \"step_id\": 444,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"filter\",\n                        \"target_step_id\": null,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": \"019ba487-4f94-714b-aa68-49f59e07c9ce\",\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            },\n            {\n                \"id\": 445,\n                \"name\": \"Correção\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 5,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 209,\n                        \"name\": null,\n                        \"step_id\": 445,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 446,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 210,\n                        \"name\": null,\n                        \"step_id\": 445,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 211,\n                        \"name\": null,\n                        \"step_id\": 445,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 447,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            },\n            {\n                \"id\": 446,\n                \"name\": \"Testes\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 6,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 212,\n                        \"name\": null,\n                        \"step_id\": 446,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 213,\n                        \"name\": null,\n                        \"step_id\": 446,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 447,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 214,\n                        \"name\": null,\n                        \"step_id\": 446,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 445,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            },\n            {\n                \"id\": 447,\n                \"name\": \"Finalizado\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 7,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 215,\n                        \"name\": null,\n                        \"step_id\": 447,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 446,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 216,\n                        \"name\": null,\n                        \"step_id\": 447,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 445,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            }\n        ],\n        \"business_area\": {\n            \"id\": 83,\n            \"name\": \"Desenvolvimento de software-1-2-3-4\",\n            \"order\": 4,\n            \"frame_id\": \"019b329a-4346-7064-bba3-e7c19057cda4\",\n            \"deleted_at\": null\n        },\n        \"attachments\": [],\n        \"form\": {\n            \"id\": 18,\n            \"title\": \"Informações adicionais do desenvolvimento\"\n        },\n        \"template_projects\": [],\n        \"tags\": [\n            {\n                \"id\": 22,\n                \"name\": \"Função\",\n                \"color\": \"#28a745\",\n                \"project_funnel_id\": 74,\n                \"deleted_at\": null,\n                \"funnel_step_blockings\": []\n            },\n            {\n                \"id\": 23,\n                \"name\": \"Bug\",\n                \"color\": \"#ff8d92\",\n                \"project_funnel_id\": 74,\n                \"deleted_at\": null,\n                \"funnel_step_blockings\": []\n            },\n            {\n                \"id\": 24,\n                \"name\": \"Ajuste\",\n                \"color\": \"#258aff\",\n                \"project_funnel_id\": 74,\n                \"deleted_at\": null,\n                \"funnel_step_blockings\": []\n            }\n        ],\n        \"funnel_status\": [\n            {\n                \"id\": 8,\n                \"name\": \"Urgente\",\n                \"color\": \"#dc3545\",\n                \"project_funnel_id\": 74,\n                \"is_conclusive\": false,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"deleted_at\": null,\n                \"funnel_step_blockings\": [\n                    {\n                        \"id\": 8,\n                        \"automation_bypass\": false,\n                        \"funnel_step_id\": 447,\n                        \"funnel_status_id\": 8,\n                        \"funnel_tag_id\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ]\n            }\n        ]\n    },\n    \"funnel_view_configs\": [\n        {\n            \"key\": \"card.weight\",\n            \"value\": \"medium\",\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.tags\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.task_summary\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.customer\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.contact\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.assigned_to\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.created_by\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.impact\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.status\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.budget\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.expected_cost\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.elapsed_cost\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.costs_per_user\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.created_at\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.description\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.forecast_date\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.groups\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show_buttons_on_hover\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.content\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.funnel_tags\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.collect_data\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.checklists\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.files\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.forms\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.project_edit\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.hierarchy\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.forum\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.funnel_status\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.copy_link\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"df_project_funnel\",\n            \"value\": true,\n            \"form_edge_id\": 61\n        },\n        {\n            \"key\": \"df_project_funnel\",\n            \"value\": true,\n            \"form_edge_id\": 62\n        },\n        {\n            \"key\": \"df_project_funnel\",\n            \"value\": true,\n            \"form_edge_id\": 63\n        }\n    ]\n}"
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "project_funnel_id": {
+                    "description": "ID do funil de projeto",
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "project_funnel_id": 0
+              }
+            }
           }
         }
+      },
+      "get": {
+        "summary": "Listar funis de projeto",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Cache-Control": {
+                "deprecated": false,
+                "schema": {},
+                "example": "no-cache, private"
+              },
+              "Date": {
+                "deprecated": false,
+                "schema": {},
+                "example": "Thu, 15 Jan 2026 20:29:44 GMT"
+              },
+              "Host": {
+                "deprecated": false,
+                "schema": {},
+                "example": "api.olie.localhost"
+              },
+              "X-Ratelimit-Limit": {
+                "deprecated": false,
+                "schema": {},
+                "example": "160"
+              },
+              "X-Ratelimit-Remaining": {
+                "deprecated": false,
+                "schema": {},
+                "example": "159"
+              },
+              "Transfer-Encoding": {
+                "deprecated": false,
+                "schema": {},
+                "example": "chunked"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "project_funnels": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "prefix": {
+                            "type": "string"
+                          },
+                          "condition": {
+                            "type": "string"
+                          },
+                          "business_area": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "business_area_id": {
+                            "type": "integer"
+                          },
+                          "form_id": {
+                            "type": "integer"
+                          },
+                          "attachments_count": {
+                            "type": "integer"
+                          },
+                          "projects_count": {
+                            "type": "integer"
+                          },
+                          "status_count": {
+                            "type": "integer"
+                          },
+                          "steps_count": {
+                            "type": "integer"
+                          },
+                          "tags_count": {
+                            "type": "integer"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "deleted_at": {
+                            "nullable": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "project_funnels": [
+                    {
+                      "id": 74,
+                      "name": "Desenvolvimento",
+                      "prefix": "DL19",
+                      "condition": "active",
+                      "business_area": {
+                        "id": 83,
+                        "name": "Desenvolvimento de software-1-2-3-4"
+                      },
+                      "business_area_id": 83,
+                      "form_id": 18,
+                      "attachments_count": 0,
+                      "projects_count": 0,
+                      "status_count": 1,
+                      "steps_count": 7,
+                      "tags_count": 3,
+                      "created_at": "2026-01-09T20:51:29.000000Z",
+                      "updated_at": "2026-01-09T20:51:29.000000Z",
+                      "deleted_at": null
+                    },
+                    {
+                      "id": 23,
+                      "name": "Captação de Recursos",
+                      "prefix": "CR",
+                      "condition": "active",
+                      "business_area": {
+                        "id": 10,
+                        "name": "Serviços Financeiros 69444026ba810"
+                      },
+                      "business_area_id": 10,
+                      "form_id": null,
+                      "attachments_count": 0,
+                      "projects_count": 22,
+                      "status_count": 0,
+                      "steps_count": 8,
+                      "tags_count": 0,
+                      "created_at": "2025-12-18T17:55:50.000000Z",
+                      "updated_at": "2025-12-18T17:55:51.000000Z",
+                      "deleted_at": null
+                    },
+                    {
+                      "id": 53,
+                      "name": "Auditoria",
+                      "prefix": "JIHJ10",
+                      "condition": "active",
+                      "business_area": null,
+                      "business_area_id": null,
+                      "form_id": null,
+                      "attachments_count": 0,
+                      "projects_count": 0,
+                      "status_count": 0,
+                      "steps_count": 6,
+                      "tags_count": 0,
+                      "created_at": "2026-01-09T20:39:32.000000Z",
+                      "updated_at": "2026-01-09T20:39:32.000000Z",
+                      "deleted_at": null
+                    },
+                    {
+                      "id": 71,
+                      "name": "Vendas",
+                      "prefix": "VDS",
+                      "condition": "active",
+                      "business_area": null,
+                      "business_area_id": null,
+                      "form_id": null,
+                      "attachments_count": 0,
+                      "projects_count": 0,
+                      "status_count": 0,
+                      "steps_count": 7,
+                      "tags_count": 0,
+                      "created_at": "2026-01-09T20:51:29.000000Z",
+                      "updated_at": "2026-01-09T20:51:30.000000Z",
+                      "deleted_at": null
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "project-funnels",
+          "get-project-funnels"
+        ],
+        "description": "Listar todos os funis de projeto com informações simples."
       }
     },
     "/api/management/toggle-funnel-tag": {
