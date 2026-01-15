@@ -6874,7 +6874,7 @@
                   },
                   "description": {
                     "type": "string",
-                    "example": "Non aliquid minus pariatur autem sunt maiores iusto commodi. Est nulla corporis sunt. Accusamus maiores hic eaque accusantium omnis minus rerum ducimus. Explicabo voluptatem optio."
+                    "example": "Cum cumque nam laborum tempora ipsam. Nobis rerum quis magni. Aut voluptas sit quibusdam optio dolores ut. Corporis natus unde in. Voluptatum laborum vel qui. Assumenda labore laudantium."
                   },
                   "forecast_dates": {
                     "type": "array",
@@ -6994,7 +6994,7 @@
                   },
                   "name": {
                     "type": "string",
-                    "example": "exercitationem nobis autem"
+                    "example": "doloribus libero consequuntur"
                   },
                   "prefix": {
                     "type": "string",
@@ -7072,7 +7072,7 @@
                     },
                     "contact_id": "770e8400-e29b-41d4-a716-446655440001",
                     "customer_id": "880e8400-e29b-41d4-a716-446655440001",
-                    "description": "Non aliquid minus pariatur autem sunt maiores iusto commodi. Est nulla corporis sunt. Accusamus maiores hic eaque accusantium omnis minus rerum ducimus. Explicabo voluptatem optio.",
+                    "description": "Cum cumque nam laborum tempora ipsam. Nobis rerum quis magni. Aut voluptas sit quibusdam optio dolores ut. Corporis natus unde in. Voluptatum laborum vel qui. Assumenda labore laudantium.",
                     "forecast_dates": [
                       {
                         "date": "2025-06-01",
@@ -7114,7 +7114,7 @@
                     },
                     "impact": 5,
                     "is_template": false,
-                    "name": "exercitationem nobis autem",
+                    "name": "doloribus libero consequuntur",
                     "prefix": "PRJ",
                     "status": 3,
                     "tags": {
@@ -13603,34 +13603,6 @@
         }
       }
     },
-    "/api/management/customers/{customer}/restore": {
-      "post": {
-        "tags": [
-          "customers",
-          "restore11"
-        ],
-        "summary": "Restaurar cliente",
-        "description": "Restaurar um cliente que foi arquivado anteriormente.",
-        "operationId": "restaurarCliente",
-        "responses": {
-          "200": {
-            "description": " / 200",
-            "content": {}
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "customer",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string",
-            "example": "string"
-          }
-        }
-      ]
-    },
     "/api/management/customers/{customer}/media": {
       "get": {
         "tags": [
@@ -13668,6 +13640,34 @@
         "summary": "Listar conteúdos de projetos associados ao cliente com arquivos",
         "description": "Listar conteúdos de projetos associados ao cliente com arquivos",
         "operationId": "listarConteDosDeProjetosAssociadosAoClienteComArquivos",
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {}
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "customer",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "example": "string"
+          }
+        }
+      ]
+    },
+    "/api/management/customers/{customer}/restore": {
+      "post": {
+        "tags": [
+          "customers",
+          "restore1"
+        ],
+        "summary": "Restaurar cliente",
+        "description": "Restaurar um cliente que foi arquivado anteriormente.",
+        "operationId": "restaurarCliente",
         "responses": {
           "200": {
             "description": "200",
@@ -13776,14 +13776,14 @@
       "post": {
         "tags": [
           "contacts",
-          "search11"
+          "search1"
         ],
         "summary": "Busca avançada de contatos",
         "description": "Buscar contatos com filtros e critérios específicos.",
         "operationId": "buscaAvanAdaDeContatos",
         "responses": {
           "200": {
-            "description": "Busca avançada de contatos / 200",
+            "description": "Busca avançada de contatos",
             "headers": {
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -15028,14 +15028,14 @@
       "post": {
         "tags": [
           "contacts",
-          "restore121"
+          "restore12"
         ],
         "summary": "Restaurar contato",
         "description": "Restaurar um contato que foi arquivado anteriormente.",
         "operationId": "restaurarContato",
         "responses": {
           "200": {
-            "description": "Sucesso / 200",
+            "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -15116,7 +15116,7 @@
           "required": true,
           "schema": {
             "type": "string",
-            "example": "string"
+            "example": "159"
           }
         }
       ]
@@ -16256,44 +16256,6 @@
         }
       ]
     },
-    "/api/management/form-publications/{form_publication_id}/restore": {
-      "post": {
-        "tags": [
-          "form-publications",
-          "restore1231"
-        ],
-        "summary": "Restaurar publicação do formulário",
-        "description": "Restaura uma publicação de formulário que foi deletada.",
-        "operationId": "restaurarPublicaODoFormulRio",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {}
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": " / 200",
-            "content": {}
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "form_publication_id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string",
-            "example": "019b8f40-ce05-73b8-8c20-b29eb6e5b299"
-          }
-        }
-      ]
-    },
     "/api/management/form-publications/{form_publication}/change-token": {
       "post": {
         "tags": [
@@ -16346,6 +16308,44 @@
           "schema": {
             "type": "string",
             "example": ""
+          }
+        }
+      ]
+    },
+    "/api/management/form-publications/{form_publication_id}/restore": {
+      "post": {
+        "tags": [
+          "form-publications",
+          "restore123"
+        ],
+        "summary": "Restaurar publicação do formulário",
+        "description": "Restaura uma publicação de formulário que foi deletada.",
+        "operationId": "restaurarPublicaODoFormulRio",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {}
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "form_publication_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "example": "019b8f40-ce05-73b8-8c20-b29eb6e5b299"
           }
         }
       ]
@@ -16626,14 +16626,14 @@
           "ai-agents",
           "agents",
           "contexts",
-          "reorder11"
+          "reorder1"
         ],
         "summary": "Reordenar contextos do agente",
         "description": "Reordenar a sequência dos contextos de um agente de IA.",
         "operationId": "reordenarContextosDoAgente",
         "responses": {
           "200": {
-            "description": " / 200",
+            "description": "200",
             "content": {}
           }
         }
@@ -16973,15 +16973,84 @@
       "post": {
         "tags": [
           "business-areas",
-          "restore12341"
+          "restore1234"
         ],
         "summary": "Restaurar área de negócio",
         "description": "Restaurar uma área de negócio que foi arquivada anteriormente.",
         "operationId": "restaurarReaDeNegCio",
         "responses": {
           "200": {
-            "description": " / 200",
-            "content": {}
+            "description": "Restaurar área de negócio",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "no-cache, private"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Thu, 15 Jan 2026 19:57:11 GMT"
+                }
+              },
+              "Host": {
+                "schema": {
+                  "type": "string",
+                  "example": "api.olie.localhost"
+                }
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "chunked"
+                }
+              },
+              "X-Ratelimit-Limit": {
+                "schema": {
+                  "type": "string",
+                  "example": "160"
+                }
+              },
+              "X-Ratelimit-Remaining": {
+                "schema": {
+                  "type": "string",
+                  "example": "153"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                },
+                "examples": {
+                  "Restaurar área de negócio": {
+                    "value": {
+                      "response": true
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -16992,7 +17061,7 @@
           "required": true,
           "schema": {
             "type": "string",
-            "example": "string"
+            "example": ""
           }
         }
       ]
@@ -17001,15 +17070,114 @@
       "post": {
         "tags": [
           "business-areas",
-          "reorder121"
+          "reorder12"
         ],
         "summary": "Reordenar áreas de negócio",
         "description": "Reordenar a sequência das áreas de negócio no sistema.",
         "operationId": "reordenarReasDeNegCio",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "business_area_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "number",
+                      "example": 18
+                    },
+                    "example": [
+                      18
+                    ]
+                  }
+                }
+              },
+              "examples": {
+                "Reordenar áreas de negócio": {
+                  "value": {
+                    "business_area_ids": [
+                      18
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": " / 200",
-            "content": {}
+            "description": "Sucesso",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "no-cache, private"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Thu, 15 Jan 2026 19:58:55 GMT"
+                }
+              },
+              "Host": {
+                "schema": {
+                  "type": "string",
+                  "example": "api.olie.localhost"
+                }
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "chunked"
+                }
+              },
+              "X-Ratelimit-Limit": {
+                "schema": {
+                  "type": "string",
+                  "example": "160"
+                }
+              },
+              "X-Ratelimit-Remaining": {
+                "schema": {
+                  "type": "string",
+                  "example": "150"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                },
+                "examples": {
+                  "Sucesso": {
+                    "value": {
+                      "response": true
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -17069,7 +17237,76 @@
         "responses": {
           "200": {
             "description": "200",
-            "content": {}
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "no-cache, private"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Thu, 15 Jan 2026 19:56:39 GMT"
+                }
+              },
+              "Host": {
+                "schema": {
+                  "type": "string",
+                  "example": "api.olie.localhost"
+                }
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "chunked"
+                }
+              },
+              "X-Ratelimit-Limit": {
+                "schema": {
+                  "type": "string",
+                  "example": "160"
+                }
+              },
+              "X-Ratelimit-Remaining": {
+                "schema": {
+                  "type": "string",
+                  "example": "149"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                },
+                "examples": {
+                  "200": {
+                    "value": {
+                      "response": true
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -17566,14 +17803,14 @@
       "get": {
         "tags": [
           "squads",
-          "users11"
+          "users1"
         ],
         "summary": "Listar usuários associados a um squad",
         "description": "Listar usuários associados a um squad",
         "operationId": "listarUsuRiosAssociadosAUmSquad",
         "responses": {
           "200": {
-            "description": " / 200",
+            "description": "200",
             "content": {}
           }
         }
@@ -17581,7 +17818,7 @@
       "post": {
         "tags": [
           "squads",
-          "users11"
+          "users1"
         ],
         "summary": "Adicionar um ou mais usuários a um squad como membros",
         "description": "Adicionar um ou mais usuários a um squad como membros",
@@ -17604,7 +17841,7 @@
         },
         "responses": {
           "200": {
-            "description": " / 200",
+            "description": "200",
             "content": {}
           }
         }
@@ -17625,7 +17862,7 @@
       "put": {
         "tags": [
           "squads",
-          "users11"
+          "users1"
         ],
         "summary": "Atualizar tipo de um usuário no squad",
         "description": "Atualiza o tipo de um usuário no squad (MEMBER, LEADER, LEADER_SUBSTITUTE). Ao definir LEADER ou LEADER_SUBSTITUTE, remove automaticamente o tipo anterior de outros usuários.",
@@ -17654,7 +17891,7 @@
         },
         "responses": {
           "200": {
-            "description": " / 200",
+            "description": "200",
             "content": {}
           }
         }
@@ -17662,14 +17899,14 @@
       "delete": {
         "tags": [
           "squads",
-          "users11"
+          "users1"
         ],
         "summary": "Remover usuário específico de um squad",
         "description": "Remove um usuário específico de um squad, desvinculando-o completamente.",
         "operationId": "removerUsuRioEspecFicoDeUmSquad",
         "responses": {
           "200": {
-            "description": " / 200",
+            "description": "200",
             "content": {}
           }
         }
@@ -17921,15 +18158,15 @@
       "post": {
         "tags": [
           "project-groups",
-          "projects121",
-          "index11"
+          "projects12",
+          "index1"
         ],
         "summary": "Retorna uma lista de projetos associados a um grupo",
         "description": "Retorna uma lista paginada de projetos associados a um grupo específico, ordenados pela ordem definida no grupo. Inclui informações de porcentagem de conclusão e respostas de formulários dinâmicos. Suporta filtros e busca.",
         "operationId": "retornaUmaListaDeProjetosAssociadosAUmGrupo",
         "responses": {
           "200": {
-            "description": " / 200",
+            "description": "200",
             "content": {}
           }
         }
@@ -17950,15 +18187,15 @@
       "post": {
         "tags": [
           "project-groups",
-          "projects121",
-          "reorder1231"
+          "projects12",
+          "reorder123"
         ],
         "summary": "Altera a ordem de um projeto dentro de um grupo",
         "description": "Altera a ordem de um projeto dentro de um grupo específico, definindo uma nova posição para o projeto.",
         "operationId": "alteraAOrdemDeUmProjetoDentroDeUmGrupo",
         "responses": {
           "200": {
-            "description": " / 200",
+            "description": "200",
             "content": {}
           }
         }
@@ -17988,14 +18225,14 @@
       "post": {
         "tags": [
           "project-groups",
-          "projects121"
+          "projects12"
         ],
         "summary": "Associa um projeto a um grupo de projetos",
         "description": "Associa um projeto existente a um grupo de projetos. O projeto é adicionado ao final da lista do grupo.",
         "operationId": "associaUmProjetoAUmGrupoDeProjetos",
         "responses": {
           "200": {
-            "description": " / 200",
+            "description": "200",
             "content": {}
           }
         }
@@ -18016,14 +18253,14 @@
       "delete": {
         "tags": [
           "project-groups",
-          "projects121"
+          "projects12"
         ],
         "summary": "Remove a associação de um projeto de um grupo de projetos",
         "description": "Remove a associação de um projeto de um grupo de projetos",
         "operationId": "removeAAssociaODeUmProjetoDeUmGrupoDeProjetos",
         "responses": {
           "200": {
-            "description": " / 200",
+            "description": "200",
             "content": {}
           }
         }
@@ -18494,16 +18731,13 @@
       "name": "search"
     },
     {
-      "name": "restore1"
-    },
-    {
       "name": "media"
     },
     {
       "name": "project-medias"
     },
     {
-      "name": "restore11"
+      "name": "restore1"
     },
     {
       "name": "contacts"
@@ -18513,12 +18747,6 @@
     },
     {
       "name": "restore12"
-    },
-    {
-      "name": "search11"
-    },
-    {
-      "name": "restore121"
     },
     {
       "name": "forms"
@@ -18548,16 +18776,13 @@
       "name": "form"
     },
     {
-      "name": "restore123"
-    },
-    {
       "name": "change-token"
     },
     {
       "name": "responses"
     },
     {
-      "name": "restore1231"
+      "name": "restore123"
     },
     {
       "name": "answers-history"
@@ -18587,9 +18812,6 @@
       "name": "reorder1"
     },
     {
-      "name": "reorder11"
-    },
-    {
       "name": "available-models"
     },
     {
@@ -18603,12 +18825,6 @@
     },
     {
       "name": "reorder12"
-    },
-    {
-      "name": "restore12341"
-    },
-    {
-      "name": "reorder121"
     },
     {
       "name": "goals"
@@ -18632,9 +18848,6 @@
       "name": "users1"
     },
     {
-      "name": "users11"
-    },
-    {
       "name": "user-alias"
     },
     {
@@ -18648,15 +18861,6 @@
     },
     {
       "name": "reorder123"
-    },
-    {
-      "name": "projects121"
-    },
-    {
-      "name": "index11"
-    },
-    {
-      "name": "reorder1231"
     },
     {
       "name": "system"
