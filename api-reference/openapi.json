@@ -121,7 +121,7 @@
           "required": true,
           "schema": {
             "type": "string",
-            "example": "8dcdc377-9a6b-da3a-8878-39a146900d1e"
+            "example": "1ae02989-bd9d-6132-9018-c66ff2a9b41d"
           },
           "description": "ID do projeto"
         }
@@ -6874,7 +6874,7 @@
                   },
                   "description": {
                     "type": "string",
-                    "example": "Tenetur blanditiis sint ex ut necessitatibus quidem dolorem. Est commodi rerum qui nisi laborum. Nihil est est."
+                    "example": "Non aliquid minus pariatur autem sunt maiores iusto commodi. Est nulla corporis sunt. Accusamus maiores hic eaque accusantium omnis minus rerum ducimus. Explicabo voluptatem optio."
                   },
                   "forecast_dates": {
                     "type": "array",
@@ -6994,7 +6994,7 @@
                   },
                   "name": {
                     "type": "string",
-                    "example": "dolorem adipisci maiores"
+                    "example": "exercitationem nobis autem"
                   },
                   "prefix": {
                     "type": "string",
@@ -7072,7 +7072,7 @@
                     },
                     "contact_id": "770e8400-e29b-41d4-a716-446655440001",
                     "customer_id": "880e8400-e29b-41d4-a716-446655440001",
-                    "description": "Tenetur blanditiis sint ex ut necessitatibus quidem dolorem. Est commodi rerum qui nisi laborum. Nihil est est.",
+                    "description": "Non aliquid minus pariatur autem sunt maiores iusto commodi. Est nulla corporis sunt. Accusamus maiores hic eaque accusantium omnis minus rerum ducimus. Explicabo voluptatem optio.",
                     "forecast_dates": [
                       {
                         "date": "2025-06-01",
@@ -7114,7 +7114,7 @@
                     },
                     "impact": 5,
                     "is_template": false,
-                    "name": "dolorem adipisci maiores",
+                    "name": "exercitationem nobis autem",
                     "prefix": "PRJ",
                     "status": 3,
                     "tags": {
@@ -13783,8 +13783,1243 @@
         "operationId": "buscaAvanAdaDeContatos",
         "responses": {
           "200": {
-            "description": " / 200",
-            "content": {}
+            "description": "Busca avançada de contatos / 200",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "no-cache, private"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Thu, 15 Jan 2026 19:50:33 GMT"
+                }
+              },
+              "Host": {
+                "schema": {
+                  "type": "string",
+                  "example": "api.olie.localhost"
+                }
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "chunked"
+                }
+              },
+              "X-Ratelimit-Limit": {
+                "schema": {
+                  "type": "string",
+                  "example": "160"
+                }
+              },
+              "X-Ratelimit-Remaining": {
+                "schema": {
+                  "type": "string",
+                  "example": "152"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contacts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "created_at": {
+                            "type": "string",
+                            "example": "2025-12-18T17:55:48.000000Z"
+                          },
+                          "customers": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "example": "019b329a-8ef0-71ac-8997-dc62f1486a70"
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "example": "Sra. Mariah Valentin Sobrinho"
+                                },
+                                "pivot": {
+                                  "type": "object",
+                                  "properties": {
+                                    "contact_id": {
+                                      "type": "number",
+                                      "example": 159
+                                    },
+                                    "customer_id": {
+                                      "type": "string",
+                                      "example": "019b329a-8ef0-71ac-8997-dc62f1486a70"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "example": [
+                              {
+                                "id": "019b329a-8ef0-71ac-8997-dc62f1486a70",
+                                "name": "Sra. Mariah Valentin Sobrinho",
+                                "pivot": {
+                                  "contact_id": 159,
+                                  "customer_id": "019b329a-8ef0-71ac-8997-dc62f1486a70"
+                                }
+                              },
+                              {
+                                "id": "019b329a-8efa-70dd-ad42-60dd2431804b",
+                                "name": "Elias Montenegro",
+                                "pivot": {
+                                  "contact_id": 159,
+                                  "customer_id": "019b329a-8efa-70dd-ad42-60dd2431804b"
+                                }
+                              },
+                              {
+                                "id": "019b329a-8f00-716b-9c61-0777df2c3714",
+                                "name": "Guilherme Thales Paz",
+                                "pivot": {
+                                  "contact_id": 159,
+                                  "customer_id": "019b329a-8f00-716b-9c61-0777df2c3714"
+                                }
+                              }
+                            ]
+                          },
+                          "deleted_at": {
+                            "nullable": true,
+                            "example": null
+                          },
+                          "description": {
+                            "type": "string",
+                            "example": "In aut et aliquam odio in aut. Sapiente modi dolorum sunt vitae."
+                          },
+                          "email": {
+                            "type": "string",
+                            "example": "goncalves.malena@example.net"
+                          },
+                          "form_answers": {
+                            "type": "array",
+                            "items": {},
+                            "example": []
+                          },
+                          "frame": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "example": "019b329a-4346-7064-bba3-e7c19057cda4"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "OlieDev Company "
+                              }
+                            }
+                          },
+                          "frame_id": {
+                            "type": "string",
+                            "example": "019b329a-4346-7064-bba3-e7c19057cda4"
+                          },
+                          "id": {
+                            "type": "number",
+                            "example": 159
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Thalia Pietra Lira"
+                          },
+                          "phone": {
+                            "type": "string",
+                            "example": "(83) 90673-6461"
+                          },
+                          "role": {
+                            "type": "string",
+                            "example": "sunt"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "example": "2025-12-18T17:55:48.000000Z"
+                          }
+                        }
+                      },
+                      "example": [
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8ef0-71ac-8997-dc62f1486a70",
+                              "name": "Sra. Mariah Valentin Sobrinho",
+                              "pivot": {
+                                "contact_id": 159,
+                                "customer_id": "019b329a-8ef0-71ac-8997-dc62f1486a70"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8efa-70dd-ad42-60dd2431804b",
+                              "name": "Elias Montenegro",
+                              "pivot": {
+                                "contact_id": 159,
+                                "customer_id": "019b329a-8efa-70dd-ad42-60dd2431804b"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f00-716b-9c61-0777df2c3714",
+                              "name": "Guilherme Thales Paz",
+                              "pivot": {
+                                "contact_id": 159,
+                                "customer_id": "019b329a-8f00-716b-9c61-0777df2c3714"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "In aut et aliquam odio in aut. Sapiente modi dolorum sunt vitae.",
+                          "email": "goncalves.malena@example.net",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 159,
+                          "name": "Thalia Pietra Lira",
+                          "phone": "(83) 90673-6461",
+                          "role": "sunt",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8ef0-71ac-8997-dc62f1486a70",
+                              "name": "Sra. Mariah Valentin Sobrinho",
+                              "pivot": {
+                                "contact_id": 160,
+                                "customer_id": "019b329a-8ef0-71ac-8997-dc62f1486a70"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f00-716b-9c61-0777df2c3714",
+                              "name": "Guilherme Thales Paz",
+                              "pivot": {
+                                "contact_id": 160,
+                                "customer_id": "019b329a-8f00-716b-9c61-0777df2c3714"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Ratione quia consequatur nam unde consequatur.",
+                          "email": "juliano67@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 160,
+                          "name": "Ariane Valéria Alves",
+                          "phone": "(11) 3728-8728",
+                          "role": "laboriosam",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Qui id voluptatibus culpa praesentium qui.",
+                          "email": "allison.fonseca@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 161,
+                          "name": "Sra. Júlia Brito Deverso",
+                          "phone": "(88) 96597-1009",
+                          "role": "eius",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8efa-70dd-ad42-60dd2431804b",
+                              "name": "Elias Montenegro",
+                              "pivot": {
+                                "contact_id": 162,
+                                "customer_id": "019b329a-8efa-70dd-ad42-60dd2431804b"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Pariatur optio voluptatem sed eveniet eveniet.",
+                          "email": "ohana36@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 162,
+                          "name": "Ricardo Sérgio Valente Neto",
+                          "phone": "(84) 3903-2978",
+                          "role": "fugit",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Veritatis et dolorum omnis voluptas officia temporibus architecto.",
+                          "email": "norma47@example.net",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 163,
+                          "name": "Lia Samanta Valentin",
+                          "phone": "(83) 90064-6838",
+                          "role": "accusamus",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8efa-70dd-ad42-60dd2431804b",
+                              "name": "Elias Montenegro",
+                              "pivot": {
+                                "contact_id": 164,
+                                "customer_id": "019b329a-8efa-70dd-ad42-60dd2431804b"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "At similique recusandae molestias fugit unde reiciendis.",
+                          "email": "valdez.wilson@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 164,
+                          "name": "Elisa Renata Barreto",
+                          "phone": "(92) 96609-3614",
+                          "role": "totam",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8f00-716b-9c61-0777df2c3714",
+                              "name": "Guilherme Thales Paz",
+                              "pivot": {
+                                "contact_id": 165,
+                                "customer_id": "019b329a-8f00-716b-9c61-0777df2c3714"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Quaerat provident sint quia.",
+                          "email": "qgalindo@example.org",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 165,
+                          "name": "Franco Abreu",
+                          "phone": "(92) 90460-6123",
+                          "role": "nemo",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Provident deleniti qui aspernatur velit repudiandae dolor.",
+                          "email": "mares.sophie@example.org",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 166,
+                          "name": "Dr. Luiz Serna Filho",
+                          "phone": "(34) 2678-3898",
+                          "role": "soluta",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Est omnis assumenda laboriosam tenetur magnam deleniti aspernatur.",
+                          "email": "cesar.domingues@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 167,
+                          "name": "Sr. Ricardo Benites",
+                          "phone": "(42) 91690-0277",
+                          "role": "ullam",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8ef0-71ac-8997-dc62f1486a70",
+                              "name": "Sra. Mariah Valentin Sobrinho",
+                              "pivot": {
+                                "contact_id": 168,
+                                "customer_id": "019b329a-8ef0-71ac-8997-dc62f1486a70"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Consectetur quidem et ducimus consequatur.",
+                          "email": "noemi.rico@example.org",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 168,
+                          "name": "Flávio Emílio Quintana Neto",
+                          "phone": "(18) 92870-7098",
+                          "role": "non",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Non ea sapiente numquam tempore tenetur voluptate accusantium.",
+                          "email": "pacheco.naiara@example.org",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 169,
+                          "name": "Henrique Marin da Rosa",
+                          "phone": "(93) 96792-9585",
+                          "role": "est",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8efa-70dd-ad42-60dd2431804b",
+                              "name": "Elias Montenegro",
+                              "pivot": {
+                                "contact_id": 170,
+                                "customer_id": "019b329a-8efa-70dd-ad42-60dd2431804b"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f07-71ca-bff1-ab68831f5b7b",
+                              "name": "Dr. Artur Verdugo",
+                              "pivot": {
+                                "contact_id": 170,
+                                "customer_id": "019b329a-8f07-71ca-bff1-ab68831f5b7b"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f0f-7265-9d8d-a90f96671967",
+                              "name": "César Sepúlveda Mascarenhas Sobrinho",
+                              "pivot": {
+                                "contact_id": 170,
+                                "customer_id": "019b329a-8f0f-7265-9d8d-a90f96671967"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Officiis exercitationem ipsum nobis voluptates quia tempore labore.",
+                          "email": "wpadrao@example.net",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 170,
+                          "name": "Maurício Dias Gil",
+                          "phone": "(96) 97788-8681",
+                          "role": "natus",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Cumque sed nam dolor et neque repudiandae.",
+                          "email": "noel.davila@example.org",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 171,
+                          "name": "Dr. Sara Medina Bonilha",
+                          "phone": "(95) 3435-5612",
+                          "role": "quaerat",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8ef0-71ac-8997-dc62f1486a70",
+                              "name": "Sra. Mariah Valentin Sobrinho",
+                              "pivot": {
+                                "contact_id": 172,
+                                "customer_id": "019b329a-8ef0-71ac-8997-dc62f1486a70"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8efa-70dd-ad42-60dd2431804b",
+                              "name": "Elias Montenegro",
+                              "pivot": {
+                                "contact_id": 172,
+                                "customer_id": "019b329a-8efa-70dd-ad42-60dd2431804b"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f07-71ca-bff1-ab68831f5b7b",
+                              "name": "Dr. Artur Verdugo",
+                              "pivot": {
+                                "contact_id": 172,
+                                "customer_id": "019b329a-8f07-71ca-bff1-ab68831f5b7b"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Laudantium nostrum necessitatibus et voluptatem dolores ipsa.",
+                          "email": "emilio91@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 172,
+                          "name": "Sra. Heloise Rocha Rodrigues Sobrinho",
+                          "phone": "(82) 2307-5027",
+                          "role": "neque",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8ef0-71ac-8997-dc62f1486a70",
+                              "name": "Sra. Mariah Valentin Sobrinho",
+                              "pivot": {
+                                "contact_id": 173,
+                                "customer_id": "019b329a-8ef0-71ac-8997-dc62f1486a70"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f00-716b-9c61-0777df2c3714",
+                              "name": "Guilherme Thales Paz",
+                              "pivot": {
+                                "contact_id": 173,
+                                "customer_id": "019b329a-8f00-716b-9c61-0777df2c3714"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f07-71ca-bff1-ab68831f5b7b",
+                              "name": "Dr. Artur Verdugo",
+                              "pivot": {
+                                "contact_id": 173,
+                                "customer_id": "019b329a-8f07-71ca-bff1-ab68831f5b7b"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Ut voluptatem fugiat consequatur in quod temporibus nobis.",
+                          "email": "flores.pedro@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 173,
+                          "name": "Dr. Luciana Cíntia Lira Neto",
+                          "phone": "(31) 3081-9640",
+                          "role": "nihil",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Est debitis quo iusto magnam hic molestiae molestias.",
+                          "email": "theo68@example.net",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 174,
+                          "name": "Daniella Esther Valentin",
+                          "phone": "(13) 4549-0532",
+                          "role": "possimus",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Dolore est accusantium corrupti aut. Esse maxime facere ullam.",
+                          "email": "santana.jonas@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 175,
+                          "name": "Manuel Colaço Jr.",
+                          "phone": "(51) 97106-5304",
+                          "role": "commodi",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8efa-70dd-ad42-60dd2431804b",
+                              "name": "Elias Montenegro",
+                              "pivot": {
+                                "contact_id": 176,
+                                "customer_id": "019b329a-8efa-70dd-ad42-60dd2431804b"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f07-71ca-bff1-ab68831f5b7b",
+                              "name": "Dr. Artur Verdugo",
+                              "pivot": {
+                                "contact_id": 176,
+                                "customer_id": "019b329a-8f07-71ca-bff1-ab68831f5b7b"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f0f-7265-9d8d-a90f96671967",
+                              "name": "César Sepúlveda Mascarenhas Sobrinho",
+                              "pivot": {
+                                "contact_id": 176,
+                                "customer_id": "019b329a-8f0f-7265-9d8d-a90f96671967"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Itaque quae debitis voluptatem deserunt. Ea nihil iusto saepe ut provident ea.",
+                          "email": "augusto40@example.org",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 176,
+                          "name": "Dr. Melinda Benites Filho",
+                          "phone": "(49) 4325-8082",
+                          "role": "repellendus",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        }
+                      ]
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "from": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "last_page": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "per_page": {
+                          "type": "number",
+                          "example": 30
+                        },
+                        "to": {
+                          "type": "number",
+                          "example": 18
+                        },
+                        "total": {
+                          "type": "number",
+                          "example": 18
+                        }
+                      }
+                    },
+                    "response": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                },
+                "examples": {
+                  "Busca avançada de contatos": {
+                    "value": {
+                      "contacts": [
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8ef0-71ac-8997-dc62f1486a70",
+                              "name": "Sra. Mariah Valentin Sobrinho",
+                              "pivot": {
+                                "contact_id": 159,
+                                "customer_id": "019b329a-8ef0-71ac-8997-dc62f1486a70"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8efa-70dd-ad42-60dd2431804b",
+                              "name": "Elias Montenegro",
+                              "pivot": {
+                                "contact_id": 159,
+                                "customer_id": "019b329a-8efa-70dd-ad42-60dd2431804b"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f00-716b-9c61-0777df2c3714",
+                              "name": "Guilherme Thales Paz",
+                              "pivot": {
+                                "contact_id": 159,
+                                "customer_id": "019b329a-8f00-716b-9c61-0777df2c3714"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "In aut et aliquam odio in aut. Sapiente modi dolorum sunt vitae.",
+                          "email": "goncalves.malena@example.net",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 159,
+                          "name": "Thalia Pietra Lira",
+                          "phone": "(83) 90673-6461",
+                          "role": "sunt",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8ef0-71ac-8997-dc62f1486a70",
+                              "name": "Sra. Mariah Valentin Sobrinho",
+                              "pivot": {
+                                "contact_id": 160,
+                                "customer_id": "019b329a-8ef0-71ac-8997-dc62f1486a70"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f00-716b-9c61-0777df2c3714",
+                              "name": "Guilherme Thales Paz",
+                              "pivot": {
+                                "contact_id": 160,
+                                "customer_id": "019b329a-8f00-716b-9c61-0777df2c3714"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Ratione quia consequatur nam unde consequatur.",
+                          "email": "juliano67@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 160,
+                          "name": "Ariane Valéria Alves",
+                          "phone": "(11) 3728-8728",
+                          "role": "laboriosam",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Qui id voluptatibus culpa praesentium qui.",
+                          "email": "allison.fonseca@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 161,
+                          "name": "Sra. Júlia Brito Deverso",
+                          "phone": "(88) 96597-1009",
+                          "role": "eius",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8efa-70dd-ad42-60dd2431804b",
+                              "name": "Elias Montenegro",
+                              "pivot": {
+                                "contact_id": 162,
+                                "customer_id": "019b329a-8efa-70dd-ad42-60dd2431804b"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Pariatur optio voluptatem sed eveniet eveniet.",
+                          "email": "ohana36@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 162,
+                          "name": "Ricardo Sérgio Valente Neto",
+                          "phone": "(84) 3903-2978",
+                          "role": "fugit",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Veritatis et dolorum omnis voluptas officia temporibus architecto.",
+                          "email": "norma47@example.net",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 163,
+                          "name": "Lia Samanta Valentin",
+                          "phone": "(83) 90064-6838",
+                          "role": "accusamus",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8efa-70dd-ad42-60dd2431804b",
+                              "name": "Elias Montenegro",
+                              "pivot": {
+                                "contact_id": 164,
+                                "customer_id": "019b329a-8efa-70dd-ad42-60dd2431804b"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "At similique recusandae molestias fugit unde reiciendis.",
+                          "email": "valdez.wilson@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 164,
+                          "name": "Elisa Renata Barreto",
+                          "phone": "(92) 96609-3614",
+                          "role": "totam",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8f00-716b-9c61-0777df2c3714",
+                              "name": "Guilherme Thales Paz",
+                              "pivot": {
+                                "contact_id": 165,
+                                "customer_id": "019b329a-8f00-716b-9c61-0777df2c3714"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Quaerat provident sint quia.",
+                          "email": "qgalindo@example.org",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 165,
+                          "name": "Franco Abreu",
+                          "phone": "(92) 90460-6123",
+                          "role": "nemo",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Provident deleniti qui aspernatur velit repudiandae dolor.",
+                          "email": "mares.sophie@example.org",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 166,
+                          "name": "Dr. Luiz Serna Filho",
+                          "phone": "(34) 2678-3898",
+                          "role": "soluta",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Est omnis assumenda laboriosam tenetur magnam deleniti aspernatur.",
+                          "email": "cesar.domingues@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 167,
+                          "name": "Sr. Ricardo Benites",
+                          "phone": "(42) 91690-0277",
+                          "role": "ullam",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8ef0-71ac-8997-dc62f1486a70",
+                              "name": "Sra. Mariah Valentin Sobrinho",
+                              "pivot": {
+                                "contact_id": 168,
+                                "customer_id": "019b329a-8ef0-71ac-8997-dc62f1486a70"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Consectetur quidem et ducimus consequatur.",
+                          "email": "noemi.rico@example.org",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 168,
+                          "name": "Flávio Emílio Quintana Neto",
+                          "phone": "(18) 92870-7098",
+                          "role": "non",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Non ea sapiente numquam tempore tenetur voluptate accusantium.",
+                          "email": "pacheco.naiara@example.org",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 169,
+                          "name": "Henrique Marin da Rosa",
+                          "phone": "(93) 96792-9585",
+                          "role": "est",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8efa-70dd-ad42-60dd2431804b",
+                              "name": "Elias Montenegro",
+                              "pivot": {
+                                "contact_id": 170,
+                                "customer_id": "019b329a-8efa-70dd-ad42-60dd2431804b"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f07-71ca-bff1-ab68831f5b7b",
+                              "name": "Dr. Artur Verdugo",
+                              "pivot": {
+                                "contact_id": 170,
+                                "customer_id": "019b329a-8f07-71ca-bff1-ab68831f5b7b"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f0f-7265-9d8d-a90f96671967",
+                              "name": "César Sepúlveda Mascarenhas Sobrinho",
+                              "pivot": {
+                                "contact_id": 170,
+                                "customer_id": "019b329a-8f0f-7265-9d8d-a90f96671967"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Officiis exercitationem ipsum nobis voluptates quia tempore labore.",
+                          "email": "wpadrao@example.net",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 170,
+                          "name": "Maurício Dias Gil",
+                          "phone": "(96) 97788-8681",
+                          "role": "natus",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Cumque sed nam dolor et neque repudiandae.",
+                          "email": "noel.davila@example.org",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 171,
+                          "name": "Dr. Sara Medina Bonilha",
+                          "phone": "(95) 3435-5612",
+                          "role": "quaerat",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8ef0-71ac-8997-dc62f1486a70",
+                              "name": "Sra. Mariah Valentin Sobrinho",
+                              "pivot": {
+                                "contact_id": 172,
+                                "customer_id": "019b329a-8ef0-71ac-8997-dc62f1486a70"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8efa-70dd-ad42-60dd2431804b",
+                              "name": "Elias Montenegro",
+                              "pivot": {
+                                "contact_id": 172,
+                                "customer_id": "019b329a-8efa-70dd-ad42-60dd2431804b"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f07-71ca-bff1-ab68831f5b7b",
+                              "name": "Dr. Artur Verdugo",
+                              "pivot": {
+                                "contact_id": 172,
+                                "customer_id": "019b329a-8f07-71ca-bff1-ab68831f5b7b"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Laudantium nostrum necessitatibus et voluptatem dolores ipsa.",
+                          "email": "emilio91@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 172,
+                          "name": "Sra. Heloise Rocha Rodrigues Sobrinho",
+                          "phone": "(82) 2307-5027",
+                          "role": "neque",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8ef0-71ac-8997-dc62f1486a70",
+                              "name": "Sra. Mariah Valentin Sobrinho",
+                              "pivot": {
+                                "contact_id": 173,
+                                "customer_id": "019b329a-8ef0-71ac-8997-dc62f1486a70"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f00-716b-9c61-0777df2c3714",
+                              "name": "Guilherme Thales Paz",
+                              "pivot": {
+                                "contact_id": 173,
+                                "customer_id": "019b329a-8f00-716b-9c61-0777df2c3714"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f07-71ca-bff1-ab68831f5b7b",
+                              "name": "Dr. Artur Verdugo",
+                              "pivot": {
+                                "contact_id": 173,
+                                "customer_id": "019b329a-8f07-71ca-bff1-ab68831f5b7b"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Ut voluptatem fugiat consequatur in quod temporibus nobis.",
+                          "email": "flores.pedro@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 173,
+                          "name": "Dr. Luciana Cíntia Lira Neto",
+                          "phone": "(31) 3081-9640",
+                          "role": "nihil",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Est debitis quo iusto magnam hic molestiae molestias.",
+                          "email": "theo68@example.net",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 174,
+                          "name": "Daniella Esther Valentin",
+                          "phone": "(13) 4549-0532",
+                          "role": "possimus",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [],
+                          "deleted_at": null,
+                          "description": "Dolore est accusantium corrupti aut. Esse maxime facere ullam.",
+                          "email": "santana.jonas@example.com",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 175,
+                          "name": "Manuel Colaço Jr.",
+                          "phone": "(51) 97106-5304",
+                          "role": "commodi",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        },
+                        {
+                          "created_at": "2025-12-18T17:55:48.000000Z",
+                          "customers": [
+                            {
+                              "id": "019b329a-8efa-70dd-ad42-60dd2431804b",
+                              "name": "Elias Montenegro",
+                              "pivot": {
+                                "contact_id": 176,
+                                "customer_id": "019b329a-8efa-70dd-ad42-60dd2431804b"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f07-71ca-bff1-ab68831f5b7b",
+                              "name": "Dr. Artur Verdugo",
+                              "pivot": {
+                                "contact_id": 176,
+                                "customer_id": "019b329a-8f07-71ca-bff1-ab68831f5b7b"
+                              }
+                            },
+                            {
+                              "id": "019b329a-8f0f-7265-9d8d-a90f96671967",
+                              "name": "César Sepúlveda Mascarenhas Sobrinho",
+                              "pivot": {
+                                "contact_id": 176,
+                                "customer_id": "019b329a-8f0f-7265-9d8d-a90f96671967"
+                              }
+                            }
+                          ],
+                          "deleted_at": null,
+                          "description": "Itaque quae debitis voluptatem deserunt. Ea nihil iusto saepe ut provident ea.",
+                          "email": "augusto40@example.org",
+                          "form_answers": [],
+                          "frame": {
+                            "id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                            "name": "OlieDev Company "
+                          },
+                          "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                          "id": 176,
+                          "name": "Dr. Melinda Benites Filho",
+                          "phone": "(49) 4325-8082",
+                          "role": "repellendus",
+                          "updated_at": "2025-12-18T17:55:48.000000Z"
+                        }
+                      ],
+                      "meta": {
+                        "current_page": 1,
+                        "from": 1,
+                        "last_page": 1,
+                        "per_page": 30,
+                        "to": 18,
+                        "total": 18
+                      },
+                      "response": true
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -13800,8 +15035,77 @@
         "operationId": "restaurarContato",
         "responses": {
           "200": {
-            "description": " / 200",
-            "content": {}
+            "description": "Sucesso / 200",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "no-cache, private"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Thu, 15 Jan 2026 19:54:06 GMT"
+                }
+              },
+              "Host": {
+                "schema": {
+                  "type": "string",
+                  "example": "api.olie.localhost"
+                }
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "chunked"
+                }
+              },
+              "X-Ratelimit-Limit": {
+                "schema": {
+                  "type": "string",
+                  "example": "160"
+                }
+              },
+              "X-Ratelimit-Remaining": {
+                "schema": {
+                  "type": "string",
+                  "example": "157"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                },
+                "examples": {
+                  "Sucesso": {
+                    "value": {
+                      "response": true
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -13897,7 +15201,7 @@
           "required": true,
           "schema": {
             "type": "string",
-            "example": "string"
+            "example": "159"
           }
         }
       ]
