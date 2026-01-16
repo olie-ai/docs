@@ -2113,6 +2113,7 @@
                       "example": true
                     },
                     "media": {
+                      "description": "Objeto do conteúdo criado",
                       "type": "object",
                       "title": "Media",
                       "properties": {
@@ -2127,10 +2128,12 @@
                           "type": "string"
                         },
                         "type": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "É o tipo do conteúdo enviado"
                         },
                         "extension": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Quando um arquivo for enviado a sua extensão aparece aqui"
                         },
                         "text": {
                           "type": "string"
