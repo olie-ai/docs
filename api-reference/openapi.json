@@ -8246,7 +8246,362 @@
         "operationId": "listarClientes",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Cache-Control": {
+                "deprecated": false,
+                "schema": {},
+                "example": "no-cache, private"
+              },
+              "Date": {
+                "deprecated": false,
+                "schema": {},
+                "example": "Fri, 16 Jan 2026 18:06:16 GMT"
+              },
+              "Host": {
+                "deprecated": false,
+                "schema": {},
+                "example": "api.olie.localhost"
+              },
+              "X-Ratelimit-Limit": {
+                "deprecated": false,
+                "schema": {},
+                "example": "160"
+              },
+              "X-Ratelimit-Remaining": {
+                "deprecated": false,
+                "schema": {},
+                "example": "159"
+              },
+              "Transfer-Encoding": {
+                "deprecated": false,
+                "schema": {},
+                "example": "chunked"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "response",
+                    "customers",
+                    "meta"
+                  ],
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Indicador de sucesso da requisição",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "customers": {
+                      "type": "array",
+                      "description": "Array com os objetos de clientes",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id",
+                          "name",
+                          "document_type",
+                          "customer_type",
+                          "frame_id",
+                          "created_at",
+                          "updated_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "Identificador único do cliente"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Nome do cliente"
+                          },
+                          "headquarter": {
+                            "type": "string",
+                            "description": "Nome da matriz (atributo computado)",
+                            "nullable": true
+                          },
+                          "branch": {
+                            "type": "string",
+                            "description": "Nome da filial (atributo computado)",
+                            "nullable": true
+                          },
+                          "company_name": {
+                            "type": "string",
+                            "description": "Razão social da empresa",
+                            "nullable": true
+                          },
+                          "document_type": {
+                            "type": "integer",
+                            "enum": [
+                              1,
+                              2
+                            ],
+                            "description": "Tipo de documento: 1 = CPF, 2 = CNPJ"
+                          },
+                          "customer_type": {
+                            "type": "integer",
+                            "enum": [
+                              1,
+                              2
+                            ],
+                            "description": "Tipo de cliente: 1 = Matriz, 2 = Filial"
+                          },
+                          "parent": {
+                            "type": "object",
+                            "description": "Dados da matriz (apenas quando há relacionamento)",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "format": "uuid",
+                                "description": "ID da matriz"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Nome da matriz"
+                              }
+                            }
+                          },
+                          "document": {
+                            "type": "string",
+                            "description": "Número do CPF ou CNPJ",
+                            "nullable": true
+                          },
+                          "main_activity": {
+                            "type": "string",
+                            "description": "Atividade principal da empresa",
+                            "nullable": true
+                          },
+                          "email": {
+                            "type": "string",
+                            "format": "email",
+                            "description": "E-mail do cliente",
+                            "nullable": true
+                          },
+                          "phone": {
+                            "type": "string",
+                            "description": "Telefone do cliente",
+                            "nullable": true
+                          },
+                          "address": {
+                            "type": "string",
+                            "description": "Endereço do cliente",
+                            "nullable": true
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Descrição adicional do cliente",
+                            "nullable": true
+                          },
+                          "custom_fields": {
+                            "type": "object",
+                            "description": "Campos personalizados",
+                            "nullable": true
+                          },
+                          "status": {
+                            "type": "boolean",
+                            "description": "Status do cliente (true = ativo, false = inativo)",
+                            "nullable": true
+                          },
+                          "form_answers": {
+                            "type": "array",
+                            "description": "Respostas de formulários dinâmicos",
+                            "default": [],
+                            "items": {}
+                          },
+                          "contacts": {
+                            "type": "array",
+                            "description": "Contatos vinculados ao cliente (apenas se carregado)",
+                            "items": {
+                              "type": "object"
+                            }
+                          },
+                          "parent_id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "ID do cliente matriz (se for filial)",
+                            "nullable": true
+                          },
+                          "frame_id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "ID do frame/organização"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Data de criação do registro"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Data da última atualização"
+                          },
+                          "deleted_at": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Data de exclusão (soft delete)",
+                            "nullable": true
+                          },
+                          "created_by": {
+                            "type": "integer",
+                            "description": "ID do usuário que criou o registro",
+                            "nullable": true
+                          },
+                          "created_by_user": {
+                            "type": "object",
+                            "description": "Dados do usuário criador (apenas se carregado)",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "ID do usuário"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Nome do usuário"
+                              },
+                              "avatar_url": {
+                                "type": "string",
+                                "description": "URL do avatar do usuário",
+                                "nullable": true
+                              }
+                            }
+                          },
+                          "contacts_count": {
+                            "type": "integer",
+                            "description": "Quantidade de contatos vinculados (apenas se contado)"
+                          },
+                          "projects_count": {
+                            "type": "integer",
+                            "description": "Quantidade de projetos vinculados (apenas se contado)"
+                          },
+                          "tags": {
+                            "type": "array",
+                            "description": "Tags vinculadas ao cliente (apenas se carregadas)",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "format": "uuid",
+                                  "description": "ID da tag"
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "description": "Nome da tag"
+                                },
+                                "color": {
+                                  "type": "string",
+                                  "description": "Cor da tag em formato hexadecimal",
+                                  "nullable": true
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "required": [
+                        "current_page",
+                        "from",
+                        "last_page",
+                        "per_page",
+                        "to",
+                        "total"
+                      ],
+                      "description": "Metadados da paginação",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer",
+                          "description": "Página atual",
+                          "minimum": 1
+                        },
+                        "from": {
+                          "type": "integer",
+                          "description": "Índice do primeiro item na página atual",
+                          "nullable": true
+                        },
+                        "last_page": {
+                          "type": "integer",
+                          "description": "Número da última página",
+                          "minimum": 1
+                        },
+                        "per_page": {
+                          "type": "integer",
+                          "description": "Quantidade de itens por página",
+                          "minimum": 1
+                        },
+                        "to": {
+                          "type": "integer",
+                          "description": "Índice do último item na página atual",
+                          "nullable": true
+                        },
+                        "total": {
+                          "type": "integer",
+                          "description": "Total de registros disponíveis",
+                          "minimum": 0
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "customers": [
+                    {
+                      "id": "9d4e5f6a-7b8c-9d0e-1f2a-3b4c5d6e7f8a",
+                      "name": "Cliente Exemplo LTDA",
+                      "headquarter": "Cliente Exemplo LTDA",
+                      "branch": null,
+                      "company_name": "Cliente Exemplo Comércio LTDA",
+                      "document_type": 2,
+                      "customer_type": 1,
+                      "document": "12.345.678/0001-90",
+                      "main_activity": "Comércio de produtos alimentícios",
+                      "email": "contato@clienteexemplo.com.br",
+                      "phone": "(11) 98765-4321",
+                      "address": "Rua Exemplo, 123 - Centro - São Paulo/SP",
+                      "description": "Cliente do segmento de alimentação",
+                      "custom_fields": null,
+                      "status": true,
+                      "form_answers": [],
+                      "parent_id": null,
+                      "frame_id": "8c3d4e5f-6a7b-8c9d-0e1f-2a3b4c5d6e7f",
+                      "created_at": "2026-01-15T10:30:00.000000Z",
+                      "updated_at": "2026-01-15T10:30:00.000000Z",
+                      "deleted_at": null,
+                      "created_by": 123,
+                      "contacts_count": 2,
+                      "projects_count": 5
+                    }
+                  ],
+                  "meta": {
+                    "current_page": 1,
+                    "from": 1,
+                    "last_page": 10,
+                    "per_page": 15,
+                    "to": 15,
+                    "total": 150
+                  }
+                }
+              }
+            }
           }
         }
       },
