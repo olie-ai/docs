@@ -2876,27 +2876,32 @@
                       "name": {
                         "type": "string",
                         "maxLength": 191,
-                        "example": "Novo Projeto"
+                        "example": "Novo Projeto",
+                        "description": "Nome do projeto. Campo obrigatório na criação, máximo de 191 caracteres."
                       },
                       "description": {
                         "type": "string",
-                        "example": "Descrição do projeto"
+                        "example": "Descrição do projeto",
+                        "description": "Descrição detalhada do projeto. Campo opcional que permite fornecer informações adicionais sobre o projeto."
                       },
                       "impact": {
                         "type": "integer",
                         "minimum": 1,
                         "maximum": 10,
-                        "example": 5
+                        "example": 5,
+                        "description": "Nível de impacto do projeto em uma escala de 1 a 10."
                       },
                       "contact_id": {
                         "type": "string",
                         "example": "uuid-do-contato",
-                        "format": "uuid"
+                        "format": "uuid",
+                        "description": "ID único (UUID) do contato associado ao projeto. Campo opcional que permite vincular um contato específico ao projeto."
                       },
                       "customer_id": {
                         "type": "string",
                         "example": "uuid-do-cliente",
-                        "format": "uuid"
+                        "format": "uuid",
+                        "description": "ID único (UUID) do cliente associado ao projeto. Campo opcional que permite vincular um cliente específico ao projeto."
                       },
                       "status": {
                         "type": "number",
@@ -2906,22 +2911,26 @@
                           3,
                           4
                         ],
-                        "example": 1
+                        "example": 1,
+                        "description": "Status atual do projeto. Valores possíveis: 1 (Em execução), 2 (Concluído), 3 (Arquivado), 4 (Parado)."
                       },
                       "budget": {
                         "type": "number",
                         "example": 15000.5,
-                        "format": "float"
+                        "format": "float",
+                        "description": "Receita esperada do projeto em valor numérico decimal. Campo opcional que permite definir a receita esperada para o projeto. Valor mínimo: 0, máximo: 999999999999.99."
                       },
                       "is_template": {
                         "type": "boolean",
-                        "example": false
+                        "example": false,
+                        "description": "Indica se o projeto é um modelo de projeto. Quando true, o projeto pode ser usado como base para criação de outros projetos."
                       },
                       "form_answers": {
                         "type": "array",
                         "items": {
                           "type": "object"
-                        }
+                        },
+                        "description": "Array de objetos contendo as respostas de formulários dinâmicos associados ao projeto. Cada objeto contém os dados das respostas dos campos do formulário."
                       },
                       "forecast_dates": {
                         "type": "array",
@@ -2931,17 +2940,20 @@
                             "date": {
                               "type": "string",
                               "example": "2025-06-01",
-                              "format": "date"
+                              "format": "date",
+                              "description": "Data de previsão para o funil de projeto."
                             },
                             "project_funnel_id": {
                               "type": "integer",
-                              "example": 4
+                              "example": 4,
+                              "description": "ID do funil de projeto ao qual esta data de previsão está associada."
                             }
                           },
                           "required": [
                             "project_funnel_id"
                           ]
-                        }
+                        },
+                        "description": "Array de objetos para definir datas de previsão por funil. Permite associar diferentes datas de previsão a diferentes funis de projeto."
                       },
                       "groups": {
                         "type": "object",
@@ -2952,20 +2964,23 @@
                               "type": "array",
                               "items": {
                                 "type": "string"
-                              }
+                              },
+                              "description": "Array de UUIDs dos grupos a serem adicionados ao projeto. Permite associar o projeto a um ou mais grupos."
                             },
                             "to_rem": {
                               "type": "array",
                               "items": {
                                 "type": "string"
-                              }
+                              },
+                              "description": "Array de UUIDs dos grupos a serem removidos do projeto. Permite desassociar o projeto de grupos específicos."
                             }
                           },
                           "required": [
                             "to_add",
                             "to_rem"
                           ]
-                        }
+                        },
+                        "description": "Objeto para gerenciar grupos associados ao projeto. Contém arrays 'to_add' e 'to_rem' para adicionar ou remover grupos."
                       },
                       "tags": {
                         "type": "object",
@@ -2976,20 +2991,23 @@
                               "type": "array",
                               "items": {
                                 "type": "integer"
-                              }
+                              },
+                              "description": "Array de IDs das etiquetas a serem adicionadas ao projeto."
                             },
                             "to_rem": {
                               "type": "array",
                               "items": {
                                 "type": "integer"
-                              }
+                              },
+                              "description": "Array de IDs das etiquetas a serem removidas do projeto."
                             }
                           },
                           "required": [
                             "to_add",
                             "to_rem"
                           ]
-                        }
+                        },
+                        "description": "Objeto para gerenciar etiquetas de funil associadas ao projeto. Contém arrays 'to_add' e 'to_rem' para adicionar ou remover etiquetas do projeto."
                       },
                       "funnels": {
                         "type": "object",
@@ -2998,39 +3016,46 @@
                             "type": "array",
                             "items": {
                               "type": "integer"
-                            }
+                            },
+                            "description": "Array de IDs dos funis de projeto a serem adicionados ao projeto."
                           },
                           "to_rem": {
                             "type": "array",
                             "items": {
                               "type": "integer"
-                            }
+                            },
+                            "description": "Array de IDs dos funis de projeto a serem removidos do projeto."
                           }
                         },
                         "required": [
                           "to_add",
                           "to_rem"
-                        ]
+                        ],
+                        "description": "Objeto para gerenciar funis que o projeto está vinculado. Contém arrays 'to_add' e 'to_rem' para adicionar ou remover funis."
                       },
                       "funnel_status": {
                         "type": "object",
                         "properties": {
                           "project_funnel_id": {
                             "type": "integer",
-                            "example": 5
+                            "example": 5,
+                            "description": "ID do funil de projeto ao qual o status será aplicado."
                           },
                           "funnel_status_id": {
                             "type": "integer",
-                            "example": 2
+                            "example": 2,
+                            "description": "ID do status de funil que será atribuído ao projeto dentro do funil especificado."
                           }
                         },
                         "required": [
                           "project_funnel_id"
-                        ]
+                        ],
+                        "description": "Objeto para vincular ou desvincular um status de funil do projeto."
                       },
                       "prefix": {
                         "type": "string",
-                        "example": "PRJ"
+                        "example": "PRJ",
+                        "description": "Prefixo para o código do projeto. Quando fornecido, será usado na geração automática do código do projeto (ex: 'PRJ-001')."
                       },
                       "users": {
                         "type": "array",
@@ -3040,15 +3065,18 @@
                             "user_id": {
                               "type": "string",
                               "example": "uuid-do-usuario",
-                              "format": "uuid"
+                              "format": "uuid",
+                              "description": "ID único (UUID) do usuário a ser associado ou removido do projeto. Campo obrigatório dentro do objeto users."
                             },
                             "role": {
                               "type": "string",
-                              "example": "assignee"
+                              "example": "assignee",
+                              "description": "Papel do usuário no projeto. Valores possíveis: 'creator', 'assignee', 'follower'."
                             },
                             "action": {
                               "type": "string",
-                              "example": "add"
+                              "example": "add",
+                              "description": "Ação a ser executada com o usuário. Valores possíveis: 'add' (Adicionar usuário ao projeto), 'remove' (Remover usuário do projeto)."
                             }
                           },
                           "required": [
@@ -3056,7 +3084,8 @@
                             "role",
                             "action"
                           ]
-                        }
+                        },
+                        "description": "Array de objetos para gerenciar usuários associados ao projeto."
                       }
                     }
                   },
