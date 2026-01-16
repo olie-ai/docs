@@ -2944,7 +2944,7 @@
                         }
                       },
                       "groups": {
-                        "type": "array",
+                        "type": "object",
                         "items": {
                           "type": "object",
                           "properties": {
@@ -2968,7 +2968,7 @@
                         }
                       },
                       "tags": {
-                        "type": "array",
+                        "type": "object",
                         "items": {
                           "type": "object",
                           "properties": {
@@ -3086,7 +3086,9 @@
                     "550e8400-e29b-41d4-a716-446655440000",
                     "550e8400-e29b-41d4-a716-446655440001"
                   ],
-                  "to_rem": []
+                  "to_rem": [
+                    "550e8400-e29b-41d4-a716-446655440001"
+                  ]
                 },
                 "tags": {
                   "to_add": [
