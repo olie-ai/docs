@@ -3149,8 +3149,8 @@
                 ]
               },
               "example": {
-                "name": "{{$randomLoremWords}}",
-                "description": "{{$randomLoremParagraph}}",
+                "name": "Nome do projeto",
+                "description": "Descrição detalhada do projeto",
                 "impact": 5,
                 "contact_id": "770e8400-e29b-41d4-a716-446655440001",
                 "customer_id": "880e8400-e29b-41d4-a716-446655440001",
