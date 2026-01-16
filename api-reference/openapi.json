@@ -8319,6 +8319,180 @@
               }
             }
           }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "filters": {
+                    "type": "array",
+                    "description": "Array de filtros a serem aplicados na busca",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "field",
+                        "operator"
+                      ],
+                      "properties": {
+                        "field": {
+                          "type": "string",
+                          "x-markdownDescription": "Campo a ser filtrado. Consulte os campos disponíveis de cada modelo [rota de listagem de parâmetros `/api/management/system/params/{model_name}`](https://docs.olie.ai/api-reference/system/listar-par%C3%A2metros-dispon%C3%ADveis-para-filtragem-de-um-modelo)"
+                        },
+                        "operator": {
+                          "type": "string",
+                          "description": "Operador relacional a ser usado no filtro",
+                          "enum": [
+                            "equals",
+                            "not_equals",
+                            "contains",
+                            "not_contains",
+                            "greater_than",
+                            "greater_than_or_equals",
+                            "less_than",
+                            "less_than_or_equals",
+                            "is_null",
+                            "is_not_null"
+                          ]
+                        },
+                        "value": {
+                          "description": "Valor a ser filtrado (pode ser string, number, boolean, object com id, ou null)",
+                          "oneOf": [
+                            {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            {
+                              "type": "number",
+                              "nullable": true
+                            },
+                            {
+                              "type": "boolean",
+                              "nullable": true
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "id"
+                              ],
+                              "nullable": true
+                            }
+                          ]
+                        },
+                        "logical_operator": {
+                          "type": "string",
+                          "description": "Operador lógico para combinar com outros filtros (padrão: 'and')",
+                          "enum": [
+                            "and",
+                            "or"
+                          ],
+                          "default": "and"
+                        },
+                        "arguments": {
+                          "type": "array",
+                          "description": "Argumentos adicionais para filtros especiais (ex: answer_pool requer edge_id)",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "argument_key",
+                              "argument_value_id",
+                              "argument_value_type"
+                            ],
+                            "properties": {
+                              "argument_key": {
+                                "type": "string",
+                                "description": "Chave do argumento"
+                              },
+                              "argument_value_id": {
+                                "type": "string",
+                                "description": "ID do valor do argumento"
+                              },
+                              "argument_value_type": {
+                                "type": "string",
+                                "description": "Tipo do valor do argumento (classe do modelo)"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "sorting": {
+                    "type": "array",
+                    "description": "Array de ordenações a serem aplicadas",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "field",
+                        "direction"
+                      ],
+                      "properties": {
+                        "field": {
+                          "type": "string",
+                          "description": "Campo para ordenação",
+                          "enum": [
+                            "name",
+                            "status",
+                            "email",
+                            "company_name",
+                            "document",
+                            "customer_type",
+                            "main_activity",
+                            "address",
+                            "description",
+                            "created_at"
+                          ]
+                        },
+                        "direction": {
+                          "type": "string",
+                          "description": "Direção da ordenação",
+                          "enum": [
+                            "asc",
+                            "desc"
+                          ]
+                        },
+                        "arguments": {
+                          "type": "array",
+                          "description": "Argumentos adicionais para ordenações especiais",
+                          "items": {
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "page": {
+                    "type": "integer",
+                    "description": "Número da página (paginação Laravel)",
+                    "minimum": 1,
+                    "default": 1
+                  },
+                  "per_page": {
+                    "type": "integer",
+                    "description": "Quantidade de itens por página",
+                    "minimum": 1,
+                    "maximum": 100,
+                    "default": 15
+                  }
+                }
+              },
+              "example": {
+                "filters": [
+                  {
+                    "field": "name",
+                    "operator": "contains",
+                    "value": "Le"
+                  }
+                ]
+              }
+            }
+          }
         }
       }
     },
