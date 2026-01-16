@@ -8459,7 +8459,7 @@
                   },
                   "document": {
                     "type": "string",
-                    "description": "Número do CPF ou CNPJ",
+                    "description": "Número do CPF ou CNPJ. Com máscara",
                     "maxLength": 40,
                     "nullable": true
                   },
@@ -8672,7 +8672,7 @@
                 "document_type": 2,
                 "customer_type": 1,
                 "company_name": "Cliente Exemplo Comércio LTDA",
-                "document": "35.542.026/0001-46",
+                "document": "12.345.678/0002-71",
                 "email": "rp@clienteexemplo.com.br",
                 "phone": "(17) 91234-5678",
                 "address": "Av. Exemplo, 456 - Campinas/SP",
