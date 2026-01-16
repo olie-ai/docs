@@ -2899,12 +2899,15 @@
             "application/json": {
               "schema": {
                 "title": "Criação de Projeto",
-                "description": "Campos obrigatórios para criação de um projeto",
+                "description": "Payload obrigatório para criação de um projeto",
                 "allOf": [
                   {
                     "description": "Dados para criação ou atualização de um projeto",
                     "title": "Projeto",
                     "type": "object",
+                    "required": [
+                      "name"
+                    ],
                     "properties": {
                       "name": {
                         "type": "string",
@@ -2990,56 +2993,50 @@
                       },
                       "groups": {
                         "type": "object",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "to_add": {
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              },
-                              "description": "Array de UUIDs dos grupos a serem adicionados ao projeto. Permite associar o projeto a um ou mais grupos."
+                        "properties": {
+                          "to_add": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
                             },
-                            "to_rem": {
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              },
-                              "description": "Array de UUIDs dos grupos a serem removidos do projeto. Permite desassociar o projeto de grupos específicos."
-                            }
+                            "description": "Array de UUIDs dos grupos a serem adicionados ao projeto. Permite associar o projeto a um ou mais grupos."
                           },
-                          "required": [
-                            "to_add",
-                            "to_rem"
-                          ]
+                          "to_rem": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "Array de UUIDs dos grupos a serem removidos do projeto. Permite desassociar o projeto de grupos específicos."
+                          }
                         },
+                        "required": [
+                          "to_add",
+                          "to_rem"
+                        ],
                         "description": "Objeto para gerenciar grupos associados ao projeto. Contém arrays 'to_add' e 'to_rem' para adicionar ou remover grupos."
                       },
                       "tags": {
                         "type": "object",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "to_add": {
-                              "type": "array",
-                              "items": {
-                                "type": "integer"
-                              },
-                              "description": "Array de IDs das etiquetas a serem adicionadas ao projeto."
+                        "properties": {
+                          "to_add": {
+                            "type": "array",
+                            "items": {
+                              "type": "integer"
                             },
-                            "to_rem": {
-                              "type": "array",
-                              "items": {
-                                "type": "integer"
-                              },
-                              "description": "Array de IDs das etiquetas a serem removidas do projeto."
-                            }
+                            "description": "Array de IDs das etiquetas a serem adicionadas ao projeto."
                           },
-                          "required": [
-                            "to_add",
-                            "to_rem"
-                          ]
+                          "to_rem": {
+                            "type": "array",
+                            "items": {
+                              "type": "integer"
+                            },
+                            "description": "Array de IDs das etiquetas a serem removidas do projeto."
+                          }
                         },
+                        "required": [
+                          "to_add",
+                          "to_rem"
+                        ],
                         "description": "Objeto para gerenciar etiquetas de funil associadas ao projeto. Contém arrays 'to_add' e 'to_rem' para adicionar ou remover etiquetas do projeto."
                       },
                       "funnels": {
@@ -3119,6 +3116,32 @@
                           ]
                         },
                         "description": "Array de objetos para gerenciar usuários associados ao projeto."
+                      },
+                      "childrens": {
+                        "type": "object",
+                        "properties": {
+                          "to_add": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "description": "Array de UUIDs dos projetos filhos a serem adicionados ao projeto. Permite criar uma hierarquia de projetos."
+                          },
+                          "to_rem": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "description": "Array de UUIDs dos projetos filhos a serem removidos do projeto."
+                          }
+                        },
+                        "required": [
+                          "to_add",
+                          "to_rem"
+                        ],
+                        "description": "Objeto para gerenciar projetos filhos associados ao projeto. Contém arrays 'to_add' e 'to_rem' para adicionar ou remover projetos filhos."
                       }
                     }
                   },
