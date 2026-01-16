@@ -8338,6 +8338,7 @@
                       "properties": {
                         "field": {
                           "type": "string",
+                          "description": "Campo a ser filtrado. Consulte os campos disponíveis de cada modelo [rota de listagem de parâmetros `/api/management/system/params/{model_name}`](https://docs.olie.ai/api-reference/system/listar-par%C3%A2metros-dispon%C3%ADveis-para-filtragem-de-um-modelo)",
                           "x-markdownDescription": "Campo a ser filtrado. Consulte os campos disponíveis de cada modelo [rota de listagem de parâmetros `/api/management/system/params/{model_name}`](https://docs.olie.ai/api-reference/system/listar-par%C3%A2metros-dispon%C3%ADveis-para-filtragem-de-um-modelo)"
                         },
                         "operator": {
