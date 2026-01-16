@@ -8258,8 +8258,428 @@
         "description": "Criar um novo cliente.",
         "operationId": "criarCliente",
         "responses": {
-          "200": {
-            "description": "200"
+          "201": {
+            "description": "Sucesso (CNPJ)",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Cache-Control": {
+                "deprecated": false,
+                "schema": {},
+                "example": "no-cache, private"
+              },
+              "Date": {
+                "deprecated": false,
+                "schema": {},
+                "example": "Fri, 16 Jan 2026 18:03:26 GMT"
+              },
+              "Host": {
+                "deprecated": false,
+                "schema": {},
+                "example": "api.olie.localhost"
+              },
+              "X-Ratelimit-Limit": {
+                "deprecated": false,
+                "schema": {},
+                "example": "160"
+              },
+              "X-Ratelimit-Remaining": {
+                "deprecated": false,
+                "schema": {},
+                "example": "157"
+              },
+              "Transfer-Encoding": {
+                "deprecated": false,
+                "schema": {},
+                "example": "chunked"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "customer": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "headquarter": {
+                          "type": "string"
+                        },
+                        "branch": {
+                          "nullable": true
+                        },
+                        "company_name": {
+                          "type": "string"
+                        },
+                        "document_type": {
+                          "type": "integer"
+                        },
+                        "customer_type": {
+                          "type": "integer"
+                        },
+                        "document": {
+                          "type": "string"
+                        },
+                        "main_activity": {
+                          "nullable": true
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": "email"
+                        },
+                        "phone": {
+                          "type": "string"
+                        },
+                        "address": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "nullable": true
+                        },
+                        "custom_fields": {
+                          "nullable": true
+                        },
+                        "status": {
+                          "type": "boolean"
+                        },
+                        "form_answers": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "parent_id": {
+                          "nullable": true
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        },
+                        "created_by": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "customer": {
+                    "id": "019bc7f9-f586-7386-a27d-a070e8ae5ac2",
+                    "name": "Cliente Exemplo - Filial Rio Preto",
+                    "headquarter": "Cliente Exemplo - Filial Rio Preto",
+                    "branch": null,
+                    "company_name": "Cliente Exemplo Comércio LTDA",
+                    "document_type": 2,
+                    "customer_type": 1,
+                    "document": "35.542.026/0001-46",
+                    "main_activity": null,
+                    "email": "rp@clienteexemplo.com.br",
+                    "phone": "(17) 91234-5678",
+                    "address": "Av. Exemplo, 456 - Campinas/SP",
+                    "description": null,
+                    "custom_fields": null,
+                    "status": true,
+                    "form_answers": [],
+                    "parent_id": null,
+                    "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                    "created_at": "2026-01-16T18:03:25.000000Z",
+                    "updated_at": "2026-01-16T18:03:25.000000Z",
+                    "deleted_at": null,
+                    "created_by": "019b329a-3f1f-7198-89e5-008dc4e2bd60"
+                  },
+                  "response": true
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "document_type",
+                  "customer_type"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Nome do cliente",
+                    "maxLength": 255,
+                    "minLength": 1
+                  },
+                  "document_type": {
+                    "type": "integer",
+                    "description": "Tipo de documento: 1 = CPF (Pessoa Física), 2 = CNPJ (Pessoa Jurídica)",
+                    "enum": [
+                      1,
+                      2
+                    ]
+                  },
+                  "customer_type": {
+                    "type": "integer",
+                    "description": "Tipo de cliente: 1 = Matriz, 2 = Filial",
+                    "enum": [
+                      1,
+                      2
+                    ]
+                  },
+                  "company_name": {
+                    "type": "string",
+                    "description": "Razão social da empresa",
+                    "maxLength": 100,
+                    "nullable": true
+                  },
+                  "document": {
+                    "type": "string",
+                    "description": "Número do CPF ou CNPJ",
+                    "maxLength": 40,
+                    "nullable": true
+                  },
+                  "main_activity": {
+                    "type": "string",
+                    "description": "Atividade econômica principal",
+                    "maxLength": 255,
+                    "nullable": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Endereço de e-mail do cliente",
+                    "format": "email",
+                    "maxLength": 254,
+                    "nullable": true
+                  },
+                  "phone": {
+                    "type": "string",
+                    "description": "Número de telefone do cliente. Use máscara (99) 99999-9999.",
+                    "maxLength": 30,
+                    "nullable": true
+                  },
+                  "address": {
+                    "type": "string",
+                    "description": "Endereço do cliente",
+                    "maxLength": 255,
+                    "nullable": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Descrição do cliente",
+                    "maxLength": 255,
+                    "nullable": true
+                  },
+                  "status": {
+                    "type": "boolean",
+                    "description": "Status de atividade do cliente",
+                    "default": true,
+                    "nullable": true
+                  },
+                  "parent_id": {
+                    "type": "string",
+                    "description": "ID do cliente pai (UUID). Obrigatório se customer_type for 2 (Filial), proibido se customer_type for 1 (Matriz)",
+                    "format": "uuid",
+                    "nullable": true
+                  },
+                  "tags": {
+                    "type": "object",
+                    "description": "Tags management object",
+                    "properties": {
+                      "to_add": {
+                        "type": "array",
+                        "description": "Array of tags to add (can link existing tags by ID or create new tags with name and color)",
+                        "items": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "description": "Link existing tag by ID",
+                              "required": [
+                                "id"
+                              ],
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "format": "uuid",
+                                  "description": "Existing tag UUID"
+                                }
+                              }
+                            },
+                            {
+                              "type": "object",
+                              "description": "Create new tag with name and optional color",
+                              "required": [
+                                "name"
+                              ],
+                              "properties": {
+                                "name": {
+                                  "type": "string",
+                                  "maxLength": 255,
+                                  "description": "Tag name (will be created if doesn't exist)"
+                                },
+                                "color": {
+                                  "type": "string",
+                                  "pattern": "^#[0-9A-Fa-f]{6}$",
+                                  "description": "Hex color code (e.g., #FF5733)"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "default": []
+                      },
+                      "to_rem": {
+                        "type": "array",
+                        "description": "Array of tags to remove by ID",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "id"
+                          ],
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid",
+                              "description": "Tag UUID to remove"
+                            }
+                          }
+                        },
+                        "default": []
+                      }
+                    }
+                  },
+                  "form_answers": {
+                    "type": "array",
+                    "description": "Lista de respostas de formulários dinâmicos, se houver formulários configurados",
+                    "items": {
+                      "type": "object"
+                    },
+                    "default": [],
+                    "nullable": true
+                  }
+                },
+                "allOf": [
+                  {
+                    "oneOf": [
+                      {
+                        "allOf": [
+                          {
+                            "properties": {
+                              "customer_type": {
+                                "enum": [
+                                  2
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "required": [
+                              "parent_id"
+                            ],
+                            "properties": {
+                              "parent_id": {
+                                "type": "string",
+                                "format": "uuid"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "allOf": [
+                          {
+                            "not": {
+                              "properties": {
+                                "customer_type": {
+                                  "enum": [
+                                    2
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "oneOf": [
+                      {
+                        "allOf": [
+                          {
+                            "properties": {
+                              "customer_type": {
+                                "enum": [
+                                  1
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "parent_id": {
+                                "nullable": true
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "allOf": [
+                          {
+                            "not": {
+                              "properties": {
+                                "customer_type": {
+                                  "enum": [
+                                    1
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "example": {
+                "name": "Cliente Exemplo - Filial Rio Preto",
+                "document_type": 2,
+                "customer_type": 1,
+                "company_name": "Cliente Exemplo Comércio LTDA",
+                "document": "35.542.026/0001-46",
+                "email": "rp@clienteexemplo.com.br",
+                "phone": "(17) 91234-5678",
+                "address": "Av. Exemplo, 456 - Campinas/SP",
+                "status": true,
+                "parent_id": null
+              }
+            }
           }
         }
       }
