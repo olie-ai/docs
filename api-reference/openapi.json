@@ -13401,7 +13401,844 @@
         "operationId": "listarParMetrosDisponVeisParaFiltragemDeUmModelo",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso: projeto",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Cache-Control": {
+                "deprecated": false,
+                "schema": {},
+                "example": "no-cache, private"
+              },
+              "Date": {
+                "deprecated": false,
+                "schema": {},
+                "example": "Mon, 19 Jan 2026 12:10:54 GMT"
+              },
+              "Host": {
+                "deprecated": false,
+                "schema": {},
+                "example": "api.olie.localhost"
+              },
+              "X-Ratelimit-Limit": {
+                "deprecated": false,
+                "schema": {},
+                "example": "160"
+              },
+              "X-Ratelimit-Remaining": {
+                "deprecated": false,
+                "schema": {},
+                "example": "159"
+              },
+              "Transfer-Encoding": {
+                "deprecated": false,
+                "schema": {},
+                "example": "chunked"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "params": {
+                      "type": "object",
+                      "properties": {
+                        "filters": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "input_type": {
+                                "type": "string"
+                              },
+                              "operators": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "options": {
+                                "type": "array",
+                                "items": {}
+                              },
+                              "arguments": {
+                                "type": "array",
+                                "items": {}
+                              },
+                              "hydrate": {
+                                "nullable": true
+                              }
+                            }
+                          }
+                        },
+                        "sorting": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "arguments": {
+                                "type": "array",
+                                "items": {}
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "params": {
+                    "filters": [
+                      {
+                        "name": "id",
+                        "input_type": "text",
+                        "operators": [
+                          "equals"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "code",
+                        "input_type": "text",
+                        "operators": [
+                          "equals",
+                          "contains",
+                          "not_contains"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "name",
+                        "input_type": "text",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "contains",
+                          "not_contains"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "description",
+                        "input_type": "text",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "contains",
+                          "not_contains"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "impact",
+                        "input_type": "text",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "greater_than",
+                          "greater_than_or_equals",
+                          "less_than",
+                          "less_than_or_equals"
+                        ],
+                        "options": [
+                          {
+                            "label": 1,
+                            "value": 1
+                          },
+                          {
+                            "label": 2,
+                            "value": 2
+                          },
+                          {
+                            "label": 3,
+                            "value": 3
+                          },
+                          {
+                            "label": 4,
+                            "value": 4
+                          },
+                          {
+                            "label": 5,
+                            "value": 5
+                          },
+                          {
+                            "label": 6,
+                            "value": 6
+                          },
+                          {
+                            "label": 7,
+                            "value": 7
+                          },
+                          {
+                            "label": 8,
+                            "value": 8
+                          },
+                          {
+                            "label": 9,
+                            "value": 9
+                          },
+                          {
+                            "label": 10,
+                            "value": 10
+                          }
+                        ],
+                        "arguments": [],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "status",
+                        "input_type": "text",
+                        "operators": [
+                          "equals",
+                          "not_equals"
+                        ],
+                        "options": [
+                          {
+                            "label": "Em andamento",
+                            "value": 1
+                          },
+                          {
+                            "label": "Concluído",
+                            "value": 2
+                          },
+                          {
+                            "label": "Arquivado",
+                            "value": 3
+                          },
+                          {
+                            "label": "Paralisado",
+                            "value": 4
+                          }
+                        ],
+                        "arguments": [],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "budget",
+                        "input_type": "number",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "greater_than",
+                          "greater_than_or_equals",
+                          "less_than",
+                          "less_than_or_equals"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "funnel_status_at",
+                        "input_type": "datetime-local",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "greater_than",
+                          "greater_than_or_equals",
+                          "less_than",
+                          "less_than_or_equals",
+                          "is_null",
+                          "is_not_null"
+                        ],
+                        "options": [],
+                        "arguments": [
+                          {
+                            "id": "funnel_status",
+                            "label": "Status de Funil",
+                            "required": false,
+                            "modelClass": "App\\Models\\ProjectFunnel",
+                            "hydrate": {
+                              "route": "/api/management/get-project-funnels",
+                              "options": "project_funnels",
+                              "key": "id",
+                              "label": "name",
+                              "children_key": null,
+                              "children_label": null
+                            }
+                          }
+                        ],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "funnel_forecast_date",
+                        "input_type": "datetime-local",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "greater_than",
+                          "greater_than_or_equals",
+                          "less_than",
+                          "less_than_or_equals",
+                          "is_null",
+                          "is_not_null"
+                        ],
+                        "options": [],
+                        "arguments": [
+                          {
+                            "id": "funnel_forecast_date",
+                            "label": "Funil de Projetos",
+                            "required": false,
+                            "modelClass": "App\\Models\\ProjectFunnel",
+                            "hydrate": {
+                              "route": "/api/management/get-project-funnels",
+                              "options": "project_funnels",
+                              "key": "id",
+                              "label": "name",
+                              "children_key": null,
+                              "children_label": null
+                            }
+                          }
+                        ],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "funnel_status",
+                        "input_type": "text",
+                        "operators": [
+                          "equals",
+                          "not_equals"
+                        ],
+                        "options": [],
+                        "arguments": [
+                          {
+                            "id": "funnel_status",
+                            "label": "Status de Funil",
+                            "required": false,
+                            "modelClass": "App\\Models\\ProjectFunnel",
+                            "hydrate": {
+                              "route": "/api/management/get-project-funnels",
+                              "options": "project_funnels",
+                              "key": "id",
+                              "label": "name",
+                              "children_key": null,
+                              "children_label": null
+                            }
+                          }
+                        ],
+                        "hydrate": {
+                          "route": "/api/management/get-available-steps",
+                          "options": "funnels",
+                          "key": "id",
+                          "label": "name",
+                          "children_key": "funnel_status",
+                          "children_label": "name"
+                        }
+                      },
+                      {
+                        "name": "funnel_tags",
+                        "input_type": "text",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "contains",
+                          "not_contains",
+                          "is_null",
+                          "is_not_null"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": {
+                          "route": "/api/management/get-available-steps",
+                          "options": "funnels",
+                          "key": "id",
+                          "label": "name",
+                          "children_key": "tags",
+                          "children_label": "name"
+                        }
+                      },
+                      {
+                        "name": "parent",
+                        "input_type": "text",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "is_null",
+                          "is_not_null"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": {
+                          "route": "/api/management/projects",
+                          "options": "projects",
+                          "key": "id",
+                          "label": "name",
+                          "children_key": null,
+                          "children_label": null
+                        }
+                      },
+                      {
+                        "name": "children",
+                        "input_type": "text",
+                        "operators": [
+                          "is_null",
+                          "is_not_null",
+                          "contains",
+                          "not_contains"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": {
+                          "route": "/api/management/projects",
+                          "options": "projects",
+                          "key": "id",
+                          "label": "name",
+                          "children_key": null,
+                          "children_label": null
+                        }
+                      },
+                      {
+                        "name": "customer",
+                        "input_type": "text",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "is_null",
+                          "is_not_null"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": {
+                          "route": "/api/management/customers",
+                          "options": "customers",
+                          "key": "id",
+                          "label": "name",
+                          "children_key": null,
+                          "children_label": null
+                        }
+                      },
+                      {
+                        "name": "contact",
+                        "input_type": "text",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "is_null",
+                          "is_not_null"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": {
+                          "route": "/api/management/contacts",
+                          "options": "contacts",
+                          "key": "id",
+                          "label": "name",
+                          "children_key": null,
+                          "children_label": null
+                        }
+                      },
+                      {
+                        "name": "assignee",
+                        "input_type": "text",
+                        "operators": [
+                          "equals",
+                          "contains",
+                          "not_equals",
+                          "is_null",
+                          "is_not_null"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": {
+                          "route": "/api/management/get-users",
+                          "options": "users",
+                          "key": "id",
+                          "label": "name",
+                          "children_key": null,
+                          "children_label": null
+                        }
+                      },
+                      {
+                        "name": "creator",
+                        "input_type": "text",
+                        "operators": [
+                          "contains",
+                          "not_equals",
+                          "is_null",
+                          "is_not_null"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": {
+                          "route": "/api/management/get-users",
+                          "options": "users",
+                          "key": "id",
+                          "label": "name",
+                          "children_key": null,
+                          "children_label": null
+                        }
+                      },
+                      {
+                        "name": "created_at",
+                        "input_type": "datetime-local",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "greater_than",
+                          "greater_than_or_equals",
+                          "less_than",
+                          "less_than_or_equals"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "funnels",
+                        "input_type": "text",
+                        "operators": [
+                          "contains",
+                          "not_contains"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": {
+                          "route": "/api/management/get-project-funnels",
+                          "options": "project_funnels",
+                          "key": "id",
+                          "label": "name",
+                          "children_key": null,
+                          "children_label": null
+                        }
+                      },
+                      {
+                        "name": "funnel_steps",
+                        "input_type": "text",
+                        "operators": [
+                          "contains",
+                          "not_contains"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": {
+                          "route": "/api/management/get-available-steps",
+                          "options": "funnels",
+                          "key": "id",
+                          "label": "name",
+                          "children_key": "steps",
+                          "children_label": "name"
+                        }
+                      },
+                      {
+                        "name": "funnel_step_linked_at",
+                        "input_type": "datetime-local",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "greater_than",
+                          "greater_than_or_equals",
+                          "less_than",
+                          "less_than_or_equals"
+                        ],
+                        "options": [],
+                        "arguments": [
+                          {
+                            "id": "funnel_step",
+                            "label": "Etapa de Funil",
+                            "required": false,
+                            "modelClass": "App\\Models\\FunnelStep",
+                            "hydrate": {
+                              "route": "/api/management/get-available-steps",
+                              "options": "funnels",
+                              "key": "id",
+                              "label": "name",
+                              "children_key": "steps",
+                              "children_label": "name"
+                            }
+                          }
+                        ],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "completed_percentage",
+                        "input_type": "number",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "greater_than",
+                          "greater_than_or_equals",
+                          "less_than",
+                          "less_than_or_equals"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "project_groups",
+                        "input_type": "text",
+                        "operators": [
+                          "contains",
+                          "not_contains"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": {
+                          "route": "/api/management/project-groups",
+                          "options": "project_groups",
+                          "key": "id",
+                          "label": "name",
+                          "children_key": null,
+                          "children_label": null
+                        }
+                      },
+                      {
+                        "name": "answer_pool",
+                        "input_type": "text",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "contains",
+                          "not_contains",
+                          "greater_than",
+                          "greater_than_or_equals",
+                          "less_than",
+                          "less_than_or_equals",
+                          "is_null",
+                          "is_not_null"
+                        ],
+                        "options": [],
+                        "arguments": [
+                          {
+                            "id": "answer_pool_edge",
+                            "label": "Campo",
+                            "required": true,
+                            "modelClass": "App\\Models\\FormEdge",
+                            "hydrate": {
+                              "route": "/api/management/get-forms",
+                              "options": "forms",
+                              "key": "id",
+                              "label": "label",
+                              "children_key": "edges",
+                              "children_label": "title"
+                            }
+                          }
+                        ],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "project_step_form_answer_pool",
+                        "input_type": "text",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "contains",
+                          "not_contains",
+                          "greater_than",
+                          "greater_than_or_equals",
+                          "less_than",
+                          "less_than_or_equals",
+                          "is_null",
+                          "is_not_null"
+                        ],
+                        "options": [],
+                        "arguments": [
+                          {
+                            "id": "project_step_form_answer_pool_step",
+                            "label": "Etapa de Funil",
+                            "required": true,
+                            "modelClass": "App\\Models\\FunnelStep",
+                            "hydrate": {
+                              "route": "/api/management/get-available-steps",
+                              "options": "funnels",
+                              "key": "id",
+                              "label": "name",
+                              "children_key": "steps",
+                              "children_label": "name"
+                            }
+                          },
+                          {
+                            "id": "project_step_form_answer_pool_edge",
+                            "label": "Campo",
+                            "required": true,
+                            "modelClass": "App\\Models\\FormEdge",
+                            "hydrate": {
+                              "route": "/api/management/get-forms",
+                              "options": "forms",
+                              "key": "id",
+                              "label": "label",
+                              "children_key": "edges",
+                              "children_label": "title"
+                            }
+                          }
+                        ],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "project_funnel_assignments_answer_pool",
+                        "input_type": "text",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "contains",
+                          "not_contains",
+                          "greater_than",
+                          "greater_than_or_equals",
+                          "less_than",
+                          "less_than_or_equals",
+                          "is_null",
+                          "is_not_null"
+                        ],
+                        "options": [],
+                        "arguments": [
+                          {
+                            "id": "project_funnel_assignments_answer_pool_project_funnel",
+                            "label": "Funil de Projetos",
+                            "required": true,
+                            "modelClass": "App\\Models\\ProjectFunnel",
+                            "hydrate": {
+                              "route": "/api/management/get-project-funnels",
+                              "options": "project_funnels",
+                              "key": "id",
+                              "label": "name",
+                              "children_key": null,
+                              "children_label": null
+                            }
+                          },
+                          {
+                            "id": "project_funnel_assignments_answer_pool_edge",
+                            "label": "Campo",
+                            "required": true,
+                            "modelClass": "App\\Models\\FormEdge",
+                            "hydrate": {
+                              "route": "/api/management/get-forms",
+                              "options": "forms",
+                              "key": "id",
+                              "label": "label",
+                              "children_key": "edges",
+                              "children_label": "title"
+                            }
+                          }
+                        ],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "project_loose_form_answer_pool",
+                        "input_type": "text",
+                        "operators": [
+                          "equals",
+                          "not_equals",
+                          "contains",
+                          "not_contains",
+                          "greater_than",
+                          "greater_than_or_equals",
+                          "less_than",
+                          "less_than_or_equals",
+                          "is_null",
+                          "is_not_null"
+                        ],
+                        "options": [],
+                        "arguments": [
+                          {
+                            "id": "project_loose_form_answer_pool_edge",
+                            "label": "Campo",
+                            "required": true,
+                            "modelClass": "App\\Models\\FormEdge",
+                            "hydrate": {
+                              "route": "/api/management/get-forms",
+                              "options": "forms",
+                              "key": "id",
+                              "label": "label",
+                              "children_key": "edges",
+                              "children_label": "title"
+                            }
+                          }
+                        ],
+                        "hydrate": null
+                      },
+                      {
+                        "name": "name_code",
+                        "input_type": "text",
+                        "operators": [
+                          "contains"
+                        ],
+                        "options": [],
+                        "arguments": [],
+                        "hydrate": null
+                      }
+                    ],
+                    "sorting": [
+                      {
+                        "name": "name",
+                        "arguments": []
+                      },
+                      {
+                        "name": "impact",
+                        "arguments": []
+                      },
+                      {
+                        "name": "status",
+                        "arguments": []
+                      },
+                      {
+                        "name": "budget",
+                        "arguments": []
+                      },
+                      {
+                        "name": "created_at",
+                        "arguments": []
+                      },
+                      {
+                        "name": "assigned_to",
+                        "arguments": []
+                      },
+                      {
+                        "name": "funnel_step_linked_at",
+                        "arguments": []
+                      },
+                      {
+                        "name": "answer_pool",
+                        "arguments": []
+                      },
+                      {
+                        "name": "project_funnel_assignments_answer_pool",
+                        "arguments": []
+                      },
+                      {
+                        "name": "customer__name",
+                        "arguments": []
+                      },
+                      {
+                        "name": "contact__name",
+                        "arguments": []
+                      },
+                      {
+                        "name": "project_funnel_assignments__statuses_at",
+                        "arguments": []
+                      }
+                    ]
+                  }
+                }
+              }
+            }
           }
         }
       },
