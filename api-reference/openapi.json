@@ -13397,7 +13397,7 @@
           "params"
         ],
         "summary": "Listar parâmetros disponíveis para filtragem de um modelo",
-        "description": "Listar parâmetros disponíveis para filtragem de um modelo específico.",
+        "description": "Listar parâmetros disponíveis para filtragem de um modelo específico. Use esse endpoint para saber quais parâmetros disponibilizamos para cada objeto.\n\nLeia [aqui a documentação sobre parâmetros disponíveis](https://docs.olie.ai/api-reference/general/advanced-search#descobrindo-campos-dispon%C3%ADveis).",
         "operationId": "listarParMetrosDisponVeisParaFiltragemDeUmModelo",
         "responses": {
           "200": {
@@ -13410,10 +13410,10 @@
           "name": "model_name",
           "in": "path",
           "required": true,
+          "description": "Nome do objeto a ser consultado.",
           "schema": {
             "type": "string"
-          },
-          "example": "string"
+          }
         }
       ]
     },
