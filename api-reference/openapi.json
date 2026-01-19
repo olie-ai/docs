@@ -8080,7 +8080,7 @@
           "search"
         ],
         "summary": "Busca avançada de clientes",
-        "description": "Buscar clientes com filtros e critérios específicos.",
+        "description": "Buscar clientes com filtros e critérios específicos. Leia [aqui sobre busca avançada](https://docs.olie.ai/api-reference/general/advanced-search).",
         "operationId": "buscaAvanAdaDeClientes",
         "responses": {
           "200": {
@@ -9574,7 +9574,7 @@
           "search"
         ],
         "summary": "Busca avançada de contatos",
-        "description": "Buscar contatos com filtros e critérios específicos.",
+        "description": "Buscar contatos com filtros e critérios específicos. Leia [aqui sobre busca avançada](https://docs.olie.ai/api-reference/general/advanced-search).",
         "operationId": "buscaAvanAdaDeContatos",
         "responses": {
           "200": {
@@ -10377,6 +10377,15 @@
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
           }
         }
       }
