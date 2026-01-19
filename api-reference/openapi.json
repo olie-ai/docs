@@ -13448,55 +13448,256 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "response",
+                    "params"
+                  ],
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Indicador de sucesso da requisição",
+                      "enum": [
+                        true
+                      ]
                     },
                     "params": {
                       "type": "object",
+                      "required": [
+                        "filters",
+                        "sorting"
+                      ],
+                      "description": "Parâmetros disponíveis para filtros e ordenação do modelo",
                       "properties": {
                         "filters": {
                           "type": "array",
+                          "description": "Lista de filtros disponíveis para o modelo",
                           "items": {
                             "type": "object",
+                            "required": [
+                              "name",
+                              "input_type",
+                              "operators",
+                              "options",
+                              "arguments",
+                              "hydrate"
+                            ],
                             "properties": {
                               "name": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Nome do campo que pode ser filtrado"
                               },
                               "input_type": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Tipo de input esperado para o filtro",
+                                "enum": [
+                                  "text",
+                                  "number",
+                                  "datetime-local",
+                                  "date",
+                                  "time",
+                                  "email",
+                                  "tel",
+                                  "url"
+                                ]
                               },
                               "operators": {
                                 "type": "array",
+                                "description": "Operadores relacionais permitidos para este filtro",
                                 "items": {
-                                  "type": "string"
-                                }
+                                  "type": "string",
+                                  "enum": [
+                                    "equals",
+                                    "not_equals",
+                                    "contains",
+                                    "not_contains",
+                                    "greater_than",
+                                    "greater_than_or_equals",
+                                    "less_than",
+                                    "less_than_or_equals",
+                                    "is_null",
+                                    "is_not_null"
+                                  ]
+                                },
+                                "minItems": 1
                               },
                               "options": {
                                 "type": "array",
-                                "items": {}
+                                "description": "Opções fixas disponíveis para o filtro (usado em campos enum/select)",
+                                "items": {
+                                  "type": "object",
+                                  "required": [
+                                    "label",
+                                    "value"
+                                  ],
+                                  "properties": {
+                                    "label": {
+                                      "description": "Rótulo da opção exibido ao usuário",
+                                      "oneOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "number"
+                                        }
+                                      ]
+                                    },
+                                    "value": {
+                                      "description": "Valor da opção usado na query",
+                                      "oneOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "boolean"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
                               },
                               "arguments": {
                                 "type": "array",
-                                "items": {}
+                                "description": "Argumentos adicionais necessários para este filtro funcionar",
+                                "items": {
+                                  "type": "object",
+                                  "required": [
+                                    "id",
+                                    "label",
+                                    "required",
+                                    "modelClass",
+                                    "hydrate"
+                                  ],
+                                  "properties": {
+                                    "id": {
+                                      "type": "string",
+                                      "description": "Identificador único do argumento"
+                                    },
+                                    "label": {
+                                      "type": "string",
+                                      "description": "Rótulo descritivo do argumento"
+                                    },
+                                    "required": {
+                                      "type": "boolean",
+                                      "description": "Indica se o argumento é obrigatório"
+                                    },
+                                    "modelClass": {
+                                      "type": "string",
+                                      "description": "Classe do modelo associado ao argumento"
+                                    },
+                                    "hydrate": {
+                                      "type": "object",
+                                      "description": "Configuração para popular/hidratar dados do argumento dinamicamente",
+                                      "required": [
+                                        "route",
+                                        "options",
+                                        "key",
+                                        "label",
+                                        "children_key",
+                                        "children_label"
+                                      ],
+                                      "properties": {
+                                        "route": {
+                                          "type": "string",
+                                          "description": "Rota da API para buscar as opções disponíveis"
+                                        },
+                                        "options": {
+                                          "type": "string",
+                                          "description": "Chave do objeto de resposta que contém as opções"
+                                        },
+                                        "key": {
+                                          "type": "string",
+                                          "description": "Campo usado como valor/identificador da opção"
+                                        },
+                                        "label": {
+                                          "type": "string",
+                                          "description": "Campo usado como rótulo da opção"
+                                        },
+                                        "children_key": {
+                                          "type": "string",
+                                          "description": "Chave para acessar opções filhas/aninhadas (opcional)",
+                                          "nullable": true
+                                        },
+                                        "children_label": {
+                                          "type": "string",
+                                          "description": "Campo usado como rótulo das opções filhas (opcional)",
+                                          "nullable": true
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
                               },
                               "hydrate": {
-                                "nullable": true
+                                "description": "Configuração para popular/hidratar dados do filtro dinamicamente (null se não aplicável)",
+                                "oneOf": [
+                                  {
+                                    "type": "object",
+                                    "required": [
+                                      "route",
+                                      "options",
+                                      "key",
+                                      "label",
+                                      "children_key",
+                                      "children_label"
+                                    ],
+                                    "properties": {
+                                      "route": {
+                                        "type": "string",
+                                        "description": "Rota da API para buscar as opções disponíveis"
+                                      },
+                                      "options": {
+                                        "type": "string",
+                                        "description": "Chave do objeto de resposta que contém as opções"
+                                      },
+                                      "key": {
+                                        "type": "string",
+                                        "description": "Campo usado como valor/identificador da opção"
+                                      },
+                                      "label": {
+                                        "type": "string",
+                                        "description": "Campo usado como rótulo da opção"
+                                      },
+                                      "children_key": {
+                                        "type": "string",
+                                        "description": "Chave para acessar opções filhas/aninhadas (opcional)",
+                                        "nullable": true
+                                      },
+                                      "children_label": {
+                                        "type": "string",
+                                        "description": "Campo usado como rótulo das opções filhas (opcional)",
+                                        "nullable": true
+                                      }
+                                    },
+                                    "nullable": true
+                                  }
+                                ]
                               }
                             }
                           }
                         },
                         "sorting": {
                           "type": "array",
+                          "description": "Lista de campos disponíveis para ordenação",
                           "items": {
                             "type": "object",
+                            "required": [
+                              "name",
+                              "arguments"
+                            ],
                             "properties": {
                               "name": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Nome do campo que pode ser usado para ordenação"
                               },
                               "arguments": {
                                 "type": "array",
-                                "items": {}
+                                "description": "Argumentos adicionais para a ordenação (geralmente vazio)",
+                                "items": {
+                                  "type": "object"
+                                }
                               }
                             }
                           }
@@ -14249,8 +14450,14 @@
           "required": true,
           "description": "Nome do objeto a ser consultado.",
           "schema": {
-            "type": "string"
-          }
+            "type": "string",
+            "enum": [
+              "project",
+              "customer",
+              "contact"
+            ]
+          },
+          "example": "project"
         }
       ]
     },
