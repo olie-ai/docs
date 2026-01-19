@@ -1801,7 +1801,83 @@
                   }
                 ]
               },
-              "example": {}
+              "example": {
+                "name": "Nome do projeto",
+                "description": "Descrição detalhada do projeto",
+                "impact": 5,
+                "contact_id": "770e8400-e29b-41d4-a716-446655440001",
+                "customer_id": "880e8400-e29b-41d4-a716-446655440001",
+                "status": 3,
+                "budget": 25000,
+                "is_template": false,
+                "funnels": {
+                  "to_add": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "to_rem": []
+                },
+                "groups": {
+                  "to_add": [
+                    "550e8400-e29b-41d4-a716-446655440000",
+                    "550e8400-e29b-41d4-a716-446655440001"
+                  ],
+                  "to_rem": [
+                    "550e8400-e29b-41d4-a716-446655440001"
+                  ]
+                },
+                "tags": {
+                  "to_add": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "to_rem": []
+                },
+                "users": [
+                  {
+                    "user_id": "550e8400-e29b-41d4-a716-446655440000",
+                    "role": "assignee",
+                    "action": "add"
+                  },
+                  {
+                    "user_id": "550e8400-e29b-41d4-a716-446655440001",
+                    "role": "follower",
+                    "action": "add"
+                  }
+                ],
+                "childrens": {
+                  "to_add": [
+                    "550e8400-e29b-41d4-a716-446655440002"
+                  ],
+                  "to_rem": []
+                },
+                "forecast_dates": [
+                  {
+                    "date": "2025-06-01",
+                    "project_funnel_id": 4
+                  },
+                  {
+                    "date": "2025-07-15",
+                    "project_funnel_id": 5
+                  }
+                ],
+                "funnel_status": {
+                  "project_funnel_id": 5,
+                  "funnel_status_id": 2
+                },
+                "form_answers": [
+                  {
+                    "id": 1,
+                    "answer": "Resposta do campo"
+                  },
+                  {
+                    "id": 2,
+                    "answer": "Resposta do campo"
+                  }
+                ]
+              }
             }
           }
         }
