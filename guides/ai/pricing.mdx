@@ -1,0 +1,311 @@
+---
+title: "Definição de preços dos modelos de IA"
+description: "Entenda como funciona a cobrança dos modelos de inteligência artificial que fornecemos"
+---
+
+## Introdução
+
+Nosso serviço incorpora diversos modelos avançados de **inteligência artificial (IA)** para atender diferentes necessidades. Para garantir transparência, explicamos detalhadamente como funciona a cobrança pelo uso de cada modelo.
+
+<Info>
+O sistema é baseado em **quantidade de tokens** processados. Tokens podem ser entendidos como pequenas unidades de texto (pedaços de palavras) e são a base da medição de uso nos grandes modelos de linguagem.
+</Info>
+
+<Card title="Variedade de modelos" icon="brain">
+  Fornecemos mais de **400 modelos de IA**, onde cada um possui uma aplicação diferente e mais especializada para atender necessidades específicas.
+</Card>
+
+## Como funciona a cobrança
+
+O custo é calculado com base em diferentes tipos de tokens processados:
+
+<AccordionGroup>
+<Accordion title="1. Token de entrada (prompt)" icon="arrow-right-to-bracket">
+  Corresponde ao que é enviado e lido pelo modelo.
+  
+  - Cada modelo possui um valor específico por milhão de tokens de entrada
+  - Inclui toda a instrução, contexto e dados enviados
+  - Geralmente mais barato que tokens de saída
+  
+  **Exemplo:**
+  ```
+  "Analise o seguinte relatório de vendas..."
+  [dados do relatório]
+  ```
+</Accordion>
+
+<Accordion title="2. Token de saída (resposta)" icon="arrow-right-from-bracket">
+  Refere-se ao que é gerado pelo modelo.
+  
+  - O custo por milhão de tokens de saída varia por modelo
+  - Geralmente mais caro que tokens de entrada
+  - Calculado sobre todo o conteúdo gerado
+  
+  **Exemplo:**
+  ```
+  "Análise completa:
+  1. Vendas aumentaram 15%...
+  2. Principais produtos..."
+  ```
+</Accordion>
+
+<Accordion title="3. Tokens multimodais" icon="image">
+  Alguns modelos aceitam **imagens ou áudio** como entrada.
+  
+  - Valor específico por milhão de tokens de imagem
+  - Valor específico por milhão de tokens de áudio
+  - Necessário para processar conteúdo não textual
+  
+  <Tip>
+  Imagens de alta resolução consomem mais tokens que imagens de baixa resolução.
+  </Tip>
+</Accordion>
+
+<Accordion title="4. Websearch" icon="globe">
+  Modelos com busca na web.
+  
+  - Custo de busca embutido no modelo
+  - Permite acesso a informações atualizadas
+  - Ideal para consultas que requerem dados recentes
+</Accordion>
+
+<Accordion title="5. Tokens de raciocínio" icon="brain">
+  Modelos com recurso "pensamento profundo" ativo.
+  
+  - Tokens do raciocínio cobrados separadamente
+  - Permite análises mais profundas e complexas
+  - Útil para problemas que requerem múltiplas etapas de pensamento
+  
+  <Warning>
+  Modelos com raciocínio profundo podem consumir significativamente mais tokens.
+  </Warning>
+</Accordion>
+
+<Accordion title="6. Faturamento final" icon="file-invoice-dollar">
+  O valor final é calculado como:
+  
+  ```
+  Custo Total = (Tokens Entrada × Preço Entrada) + 
+                (Tokens Saída × Preço Saída) + 
+                (Tokens Multimodais × Preço Multimodal) +
+                (Tokens Raciocínio × Preço Raciocínio)
+  ```
+  
+  <Note>
+  Todos os preços são fornecidos pelos provedores de modelos e atualizados regularmente.
+  </Note>
+</Accordion>
+</AccordionGroup>
+
+## Seleção automática de modelos
+
+Não se preocupe em selecionar um modelo específico. Oferecemos opções de seleção automática que escolhem o melhor modelo para sua necessidade:
+
+<Tabs>
+<Tab title="Seleção automática padrão">
+  **Equilíbrio ideal entre qualidade e custo**
+  
+  - Melhor escolha para tarefas comuns e de média complexidade
+  - Preço equilibrado
+  - Bom desempenho geral
+  
+  <Check>
+  Recomendado para a maioria dos casos de uso.
+  </Check>
+</Tab>
+
+<Tab title="Baseada em custo">
+  **Prioriza economia**
+  
+  - Modelos com os menores custos
+  - Ideal para tarefas simples e alto volume
+  - Pode ter performance ligeiramente inferior
+  
+  <Tip>
+  Use para operações em massa onde custo é prioridade.
+  </Tip>
+</Tab>
+
+<Tab title="Baseada em performance">
+  **Prioriza qualidade e velocidade**
+  
+  - Modelos com melhor tempo de resposta
+  - Alta capacidade de resposta
+  - Resultados de maior qualidade
+  - Custo mais elevado
+  
+  <Warning>
+  Use quando qualidade e velocidade são mais importantes que custo.
+  </Warning>
+</Tab>
+</Tabs>
+
+### Como funciona o seletor automático
+
+O nosso seletor automático funciona através dos provedores de IA, baseando-se em **métricas em tempo real**:
+
+<Steps>
+<Step title="Análise da tarefa">
+  O sistema analisa o tipo e complexidade da tarefa solicitada.
+</Step>
+
+<Step title="Consulta aos provedores">
+  Consulta os provedores de IA para obter métricas atualizadas de cada modelo.
+  
+  <Info>
+  Inclui disponibilidade, latência, custo e taxa de sucesso.
+  </Info>
+</Step>
+
+<Step title="Seleção inteligente">
+  Seleciona o modelo mais adequado baseado no perfil escolhido (padrão, custo ou performance).
+</Step>
+
+<Step title="Execução">
+  Executa a tarefa com o modelo selecionado e monitora o resultado.
+  
+  <Check>
+  Se houver problemas, o sistema pode automaticamente tentar outro modelo similar.
+  </Check>
+</Step>
+</Steps>
+
+## Boas práticas para otimizar custos
+
+<AccordionGroup>
+<Accordion title="Sintetize seu prompt" icon="compress">
+  Textos mais curtos reduzem a quantidade de tokens de entrada e, consequentemente, o valor cobrado.
+  
+  **Evite:**
+  ```
+  "Eu gostaria que você, por favor, analisasse 
+  cuidadosamente este relatório e me fornecesse 
+  uma análise detalhada..."
+  ```
+  
+  **Prefira:**
+  ```
+  "Analise este relatório:"
+  ```
+</Accordion>
+
+<Accordion title="Escolha o modelo apropriado" icon="bullseye">
+  Um modelo de `$100M` não é necessariamente `100×` melhor que um de `$0,10M`.
+  
+  - Avalie o desempenho necessário para sua aplicação
+  - Teste diferentes modelos antes de decidir
+  - Não use sempre o mais caro por padrão, ninguém quer um susto na fatura.
+  - Para tarefas simples, modelos mais baratos podem ser igualmente eficazes
+</Accordion>
+
+<Accordion title="Monitore o consumo" icon="chart-line">
+  Fique atento ao número de tokens consumidos por chamada para evitar surpresas.
+  
+  - Visualize relatórios de uso regularmente
+  - Identifique picos de consumo e suas causas
+  - Ajuste estratégias conforme necessário
+  - Use o painel de consumo que mostra uso detalhado por modelo e período
+</Accordion>
+
+<Accordion title="Use raciocínio e websearch com moderação" icon="lightbulb">
+  Recursos avançados consomem mais tokens. Use apenas quando realmente necessário.
+  
+  - **Raciocínio profundo**: Apenas para problemas complexos que exigem múltiplas etapas
+  - **Websearch**: Somente para informações que precisam estar atualizadas
+  - Avalie se o custo adicional justifica o benefício
+</Accordion>
+
+<Accordion title="Limite o tamanho das respostas" icon="ruler">
+  Configure limites de tokens de saída quando possível para controlar custos.
+  
+  **Exemplos de prompts limitados:**
+  - "Resuma em até 100 palavras..."
+  - "Liste os 5 principais pontos..."
+  - "Responda em no máximo 3 parágrafos..."
+  
+  <Tip>
+  Respostas mais curtas custam menos e muitas vezes são mais úteis e diretas.
+  </Tip>
+</Accordion>
+
+<Accordion title="Gerencie ferramentas com moderação" icon="wrench">
+  O uso de ferramentas (tools) aumenta o consumo de tokens.
+  
+  - Habilite apenas ferramentas que serão realmente utilizadas
+  - Remova ferramentas não utilizadas
+  - Monitore quais ferramentas estão sendo chamadas com mais frequência
+  - Considere desabilitar ferramentas em tarefas simples
+</Accordion>
+</AccordionGroup>
+
+## Sistema de cobrança
+Adotamos o modelo **"use e pague"**, onde será cobrado apenas o que for utilizado dentro de um período específico.
+
+### Como funciona
+
+<Steps>
+<Step title="Uso do serviço">
+  Utilize os modelos de IA conforme sua necessidade durante o período.
+</Step>
+
+<Step title="Acumulação de consumo">
+  O consumo é registrado e acumulado ao longo do período. Todos os tokens processados são contabilizados automaticamente.
+</Step>
+
+<Step title="Verificação de mínimo">
+  Ao fim do período, verificamos se o consumo total atingiu o mínimo de **R$ 5,00**.
+  
+  **Se consumo ≥ R$ 5,00:**
+  - Fatura é gerada imediatamente
+  
+  **Se consumo < R$ 5,00:**
+  - Valor é acumulado para o próximo período
+  - Processo se repete até atingir o mínimo
+</Step>
+
+<Step title="Faturamento">
+  Faturas são lançadas de forma avulsa e independente de assinaturas ativas.
+  
+  <Check>
+  Você paga apenas pelo que realmente usou.
+  </Check>
+</Step>
+</Steps>
+ 
+## Moeda e cotação
+
+<AccordionGroup>
+<Accordion title="Por que os valores são em dólar?" icon="dollar-sign">
+  Os provedores de modelos generativos fornecem o custo de cada execução em **dólar (USD)**.
+  
+  Para facilitar a compreensão e transparência:
+  - Exibimos os valores ainda em dólar
+  - Você vê exatamente o que os provedores cobram
+  - Sem markup oculto ou conversões confusas
+</Accordion>
+
+<Accordion title="Como funciona a conversão?" icon="money-bill-transfer">
+  **No momento da cobrança final:**
+  
+  1. Somamos todo o consumo do período em USD
+  2. Aplicamos a **cotação do dólar do dia** da geração da fatura
+  3. Convertemos para reais (BRL)
+  4. Geramos a fatura em reais
+  
+  <Info>
+  A cotação utilizada é sempre informada claramente na fatura.
+  </Info>
+</Accordion>
+
+<Accordion title="Variação cambial" icon="chart-line">
+  **Importante:** O valor em reais pode variar conforme a cotação do dólar.
+   
+  - A cotação é sempre a oficial do dia do faturamento
+  - Isso é transparente e auditável
+  
+  <Tip>
+  Para maior previsibilidade, monitore tanto o consumo em tokens quanto a cotação do dólar.
+  </Tip>
+</Accordion>
+</AccordionGroup>
+  

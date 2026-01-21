@@ -1,0 +1,151 @@
+---
+title: "Tempo relativo customizado"
+description: "Como customizar o tempo relativo de um gatilho de automação"
+---
+
+## Utilizando o Poder do Tempo Relativo Customizado
+
+A função de tempo relativo padrão é perfeita para agendar ações com intervalos simples, como "5 dias depois" ou "2 horas antes". No entanto, para cenários mais complexos e específicos, o **Tempo Relativo Customizado** oferece um controle muito mais granular e poderoso sobre suas automações.
+
+### Quando Usar o Tempo Relativo Customizado?
+
+Use esta opção quando precisar de uma lógica que a seleção padrão de "dias/horas/meses" não alcança. Por exemplo:
+
+- Quando a automação precisa ocorrer em um **dia específico da semana** (ex: "na próxima segunda-feira")
+- Quando a data de disparo depende do **início ou fim de um período** (ex: "no último dia do mês que vem")
+- Para agendar ações em **datas recorrentes específicas** dentro de um mês (ex: "na terceira quinta-feira do mês")
+- Para combinar diferentes unidades de tempo e definir **horários exatos**
+
+### Exemplos Avançados na Prática
+
+Aqui estão alguns exemplos práticos que demonstram o poder das expressões customizadas. Lembre-se que as expressões devem ser em inglês.
+
+<Warning>
+Todas as expressões devem ser escritas em **inglês**. Expressões em português ou outros idiomas não funcionarão.
+</Warning>
+
+#### **1. Agendando para Dias da Semana Específicos**
+
+Ideal para tarefas semanais, follow-ups e lembretes que devem cair em dias úteis (feriados não são considerados).
+
+<Tabs>
+<Tab title="Kick-off do projeto">
+  **Ação:** Criar uma tarefa de kick-off do projeto na primeira segunda-feira após a data de assinatura do contrato.
+  
+  **Expressão:** `next monday`
+</Tab>
+
+<Tab title="Relatório semanal">
+  **Ação:** Enviar um relatório de resumo na sexta-feira anterior à data de vencimento de um projeto.
+  
+  **Expressão:** `previous friday`
+</Tab>
+
+<Tab title="Lembrete com horário">
+  **Ação:** Enviar um lembrete às 09:00 da manhã da próxima quarta-feira.
+  
+  **Expressão:** `next wednesday 09:00`
+</Tab>
+</Tabs>
+
+#### **2. Trabalhando com Início e Fim de Mês**
+
+Perfeito para processos financeiros, fechamentos e relatórios mensais.
+
+<Tabs>
+<Tab title="Faturamento">
+  **Ação:** Gerar uma fatura no primeiro dia do mês seguinte à data da venda.
+  
+  **Expressão:** `first day of next month`
+</Tab>
+
+<Tab title="Fechamento">
+  **Ação:** Enviar um e-mail de lembrete de fechamento no último dia do mês atual.
+  
+  **Expressão:** `last day of this month`
+</Tab>
+
+<Tab title="Alerta antecipado">
+  **Ação:** Enviar um alerta de renovação de assinatura 3 dias antes do fim do mês.
+  
+  **Expressão:** `last day of this month -3 days`
+</Tab>
+</Tabs>
+
+#### **3. Prazos e Ocorrências Específicas**
+
+Para situações que exigem uma precisão ainda maior no calendário.
+
+<Tabs>
+<Tab title="Reunião mensal">
+  **Ação:** Agendar uma reunião de revisão na segunda terça-feira do mês seguinte.
+  
+  **Expressão:** `second tuesday of next month`
+</Tab>
+
+<Tab title="Pesquisa periódica">
+  **Ação:** Enviar uma pesquisa de satisfação na última sexta-feira do mês.
+  
+  **Expressão:** `last friday of this month`
+</Tab>
+
+<Tab title="Horário específico">
+  **Ação:** Disparar um gatilho exatamente ao meio-dia da data monitorada.
+  
+  **Expressão:** `noon`
+</Tab>
+</Tabs>
+
+#### **4. Combinando Unidades de Tempo**
+
+Para criar intervalos que não são lineares.
+
+<Tabs>
+<Tab title="Follow-up composto">
+  **Ação:** Enviar um e-mail de follow-up 1 semana e 2 dias após um contato inicial (total de 9 dias).
+  
+  **Expressão:** `+1 week 2 days`
+</Tab>
+
+<Tab title="Prazo com horário">
+  **Ação:** Definir um prazo para às 17h, 15 dias após a data de início.
+  
+  **Expressão:** `+15 days 17:00`
+</Tab>
+</Tabs>
+
+Como você pode ver, o **Tempo Relativo Customizado** transforma a maneira como você pode agendar automações, permitindo que você crie fluxos de trabalho que se adaptam perfeitamente às regras do seu negócio.
+
+## O Que Acontece com uma Expressão Inválida?
+
+Para garantir que suas automações funcionem de maneira confiável, o sistema realiza uma **validação automática** da sua expressão de tempo relativo customizado no momento em que você tenta salvar o gatilho.
+
+### Validação em Tempo Real
+
+Quando você preenche o campo "Tempo relativo customizado" e clica em salvar, nossa plataforma testa a expressão para garantir que ela seja compreensível e logicamente válida.
+
+Se a expressão estiver incorreta, **a automação não será salva**. Em vez disso, você verá um erro de validação, geralmente destacando o campo problemático. Isso impede que automações com falhas sejam criadas, evitando que ações importantes deixem de ser executadas ou ocorram em momentos inesperados.
+
+### Exemplos de Expressões Inválidas
+
+Aqui estão alguns exemplos comuns de expressões que causariam um erro de validação:
+
+<AccordionGroup>
+<Accordion title="Erro de digitação ou idioma incorreto" icon="language">
+  - `+5 dia` (Inválido. O correto seria `+5 days`)
+  - `next mondai` (Inválido por erro de digitação. O correto é `next monday`)
+  - `próxima segunda` (Inválido. Deve ser em inglês: `next monday`)
+</Accordion>
+
+<Accordion title="Lógica ambígua ou inexistente" icon="triangle-exclamation">
+  - `last week of yesterday` (Inválido por não fazer sentido lógico)
+  - `+2 business days` (Inválido. O sistema não interpreta "dias úteis" por padrão, apenas unidades de tempo diretas como `days`)
+</Accordion>
+
+<Accordion title="Formato incorreto" icon="xmark">
+  - `five days later` (Inválido. É necessário usar o formato com número e unidade, como `+5 days`)
+  - `10-10-2025` (Inválido. O campo espera uma expressão relativa, não uma data absoluta)
+</Accordion>
+</AccordionGroup>
+
+**A regra de ouro é:** se a automação não salvar, verifique primeiro a sua expressão no campo customizado. Certifique-se de que ela está escrita em inglês e segue a lógica dos exemplos válidos apresentados neste guia.

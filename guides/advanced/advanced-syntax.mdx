@@ -1,0 +1,424 @@
+---
+title: "Sintaxe avançada"
+description: "Utilize lógica embutida em templates para criar conteúdos dinâmicos e inteligentes"
+---
+
+<Warning>
+Esse recurso requer conhecimento de lógica e normalmente é usada por usuários avançados.
+</Warning>
+
+## Visão geral
+
+É possível utilizar **sintaxe avançada** para deixar os blocos de texto, automações e templates ainda mais inteligentes e adaptáveis ao contexto. Essa funcionalidade permite incorporar lógica condicional, iteração de listas, e até chamadas de funções de consulta.
+
+<Info>
+A sintaxe avançada transforma conteúdos estáticos em templates dinâmicos que se adaptam automaticamente aos dados disponíveis.
+</Info>
+
+## Conceitos-chave
+
+<CardGroup cols={2}>
+<Card title="Variáveis dinâmicas" icon="brackets-curly">
+  Acesse dados com chaves delimitadas por `{{ ... }}`.
+  
+  **Exemplos:**
+  - `{{ nome }}`
+  - `{{ etapa.atual }}`
+  - `{{ project.data_inicio }}`
+</Card>
+
+<Card title="Condicionais (if/else)" icon="code-branch">
+  Mostre conteúdos diferentes baseado em condições lógicas.
+  
+  ```twig
+  {% if cliente.vip %}
+    Bem-vindo, cliente especial!
+  {% else %}
+    Olá! Obrigado por estar conosco.
+  {% endif %}
+  ```
+</Card>
+
+<Card title="Loops (for)" icon="rotate">
+  Itere sobre listas e gere blocos repetitivos.
+  
+  ```twig
+  {% for item in pedidos %}
+    Pedido nº {{ item.numero }}
+  {% endfor %}
+  ```
+</Card>
+
+<Card title="Filtros" icon="filter">
+  Transforme dados com funções especiais.
+  
+  **Exemplos:**
+  - `{{ nome|upper }}`
+  - `{{ data|date("d/m/Y") }}`
+  - `{{ itens|length }}`
+</Card>
+</CardGroup>
+
+## Variáveis dinâmicas
+
+As variáveis permitem inserir dados dinamicamente no conteúdo.
+
+### Sintaxe básica
+
+```twig
+{{ variavel }}
+```
+
+<Tabs>
+<Tab title="Variáveis simples">
+  ```twig
+  Olá, {{ user.name }}!
+  Seu e-mail é {{ user.email }}.
+  ```
+  
+  **Resultado:**
+  ```
+  Olá, João Silva!
+  Seu e-mail é joao@exemplo.com.
+  ```
+</Tab>
+
+<Tab title="Variáveis aninhadas">
+  ```twig
+  Projeto: {{ project.code }} - {{ project.name }}
+  Cliente: {{ project.customer.name }}
+  Status: {{ project.status }}
+  ```
+  
+  **Resultado:**
+  ```
+  Projeto: P-1 - Website Institucional
+  Cliente: Acme Corp
+  Status: 1
+  ```
+</Tab>
+
+<Tab title="Arrays e listas">
+  ```twig
+  {% set lista = ['A', 'B', 'C'] %}
+  Primeiro item: {{ lista[0] }}
+  Último item: {{ lista[-1] }}
+  Total de itens: {{ lista|length }}
+  ```
+  
+  **Resultado (se lista = ['A', 'B', 'C']):**
+  ```
+  Primeiro item: A
+  Último item: C
+  Total de itens: 3
+  ```
+</Tab>
+</Tabs>
+
+### Verificação de existência
+
+Antes de usar uma variável, você pode verificar se ela existe:
+
+```twig
+{% if variavel is defined %}
+  A variável existe: {{ variavel }}
+{% else %}
+  A variável não está disponível
+{% endif %}
+```
+
+<Tip>
+Use `is defined` para evitar erros quando uma variável pode não estar disponível em todos os contextos.
+</Tip>
+
+## Condicionais
+
+Condicionais permitem exibir conteúdo diferente baseado em condições.
+
+### Estrutura if/else
+
+<Tabs>
+<Tab title="If simples">
+  ```twig
+  {% if usuario.idade >= 18 %}
+    Você é maior de idade.
+  {% endif %}
+  ```
+</Tab>
+
+<Tab title="If/Else">
+  ```twig
+  {% if project.impact < 3 %}
+    ⚠️ URGENTE: Este projeto requer atenção imediata!
+  {% else %}
+    📋 Projeto regular
+  {% endif %}
+  ```
+</Tab>
+
+<Tab title="If/Elseif/Else">
+  ```twig
+  {% if project.impact < 3 %}
+    ✅ Projeto de alto impacto
+  {% elseif project.impact < 5 and project.impact > 3 %}
+    🚀 Projeto de médio impacto
+  {% else %}
+    ⚠️ Projeto de baixo
+  {% endif %}
+  ```
+</Tab>
+
+</Tabs>
+
+### Operadores de comparação
+
+<AccordionGroup>
+<Accordion title="Igualdade e diferença" icon="equals">
+  ```twig
+  {% if valor == 10 %}      {# Igual a #}
+  {% if valor != 10 %}      {# Diferente de #}
+  ```
+</Accordion>
+
+<Accordion title="Comparações numéricas" icon="greater-than">
+  ```twig
+  {% if idade > 18 %}       {# Maior que #}
+  {% if idade >= 18 %}      {# Maior ou igual #}
+  {% if idade < 18 %}       {# Menor que #}
+  {% if idade <= 18 %}      {# Menor ou igual #}
+  ```
+</Accordion>
+
+<Accordion title="Operadores lógicos" icon="code-merge">
+  ```twig
+  {% if a and b %}          {# E lógico #}
+  {% if a or b %}           {# OU lógico #}
+  {% if not a %}            {# NÃO lógico #}
+  ```
+</Accordion>
+
+<Accordion title="Testes especiais" icon="vial">
+  ```twig
+  {% if variavel is defined %}     {# Está definida #}
+  {% if variavel is null %}        {# É nula #}
+  {% if variavel is empty %}       {# É vazia #}
+  {% if numero is even %}          {# É par #}
+  {% if numero is odd %}           {# É ímpar #}
+  ```
+</Accordion>
+</AccordionGroup>
+
+## Loops (for)
+
+Loops permitem iterar sobre listas e arrays para gerar conteúdo repetitivo.
+
+### Estrutura básica
+
+```twig
+{% for item in lista %}
+  {{ item }}
+{% endfor %}
+```
+
+<Tabs>
+<Tab title="Lista simples">
+  ```twig
+  Membros da equipe:
+  {% for membro in equipe %}
+  - {{ membro.nome }} ({{ membro.cargo }})
+  {% endfor %}
+  ```
+  
+  **Resultado:**
+  ```
+  Membros da equipe:
+  - João Silva (Desenvolvedor)
+  - Maria Santos (Designer)
+  - Carlos Oliveira (Gerente)
+  ```
+</Tab>
+
+<Tab title="Com índice">
+  ```twig
+  {% for item in lista %}
+    {{ loop.index }}. {{ item }}
+  {% endfor %}
+  ```
+  
+  **Variáveis especiais do loop:**
+  - `loop.index` - Índice atual (começa em 1)
+  - `loop.index0` - Índice atual (começa em 0)
+  - `loop.first` - True na primeira iteração
+  - `loop.last` - True na última iteração
+  - `loop.length` - Total de itens
+</Tab>
+
+<Tab title="Com condicionais">
+  ```twig
+  {% for tarefa in tarefas %}
+    {% if tarefa.status == 'pendente' %}
+      ⏳ {{ tarefa.nome }} - Pendente
+    {% endif %}
+  {% endfor %}
+  ```
+</Tab>
+
+<Tab title="Loop vazio">
+  ```twig
+  {% for item in lista %}
+    - {{ item }}
+  {% else %}
+    Nenhum item encontrado.
+  {% endfor %}
+  ```
+  
+  <Info>
+  O bloco `else` é executado se a lista estiver vazia.
+  </Info>
+</Tab>
+</Tabs>
+
+### Loops com ranges
+
+```twig
+{% for i in 1..5 %}
+  Número {{ i }}
+{% endfor %}
+```
+
+**Resultado:**
+```
+Número 1
+Número 2
+Número 3
+Número 4
+Número 5
+```
+
+<Tip>
+Use ranges para criar sequências numéricas facilmente.
+</Tip>
+
+## Filtros
+
+Filtros transformam dados antes de exibi-los.
+
+### Sintaxe de filtros
+
+```twig
+{{ variavel|filtro }}
+{{ variavel|filtro(parametro) }}
+{{ variavel|filtro1|filtro2 }}
+```
+
+<Tabs>
+<Tab title="Texto">
+  ```twig
+  {{ nome|upper }}              {# JOÃO SILVA #}
+  {{ nome|lower }}              {# joão silva #}
+  {{ nome|capitalize }}         {# João silva #}
+  {{ nome|title }}              {# João Silva #}
+  {{ texto|trim }}              {# Remove espaços #}
+  {{ texto|length }}            {# Conta caracteres #}
+  {{ texto|json }}              {# Converte para JSON #}
+  {{ texto|json(true) }}        {# Converte para JSON com identação #}
+  ```
+</Tab>
+
+<Tab title="Números">
+  ```twig
+  {{ preco|number_format(2, ',', '.') }}
+  {# 1.234,56 #}
+  
+  {{ valor|round }}             {# Arredonda #}
+  {{ valor|round(2) }}          {# 2 decimais #}
+  {{ valor|abs }}               {# Valor absoluto #}
+  ```
+</Tab>
+
+<Tab title="Datas">
+  ```twig
+  {{ data|date("d/m/Y") }}      {# 21/01/2026 #}
+  {{ data|date("d/m/Y H:i") }}  {# 21/01/2026 14:30 #}
+  {{ data|date("F Y") }}        {# Janeiro 2026 #}
+  ```
+</Tab>
+
+<Tab title="Arrays">
+  ```twig
+  {{ lista|length }}            {# Tamanho #}
+  {{ lista|first }}             {# Primeiro item #}
+  {{ lista|last }}              {# Último item #}
+  {{ lista|join(', ') }}        {# Une com vírgula #}
+  {{ lista|reverse }}           {# Inverte ordem #}
+  {{ lista|sort }}              {# Ordena #}
+  {{ lista|unique }}            {# Remove duplicatas #}
+  {{ lista|json }}              {# Converte para JSON #}
+  {{ lista|json(true) }}        {# Converte para JSON com identação #}
+  ```
+</Tab>
+
+<Tab title="Objetos">
+  ```twig
+  {{ objeto|json }}              {# Converte para JSON #}
+  {{ objeto|json(true) }}        {# Converte para JSON com identação #}
+  ```
+</Tab>
+</Tabs>
+
+### Filtros especiais da Olie
+
+<AccordionGroup>
+<Accordion title="mention" icon="at">
+  Cria uma menção de usuário automaticamente.
+  
+  ```twig
+  {{ usuario|mention }}
+  ```
+  
+  [Saiba mais sobre menções →](/guides/automation/mention-users)
+</Accordion>
+
+<Accordion title="default" icon="shield-halved">
+  Define um valor padrão se a variável for vazia.
+  
+  ```twig
+  {{ nome|default('Nome não informado') }}
+  ```
+</Accordion>
+
+<Accordion title="escape" icon="shield">
+  Escapa caracteres especiais para segurança.
+  
+  ```twig
+  {{ texto|escape }}
+  {{ texto|e }}  {# Atalho #}
+  ```
+</Accordion>
+
+<Accordion title="json" icon="code">
+  Converte para JSON. Muito útil para debugar e exibir dados em formato JSON.
+  
+  ```twig
+  {{ lista|json }}              {# Converte para JSON #}
+  {{ lista|json(true) }}        {# Converte para JSON com identação #}
+  ```
+</Accordion>
+</AccordionGroup>
+ 
+## Como funciona o mecanismo
+
+Por trás da sintaxe avançada, a plataforma utiliza um mecanismo baseado no **Twig**, uma das engines de templates mais modernas e seguras do ecossistema web.
+
+<Info>
+O Twig é amplamente adotado por frameworks robustos e foi adaptado aqui para permitir **automação lógica dentro dos conteúdos da plataforma**, de forma controlada e intuitiva.
+</Info>
+ 
+## Documentação oficial do Twig
+
+Para usuários avançados ou desenvolvedores, vale a pena conferir a documentação oficial do Twig para explorar todo o potencial da sintaxe:
+
+<Card title="Documentação do Twig" icon="book" href="https://twig.symfony.com/doc/">
+  Acesse a documentação completa do Twig para aprender sobre recursos avançados, filtros adicionais e melhores práticas.
+</Card>
+ 

@@ -1,0 +1,70 @@
+---
+title: "Mencionar usuários com automação"
+description: "Faça menções automáticas para usuários utilizando variáveis do sistema"
+---
+
+É possível mencionar usuários automaticamente utilizando as variáveis fornecidas pelo sistema.
+
+## Estrutura da menção
+
+Internamente, o sistema reconhece menções no seguinte formato:
+
+```html
+<u@00000000-0000-0000-0000-000000000000:Nome>
+```
+
+Esse formato é composto por:
+
+- **`<u@`**: Prefixo que indica uma menção de usuário
+- **ID do usuário**: Sequência única de identificação (representada acima por zeros)
+- **`:`**: Separador entre o ID e o nome
+- **Nome do usuário**: Texto exibido na menção
+
+Seguindo essa estrutura, é possível criar menções manualmente utilizando a **sintaxe avançada**.
+
+## Uso direto na sintaxe
+
+Além da montagem manual, a menção pode ser gerada de forma simplificada quando houver acesso a um objeto que contenha o ID de um usuário ou lista de usuários onde os IDs estão presentes. Para isso, utiliza-se o filtro `mention`:
+
+```twig
+{{ user|mention }}
+```
+
+Esse filtro gera automaticamente o formato correto de menção, dispensando a necessidade de construir a tag manualmente.
+
+
+
+<Warning>
+Sempre verifique se a variável do usuário existe antes de usar o filtro `mention` para evitar erros.
+</Warning>
+
+<Tabs>
+<Tab title="Construção manual">
+```twig
+<u@{{ user.id }}:{{ user.name }}>
+```
+
+**Exemplo:**
+```twig
+Olá <u@{{ user.id }}:{{ user.name }}>, você foi designado para esta tarefa.
+```
+</Tab>
+
+<Tab title="Usando o filtro mention">
+```twig
+{{ user|mention }}
+```
+
+**Exemplo:**
+```twig
+Olá {{ user|mention }}, você tem uma nova tarefa.
+```
+
+<Tip>
+O filtro `mention` é recomendado por ser mais simples e evitar erros de formatação.
+</Tip>
+</Tab>
+</Tabs>
+ 
+
+[Aprenda mais sobre sintaxe avançada →](/guides/advanced/advanced-syntax)

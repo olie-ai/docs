@@ -1,0 +1,582 @@
+---
+title: "Hierarquia de projetos automatizada"
+description: "Crie estruturas complexas de projetos automaticamente usando automações"
+---
+
+## Visão geral
+
+A funcionalidade de **Criar Hierarquia de Projetos** permite que você crie automaticamente uma estrutura organizacional de projetos filhos vinculados a um projeto pai. Esta ferramenta é ideal para automatizar a criação de estruturas complexas de projetos baseadas em templates ou configurações dinâmicas.
+
+<Info>
+O projeto pai sempre será o projeto que acionou o gatilho da automação.
+</Info>
+
+## Quando usar
+
+<CardGroup cols={2}>
+<Card title="Estruturas padronizadas" icon="sitemap">
+  Quando você precisa criar múltiplos projetos com a mesma estrutura ou estrutura dinâmica.
+</Card>
+
+<Card title="Automação de processos" icon="robot">
+  Para automatizar a criação de hierarquias baseadas em templates ou regras de negócio.
+</Card>
+
+<Card title="Organização consistente" icon="folder-tree">
+  Para manter uma estrutura clara e organizada de projetos relacionados sempre que um novo projeto for criado.
+</Card>
+
+<Card title="Escalabilidade" icon="up-right-and-down-left-from-center">
+  Para replicar estruturas complexas rapidamente sem trabalho manual repetitivo.
+</Card>
+</CardGroup>
+
+## Configuração básica
+
+### 1. Escolha o tipo de ação
+
+<Tabs>
+<Tab title="Criar projetos">
+  **Cria novos projetos** baseados em um template ou do zero.
+  
+  - Usa um projeto template como base (opcional)
+  - Cria projetos filho com configurações do template
+  - Ideal para estruturas padronizadas
+  
+  <Check>
+  Use esta opção quando quiser criar uma estrutura nova de projetos.
+  </Check>
+</Tab>
+
+<Tab title="Vincular projetos existentes">
+  **Vincula projetos existentes** à hierarquia.
+  
+  - Conecta projetos já criados ao projeto pai
+  - Não cria novos projetos
+  - Ideal para reorganização
+  
+  <Info>
+  Use esta opção quando os projetos já existem e você quer apenas organizá-los.
+  </Info>
+</Tab>
+</Tabs>
+
+### 2. Projeto template (opcional)
+
+Selecione um projeto template que será usado como base para criar os projetos filhos. Este template será clonado para cada novo projeto criado.
+
+<AccordionGroup>
+<Accordion title="Com template" icon="copy">
+  **Vantagens:**
+  - Herda todas as configurações do template
+  - Mantém etapas, campos customizados e automações
+  - Consistência garantida em todos os projetos
+  
+  **Exemplo:**
+  Se o template tem campos customizados e automações específicas, todos os projetos filhos terão essas mesmas configurações.
+</Accordion>
+
+<Accordion title="Sem template" icon="file-circle-plus">
+  **Vantagens:**
+  - Projetos mais simples e limpos
+  - Menor tempo de criação
+  - Ideal para estruturas básicas
+  
+  **Exemplo:**
+  Projetos são criados com configurações básicas padrão do sistema.
+</Accordion>
+</AccordionGroup>
+
+<Tip>
+Se não selecionar um template, os projetos serão criados do zero com configurações básicas.
+</Tip>
+
+### 3. Etapa de destino (opcional)
+
+Selecione a etapa do funil onde os projetos serão vinculados. Apenas projetos marcados com `>` serão vinculados a esta etapa.
+
+<Warning>
+A etapa de destino só funciona para projetos que você marcar explicitamente na estrutura usando o prefixo `>`.
+</Warning>
+
+## Definindo a estrutura
+
+### Sintaxe básica
+
+A estrutura é definida usando quebras de linha e símbolos para indicar níveis hierárquicos:
+
+```
+Filho 1
+Filho 2
+-Neto 1
+-Neto 2
+--Bisneto
+Outro Filho
+```
+
+<Info>
+**Projeto Pai** é sempre o projeto que está envolvido no gatilho que acionou a automação. Não é necessário incluí-lo na estrutura.
+</Info>
+
+### Símbolos especiais no prefixo
+
+<AccordionGroup>
+<Accordion title="Nenhum prefixo" icon="minus">
+  Indica um projeto filho direto (nível 1).
+  
+  ```
+  Filho 1
+  Filho 2
+  ```
+</Accordion>
+
+<Accordion title="Um hífen (-)" icon="grip-lines">
+  Indica um projeto neto (nível 2).
+  
+  ```
+  -Neto 1
+  -Neto 2
+  ```
+</Accordion>
+
+<Accordion title="Dois hífens (--)" icon="grip-lines-vertical">
+  Indica um projeto bisneto (nível 3).
+  
+  ```
+  --Bisneto 1
+  --Bisneto 2
+  ```
+</Accordion>
+
+<Accordion title="Sinal de maior (>)" icon="greater-than">
+  Marca o projeto para ser vinculado à etapa do funil especificada.
+  
+  ```
+  >Projeto Prioritário
+  ```
+  
+  <Tip>
+  Você pode combinar com os níveis: `>Filho`, `->Neto`, `-->Bisneto`
+  </Tip>
+</Accordion>
+</AccordionGroup>
+
+## Exemplos práticos
+
+### Exemplo 1: Estrutura simples
+
+Criação de subprojetos básicos sem hierarquia profunda:
+
+```
+Projeto A
+Projeto B
+Projeto C
+```
+
+**Resultado:**
+```
+[Projeto Pai do Gatilho]
+├── Projeto A
+├── Projeto B
+└── Projeto C
+```
+
+### Exemplo 2: Hierarquia de 2 níveis
+
+Estrutura com filhos e netos:
+
+```
+Subprojeto 1
+Subprojeto 2
+-Tarefa 1
+-Tarefa 2
+```
+
+**Resultado:**
+```
+[Projeto Pai]
+├── Subprojeto 1
+└── Subprojeto 2
+    ├── Tarefa 1
+    └── Tarefa 2
+```
+
+### Exemplo 3: Estrutura complexa
+
+Organização completa com múltiplos níveis:
+
+```
+Frontend
+-Componentes
+-Páginas
+Backend
+-API
+-Banco de Dados
+Testes
+-Qualidade
+```
+
+**Resultado:**
+```
+[Projeto Pai]
+├── Frontend
+│   ├── Componentes
+│   └── Páginas
+├── Backend
+│   ├── API
+│   └── Banco de Dados
+└── Testes
+    └── Qualidade
+```
+
+### Exemplo 4: Com vinculação ao funil
+
+Marcando projetos prioritários para uma etapa específica:
+
+```
+>Projeto Prioritário
+Projeto Normal
+>Outro Prioritário
+-Subprojeto
+```
+
+**Resultado:**
+- "Projeto Prioritário" e "Outro Prioritário" serão vinculados à etapa escolhida
+- "Projeto Normal" e "Subprojeto" não serão vinculados a nenhuma etapa
+
+<Check>
+Os projetos marcados com `>` ficam destacados na etapa do funil para fácil identificação.
+</Check>
+
+## Usando sintaxe avançada
+
+O campo de estrutura suporta o uso de **sintaxe avançada** para criar estruturas dinâmicas baseadas em variáveis e lógica condicional.
+
+<Tabs>
+<Tab title="Loops básicos">
+  Criar múltiplos projetos similares:
+  
+  ```twig
+  {% for i in 1..3 %}
+  {{ project.name }} - Sprint {{ i }}
+  -{{ project.code }} Planning
+  -{{ project.code }} Development
+  -{{ project.code }} Testing
+  -{{ project.code }} Review
+  {% endfor %}
+  ```
+  
+  **Resultado:**
+  ```
+  [Projeto Pai]
+  ├── Projeto Pai - Sprint 1
+  │   ├── P1 Planning
+  │   ├── P1 Development
+  │   ├── P1 Testing
+  │   └── P1 Review
+  ├── Projeto Pai - Sprint 2
+  │   ├── P1 Planning
+  │   ├── P1 Development
+  │   ├── P1 Testing
+  │   └── P1 Review
+  └── Projeto Pai - Sprint 3
+      ├── P1 Planning
+      ├── P1 Development
+      ├── P1 Testing
+      └── P1 Review
+  ```
+</Tab>
+
+<Tab title="Condicionais">
+  Criar projetos baseado em condições:
+  
+  ```twig
+  Planejamento
+  Desenvolvimento
+  {% if project.type == 'premium' %}
+  Consultoria Especializada
+  -Análise Avançada
+  -Suporte Dedicado
+  {% endif %}
+  Testes
+  Deploy
+  ```
+  
+  **Resultado para projeto premium:**
+  Inclui os projetos de consultoria
+  
+  **Resultado para projeto normal:**
+  Não inclui os projetos de consultoria
+</Tab>
+
+<Tab title="Loops com dados">
+  Criar projetos baseado em listas:
+  
+  ```twig
+  {% for module in project.modules %}
+  Módulo {{ module.name }}
+  -Desenvolvimento {{ module.name }}
+  -Testes {{ module.name }}
+  {% endfor %}
+  ```
+  
+  Se `project.modules` contém `[{name: 'CRM'}, {name: 'Financeiro'}]`:
+  
+  ```
+  [Projeto Pai]
+  ├── Módulo CRM
+  │   ├── Desenvolvimento CRM
+  │   └── Testes CRM
+  └── Módulo Financeiro
+      ├── Desenvolvimento Financeiro
+      └── Testes Financeiro
+  ```
+</Tab>
+
+<Tab title="Variáveis do projeto">
+  Usar dados do projeto pai:
+  
+  ```twig
+  {{ project.client }} - Fase 1
+  -Análise de {{ project.client }}
+  -Proposta para {{ project.client }}
+  
+  {{ project.client }} - Fase 2
+  -Implementação
+  -Treinamento
+  ```
+  
+  Se `project.client` é "Acme Corp":
+  
+  ```
+  [Projeto Pai]
+  ├── Acme Corp - Fase 1
+  │   ├── Análise de Acme Corp
+  │   └── Proposta para Acme Corp
+  └── Acme Corp - Fase 2
+      ├── Implementação
+      └── Treinamento
+  ```
+</Tab>
+</Tabs>
+
+[Aprenda mais sobre sintaxe avançada →](/guides/advanced/advanced-syntax)
+
+## Exemplos completos
+
+### Exemplo 1: Desenvolvimento de software
+
+```
+>Análise de Requisitos
+-Entrevistas com Stakeholders
+-Documentação de Requisitos
+
+>Design e Arquitetura
+-Design de Interface
+-Arquitetura do Sistema
+
+>Desenvolvimento
+-Frontend
+--Componentes React
+--Páginas
+-Backend
+--API REST
+--Banco de Dados
+
+>Testes
+-Testes Unitários
+-Testes de Integração
+-Testes de Aceitação
+
+>Deploy
+-Configuração de Ambiente
+-Deploy em Produção
+```
+
+<Frame>
+  <div style={{padding: '20px', background: '#f8f9fa', borderRadius: '8px'}}>
+    <h4>Estrutura resultante:</h4>
+    <p>7 projetos filhos diretos (todos marcados para etapa)</p>
+    <p>13 projetos netos</p>
+    <p>2 projetos bisnetos</p>
+    <p><strong>Total: 22 projetos criados automaticamente</strong></p>
+  </div>
+</Frame>
+
+### Exemplo 2: Campanha de marketing
+
+```
+>Pesquisa de Mercado
+-Análise da Concorrência
+-Pesquisa com Clientes
+
+>Estratégia
+-Definição de Público-Alvo
+-Desenvolvimento de Mensagem
+
+>Execução
+-Desenvolvimento de Conteúdo
+-Criação de Materiais
+
+>Divulgação
+-Redes Sociais
+-Email Marketing
+
+>Análise
+-Métricas de Performance
+-Relatórios de Resultados
+```
+
+### Exemplo 3: Com sintaxe avançada (Sprints)
+
+```twig
+{% for i in 1..project.sprint_count %}
+>Sprint {{ i }}
+-Planning Sprint {{ i }}
+-Development Sprint {{ i }}
+--Frontend Tasks
+--Backend Tasks
+-Testing Sprint {{ i }}
+-Review Sprint {{ i }}
+{% endfor %}
+
+>Encerramento
+-Documentação Final
+-Entrega ao Cliente
+```
+
+**Se `project.sprint_count` for 3, cria:**
+- 3 Sprints completas (12 projetos)
+- 1 projeto de Encerramento (3 projetos)
+- Total: 15 projetos
+
+## Limitações e regras
+
+<AccordionGroup>
+<Accordion title="Limite de profundidade" icon="layer-group">
+  **Máximo de 3 níveis de hierarquia**
+  
+  - Nível 1: Filhos diretos (sem prefixo)
+  - Nível 2: Netos (um `-`)
+  - Nível 3: Bisnetos (dois `--`)
+  
+  <Warning>
+  Tentar criar mais de 3 níveis resultará em erro de validação.
+  </Warning>
+</Accordion>
+
+<Accordion title="Validações de estrutura" icon="shield-check">
+  - Estrutura não pode estar vazia
+  - Nomes de projetos não podem estar vazios
+  - Sintaxe avançada deve ser válida
+  - Hierarquia deve respeitar o limite de níveis
+</Accordion>
+
+<Accordion title="Comportamentos especiais" icon="sparkles">
+  - Projetos marcados com `>` são automaticamente vinculados à etapa do funil
+  - Projetos criados a partir de templates herdam todas as configurações
+  - Projetos criados do zero recebem configurações básicas
+  - A ordem dos projetos na estrutura é mantida
+</Accordion>
+</AccordionGroup>
+
+## Solução de problemas
+
+<AccordionGroup>
+<Accordion title="Erro ao salvar automação">
+  **Causas comuns:**
+  - Sintaxe avançada inválida
+  - Nome de projeto vazio
+  - Mais de 3 níveis de profundidade
+  - Estrutura vazia
+  
+  **Solução:**
+  Verifique a estrutura linha por linha e corrija os erros identificados.
+</Accordion>
+
+<Accordion title="Projetos não aparecem na etapa">
+  **Causa:**
+  Projetos não foram marcados com `>`.
+  
+  **Solução:**
+  Adicione o prefixo `>` aos projetos que devem ser vinculados à etapa.
+  
+  ```
+  >Projeto que vai para etapa
+  Projeto que não vai para etapa
+  ```
+</Accordion>
+
+<Accordion title="Hierarquia incorreta">
+  **Causa:**
+  Uso incorreto dos prefixos `-`.
+  
+  **Solução:**
+  Verifique que:
+  - Filhos não têm prefixo
+  - Netos têm um `-`
+  - Bisnetos têm dois `--`
+  
+  ```
+  Correto:
+  Filho
+  -Neto
+  --Bisneto
+  
+  Incorreto:
+  -Filho
+  Neto
+  ---Bisneto
+  ```
+</Accordion>
+
+<Accordion title="Template não funciona">
+  **Causa:**
+  Template não foi selecionado corretamente.
+  
+  **Solução:**
+  Certifique-se de que o template está selecionado no campo apropriado antes de salvar.
+</Accordion>
+</AccordionGroup>
+
+## Boas práticas
+
+<CardGroup cols={2}>
+<Card title="Comece simples" icon="seedling">
+  Comece com estruturas simples e evolua conforme sua necessidade. Teste bem antes de criar estruturas complexas.
+</Card>
+
+<Card title="Use templates" icon="clone">
+  Configure templates bem estruturados para garantir consistência em todos os projetos criados.
+</Card>
+
+<Card title="Teste a estrutura" icon="flask">
+  Teste a automação com um projeto de teste antes de ativar em produção para verificar se a estrutura está correta.
+</Card>
+
+<Card title="Documente a lógica" icon="file-lines">
+  Adicione comentários na sintaxe avançada explicando a lógica, especialmente em estruturas complexas.
+</Card>
+
+<Card title="Nomes descritivos" icon="tag">
+  Use nomes claros e descritivos para os projetos para facilitar navegação na hierarquia.
+</Card>
+
+<Card title="Revise periodicamente" icon="rotate">
+  Revise as automações de hierarquia periodicamente para garantir que ainda atendem às necessidades do negócio.
+</Card>
+</CardGroup>
+
+## Conclusão
+
+A criação automatizada de hierarquia de projetos é uma funcionalidade poderosa que economiza tempo e garante consistência na organização de projetos complexos.
+
+<Check>
+Com esta funcionalidade, você pode transformar horas de trabalho manual em uma automação que executa em segundos, criando estruturas complexas de forma confiável e repetível.
+</Check>
+
+<Tip>
+Lembre-se: Esta funcionalidade é poderosa para automatizar a criação de estruturas complexas. Comece com estruturas simples e evolua conforme sua necessidade e confiança no sistema!
+</Tip>
+
+[Voltar para Hierarquia de Projetos →](/guides/projects/project-hierarchy)

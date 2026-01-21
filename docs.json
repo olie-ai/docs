@@ -42,6 +42,46 @@
                 "pages": [
                   "index"
                 ]
+              },
+              {
+                "group": "Conceitos fundamentais",
+                "pages": [
+                  "guides/fundamentals/mentions"
+                ]
+              },
+              {
+                "group": "Gestão de usuários",
+                "pages": [
+                  "guides/users/user-management",
+                  "guides/users/roles-permissions",
+                  "guides/users/role-types"
+                ]
+              },
+              {
+                "group": "Gestão de projetos",
+                "pages": [
+                  "guides/projects/project-hierarchy"
+                ]
+              },
+              {
+                "group": "Automação",
+                "pages": [
+                  "guides/automation/mention-users",
+                  "guides/automation/relative-time",
+                  "guides/automation/automated-hierarchy"
+                ]
+              },
+              {
+                "group": "Inteligência Artificial",
+                "pages": [
+                  "guides/ai/pricing"
+                ]
+              },
+              {
+                "group": "Avançado",
+                "pages": [
+                  "guides/advanced/advanced-syntax"
+                ]
               }
             ]
           },
