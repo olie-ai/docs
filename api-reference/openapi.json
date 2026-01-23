@@ -5880,12 +5880,6 @@
                 },
                 "example": "Thu, 15 Jan 2026 20:33:09 GMT"
               },
-              "Host": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "api.olie.localhost"
-              },
               "X-Ratelimit-Limit": {
                 "schema": {
                   "type": "integer"
@@ -6517,12 +6511,6 @@
                   "type": "string"
                 },
                 "example": "Thu, 15 Jan 2026 20:29:44 GMT"
-              },
-              "Host": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "api.olie.localhost"
               },
               "X-Ratelimit-Limit": {
                 "schema": {
@@ -7376,11 +7364,6 @@
                 "deprecated": false,
                 "schema": {},
                 "example": "Thu, 15 Jan 2026 21:45:19 GMT"
-              },
-              "Host": {
-                "deprecated": false,
-                "schema": {},
-                "example": "api.olie.localhost"
               },
               "X-Ratelimit-Limit": {
                 "deprecated": false,
