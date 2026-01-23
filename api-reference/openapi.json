@@ -9537,12 +9537,6 @@
                 },
                 "example": "Thu, 15 Jan 2026 20:08:38 GMT"
               },
-              "Host": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "api.olie.localhost"
-              },
               "X-Ratelimit-Limit": {
                 "schema": {
                   "type": "integer"
@@ -9629,12 +9623,6 @@
                   "type": "string"
                 },
                 "example": "Thu, 15 Jan 2026 19:50:33 GMT"
-              },
-              "Host": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "api.olie.localhost"
               },
               "X-Ratelimit-Limit": {
                 "schema": {
@@ -10323,12 +10311,6 @@
                   "type": "string"
                 },
                 "example": "Thu, 15 Jan 2026 19:54:06 GMT"
-              },
-              "Host": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "api.olie.localhost"
               },
               "X-Ratelimit-Limit": {
                 "schema": {
@@ -12140,12 +12122,6 @@
                 },
                 "example": "Thu, 15 Jan 2026 19:57:11 GMT"
               },
-              "Host": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "api.olie.localhost"
-              },
               "X-Ratelimit-Limit": {
                 "schema": {
                   "type": "integer"
@@ -12216,12 +12192,6 @@
                   "type": "string"
                 },
                 "example": "Thu, 15 Jan 2026 19:58:55 GMT"
-              },
-              "Host": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "api.olie.localhost"
               },
               "X-Ratelimit-Limit": {
                 "schema": {
@@ -12340,12 +12310,6 @@
                   "type": "string"
                 },
                 "example": "Thu, 15 Jan 2026 19:56:39 GMT"
-              },
-              "Host": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "api.olie.localhost"
               },
               "X-Ratelimit-Limit": {
                 "schema": {
@@ -13457,11 +13421,6 @@
                 "deprecated": false,
                 "schema": {},
                 "example": "Mon, 19 Jan 2026 12:10:54 GMT"
-              },
-              "Host": {
-                "deprecated": false,
-                "schema": {},
-                "example": "api.olie.localhost"
               },
               "X-Ratelimit-Limit": {
                 "deprecated": false,
