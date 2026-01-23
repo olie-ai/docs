@@ -2049,12 +2049,6 @@
                 },
                 "example": "Thu, 15 Jan 2026 19:01:51 GMT"
               },
-              "Host": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "api.olie.localhost"
-              },
               "X-Ratelimit-Limit": {
                 "schema": {
                   "type": "integer"
@@ -2341,12 +2335,6 @@
                   "type": "string"
                 },
                 "example": "Thu, 15 Jan 2026 18:21:37 GMT"
-              },
-              "Host": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "api.olie.localhost"
               },
               "X-Ratelimit-Limit": {
                 "schema": {
