@@ -420,7 +420,7 @@
           "{id}",
           "share"
         ],
-        "summary": "Compartilhar projeto",
+        "summary": "Compartilhar um projeto",
         "description": "Configura ou atualiza as opções de compartilhamento de um projeto, incluindo geração de token de compartilhamento e configurações de acesso.",
         "operationId": "compartilharProjeto",
         "responses": {
