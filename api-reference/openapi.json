@@ -799,8 +799,8 @@
           "{id}",
           "loose-forms"
         ],
-        "summary": "Vincula um formulário avulso a um projeto",
-        "description": "Vincula um formulário avulso a um projeto",
+        "summary": "Vincular um formulário avulso a um projeto",
+        "description": "Vincular um formulário avulso a um projeto",
         "operationId": "vinculaUmFormulRioAvulsoAUmProjeto",
         "responses": {
           "200": {
@@ -827,8 +827,8 @@
           "{id}",
           "loose-forms"
         ],
-        "summary": "Desvincula um formulário avulso de um projeto",
-        "description": "Desvincula um formulário avulso de um projeto",
+        "summary": "Desvincular um formulário avulso de um projeto",
+        "description": "Desvincular um formulário avulso de um projeto",
         "operationId": "desvinculaUmFormulRioAvulsoDeUmProjeto",
         "responses": {
           "200": {
