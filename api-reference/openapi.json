@@ -478,7 +478,7 @@
           "hierarchy",
           "tree"
         ],
-        "summary": "Listar a árvore completa de hierarquia de um projeto",
+        "summary": "Listar a árvore completa da hierarquia de um projeto",
         "description": "Retorna a árvore completa de hierarquia de um projeto, incluindo todos os descendentes, estatísticas da hierarquia e breadcrumb do projeto atual.",
         "operationId": "listarARvoreCompletaDeHierarquiaDeUmProjeto",
         "responses": {
@@ -13311,7 +13311,7 @@
         "tags": [
           "project-groups"
         ],
-        "summary": "Criar grupo de projetos",
+        "summary": "Criar um grupo de projetos",
         "description": "Criar grupo de projetos",
         "operationId": "criarGrupoDeProjetos",
         "responses": {
