@@ -565,7 +565,7 @@
           "hierarchy",
           "attach-child"
         ],
-        "summary": "Vincular projeto como filho de outro projeto",
+        "summary": "Vincular um projeto como filho de outro projeto",
         "description": "Vincula um projeto como filho de outro projeto, criando uma relação de hierarquia pai-filho.",
         "operationId": "vincularProjetoComoFilhoDeOutroProjeto",
         "responses": {
@@ -3298,7 +3298,7 @@
     },
     "/api/management/projects/search": {
       "post": {
-        "summary": "Busca avançada",
+        "summary": "Busca avançada de projetos",
         "parameters": [
           {
             "name": "withPercentage",
@@ -12922,7 +12922,7 @@
           "squads",
           "users"
         ],
-        "summary": "Remover usuário específico de um squad",
+        "summary": "Remover um usuário específico de um squad",
         "description": "Remove um usuário específico de um squad, desvinculando-o completamente.",
         "operationId": "removerUsuRioEspecFicoDeUmSquad",
         "responses": {
