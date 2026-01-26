@@ -2665,7 +2665,7 @@
         "description": "Esta rota é normalmente utilizada para campos de autocomplete, e buscas mais simples, pois é uma rota que entrega menos informações que uma busca avançada. Se você estiver buscando encontrar projetos baseado em um conjunto de filtros avançados e específicos, considere usar a busca avançada.\n\nPossui paginação e aceita alguns filtros via query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)"
       },
       "post": {
-        "summary": "Criar projeto",
+        "summary": "Criar um projeto",
         "responses": {
           "200": {
             "description": "Sucesso",
