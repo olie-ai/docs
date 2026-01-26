@@ -3303,10 +3303,10 @@
           {
             "name": "withPercentage",
             "in": "query",
+            "required": false,
             "description": "Quando `true`, retorna projetos com campos adicionais calculados: percentual de conclusão (`completed_percentage`), contagem de tarefas (`tasks_count`), contagem de tarefas concluídas (`completed_count`), data de término prevista (`expected_finish`) baseada nas predições mais recentes, e informações de matriz (`headquarter`) e filial (`branch`) do cliente.",
-            "schema": {
-              "type": "boolean"
-            },
+            "deprecated": false,
+            "schema": {},
             "example": "true"
           }
         ],
@@ -4350,7 +4350,7 @@
                         "customers": [
                           {
                             "id": "019aeaa3-af8b-71d8-bb89-e65353073ee3",
-                            "name": "Ester Leal Pedrosa Filho",
+                            "name": "Nome do cliente",
                             "pivot": {
                               "contact_id": 12545,
                               "customer_id": "019aeaa3-af8b-71d8-bb89-e65353073ee3"
@@ -5642,15 +5642,15 @@
                 "properties": {
                   "filters": {
                     "type": "array",
-                    "description": "Array de objetos, sendo cada objeto um fitro personalizado",
+                    "description": "Array de objetos, sendo cada objeto um filtro personalizado",
                     "items": {
-                      "type": "object",
                       "description": "Filtro personalizado",
+                      "type": "object",
                       "properties": {
                         "field": {
-                          "description": "Atributo relacionado ao filtro",
                           "type": "string",
-                          "example": "name"
+                          "example": "name",
+                          "description": "Atributo relacionado ao filtro"
                         },
                         "operator": {
                           "type": "string",
