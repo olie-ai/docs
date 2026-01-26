@@ -323,11 +323,240 @@
           "required": true,
           "description": "ID do projeto",
           "schema": {
-            "type": "string"
-          },
-          "example": "<string>"
+            "type": "string",
+            "format": "uuid"
+          }
         }
-      ]
+      ],
+      "post": {
+        "summary": "Listar conteúdos do projeto",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número da página a ser retornada. Começa em 1",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "1"
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "Quantidade de itens exibidos por página. Define o tamanho da página de resultados",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "30"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": true,
+            "description": "Filtro aplicado ao resultado. Valores possíveis: logs, content, default.",
+            "deprecated": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "default"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de conteúdos do projeto retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Esquema de um conteúdo",
+                  "title": "Resposta de conteúdo",
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "meta": {
+                      "type": "object",
+                      "title": "Informações de Paginação",
+                      "description": "Metadados de paginação",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "from": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "last_page": {
+                          "type": "integer",
+                          "example": 19
+                        },
+                        "per_page": {
+                          "type": "integer",
+                          "example": 30
+                        },
+                        "to": {
+                          "type": "integer",
+                          "example": 30
+                        },
+                        "total": {
+                          "type": "integer",
+                          "example": 546
+                        }
+                      }
+                    },
+                    "medias": {
+                      "type": "array",
+                      "items": {
+                        "title": "Media",
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "technical_name": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "integer"
+                          },
+                          "extension": {
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string"
+                          },
+                          "file_url": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "log": {
+                            "type": "string"
+                          },
+                          "user_id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "frame_id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "project_id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "deleted_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "user": {
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": "<boolean>",
+                  "meta": {
+                    "current_page": "<integer>",
+                    "from": "<integer>",
+                    "last_page": "<integer>",
+                    "per_page": "<integer>",
+                    "to": "<integer>",
+                    "total": "<integer>"
+                  },
+                  "medias": [
+                    {
+                      "id": "<uuid>",
+                      "name": "<string>",
+                      "technical_name": "<string>",
+                      "type": "<integer>",
+                      "extension": "<string>",
+                      "text": "<string>",
+                      "file_url": "<uri>",
+                      "log": "<string>",
+                      "user_id": "<uuid>",
+                      "frame_id": "<uuid>",
+                      "project_id": "<uuid>",
+                      "created_at": "<dateTime>",
+                      "updated_at": "<dateTime>",
+                      "deleted_at": "<dateTime>",
+                      "user": {}
+                    },
+                    {
+                      "id": "<uuid>",
+                      "name": "<string>",
+                      "technical_name": "<string>",
+                      "type": "<integer>",
+                      "extension": "<string>",
+                      "text": "<string>",
+                      "file_url": "<uri>",
+                      "log": "<string>",
+                      "user_id": "<uuid>",
+                      "frame_id": "<uuid>",
+                      "project_id": "<uuid>",
+                      "created_at": "<dateTime>",
+                      "updated_at": "<dateTime>",
+                      "deleted_at": "<dateTime>",
+                      "user": {}
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "unauthorized"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthenticated."
+                    }
+                  }
+                },
+                "example": {
+                  "response": "<boolean>",
+                  "message": "<string>",
+                  "error": "<string>"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "projects",
+          "{id}",
+          "medias"
+        ],
+        "description": "Retorna uma lista de conteúdos do projeto com base nos filtros fornecidos."
+      }
     },
     "/api/management/projects/{project}/step-metrics": {
       "get": {
