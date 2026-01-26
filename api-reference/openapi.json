@@ -10532,7 +10532,7 @@
           "pivot-accessor",
           "reply"
         ],
-        "summary": "Responder formulário um dinâmico através de uma URL assinada",
+        "summary": "Responder um formulário dinâmico através de uma URL assinada",
         "description": "Permite responder um formulário dinâmico através de uma URL assinada de pivot accessor. Valida expiração e uso único antes de processar a resposta.",
         "operationId": "responderFormulRioDinMicoAtravSDeUmaUrlAssinada",
         "responses": {
@@ -10566,7 +10566,7 @@
           "pivot-accessor",
           "url-generate"
         ],
-        "summary": "Gerar URL assinada para acesso temporário a um formulário dinâmico",
+        "summary": "Gerar uma URL assinada para acesso temporário a um formulário dinâmico",
         "description": "Gera URLs assinadas para acesso temporário a formulários dinâmicos através de um pivot accessor, permitindo controle de expiração e acesso único.",
         "operationId": "gerarUrlAssinadaParaAcessoTemporRioAUmFormulRioDinMico",
         "responses": {
@@ -10582,7 +10582,7 @@
           "dynamic-forms",
           "dynamic-forms-answers-file"
         ],
-        "summary": "Enviar arquivo de resposta de formulário dinâmico",
+        "summary": "Enviar um arquivo de resposta de formulário dinâmico",
         "description": "Enviar arquivo como resposta em um formulário dinâmico.",
         "operationId": "enviarArquivoDeRespostaDeFormulRioDinMico",
         "responses": {
@@ -12393,7 +12393,7 @@
           "goals",
           "results"
         ],
-        "summary": "Deletar resultado específico de uma meta",
+        "summary": "Deletar um resultado específico de uma meta",
         "description": "Deletar resultado específico de uma meta",
         "operationId": "deletarResultadoEspecFicoDeUmaMeta",
         "responses": {
@@ -12970,7 +12970,7 @@
         "tags": [
           "squads"
         ],
-        "summary": "Criar squad",
+        "summary": "Criar um squad",
         "description": "Criar squad",
         "operationId": "criarSquad",
         "requestBody": {
