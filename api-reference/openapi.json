@@ -9507,7 +9507,7 @@
           "customers"
         ],
         "summary": "Arquivar cliente",
-        "description": "Arquivar cliente expecífico",
+        "description": "Arquivar cliente específico",
         "operationId": "arquivarCliente",
         "responses": {
           "200": {
