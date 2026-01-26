@@ -5849,7 +5849,7 @@
           "project-funnels",
           "get-project-funnels"
         ],
-        "summary": "Obter funil de projeto",
+        "summary": "Obter um funil de projeto",
         "description": "Retorna os dados completos de um funil de projeto específico, incluindo todas as suas etapas, configurações de visualização, restrições de fluxo e recursos disponíveis.\n\n**Objetos retornados:**\n\n- **project_funnel**: Dados do funil incluindo:\n    \n    - **steps**: Etapas sequenciais do funil com suas restrições de movimentação, assistentes de IA, checklists e formulário\n        \n    - **restrictions**: Regras que controlam a movimentação de itens entre etapas (incoming/outgoing)\n        \n    - **assistants**: Assistentes de IA configurados para executar ações automatizadas em etapas específicas\n        \n    - **business_area**: Área de negócio à qual o funil pertence\n        \n    - **tags**: Etiquetas disponíveis para categorizar itens no funil\n        \n    - **funnel_status**: Status disponíveis para itens (ex: Urgente) com seus bloqueios de etapa\n        \n    - **form**: Formulário principal associado ao funil",
         "operationId": "obterFunilDeProjeto",
         "responses": {
@@ -12441,7 +12441,7 @@
         "tags": [
           "goals"
         ],
-        "summary": "Criar meta",
+        "summary": "Criar uma meta",
         "description": "Cria uma nova meta. Permite associar metas filhas (children) para metas compostas. Após a criação, executa o cálculo persistente do progresso.",
         "operationId": "criarMeta",
         "requestBody": {
