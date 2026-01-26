@@ -7274,7 +7274,7 @@
           "funnel-steps",
           "unlink-project-from-funnel-step"
         ],
-        "summary": "Desvincular projeto da etapa do funil",
+        "summary": "Desvincular um projeto da etapa do funil",
         "description": "Desvincular um projeto de uma etapa específica do funil.",
         "operationId": "desvincularProjetoDaEtapaDoFunil",
         "responses": {
@@ -12252,7 +12252,7 @@
         "tags": [
           "business-areas"
         ],
-        "summary": "Criar área de negócio",
+        "summary": "Criar uma área de negócio",
         "description": "Criar uma nova área de negócio.",
         "operationId": "criarReaDeNegCio",
         "responses": {
@@ -12267,7 +12267,7 @@
         "tags": [
           "business-areas"
         ],
-        "summary": "Atualizar área de negócio",
+        "summary": "Atualizar uma área de negócio",
         "description": "Atualizar dados de uma área de negócio específica.",
         "operationId": "atualizarReaDeNegCio",
         "responses": {
@@ -12280,7 +12280,7 @@
         "tags": [
           "business-areas"
         ],
-        "summary": "Arquivar área de negócio",
+        "summary": "Arquivar uma área de negócio",
         "description": "Arquivar uma área de negócio específica do sistema.",
         "operationId": "arquivarReaDeNegCio",
         "responses": {
@@ -13352,7 +13352,7 @@
         "tags": [
           "project-groups"
         ],
-        "summary": "Deletar grupo de projetos",
+        "summary": "Deletar um grupo de projetos",
         "description": "Deletar grupo de projetos",
         "operationId": "deletarGrupoDeProjetos",
         "responses": {
@@ -14500,7 +14500,7 @@
         "tags": [
           "tags"
         ],
-        "summary": "Criar etiqueta",
+        "summary": "Criar uma etiqueta",
         "description": "Criar uma nova etiqueta no sistema.",
         "operationId": "criarEtiqueta",
         "requestBody": {
@@ -14544,7 +14544,7 @@
         "tags": [
           "tags"
         ],
-        "summary": "Atualizar etiqueta",
+        "summary": "Atualizar uma etiqueta",
         "description": "Atualizar dados de uma etiqueta específica.",
         "operationId": "atualizarEtiqueta",
         "requestBody": {
@@ -14573,7 +14573,7 @@
         "tags": [
           "tags"
         ],
-        "summary": "Deletar etiqueta",
+        "summary": "Deletar uma etiqueta",
         "description": "Deletar uma tag específica do sistema.",
         "operationId": "deletarEtiqueta",
         "responses": {
