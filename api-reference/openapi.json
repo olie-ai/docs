@@ -13172,7 +13172,7 @@
           "projects",
           "index"
         ],
-        "summary": "Retorna uma lista de projetos associados a um grupo",
+        "summary": "Retornar uma lista de projetos associados a um grupo",
         "description": "Retorna uma lista paginada de projetos associados a um grupo específico, ordenados pela ordem definida no grupo. Inclui informações de porcentagem de conclusão e respostas de formulários dinâmicos. Suporta filtros e busca.",
         "operationId": "retornaUmaListaDeProjetosAssociadosAUmGrupo",
         "responses": {
@@ -13200,7 +13200,7 @@
           "projects",
           "reorder"
         ],
-        "summary": "Altera a ordem de um projeto dentro de um grupo",
+        "summary": "Alterar a ordem de um projeto dentro de um grupo",
         "description": "Altera a ordem de um projeto dentro de um grupo específico, definindo uma nova posição para o projeto.",
         "operationId": "alteraAOrdemDeUmProjetoDentroDeUmGrupo",
         "responses": {
@@ -13236,7 +13236,7 @@
           "project-groups",
           "projects"
         ],
-        "summary": "Associa um projeto a um grupo de projetos",
+        "summary": "Associar um projeto a um grupo de projetos",
         "description": "Associa um projeto existente a um grupo de projetos. O projeto é adicionado ao final da lista do grupo.",
         "operationId": "associaUmProjetoAUmGrupoDeProjetos",
         "responses": {
@@ -13263,7 +13263,7 @@
           "project-groups",
           "projects"
         ],
-        "summary": "Remove a associação de um projeto de um grupo de projetos",
+        "summary": "Remover a associação de um projeto de um grupo de projetos",
         "description": "Remove a associação de um projeto de um grupo de projetos",
         "operationId": "removeAAssociaODeUmProjetoDeUmGrupoDeProjetos",
         "responses": {
