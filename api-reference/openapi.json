@@ -6713,7 +6713,7 @@
           "project-funnels",
           "delete-funnel"
         ],
-        "summary": "Arquivar funil",
+        "summary": "Arquivar um funil",
         "description": "Arquivar um funil específico.",
         "operationId": "arquivarFunil",
         "responses": {
@@ -6729,7 +6729,7 @@
           "project-funnels",
           "restore-funnel"
         ],
-        "summary": "Restaurar funil",
+        "summary": "Restaurar um funil",
         "description": "Restaurar um funil que foi arquivado anteriormente.",
         "operationId": "restaurarFunil",
         "responses": {
@@ -6745,7 +6745,7 @@
           "project-funnels",
           "clone-funnel"
         ],
-        "summary": "Clonar funil",
+        "summary": "Clonar um funil",
         "description": "Clonar um funil existente criando uma cópia.",
         "operationId": "clonarFunil",
         "responses": {
@@ -6776,7 +6776,7 @@
         "tags": [
           "project-funnels"
         ],
-        "summary": "Criar ou atualizar funil de projeto",
+        "summary": "Criar ou atualizar um funil de projeto",
         "description": "Criar ou atualizar funil de projeto.",
         "operationId": "criarOuAtualizarFunilDeProjeto",
         "responses": {
@@ -6791,7 +6791,7 @@
         "tags": [
           "project-funnels"
         ],
-        "summary": "Atualizar funil de projeto",
+        "summary": "Atualizar um funil de projeto",
         "description": "Atualizar dados de um funil de projeto específico.",
         "operationId": "atualizarFunilDeProjeto",
         "requestBody": {
@@ -7820,7 +7820,7 @@
         "tags": [
           "step-assistants"
         ],
-        "summary": "Criar assistente da etapa",
+        "summary": "Criar um assistente da etapa",
         "description": "Criar um novo assistente para uma etapa específica.",
         "operationId": "criarAssistenteDaEtapa",
         "requestBody": {
@@ -7968,7 +7968,7 @@
         "tags": [
           "step-assistants"
         ],
-        "summary": "Atualizar assistente da etapa",
+        "summary": "Atualizar um assistente da etapa",
         "description": "Atualizar dados de um assistente específico de uma etapa.",
         "operationId": "atualizarAssistenteDaEtapa",
         "requestBody": {
@@ -8090,7 +8090,7 @@
         "tags": [
           "step-assistants"
         ],
-        "summary": "Deletar assistente da etapa",
+        "summary": "Deletar um assistente da etapa",
         "description": "Deletar um assistente específico de uma etapa.",
         "operationId": "deletarAssistenteDaEtapa",
         "responses": {
