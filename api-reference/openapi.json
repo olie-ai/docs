@@ -13,7 +13,7 @@
   "paths": {
     "/api/management/projects/{id}/restore": {
       "get": {
-        "summary": "Restaurar projeto",
+        "summary": "Restaurar um projeto",
         "responses": {
           "200": {
             "description": "Resposta de sucesso",
@@ -1151,7 +1151,7 @@
         }
       ],
       "put": {
-        "summary": "Editar projeto",
+        "summary": "Editar um projeto",
         "responses": {
           "200": {
             "description": "Editado com sucesso",
@@ -1883,7 +1883,7 @@
         }
       },
       "delete": {
-        "summary": "Deletar projeto",
+        "summary": "Deletar um projeto",
         "responses": {
           "200": {
             "description": "Resposta de sucesso",
@@ -8546,7 +8546,7 @@
           "customers",
           "restore"
         ],
-        "summary": "Restaurar cliente",
+        "summary": "Restaurar um cliente",
         "description": "Restaurar um cliente que foi arquivado anteriormente.",
         "operationId": "restaurarCliente",
         "responses": {
@@ -10532,7 +10532,7 @@
           "pivot-accessor",
           "reply"
         ],
-        "summary": "Responder formulário dinâmico através de uma URL assinada",
+        "summary": "Responder formulário um dinâmico através de uma URL assinada",
         "description": "Permite responder um formulário dinâmico através de uma URL assinada de pivot accessor. Valida expiração e uso único antes de processar a resposta.",
         "operationId": "responderFormulRioDinMicoAtravSDeUmaUrlAssinada",
         "responses": {
@@ -10629,7 +10629,7 @@
     },
     "/api/management/dynamic-forms/set-form-answers": {
       "post": {
-        "summary": "Responder formulário dinâmico",
+        "summary": "Responder um formulário dinâmico",
         "responses": {
           "200": {
             "description": "Resposta: Formulário objeto projeto",
@@ -10993,7 +10993,7 @@
         "tags": [
           "dynamic-forms"
         ],
-        "description": "Responder formulários dinâmicos. Essa requisição recebe dois principais atributos:\n\n- Identificação do formulário (`target`): Aqui é usado um objeto com propriedades variáveis, são usados para identificar qual formulário será respondido.\n    \n- Respostas (`answers`): Um array com objetos, cada objeto contendo `id` e `answer`, sendo o ID do campo do formulário e answer sendo a resposta que este campo receberá.",
+        "description": "Responder um formulário dinâmico. Essa requisição recebe dois principais atributos:\n\n- Identificação do formulário (`target`): Aqui é usado um objeto com propriedades variáveis, são usados para identificar qual formulário será respondido.\n    \n- Respostas (`answers`): Um array com objetos, cada objeto contendo `id` e `answer`, sendo o ID do campo do formulário e answer sendo a resposta que este campo receberá.",
         "requestBody": {
           "content": {
             "application/json": {
