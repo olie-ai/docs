@@ -6056,22 +6056,6 @@
         }
       }
     },
-    "/": {
-      "get": {
-        "tags": [
-          "project-funnels",
-          "get-project-funnels"
-        ],
-        "summary": "Listar funis de projeto",
-        "description": "Listar todos os funis de projeto.",
-        "operationId": "listarFunisDeProjeto",
-        "responses": {
-          "200": {
-            "description": "200"
-          }
-        }
-      }
-    },
     "/api/management/get-project-funnels": {
       "post": {
         "tags": [
