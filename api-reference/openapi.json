@@ -1836,14 +1836,14 @@
                       "contact_id": {
                         "type": "string",
                         "example": "uuid-do-contato",
-                        "format": "uuid",
-                        "description": "ID único (UUID) do contato associado ao projeto. Campo opcional que permite atualizar ou vincular um contato específico ao projeto."
+                        "description": "ID único (UUID) do contato associado ao projeto. Campo opcional que permite atualizar ou vincular um contato específico ao projeto.",
+                        "format": "uuid"
                       },
                       "customer_id": {
                         "type": "string",
                         "example": "uuid-do-cliente",
-                        "format": "uuid",
-                        "description": "ID único (UUID) do cliente associado ao projeto. Campo opcional que permite atualizar ou vincular um cliente específico ao projeto."
+                        "description": "ID único (UUID) do cliente associado ao projeto. Campo opcional que permite atualizar ou vincular um cliente específico ao projeto.",
+                        "format": "uuid"
                       },
                       "status": {
                         "type": "number",
@@ -1858,11 +1858,11 @@
                       },
                       "budget": {
                         "type": "number",
-                        "example": 35000.5,
-                        "format": "float",
-                        "description": "Receita esperada do projeto em valor numérico decimal. Campo opcional que permite atualizar a receita esperada para o projeto.",
+                        "minimum": 0,
                         "maximum": 999999999999.99,
-                        "minimum": 0
+                        "example": 35000.5,
+                        "description": "Receita esperada do projeto em valor numérico decimal. Campo opcional que permite atualizar a receita esperada para o projeto.",
+                        "format": "float"
                       },
                       "is_template": {
                         "type": "boolean",
@@ -1871,21 +1871,22 @@
                       },
                       "form_answers": {
                         "type": "array",
+                        "description": "Array de objetos contendo as respostas de formulários dinâmicos associados ao projeto. Cada objeto contém os dados das respostas dos campos do formulário. Permite atualizar as respostas dos formulários.",
                         "items": {
                           "type": "object"
-                        },
-                        "description": "Array de objetos contendo as respostas de formulários dinâmicos associados ao projeto. Cada objeto contém os dados das respostas dos campos do formulário. Permite atualizar as respostas dos formulários."
+                        }
                       },
                       "forecast_dates": {
                         "type": "array",
+                        "description": "Array de objetos para atualizar datas de previsão por funil. Permite atualizar ou remover datas de previsão de diferentes funis de projeto.",
                         "items": {
                           "type": "object",
                           "properties": {
                             "date": {
                               "type": "string",
                               "example": "2025-08-01",
-                              "format": "date",
-                              "description": "Data de previsão para o funil de projeto. Pode ser null para remover a data de previsão."
+                              "description": "Data de previsão para o funil de projeto. Pode ser null para remover a data de previsão.",
+                              "format": "date"
                             },
                             "project_funnel_id": {
                               "type": "integer",
@@ -1896,89 +1897,43 @@
                           "required": [
                             "project_funnel_id"
                           ]
-                        },
-                        "description": "Array de objetos para atualizar datas de previsão por funil. Permite atualizar ou remover datas de previsão de diferentes funis de projeto."
+                        }
                       },
                       "groups": {
                         "type": "object",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "to_add": {
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              },
-                              "description": "Array de UUIDs dos grupos a serem adicionados ao projeto. Permite associar o projeto a novos grupos."
-                            },
-                            "to_rem": {
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              },
-                              "description": "Array de UUIDs dos grupos a serem removidos do projeto. Permite desassociar o projeto de grupos específicos."
-                            }
-                          },
-                          "required": [
-                            "to_add",
-                            "to_rem"
-                          ]
-                        },
                         "description": "Objeto para gerenciar grupos associados ao projeto. Contém arrays 'to_add' e 'to_rem' para adicionar ou remover grupos. Ambos os arrays devem estar presentes quando este campo for fornecido."
                       },
                       "tags": {
                         "type": "object",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "to_add": {
-                              "type": "array",
-                              "items": {
-                                "type": "integer"
-                              },
-                              "description": "Array de IDs das etiquetas a serem adicionadas ao projeto."
-                            },
-                            "to_rem": {
-                              "type": "array",
-                              "items": {
-                                "type": "integer"
-                              },
-                              "description": "Array de IDs das etiquetas a serem removidas do projeto."
-                            }
-                          },
-                          "required": [
-                            "to_add",
-                            "to_rem"
-                          ]
-                        },
                         "description": "Objeto para gerenciar etiquetas de funil associadas ao projeto. Contém arrays 'to_add' e 'to_rem' para adicionar ou remover etiquetas do projeto. Ambos os arrays devem estar presentes quando este campo for fornecido."
                       },
                       "funnels": {
                         "type": "object",
+                        "description": "Objeto para gerenciar funis que o projeto está vinculado. Contém arrays 'to_add' e 'to_rem' para adicionar ou remover funis. Ambos os arrays devem estar presentes quando este campo for fornecido.",
                         "properties": {
                           "to_add": {
                             "type": "array",
+                            "description": "Array de IDs dos funis de projeto a serem adicionados ao projeto.",
                             "items": {
                               "type": "integer"
-                            },
-                            "description": "Array de IDs dos funis de projeto a serem adicionados ao projeto."
+                            }
                           },
                           "to_rem": {
                             "type": "array",
+                            "description": "Array de IDs dos funis de projeto a serem removidos do projeto.",
                             "items": {
                               "type": "integer"
-                            },
-                            "description": "Array de IDs dos funis de projeto a serem removidos do projeto."
+                            }
                           }
                         },
                         "required": [
                           "to_add",
                           "to_rem"
-                        ],
-                        "description": "Objeto para gerenciar funis que o projeto está vinculado. Contém arrays 'to_add' e 'to_rem' para adicionar ou remover funis. Ambos os arrays devem estar presentes quando este campo for fornecido."
+                        ]
                       },
                       "funnel_status": {
                         "type": "object",
+                        "description": "Objeto para vincular ou desvincular um status de funil do projeto.",
                         "properties": {
                           "project_funnel_id": {
                             "type": "integer",
@@ -1993,19 +1948,19 @@
                         },
                         "required": [
                           "project_funnel_id"
-                        ],
-                        "description": "Objeto para vincular ou desvincular um status de funil do projeto."
+                        ]
                       },
                       "users": {
                         "type": "array",
+                        "description": "Array de objetos para gerenciar usuários associados ao projeto. Permite adicionar ou remover usuários com diferentes papéis do projeto.",
                         "items": {
                           "type": "object",
                           "properties": {
                             "user_id": {
                               "type": "string",
                               "example": "uuid-do-usuario",
-                              "format": "uuid",
-                              "description": "ID único (UUID) do usuário a ser associado ou removido do projeto."
+                              "description": "ID único (UUID) do usuário a ser associado ou removido do projeto.",
+                              "format": "uuid"
                             },
                             "role": {
                               "type": "string",
@@ -2023,8 +1978,7 @@
                             "role",
                             "action"
                           ]
-                        },
-                        "description": "Array de objetos para gerenciar usuários associados ao projeto. Permite adicionar ou remover usuários com diferentes papéis do projeto."
+                        }
                       }
                     }
                   }
@@ -3532,10 +3486,10 @@
           {
             "name": "withPercentage",
             "in": "query",
-            "required": false,
             "description": "Quando `true`, retorna projetos com campos adicionais calculados: percentual de conclusão (`completed_percentage`), contagem de tarefas (`tasks_count`), contagem de tarefas concluídas (`completed_count`), data de término prevista (`expected_finish`) baseada nas predições mais recentes, e informações de matriz (`headquarter`) e filial (`branch`) do cliente.",
-            "deprecated": false,
-            "schema": {},
+            "schema": {
+              "type": "boolean"
+            },
             "example": "true"
           }
         ],
@@ -7559,38 +7513,45 @@
             "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Date": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Thu, 15 Jan 2026 21:45:19 GMT"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "160"
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "155"
               },
               "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
               }
             },
@@ -7616,9 +7577,6 @@
                                 },
                                 "unit": {
                                   "type": "string"
-                                },
-                                "meta_data": {
-                                  "nullable": true
                                 }
                               }
                             },
@@ -7653,11 +7611,7 @@
                                 },
                                 "meta_data": {
                                   "type": "object",
-                                  "properties": {
-                                    "max_project_id": {
-                                      "nullable": true
-                                    }
-                                  }
+                                  "properties": {}
                                 }
                               }
                             },
@@ -7672,11 +7626,7 @@
                                 },
                                 "meta_data": {
                                   "type": "object",
-                                  "properties": {
-                                    "min_project_id": {
-                                      "nullable": true
-                                    }
-                                  }
+                                  "properties": {}
                                 }
                               }
                             }
@@ -7693,9 +7643,6 @@
                                 },
                                 "unit": {
                                   "type": "string"
-                                },
-                                "meta_data": {
-                                  "nullable": true
                                 }
                               }
                             },
@@ -7730,11 +7677,7 @@
                                 },
                                 "meta_data": {
                                   "type": "object",
-                                  "properties": {
-                                    "max_project_id": {
-                                      "nullable": true
-                                    }
-                                  }
+                                  "properties": {}
                                 }
                               }
                             },
@@ -7749,11 +7692,7 @@
                                 },
                                 "meta_data": {
                                   "type": "object",
-                                  "properties": {
-                                    "min_project_id": {
-                                      "nullable": true
-                                    }
-                                  }
+                                  "properties": {}
                                 }
                               }
                             }
@@ -7770,9 +7709,6 @@
                                 },
                                 "unit": {
                                   "type": "string"
-                                },
-                                "meta_data": {
-                                  "nullable": true
                                 }
                               }
                             },
@@ -7807,11 +7743,7 @@
                                 },
                                 "meta_data": {
                                   "type": "object",
-                                  "properties": {
-                                    "max_project_id": {
-                                      "nullable": true
-                                    }
-                                  }
+                                  "properties": {}
                                 }
                               }
                             },
@@ -7826,11 +7758,7 @@
                                 },
                                 "meta_data": {
                                   "type": "object",
-                                  "properties": {
-                                    "min_project_id": {
-                                      "nullable": true
-                                    }
-                                  }
+                                  "properties": {}
                                 }
                               }
                             }
@@ -7942,7 +7870,8 @@
           "description": "ID da etapa",
           "schema": {
             "type": "integer"
-          }
+          },
+          "example": "6419"
         }
       ]
     },
@@ -8347,38 +8276,45 @@
             "description": "Sucesso: Filtro por telefone",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Date": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Fri, 16 Jan 2026 18:11:44 GMT"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "160"
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "159"
               },
               "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
               }
             },
@@ -8401,9 +8337,6 @@
                           "headquarter": {
                             "type": "string"
                           },
-                          "branch": {
-                            "nullable": true
-                          },
                           "company_name": {
                             "type": "string"
                           },
@@ -8413,14 +8346,8 @@
                           "customer_type": {
                             "type": "integer"
                           },
-                          "parent": {
-                            "nullable": true
-                          },
                           "document": {
                             "type": "string"
-                          },
-                          "main_activity": {
-                            "nullable": true
                           },
                           "email": {
                             "type": "string",
@@ -8431,12 +8358,6 @@
                           },
                           "address": {
                             "type": "string"
-                          },
-                          "description": {
-                            "nullable": true
-                          },
-                          "custom_fields": {
-                            "nullable": true
                           },
                           "status": {
                             "type": "integer"
@@ -8449,9 +8370,6 @@
                             "type": "array",
                             "items": {}
                           },
-                          "parent_id": {
-                            "nullable": true
-                          },
                           "frame_id": {
                             "type": "string"
                           },
@@ -8462,9 +8380,6 @@
                           "updated_at": {
                             "type": "string",
                             "format": "date-time"
-                          },
-                          "deleted_at": {
-                            "nullable": true
                           },
                           "created_by_user": {
                             "type": "object",
@@ -8587,10 +8502,6 @@
                     "description": "Array de filtros a serem aplicados na busca",
                     "items": {
                       "type": "object",
-                      "required": [
-                        "field",
-                        "operator"
-                      ],
                       "properties": {
                         "field": {
                           "type": "string",
@@ -8599,7 +8510,6 @@
                         },
                         "operator": {
                           "type": "string",
-                          "description": "Operador relacional a ser usado no filtro",
                           "enum": [
                             "equals",
                             "not_equals",
@@ -8611,22 +8521,20 @@
                             "less_than_or_equals",
                             "is_null",
                             "is_not_null"
-                          ]
+                          ],
+                          "description": "Operador relacional a ser usado no filtro"
                         },
                         "value": {
                           "description": "Valor a ser filtrado (pode ser string, number, boolean, object com id, ou null)",
                           "oneOf": [
                             {
-                              "type": "string",
-                              "nullable": true
+                              "type": "string"
                             },
                             {
-                              "type": "number",
-                              "nullable": true
+                              "type": "number"
                             },
                             {
-                              "type": "boolean",
-                              "nullable": true
+                              "type": "boolean"
                             },
                             {
                               "type": "object",
@@ -8637,18 +8545,17 @@
                               },
                               "required": [
                                 "id"
-                              ],
-                              "nullable": true
+                              ]
                             }
                           ]
                         },
                         "logical_operator": {
                           "type": "string",
-                          "description": "Operador lógico para combinar com outros filtros (padrão: 'and')",
                           "enum": [
                             "and",
                             "or"
                           ],
+                          "description": "Operador lógico para combinar com outros filtros (padrão: 'and')",
                           "default": "and"
                         },
                         "arguments": {
@@ -8656,11 +8563,6 @@
                           "description": "Argumentos adicionais para filtros especiais (ex: answer_pool requer edge_id)",
                           "items": {
                             "type": "object",
-                            "required": [
-                              "argument_key",
-                              "argument_value_id",
-                              "argument_value_type"
-                            ],
                             "properties": {
                               "argument_key": {
                                 "type": "string",
@@ -8674,10 +8576,19 @@
                                 "type": "string",
                                 "description": "Tipo do valor do argumento (classe do modelo)"
                               }
-                            }
+                            },
+                            "required": [
+                              "argument_key",
+                              "argument_value_id",
+                              "argument_value_type"
+                            ]
                           }
                         }
-                      }
+                      },
+                      "required": [
+                        "field",
+                        "operator"
+                      ]
                     }
                   },
                   "sorting": {
@@ -8685,14 +8596,9 @@
                     "description": "Array de ordenações a serem aplicadas",
                     "items": {
                       "type": "object",
-                      "required": [
-                        "field",
-                        "direction"
-                      ],
                       "properties": {
                         "field": {
                           "type": "string",
-                          "description": "Campo para ordenação",
                           "enum": [
                             "name",
                             "status",
@@ -8704,15 +8610,16 @@
                             "address",
                             "description",
                             "created_at"
-                          ]
+                          ],
+                          "description": "Campo para ordenação"
                         },
                         "direction": {
                           "type": "string",
-                          "description": "Direção da ordenação",
                           "enum": [
                             "asc",
                             "desc"
-                          ]
+                          ],
+                          "description": "Direção da ordenação"
                         },
                         "arguments": {
                           "type": "array",
@@ -8721,20 +8628,24 @@
                             "type": "object"
                           }
                         }
-                      }
+                      },
+                      "required": [
+                        "field",
+                        "direction"
+                      ]
                     }
                   },
                   "page": {
                     "type": "integer",
-                    "description": "Número da página (paginação Laravel)",
                     "minimum": 1,
+                    "description": "Número da página (paginação Laravel)",
                     "default": 1
                   },
                   "per_page": {
                     "type": "integer",
-                    "description": "Quantidade de itens por página",
                     "minimum": 1,
                     "maximum": 100,
+                    "description": "Quantidade de itens por página",
                     "default": 15
                   }
                 }
@@ -8908,38 +8819,45 @@
             "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Date": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Fri, 16 Jan 2026 18:06:16 GMT"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "160"
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "159"
               },
               "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
               }
             },
@@ -8947,38 +8865,24 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "response",
-                    "customers",
-                    "meta"
-                  ],
                   "properties": {
                     "response": {
                       "type": "boolean",
-                      "description": "Indicador de sucesso da requisição",
                       "enum": [
                         true
-                      ]
+                      ],
+                      "description": "Indicador de sucesso da requisição"
                     },
                     "customers": {
                       "type": "array",
                       "description": "Array com os objetos de clientes",
                       "items": {
                         "type": "object",
-                        "required": [
-                          "id",
-                          "name",
-                          "document_type",
-                          "customer_type",
-                          "frame_id",
-                          "created_at",
-                          "updated_at"
-                        ],
                         "properties": {
                           "id": {
                             "type": "string",
-                            "format": "uuid",
-                            "description": "Identificador único do cliente"
+                            "description": "Identificador único do cliente",
+                            "format": "uuid"
                           },
                           "name": {
                             "type": "string",
@@ -8986,18 +8890,15 @@
                           },
                           "headquarter": {
                             "type": "string",
-                            "description": "Nome da matriz (atributo computado)",
-                            "nullable": true
+                            "description": "Nome da matriz (atributo computado)"
                           },
                           "branch": {
                             "type": "string",
-                            "description": "Nome da filial (atributo computado)",
-                            "nullable": true
+                            "description": "Nome da filial (atributo computado)"
                           },
                           "company_name": {
                             "type": "string",
-                            "description": "Razão social da empresa",
-                            "nullable": true
+                            "description": "Razão social da empresa"
                           },
                           "document_type": {
                             "type": "integer",
@@ -9021,8 +8922,8 @@
                             "properties": {
                               "id": {
                                 "type": "string",
-                                "format": "uuid",
-                                "description": "ID da matriz"
+                                "description": "ID da matriz",
+                                "format": "uuid"
                               },
                               "name": {
                                 "type": "string",
@@ -9032,50 +8933,42 @@
                           },
                           "document": {
                             "type": "string",
-                            "description": "Número do CPF ou CNPJ",
-                            "nullable": true
+                            "description": "Número do CPF ou CNPJ"
                           },
                           "main_activity": {
                             "type": "string",
-                            "description": "Atividade principal da empresa",
-                            "nullable": true
+                            "description": "Atividade principal da empresa"
                           },
                           "email": {
                             "type": "string",
-                            "format": "email",
                             "description": "E-mail do cliente",
-                            "nullable": true
+                            "format": "email"
                           },
                           "phone": {
                             "type": "string",
-                            "description": "Telefone do cliente",
-                            "nullable": true
+                            "description": "Telefone do cliente"
                           },
                           "address": {
                             "type": "string",
-                            "description": "Endereço do cliente",
-                            "nullable": true
+                            "description": "Endereço do cliente"
                           },
                           "description": {
                             "type": "string",
-                            "description": "Descrição adicional do cliente",
-                            "nullable": true
+                            "description": "Descrição adicional do cliente"
                           },
                           "custom_fields": {
                             "type": "object",
-                            "description": "Campos personalizados",
-                            "nullable": true
+                            "description": "Campos personalizados"
                           },
                           "status": {
                             "type": "boolean",
-                            "description": "Status do cliente (true = ativo, false = inativo)",
-                            "nullable": true
+                            "description": "Status do cliente (true = ativo, false = inativo)"
                           },
                           "form_answers": {
                             "type": "array",
                             "description": "Respostas de formulários dinâmicos",
-                            "default": [],
-                            "items": {}
+                            "items": {},
+                            "default": []
                           },
                           "contacts": {
                             "type": "array",
@@ -9086,35 +8979,32 @@
                           },
                           "parent_id": {
                             "type": "string",
-                            "format": "uuid",
                             "description": "ID do cliente matriz (se for filial)",
-                            "nullable": true
+                            "format": "uuid"
                           },
                           "frame_id": {
                             "type": "string",
-                            "format": "uuid",
-                            "description": "ID do frame/organização"
+                            "description": "ID do frame/organização",
+                            "format": "uuid"
                           },
                           "created_at": {
                             "type": "string",
-                            "format": "date-time",
-                            "description": "Data de criação do registro"
+                            "description": "Data de criação do registro",
+                            "format": "date-time"
                           },
                           "updated_at": {
                             "type": "string",
-                            "format": "date-time",
-                            "description": "Data da última atualização"
+                            "description": "Data da última atualização",
+                            "format": "date-time"
                           },
                           "deleted_at": {
                             "type": "string",
-                            "format": "date-time",
                             "description": "Data de exclusão (soft delete)",
-                            "nullable": true
+                            "format": "date-time"
                           },
                           "created_by": {
                             "type": "integer",
-                            "description": "ID do usuário que criou o registro",
-                            "nullable": true
+                            "description": "ID do usuário que criou o registro"
                           },
                           "created_by_user": {
                             "type": "object",
@@ -9130,8 +9020,7 @@
                               },
                               "avatar_url": {
                                 "type": "string",
-                                "description": "URL do avatar do usuário",
-                                "nullable": true
+                                "description": "URL do avatar do usuário"
                               }
                             }
                           },
@@ -9151,8 +9040,8 @@
                               "properties": {
                                 "id": {
                                   "type": "string",
-                                  "format": "uuid",
-                                  "description": "ID da tag"
+                                  "description": "ID da tag",
+                                  "format": "uuid"
                                 },
                                 "name": {
                                   "type": "string",
@@ -9160,17 +9049,56 @@
                                 },
                                 "color": {
                                   "type": "string",
-                                  "description": "Cor da tag em formato hexadecimal",
-                                  "nullable": true
+                                  "description": "Cor da tag em formato hexadecimal"
                                 }
                               }
                             }
                           }
-                        }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "document_type",
+                          "customer_type",
+                          "frame_id",
+                          "created_at",
+                          "updated_at"
+                        ]
                       }
                     },
                     "meta": {
                       "type": "object",
+                      "description": "Metadados da paginação",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "description": "Página atual"
+                        },
+                        "from": {
+                          "type": "integer",
+                          "description": "Índice do primeiro item na página atual"
+                        },
+                        "last_page": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "description": "Número da última página"
+                        },
+                        "per_page": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "description": "Quantidade de itens por página"
+                        },
+                        "to": {
+                          "type": "integer",
+                          "description": "Índice do último item na página atual"
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "description": "Total de registros disponíveis"
+                        }
+                      },
                       "required": [
                         "current_page",
                         "from",
@@ -9178,42 +9106,14 @@
                         "per_page",
                         "to",
                         "total"
-                      ],
-                      "description": "Metadados da paginação",
-                      "properties": {
-                        "current_page": {
-                          "type": "integer",
-                          "description": "Página atual",
-                          "minimum": 1
-                        },
-                        "from": {
-                          "type": "integer",
-                          "description": "Índice do primeiro item na página atual",
-                          "nullable": true
-                        },
-                        "last_page": {
-                          "type": "integer",
-                          "description": "Número da última página",
-                          "minimum": 1
-                        },
-                        "per_page": {
-                          "type": "integer",
-                          "description": "Quantidade de itens por página",
-                          "minimum": 1
-                        },
-                        "to": {
-                          "type": "integer",
-                          "description": "Índice do último item na página atual",
-                          "nullable": true
-                        },
-                        "total": {
-                          "type": "integer",
-                          "description": "Total de registros disponíveis",
-                          "minimum": 0
-                        }
-                      }
+                      ]
                     }
-                  }
+                  },
+                  "required": [
+                    "response",
+                    "customers",
+                    "meta"
+                  ]
                 },
                 "example": {
                   "response": true,
@@ -9271,38 +9171,45 @@
             "description": "Sucesso (CNPJ)",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Date": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Fri, 16 Jan 2026 18:03:26 GMT"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "160"
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "157"
               },
               "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
               }
             },
@@ -9323,9 +9230,6 @@
                         "headquarter": {
                           "type": "string"
                         },
-                        "branch": {
-                          "nullable": true
-                        },
                         "company_name": {
                           "type": "string"
                         },
@@ -9338,9 +9242,6 @@
                         "document": {
                           "type": "string"
                         },
-                        "main_activity": {
-                          "nullable": true
-                        },
                         "email": {
                           "type": "string",
                           "format": "email"
@@ -9351,21 +9252,12 @@
                         "address": {
                           "type": "string"
                         },
-                        "description": {
-                          "nullable": true
-                        },
-                        "custom_fields": {
-                          "nullable": true
-                        },
                         "status": {
                           "type": "boolean"
                         },
                         "form_answers": {
                           "type": "array",
                           "items": {}
-                        },
-                        "parent_id": {
-                          "nullable": true
                         },
                         "frame_id": {
                           "type": "string"
@@ -9377,9 +9269,6 @@
                         "updated_at": {
                           "type": "string",
                           "format": "date-time"
-                        },
-                        "deleted_at": {
-                          "nullable": true
                         },
                         "created_by": {
                           "type": "string"
@@ -9426,206 +9315,32 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": [
-                  "name",
-                  "document_type",
-                  "customer_type"
-                ],
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "Nome do cliente",
-                    "maxLength": 255,
-                    "minLength": 1
-                  },
-                  "document_type": {
-                    "type": "integer",
-                    "description": "Tipo de documento: 1 = CPF (Pessoa Física), 2 = CNPJ (Pessoa Jurídica)",
-                    "enum": [
-                      1,
-                      2
-                    ]
-                  },
-                  "customer_type": {
-                    "type": "integer",
-                    "description": "Tipo de cliente: 1 = Matriz, 2 = Filial",
-                    "enum": [
-                      1,
-                      2
-                    ]
-                  },
-                  "company_name": {
-                    "type": "string",
-                    "description": "Razão social da empresa",
-                    "maxLength": 100,
-                    "nullable": true
-                  },
-                  "document": {
-                    "type": "string",
-                    "description": "Número do CPF ou CNPJ. Com máscara",
-                    "maxLength": 40,
-                    "nullable": true
-                  },
-                  "main_activity": {
-                    "type": "string",
-                    "description": "Atividade econômica principal",
-                    "maxLength": 255,
-                    "nullable": true
-                  },
-                  "email": {
-                    "type": "string",
-                    "description": "Endereço de e-mail do cliente",
-                    "format": "email",
-                    "maxLength": 254,
-                    "nullable": true
-                  },
-                  "phone": {
-                    "type": "string",
-                    "description": "Número de telefone do cliente. Use máscara (99) 99999-9999.",
-                    "maxLength": 30,
-                    "nullable": true
-                  },
-                  "address": {
-                    "type": "string",
-                    "description": "Endereço do cliente",
-                    "maxLength": 255,
-                    "nullable": true
-                  },
-                  "description": {
-                    "type": "string",
-                    "description": "Descrição do cliente",
-                    "maxLength": 255,
-                    "nullable": true
-                  },
-                  "status": {
-                    "type": "boolean",
-                    "description": "Status de atividade do cliente",
-                    "default": true,
-                    "nullable": true
-                  },
-                  "parent_id": {
-                    "type": "string",
-                    "description": "ID do cliente pai (UUID). Obrigatório se customer_type for 2 (Filial), proibido se customer_type for 1 (Matriz)",
-                    "format": "uuid",
-                    "nullable": true
-                  },
-                  "tags": {
-                    "type": "object",
-                    "description": "Tags management object",
-                    "properties": {
-                      "to_add": {
-                        "type": "array",
-                        "description": "Array of tags to add (can link existing tags by ID or create new tags with name and color)",
-                        "items": {
-                          "oneOf": [
-                            {
-                              "type": "object",
-                              "description": "Link existing tag by ID",
-                              "required": [
-                                "id"
-                              ],
-                              "properties": {
-                                "id": {
-                                  "type": "string",
-                                  "format": "uuid",
-                                  "description": "Existing tag UUID"
-                                }
-                              }
-                            },
-                            {
-                              "type": "object",
-                              "description": "Create new tag with name and optional color",
-                              "required": [
-                                "name"
-                              ],
-                              "properties": {
-                                "name": {
-                                  "type": "string",
-                                  "maxLength": 255,
-                                  "description": "Tag name (will be created if doesn't exist)"
-                                },
-                                "color": {
-                                  "type": "string",
-                                  "pattern": "^#[0-9A-Fa-f]{6}$",
-                                  "description": "Hex color code (e.g., #FF5733)"
-                                }
-                              }
-                            }
-                          ]
-                        },
-                        "default": []
-                      },
-                      "to_rem": {
-                        "type": "array",
-                        "description": "Array of tags to remove by ID",
-                        "items": {
-                          "type": "object",
-                          "required": [
-                            "id"
-                          ],
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "format": "uuid",
-                              "description": "Tag UUID to remove"
-                            }
-                          }
-                        },
-                        "default": []
-                      }
-                    }
-                  },
-                  "form_answers": {
-                    "type": "array",
-                    "description": "Lista de respostas de formulários dinâmicos, se houver formulários configurados",
-                    "items": {
-                      "type": "object"
-                    },
-                    "default": [],
-                    "nullable": true
-                  }
-                },
                 "allOf": [
                   {
                     "oneOf": [
                       {
                         "allOf": [
                           {
-                            "properties": {
-                              "customer_type": {
-                                "enum": [
-                                  2
-                                ]
-                              }
-                            }
+                            "type": "object",
+                            "properties": {}
                           },
                           {
-                            "required": [
-                              "parent_id"
-                            ],
+                            "type": "object",
                             "properties": {
                               "parent_id": {
                                 "type": "string",
                                 "format": "uuid"
                               }
-                            }
+                            },
+                            "required": [
+                              "parent_id"
+                            ]
                           }
                         ]
                       },
                       {
                         "allOf": [
-                          {
-                            "not": {
-                              "properties": {
-                                "customer_type": {
-                                  "enum": [
-                                    2
-                                  ]
-                                }
-                              }
-                            }
-                          }
+                          {}
                         ]
                       }
                     ]
@@ -9635,36 +9350,18 @@
                       {
                         "allOf": [
                           {
-                            "properties": {
-                              "customer_type": {
-                                "enum": [
-                                  1
-                                ]
-                              }
-                            }
+                            "type": "object",
+                            "properties": {}
                           },
                           {
-                            "properties": {
-                              "parent_id": {
-                                "nullable": true
-                              }
-                            }
+                            "type": "object",
+                            "properties": {}
                           }
                         ]
                       },
                       {
                         "allOf": [
-                          {
-                            "not": {
-                              "properties": {
-                                "customer_type": {
-                                  "enum": [
-                                    1
-                                  ]
-                                }
-                              }
-                            }
-                          }
+                          {}
                         ]
                       }
                     ]
@@ -10605,7 +10302,8 @@
             "application/json": {
               "schema": {
                 "type": "object"
-              }
+              },
+              "example": {}
             }
           }
         }
@@ -13616,38 +13314,45 @@
             "description": "Sucesso: projeto",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Date": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Mon, 19 Jan 2026 12:10:54 GMT"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "160"
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "159"
               },
               "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
               }
             },
@@ -13655,24 +13360,16 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "response",
-                    "params"
-                  ],
                   "properties": {
                     "response": {
                       "type": "boolean",
-                      "description": "Indicador de sucesso da requisição",
                       "enum": [
                         true
-                      ]
+                      ],
+                      "description": "Indicador de sucesso da requisição"
                     },
                     "params": {
                       "type": "object",
-                      "required": [
-                        "filters",
-                        "sorting"
-                      ],
                       "description": "Parâmetros disponíveis para filtros e ordenação do modelo",
                       "properties": {
                         "filters": {
@@ -13680,14 +13377,6 @@
                           "description": "Lista de filtros disponíveis para o modelo",
                           "items": {
                             "type": "object",
-                            "required": [
-                              "name",
-                              "input_type",
-                              "operators",
-                              "options",
-                              "arguments",
-                              "hydrate"
-                            ],
                             "properties": {
                               "name": {
                                 "type": "string",
@@ -13695,7 +13384,6 @@
                               },
                               "input_type": {
                                 "type": "string",
-                                "description": "Tipo de input esperado para o filtro",
                                 "enum": [
                                   "text",
                                   "number",
@@ -13705,37 +13393,21 @@
                                   "email",
                                   "tel",
                                   "url"
-                                ]
+                                ],
+                                "description": "Tipo de input esperado para o filtro"
                               },
                               "operators": {
                                 "type": "array",
                                 "description": "Operadores relacionais permitidos para este filtro",
                                 "items": {
-                                  "type": "string",
-                                  "enum": [
-                                    "equals",
-                                    "not_equals",
-                                    "contains",
-                                    "not_contains",
-                                    "greater_than",
-                                    "greater_than_or_equals",
-                                    "less_than",
-                                    "less_than_or_equals",
-                                    "is_null",
-                                    "is_not_null"
-                                  ]
-                                },
-                                "minItems": 1
+                                  "type": "string"
+                                }
                               },
                               "options": {
                                 "type": "array",
                                 "description": "Opções fixas disponíveis para o filtro (usado em campos enum/select)",
                                 "items": {
                                   "type": "object",
-                                  "required": [
-                                    "label",
-                                    "value"
-                                  ],
                                   "properties": {
                                     "label": {
                                       "description": "Rótulo da opção exibido ao usuário",
@@ -13762,7 +13434,11 @@
                                         }
                                       ]
                                     }
-                                  }
+                                  },
+                                  "required": [
+                                    "label",
+                                    "value"
+                                  ]
                                 }
                               },
                               "arguments": {
@@ -13770,13 +13446,6 @@
                                 "description": "Argumentos adicionais necessários para este filtro funcionar",
                                 "items": {
                                   "type": "object",
-                                  "required": [
-                                    "id",
-                                    "label",
-                                    "required",
-                                    "modelClass",
-                                    "hydrate"
-                                  ],
                                   "properties": {
                                     "id": {
                                       "type": "string",
@@ -13797,14 +13466,6 @@
                                     "hydrate": {
                                       "type": "object",
                                       "description": "Configuração para popular/hidratar dados do argumento dinamicamente",
-                                      "required": [
-                                        "route",
-                                        "options",
-                                        "key",
-                                        "label",
-                                        "children_key",
-                                        "children_label"
-                                      ],
                                       "properties": {
                                         "route": {
                                           "type": "string",
@@ -13824,17 +13485,30 @@
                                         },
                                         "children_key": {
                                           "type": "string",
-                                          "description": "Chave para acessar opções filhas/aninhadas (opcional)",
-                                          "nullable": true
+                                          "description": "Chave para acessar opções filhas/aninhadas (opcional)"
                                         },
                                         "children_label": {
                                           "type": "string",
-                                          "description": "Campo usado como rótulo das opções filhas (opcional)",
-                                          "nullable": true
+                                          "description": "Campo usado como rótulo das opções filhas (opcional)"
                                         }
-                                      }
+                                      },
+                                      "required": [
+                                        "route",
+                                        "options",
+                                        "key",
+                                        "label",
+                                        "children_key",
+                                        "children_label"
+                                      ]
                                     }
-                                  }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "label",
+                                    "required",
+                                    "modelClass",
+                                    "hydrate"
+                                  ]
                                 }
                               },
                               "hydrate": {
@@ -13842,14 +13516,6 @@
                                 "oneOf": [
                                   {
                                     "type": "object",
-                                    "required": [
-                                      "route",
-                                      "options",
-                                      "key",
-                                      "label",
-                                      "children_key",
-                                      "children_label"
-                                    ],
                                     "properties": {
                                       "route": {
                                         "type": "string",
@@ -13869,20 +13535,33 @@
                                       },
                                       "children_key": {
                                         "type": "string",
-                                        "description": "Chave para acessar opções filhas/aninhadas (opcional)",
-                                        "nullable": true
+                                        "description": "Chave para acessar opções filhas/aninhadas (opcional)"
                                       },
                                       "children_label": {
                                         "type": "string",
-                                        "description": "Campo usado como rótulo das opções filhas (opcional)",
-                                        "nullable": true
+                                        "description": "Campo usado como rótulo das opções filhas (opcional)"
                                       }
                                     },
-                                    "nullable": true
+                                    "required": [
+                                      "route",
+                                      "options",
+                                      "key",
+                                      "label",
+                                      "children_key",
+                                      "children_label"
+                                    ]
                                   }
                                 ]
                               }
-                            }
+                            },
+                            "required": [
+                              "name",
+                              "input_type",
+                              "operators",
+                              "options",
+                              "arguments",
+                              "hydrate"
+                            ]
                           }
                         },
                         "sorting": {
@@ -13890,10 +13569,6 @@
                           "description": "Lista de campos disponíveis para ordenação",
                           "items": {
                             "type": "object",
-                            "required": [
-                              "name",
-                              "arguments"
-                            ],
                             "properties": {
                               "name": {
                                 "type": "string",
@@ -13906,12 +13581,24 @@
                                   "type": "object"
                                 }
                               }
-                            }
+                            },
+                            "required": [
+                              "name",
+                              "arguments"
+                            ]
                           }
                         }
-                      }
+                      },
+                      "required": [
+                        "filters",
+                        "sorting"
+                      ]
                     }
-                  }
+                  },
+                  "required": [
+                    "response",
+                    "params"
+                  ]
                 },
                 "example": {
                   "response": true,
