@@ -14527,88 +14527,724 @@
             "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "*"
               },
               "Cache-Control": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "no-cache, private"
               },
               "Content-Encoding": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "gzip"
               },
               "Date": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "Mon, 09 Feb 2026 02:49:22 GMT"
               },
               "Referrer-Policy": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "strict-origin-when-cross-origin"
               },
               "Server": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "nginx"
               },
               "Strict-Transport-Security": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "max-age=31536000; includeSubDomains"
               },
               "Vary": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "Accept-Encoding"
               },
               "X-Content-Type-Options": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "nosniff"
               },
               "X-Frame-Options": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "SAMEORIGIN"
               },
               "X-Ratelimit-Limit": {
-                "schema": {
-                  "type": "integer"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "160"
               },
               "X-Ratelimit-Remaining": {
-                "schema": {
-                  "type": "integer"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "157"
               },
               "Transfer-Encoding": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "chunked"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "response",
+                    "metrics"
+                  ],
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Indica se a requisição foi bem-sucedida"
+                    },
+                    "metrics": {
+                      "type": "object",
+                      "required": [
+                        "period",
+                        "basic",
+                        "counts",
+                        "steps_distribution",
+                        "steps_summary",
+                        "time_metrics",
+                        "activity",
+                        "tags",
+                        "funnel_status",
+                        "attachments"
+                      ],
+                      "properties": {
+                        "period": {
+                          "type": "object",
+                          "required": [
+                            "start_date",
+                            "end_date",
+                            "is_default"
+                          ],
+                          "properties": {
+                            "start_date": {
+                              "type": "string",
+                              "format": "date",
+                              "description": "Data inicial do período analisado (formato: Y-m-d)"
+                            },
+                            "end_date": {
+                              "type": "string",
+                              "format": "date",
+                              "description": "Data final do período analisado (formato: Y-m-d)"
+                            },
+                            "is_default": {
+                              "type": "boolean",
+                              "description": "Indica se o período é o padrão (últimos 30 dias) ou foi customizado"
+                            }
+                          }
+                        },
+                        "basic": {
+                          "type": "object",
+                          "required": [
+                            "id",
+                            "name",
+                            "condition",
+                            "steps"
+                          ],
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "description": "ID do funil"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Nome do funil"
+                            },
+                            "condition": {
+                              "type": "string",
+                              "enum": [
+                                "active",
+                                "inactive"
+                              ],
+                              "description": "Condição do funil (ativo ou inativo)"
+                            },
+                            "steps": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "required": [
+                                  "id",
+                                  "name"
+                                ],
+                                "properties": {
+                                  "id": {
+                                    "type": "integer",
+                                    "description": "ID da etapa"
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "description": "Nome da etapa"
+                                  },
+                                  "form_id": {
+                                    "type": "integer",
+                                    "description": "ID do formulário associado à etapa (null se não houver)",
+                                    "nullable": true
+                                  }
+                                }
+                              }
+                            },
+                            "funnel_form": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "title": {
+                                  "type": "string"
+                                }
+                              },
+                              "description": "Formulário associado ao funil (null se não houver)",
+                              "nullable": true
+                            },
+                            "business_area": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "description": "Área de negócio associada ao funil (null se não houver)",
+                              "nullable": true
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Data de criação do funil (ISO 8601)",
+                              "nullable": true
+                            },
+                            "updated_at": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Data de última atualização do funil (ISO 8601)",
+                              "nullable": true
+                            }
+                          }
+                        },
+                        "counts": {
+                          "type": "object",
+                          "required": [
+                            "total_steps",
+                            "total_projects",
+                            "active_projects",
+                            "tags_count",
+                            "attachments_count"
+                          ],
+                          "properties": {
+                            "total_steps": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "description": "Total de etapas no funil"
+                            },
+                            "total_projects": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "description": "Total de projetos vinculados ao funil"
+                            },
+                            "active_projects": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "description": "Total de projetos ativos no funil"
+                            },
+                            "tags_count": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "description": "Total de tags do funil"
+                            },
+                            "attachments_count": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "description": "Total de anexos do funil"
+                            }
+                          }
+                        },
+                        "steps_distribution": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "step_id",
+                              "step_name",
+                              "projects_count",
+                              "projects_entry_in_period",
+                              "projects_exit_in_period"
+                            ],
+                            "properties": {
+                              "step_id": {
+                                "type": "integer",
+                                "description": "ID da etapa"
+                              },
+                              "step_name": {
+                                "type": "string",
+                                "description": "Nome da etapa"
+                              },
+                              "projects_count": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "description": "Quantidade atual de projetos na etapa"
+                              },
+                              "projects_entry_in_period": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "description": "Quantidade de projetos que entraram na etapa no período analisado"
+                              },
+                              "projects_exit_in_period": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "description": "Quantidade de projetos que saíram da etapa no período analisado"
+                              }
+                            }
+                          },
+                          "description": "Distribuição de projetos por etapa, ordenada por quantidade de projetos (maior para menor)"
+                        },
+                        "steps_summary": {
+                          "type": "object",
+                          "required": [
+                            "most_occupied_step",
+                            "empty_steps_ids",
+                            "empty_steps_count"
+                          ],
+                          "properties": {
+                            "most_occupied_step": {
+                              "type": "object",
+                              "properties": {
+                                "step_id": {
+                                  "type": "integer"
+                                },
+                                "step_name": {
+                                  "type": "string"
+                                },
+                                "step_form_id": {
+                                  "type": "integer",
+                                  "nullable": true
+                                },
+                                "projects_count": {
+                                  "type": "integer",
+                                  "minimum": 0
+                                }
+                              },
+                              "description": "Etapa com maior quantidade de projetos (null se não houver projetos)",
+                              "nullable": true
+                            },
+                            "empty_steps_ids": {
+                              "type": "array",
+                              "items": {
+                                "type": "integer"
+                              },
+                              "description": "Array com IDs das etapas que não possuem projetos"
+                            },
+                            "empty_steps_count": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "description": "Quantidade de etapas vazias"
+                            }
+                          }
+                        },
+                        "time_metrics": {
+                          "type": "object",
+                          "required": [
+                            "average_time_in_funnel_minutes",
+                            "average_time_per_step_minutes",
+                            "oldest_project_id",
+                            "newest_project_id",
+                            "oldest_project_minutes",
+                            "newest_project_minutes"
+                          ],
+                          "properties": {
+                            "average_time_in_funnel_minutes": {
+                              "type": "number",
+                              "minimum": 0,
+                              "description": "Tempo médio (em minutos) que projetos ficam no funil, baseado em transições completas no período"
+                            },
+                            "average_time_per_step_minutes": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "required": [
+                                  "step_id",
+                                  "step_name",
+                                  "average_time_minutes"
+                                ],
+                                "properties": {
+                                  "step_id": {
+                                    "type": "integer"
+                                  },
+                                  "step_name": {
+                                    "type": "string"
+                                  },
+                                  "average_time_minutes": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "description": "Tempo médio (em minutos) que projetos ficam nesta etapa, baseado em transições completas no período"
+                                  }
+                                }
+                              },
+                              "description": "Tempo médio por etapa"
+                            },
+                            "oldest_project_id": {
+                              "type": "string",
+                              "format": "uuid",
+                              "description": "ID do projeto mais antigo vinculado ao funil (null se não houver projetos)",
+                              "nullable": true
+                            },
+                            "newest_project_id": {
+                              "type": "string",
+                              "format": "uuid",
+                              "description": "ID do projeto mais recente vinculado ao funil (null se não houver projetos)",
+                              "nullable": true
+                            },
+                            "oldest_project_minutes": {
+                              "type": "number",
+                              "minimum": 0,
+                              "description": "Tempo em minutos desde a criação do projeto mais antigo até agora"
+                            },
+                            "newest_project_minutes": {
+                              "type": "number",
+                              "minimum": 0,
+                              "description": "Tempo em minutos desde a criação do projeto mais recente até agora"
+                            }
+                          }
+                        },
+                        "activity": {
+                          "type": "object",
+                          "required": [
+                            "last_activity_at",
+                            "projects_added_in_period"
+                          ],
+                          "properties": {
+                            "last_activity_at": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Data e hora da última atividade no funil (transição de etapa) no período analisado (ISO 8601, null se não houver atividade)",
+                              "nullable": true
+                            },
+                            "projects_added_in_period": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "description": "Quantidade de projetos adicionados ao funil no período analisado"
+                            }
+                          }
+                        },
+                        "tags": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "id",
+                              "name",
+                              "color",
+                              "projects_count"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "ID da tag"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Nome da tag"
+                              },
+                              "color": {
+                                "type": "string",
+                                "pattern": "^#[0-9A-Fa-f]{6}$",
+                                "description": "Cor da tag em formato hexadecimal (#RRGGBB)"
+                              },
+                              "projects_count": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "description": "Quantidade de projetos que possuem esta tag"
+                              }
+                            }
+                          },
+                          "description": "Lista de tags do funil com contagem de projetos"
+                        },
+                        "funnel_status": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "id",
+                              "name",
+                              "color",
+                              "is_conclusive",
+                              "projects_count"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "ID do status"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Nome do status"
+                              },
+                              "color": {
+                                "type": "string",
+                                "pattern": "^#[0-9A-Fa-f]{6}$",
+                                "description": "Cor do status em formato hexadecimal (#RRGGBB)"
+                              },
+                              "is_conclusive": {
+                                "type": "boolean",
+                                "description": "Indica se este é um status conclusivo"
+                              },
+                              "projects_count": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "description": "Quantidade de projetos com este status"
+                              }
+                            }
+                          },
+                          "description": "Lista de status do funil com contagem de projetos"
+                        },
+                        "attachments": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "id",
+                              "name",
+                              "technical_name",
+                              "extension",
+                              "file_url"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "ID do anexo"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Nome do anexo"
+                              },
+                              "technical_name": {
+                                "type": "string",
+                                "description": "Nome técnico do arquivo"
+                              },
+                              "extension": {
+                                "type": "string",
+                                "description": "Extensão do arquivo"
+                              },
+                              "file_url": {
+                                "type": "string",
+                                "format": "uri",
+                                "description": "URL do arquivo"
+                              },
+                              "user": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "avatar_url": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "nullable": true
+                                  }
+                                },
+                                "description": "Informações do usuário que fez upload do anexo (null se não disponível)",
+                                "nullable": true
+                              }
+                            }
+                          },
+                          "description": "Lista de anexos do funil"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "metrics": {
+                    "period": {
+                      "start_date": "2026-01-09",
+                      "end_date": "2026-02-08",
+                      "is_default": true
+                    },
+                    "basic": {
+                      "id": 38,
+                      "name": "Marketing",
+                      "condition": "active",
+                      "steps": [
+                        {
+                          "id": 166,
+                          "name": "Backlog",
+                          "form_id": null
+                        },
+                        {
+                          "id": 167,
+                          "name": "Em Andamento",
+                          "form_id": null
+                        },
+                        {
+                          "id": 168,
+                          "name": "Correção",
+                          "form_id": null
+                        },
+                        {
+                          "id": 169,
+                          "name": "Publicação",
+                          "form_id": null
+                        },
+                        {
+                          "id": 170,
+                          "name": "Análise de Resultados",
+                          "form_id": null
+                        },
+                        {
+                          "id": 171,
+                          "name": "Finalização",
+                          "form_id": null
+                        }
+                      ],
+                      "funnel_form": null,
+                      "business_area": null,
+                      "created_at": "2026-02-08T23:44:18-03:00",
+                      "updated_at": "2026-02-08T23:44:18-03:00"
+                    },
+                    "counts": {
+                      "total_steps": 6,
+                      "total_projects": 50,
+                      "active_projects": 50,
+                      "tags_count": 2,
+                      "attachments_count": 0
+                    },
+                    "steps_distribution": [
+                      {
+                        "step_id": 167,
+                        "step_name": "Em Andamento",
+                        "projects_count": 11,
+                        "projects_entry_in_period": 19,
+                        "projects_exit_in_period": 12
+                      },
+                      {
+                        "step_id": 166,
+                        "step_name": "Backlog",
+                        "projects_count": 9,
+                        "projects_entry_in_period": 21,
+                        "projects_exit_in_period": 13
+                      },
+                      {
+                        "step_id": 168,
+                        "step_name": "Correção",
+                        "projects_count": 9,
+                        "projects_entry_in_period": 11,
+                        "projects_exit_in_period": 9
+                      },
+                      {
+                        "step_id": 169,
+                        "step_name": "Publicação",
+                        "projects_count": 8,
+                        "projects_entry_in_period": 7,
+                        "projects_exit_in_period": 5
+                      },
+                      {
+                        "step_id": 171,
+                        "step_name": "Finalização",
+                        "projects_count": 7,
+                        "projects_entry_in_period": 5,
+                        "projects_exit_in_period": 0
+                      },
+                      {
+                        "step_id": 170,
+                        "step_name": "Análise de Resultados",
+                        "projects_count": 6,
+                        "projects_entry_in_period": 6,
+                        "projects_exit_in_period": 5
+                      }
+                    ],
+                    "steps_summary": {
+                      "most_occupied_step": {
+                        "step_id": 167,
+                        "step_name": "Em Andamento",
+                        "step_form_id": null,
+                        "projects_count": 11
+                      },
+                      "empty_steps_ids": [],
+                      "empty_steps_count": 0
+                    },
+                    "time_metrics": {
+                      "average_time_in_funnel_minutes": 4963.2,
+                      "average_time_per_step_minutes": [
+                        {
+                          "step_id": 166,
+                          "step_name": "Backlog",
+                          "average_time_minutes": 5643.75
+                        },
+                        {
+                          "step_id": 167,
+                          "step_name": "Em Andamento",
+                          "average_time_minutes": 4472
+                        },
+                        {
+                          "step_id": 168,
+                          "step_name": "Correção",
+                          "average_time_minutes": 5880
+                        },
+                        {
+                          "step_id": 169,
+                          "step_name": "Publicação",
+                          "average_time_minutes": 3372
+                        },
+                        {
+                          "step_id": 170,
+                          "step_name": "Análise de Resultados",
+                          "average_time_minutes": 4200
+                        },
+                        {
+                          "step_id": 171,
+                          "step_name": "Finalização",
+                          "average_time_minutes": 0
+                        }
+                      ],
+                      "oldest_project_id": "d5f647d1-2df1-451c-96e7-5f577dd3b574",
+                      "newest_project_id": "8812c301-6ed5-4495-a255-34b2d24433e5",
+                      "oldest_project_minutes": 129398.09,
+                      "newest_project_minutes": 963.09
+                    },
+                    "activity": {
+                      "last_activity_at": "2026-02-08T17:46:17-03:00",
+                      "projects_added_in_period": 15
+                    },
+                    "tags": [
+                      {
+                        "id": 1,
+                        "name": "Bixa prioridade",
+                        "color": "#28a745",
+                        "projects_count": 0
+                      },
+                      {
+                        "id": 2,
+                        "name": "Alta prioridade",
+                        "color": "#ffc107",
+                        "projects_count": 0
+                      }
+                    ],
+                    "funnel_status": [],
+                    "attachments": []
+                  }
+                }
               }
             }
           }
@@ -14617,7 +15253,7 @@
           "project-funnels",
           "{project_funnel_id}"
         ],
-        "description": "Obtém métricas detalhadas de um funil de projetos, incluindo distribuição por etapa, tempo médio, atividade e contadores.\n\nSuporta filtro por período (padrão: últimos 30 dias, máximo: 3 meses).\n\nRequer permissão `project_funnels.see_funnel_metrics` e acesso ao funil."
+        "description": "Obtém métricas detalhadas de um funil de projetos, incluindo distribuição por etapa, tempo médio, atividade e contadores.\n\nSuporta filtro por período (padrão: últimos 30 dias, máximo: 3 meses).\n\nRequer permissão `project_funnels.see_funnel_metrics` e acesso de visualização ao funil (`project_funnels.view.{funnel_id}` ou `project_funnels.view_all`)."
       },
       "parameters": [
         {
