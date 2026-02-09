@@ -15289,7 +15289,7 @@
     },
     "/api/management/projects/{project}/project-executions": {
       "get": {
-        "summary": "Listar execuções de projeto",
+        "summary": "Listar execuções de projeto Copy",
         "responses": {},
         "tags": [
           "projects",
@@ -15358,6 +15358,17 @@
           "example": "a10a19d3-daf0-4319-a996-a56de5597e46"
         }
       ]
+    },
+    "/api/management/project-executions/me": {
+      "get": {
+        "summary": "Listar execuções de projeto",
+        "responses": {},
+        "tags": [
+          "projects",
+          "{id}",
+          "project-execution"
+        ]
+      }
     }
   },
   "components": {
