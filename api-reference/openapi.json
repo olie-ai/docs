@@ -8,6 +8,9 @@
   "servers": [
     {
       "url": "https://api.olie.ai"
+    },
+    {
+      "url": ""
     }
   ],
   "paths": {
@@ -5982,7 +5985,7 @@
       "post": {
         "tags": [
           "project-funnels",
-          "project-funnel-link-toggle"
+          "{project_funnel_id}"
         ],
         "summary": "Alternar vínculo do funil de projeto",
         "description": "Alternar o estado do vínculo entre projeto e funil.",
@@ -5998,7 +6001,7 @@
       "post": {
         "tags": [
           "project-funnels",
-          "update-project-funnel-status"
+          "{project_funnel_id}"
         ],
         "summary": "Atualizar status do funil de projeto",
         "description": "Atualizar o status de um funil de projeto específico.",
@@ -6862,7 +6865,7 @@
       "post": {
         "tags": [
           "project-funnels",
-          "toggle-funnel-tag"
+          "{project_funnel_id}"
         ],
         "summary": "Alternar vínculo de etiqueta do funil de um projeto",
         "description": "Alternar vínculo de etiqueta do funil de um projeto.",
@@ -6878,7 +6881,7 @@
       "post": {
         "tags": [
           "project-funnels",
-          "delete-funnel"
+          "{project_funnel_id}"
         ],
         "summary": "Arquivar um funil",
         "description": "Arquivar um funil específico.",
@@ -6894,7 +6897,7 @@
       "post": {
         "tags": [
           "project-funnels",
-          "restore-funnel"
+          "{project_funnel_id}"
         ],
         "summary": "Restaurar um funil",
         "description": "Restaurar um funil que foi arquivado anteriormente.",
@@ -6910,7 +6913,7 @@
       "post": {
         "tags": [
           "project-funnels",
-          "clone-funnel"
+          "{project_funnel_id}"
         ],
         "summary": "Clonar um funil",
         "description": "Clonar um funil existente criando uma cópia.",
@@ -6926,7 +6929,7 @@
       "post": {
         "tags": [
           "project-funnels",
-          "reorder"
+          "{project_funnel_id}"
         ],
         "summary": "Reordenar funis de projeto",
         "description": "Reordenar funis de projeto no sistema.",
@@ -14507,6 +14510,16 @@
             "description": "200"
           }
         }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Métricas do funil",
+        "responses": {},
+        "tags": [
+          "project-funnels",
+          "{project_funnel_id}"
+        ]
       }
     }
   },
