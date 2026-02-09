@@ -15316,6 +15316,16 @@
           "projects",
           "{id}",
           "project-execution"
+        ],
+        "parameters": [
+          {
+            "name": "funnel_step_id",
+            "in": "query",
+            "description": "ID da etapa onde será executado o projeto",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     }
