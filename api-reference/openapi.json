@@ -8,9 +8,6 @@
   "servers": [
     {
       "url": "https://api.olie.ai"
-    },
-    {
-      "url": ""
     }
   ],
   "paths": {
@@ -14521,6 +14518,119 @@
           "{project_funnel_id}"
         ]
       }
+    },
+    "/api/management/project-funnels/{project_funnel_id}/metrics": {
+      "get": {
+        "summary": "Métricas do funil",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "no-cache, private"
+              },
+              "Content-Encoding": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "gzip"
+              },
+              "Date": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Mon, 09 Feb 2026 02:49:22 GMT"
+              },
+              "Referrer-Policy": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "strict-origin-when-cross-origin"
+              },
+              "Server": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "nginx"
+              },
+              "Strict-Transport-Security": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "max-age=31536000; includeSubDomains"
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Accept-Encoding"
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "nosniff"
+              },
+              "X-Frame-Options": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "SAMEORIGIN"
+              },
+              "X-Ratelimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                },
+                "example": "160"
+              },
+              "X-Ratelimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                },
+                "example": "157"
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "chunked"
+              }
+            }
+          }
+        },
+        "tags": [
+          "project-funnels",
+          "{project_funnel_id}"
+        ],
+        "description": "Obtém métricas detalhadas de um funil de projetos, incluindo distribuição por etapa, tempo médio, atividade e contadores.\n\nSuporta filtro por período (padrão: últimos 30 dias, máximo: 3 meses).\n\nRequer permissão `project_funnels.see_funnel_metrics` e acesso ao funil."
+      },
+      "parameters": [
+        {
+          "name": "project_funnel_id",
+          "in": "path",
+          "required": true,
+          "description": "ID do funil de projeto",
+          "deprecated": false,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ]
     }
   },
   "components": {
