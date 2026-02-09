@@ -15253,7 +15253,26 @@
           "project-funnels",
           "{project_funnel_id}"
         ],
-        "description": "Obtém métricas detalhadas de um funil de projetos, incluindo distribuição por etapa, tempo médio, atividade e contadores.\n\nSuporta filtro por período (padrão: últimos 30 dias, máximo: 3 meses).\n\nRequer permissão `project_funnels.see_funnel_metrics` e acesso de visualização ao funil (`project_funnels.view.{funnel_id}` ou `project_funnels.view_all`)."
+        "description": "Obtém métricas detalhadas de um funil de projetos, incluindo distribuição por etapa, tempo médio, atividade e contadores.\n\nSuporta filtro por período (padrão: últimos 30 dias, máximo: 3 meses).\n\nRequer permissão `project_funnels.see_funnel_metrics` e acesso de visualização ao funil (`project_funnels.view.{funnel_id}` ou `project_funnels.view_all`).",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Data de início do período. Opcional",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "Data de fim do período. Obrigatório quando o start_date for informado.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       },
       "parameters": [
         {
