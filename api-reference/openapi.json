@@ -14645,7 +14645,7 @@
                             },
                             "is_default": {
                               "type": "boolean",
-                              "description": "Indica se o período é o padrão (últimos 30 dias) ou foi customizado"
+                              "description": "Indica se o período é o padrão ou foi customizado"
                             }
                           }
                         },
@@ -14762,7 +14762,7 @@
                             "active_projects": {
                               "type": "integer",
                               "minimum": 0,
-                              "description": "Total de projetos ativos no funil"
+                              "description": "Total de projetos no funil com status = em andamento"
                             },
                             "tags_count": {
                               "type": "integer",
