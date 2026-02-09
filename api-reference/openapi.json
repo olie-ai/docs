@@ -15302,10 +15302,22 @@
           "name": "project",
           "in": "path",
           "required": true,
-          "deprecated": false,
-          "schema": {}
+          "description": "ID do projeto",
+          "schema": {
+            "type": "string"
+          },
+          "example": "{{project_id}}"
         }
-      ]
+      ],
+      "post": {
+        "summary": "Lançar execução de projeto",
+        "responses": {},
+        "tags": [
+          "projects",
+          "{id}",
+          "project-execution"
+        ]
+      }
     }
   },
   "components": {
