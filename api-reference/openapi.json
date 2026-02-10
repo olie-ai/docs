@@ -15361,7 +15361,7 @@
     },
     "/api/management/project-executions/me": {
       "get": {
-        "summary": "Listar execuções de projeto",
+        "summary": "Minhas execuções",
         "responses": {},
         "tags": [
           "projects",
