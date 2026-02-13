@@ -15289,7 +15289,7 @@
     },
     "/api/management/projects/{project}/project-executions": {
       "get": {
-        "summary": "Listar execuções de projeto Copy",
+        "summary": "Listar execuções de projeto",
         "responses": {},
         "tags": [
           "projects",
@@ -15369,6 +15369,28 @@
           "project-execution"
         ]
       }
+    },
+    "/api/management/projects/{project}/project-executions/dashboard": {
+      "get": {
+        "summary": "Métricas sobre as execuções",
+        "responses": {},
+        "tags": [
+          "projects",
+          "{id}",
+          "project-execution"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "project",
+          "in": "path",
+          "required": true,
+          "description": "ID do projeto",
+          "deprecated": false,
+          "schema": {},
+          "example": "{{project_id}}"
+        }
+      ]
     }
   },
   "components": {
