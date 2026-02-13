@@ -15298,7 +15298,7 @@
         ],
         "parameters": [
           {
-            "name": "user_id",
+            "name": "filter[user_id]",
             "in": "query",
             "description": "Filtra pelo ID do usuário",
             "schema": {
@@ -15307,7 +15307,7 @@
             }
           },
           {
-            "name": "funnel_step_id",
+            "name": "filter[funnel_step_id]",
             "in": "query",
             "description": "Filtra pelo ID da etapa da execução",
             "schema": {
@@ -15315,7 +15315,7 @@
             }
           },
           {
-            "name": "start_date_gt",
+            "name": "filter[start_date_gt]",
             "in": "query",
             "description": "Filtra execuções que começaram depois da data usada no filtro",
             "schema": {
@@ -15324,7 +15324,7 @@
             }
           },
           {
-            "name": "end_date_lt",
+            "name": "filter[end_date_lt]",
             "in": "query",
             "description": "Filtra execuções que começaram antes da data usada no filtro",
             "schema": {
