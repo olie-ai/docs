@@ -15295,6 +15295,43 @@
           "projects",
           "{id}",
           "project-execution"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "Filtra pelo ID do usuário",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "funnel_step_id",
+            "in": "query",
+            "description": "Filtra pelo ID da etapa da execução",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "start_date_gt",
+            "in": "query",
+            "description": "Filtra execuções que começaram depois da data usada no filtro",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "end_date_lt",
+            "in": "query",
+            "description": "Filtra execuções que começaram antes da data usada no filtro",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
         ]
       },
       "parameters": [
