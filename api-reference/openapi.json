@@ -808,10 +808,11 @@
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID do projeto que será pai",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": "{{project_id}}"
         }
       ]
     },
