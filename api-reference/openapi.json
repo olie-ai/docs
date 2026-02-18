@@ -15387,9 +15387,8 @@
           "name": "project_id",
           "in": "path",
           "required": true,
-          "schema": {
-            "type": "string"
-          },
+          "deprecated": false,
+          "schema": {},
           "example": "{{project_id}}"
         },
         {
@@ -15398,7 +15397,7 @@
           "required": true,
           "deprecated": false,
           "schema": {},
-          "example": "a10a19d3-daf0-4319-a996-a56de5597e46"
+          "example": "a11073b8-e458-415d-94d0-c5b9fe8b9fb6"
         }
       ]
     },
