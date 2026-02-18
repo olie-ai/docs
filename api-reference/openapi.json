@@ -15328,6 +15328,15 @@
               "type": "string",
               "format": "date-time"
             }
+          },
+          {
+            "name": "export",
+            "in": "query",
+            "description": "Quando passado, o resultado virá como um CSV completo das execuções",
+            "schema": {
+              "type": "boolean"
+            },
+            "example": "true"
           }
         ]
       },
