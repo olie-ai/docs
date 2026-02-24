@@ -15433,6 +15433,43 @@
           "example": "{{project_id}}"
         }
       ]
+    },
+    "/api/management/users/{user_id}/project-executions": {
+      "get": {
+        "summary": "New Request",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "description": "Data de início do período. Opcional",
+            "deprecated": false,
+            "schema": {}
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "description": "Data de fim do período. Obrigatório quando o start_date for informado.",
+            "deprecated": false,
+            "schema": {}
+          }
+        ],
+        "responses": {},
+        "tags": [
+          "users",
+          "{id}"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "user_id",
+          "in": "path",
+          "required": true,
+          "deprecated": false,
+          "schema": {}
+        }
+      ]
     }
   },
   "components": {
