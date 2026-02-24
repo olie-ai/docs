@@ -15436,23 +15436,40 @@
     },
     "/api/management/users/{user_id}/project-executions": {
       "get": {
-        "summary": "New Request",
+        "summary": "Listar execuções de projeto",
         "parameters": [
           {
-            "name": "start_date",
+            "name": "filter[funnel_step_id]",
             "in": "query",
-            "required": false,
-            "description": "Data de início do período. Opcional",
-            "deprecated": false,
-            "schema": {}
+            "description": "Filtra pelo ID da etapa da execução",
+            "schema": {
+              "type": "string"
+            }
           },
           {
-            "name": "end_date",
+            "name": "filter[start_date_gt]",
             "in": "query",
-            "required": false,
-            "description": "Data de fim do período. Obrigatório quando o start_date for informado.",
-            "deprecated": false,
-            "schema": {}
+            "description": "Filtra execuções que começaram depois da data usada no filtro",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter[end_date_lt]",
+            "in": "query",
+            "description": "Filtra execuções que começaram antes da data usada no filtro",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "export",
+            "in": "query",
+            "description": "Quando passado, o resultado virá como um CSV completo das execuções",
+            "schema": {
+              "type": "boolean"
+            },
+            "example": "true"
           }
         ],
         "responses": {},
@@ -15466,8 +15483,10 @@
           "name": "user_id",
           "in": "path",
           "required": true,
-          "deprecated": false,
-          "schema": {}
+          "schema": {
+            "type": "string"
+          },
+          "example": "{{user_id}}"
         }
       ]
     }
