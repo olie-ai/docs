@@ -797,7 +797,11 @@
         "summary": "Vincular um projeto como filho de outro projeto",
         "description": "Vincula um projeto como filho de outro projeto, criando uma relação de hierarquia pai-filho.",
         "operationId": "vincularProjetoComoFilhoDeOutroProjeto",
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "200"
+          }
+        }
       },
       "parameters": [
         {
@@ -14569,7 +14573,11 @@
     "/": {
       "get": {
         "summary": "Métricas do funil",
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "200"
+          }
+        },
         "tags": [
           "project-funnels",
           "{project_funnel_id}"
@@ -15347,7 +15355,11 @@
     "/api/management/projects/{project}/project-executions": {
       "get": {
         "summary": "Listar execuções de projeto",
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "200"
+          }
+        },
         "tags": [
           "projects",
           "{id}",
@@ -15414,7 +15426,11 @@
       ],
       "post": {
         "summary": "Lançar execução de projeto",
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "200"
+          }
+        },
         "tags": [
           "projects",
           "{id}",
@@ -15435,7 +15451,11 @@
     "/api/management/projects/{project_id}/project-executions/{project_execution_id}": {
       "put": {
         "summary": "Atualizar execução de projeto",
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "200"
+          }
+        },
         "tags": [
           "projects",
           "{id}",
@@ -15464,7 +15484,11 @@
     "/api/management/project-executions/me": {
       "get": {
         "summary": "Minhas execuções",
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "200"
+          }
+        },
         "tags": [
           "projects",
           "{id}",
@@ -15475,7 +15499,11 @@
     "/api/management/projects/{project}/project-executions/dashboard": {
       "get": {
         "summary": "Métricas sobre as execuções",
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "200"
+          }
+        },
         "tags": [
           "projects",
           "{id}",
@@ -15532,7 +15560,11 @@
             "example": "true"
           }
         ],
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "200"
+          }
+        },
         "tags": [
           "users",
           "{id}"
