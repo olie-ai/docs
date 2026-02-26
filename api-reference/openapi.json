@@ -14394,10 +14394,110 @@
         "operationId": "listarEtiquetas",
         "responses": {
           "200": {
-            "description": "Sucesso"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "color": {
+                            "type": "string",
+                            "format": "color"
+                          },
+                          "model": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "deleted_at": {
+                            "nullable": true
+                          }
+                        }
+                      }
+                    },
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "tags": [
+                    {
+                      "id": "019c8b6e-8e75-724d-b877-b11df90d2b15",
+                      "name": "Copyright",
+                      "color": "#5e4ff8",
+                      "model": "App\\Models\\Contact",
+                      "created_at": "2026-02-23T16:56:44.000000Z",
+                      "deleted_at": null
+                    },
+                    {
+                      "id": "019c8b9c-c034-73cd-9a3c-eae8e54b3bfe",
+                      "name": "Financeiro",
+                      "color": "#258aff",
+                      "model": "App\\Models\\Customer",
+                      "created_at": "2026-02-23T17:47:11.000000Z",
+                      "deleted_at": null
+                    },
+                    {
+                      "id": "019c8fa4-9ed1-727b-81d4-e2d9c03d695f",
+                      "name": "Marketing",
+                      "color": "#28a745",
+                      "model": "App\\Models\\Customer",
+                      "created_at": "2026-02-24T12:34:16.000000Z",
+                      "deleted_at": null
+                    },
+                    {
+                      "id": "019c8fca-50e8-7142-83d3-01c38543a9c5",
+                      "name": "Desenvolvedor de software",
+                      "color": null,
+                      "model": "App\\Models\\Customer",
+                      "created_at": "2026-02-24T13:15:26.000000Z",
+                      "deleted_at": null
+                    }
+                  ],
+                  "response": true
+                }
+              }
+            }
           },
           "401": {
-            "description": "Listar etiquetas"
+            "description": "Não autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
+                }
+              }
+            }
           }
         }
       },
