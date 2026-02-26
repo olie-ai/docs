@@ -325,7 +325,8 @@
           "schema": {
             "type": "string",
             "format": "uuid"
-          }
+          },
+          "example": "78886ebc-716d-e628-c18d-da3f5bddb068"
         }
       ],
       "post": {
@@ -14393,7 +14394,10 @@
         "operationId": "listarEtiquetas",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso"
+          },
+          "401": {
+            "description": "Listar etiquetas"
           }
         }
       },
@@ -14592,73 +14596,87 @@
             "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Content-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "gzip"
               },
               "Date": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Mon, 09 Feb 2026 02:49:22 GMT"
               },
               "Referrer-Policy": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "strict-origin-when-cross-origin"
               },
               "Server": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nginx"
               },
               "Strict-Transport-Security": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "max-age=31536000; includeSubDomains"
               },
               "Vary": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Accept-Encoding"
               },
               "X-Content-Type-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nosniff"
               },
               "X-Frame-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "SAMEORIGIN"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "160"
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "157"
               },
               "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
               }
             },
@@ -14666,10 +14684,6 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "response",
-                    "metrics"
-                  ],
                   "properties": {
                     "response": {
                       "type": "boolean",
@@ -14677,51 +14691,33 @@
                     },
                     "metrics": {
                       "type": "object",
-                      "required": [
-                        "period",
-                        "basic",
-                        "counts",
-                        "steps_distribution",
-                        "steps_summary",
-                        "time_metrics",
-                        "activity",
-                        "tags",
-                        "funnel_status",
-                        "attachments"
-                      ],
                       "properties": {
                         "period": {
                           "type": "object",
-                          "required": [
-                            "start_date",
-                            "end_date",
-                            "is_default"
-                          ],
                           "properties": {
                             "start_date": {
                               "type": "string",
-                              "format": "date",
-                              "description": "Data inicial do período analisado (formato: Y-m-d)"
+                              "description": "Data inicial do período analisado (formato: Y-m-d)",
+                              "format": "date"
                             },
                             "end_date": {
                               "type": "string",
-                              "format": "date",
-                              "description": "Data final do período analisado (formato: Y-m-d)"
+                              "description": "Data final do período analisado (formato: Y-m-d)",
+                              "format": "date"
                             },
                             "is_default": {
                               "type": "boolean",
                               "description": "Indica se o período é o padrão ou foi customizado"
                             }
-                          }
+                          },
+                          "required": [
+                            "start_date",
+                            "end_date",
+                            "is_default"
+                          ]
                         },
                         "basic": {
                           "type": "object",
-                          "required": [
-                            "id",
-                            "name",
-                            "condition",
-                            "steps"
-                          ],
                           "properties": {
                             "id": {
                               "type": "integer",
@@ -14743,10 +14739,6 @@
                               "type": "array",
                               "items": {
                                 "type": "object",
-                                "required": [
-                                  "id",
-                                  "name"
-                                ],
                                 "properties": {
                                   "id": {
                                     "type": "integer",
@@ -14758,14 +14750,18 @@
                                   },
                                   "form_id": {
                                     "type": "integer",
-                                    "description": "ID do formulário associado à etapa (null se não houver)",
-                                    "nullable": true
+                                    "description": "ID do formulário associado à etapa (null se não houver)"
                                   }
-                                }
+                                },
+                                "required": [
+                                  "id",
+                                  "name"
+                                ]
                               }
                             },
                             "funnel_form": {
                               "type": "object",
+                              "description": "Formulário associado ao funil (null se não houver)",
                               "properties": {
                                 "id": {
                                   "type": "integer"
@@ -14773,12 +14769,11 @@
                                 "title": {
                                   "type": "string"
                                 }
-                              },
-                              "description": "Formulário associado ao funil (null se não houver)",
-                              "nullable": true
+                              }
                             },
                             "business_area": {
                               "type": "object",
+                              "description": "Área de negócio associada ao funil (null se não houver)",
                               "properties": {
                                 "id": {
                                   "type": "integer"
@@ -14786,33 +14781,28 @@
                                 "name": {
                                   "type": "string"
                                 }
-                              },
-                              "description": "Área de negócio associada ao funil (null se não houver)",
-                              "nullable": true
+                              }
                             },
                             "created_at": {
                               "type": "string",
-                              "format": "date-time",
                               "description": "Data de criação do funil (ISO 8601)",
-                              "nullable": true
+                              "format": "date-time"
                             },
                             "updated_at": {
                               "type": "string",
-                              "format": "date-time",
                               "description": "Data de última atualização do funil (ISO 8601)",
-                              "nullable": true
+                              "format": "date-time"
                             }
-                          }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "condition",
+                            "steps"
+                          ]
                         },
                         "counts": {
                           "type": "object",
-                          "required": [
-                            "total_steps",
-                            "total_projects",
-                            "active_projects",
-                            "tags_count",
-                            "attachments_count"
-                          ],
                           "properties": {
                             "total_steps": {
                               "type": "integer",
@@ -14839,19 +14829,20 @@
                               "minimum": 0,
                               "description": "Total de anexos do funil"
                             }
-                          }
+                          },
+                          "required": [
+                            "total_steps",
+                            "total_projects",
+                            "active_projects",
+                            "tags_count",
+                            "attachments_count"
+                          ]
                         },
                         "steps_distribution": {
                           "type": "array",
+                          "description": "Distribuição de projetos por etapa, ordenada por quantidade de projetos (maior para menor)",
                           "items": {
                             "type": "object",
-                            "required": [
-                              "step_id",
-                              "step_name",
-                              "projects_count",
-                              "projects_entry_in_period",
-                              "projects_exit_in_period"
-                            ],
                             "properties": {
                               "step_id": {
                                 "type": "integer",
@@ -14876,20 +14867,22 @@
                                 "minimum": 0,
                                 "description": "Quantidade de projetos que saíram da etapa no período analisado"
                               }
-                            }
-                          },
-                          "description": "Distribuição de projetos por etapa, ordenada por quantidade de projetos (maior para menor)"
+                            },
+                            "required": [
+                              "step_id",
+                              "step_name",
+                              "projects_count",
+                              "projects_entry_in_period",
+                              "projects_exit_in_period"
+                            ]
+                          }
                         },
                         "steps_summary": {
                           "type": "object",
-                          "required": [
-                            "most_occupied_step",
-                            "empty_steps_ids",
-                            "empty_steps_count"
-                          ],
                           "properties": {
                             "most_occupied_step": {
                               "type": "object",
+                              "description": "Etapa com maior quantidade de projetos (null se não houver projetos)",
                               "properties": {
                                 "step_id": {
                                   "type": "integer"
@@ -14898,41 +14891,35 @@
                                   "type": "string"
                                 },
                                 "step_form_id": {
-                                  "type": "integer",
-                                  "nullable": true
+                                  "type": "integer"
                                 },
                                 "projects_count": {
                                   "type": "integer",
                                   "minimum": 0
                                 }
-                              },
-                              "description": "Etapa com maior quantidade de projetos (null se não houver projetos)",
-                              "nullable": true
+                              }
                             },
                             "empty_steps_ids": {
                               "type": "array",
+                              "description": "Array com IDs das etapas que não possuem projetos",
                               "items": {
                                 "type": "integer"
-                              },
-                              "description": "Array com IDs das etapas que não possuem projetos"
+                              }
                             },
                             "empty_steps_count": {
                               "type": "integer",
                               "minimum": 0,
                               "description": "Quantidade de etapas vazias"
                             }
-                          }
+                          },
+                          "required": [
+                            "most_occupied_step",
+                            "empty_steps_ids",
+                            "empty_steps_count"
+                          ]
                         },
                         "time_metrics": {
                           "type": "object",
-                          "required": [
-                            "average_time_in_funnel_minutes",
-                            "average_time_per_step_minutes",
-                            "oldest_project_id",
-                            "newest_project_id",
-                            "oldest_project_minutes",
-                            "newest_project_minutes"
-                          ],
                           "properties": {
                             "average_time_in_funnel_minutes": {
                               "type": "number",
@@ -14941,13 +14928,9 @@
                             },
                             "average_time_per_step_minutes": {
                               "type": "array",
+                              "description": "Tempo médio por etapa",
                               "items": {
                                 "type": "object",
-                                "required": [
-                                  "step_id",
-                                  "step_name",
-                                  "average_time_minutes"
-                                ],
                                 "properties": {
                                   "step_id": {
                                     "type": "integer"
@@ -14960,21 +14943,23 @@
                                     "minimum": 0,
                                     "description": "Tempo médio (em minutos) que projetos ficam nesta etapa, baseado em transições completas no período"
                                   }
-                                }
-                              },
-                              "description": "Tempo médio por etapa"
+                                },
+                                "required": [
+                                  "step_id",
+                                  "step_name",
+                                  "average_time_minutes"
+                                ]
+                              }
                             },
                             "oldest_project_id": {
                               "type": "string",
-                              "format": "uuid",
                               "description": "ID do projeto mais antigo vinculado ao funil (null se não houver projetos)",
-                              "nullable": true
+                              "format": "uuid"
                             },
                             "newest_project_id": {
                               "type": "string",
-                              "format": "uuid",
                               "description": "ID do projeto mais recente vinculado ao funil (null se não houver projetos)",
-                              "nullable": true
+                              "format": "uuid"
                             },
                             "oldest_project_minutes": {
                               "type": "number",
@@ -14986,38 +14971,40 @@
                               "minimum": 0,
                               "description": "Tempo em minutos desde a criação do projeto mais recente até agora"
                             }
-                          }
+                          },
+                          "required": [
+                            "average_time_in_funnel_minutes",
+                            "average_time_per_step_minutes",
+                            "oldest_project_id",
+                            "newest_project_id",
+                            "oldest_project_minutes",
+                            "newest_project_minutes"
+                          ]
                         },
                         "activity": {
                           "type": "object",
-                          "required": [
-                            "last_activity_at",
-                            "projects_added_in_period"
-                          ],
                           "properties": {
                             "last_activity_at": {
                               "type": "string",
-                              "format": "date-time",
                               "description": "Data e hora da última atividade no funil (transição de etapa) no período analisado (ISO 8601, null se não houver atividade)",
-                              "nullable": true
+                              "format": "date-time"
                             },
                             "projects_added_in_period": {
                               "type": "integer",
                               "minimum": 0,
                               "description": "Quantidade de projetos adicionados ao funil no período analisado"
                             }
-                          }
+                          },
+                          "required": [
+                            "last_activity_at",
+                            "projects_added_in_period"
+                          ]
                         },
                         "tags": {
                           "type": "array",
+                          "description": "Lista de tags do funil com contagem de projetos",
                           "items": {
                             "type": "object",
-                            "required": [
-                              "id",
-                              "name",
-                              "color",
-                              "projects_count"
-                            ],
                             "properties": {
                               "id": {
                                 "type": "integer",
@@ -15037,21 +15024,20 @@
                                 "minimum": 0,
                                 "description": "Quantidade de projetos que possuem esta tag"
                               }
-                            }
-                          },
-                          "description": "Lista de tags do funil com contagem de projetos"
-                        },
-                        "funnel_status": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
+                            },
                             "required": [
                               "id",
                               "name",
                               "color",
-                              "is_conclusive",
                               "projects_count"
-                            ],
+                            ]
+                          }
+                        },
+                        "funnel_status": {
+                          "type": "array",
+                          "description": "Lista de status do funil com contagem de projetos",
+                          "items": {
+                            "type": "object",
                             "properties": {
                               "id": {
                                 "type": "integer",
@@ -15075,21 +15061,21 @@
                                 "minimum": 0,
                                 "description": "Quantidade de projetos com este status"
                               }
-                            }
-                          },
-                          "description": "Lista de status do funil com contagem de projetos"
-                        },
-                        "attachments": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
+                            },
                             "required": [
                               "id",
                               "name",
-                              "technical_name",
-                              "extension",
-                              "file_url"
-                            ],
+                              "color",
+                              "is_conclusive",
+                              "projects_count"
+                            ]
+                          }
+                        },
+                        "attachments": {
+                          "type": "array",
+                          "description": "Lista de anexos do funil",
+                          "items": {
+                            "type": "object",
                             "properties": {
                               "id": {
                                 "type": "integer",
@@ -15109,11 +15095,12 @@
                               },
                               "file_url": {
                                 "type": "string",
-                                "format": "uri",
-                                "description": "URL do arquivo"
+                                "description": "URL do arquivo",
+                                "format": "uri"
                               },
                               "user": {
                                 "type": "object",
+                                "description": "Informações do usuário que fez upload do anexo (null se não disponível)",
                                 "properties": {
                                   "id": {
                                     "type": "string",
@@ -15124,20 +15111,39 @@
                                   },
                                   "avatar_url": {
                                     "type": "string",
-                                    "format": "uri",
-                                    "nullable": true
+                                    "format": "uri"
                                   }
-                                },
-                                "description": "Informações do usuário que fez upload do anexo (null se não disponível)",
-                                "nullable": true
+                                }
                               }
-                            }
-                          },
-                          "description": "Lista de anexos do funil"
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "technical_name",
+                              "extension",
+                              "file_url"
+                            ]
+                          }
                         }
-                      }
+                      },
+                      "required": [
+                        "period",
+                        "basic",
+                        "counts",
+                        "steps_distribution",
+                        "steps_summary",
+                        "time_metrics",
+                        "activity",
+                        "tags",
+                        "funnel_status",
+                        "attachments"
+                      ]
                     }
-                  }
+                  },
+                  "required": [
+                    "response",
+                    "metrics"
+                  ]
                 },
                 "example": {
                   "response": true,
@@ -15327,7 +15333,8 @@
             "schema": {
               "type": "string",
               "format": "date"
-            }
+            },
+            "example": "2019-03-07"
           },
           {
             "name": "end_date",
@@ -15335,7 +15342,8 @@
             "description": "Data de fim do período. Obrigatório quando o start_date for informado.",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "string"
           }
         ]
       },
@@ -15348,7 +15356,8 @@
           "deprecated": false,
           "schema": {
             "type": "integer"
-          }
+          },
+          "example": "8017"
         }
       ]
     },
@@ -15373,7 +15382,8 @@
             "schema": {
               "type": "string",
               "format": "uuid"
-            }
+            },
+            "example": "78886ebc-716d-e628-c18d-da3f5bddb068"
           },
           {
             "name": "filter[funnel_step_id]",
@@ -15381,7 +15391,8 @@
             "description": "Filtra pelo ID da etapa da execução",
             "schema": {
               "type": "integer"
-            }
+            },
+            "example": "8017"
           },
           {
             "name": "filter[start_date_gt]",
@@ -15390,7 +15401,8 @@
             "schema": {
               "type": "string",
               "format": "date-time"
-            }
+            },
+            "example": "2014-02-07T22:04:31.151Z"
           },
           {
             "name": "filter[end_date_lt]",
@@ -15399,7 +15411,8 @@
             "schema": {
               "type": "string",
               "format": "date-time"
-            }
+            },
+            "example": "2014-02-07T22:04:31.151Z"
           },
           {
             "name": "export",
@@ -15443,7 +15456,8 @@
             "description": "ID da etapa onde será executado o projeto",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "string"
           }
         ]
       }
@@ -15467,16 +15481,18 @@
           "name": "project_id",
           "in": "path",
           "required": true,
-          "deprecated": false,
-          "schema": {},
+          "schema": {
+            "type": "string"
+          },
           "example": "{{project_id}}"
         },
         {
           "name": "project_execution_id",
           "in": "path",
           "required": true,
-          "deprecated": false,
-          "schema": {},
+          "schema": {
+            "type": "string"
+          },
           "example": "a11073b8-e458-415d-94d0-c5b9fe8b9fb6"
         }
       ]
@@ -15516,8 +15532,9 @@
           "in": "path",
           "required": true,
           "description": "ID do projeto",
-          "deprecated": false,
-          "schema": {},
+          "schema": {
+            "type": "string"
+          },
           "example": "{{project_id}}"
         }
       ]
@@ -15532,7 +15549,8 @@
             "description": "Filtra pelo ID da etapa da execução",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "string"
           },
           {
             "name": "filter[start_date_gt]",
@@ -15540,7 +15558,8 @@
             "description": "Filtra execuções que começaram depois da data usada no filtro",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "string"
           },
           {
             "name": "filter[end_date_lt]",
@@ -15548,7 +15567,8 @@
             "description": "Filtra execuções que começaram antes da data usada no filtro",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "string"
           },
           {
             "name": "export",
