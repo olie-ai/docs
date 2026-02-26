@@ -14404,25 +14404,28 @@
           "content": {
             "application/json": {
               "schema": {
-                "title": "Criação de Tag",
-                "description": "Payload obrigatório para criação de uma tag (POST /management/tags)",
+                "title": "Criação de etiqueta",
+                "description": "Payload obrigatório para criação de uma etiqueta",
                 "allOf": [
                   {
-                    "description": "Dados para criação de uma tag",
-                    "title": "Tag",
+                    "description": "Dados para criação de uma etiqueta",
+                    "title": "Etiqueta",
                     "type": "object",
                     "properties": {
                       "name": {
                         "type": "string",
                         "maxLength": 255,
-                        "example": "Urgente",
-                        "description": "Nome da tag. Campo obrigatório, máximo de 255 caracteres. Deve ser único por frame e model."
+                        "example": "Nome da etiqueta",
+                        "description": "Nome da etiqueta. Campo obrigatório, máximo de 255 caracteres. Deve ser único por empresa e model."
                       },
                       "model": {
                         "type": "string",
-                        "maxLength": 255,
-                        "example": "App\\Models\\Project",
-                        "description": "Nome da classe do modelo ao qual a tag está associada (ex.: Project, Task). Campo obrigatório na criação."
+                        "enum": [
+                          "App\\Models\\Customer",
+                          "App\\Models\\Contact"
+                        ],
+                        "example": "App\\Models\\Customer",
+                        "description": "Classe do modelo ao qual a tag está associada. Modelos suportados: Customer, Contact. Campo obrigatório na criação."
                       },
                       "color": {
                         "type": "string",
@@ -14480,9 +14483,34 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "array",
-                "items": {},
-                "example": []
+                "title": "Atualização de etiqueta",
+                "description": "Payload para atualização de uma etiqueta",
+                "allOf": [
+                  {
+                    "description": "Dados para atualização de uma etiqueta",
+                    "title": "Etiqueta",
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Nome da etiqueta",
+                        "description": "Nome da etiqueta. Campo obrigatório, máximo de 255 caracteres. Deve ser único por frame e model."
+                      },
+                      "color": {
+                        "type": "string",
+                        "pattern": "^#[0-9A-Fa-f]{6}$",
+                        "maxLength": 7,
+                        "example": "#33FF57",
+                        "description": "Cor da tag em hexadecimal (#RRGGBB). Campo opcional."
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  },
+                  {}
+                ]
               },
               "examples": {
                 "Atualizar etiqueta": {
