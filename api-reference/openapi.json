@@ -14497,12 +14497,6 @@
                 },
                 "example": "strict-origin-when-cross-origin"
               },
-              "Server": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "nginx"
-              },
               "Strict-Transport-Security": {
                 "schema": {
                   "type": "string"
@@ -14574,12 +14568,6 @@
                 },
                 "example": "strict-origin-when-cross-origin"
               },
-              "Server": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "nginx"
-              },
               "Strict-Transport-Security": {
                 "schema": {
                   "type": "string"
@@ -14607,7 +14595,7 @@
             }
           },
           "422": {
-            "description": "Criar uma etiqueta",
+            "description": "Campo inválido",
             "headers": {
               "Access-Control-Allow-Origin": {
                 "deprecated": false,
@@ -14633,11 +14621,6 @@
                 "deprecated": false,
                 "schema": {},
                 "example": "strict-origin-when-cross-origin"
-              },
-              "Server": {
-                "deprecated": false,
-                "schema": {},
-                "example": "nginx"
               },
               "Strict-Transport-Security": {
                 "deprecated": false,
@@ -14687,87 +14670,68 @@
             "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "*"
               },
               "Cache-Control": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "no-cache, private"
               },
               "Content-Encoding": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "gzip"
               },
               "Date": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "Thu, 26 Feb 2026 17:43:43 GMT"
               },
               "Referrer-Policy": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "strict-origin-when-cross-origin"
               },
-              "Server": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "nginx"
-              },
               "Strict-Transport-Security": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "max-age=31536000; includeSubDomains"
               },
               "Vary": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "Accept-Encoding"
               },
               "X-Content-Type-Options": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "nosniff"
               },
               "X-Frame-Options": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "SAMEORIGIN"
               },
               "X-Ratelimit-Limit": {
-                "schema": {
-                  "type": "integer"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "160"
               },
               "X-Ratelimit-Remaining": {
-                "schema": {
-                  "type": "integer"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "156"
               },
               "Transfer-Encoding": {
-                "schema": {
-                  "type": "string"
-                },
+                "deprecated": false,
+                "schema": {},
                 "example": "chunked"
               }
             }
@@ -14804,12 +14768,6 @@
                   "type": "string"
                 },
                 "example": "strict-origin-when-cross-origin"
-              },
-              "Server": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "nginx"
               },
               "Strict-Transport-Security": {
                 "schema": {
@@ -14889,7 +14847,133 @@
         },
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Cache-Control": {
+                "deprecated": false,
+                "schema": {},
+                "example": "no-cache, private"
+              },
+              "Content-Encoding": {
+                "deprecated": false,
+                "schema": {},
+                "example": "gzip"
+              },
+              "Date": {
+                "deprecated": false,
+                "schema": {},
+                "example": "Thu, 26 Feb 2026 17:46:02 GMT"
+              },
+              "Referrer-Policy": {
+                "deprecated": false,
+                "schema": {},
+                "example": "strict-origin-when-cross-origin"
+              },
+              "Strict-Transport-Security": {
+                "deprecated": false,
+                "schema": {},
+                "example": "max-age=31536000; includeSubDomains"
+              },
+              "Vary": {
+                "deprecated": false,
+                "schema": {},
+                "example": "Accept-Encoding"
+              },
+              "X-Content-Type-Options": {
+                "deprecated": false,
+                "schema": {},
+                "example": "nosniff"
+              },
+              "X-Frame-Options": {
+                "deprecated": false,
+                "schema": {},
+                "example": "SAMEORIGIN"
+              },
+              "X-Ratelimit-Limit": {
+                "deprecated": false,
+                "schema": {},
+                "example": "160"
+              },
+              "X-Ratelimit-Remaining": {
+                "deprecated": false,
+                "schema": {},
+                "example": "159"
+              },
+              "Transfer-Encoding": {
+                "deprecated": false,
+                "schema": {},
+                "example": "chunked"
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "no-cache, private"
+              },
+              "Date": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Thu, 26 Feb 2026 17:47:11 GMT"
+              },
+              "Referrer-Policy": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "strict-origin-when-cross-origin"
+              },
+              "Strict-Transport-Security": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "max-age=31536000; includeSubDomains"
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "nosniff"
+              },
+              "X-Frame-Options": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "SAMEORIGIN"
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "chunked"
+              }
+            }
           }
         }
       },
