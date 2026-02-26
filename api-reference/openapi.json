@@ -14404,9 +14404,41 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "array",
-                "items": {},
-                "example": []
+                "title": "Criação de Tag",
+                "description": "Payload obrigatório para criação de uma tag (POST /management/tags)",
+                "allOf": [
+                  {
+                    "description": "Dados para criação de uma tag",
+                    "title": "Tag",
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Urgente",
+                        "description": "Nome da tag. Campo obrigatório, máximo de 255 caracteres. Deve ser único por frame e model."
+                      },
+                      "model": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "App\\Models\\Project",
+                        "description": "Nome da classe do modelo ao qual a tag está associada (ex.: Project, Task). Campo obrigatório na criação."
+                      },
+                      "color": {
+                        "type": "string",
+                        "pattern": "^#[0-9A-Fa-f]{6}$",
+                        "maxLength": 7,
+                        "example": "#FF5733",
+                        "description": "Cor da tag em hexadecimal (#RRGGBB). Campo opcional."
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "model"
+                    ]
+                  },
+                  {}
+                ]
               },
               "examples": {
                 "Criar etiqueta": {
