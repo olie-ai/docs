@@ -14824,8 +14824,8 @@
                       },
                       "color": {
                         "type": "string",
-                        "pattern": "^#[0-9A-Fa-f]{6}$",
                         "maxLength": 7,
+                        "pattern": "^#[0-9A-Fa-f]{6}$",
                         "example": "#33FF57",
                         "description": "Cor da tag em hexadecimal (#RRGGBB). Campo opcional."
                       }
@@ -14839,7 +14839,11 @@
               },
               "examples": {
                 "Atualizar etiqueta": {
-                  "value": []
+                  "value": {
+                    "name": "Novo nome de etiqueta",
+                    "color": "#258aff",
+                    "model": "App\\Models\\Customer"
+                  }
                 }
               }
             }
