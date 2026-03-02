@@ -9214,6 +9214,53 @@
                 },
                 "example": "chunked"
               }
+            }
+          },
+          "201": {
+            "description": "Sucesso (CNPJ)",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "no-cache, private"
+              },
+              "Date": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Fri, 16 Jan 2026 18:03:26 GMT"
+              },
+              "X-Ratelimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                },
+                "example": "160"
+              },
+              "X-Ratelimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                },
+                "example": "157"
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "chunked"
+              }
             },
             "content": {
               "application/json": {
@@ -9232,6 +9279,9 @@
                         "headquarter": {
                           "type": "string"
                         },
+                        "branch": {
+                          "nullable": true
+                        },
                         "company_name": {
                           "type": "string"
                         },
@@ -9244,6 +9294,9 @@
                         "document": {
                           "type": "string"
                         },
+                        "main_activity": {
+                          "nullable": true
+                        },
                         "email": {
                           "type": "string",
                           "format": "email"
@@ -9254,6 +9307,12 @@
                         "address": {
                           "type": "string"
                         },
+                        "description": {
+                          "nullable": true
+                        },
+                        "custom_fields": {
+                          "nullable": true
+                        },
                         "status": {
                           "type": "boolean"
                         },
@@ -9261,37 +9320,8 @@
                           "type": "array",
                           "items": {}
                         },
-                        "tags": {
-                          "type": "array",
-                          "description": "Etiquetas do cliente",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string",
-                                "format": "uuid"
-                              },
-                              "name": {
-                                "type": "string"
-                              },
-                              "color": {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              "model": {
-                                "type": "string"
-                              },
-                              "created_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
-                              "deleted_at": {
-                                "type": "string",
-                                "format": "date-time",
-                                "nullable": true
-                              }
-                            }
-                          }
+                        "parent_id": {
+                          "nullable": true
                         },
                         "frame_id": {
                           "type": "string"
@@ -9303,6 +9333,9 @@
                         "updated_at": {
                           "type": "string",
                           "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
                         },
                         "created_by": {
                           "type": "string"
@@ -9332,7 +9365,6 @@
                     "custom_fields": null,
                     "status": true,
                     "form_answers": [],
-                    "tags": [],
                     "parent_id": null,
                     "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
                     "created_at": "2026-01-16T18:03:25.000000Z",
@@ -9350,105 +9382,158 @@
           "content": {
             "application/json": {
               "schema": {
-                "allOf": [
-                  {
-                    "oneOf": [
-                      {
-                        "allOf": [
-                          {
-                            "type": "object",
-                            "properties": {}
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "parent_id": {
-                                "type": "string",
-                                "format": "uuid"
-                              }
-                            },
-                            "required": [
-                              "parent_id"
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "allOf": [
-                          {}
-                        ]
-                      }
-                    ]
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Nome do contato"
                   },
-                  {
-                    "oneOf": [
-                      {
-                        "allOf": [
-                          {
-                            "type": "object",
-                            "properties": {}
-                          },
-                          {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        ]
-                      },
-                      {
-                        "allOf": [
-                          {}
-                        ]
-                      }
-                    ]
+                  "role": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "Cargo do contato"
                   },
-                  {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "maxLength": 254,
+                    "nullable": true,
+                    "description": "E-mail do contato"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "maxLength": 30,
+                    "nullable": true,
+                    "description": "Telefone do contato"
+                  },
+                  "description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "nullable": true,
+                    "description": "Descrição do contato"
+                  },
+                  "customers": {
                     "type": "object",
+                    "description": "Clientes vinculados ao contato. Envie to_add (clientes a adicionar) e to_rem (clientes a remover).",
                     "properties": {
-                      "tags": {
-                        "type": "object",
-                        "description": "Etiquetas do cliente. Envie to_add (etiquetas a adicionar) e to_rem (etiquetas a remover).",
-                        "properties": {
-                          "to_add": {
-                            "type": "array",
-                            "description": "Etiquetas a adicionar: use id para vincular etiqueta existente ou name (e opcionalmente color) para criar nova",
-                            "items": {
+                      "to_add": {
+                        "type": "array",
+                        "description": "IDs dos clientes a adicionar",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      },
+                      "to_rem": {
+                        "type": "array",
+                        "description": "IDs dos clientes a remover",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      }
+                    },
+                    "required": [
+                      "to_add",
+                      "to_rem"
+                    ]
+                  },
+                  "tags": {
+                    "type": "object",
+                    "description": "Etiquetas do contato. Envie to_add (etiquetas a adicionar) e to_rem (etiquetas a remover).",
+                    "properties": {
+                      "to_add": {
+                        "type": "array",
+                        "description": "Etiquetas a adicionar: use id para vincular etiqueta existente ou name (e opcionalmente color) para criar nova",
+                        "items": {
+                          "type": "object",
+                          "oneOf": [
+                            {
                               "type": "object",
                               "properties": {
                                 "id": {
                                   "type": "string",
                                   "format": "uuid",
                                   "description": "ID da etiqueta existente"
-                                },
+                                }
+                              },
+                              "required": [
+                                "id"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
                                 "name": {
                                   "type": "string",
+                                  "maxLength": 255,
                                   "description": "Nome da nova etiqueta"
                                 },
                                 "color": {
                                   "type": "string",
+                                  "pattern": "^#[0-9A-Fa-f]{6}$",
+                                  "nullable": true,
                                   "description": "Cor em hex (ex: #FF0000)"
                                 }
-                              }
+                              },
+                              "required": [
+                                "name"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "to_rem": {
+                        "type": "array",
+                        "description": "Etiquetas a remover",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid",
+                              "description": "ID da etiqueta a remover"
                             }
                           },
-                          "to_rem": {
-                            "type": "array",
-                            "description": "Etiquetas a remover",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string",
-                                  "format": "uuid",
-                                  "description": "ID da etiqueta a remover"
-                                }
-                              }
-                            }
-                          }
+                          "required": [
+                            "id"
+                          ]
                         }
                       }
+                    },
+                    "required": [
+                      "to_add",
+                      "to_rem"
+                    ]
+                  },
+                  "form_answers": {
+                    "type": "array",
+                    "nullable": true,
+                    "description": "Respostas do formulário dinâmico",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": "ID da pergunta do formulário (form_edge id)"
+                        },
+                        "answer": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "Resposta para a pergunta"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "answer"
+                      ]
                     }
                   }
-                ]
+                }
               },
               "example": {
                 "name": "Cliente Exemplo - Filial Rio Preto",
@@ -9493,194 +9578,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Cliente encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "customer": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "format": "uuid"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "headquarter": {
-                          "type": "string"
-                        },
-                        "branch": {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        "company_name": {
-                          "type": "string"
-                        },
-                        "document_type": {
-                          "type": "integer"
-                        },
-                        "customer_type": {
-                          "type": "integer"
-                        },
-                        "document": {
-                          "type": "string"
-                        },
-                        "main_activity": {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        "email": {
-                          "type": "string",
-                          "format": "email"
-                        },
-                        "phone": {
-                          "type": "string"
-                        },
-                        "address": {
-                          "type": "string"
-                        },
-                        "description": {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        "custom_fields": {
-                          "type": "object",
-                          "nullable": true
-                        },
-                        "status": {
-                          "type": "boolean"
-                        },
-                        "form_answers": {
-                          "type": "array",
-                          "items": {}
-                        },
-                        "parent_id": {
-                          "type": "string",
-                          "format": "uuid",
-                          "nullable": true
-                        },
-                        "parent": {
-                          "type": "object",
-                          "nullable": true,
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "format": "uuid"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          }
-                        },
-                        "tags": {
-                          "type": "array",
-                          "description": "Etiquetas do cliente",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string",
-                                "format": "uuid"
-                              },
-                              "name": {
-                                "type": "string"
-                              },
-                              "color": {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              "model": {
-                                "type": "string"
-                              },
-                              "created_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
-                              "deleted_at": {
-                                "type": "string",
-                                "format": "date-time",
-                                "nullable": true
-                              }
-                            }
-                          }
-                        },
-                        "frame_id": {
-                          "type": "string",
-                          "format": "uuid"
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "updated_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "deleted_at": {
-                          "type": "string",
-                          "format": "date-time",
-                          "nullable": true
-                        },
-                        "created_by": {
-                          "type": "string",
-                          "format": "uuid",
-                          "nullable": true
-                        },
-                        "created_by_user": {
-                          "type": "object",
-                          "nullable": true,
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "format": "uuid"
-                            },
-                            "name": {
-                              "type": "string"
-                            },
-                            "avatar_url": {
-                              "type": "string"
-                            }
-                          }
-                        },
-                        "contacts_count": {
-                          "type": "integer"
-                        },
-                        "projects_count": {
-                          "type": "integer"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Cliente encontrado"
           },
           "401": {
-            "description": "Não autorizado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "response": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "unauthorized"
-                    },
-                    "error": {
-                      "type": "string",
-                      "example": "Unauthenticated."
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Não autorizado"
           }
         }
       },
@@ -9704,7 +9605,6 @@
           }
         ],
         "requestBody": {
-          "required": false,
           "content": {
             "application/json": {
               "schema": {
@@ -9717,8 +9617,7 @@
                   },
                   "company_name": {
                     "type": "string",
-                    "maxLength": 100,
-                    "nullable": true
+                    "maxLength": 100
                   },
                   "document_type": {
                     "type": "integer",
@@ -9738,48 +9637,39 @@
                   },
                   "document": {
                     "type": "string",
-                    "maxLength": 40,
-                    "nullable": true
+                    "maxLength": 40
                   },
                   "main_activity": {
                     "type": "string",
-                    "maxLength": 255,
-                    "nullable": true
+                    "maxLength": 255
                   },
                   "email": {
                     "type": "string",
-                    "format": "email",
                     "maxLength": 254,
-                    "nullable": true
+                    "format": "email"
                   },
                   "phone": {
                     "type": "string",
-                    "maxLength": 30,
-                    "nullable": true
+                    "maxLength": 30
                   },
                   "address": {
                     "type": "string",
-                    "maxLength": 255,
-                    "nullable": true
+                    "maxLength": 255
                   },
                   "description": {
                     "type": "string",
-                    "maxLength": 255,
-                    "nullable": true
+                    "maxLength": 255
                   },
                   "status": {
-                    "type": "boolean",
-                    "nullable": true
+                    "type": "boolean"
                   },
                   "parent_id": {
                     "type": "string",
-                    "format": "uuid",
-                    "nullable": true,
-                    "description": "ID do cliente matriz (obrigatório se customer_type = 2)"
+                    "description": "ID do cliente matriz (obrigatório se customer_type = 2)",
+                    "format": "uuid"
                   },
                   "form_answers": {
                     "type": "array",
-                    "nullable": true,
                     "items": {}
                   },
                   "tags": {
@@ -9794,8 +9684,8 @@
                           "properties": {
                             "id": {
                               "type": "string",
-                              "format": "uuid",
-                              "description": "ID da etiqueta existente"
+                              "description": "ID da etiqueta existente",
+                              "format": "uuid"
                             },
                             "name": {
                               "type": "string",
@@ -9816,8 +9706,8 @@
                           "properties": {
                             "id": {
                               "type": "string",
-                              "format": "uuid",
-                              "description": "ID da etiqueta a remover"
+                              "description": "ID da etiqueta a remover",
+                              "format": "uuid"
                             }
                           }
                         }
@@ -9836,163 +9726,15 @@
                 }
               }
             }
-          }
+          },
+          "required": false
         },
         "responses": {
           "200": {
-            "description": "Cliente atualizado com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "customer": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "format": "uuid"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "headquarter": {
-                          "type": "string"
-                        },
-                        "branch": {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        "company_name": {
-                          "type": "string"
-                        },
-                        "document_type": {
-                          "type": "integer"
-                        },
-                        "customer_type": {
-                          "type": "integer"
-                        },
-                        "document": {
-                          "type": "string"
-                        },
-                        "main_activity": {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        "email": {
-                          "type": "string",
-                          "format": "email"
-                        },
-                        "phone": {
-                          "type": "string"
-                        },
-                        "address": {
-                          "type": "string"
-                        },
-                        "description": {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        "custom_fields": {
-                          "type": "object",
-                          "nullable": true
-                        },
-                        "status": {
-                          "type": "boolean"
-                        },
-                        "form_answers": {
-                          "type": "array",
-                          "items": {}
-                        },
-                        "parent_id": {
-                          "type": "string",
-                          "format": "uuid",
-                          "nullable": true
-                        },
-                        "tags": {
-                          "type": "array",
-                          "description": "Etiquetas do cliente",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string",
-                                "format": "uuid"
-                              },
-                              "name": {
-                                "type": "string"
-                              },
-                              "color": {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              "model": {
-                                "type": "string"
-                              },
-                              "created_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
-                              "deleted_at": {
-                                "type": "string",
-                                "format": "date-time",
-                                "nullable": true
-                              }
-                            }
-                          }
-                        },
-                        "frame_id": {
-                          "type": "string",
-                          "format": "uuid"
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "updated_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "deleted_at": {
-                          "type": "string",
-                          "format": "date-time",
-                          "nullable": true
-                        },
-                        "created_by": {
-                          "type": "string",
-                          "format": "uuid",
-                          "nullable": true
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Cliente atualizado com sucesso"
           },
           "401": {
-            "description": "Não autorizado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "response": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "unauthorized"
-                    },
-                    "error": {
-                      "type": "string",
-                      "example": "Unauthenticated."
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Não autorizado"
           }
         }
       },
@@ -10922,162 +10664,6 @@
                 },
                 "example": "chunked"
               }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "contact": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "format": "uuid"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "role": {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        "email": {
-                          "type": "string",
-                          "format": "email",
-                          "nullable": true
-                        },
-                        "phone": {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        "description": {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "updated_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "deleted_at": {
-                          "type": "string",
-                          "format": "date-time",
-                          "nullable": true
-                        },
-                        "frame_id": {
-                          "type": "string",
-                          "format": "uuid"
-                        },
-                        "customers": {
-                          "type": "array",
-                          "items": {
-                            "type": "object"
-                          },
-                          "nullable": true
-                        },
-                        "tags": {
-                          "type": "array",
-                          "description": "Etiquetas do contato",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string",
-                                "format": "uuid"
-                              },
-                              "name": {
-                                "type": "string"
-                              },
-                              "color": {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              "model": {
-                                "type": "string"
-                              },
-                              "created_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
-                              "deleted_at": {
-                                "type": "string",
-                                "format": "date-time",
-                                "nullable": true
-                              }
-                            }
-                          }
-                        },
-                        "form_answers": {
-                          "type": "array",
-                          "items": {}
-                        },
-                        "frame": {
-                          "type": "object",
-                          "nullable": true,
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "format": "uuid"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          }
-                        },
-                        "forum": {
-                          "type": "object",
-                          "nullable": true,
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "format": "uuid"
-                            },
-                            "model_id": {
-                              "type": "string",
-                              "format": "uuid"
-                            },
-                            "model_class": {
-                              "type": "string"
-                            },
-                            "default_thread_id": {
-                              "type": "string",
-                              "format": "uuid",
-                              "nullable": true
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "response": {
-                      "type": "boolean"
-                    }
-                  }
-                },
-                "example": {
-                  "contact": {
-                    "id": "019bc7f9-f586-7386-a27d-a070e8ae5ac2",
-                    "name": "João Silva",
-                    "role": "Gerente de Vendas",
-                    "email": "joao.silva@exemplo.com.br",
-                    "phone": "(17) 91234-5678",
-                    "description": "Contato principal da empresa",
-                    "created_at": "2026-01-16T18:03:25.000000Z",
-                    "updated_at": "2026-01-16T18:03:25.000000Z",
-                    "deleted_at": null,
-                    "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
-                    "customers": [],
-                    "tags": [],
-                    "form_answers": [],
-                    "frame": null,
-                    "forum": null
-                  },
-                  "response": true
-                }
-              }
             }
           }
         },
@@ -11089,32 +10675,28 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "Nome do contato",
-                    "maxLength": 255
+                    "maxLength": 255,
+                    "description": "Nome do contato"
                   },
                   "role": {
                     "type": "string",
-                    "description": "Cargo/função do contato",
-                    "nullable": true
+                    "description": "Cargo/função do contato"
                   },
                   "email": {
                     "type": "string",
-                    "format": "email",
-                    "description": "E-mail do contato",
                     "maxLength": 254,
-                    "nullable": true
+                    "description": "E-mail do contato",
+                    "format": "email"
                   },
                   "phone": {
                     "type": "string",
-                    "description": "Telefone do contato",
                     "maxLength": 30,
-                    "nullable": true
+                    "description": "Telefone do contato"
                   },
                   "description": {
                     "type": "string",
-                    "description": "Descrição do contato",
                     "maxLength": 255,
-                    "nullable": true
+                    "description": "Descrição do contato"
                   },
                   "customers": {
                     "type": "object",
@@ -11150,18 +10732,18 @@
                           "properties": {
                             "id": {
                               "type": "string",
-                              "format": "uuid",
-                              "description": "ID da etiqueta existente"
+                              "description": "ID da etiqueta existente",
+                              "format": "uuid"
                             },
                             "name": {
                               "type": "string",
-                              "description": "Nome da nova etiqueta",
-                              "maxLength": 255
+                              "maxLength": 255,
+                              "description": "Nome da nova etiqueta"
                             },
                             "color": {
                               "type": "string",
-                              "description": "Cor em hex (ex: #FF0000)",
-                              "pattern": "^#[0-9A-Fa-f]{6}$"
+                              "pattern": "^#[0-9A-Fa-f]{6}$",
+                              "description": "Cor em hex (ex: #FF0000)"
                             }
                           }
                         }
@@ -11174,8 +10756,8 @@
                           "properties": {
                             "id": {
                               "type": "string",
-                              "format": "uuid",
-                              "description": "ID da etiqueta a remover"
+                              "description": "ID da etiqueta a remover",
+                              "format": "uuid"
                             }
                           }
                         }
@@ -11185,8 +10767,7 @@
                   "form_answers": {
                     "type": "array",
                     "description": "Respostas do formulário dinâmico",
-                    "items": {},
-                    "nullable": true
+                    "items": {}
                   }
                 },
                 "required": [
@@ -15314,8 +14895,7 @@
                             "type": "string"
                           },
                           "color": {
-                            "type": "string",
-                            "format": "color"
+                            "type": "string"
                           },
                           "model": {
                             "type": "string"
@@ -15323,9 +14903,6 @@
                           "created_at": {
                             "type": "string",
                             "format": "date-time"
-                          },
-                          "deleted_at": {
-                            "nullable": true
                           }
                         }
                       }
@@ -15600,58 +15177,69 @@
             "description": "Campo inválido",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Date": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Thu, 26 Feb 2026 17:39:10 GMT"
               },
               "Referrer-Policy": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "strict-origin-when-cross-origin"
               },
               "Strict-Transport-Security": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "max-age=31536000; includeSubDomains"
               },
               "X-Content-Type-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nosniff"
               },
               "X-Frame-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "SAMEORIGIN"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "160"
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "159"
               },
               "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
               }
             }
@@ -15672,68 +15260,81 @@
             "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Content-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "gzip"
               },
               "Date": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Thu, 26 Feb 2026 17:43:43 GMT"
               },
               "Referrer-Policy": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "strict-origin-when-cross-origin"
               },
               "Strict-Transport-Security": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "max-age=31536000; includeSubDomains"
               },
               "Vary": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Accept-Encoding"
               },
               "X-Content-Type-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nosniff"
               },
               "X-Frame-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "SAMEORIGIN"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "160"
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "156"
               },
               "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
               }
             }
@@ -15856,68 +15457,81 @@
             "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Content-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "gzip"
               },
               "Date": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Thu, 26 Feb 2026 17:46:02 GMT"
               },
               "Referrer-Policy": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "strict-origin-when-cross-origin"
               },
               "Strict-Transport-Security": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "max-age=31536000; includeSubDomains"
               },
               "Vary": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Accept-Encoding"
               },
               "X-Content-Type-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nosniff"
               },
               "X-Frame-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "SAMEORIGIN"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "160"
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "159"
               },
               "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
               }
             }
@@ -15985,58 +15599,69 @@
             "description": "Campo inváildo",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Date": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Thu, 26 Feb 2026 17:49:13 GMT"
               },
               "Referrer-Policy": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "strict-origin-when-cross-origin"
               },
               "Strict-Transport-Security": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "max-age=31536000; includeSubDomains"
               },
               "X-Content-Type-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nosniff"
               },
               "X-Frame-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "SAMEORIGIN"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "160"
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "159"
               },
               "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
               }
             }
@@ -16138,48 +15763,57 @@
             "description": "Não autorizado",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Date": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Thu, 26 Feb 2026 17:51:19 GMT"
               },
               "Referrer-Policy": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "strict-origin-when-cross-origin"
               },
               "Strict-Transport-Security": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "max-age=31536000; includeSubDomains"
               },
               "X-Content-Type-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nosniff"
               },
               "X-Frame-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "SAMEORIGIN"
               },
               "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
               }
             }
