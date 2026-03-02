@@ -9169,7 +9169,7 @@
         "description": "Criar um novo cliente.",
         "operationId": "criarCliente",
         "responses": {
-          "201": {
+          "200": {
             "description": "Sucesso (CNPJ)",
             "headers": {
               "Access-Control-Allow-Origin": {
@@ -10878,16 +10878,336 @@
         "operationId": "criarContato",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "no-cache, private"
+              },
+              "Date": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Fri, 16 Jan 2026 18:03:26 GMT"
+              },
+              "X-Ratelimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                },
+                "example": "160"
+              },
+              "X-Ratelimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                },
+                "example": "157"
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "chunked"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contact": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": "email",
+                          "nullable": true
+                        },
+                        "phone": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "description": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "nullable": true
+                        },
+                        "frame_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "customers": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          },
+                          "nullable": true
+                        },
+                        "tags": {
+                          "type": "array",
+                          "description": "Etiquetas do contato",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "color": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "model": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "nullable": true
+                              }
+                            }
+                          }
+                        },
+                        "form_answers": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "frame": {
+                          "type": "object",
+                          "nullable": true,
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "forum": {
+                          "type": "object",
+                          "nullable": true,
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "model_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "model_class": {
+                              "type": "string"
+                            },
+                            "default_thread_id": {
+                              "type": "string",
+                              "format": "uuid",
+                              "nullable": true
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "contact": {
+                    "id": "019bc7f9-f586-7386-a27d-a070e8ae5ac2",
+                    "name": "João Silva",
+                    "role": "Gerente de Vendas",
+                    "email": "joao.silva@exemplo.com.br",
+                    "phone": "(17) 91234-5678",
+                    "description": "Contato principal da empresa",
+                    "created_at": "2026-01-16T18:03:25.000000Z",
+                    "updated_at": "2026-01-16T18:03:25.000000Z",
+                    "deleted_at": null,
+                    "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                    "customers": [],
+                    "tags": [],
+                    "form_answers": [],
+                    "frame": null,
+                    "forum": null
+                  },
+                  "response": true
+                }
+              }
+            }
           }
         },
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "type": "object"
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Nome do contato",
+                    "maxLength": 255
+                  },
+                  "role": {
+                    "type": "string",
+                    "description": "Cargo/função do contato",
+                    "nullable": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "E-mail do contato",
+                    "maxLength": 254,
+                    "nullable": true
+                  },
+                  "phone": {
+                    "type": "string",
+                    "description": "Telefone do contato",
+                    "maxLength": 30,
+                    "nullable": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Descrição do contato",
+                    "maxLength": 255,
+                    "nullable": true
+                  },
+                  "customers": {
+                    "type": "object",
+                    "description": "Clientes vinculados ao contato. Envie to_add (clientes a adicionar) e to_rem (clientes a remover).",
+                    "properties": {
+                      "to_add": {
+                        "type": "array",
+                        "description": "IDs dos clientes a adicionar",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      },
+                      "to_rem": {
+                        "type": "array",
+                        "description": "IDs dos clientes a remover",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      }
+                    }
+                  },
+                  "tags": {
+                    "type": "object",
+                    "description": "Etiquetas do contato. Envie to_add (etiquetas a adicionar) e to_rem (etiquetas a remover).",
+                    "properties": {
+                      "to_add": {
+                        "type": "array",
+                        "description": "Etiquetas a adicionar: use id para vincular etiqueta existente ou name (e opcionalmente color) para criar nova",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid",
+                              "description": "ID da etiqueta existente"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Nome da nova etiqueta",
+                              "maxLength": 255
+                            },
+                            "color": {
+                              "type": "string",
+                              "description": "Cor em hex (ex: #FF0000)",
+                              "pattern": "^#[0-9A-Fa-f]{6}$"
+                            }
+                          }
+                        }
+                      },
+                      "to_rem": {
+                        "type": "array",
+                        "description": "Etiquetas a remover",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid",
+                              "description": "ID da etiqueta a remover"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "form_answers": {
+                    "type": "array",
+                    "description": "Respostas do formulário dinâmico",
+                    "items": {},
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "name"
+                ]
               },
-              "example": {}
+              "example": {
+                "name": "João Silva",
+                "role": "Gerente de Vendas",
+                "email": "joao.silva@exemplo.com.br",
+                "phone": "(17) 91234-5678",
+                "description": "Contato principal da empresa",
+                "customers": {
+                  "to_add": [],
+                  "to_rem": []
+                },
+                "tags": {
+                  "to_add": [],
+                  "to_rem": []
+                }
+              }
             }
           }
         }
