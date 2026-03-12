@@ -10867,13 +10867,24 @@
           "forms"
         ],
         "summary": "Listar formulários",
-        "description": "Listar todos os formulários.",
+        "description": "Lista os formulários do frame. Por padrão retorna apenas formulários ativos.\\n\\n**Filtro de formulários deletados (soft delete):**\\n\\nUtilize o parâmetro `filter[trashed]` para controlar a exibição:\\n\\n| Valor | Comportamento |\\n|---|---|\\n| *(omitido)* | Retorna apenas formulários ativos (padrão) |\\n| `with` | Retorna ativos + deletados |\\n| `only` | Retorna apenas os deletados |\\n\\n**Exemplo:** `GET /api/management/get-forms?filter[trashed]=with`",
         "operationId": "listarFormulRios",
         "responses": {
           "200": {
             "description": "200"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "filter[trashed]",
+            "in": "query",
+            "description": "Filtra formulários deletados (soft delete). Valores aceitos: `with` (ativos + deletados), `only` (somente deletados). Omita para retornar apenas ativos (padrão).",
+            "schema": {
+              "type": "string"
+            },
+            "example": "with"
+          }
+        ]
       }
     },
     "/api/management/get-form": {
@@ -16872,6 +16883,26 @@
             "type": "string"
           },
           "example": "{{user_id}}"
+        }
+      ]
+    },
+    "/api/management/forms/{form_id}/restore": {
+      "post": {
+        "summary": "Restaurar formulário",
+        "responses": {},
+        "tags": [
+          "forms"
+        ],
+        "description": "Restaura um formulário que foi deletado via soft delete.\n\n**Permissão necessária:** `dynamic_forms.edit`\n\n**Parâmetros de rota:**\n- `form_id` — UUID do formulário a ser restaurado\n\n**Respostas:**\n- `200 OK` — Formulário restaurado com sucesso\n- `403 Forbidden` — Usuário sem permissão `dynamic_forms.edit`\n- `404 Not Found` — Formulário não encontrado ou não está deletado"
+      },
+      "parameters": [
+        {
+          "name": "form_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
         }
       ]
     }
