@@ -10867,7 +10867,7 @@
           "forms"
         ],
         "summary": "Listar formulários",
-        "description": "Lista os formulários do frame. Por padrão retorna apenas formulários ativos.\\n\\n**Filtro de formulários deletados (soft delete):**\\n\\nUtilize o parâmetro `filter[trashed]` para controlar a exibição:\\n\\n| Valor | Comportamento |\\n|---|---|\\n| *(omitido)* | Retorna apenas formulários ativos (padrão) |\\n| `with` | Retorna ativos + deletados |\\n| `only` | Retorna apenas os deletados |\\n\\n**Exemplo:** `GET /api/management/get-forms?filter[trashed]=with`",
+        "description": "Lista os formulários do frame. Por padrão retorna apenas formulários ativos.\n\n**Filtro de formulários deletados (soft delete):**\n\nUtilize o parâmetro `filter[trashed]` para controlar a exibição:\n\n| Valor | Comportamento |\n| --- | --- |\n| _(omitido)_ | Retorna apenas formulários ativos (padrão) |\n| `with` | Retorna ativos + deletados |\n| `only` | Retorna apenas os deletados |\n\n**Exemplo:** `GET /api/management/get-forms?filter[trashed]=with`",
         "operationId": "listarFormulRios",
         "responses": {
           "200": {
