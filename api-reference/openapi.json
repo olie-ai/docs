@@ -17292,6 +17292,434 @@
           }
         }
       ]
+    },
+    "/api/management/project-executions/{project_execution_id}": {
+      "get": {
+        "summary": "Obter execução de projeto",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "no-cache, private"
+              },
+              "Content-Encoding": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "gzip"
+              },
+              "Date": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Fri, 13 Mar 2026 21:17:54 GMT"
+              },
+              "Referrer-Policy": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "strict-origin-when-cross-origin"
+              },
+              "Server": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "nginx"
+              },
+              "Strict-Transport-Security": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "max-age=31536000; includeSubDomains"
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Accept-Encoding"
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "nosniff"
+              },
+              "X-Frame-Options": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "SAMEORIGIN"
+              },
+              "X-Ratelimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                },
+                "example": "160"
+              },
+              "X-Ratelimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                },
+                "example": "159"
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "chunked"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "current_execution": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "project_id": {
+                          "type": "string"
+                        },
+                        "user_id": {
+                          "type": "string"
+                        },
+                        "funnel_step_id": {
+                          "type": "integer"
+                        },
+                        "started_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "finished_at": {
+                          "nullable": true
+                        },
+                        "hourly_rate": {
+                          "type": "integer"
+                        },
+                        "finished_reason": {
+                          "nullable": true
+                        },
+                        "started_at_real": {
+                          "nullable": true
+                        },
+                        "finished_at_real": {
+                          "nullable": true
+                        },
+                        "project": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "code": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "avatar_url": {
+                              "type": "string",
+                              "format": "uri"
+                            }
+                          }
+                        },
+                        "funnel_step": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "project_funnel_id": {
+                              "type": "integer"
+                            },
+                            "funnel": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "recent_executions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "project_id": {
+                            "type": "string"
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "funnel_step_id": {
+                            "type": "integer"
+                          },
+                          "started_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "finished_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "hourly_rate": {
+                            "type": "integer"
+                          },
+                          "finished_reason": {
+                            "type": "string"
+                          },
+                          "started_at_real": {
+                            "nullable": true
+                          },
+                          "finished_at_real": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "project": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "avatar_url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            }
+                          },
+                          "funnel_step": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "project_funnel_id": {
+                                "type": "integer"
+                              },
+                              "funnel": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "integer"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "hidden_timers": {
+                      "type": "boolean"
+                    },
+                    "total_time": {
+                      "type": "integer"
+                    },
+                    "idle_time": {
+                      "type": "integer"
+                    },
+                    "current_project_total_time": {
+                      "type": "integer"
+                    },
+                    "current_step_total_time": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "current_execution": {
+                    "id": "a14afcbd-38b1-4b97-8950-02c09547611a",
+                    "project_id": "019c2ffd-f4e9-709f-ae34-d4d149e3585d",
+                    "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                    "funnel_step_id": 181,
+                    "started_at": "2026-03-13T20:39:59.000000Z",
+                    "finished_at": null,
+                    "hourly_rate": 0,
+                    "finished_reason": null,
+                    "started_at_real": null,
+                    "finished_at_real": null,
+                    "project": {
+                      "id": "019c2ffd-f4e9-709f-ae34-d4d149e3585d",
+                      "code": "AD-1",
+                      "name": "awdawd"
+                    },
+                    "user": {
+                      "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                      "name": "Test User",
+                      "avatar_url": "https://olie-main-dev.s3.amazonaws.com/app/avatars/AKMCHJI5WBPqrvx6aF9okU2dwf4VlOtRg3bN-avatar-1773273837.png"
+                    },
+                    "funnel_step": {
+                      "id": 181,
+                      "name": "tres",
+                      "project_funnel_id": 36,
+                      "funnel": {
+                        "id": 36,
+                        "name": "funil do abacaxi"
+                      }
+                    }
+                  },
+                  "recent_executions": [
+                    {
+                      "id": "a14afbe7-d2bc-4821-9c2b-7ce295f8a962",
+                      "project_id": "019c2ffd-f4e9-709f-ae34-d4d149e3585d",
+                      "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                      "funnel_step_id": 181,
+                      "started_at": "2026-03-13T16:00:39.000000Z",
+                      "finished_at": "2026-03-13T20:39:00.000000Z",
+                      "hourly_rate": 0,
+                      "finished_reason": "self_stop",
+                      "started_at_real": null,
+                      "finished_at_real": "2026-03-13T19:20:03.000000Z",
+                      "project": {
+                        "id": "019c2ffd-f4e9-709f-ae34-d4d149e3585d",
+                        "code": "AD-1",
+                        "name": "awdawd"
+                      },
+                      "user": {
+                        "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                        "name": "Test User",
+                        "avatar_url": "https://olie-main-dev.s3.amazonaws.com/app/avatars/AKMCHJI5WBPqrvx6aF9okU2dwf4VlOtRg3bN-avatar-1773273837.png"
+                      },
+                      "funnel_step": {
+                        "id": 181,
+                        "name": "tres",
+                        "project_funnel_id": 36,
+                        "funnel": {
+                          "id": 36,
+                          "name": "funil do abacaxi"
+                        }
+                      }
+                    },
+                    {
+                      "id": "a14afbe7-d2bc-4821-9c2b-7ce295f8a961",
+                      "project_id": "019c2ffd-f4e9-709f-ae34-d4d149e3585d",
+                      "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                      "funnel_step_id": 181,
+                      "started_at": "2026-03-13T10:00:39.000000Z",
+                      "finished_at": "2026-03-13T15:20:03.000000Z",
+                      "hourly_rate": 0,
+                      "finished_reason": "self_stop",
+                      "started_at_real": null,
+                      "finished_at_real": null,
+                      "project": {
+                        "id": "019c2ffd-f4e9-709f-ae34-d4d149e3585d",
+                        "code": "AD-1",
+                        "name": "awdawd"
+                      },
+                      "user": {
+                        "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                        "name": "Test User",
+                        "avatar_url": "https://olie-main-dev.s3.amazonaws.com/app/avatars/AKMCHJI5WBPqrvx6aF9okU2dwf4VlOtRg3bN-avatar-1773273837.png"
+                      },
+                      "funnel_step": {
+                        "id": 181,
+                        "name": "tres",
+                        "project_funnel_id": 36,
+                        "funnel": {
+                          "id": 36,
+                          "name": "funil do abacaxi"
+                        }
+                      }
+                    }
+                  ],
+                  "hidden_timers": false,
+                  "total_time": 38140,
+                  "idle_time": 27734,
+                  "current_project_total_time": 38140,
+                  "current_step_total_time": 38140
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "projects",
+          "{id}",
+          "project-execution"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "project_execution_id",
+          "in": "path",
+          "required": true,
+          "deprecated": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      ]
     }
   },
   "components": {
