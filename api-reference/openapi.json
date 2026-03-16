@@ -6950,7 +6950,7 @@
         "operationId": "criarOuAtualizarFunilDeProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso"
           }
         },
         "requestBody": {
@@ -6961,15 +6961,14 @@
                 "description": "Payload utilizado para criação ou atualização de um funil com etapas, etiquetas, status, acessos e templates.",
                 "allOf": [
                   {
-                    "title": "Funil",
                     "description": "Estrutura principal para criação ou edição de um funil.",
+                    "title": "Funil",
                     "type": "object",
                     "properties": {
                       "id": {
                         "type": "integer",
                         "example": null,
-                        "description": "ID do funil. Deve ser null na criação e preenchido em operações de atualização.",
-                        "nullable": true
+                        "description": "ID do funil. Deve ser null na criação e preenchido em operações de atualização."
                       },
                       "name": {
                         "type": "string",
@@ -6997,14 +6996,12 @@
                             "step_forward": {
                               "type": "integer",
                               "example": null,
-                              "description": "ID da próxima etapa permitida.",
-                              "nullable": true
+                              "description": "ID da próxima etapa permitida."
                             },
                             "step_backward": {
                               "type": "integer",
                               "example": null,
-                              "description": "ID da etapa anterior permitida.",
-                              "nullable": true
+                              "description": "ID da etapa anterior permitida."
                             },
                             "sensation_amount": {
                               "type": "integer",
@@ -7092,15 +7089,15 @@
                                   },
                                   "user_id": {
                                     "type": "string",
-                                    "format": "uuid",
                                     "example": "uuid-do-usuario",
-                                    "description": "UUID do usuário que enviou o anexo."
+                                    "description": "UUID do usuário que enviou o anexo.",
+                                    "format": "uuid"
                                   },
                                   "frame_id": {
                                     "type": "string",
-                                    "format": "uuid",
                                     "example": "uuid-do-frame",
-                                    "description": "UUID do workspace/frame."
+                                    "description": "UUID do workspace/frame.",
+                                    "format": "uuid"
                                   }
                                 }
                               }
@@ -7114,8 +7111,7 @@
                             },
                             "sort_config": {
                               "type": "object",
-                              "description": "Configuração de ordenação dos itens dentro da etapa.",
-                              "nullable": true
+                              "description": "Configuração de ordenação dos itens dentro da etapa."
                             },
                             "form": {
                               "type": "object",
@@ -7129,8 +7125,7 @@
                                   "type": "string",
                                   "example": "Formulário para funil"
                                 }
-                              },
-                              "nullable": true
+                              }
                             }
                           },
                           "required": [
@@ -7165,8 +7160,7 @@
                       },
                       "dynamic_form": {
                         "type": "object",
-                        "description": "Formulário dinâmico associado ao funil.",
-                        "nullable": true
+                        "description": "Formulário dinâmico associado ao funil."
                       },
                       "business_area": {
                         "type": "object",
@@ -7182,8 +7176,8 @@
                           },
                           "frame_id": {
                             "type": "string",
-                            "format": "uuid",
-                            "example": "uuid-do-frame"
+                            "example": "uuid-do-frame",
+                            "format": "uuid"
                           }
                         }
                       },
@@ -7209,8 +7203,7 @@
                             "type": "string",
                             "example": "Formulário para funil"
                           }
-                        },
-                        "nullable": true
+                        }
                       },
                       "attachments": {
                         "type": "array",
@@ -7240,8 +7233,7 @@
                               "example": "Test User"
                             },
                             "avatar_url": {
-                              "type": "string",
-                              "nullable": true
+                              "type": "string"
                             },
                             "index_all": {
                               "type": "boolean",
@@ -9673,9 +9665,6 @@
                         "headquarter": {
                           "type": "string"
                         },
-                        "branch": {
-                          "nullable": true
-                        },
                         "company_name": {
                           "type": "string"
                         },
@@ -9688,9 +9677,6 @@
                         "document": {
                           "type": "string"
                         },
-                        "main_activity": {
-                          "nullable": true
-                        },
                         "email": {
                           "type": "string",
                           "format": "email"
@@ -9701,21 +9687,12 @@
                         "address": {
                           "type": "string"
                         },
-                        "description": {
-                          "nullable": true
-                        },
-                        "custom_fields": {
-                          "nullable": true
-                        },
                         "status": {
                           "type": "boolean"
                         },
                         "form_answers": {
                           "type": "array",
                           "items": {}
-                        },
-                        "parent_id": {
-                          "nullable": true
                         },
                         "frame_id": {
                           "type": "string"
@@ -9727,9 +9704,6 @@
                         "updated_at": {
                           "type": "string",
                           "format": "date-time"
-                        },
-                        "deleted_at": {
-                          "nullable": true
                         },
                         "created_by": {
                           "type": "string"
@@ -9777,9 +9751,6 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "name"
-                ],
                 "properties": {
                   "name": {
                     "type": "string",
@@ -9788,26 +9759,22 @@
                   },
                   "role": {
                     "type": "string",
-                    "nullable": true,
                     "description": "Cargo do contato"
                   },
                   "email": {
                     "type": "string",
-                    "format": "email",
                     "maxLength": 254,
-                    "nullable": true,
-                    "description": "E-mail do contato"
+                    "description": "E-mail do contato",
+                    "format": "email"
                   },
                   "phone": {
                     "type": "string",
                     "maxLength": 30,
-                    "nullable": true,
                     "description": "Telefone do contato"
                   },
                   "description": {
                     "type": "string",
                     "maxLength": 255,
-                    "nullable": true,
                     "description": "Descrição do contato"
                   },
                   "customers": {
@@ -9844,15 +9811,14 @@
                         "type": "array",
                         "description": "Etiquetas a adicionar: use id para vincular etiqueta existente ou name (e opcionalmente color) para criar nova",
                         "items": {
-                          "type": "object",
                           "oneOf": [
                             {
                               "type": "object",
                               "properties": {
                                 "id": {
                                   "type": "string",
-                                  "format": "uuid",
-                                  "description": "ID da etiqueta existente"
+                                  "description": "ID da etiqueta existente",
+                                  "format": "uuid"
                                 }
                               },
                               "required": [
@@ -9870,7 +9836,6 @@
                                 "color": {
                                   "type": "string",
                                   "pattern": "^#[0-9A-Fa-f]{6}$",
-                                  "nullable": true,
                                   "description": "Cor em hex (ex: #FF0000)"
                                 }
                               },
@@ -9889,8 +9854,8 @@
                           "properties": {
                             "id": {
                               "type": "string",
-                              "format": "uuid",
-                              "description": "ID da etiqueta a remover"
+                              "description": "ID da etiqueta a remover",
+                              "format": "uuid"
                             }
                           },
                           "required": [
@@ -9906,7 +9871,6 @@
                   },
                   "form_answers": {
                     "type": "array",
-                    "nullable": true,
                     "description": "Respostas do formulário dinâmico",
                     "items": {
                       "type": "object",
@@ -9917,7 +9881,6 @@
                         },
                         "answer": {
                           "type": "string",
-                          "nullable": true,
                           "description": "Resposta para a pergunta"
                         }
                       },
@@ -9927,7 +9890,10 @@
                       ]
                     }
                   }
-                }
+                },
+                "required": [
+                  "name"
+                ]
               },
               "example": {
                 "name": "Cliente Exemplo - Filial Rio Preto",
@@ -17183,73 +17149,87 @@
             "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Content-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "gzip"
               },
               "Date": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Fri, 13 Mar 2026 21:17:54 GMT"
               },
               "Referrer-Policy": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "strict-origin-when-cross-origin"
               },
               "Server": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nginx"
               },
               "Strict-Transport-Security": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "max-age=31536000; includeSubDomains"
               },
               "Vary": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Accept-Encoding"
               },
               "X-Content-Type-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nosniff"
               },
               "X-Frame-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "SAMEORIGIN"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "160"
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "159"
               },
               "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
               }
             },
@@ -17280,20 +17260,8 @@
                           "type": "string",
                           "format": "date-time"
                         },
-                        "finished_at": {
-                          "nullable": true
-                        },
                         "hourly_rate": {
                           "type": "integer"
-                        },
-                        "finished_reason": {
-                          "nullable": true
-                        },
-                        "started_at_real": {
-                          "nullable": true
-                        },
-                        "finished_at_real": {
-                          "nullable": true
                         },
                         "project": {
                           "type": "object",
@@ -17381,9 +17349,6 @@
                           },
                           "finished_reason": {
                             "type": "string"
-                          },
-                          "started_at_real": {
-                            "nullable": true
                           },
                           "finished_at_real": {
                             "type": "string",
@@ -17670,7 +17635,11 @@
     "/api/management/forms/{form_id}/restore": {
       "post": {
         "summary": "Restaurar formulário",
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "200"
+          }
+        },
         "tags": [
           "forms"
         ],
@@ -17683,7 +17652,8 @@
           "required": true,
           "schema": {
             "type": "string"
-          }
+          },
+          "example": "string"
         }
       ]
     },
@@ -17806,20 +17776,8 @@
                           "type": "string",
                           "format": "date-time"
                         },
-                        "finished_at": {
-                          "nullable": true
-                        },
                         "hourly_rate": {
                           "type": "integer"
-                        },
-                        "finished_reason": {
-                          "nullable": true
-                        },
-                        "started_at_real": {
-                          "nullable": true
-                        },
-                        "finished_at_real": {
-                          "nullable": true
                         },
                         "project": {
                           "type": "object",
@@ -17907,9 +17865,6 @@
                           },
                           "finished_reason": {
                             "type": "string"
-                          },
-                          "started_at_real": {
-                            "nullable": true
                           },
                           "finished_at_real": {
                             "type": "string",
@@ -18111,7 +18066,8 @@
           "schema": {
             "type": "string",
             "format": "uuid"
-          }
+          },
+          "example": "aeb08293-dfd2-365f-9867-93c1251db399"
         }
       ]
     }
