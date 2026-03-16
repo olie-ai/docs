@@ -7057,46 +7057,9 @@
                               "items": {
                                 "type": "object",
                                 "properties": {
-                                  "name": {
-                                    "type": "string",
-                                    "example": "Documento de referência"
-                                  },
-                                  "extension": {
-                                    "type": "string",
-                                    "example": "png",
-                                    "description": "Extensão do arquivo ou tipo do anexo."
-                                  },
-                                  "file_url": {
-                                    "type": "string",
-                                    "example": "https://example.com/file.png",
-                                    "description": "URL do arquivo anexado."
-                                  },
-                                  "popup_video": {
-                                    "type": "boolean",
-                                    "example": true,
-                                    "description": "Define se um link de vídeo deve abrir em popup."
-                                  },
-                                  "watch": {
-                                    "type": "boolean",
-                                    "example": false,
-                                    "description": "Indica se o usuário já visualizou o anexo."
-                                  },
-                                  "technical_name": {
-                                    "type": "string",
-                                    "example": "file_internal_name",
-                                    "description": "Nome técnico interno do arquivo."
-                                  },
-                                  "user_id": {
-                                    "type": "string",
-                                    "example": "uuid-do-usuario",
-                                    "description": "UUID do usuário que enviou o anexo.",
-                                    "format": "uuid"
-                                  },
-                                  "frame_id": {
-                                    "type": "string",
-                                    "example": "uuid-do-frame",
-                                    "description": "UUID do frame.",
-                                    "format": "uuid"
+                                  "id": {
+                                    "type": "integer",
+                                    "example": 1
                                   }
                                 }
                               }
@@ -7341,38 +7304,10 @@
                     ],
                     "attachments": [
                       {
-                        "name": "Captura de tela de 2026-02-12 09-34-45.png",
-                        "extension": "png",
-                        "file_url": "https://olie-main-dev.s3.amazonaws.com/app/frames/019c75de-532c-7047-9563-daf1448ca963/funnel_attachments/EUCnLFRPVhJkpyq6GKDcmXNgI2S1j9HWs0AZ-captura-de-tela-de-2026-02-12-09-34-45.png",
-                        "technical_name": "",
-                        "user_id": "019c75de-509e-711a-8933-175cb2514cc5",
-                        "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
-                        "updated_at": "2026-03-16T13:23:06.000000Z",
-                        "created_at": "2026-03-16T13:23:06.000000Z",
-                        "id": 1,
-                        "user": {
-                          "id": "019c75de-509e-711a-8933-175cb2514cc5",
-                          "name": "Test User",
-                          "avatar_url": "https://via.placeholder.com/124x124.png/00aa99?text=quas"
-                        }
+                        "id": 1
                       },
                       {
-                        "name": "Link Vídeo",
-                        "extension": "link",
-                        "file_url": "https://youtu.be/JOopR4MKbhI?si=HNIGI1bcPNXUuTVy",
-                        "popup_video": true,
-                        "technical_name": "link_technical_name",
-                        "user_id": "019c75de-509e-711a-8933-175cb2514cc5",
-                        "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
-                        "watch": false,
-                        "updated_at": "2026-03-16T13:24:05.000000Z",
-                        "created_at": "2026-03-16T13:24:05.000000Z",
-                        "id": 2,
-                        "user": {
-                          "id": "019c75de-509e-711a-8933-175cb2514cc5",
-                          "name": "Test User",
-                          "avatar_url": "https://via.placeholder.com/124x124.png/00aa99?text=quas"
-                        }
+                        "id": 2
                       }
                     ],
                     "restrictions": [],
