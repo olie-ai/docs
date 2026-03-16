@@ -6950,7 +6950,44 @@
         "operationId": "criarOuAtualizarFunilDeProjeto",
         "responses": {
           "200": {
-            "description": "Sucesso"
+            "description": "Funil criado com sucesso",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Cache-Control": {
+                "deprecated": false,
+                "schema": {},
+                "example": "no-cache, private"
+              },
+              "X-Content-Type-Options": {
+                "deprecated": false,
+                "schema": {},
+                "example": "nosniff"
+              },
+              "X-Frame-Options": {
+                "deprecated": false,
+                "schema": {},
+                "example": "SAMEORIGIN"
+              },
+              "X-Ratelimit-Limit": {
+                "deprecated": false,
+                "schema": {},
+                "example": "160"
+              },
+              "X-Ratelimit-Remaining": {
+                "deprecated": false,
+                "schema": {},
+                "example": "159"
+              }
+            }
           }
         },
         "requestBody": {
