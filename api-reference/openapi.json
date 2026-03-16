@@ -6952,6 +6952,400 @@
           "200": {
             "description": "200"
           }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Criação de Funil",
+                "description": "Payload utilizado para criação ou atualização de um funil com etapas, etiquetas, status, acessos e templates.",
+                "allOf": [
+                  {
+                    "title": "Funil",
+                    "description": "Estrutura principal para criação ou edição de um funil.",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "example": null,
+                        "description": "ID do funil. Deve ser null na criação e preenchido em operações de atualização.",
+                        "nullable": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "maxLength": 191,
+                        "example": "Nome do funil",
+                        "description": "Nome do funil. Campo obrigatório na criação."
+                      },
+                      "prefix": {
+                        "type": "string",
+                        "maxLength": 20,
+                        "example": "PREFIX",
+                        "description": "Prefixo utilizado para geração automática de códigos dos itens criados dentro do funil."
+                      },
+                      "steps": {
+                        "type": "array",
+                        "description": "Lista de etapas que compõem o funil.",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "Backlog",
+                              "description": "Nome da etapa do funil."
+                            },
+                            "step_forward": {
+                              "type": "integer",
+                              "example": null,
+                              "description": "ID da próxima etapa permitida.",
+                              "nullable": true
+                            },
+                            "step_backward": {
+                              "type": "integer",
+                              "example": null,
+                              "description": "ID da etapa anterior permitida.",
+                              "nullable": true
+                            },
+                            "sensation_amount": {
+                              "type": "integer",
+                              "example": 50,
+                              "description": "Percentual de progresso ou peso da etapa."
+                            },
+                            "help_text": {
+                              "type": "string",
+                              "example": "Texto de ajuda da etapa",
+                              "description": "Texto de orientação exibido ao usuário nesta etapa."
+                            },
+                            "allow_execution": {
+                              "type": "boolean",
+                              "example": true,
+                              "description": "Define se é permitido executar ações nesta etapa."
+                            },
+                            "checklists": {
+                              "type": "array",
+                              "description": "Lista de checklists obrigatórias ou opcionais da etapa.",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string",
+                                    "example": "Checklist 1",
+                                    "description": "Nome da checklist."
+                                  },
+                                  "info": {
+                                    "type": "string",
+                                    "example": "Texto informativo da checklist",
+                                    "description": "Descrição ou orientação da checklist."
+                                  },
+                                  "required": {
+                                    "type": "boolean",
+                                    "example": true,
+                                    "description": "Indica se a checklist é obrigatória."
+                                  },
+                                  "order": {
+                                    "type": "integer",
+                                    "example": 0,
+                                    "description": "Ordem de exibição da checklist dentro da etapa."
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "required",
+                                  "order"
+                                ]
+                              }
+                            },
+                            "attachments": {
+                              "type": "array",
+                              "description": "Lista de anexos vinculados à etapa.",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string",
+                                    "example": "Documento de referência"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "example": "png",
+                                    "description": "Extensão do arquivo ou tipo do anexo."
+                                  },
+                                  "file_url": {
+                                    "type": "string",
+                                    "example": "https://example.com/file.png",
+                                    "description": "URL do arquivo anexado."
+                                  },
+                                  "popup_video": {
+                                    "type": "boolean",
+                                    "example": true,
+                                    "description": "Define se um link de vídeo deve abrir em popup."
+                                  },
+                                  "watch": {
+                                    "type": "boolean",
+                                    "example": false,
+                                    "description": "Indica se o usuário já visualizou o anexo."
+                                  },
+                                  "technical_name": {
+                                    "type": "string",
+                                    "example": "file_internal_name",
+                                    "description": "Nome técnico interno do arquivo."
+                                  },
+                                  "user_id": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "example": "uuid-do-usuario",
+                                    "description": "UUID do usuário que enviou o anexo."
+                                  },
+                                  "frame_id": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "example": "uuid-do-frame",
+                                    "description": "UUID do workspace/frame."
+                                  }
+                                }
+                              }
+                            },
+                            "restrictions": {
+                              "type": "array",
+                              "description": "Lista de restrições aplicadas à etapa.",
+                              "items": {
+                                "type": "object"
+                              }
+                            },
+                            "sort_config": {
+                              "type": "object",
+                              "description": "Configuração de ordenação dos itens dentro da etapa.",
+                              "nullable": true
+                            },
+                            "form": {
+                              "type": "object",
+                              "description": "Formulário associado à etapa.",
+                              "properties": {
+                                "id": {
+                                  "type": "integer",
+                                  "example": 7
+                                },
+                                "title": {
+                                  "type": "string",
+                                  "example": "Formulário para funil"
+                                }
+                              },
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ]
+                        }
+                      },
+                      "tags": {
+                        "type": "array",
+                        "description": "Lista de etiquetas disponíveis no funil.",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "Nova etiqueta"
+                            },
+                            "color": {
+                              "type": "string",
+                              "example": "#5e4ff8",
+                              "description": "Cor da etiqueta em formato hexadecimal."
+                            },
+                            "funnel_step_blockings": {
+                              "type": "array",
+                              "description": "Lista de bloqueios de etapas associados à etiqueta.",
+                              "items": {
+                                "type": "object"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "dynamic_form": {
+                        "type": "object",
+                        "description": "Formulário dinâmico associado ao funil.",
+                        "nullable": true
+                      },
+                      "business_area": {
+                        "type": "object",
+                        "description": "Área de negócio vinculada ao funil.",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 19
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Área de negócio"
+                          },
+                          "frame_id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "uuid-do-frame"
+                          }
+                        }
+                      },
+                      "allow_multi_step": {
+                        "type": "boolean",
+                        "example": true,
+                        "description": "Permite que um item esteja em múltiplas etapas simultaneamente."
+                      },
+                      "show_cost_info": {
+                        "type": "boolean",
+                        "example": true,
+                        "description": "Define se informações de custo devem ser exibidas no funil."
+                      },
+                      "form": {
+                        "type": "object",
+                        "description": "Formulário principal associado ao funil.",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 7
+                          },
+                          "title": {
+                            "type": "string",
+                            "example": "Formulário para funil"
+                          }
+                        },
+                        "nullable": true
+                      },
+                      "attachments": {
+                        "type": "array",
+                        "description": "Lista de anexos vinculados ao funil.",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "example": 3
+                            }
+                          }
+                        }
+                      },
+                      "access": {
+                        "type": "array",
+                        "description": "Lista de usuários com acesso ao funil.",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "Test User"
+                            },
+                            "avatar_url": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "index_all": {
+                              "type": "boolean",
+                              "description": "Permissão para visualizar todos os itens."
+                            },
+                            "index_assigned": {
+                              "type": "boolean",
+                              "description": "Permissão para visualizar apenas itens atribuídos."
+                            },
+                            "index_created": {
+                              "type": "boolean",
+                              "description": "Permissão para visualizar itens criados pelo usuário."
+                            }
+                          }
+                        }
+                      },
+                      "funnel_status": {
+                        "type": "array",
+                        "description": "Lista de status possíveis dentro do funil.",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "Novo status"
+                            },
+                            "color": {
+                              "type": "string",
+                              "example": "#b59ef6"
+                            },
+                            "is_conclusive": {
+                              "type": "boolean",
+                              "example": false,
+                              "description": "Indica se o status representa conclusão."
+                            },
+                            "funnel_step_blockings": {
+                              "type": "array",
+                              "items": {
+                                "type": "object"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "condition": {
+                        "type": "string",
+                        "example": "active",
+                        "description": "Condição do funil. Exemplo: active, archived."
+                      },
+                      "allow_execution": {
+                        "type": "boolean",
+                        "example": true,
+                        "description": "Define se o funil permite execução de processos."
+                      },
+                      "template_projects": {
+                        "type": "array",
+                        "description": "Lista de projetos modelo vinculados ao funil.",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "code": {
+                              "type": "string",
+                              "example": "P-45"
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "Template de Projeto"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "impact": {
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 10
+                            },
+                            "budget": {
+                              "type": "number",
+                              "example": 365523.45,
+                              "description": "Valor estimado do projeto."
+                            },
+                            "is_template": {
+                              "type": "boolean",
+                              "example": true
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "steps"
+                    ]
+                  },
+                  {}
+                ]
+              },
+              "example": "{\n    \"id\": null,\n    \"name\": \"Nome do funil\",\n    \"prefix\": \"PREFIX\",\n    \"steps\": [\n        {\n            \"name\": \"Backlog\",\n            \"step_forward\": null,\n            \"step_backward\": null,\n            \"sensation_amount\": 50,\n            \"checklists\": [\n                {\n                    \"name\": \"Checklist 1\",\n                    \"info\": \"Texto informativo da checklist\",\n                    \"required\": true,\n                    \"order\": 0\n                },\n                {\n                    \"name\": \"Checklist 2\",\n                    \"info\": \"\",\n                    \"required\": true,\n                    \"order\": 1\n                },\n                {\n                    \"name\": \"Checklist 3\",\n                    \"info\": \"\",\n                    \"required\": false,\n                    \"order\": 2\n                }\n            ],\n            \"attachments\": [\n                {\n                    \"name\": \"Captura de tela de 2026-02-12 09-34-45.png\",\n                    \"extension\": \"png\",\n                    \"file_url\": \"https://olie-main-dev.s3.amazonaws.com/app/frames/019c75de-532c-7047-9563-daf1448ca963/funnel_attachments/EUCnLFRPVhJkpyq6GKDcmXNgI2S1j9HWs0AZ-captura-de-tela-de-2026-02-12-09-34-45.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=\"{{vault:aws-access-key}}\"%2F20260316%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260316T132306Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Signature=e0e2674c39154f8205faa989cf363ad3ff8aad00073981996fd23e97422250f1\",\n                    \"technical_name\": \"\",\n                    \"user_id\": \"019c75de-509e-711a-8933-175cb2514cc5\",\n                    \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n                    \"updated_at\": \"2026-03-16T13:23:06.000000Z\",\n                    \"created_at\": \"2026-03-16T13:23:06.000000Z\",\n                    \"id\": 1,\n                    \"user\": {\n                        \"id\": \"019c75de-509e-711a-8933-175cb2514cc5\",\n                        \"name\": \"Test User\",\n                        \"avatar_url\": \"https://via.placeholder.com/124x124.png/00aa99?text=quas\"\n                    }\n                },\n                {\n                    \"name\": \"Link Vídeo\",\n                    \"extension\": \"link\",\n                    \"file_url\": \"https://youtu.be/JOopR4MKbhI?si=HNIGI1bcPNXUuTVy\",\n                    \"popup_video\": true,\n                    \"technical_name\": \"link_technical_name\",\n                    \"user_id\": \"019c75de-509e-711a-8933-175cb2514cc5\",\n                    \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n                    \"watch\": false,\n                    \"updated_at\": \"2026-03-16T13:24:05.000000Z\",\n                    \"created_at\": \"2026-03-16T13:24:05.000000Z\",\n                    \"id\": 2,\n                    \"user\": {\n                        \"id\": \"019c75de-509e-711a-8933-175cb2514cc5\",\n                        \"name\": \"Test User\",\n                        \"avatar_url\": \"https://via.placeholder.com/124x124.png/00aa99?text=quas\"\n                    }\n                }\n            ],\n            \"restrictions\": [],\n            \"sort_config\": null,\n            \"allow_execution\": true,\n            \"form\": {\n                \"id\": 7,\n                \"title\": \"Formulário para funil\"\n            },\n            \"help_text\": \"Texto de ajuda da etapa\"\n        },\n        {\n            \"name\": \"Em andamento\",\n            \"step_forward\": null,\n            \"step_backward\": null,\n            \"sensation_amount\": 0,\n            \"checklists\": [],\n            \"attachments\": [],\n            \"restrictions\": [],\n            \"sort_config\": null,\n            \"allow_execution\": true\n        },\n        {\n            \"name\": \"Concluído\",\n            \"step_forward\": null,\n            \"step_backward\": null,\n            \"sensation_amount\": 0,\n            \"checklists\": [],\n            \"attachments\": [],\n            \"restrictions\": [],\n            \"sort_config\": null,\n            \"allow_execution\": true\n        }\n    ],\n    \"tags\": [\n        {\n            \"name\": \"Nova etiqueta 1\",\n            \"color\": \"#5e4ff8\",\n            \"funnel_step_blockings\": []\n        },\n        {\n            \"name\": \"Nova etiqueta 2\",\n            \"color\": \"#7fd87d\",\n            \"funnel_step_blockings\": []\n        },\n        {\n            \"name\": \"Nova etiqueta 3\",\n            \"color\": \"#5e4ff8\",\n            \"funnel_step_blockings\": []\n        }\n    ],\n    \"dynamic_form\": null,\n    \"business_area\": {\n        \"id\": 19,\n        \"name\": \"Área de negócio\",\n        \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\"\n    },\n    \"allow_multi_step\": true,\n    \"show_cost_info\": true,\n    \"form\": {\n        \"id\": 7,\n        \"title\": \"Formulário para funil\"\n    },\n    \"attachments\": [\n        {\n            \"id\": 3\n        }\n    ],\n    \"access\": [\n        {\n            \"id\": \"019c75de-509e-711a-8933-175cb2514cc5\",\n            \"name\": \"Test User\",\n            \"avatar_url\": \"https://via.placeholder.com/124x124.png/00aa99?text=quas\",\n            \"index_all\": false,\n            \"index_assigned\": true,\n            \"index_created\": false\n        },\n        {\n            \"id\": \"019c75de-50f0-7366-a948-b8cbdd1841be\",\n            \"name\": \"Cotestr User\",\n            \"avatar_url\": null,\n            \"index_all\": true,\n            \"index_assigned\": false,\n            \"index_created\": false\n        }\n    ],\n    \"funnel_status\": [\n        {\n            \"name\": \"Novo status 1\",\n            \"color\": \"#b59ef6\",\n            \"is_conclusive\": false,\n            \"funnel_step_blockings\": []\n        },\n        {\n            \"name\": \"Novo status 2\",\n            \"color\": \"#7fd87d\",\n            \"is_conclusive\": false,\n            \"funnel_step_blockings\": []\n        },\n        {\n            \"name\": \"Novo status 3\",\n            \"color\": \"#b59ef6\",\n            \"is_conclusive\": false,\n            \"funnel_step_blockings\": []\n        }\n    ],\n    \"condition\": \"active\",\n    \"allow_execution\": true,\n    \"template_projects\": [\n        {\n            \"id\": \"019c75de-7fcf-70af-b840-1340626e2764\",\n            \"old_id\": null,\n            \"code\": \"P-45\",\n            \"name\": \"Template necessitatibus\",\n            \"description\": \"Itaque qui aliquam voluptas et. Dolorum qui quas id enim ea adipisci qui nihil. Voluptate est sunt sit.\",\n            \"impact\": 8,\n            \"parent_id\": null,\n            \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n            \"created_at\": \"2026-02-19T12:27:21.000000Z\",\n            \"updated_at\": \"2026-02-19T12:27:21.000000Z\",\n            \"customer_id\": null,\n            \"contact_id\": null,\n            \"share_token\": null,\n            \"share_settings\": null,\n            \"merged_id\": null,\n            \"status\": 1,\n            \"budget\": 365523.45,\n            \"is_template\": true,\n            \"created_by\": null,\n            \"deleted_at\": null,\n            \"form_answers\": [],\n            \"tasks\": [],\n            \"customer\": null,\n            \"contact\": null,\n            \"funnels\": [],\n            \"funnel_steps\": [],\n            \"tags\": [],\n            \"merged_project\": null,\n            \"groups\": [],\n            \"users\": [],\n            \"frame\": {\n                \"id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n                \"name\": \"OlieDev Company \",\n                \"subdomain\": \"devframe\",\n                \"model_forms\": [\n                    {\n                        \"id\": 3,\n                        \"class\": \"App\\\\Models\\\\FrameRelationship\"\n                    }\n                ]\n            },\n            \"form\": null,\n            \"executors\": [],\n            \"costs\": null\n        }\n    ]\n}"
+            }
+          }
         }
       }
     },
