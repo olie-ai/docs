@@ -6987,6 +6987,121 @@
                 "schema": {},
                 "example": "159"
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": "{\n    \"response\": true,\n    \"project_funnel\": {\n        \"order\": 11,\n        \"name\": \"Nome do funil\",\n        \"condition\": \"active\",\n        \"allow_multi_step\": true,\n        \"show_cost_info\": true,\n        \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n        \"allow_execution\": true,\n        \"prefix\": \"PREFIX2\",\n        \"form_id\": 7,\n        \"updated_at\": \"2026-03-16T16:34:43.000000Z\",\n        \"created_at\": \"2026-03-16T16:34:43.000000Z\",\n        \"id\": 54,\n        \"business_area_id\": 19,\n        \"business_area\": {\n            \"id\": 19,\n            \"name\": \"Área de negócio\",\n            \"order\": 0,\n            \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n            \"deleted_at\": null\n        },\n        \"steps\": [\n            {\n                \"id\": 240,\n                \"name\": \"Backlog\",\n                \"project_funnel_id\": 54,\n                \"sensation_amount\": 50,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 1,\n                \"help_text\": \"Texto de ajuda da etapa\",\n                \"form_id\": 7,\n                \"sort_config\": null,\n                \"allow_execution\": true,\n                \"created_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"updated_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"deleted_at\": null,\n                \"checklists\": [\n                    {\n                        \"id\": 4,\n                        \"name\": \"Checklist 1\",\n                        \"info\": \"Texto informativo da checklist\",\n                        \"funnel_step_id\": 240,\n                        \"required\": true,\n                        \"order\": 0\n                    },\n                    {\n                        \"id\": 5,\n                        \"name\": \"Checklist 2\",\n                        \"info\": null,\n                        \"funnel_step_id\": 240,\n                        \"required\": true,\n                        \"order\": 1\n                    },\n                    {\n                        \"id\": 6,\n                        \"name\": \"Checklist 3\",\n                        \"info\": null,\n                        \"funnel_step_id\": 240,\n                        \"required\": false,\n                        \"order\": 2\n                    }\n                ],\n                \"attachments\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"Captura de tela de 2026-02-12 09-34-45.png\",\n                        \"technical_name\": \"\",\n                        \"extension\": \"png\",\n                        \"file_url\": \"https://olie-main-dev.s3.amazonaws.com/app/frames/019c75de-532c-7047-9563-daf1448ca963/funnel_attachments/EUCnLFRPVhJkpyq6GKDcmXNgI2S1j9HWs0AZ-captura-de-tela-de-2026-02-12-09-34-45.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=\"{{vault:aws-access-key}}\"%2F20260316%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260316T163443Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Signature=03555e1d3ea5a300a5e1a3e01d731e8776c59e41675a88fca48bd18344681c57\",\n                        \"popup_video\": 0,\n                        \"watch\": false,\n                        \"user_id\": \"019c75de-509e-711a-8933-175cb2514cc5\",\n                        \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n                        \"created_at\": \"2026-03-16T13:23:06.000000Z\",\n                        \"updated_at\": \"2026-03-16T13:23:06.000000Z\",\n                        \"deleted_at\": null,\n                        \"pivot\": {\n                            \"funnel_step_id\": 240,\n                            \"step_attachment_id\": 1\n                        }\n                    },\n                    {\n                        \"id\": 2,\n                        \"name\": \"Link Vídeo\",\n                        \"technical_name\": \"link_technical_name\",\n                        \"extension\": \"link\",\n                        \"file_url\": \"https://youtu.be/JOopR4MKbhI?si=HNIGI1bcPNXUuTVy\",\n                        \"popup_video\": 1,\n                        \"watch\": true,\n                        \"user_id\": \"019c75de-509e-711a-8933-175cb2514cc5\",\n                        \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n                        \"created_at\": \"2026-03-16T13:24:05.000000Z\",\n                        \"updated_at\": \"2026-03-16T13:25:13.000000Z\",\n                        \"deleted_at\": null,\n                        \"pivot\": {\n                            \"funnel_step_id\": 240,\n                            \"step_attachment_id\": 2\n                        }\n                    }\n                ],\n                \"form\": {\n                    \"id\": 7,\n                    \"title\": \"Formulário para funil\",\n                    \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n                    \"created_at\": \"2026-03-16T13:12:12.000000Z\",\n                    \"updated_at\": \"2026-03-16T13:12:12.000000Z\",\n                    \"deleted_at\": null\n                },\n                \"restrictions\": []\n            },\n            {\n                \"id\": 241,\n                \"name\": \"Em andamento\",\n                \"project_funnel_id\": 54,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 2,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"allow_execution\": true,\n                \"created_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"updated_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"deleted_at\": null,\n                \"checklists\": [],\n                \"attachments\": [],\n                \"form\": null,\n                \"restrictions\": []\n            },\n            {\n                \"id\": 242,\n                \"name\": \"Concluído\",\n                \"project_funnel_id\": 54,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 3,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"allow_execution\": true,\n                \"created_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"updated_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"deleted_at\": null,\n                \"checklists\": [],\n                \"attachments\": [],\n                \"form\": null,\n                \"restrictions\": []\n            }\n        ],\n        \"tags\": [\n            {\n                \"id\": 6,\n                \"name\": \"Nova etiqueta 1\",\n                \"color\": \"#5e4ff8\",\n                \"project_funnel_id\": 54,\n                \"deleted_at\": null\n            },\n            {\n                \"id\": 7,\n                \"name\": \"Nova etiqueta 2\",\n                \"color\": \"#7fd87d\",\n                \"project_funnel_id\": 54,\n                \"deleted_at\": null\n            },\n            {\n                \"id\": 8,\n                \"name\": \"Nova etiqueta 3\",\n                \"color\": \"#5e4ff8\",\n                \"project_funnel_id\": 54,\n                \"deleted_at\": null\n            }\n        ],\n        \"attachments\": [],\n        \"funnel_status\": [\n            {\n                \"id\": 6,\n                \"name\": \"Novo status 1\",\n                \"color\": \"#b59ef6\",\n                \"project_funnel_id\": 54,\n                \"is_conclusive\": false,\n                \"created_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"updated_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"deleted_at\": null\n            },\n            {\n                \"id\": 7,\n                \"name\": \"Novo status 2\",\n                \"color\": \"#7fd87d\",\n                \"project_funnel_id\": 54,\n                \"is_conclusive\": false,\n                \"created_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"updated_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"deleted_at\": null\n            },\n            {\n                \"id\": 8,\n                \"name\": \"Novo status 3\",\n                \"color\": \"#b59ef6\",\n                \"project_funnel_id\": 54,\n                \"is_conclusive\": false,\n                \"created_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"updated_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"deleted_at\": null\n            }\n        ]\n    },\n    \"objects_above_limit\": []\n}"
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Campos obrigatórios",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "X-Frame-Options": {
+                "deprecated": false,
+                "schema": {},
+                "example": "SAMEORIGIN"
+              },
+              "X-Ratelimit-Limit": {
+                "deprecated": false,
+                "schema": {},
+                "example": "160"
+              },
+              "X-Ratelimit-Remaining": {
+                "deprecated": false,
+                "schema": {},
+                "example": "159"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo nome é obrigatório.",
+                  "validation": {
+                    "name": [
+                      "O campo nome é obrigatório."
+                    ]
+                  }
+                }
+              }
             }
           }
         },
