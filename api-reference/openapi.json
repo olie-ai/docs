@@ -7296,31 +7296,6 @@
                             "id": {
                               "type": "string",
                               "format": "uuid"
-                            },
-                            "code": {
-                              "type": "string",
-                              "example": "P-45"
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "Template de Projeto"
-                            },
-                            "description": {
-                              "type": "string"
-                            },
-                            "impact": {
-                              "type": "integer",
-                              "minimum": 1,
-                              "maximum": 10
-                            },
-                            "budget": {
-                              "type": "number",
-                              "example": 365523.45,
-                              "description": "Valor estimado do projeto."
-                            },
-                            "is_template": {
-                              "type": "boolean",
-                              "example": true
                             }
                           }
                         }
@@ -7508,50 +7483,7 @@
                 "allow_execution": true,
                 "template_projects": [
                   {
-                    "id": "019c75de-7fcf-70af-b840-1340626e2764",
-                    "old_id": null,
-                    "code": "P-45",
-                    "name": "Template necessitatibus",
-                    "description": "Itaque qui aliquam voluptas et. Dolorum qui quas id enim ea adipisci qui nihil. Voluptate est sunt sit.",
-                    "impact": 8,
-                    "parent_id": null,
-                    "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
-                    "created_at": "2026-02-19T12:27:21.000000Z",
-                    "updated_at": "2026-02-19T12:27:21.000000Z",
-                    "customer_id": null,
-                    "contact_id": null,
-                    "share_token": null,
-                    "share_settings": null,
-                    "merged_id": null,
-                    "status": 1,
-                    "budget": 365523.45,
-                    "is_template": true,
-                    "created_by": null,
-                    "deleted_at": null,
-                    "form_answers": [],
-                    "tasks": [],
-                    "customer": null,
-                    "contact": null,
-                    "funnels": [],
-                    "funnel_steps": [],
-                    "tags": [],
-                    "merged_project": null,
-                    "groups": [],
-                    "users": [],
-                    "frame": {
-                      "id": "019c75de-532c-7047-9563-daf1448ca963",
-                      "name": "OlieDev Company ",
-                      "subdomain": "devframe",
-                      "model_forms": [
-                        {
-                          "id": 3,
-                          "class": "App\\Models\\FrameRelationship"
-                        }
-                      ]
-                    },
-                    "form": null,
-                    "executors": [],
-                    "costs": null
+                    "id": "019c75de-7fcf-70af-b840-1340626e2764"
                   }
                 ]
               }
