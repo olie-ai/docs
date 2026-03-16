@@ -6991,9 +6991,524 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "project_funnel": {
+                      "type": "object",
+                      "properties": {
+                        "order": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "condition": {
+                          "type": "string"
+                        },
+                        "allow_multi_step": {
+                          "type": "boolean"
+                        },
+                        "show_cost_info": {
+                          "type": "boolean"
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "allow_execution": {
+                          "type": "boolean"
+                        },
+                        "prefix": {
+                          "type": "string"
+                        },
+                        "form_id": {
+                          "type": "integer"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "id": {
+                          "type": "integer"
+                        },
+                        "business_area_id": {
+                          "type": "integer"
+                        },
+                        "business_area": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "order": {
+                              "type": "integer"
+                            },
+                            "frame_id": {
+                              "type": "string"
+                            },
+                            "deleted_at": {
+                              "nullable": true
+                            }
+                          }
+                        },
+                        "steps": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "project_funnel_id": {
+                                "type": "integer"
+                              },
+                              "sensation_amount": {
+                                "type": "integer"
+                              },
+                              "step_forward_id": {
+                                "nullable": true
+                              },
+                              "step_backward_id": {
+                                "nullable": true
+                              },
+                              "order": {
+                                "type": "integer"
+                              },
+                              "help_text": {
+                                "type": "string"
+                              },
+                              "form_id": {
+                                "type": "integer"
+                              },
+                              "sort_config": {
+                                "nullable": true
+                              },
+                              "allow_execution": {
+                                "type": "boolean"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              },
+                              "checklists": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "integer"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "info": {
+                                      "type": "string"
+                                    },
+                                    "funnel_step_id": {
+                                      "type": "integer"
+                                    },
+                                    "required": {
+                                      "type": "boolean"
+                                    },
+                                    "order": {
+                                      "type": "integer"
+                                    }
+                                  }
+                                }
+                              },
+                              "attachments": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "integer"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "technical_name": {
+                                      "type": "string"
+                                    },
+                                    "extension": {
+                                      "type": "string"
+                                    },
+                                    "file_url": {
+                                      "type": "string",
+                                      "format": "uri"
+                                    },
+                                    "popup_video": {
+                                      "type": "integer"
+                                    },
+                                    "watch": {
+                                      "type": "boolean"
+                                    },
+                                    "user_id": {
+                                      "type": "string"
+                                    },
+                                    "frame_id": {
+                                      "type": "string"
+                                    },
+                                    "created_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "updated_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "deleted_at": {
+                                      "nullable": true
+                                    },
+                                    "pivot": {
+                                      "type": "object",
+                                      "properties": {
+                                        "funnel_step_id": {
+                                          "type": "integer"
+                                        },
+                                        "step_attachment_id": {
+                                          "type": "integer"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "form": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "integer"
+                                  },
+                                  "title": {
+                                    "type": "string"
+                                  },
+                                  "frame_id": {
+                                    "type": "string"
+                                  },
+                                  "created_at": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "updated_at": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "deleted_at": {
+                                    "nullable": true
+                                  }
+                                }
+                              },
+                              "restrictions": {
+                                "type": "array",
+                                "items": {}
+                              }
+                            }
+                          }
+                        },
+                        "tags": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "color": {
+                                "type": "string",
+                                "format": "color"
+                              },
+                              "project_funnel_id": {
+                                "type": "integer"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              }
+                            }
+                          }
+                        },
+                        "attachments": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "funnel_status": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "color": {
+                                "type": "string",
+                                "format": "color"
+                              },
+                              "project_funnel_id": {
+                                "type": "integer"
+                              },
+                              "is_conclusive": {
+                                "type": "boolean"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "objects_above_limit": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
                 },
-                "example": "{\n    \"response\": true,\n    \"project_funnel\": {\n        \"order\": 11,\n        \"name\": \"Nome do funil\",\n        \"condition\": \"active\",\n        \"allow_multi_step\": true,\n        \"show_cost_info\": true,\n        \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n        \"allow_execution\": true,\n        \"prefix\": \"PREFIX2\",\n        \"form_id\": 7,\n        \"updated_at\": \"2026-03-16T16:34:43.000000Z\",\n        \"created_at\": \"2026-03-16T16:34:43.000000Z\",\n        \"id\": 54,\n        \"business_area_id\": 19,\n        \"business_area\": {\n            \"id\": 19,\n            \"name\": \"Área de negócio\",\n            \"order\": 0,\n            \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n            \"deleted_at\": null\n        },\n        \"steps\": [\n            {\n                \"id\": 240,\n                \"name\": \"Backlog\",\n                \"project_funnel_id\": 54,\n                \"sensation_amount\": 50,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 1,\n                \"help_text\": \"Texto de ajuda da etapa\",\n                \"form_id\": 7,\n                \"sort_config\": null,\n                \"allow_execution\": true,\n                \"created_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"updated_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"deleted_at\": null,\n                \"checklists\": [\n                    {\n                        \"id\": 4,\n                        \"name\": \"Checklist 1\",\n                        \"info\": \"Texto informativo da checklist\",\n                        \"funnel_step_id\": 240,\n                        \"required\": true,\n                        \"order\": 0\n                    },\n                    {\n                        \"id\": 5,\n                        \"name\": \"Checklist 2\",\n                        \"info\": null,\n                        \"funnel_step_id\": 240,\n                        \"required\": true,\n                        \"order\": 1\n                    },\n                    {\n                        \"id\": 6,\n                        \"name\": \"Checklist 3\",\n                        \"info\": null,\n                        \"funnel_step_id\": 240,\n                        \"required\": false,\n                        \"order\": 2\n                    }\n                ],\n                \"attachments\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"Captura de tela de 2026-02-12 09-34-45.png\",\n                        \"technical_name\": \"\",\n                        \"extension\": \"png\",\n                        \"file_url\": \"https://olie-main-dev.s3.amazonaws.com/app/frames/019c75de-532c-7047-9563-daf1448ca963/funnel_attachments/EUCnLFRPVhJkpyq6GKDcmXNgI2S1j9HWs0AZ-captura-de-tela-de-2026-02-12-09-34-45.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=\"{{vault:aws-access-key}}\"%2F20260316%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260316T163443Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Signature=03555e1d3ea5a300a5e1a3e01d731e8776c59e41675a88fca48bd18344681c57\",\n                        \"popup_video\": 0,\n                        \"watch\": false,\n                        \"user_id\": \"019c75de-509e-711a-8933-175cb2514cc5\",\n                        \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n                        \"created_at\": \"2026-03-16T13:23:06.000000Z\",\n                        \"updated_at\": \"2026-03-16T13:23:06.000000Z\",\n                        \"deleted_at\": null,\n                        \"pivot\": {\n                            \"funnel_step_id\": 240,\n                            \"step_attachment_id\": 1\n                        }\n                    },\n                    {\n                        \"id\": 2,\n                        \"name\": \"Link Vídeo\",\n                        \"technical_name\": \"link_technical_name\",\n                        \"extension\": \"link\",\n                        \"file_url\": \"https://youtu.be/JOopR4MKbhI?si=HNIGI1bcPNXUuTVy\",\n                        \"popup_video\": 1,\n                        \"watch\": true,\n                        \"user_id\": \"019c75de-509e-711a-8933-175cb2514cc5\",\n                        \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n                        \"created_at\": \"2026-03-16T13:24:05.000000Z\",\n                        \"updated_at\": \"2026-03-16T13:25:13.000000Z\",\n                        \"deleted_at\": null,\n                        \"pivot\": {\n                            \"funnel_step_id\": 240,\n                            \"step_attachment_id\": 2\n                        }\n                    }\n                ],\n                \"form\": {\n                    \"id\": 7,\n                    \"title\": \"Formulário para funil\",\n                    \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n                    \"created_at\": \"2026-03-16T13:12:12.000000Z\",\n                    \"updated_at\": \"2026-03-16T13:12:12.000000Z\",\n                    \"deleted_at\": null\n                },\n                \"restrictions\": []\n            },\n            {\n                \"id\": 241,\n                \"name\": \"Em andamento\",\n                \"project_funnel_id\": 54,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 2,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"allow_execution\": true,\n                \"created_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"updated_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"deleted_at\": null,\n                \"checklists\": [],\n                \"attachments\": [],\n                \"form\": null,\n                \"restrictions\": []\n            },\n            {\n                \"id\": 242,\n                \"name\": \"Concluído\",\n                \"project_funnel_id\": 54,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 3,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"allow_execution\": true,\n                \"created_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"updated_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"deleted_at\": null,\n                \"checklists\": [],\n                \"attachments\": [],\n                \"form\": null,\n                \"restrictions\": []\n            }\n        ],\n        \"tags\": [\n            {\n                \"id\": 6,\n                \"name\": \"Nova etiqueta 1\",\n                \"color\": \"#5e4ff8\",\n                \"project_funnel_id\": 54,\n                \"deleted_at\": null\n            },\n            {\n                \"id\": 7,\n                \"name\": \"Nova etiqueta 2\",\n                \"color\": \"#7fd87d\",\n                \"project_funnel_id\": 54,\n                \"deleted_at\": null\n            },\n            {\n                \"id\": 8,\n                \"name\": \"Nova etiqueta 3\",\n                \"color\": \"#5e4ff8\",\n                \"project_funnel_id\": 54,\n                \"deleted_at\": null\n            }\n        ],\n        \"attachments\": [],\n        \"funnel_status\": [\n            {\n                \"id\": 6,\n                \"name\": \"Novo status 1\",\n                \"color\": \"#b59ef6\",\n                \"project_funnel_id\": 54,\n                \"is_conclusive\": false,\n                \"created_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"updated_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"deleted_at\": null\n            },\n            {\n                \"id\": 7,\n                \"name\": \"Novo status 2\",\n                \"color\": \"#7fd87d\",\n                \"project_funnel_id\": 54,\n                \"is_conclusive\": false,\n                \"created_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"updated_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"deleted_at\": null\n            },\n            {\n                \"id\": 8,\n                \"name\": \"Novo status 3\",\n                \"color\": \"#b59ef6\",\n                \"project_funnel_id\": 54,\n                \"is_conclusive\": false,\n                \"created_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"updated_at\": \"2026-03-16T16:34:43.000000Z\",\n                \"deleted_at\": null\n            }\n        ]\n    },\n    \"objects_above_limit\": []\n}"
+                "example": {
+                  "response": true,
+                  "project_funnel": {
+                    "order": 11,
+                    "name": "Nome do funil",
+                    "condition": "active",
+                    "allow_multi_step": true,
+                    "show_cost_info": true,
+                    "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                    "allow_execution": true,
+                    "prefix": "PREFIX2",
+                    "form_id": 7,
+                    "updated_at": "2026-03-16T16:34:43.000000Z",
+                    "created_at": "2026-03-16T16:34:43.000000Z",
+                    "id": 54,
+                    "business_area_id": 19,
+                    "business_area": {
+                      "id": 19,
+                      "name": "Área de negócio",
+                      "order": 0,
+                      "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                      "deleted_at": null
+                    },
+                    "steps": [
+                      {
+                        "id": 240,
+                        "name": "Backlog",
+                        "project_funnel_id": 54,
+                        "sensation_amount": 50,
+                        "step_forward_id": null,
+                        "step_backward_id": null,
+                        "order": 1,
+                        "help_text": "Texto de ajuda da etapa",
+                        "form_id": 7,
+                        "sort_config": null,
+                        "allow_execution": true,
+                        "created_at": "2026-03-16T16:34:43.000000Z",
+                        "updated_at": "2026-03-16T16:34:43.000000Z",
+                        "deleted_at": null,
+                        "checklists": [
+                          {
+                            "id": 4,
+                            "name": "Checklist 1",
+                            "info": "Texto informativo da checklist",
+                            "funnel_step_id": 240,
+                            "required": true,
+                            "order": 0
+                          },
+                          {
+                            "id": 5,
+                            "name": "Checklist 2",
+                            "info": null,
+                            "funnel_step_id": 240,
+                            "required": true,
+                            "order": 1
+                          },
+                          {
+                            "id": 6,
+                            "name": "Checklist 3",
+                            "info": null,
+                            "funnel_step_id": 240,
+                            "required": false,
+                            "order": 2
+                          }
+                        ],
+                        "attachments": [
+                          {
+                            "id": 1,
+                            "name": "Captura de tela de 2026-02-12 09-34-45.png",
+                            "technical_name": "",
+                            "extension": "png",
+                            "file_url": "https://olie-main-dev.s3.amazonaws.com/app/frames/019c75de-532c-7047-9563-daf1448ca963/funnel_attachments/EUCnLFRPVhJkpyq6GKDcmXNgI2S1j9HWs0AZ-captura-de-tela-de-2026-02-12-09-34-45.png",
+                            "popup_video": 0,
+                            "watch": false,
+                            "user_id": "019c75de-509e-711a-8933-175cb2514cc5",
+                            "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                            "created_at": "2026-03-16T13:23:06.000000Z",
+                            "updated_at": "2026-03-16T13:23:06.000000Z",
+                            "deleted_at": null,
+                            "pivot": {
+                              "funnel_step_id": 240,
+                              "step_attachment_id": 1
+                            }
+                          },
+                          {
+                            "id": 2,
+                            "name": "Link Vídeo",
+                            "technical_name": "link_technical_name",
+                            "extension": "link",
+                            "file_url": "https://youtu.be/JOopR4MKbhI?si=HNIGI1bcPNXUuTVy",
+                            "popup_video": 1,
+                            "watch": true,
+                            "user_id": "019c75de-509e-711a-8933-175cb2514cc5",
+                            "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                            "created_at": "2026-03-16T13:24:05.000000Z",
+                            "updated_at": "2026-03-16T13:25:13.000000Z",
+                            "deleted_at": null,
+                            "pivot": {
+                              "funnel_step_id": 240,
+                              "step_attachment_id": 2
+                            }
+                          }
+                        ],
+                        "form": {
+                          "id": 7,
+                          "title": "Formulário para funil",
+                          "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                          "created_at": "2026-03-16T13:12:12.000000Z",
+                          "updated_at": "2026-03-16T13:12:12.000000Z",
+                          "deleted_at": null
+                        },
+                        "restrictions": []
+                      },
+                      {
+                        "id": 241,
+                        "name": "Em andamento",
+                        "project_funnel_id": 54,
+                        "sensation_amount": 0,
+                        "step_forward_id": null,
+                        "step_backward_id": null,
+                        "order": 2,
+                        "help_text": null,
+                        "form_id": null,
+                        "sort_config": null,
+                        "allow_execution": true,
+                        "created_at": "2026-03-16T16:34:43.000000Z",
+                        "updated_at": "2026-03-16T16:34:43.000000Z",
+                        "deleted_at": null,
+                        "checklists": [],
+                        "attachments": [],
+                        "form": null,
+                        "restrictions": []
+                      },
+                      {
+                        "id": 242,
+                        "name": "Concluído",
+                        "project_funnel_id": 54,
+                        "sensation_amount": 0,
+                        "step_forward_id": null,
+                        "step_backward_id": null,
+                        "order": 3,
+                        "help_text": null,
+                        "form_id": null,
+                        "sort_config": null,
+                        "allow_execution": true,
+                        "created_at": "2026-03-16T16:34:43.000000Z",
+                        "updated_at": "2026-03-16T16:34:43.000000Z",
+                        "deleted_at": null,
+                        "checklists": [],
+                        "attachments": [],
+                        "form": null,
+                        "restrictions": []
+                      }
+                    ],
+                    "tags": [
+                      {
+                        "id": 6,
+                        "name": "Nova etiqueta 1",
+                        "color": "#5e4ff8",
+                        "project_funnel_id": 54,
+                        "deleted_at": null
+                      },
+                      {
+                        "id": 7,
+                        "name": "Nova etiqueta 2",
+                        "color": "#7fd87d",
+                        "project_funnel_id": 54,
+                        "deleted_at": null
+                      },
+                      {
+                        "id": 8,
+                        "name": "Nova etiqueta 3",
+                        "color": "#5e4ff8",
+                        "project_funnel_id": 54,
+                        "deleted_at": null
+                      }
+                    ],
+                    "attachments": [],
+                    "funnel_status": [
+                      {
+                        "id": 6,
+                        "name": "Novo status 1",
+                        "color": "#b59ef6",
+                        "project_funnel_id": 54,
+                        "is_conclusive": false,
+                        "created_at": "2026-03-16T16:34:43.000000Z",
+                        "updated_at": "2026-03-16T16:34:43.000000Z",
+                        "deleted_at": null
+                      },
+                      {
+                        "id": 7,
+                        "name": "Novo status 2",
+                        "color": "#7fd87d",
+                        "project_funnel_id": 54,
+                        "is_conclusive": false,
+                        "created_at": "2026-03-16T16:34:43.000000Z",
+                        "updated_at": "2026-03-16T16:34:43.000000Z",
+                        "deleted_at": null
+                      },
+                      {
+                        "id": 8,
+                        "name": "Novo status 3",
+                        "color": "#b59ef6",
+                        "project_funnel_id": 54,
+                        "is_conclusive": false,
+                        "created_at": "2026-03-16T16:34:43.000000Z",
+                        "updated_at": "2026-03-16T16:34:43.000000Z",
+                        "deleted_at": null
+                      }
+                    ]
+                  },
+                  "objects_above_limit": []
+                }
               }
             }
           },
