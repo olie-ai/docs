@@ -6972,7 +6972,6 @@
                       },
                       "name": {
                         "type": "string",
-                        "maxLength": 191,
                         "example": "Nome do funil",
                         "description": "Nome do funil. Campo obrigatório na criação."
                       },
@@ -6980,11 +6979,11 @@
                         "type": "string",
                         "maxLength": 20,
                         "example": "PREFIX",
-                        "description": "Prefixo utilizado para geração automática de códigos dos itens criados dentro do funil."
+                        "description": "Prefixo utilizado para geração automática de códigos dos projetos criados dentro do funil."
                       },
                       "steps": {
                         "type": "array",
-                        "description": "Lista de etapas que compõem o funil.",
+                        "description": "Lista de etapas que do funil.",
                         "items": {
                           "type": "object",
                           "properties": {
@@ -7006,7 +7005,7 @@
                             "sensation_amount": {
                               "type": "integer",
                               "example": 50,
-                              "description": "Percentual de progresso ou peso da etapa."
+                              "description": "Percentual de progresso da etapa."
                             },
                             "help_text": {
                               "type": "string",
@@ -7016,7 +7015,7 @@
                             "allow_execution": {
                               "type": "boolean",
                               "example": true,
-                              "description": "Define se é permitido executar ações nesta etapa."
+                              "description": "Define se é permitido executar projetos nesta etapa."
                             },
                             "checklists": {
                               "type": "array",
@@ -7096,7 +7095,7 @@
                                   "frame_id": {
                                     "type": "string",
                                     "example": "uuid-do-frame",
-                                    "description": "UUID do workspace/frame.",
+                                    "description": "UUID do frame.",
                                     "format": "uuid"
                                   }
                                 }
@@ -7119,11 +7118,11 @@
                               "properties": {
                                 "id": {
                                   "type": "integer",
-                                  "example": 7
+                                  "example": 8
                                 },
                                 "title": {
                                   "type": "string",
-                                  "example": "Formulário para funil"
+                                  "example": "Formulário para etapa"
                                 }
                               }
                             }
@@ -7184,7 +7183,7 @@
                       "allow_multi_step": {
                         "type": "boolean",
                         "example": true,
-                        "description": "Permite que um item esteja em múltiplas etapas simultaneamente."
+                        "description": "Permite que um projeto esteja em múltiplas etapas simultaneamente."
                       },
                       "show_cost_info": {
                         "type": "boolean",
@@ -7237,15 +7236,15 @@
                             },
                             "index_all": {
                               "type": "boolean",
-                              "description": "Permissão para visualizar todos os itens."
+                              "description": "Permissão para visualizar todos os projetos."
                             },
                             "index_assigned": {
                               "type": "boolean",
-                              "description": "Permissão para visualizar apenas itens atribuídos."
+                              "description": "Permissão para visualizar apenas projetos atribuídos."
                             },
                             "index_created": {
                               "type": "boolean",
-                              "description": "Permissão para visualizar itens criados pelo usuário."
+                              "description": "Permissão para visualizar projetos criados pelo usuário."
                             }
                           }
                         }
@@ -7281,12 +7280,12 @@
                       "condition": {
                         "type": "string",
                         "example": "active",
-                        "description": "Condição do funil. Exemplo: active, archived."
+                        "description": "Condição do funil. Exemplo: active, inactive."
                       },
                       "allow_execution": {
                         "type": "boolean",
                         "example": true,
-                        "description": "Define se o funil permite execução de processos."
+                        "description": "Define se o funil permite execução de projetos."
                       },
                       "template_projects": {
                         "type": "array",
@@ -7335,7 +7334,227 @@
                   {}
                 ]
               },
-              "example": "{\n    \"id\": null,\n    \"name\": \"Nome do funil\",\n    \"prefix\": \"PREFIX\",\n    \"steps\": [\n        {\n            \"name\": \"Backlog\",\n            \"step_forward\": null,\n            \"step_backward\": null,\n            \"sensation_amount\": 50,\n            \"checklists\": [\n                {\n                    \"name\": \"Checklist 1\",\n                    \"info\": \"Texto informativo da checklist\",\n                    \"required\": true,\n                    \"order\": 0\n                },\n                {\n                    \"name\": \"Checklist 2\",\n                    \"info\": \"\",\n                    \"required\": true,\n                    \"order\": 1\n                },\n                {\n                    \"name\": \"Checklist 3\",\n                    \"info\": \"\",\n                    \"required\": false,\n                    \"order\": 2\n                }\n            ],\n            \"attachments\": [\n                {\n                    \"name\": \"Captura de tela de 2026-02-12 09-34-45.png\",\n                    \"extension\": \"png\",\n                    \"file_url\": \"https://olie-main-dev.s3.amazonaws.com/app/frames/019c75de-532c-7047-9563-daf1448ca963/funnel_attachments/EUCnLFRPVhJkpyq6GKDcmXNgI2S1j9HWs0AZ-captura-de-tela-de-2026-02-12-09-34-45.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=\"{{vault:aws-access-key}}\"%2F20260316%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260316T132306Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Signature=e0e2674c39154f8205faa989cf363ad3ff8aad00073981996fd23e97422250f1\",\n                    \"technical_name\": \"\",\n                    \"user_id\": \"019c75de-509e-711a-8933-175cb2514cc5\",\n                    \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n                    \"updated_at\": \"2026-03-16T13:23:06.000000Z\",\n                    \"created_at\": \"2026-03-16T13:23:06.000000Z\",\n                    \"id\": 1,\n                    \"user\": {\n                        \"id\": \"019c75de-509e-711a-8933-175cb2514cc5\",\n                        \"name\": \"Test User\",\n                        \"avatar_url\": \"https://via.placeholder.com/124x124.png/00aa99?text=quas\"\n                    }\n                },\n                {\n                    \"name\": \"Link Vídeo\",\n                    \"extension\": \"link\",\n                    \"file_url\": \"https://youtu.be/JOopR4MKbhI?si=HNIGI1bcPNXUuTVy\",\n                    \"popup_video\": true,\n                    \"technical_name\": \"link_technical_name\",\n                    \"user_id\": \"019c75de-509e-711a-8933-175cb2514cc5\",\n                    \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n                    \"watch\": false,\n                    \"updated_at\": \"2026-03-16T13:24:05.000000Z\",\n                    \"created_at\": \"2026-03-16T13:24:05.000000Z\",\n                    \"id\": 2,\n                    \"user\": {\n                        \"id\": \"019c75de-509e-711a-8933-175cb2514cc5\",\n                        \"name\": \"Test User\",\n                        \"avatar_url\": \"https://via.placeholder.com/124x124.png/00aa99?text=quas\"\n                    }\n                }\n            ],\n            \"restrictions\": [],\n            \"sort_config\": null,\n            \"allow_execution\": true,\n            \"form\": {\n                \"id\": 7,\n                \"title\": \"Formulário para funil\"\n            },\n            \"help_text\": \"Texto de ajuda da etapa\"\n        },\n        {\n            \"name\": \"Em andamento\",\n            \"step_forward\": null,\n            \"step_backward\": null,\n            \"sensation_amount\": 0,\n            \"checklists\": [],\n            \"attachments\": [],\n            \"restrictions\": [],\n            \"sort_config\": null,\n            \"allow_execution\": true\n        },\n        {\n            \"name\": \"Concluído\",\n            \"step_forward\": null,\n            \"step_backward\": null,\n            \"sensation_amount\": 0,\n            \"checklists\": [],\n            \"attachments\": [],\n            \"restrictions\": [],\n            \"sort_config\": null,\n            \"allow_execution\": true\n        }\n    ],\n    \"tags\": [\n        {\n            \"name\": \"Nova etiqueta 1\",\n            \"color\": \"#5e4ff8\",\n            \"funnel_step_blockings\": []\n        },\n        {\n            \"name\": \"Nova etiqueta 2\",\n            \"color\": \"#7fd87d\",\n            \"funnel_step_blockings\": []\n        },\n        {\n            \"name\": \"Nova etiqueta 3\",\n            \"color\": \"#5e4ff8\",\n            \"funnel_step_blockings\": []\n        }\n    ],\n    \"dynamic_form\": null,\n    \"business_area\": {\n        \"id\": 19,\n        \"name\": \"Área de negócio\",\n        \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\"\n    },\n    \"allow_multi_step\": true,\n    \"show_cost_info\": true,\n    \"form\": {\n        \"id\": 7,\n        \"title\": \"Formulário para funil\"\n    },\n    \"attachments\": [\n        {\n            \"id\": 3\n        }\n    ],\n    \"access\": [\n        {\n            \"id\": \"019c75de-509e-711a-8933-175cb2514cc5\",\n            \"name\": \"Test User\",\n            \"avatar_url\": \"https://via.placeholder.com/124x124.png/00aa99?text=quas\",\n            \"index_all\": false,\n            \"index_assigned\": true,\n            \"index_created\": false\n        },\n        {\n            \"id\": \"019c75de-50f0-7366-a948-b8cbdd1841be\",\n            \"name\": \"Cotestr User\",\n            \"avatar_url\": null,\n            \"index_all\": true,\n            \"index_assigned\": false,\n            \"index_created\": false\n        }\n    ],\n    \"funnel_status\": [\n        {\n            \"name\": \"Novo status 1\",\n            \"color\": \"#b59ef6\",\n            \"is_conclusive\": false,\n            \"funnel_step_blockings\": []\n        },\n        {\n            \"name\": \"Novo status 2\",\n            \"color\": \"#7fd87d\",\n            \"is_conclusive\": false,\n            \"funnel_step_blockings\": []\n        },\n        {\n            \"name\": \"Novo status 3\",\n            \"color\": \"#b59ef6\",\n            \"is_conclusive\": false,\n            \"funnel_step_blockings\": []\n        }\n    ],\n    \"condition\": \"active\",\n    \"allow_execution\": true,\n    \"template_projects\": [\n        {\n            \"id\": \"019c75de-7fcf-70af-b840-1340626e2764\",\n            \"old_id\": null,\n            \"code\": \"P-45\",\n            \"name\": \"Template necessitatibus\",\n            \"description\": \"Itaque qui aliquam voluptas et. Dolorum qui quas id enim ea adipisci qui nihil. Voluptate est sunt sit.\",\n            \"impact\": 8,\n            \"parent_id\": null,\n            \"frame_id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n            \"created_at\": \"2026-02-19T12:27:21.000000Z\",\n            \"updated_at\": \"2026-02-19T12:27:21.000000Z\",\n            \"customer_id\": null,\n            \"contact_id\": null,\n            \"share_token\": null,\n            \"share_settings\": null,\n            \"merged_id\": null,\n            \"status\": 1,\n            \"budget\": 365523.45,\n            \"is_template\": true,\n            \"created_by\": null,\n            \"deleted_at\": null,\n            \"form_answers\": [],\n            \"tasks\": [],\n            \"customer\": null,\n            \"contact\": null,\n            \"funnels\": [],\n            \"funnel_steps\": [],\n            \"tags\": [],\n            \"merged_project\": null,\n            \"groups\": [],\n            \"users\": [],\n            \"frame\": {\n                \"id\": \"019c75de-532c-7047-9563-daf1448ca963\",\n                \"name\": \"OlieDev Company \",\n                \"subdomain\": \"devframe\",\n                \"model_forms\": [\n                    {\n                        \"id\": 3,\n                        \"class\": \"App\\\\Models\\\\FrameRelationship\"\n                    }\n                ]\n            },\n            \"form\": null,\n            \"executors\": [],\n            \"costs\": null\n        }\n    ]\n}"
+              "example": {
+                "id": null,
+                "name": "Nome do funil",
+                "prefix": "PREFIX",
+                "steps": [
+                  {
+                    "name": "Backlog",
+                    "step_forward": null,
+                    "step_backward": null,
+                    "sensation_amount": 50,
+                    "checklists": [
+                      {
+                        "name": "Checklist 1",
+                        "info": "Texto informativo da checklist",
+                        "required": true,
+                        "order": 0
+                      },
+                      {
+                        "name": "Checklist 2",
+                        "info": "",
+                        "required": true,
+                        "order": 1
+                      },
+                      {
+                        "name": "Checklist 3",
+                        "info": "",
+                        "required": false,
+                        "order": 2
+                      }
+                    ],
+                    "attachments": [
+                      {
+                        "name": "Captura de tela de 2026-02-12 09-34-45.png",
+                        "extension": "png",
+                        "file_url": "https://olie-main-dev.s3.amazonaws.com/app/frames/019c75de-532c-7047-9563-daf1448ca963/funnel_attachments/EUCnLFRPVhJkpyq6GKDcmXNgI2S1j9HWs0AZ-captura-de-tela-de-2026-02-12-09-34-45.png",
+                        "technical_name": "",
+                        "user_id": "019c75de-509e-711a-8933-175cb2514cc5",
+                        "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                        "updated_at": "2026-03-16T13:23:06.000000Z",
+                        "created_at": "2026-03-16T13:23:06.000000Z",
+                        "id": 1,
+                        "user": {
+                          "id": "019c75de-509e-711a-8933-175cb2514cc5",
+                          "name": "Test User",
+                          "avatar_url": "https://via.placeholder.com/124x124.png/00aa99?text=quas"
+                        }
+                      },
+                      {
+                        "name": "Link Vídeo",
+                        "extension": "link",
+                        "file_url": "https://youtu.be/JOopR4MKbhI?si=HNIGI1bcPNXUuTVy",
+                        "popup_video": true,
+                        "technical_name": "link_technical_name",
+                        "user_id": "019c75de-509e-711a-8933-175cb2514cc5",
+                        "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                        "watch": false,
+                        "updated_at": "2026-03-16T13:24:05.000000Z",
+                        "created_at": "2026-03-16T13:24:05.000000Z",
+                        "id": 2,
+                        "user": {
+                          "id": "019c75de-509e-711a-8933-175cb2514cc5",
+                          "name": "Test User",
+                          "avatar_url": "https://via.placeholder.com/124x124.png/00aa99?text=quas"
+                        }
+                      }
+                    ],
+                    "restrictions": [],
+                    "sort_config": null,
+                    "allow_execution": true,
+                    "form": {
+                      "id": 7,
+                      "title": "Formulário para funil"
+                    },
+                    "help_text": "Texto de ajuda da etapa"
+                  },
+                  {
+                    "name": "Em andamento",
+                    "step_forward": null,
+                    "step_backward": null,
+                    "sensation_amount": 0,
+                    "checklists": [],
+                    "attachments": [],
+                    "restrictions": [],
+                    "sort_config": null,
+                    "allow_execution": true
+                  },
+                  {
+                    "name": "Concluído",
+                    "step_forward": null,
+                    "step_backward": null,
+                    "sensation_amount": 0,
+                    "checklists": [],
+                    "attachments": [],
+                    "restrictions": [],
+                    "sort_config": null,
+                    "allow_execution": true
+                  }
+                ],
+                "tags": [
+                  {
+                    "name": "Nova etiqueta 1",
+                    "color": "#5e4ff8",
+                    "funnel_step_blockings": []
+                  },
+                  {
+                    "name": "Nova etiqueta 2",
+                    "color": "#7fd87d",
+                    "funnel_step_blockings": []
+                  },
+                  {
+                    "name": "Nova etiqueta 3",
+                    "color": "#5e4ff8",
+                    "funnel_step_blockings": []
+                  }
+                ],
+                "dynamic_form": null,
+                "business_area": {
+                  "id": 19,
+                  "name": "Área de negócio",
+                  "frame_id": "019c75de-532c-7047-9563-daf1448ca963"
+                },
+                "allow_multi_step": true,
+                "show_cost_info": true,
+                "form": {
+                  "id": 7,
+                  "title": "Formulário para funil"
+                },
+                "attachments": [
+                  {
+                    "id": 3
+                  }
+                ],
+                "access": [
+                  {
+                    "id": "019c75de-509e-711a-8933-175cb2514cc5",
+                    "name": "Test User",
+                    "avatar_url": "https://via.placeholder.com/124x124.png/00aa99?text=quas",
+                    "index_all": false,
+                    "index_assigned": true,
+                    "index_created": false
+                  },
+                  {
+                    "id": "019c75de-50f0-7366-a948-b8cbdd1841be",
+                    "name": "Cotestr User",
+                    "avatar_url": null,
+                    "index_all": true,
+                    "index_assigned": false,
+                    "index_created": false
+                  }
+                ],
+                "funnel_status": [
+                  {
+                    "name": "Novo status 1",
+                    "color": "#b59ef6",
+                    "is_conclusive": false,
+                    "funnel_step_blockings": []
+                  },
+                  {
+                    "name": "Novo status 2",
+                    "color": "#7fd87d",
+                    "is_conclusive": false,
+                    "funnel_step_blockings": []
+                  },
+                  {
+                    "name": "Novo status 3",
+                    "color": "#b59ef6",
+                    "is_conclusive": false,
+                    "funnel_step_blockings": []
+                  }
+                ],
+                "condition": "active",
+                "allow_execution": true,
+                "template_projects": [
+                  {
+                    "id": "019c75de-7fcf-70af-b840-1340626e2764",
+                    "old_id": null,
+                    "code": "P-45",
+                    "name": "Template necessitatibus",
+                    "description": "Itaque qui aliquam voluptas et. Dolorum qui quas id enim ea adipisci qui nihil. Voluptate est sunt sit.",
+                    "impact": 8,
+                    "parent_id": null,
+                    "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                    "created_at": "2026-02-19T12:27:21.000000Z",
+                    "updated_at": "2026-02-19T12:27:21.000000Z",
+                    "customer_id": null,
+                    "contact_id": null,
+                    "share_token": null,
+                    "share_settings": null,
+                    "merged_id": null,
+                    "status": 1,
+                    "budget": 365523.45,
+                    "is_template": true,
+                    "created_by": null,
+                    "deleted_at": null,
+                    "form_answers": [],
+                    "tasks": [],
+                    "customer": null,
+                    "contact": null,
+                    "funnels": [],
+                    "funnel_steps": [],
+                    "tags": [],
+                    "merged_project": null,
+                    "groups": [],
+                    "users": [],
+                    "frame": {
+                      "id": "019c75de-532c-7047-9563-daf1448ca963",
+                      "name": "OlieDev Company ",
+                      "subdomain": "devframe",
+                      "model_forms": [
+                        {
+                          "id": 3,
+                          "class": "App\\Models\\FrameRelationship"
+                        }
+                      ]
+                    },
+                    "form": null,
+                    "executors": [],
+                    "costs": null
+                  }
+                ]
+              }
             }
           }
         }
