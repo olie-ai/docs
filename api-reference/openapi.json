@@ -692,10 +692,9 @@
           "name": "project",
           "in": "path",
           "required": true,
-          "schema": {
-            "type": "string"
-          },
-          "example": "string"
+          "deprecated": false,
+          "schema": {},
+          "example": "{{project_id}}"
         }
       ]
     },
@@ -774,10 +773,9 @@
           "name": "project",
           "in": "path",
           "required": true,
-          "schema": {
-            "type": "string"
-          },
-          "example": "string"
+          "deprecated": false,
+          "schema": {},
+          "example": "{{project_id}}"
         }
       ]
     },
@@ -831,19 +829,17 @@
           "name": "project",
           "in": "path",
           "required": true,
-          "schema": {
-            "type": "string"
-          },
-          "example": "string"
+          "deprecated": false,
+          "schema": {},
+          "example": "{{project_id}}"
         },
         {
           "name": "child",
           "in": "path",
           "required": true,
-          "schema": {
-            "type": "string"
-          },
-          "example": "string"
+          "deprecated": false,
+          "schema": {},
+          "example": "{{child_project_Id}}"
         }
       ]
     },
@@ -895,10 +891,9 @@
           "name": "project",
           "in": "path",
           "required": true,
-          "schema": {
-            "type": "string"
-          },
-          "example": "string"
+          "deprecated": false,
+          "schema": {},
+          "example": "{{project_id}}"
         }
       ]
     },
