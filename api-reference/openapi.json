@@ -676,8 +676,7 @@
         "tags": [
           "projects",
           "{id}",
-          "hierarchy",
-          "children"
+          "hierarchy"
         ],
         "summary": "Listar todos os projetos filhos de um projeto",
         "description": "Retorna todos os projetos filhos de um projeto específico, incluindo informações sobre o projeto pai. Suporta filtros para projetos excluídos e templates.",
@@ -705,8 +704,7 @@
         "tags": [
           "projects",
           "{id}",
-          "hierarchy",
-          "tree"
+          "hierarchy"
         ],
         "summary": "Listar a árvore completa da hierarquia de um projeto",
         "description": "Retorna a árvore completa de hierarquia de um projeto, incluindo todos os descendentes, estatísticas da hierarquia e breadcrumb do projeto atual.",
@@ -722,10 +720,9 @@
           "name": "project",
           "in": "path",
           "required": true,
-          "schema": {
-            "type": "string"
-          },
-          "example": "string"
+          "deprecated": false,
+          "schema": {},
+          "example": "{{project_id}}"
         }
       ]
     },
@@ -734,8 +731,7 @@
         "tags": [
           "projects",
           "{id}",
-          "hierarchy",
-          "stats"
+          "hierarchy"
         ],
         "summary": "Listar estatísticas da hierarquia de um projeto",
         "description": "Retorna estatísticas detalhadas da hierarquia de um projeto, incluindo contagem de irmãos, ancestrais e informações sobre a estrutura hierárquica.",
@@ -751,10 +747,9 @@
           "name": "project",
           "in": "path",
           "required": true,
-          "schema": {
-            "type": "string"
-          },
-          "example": "string"
+          "deprecated": false,
+          "schema": {},
+          "example": "{{project_id}}"
         }
       ]
     },
@@ -763,8 +758,7 @@
         "tags": [
           "projects",
           "{id}",
-          "hierarchy",
-          "analytics"
+          "hierarchy"
         ],
         "summary": "Listar análises agregadas de todos os projetos descendentes",
         "description": "Retorna análises agregadas de todos os projetos descendentes.",
@@ -792,8 +786,7 @@
         "tags": [
           "projects",
           "{id}",
-          "hierarchy",
-          "attach-child"
+          "hierarchy"
         ],
         "summary": "Vincular um projeto como filho de outro projeto",
         "description": "Vincula um projeto como filho de outro projeto, criando uma relação de hierarquia pai-filho.",
@@ -822,8 +815,7 @@
         "tags": [
           "projects",
           "{id}",
-          "hierarchy",
-          "detach-child"
+          "hierarchy"
         ],
         "summary": "Remover a relação de hierarquia entre um projeto pai e seu projeto filho",
         "description": "Remove a relação de hierarquia entre um projeto pai e seu projeto filho, promovendo o filho para o nível raiz.",
@@ -859,9 +851,7 @@
       "put": {
         "tags": [
           "projects",
-          "{id}",
-          "hierarchy",
-          "move-to-parent"
+          "{id}"
         ],
         "summary": "Mover um projeto para ser filho de outro projeto",
         "description": "Move um projeto para ser filho de outro projeto, alterando sua posição na hierarquia.",
@@ -889,8 +879,7 @@
         "tags": [
           "projects",
           "{id}",
-          "hierarchy",
-          "promote-to-root"
+          "hierarchy"
         ],
         "summary": "Remover um projeto de sua hierarquia atual",
         "description": "Remove um projeto de sua hierarquia atual, promovendo-o para o nível raiz (sem projeto pai).",
