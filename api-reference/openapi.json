@@ -7799,6 +7799,62 @@
                         "example": true,
                         "description": "Permite que um projeto esteja em múltiplas etapas simultaneamente."
                       },
+                      "project_term": {
+                        "type": "object",
+                        "nullable": true,
+                        "description": "Configuração dos termos de projeto por idioma.",
+                        "properties": {
+                          "key": {
+                            "type": "string",
+                            "example": "called",
+                            "description": "Chave de identificação da configuração de termo."
+                          },
+                          "en": {
+                            "type": "object",
+                            "properties": {
+                              "project_term": {
+                                "type": "object",
+                                "properties": {
+                                  "singular": {
+                                    "type": "string",
+                                    "example": "called"
+                                  },
+                                  "plural": {
+                                    "type": "string",
+                                    "example": "calls"
+                                  }
+                                },
+                                "required": [
+                                  "singular",
+                                  "plural"
+                                ]
+                              }
+                            }
+                          },
+                          "pt_br": {
+                            "type": "object",
+                            "properties": {
+                              "project_term": {
+                                "type": "object",
+                                "properties": {
+                                  "singular": {
+                                    "type": "string",
+                                    "example": "chamado"
+                                  },
+                                  "plural": {
+                                    "type": "string",
+                                    "example": "chamados"
+                                  }
+                                },
+                                "required": [
+                                  "singular",
+                                  "plural"
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
                       "show_cost_info": {
                         "type": "boolean",
                         "example": true,
@@ -8010,6 +8066,21 @@
                     "funnel_step_blockings": []
                   }
                 ],
+                "project_term": {
+                  "key": "called",
+                  "en": {
+                    "project_term": {
+                      "singular": "called",
+                      "plural": "calls"
+                    }
+                  },
+                  "pt_br": {
+                    "project_term": {
+                      "singular": "chamado",
+                      "plural": "chamados"
+                    }
+                  }
+                },
                 "dynamic_form": null,
                 "business_area": {
                   "id": 19,
