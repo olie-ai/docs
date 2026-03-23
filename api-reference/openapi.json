@@ -18380,7 +18380,7 @@
         "tags": [
           "forms"
         ],
-        "description": "Restaura um formulário que foi deletado via soft delete.\n\n**Permissão necessária:** `dynamic_forms.edit`\n\n**Parâmetros de rota:**\n- `form_id` — UUID do formulário a ser restaurado\n\n**Respostas:**\n- `200 OK` — Formulário restaurado com sucesso\n- `403 Forbidden` — Usuário sem permissão `dynamic_forms.edit`\n- `404 Not Found` — Formulário não encontrado ou não está deletado"
+        "description": "Restaura um formulário que foi deletado via soft delete.\n\n**Permissão necessária:** `dynamic_forms.edit`\n\n**Parâmetros de rota:**\n\n- `form_id` — UUID do formulário a ser restaurado\n    \n\n**Respostas:**\n\n- `200 OK` — Formulário restaurado com sucesso\n    \n- `403 Forbidden` — Usuário sem permissão `dynamic_forms.edit`\n    \n- `404 Not Found` — Formulário não encontrado ou não está deletado"
       },
       "parameters": [
         {
