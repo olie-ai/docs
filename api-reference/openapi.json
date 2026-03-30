@@ -5961,7 +5961,61 @@
         "tags": [
           "projects"
         ],
-        "description": "O endpoint de criação rápida de projetos permite criar um novo projeto com apenas as informações essenciais, que no endpoint de criação comum, são obrigatórias. Este método é ideal para criação rápida de projetos quando você não precisa configurar todos os detalhes imediatamente."
+        "description": "O endpoint de criação rápida de projetos permite criar um novo projeto com apenas as informações essenciais, que no endpoint de criação comum, são obrigatórias. Este método é ideal para criação rápida de projetos quando você não precisa configurar todos os detalhes imediatamente.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "title": "Create Project Payload",
+                "required": [
+                  "name",
+                  "funnel_step_id",
+                  "prefix",
+                  "customer_id",
+                  "from_project_template_id"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Nome do projeto",
+                    "example": "Nome do projeto"
+                  },
+                  "funnel_step_id": {
+                    "type": "integer",
+                    "description": "ID da etapa do funil",
+                    "example": 207
+                  },
+                  "prefix": {
+                    "type": "string",
+                    "description": "Prefixo do projeto",
+                    "example": "PREFIX"
+                  },
+                  "customer_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "ID do cliente",
+                    "example": "019c75de-7e5d-726a-8667-a13179dfad68"
+                  },
+                  "from_project_template_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "ID do template de projeto",
+                    "example": "019d2617-fa10-73da-91c3-4f096e703eb4"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "example": {
+                "name": "Nome do projeto",
+                "funnel_step_id": 207,
+                "prefix": "PREFIX",
+                "customer_id": "019c75de-7e5d-726a-8667-a13179dfad68",
+                "from_project_template_id": "019d2617-fa10-73da-91c3-4f096e703eb4"
+              }
+            }
+          }
+        }
       }
     },
     "/api/management/project-funnel-link-toggle": {
