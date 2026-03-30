@@ -7807,7 +7807,23 @@
                           "key": {
                             "type": "string",
                             "example": "called",
-                            "description": "Chave de identificação da configuração de termo."
+                            "description": "Chave de identificação da configuração de termo.",
+                            "enum": [
+                              "custom",
+                              "ticket",
+                              "called",
+                              "issue",
+                              "deal",
+                              "opportunity",
+                              "lead",
+                              "task",
+                              "service",
+                              "case",
+                              "request",
+                              "demand",
+                              "order",
+                              "process"
+                            ]
                           },
                           "en": {
                             "type": "object",
