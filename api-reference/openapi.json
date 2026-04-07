@@ -5969,11 +5969,7 @@
                 "type": "object",
                 "title": "Create Project Payload",
                 "required": [
-                  "name",
-                  "funnel_step_id",
-                  "prefix",
-                  "customer_id",
-                  "from_project_template_id"
+                  "name"
                 ],
                 "properties": {
                   "name": {
