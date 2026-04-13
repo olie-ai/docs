@@ -692,8 +692,9 @@
           "name": "project",
           "in": "path",
           "required": true,
-          "deprecated": false,
-          "schema": {},
+          "schema": {
+            "type": "string"
+          },
           "example": "{{project_id}}"
         }
       ]
@@ -719,8 +720,9 @@
           "name": "project",
           "in": "path",
           "required": true,
-          "deprecated": false,
-          "schema": {},
+          "schema": {
+            "type": "string"
+          },
           "example": "{{project_id}}"
         }
       ]
@@ -746,8 +748,9 @@
           "name": "project",
           "in": "path",
           "required": true,
-          "deprecated": false,
-          "schema": {},
+          "schema": {
+            "type": "string"
+          },
           "example": "{{project_id}}"
         }
       ]
@@ -773,8 +776,9 @@
           "name": "project",
           "in": "path",
           "required": true,
-          "deprecated": false,
-          "schema": {},
+          "schema": {
+            "type": "string"
+          },
           "example": "{{project_id}}"
         }
       ]
@@ -829,16 +833,18 @@
           "name": "project",
           "in": "path",
           "required": true,
-          "deprecated": false,
-          "schema": {},
+          "schema": {
+            "type": "string"
+          },
           "example": "{{project_id}}"
         },
         {
           "name": "child",
           "in": "path",
           "required": true,
-          "deprecated": false,
-          "schema": {},
+          "schema": {
+            "type": "string"
+          },
           "example": "{{child_project_Id}}"
         }
       ]
@@ -891,8 +897,9 @@
           "name": "project",
           "in": "path",
           "required": true,
-          "deprecated": false,
-          "schema": {},
+          "schema": {
+            "type": "string"
+          },
           "example": "{{project_id}}"
         }
       ]
@@ -1891,7 +1898,27 @@
                       },
                       "tags": {
                         "type": "object",
-                        "description": "Objeto para gerenciar etiquetas de funil associadas ao projeto. Contém arrays 'to_add' e 'to_rem' para adicionar ou remover etiquetas do projeto. Ambos os arrays devem estar presentes quando este campo for fornecido."
+                        "description": "Objeto para gerenciar **etiquetas de funil associadas ao projeto**. Contém arrays 'to_add' e 'to_rem' para adicionar ou remover etiquetas do projeto. Ambos os arrays devem estar presentes quando este campo for fornecido.",
+                        "properties": {
+                          "to_add": {
+                            "type": "array",
+                            "description": "Array de IDs das etiquetas dos funis de projeto serem adicionados ao projeto.",
+                            "items": {
+                              "type": "integer"
+                            }
+                          },
+                          "to_rem": {
+                            "type": "array",
+                            "description": "Array de IDs das etiquetas dos funis de projeto serem removidas do projeto.",
+                            "items": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "required": [
+                          "to_add",
+                          "to_rem"
+                        ]
                       },
                       "funnels": {
                         "type": "object",
@@ -5955,6 +5982,676 @@
                 },
                 "example": "*"
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "project": {
+                      "type": "object",
+                      "properties": {
+                        "parent_id": {
+                          "nullable": true
+                        },
+                        "old_id": {
+                          "nullable": true
+                        },
+                        "code": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "impact": {
+                          "type": "integer"
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "customer_id": {
+                          "type": "string"
+                        },
+                        "contact_id": {
+                          "type": "integer"
+                        },
+                        "share_token": {
+                          "nullable": true
+                        },
+                        "share_settings": {
+                          "nullable": true
+                        },
+                        "merged_id": {
+                          "nullable": true
+                        },
+                        "status": {
+                          "type": "integer"
+                        },
+                        "budget": {
+                          "type": "integer"
+                        },
+                        "is_template": {
+                          "type": "boolean"
+                        },
+                        "created_by": {
+                          "type": "string"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "medias": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "nullable": true
+                              },
+                              "technical_name": {
+                                "nullable": true
+                              },
+                              "type": {
+                                "type": "integer"
+                              },
+                              "extension": {
+                                "nullable": true
+                              },
+                              "text": {
+                                "type": "string",
+                                "format": "style"
+                              },
+                              "file_url": {
+                                "nullable": true
+                              },
+                              "log": {
+                                "type": "string"
+                              },
+                              "user_id": {
+                                "nullable": true
+                              },
+                              "frame_id": {
+                                "type": "string"
+                              },
+                              "project_id": {
+                                "type": "string"
+                              },
+                              "task_id": {
+                                "nullable": true
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              }
+                            }
+                          }
+                        },
+                        "funnels": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "prefix": {
+                                "type": "string"
+                              },
+                              "order": {
+                                "type": "integer"
+                              },
+                              "condition": {
+                                "type": "string"
+                              },
+                              "allow_multi_step": {
+                                "type": "boolean"
+                              },
+                              "show_cost_info": {
+                                "type": "boolean"
+                              },
+                              "business_area_id": {
+                                "type": "integer"
+                              },
+                              "form_id": {
+                                "type": "integer"
+                              },
+                              "frame_id": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              },
+                              "funnel_config_template_id": {
+                                "nullable": true
+                              },
+                              "allow_execution": {
+                                "type": "boolean"
+                              },
+                              "project_term": {
+                                "nullable": true
+                              },
+                              "pivot": {
+                                "type": "object",
+                                "properties": {
+                                  "project_id": {
+                                    "type": "string"
+                                  },
+                                  "project_funnel_id": {
+                                    "type": "integer"
+                                  },
+                                  "id": {
+                                    "type": "integer"
+                                  },
+                                  "statuses_at": {
+                                    "nullable": true
+                                  },
+                                  "statuses_by": {
+                                    "nullable": true
+                                  },
+                                  "funnel_status_id": {
+                                    "nullable": true
+                                  },
+                                  "forecast_date": {
+                                    "nullable": true
+                                  },
+                                  "realized_forecast_date": {
+                                    "nullable": true
+                                  },
+                                  "created_at": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "forecast_date_update_count": {
+                                    "type": "integer"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "funnel_steps": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "project_funnel_id": {
+                                "type": "integer"
+                              },
+                              "sensation_amount": {
+                                "type": "integer"
+                              },
+                              "step_forward_id": {
+                                "nullable": true
+                              },
+                              "step_backward_id": {
+                                "nullable": true
+                              },
+                              "order": {
+                                "type": "integer"
+                              },
+                              "help_text": {
+                                "nullable": true
+                              },
+                              "form_id": {
+                                "nullable": true
+                              },
+                              "sort_config": {
+                                "nullable": true
+                              },
+                              "allow_execution": {
+                                "type": "boolean"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              },
+                              "pivot": {
+                                "type": "object",
+                                "properties": {
+                                  "project_id": {
+                                    "type": "string"
+                                  },
+                                  "funnel_step_id": {
+                                    "type": "integer"
+                                  },
+                                  "id": {
+                                    "type": "integer"
+                                  },
+                                  "order": {
+                                    "type": "integer"
+                                  },
+                                  "created_at": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "tags": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "checklists": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "project": {
+                    "parent_id": null,
+                    "old_id": null,
+                    "code": "PREFIX-1",
+                    "name": "Nome do projeto",
+                    "description": "Essa é a descrição",
+                    "impact": 5,
+                    "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                    "customer_id": "019d2619-03b5-7272-909c-736805be26ee",
+                    "contact_id": 343,
+                    "share_token": null,
+                    "share_settings": null,
+                    "merged_id": null,
+                    "status": 4,
+                    "budget": 0,
+                    "is_template": false,
+                    "created_by": "019c75de-509e-711a-8933-175cb2514cc5",
+                    "deleted_at": null,
+                    "id": "019d3fb0-ce62-71e8-9b2c-3a387ec86cd7",
+                    "updated_at": "2026-03-30T17:00:45.000000Z",
+                    "created_at": "2026-03-30T17:00:45.000000Z",
+                    "medias": [
+                      {
+                        "id": "019d3fb0-ce89-72b2-a601-f731a4f238a1",
+                        "name": null,
+                        "technical_name": null,
+                        "type": 1,
+                        "extension": null,
+                        "text": "Vinculado ao funil <b>Onboarding de Clientes</b>. Ação de: <u@019c75de-509e-711a-8933-175cb2514cc5:Test User>. Automação: #1 - [7F22P] Simulação de Cenários",
+                        "file_url": null,
+                        "log": "69c41eb6d1d5bf36dd036978",
+                        "user_id": null,
+                        "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                        "project_id": "019d3fb0-ce62-71e8-9b2c-3a387ec86cd7",
+                        "task_id": null,
+                        "created_at": "2026-03-30T17:00:45.000000Z",
+                        "updated_at": "2026-03-30T17:00:45.000000Z",
+                        "deleted_at": null
+                      }
+                    ],
+                    "funnels": [
+                      {
+                        "id": 42,
+                        "name": "Onboarding de Clientes",
+                        "prefix": "AAAAAAAAAA",
+                        "order": 12,
+                        "condition": "active",
+                        "allow_multi_step": true,
+                        "show_cost_info": true,
+                        "business_area_id": 17,
+                        "form_id": 1,
+                        "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                        "created_at": "2026-02-19T12:27:22.000000Z",
+                        "updated_at": "2026-03-26T16:50:35.000000Z",
+                        "deleted_at": null,
+                        "funnel_config_template_id": null,
+                        "allow_execution": true,
+                        "project_term": null,
+                        "pivot": {
+                          "project_id": "019d3fb0-ce62-71e8-9b2c-3a387ec86cd7",
+                          "project_funnel_id": 42,
+                          "id": 662,
+                          "statuses_at": null,
+                          "statuses_by": null,
+                          "funnel_status_id": null,
+                          "forecast_date": null,
+                          "realized_forecast_date": null,
+                          "created_at": "2026-03-30T17:00:45.000000Z",
+                          "forecast_date_update_count": 0
+                        }
+                      },
+                      {
+                        "id": 49,
+                        "name": "22222",
+                        "prefix": "AAAAAAAAAA2",
+                        "order": 6,
+                        "condition": "active",
+                        "allow_multi_step": false,
+                        "show_cost_info": true,
+                        "business_area_id": null,
+                        "form_id": null,
+                        "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                        "created_at": "2026-03-05T17:33:35.000000Z",
+                        "updated_at": "2026-03-06T18:12:36.000000Z",
+                        "deleted_at": null,
+                        "funnel_config_template_id": null,
+                        "allow_execution": true,
+                        "project_term": null,
+                        "pivot": {
+                          "project_id": "019d3fb0-ce62-71e8-9b2c-3a387ec86cd7",
+                          "project_funnel_id": 49,
+                          "id": 663,
+                          "statuses_at": null,
+                          "statuses_by": null,
+                          "funnel_status_id": null,
+                          "forecast_date": null,
+                          "realized_forecast_date": null,
+                          "created_at": "2026-03-30T17:00:45.000000Z",
+                          "forecast_date_update_count": 0
+                        }
+                      }
+                    ],
+                    "funnel_steps": [
+                      {
+                        "id": 206,
+                        "name": "Simulação de Cenários",
+                        "project_funnel_id": 42,
+                        "sensation_amount": 99,
+                        "step_forward_id": null,
+                        "step_backward_id": null,
+                        "order": 1,
+                        "help_text": null,
+                        "form_id": null,
+                        "sort_config": null,
+                        "allow_execution": true,
+                        "created_at": "2026-02-19T12:27:22.000000Z",
+                        "updated_at": "2026-02-19T12:34:12.000000Z",
+                        "deleted_at": null,
+                        "pivot": {
+                          "project_id": "019d3fb0-ce62-71e8-9b2c-3a387ec86cd7",
+                          "funnel_step_id": 206,
+                          "id": 1087,
+                          "order": 3,
+                          "created_at": "2026-03-30T17:00:45.000000Z"
+                        }
+                      },
+                      {
+                        "id": 232,
+                        "name": "tests",
+                        "project_funnel_id": 49,
+                        "sensation_amount": 0,
+                        "step_forward_id": null,
+                        "step_backward_id": null,
+                        "order": 1,
+                        "help_text": null,
+                        "form_id": null,
+                        "sort_config": null,
+                        "allow_execution": true,
+                        "created_at": "2026-03-05T17:33:35.000000Z",
+                        "updated_at": "2026-03-05T17:33:35.000000Z",
+                        "deleted_at": null,
+                        "pivot": {
+                          "project_id": "019d3fb0-ce62-71e8-9b2c-3a387ec86cd7",
+                          "funnel_step_id": 232,
+                          "id": 1088,
+                          "order": 0,
+                          "created_at": "2026-03-30T17:00:45.000000Z"
+                        }
+                      }
+                    ],
+                    "tags": [],
+                    "checklists": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "no-cache, private"
+              },
+              "Date": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Mon, 30 Mar 2026 17:03:31 GMT"
+              },
+              "Referrer-Policy": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "strict-origin-when-cross-origin"
+              },
+              "Server": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "nginx"
+              },
+              "Strict-Transport-Security": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "max-age=31536000; includeSubDomains"
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "nosniff"
+              },
+              "X-Frame-Options": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "SAMEORIGIN"
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "chunked"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Campo inválido",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "no-cache, private"
+              },
+              "Date": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Mon, 30 Mar 2026 17:04:04 GMT"
+              },
+              "Referrer-Policy": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "strict-origin-when-cross-origin"
+              },
+              "Server": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "nginx"
+              },
+              "Strict-Transport-Security": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "max-age=31536000; includeSubDomains"
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "nosniff"
+              },
+              "X-Frame-Options": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "SAMEORIGIN"
+              },
+              "X-Ratelimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                },
+                "example": "160"
+              },
+              "X-Ratelimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                },
+                "example": "159"
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "chunked"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo nome é obrigatório.",
+                  "validation": {
+                    "name": [
+                      "O campo nome é obrigatório."
+                    ]
+                  }
+                }
+              }
             }
           }
         },
@@ -5966,41 +6663,40 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
                 "title": "Create Project Payload",
-                "required": [
-                  "name"
-                ],
+                "type": "object",
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "Nome do projeto",
-                    "example": "Nome do projeto"
+                    "example": "Nome do projeto",
+                    "description": "Nome do projeto"
                   },
                   "funnel_step_id": {
                     "type": "integer",
-                    "description": "ID da etapa do funil",
-                    "example": 207
+                    "example": 207,
+                    "description": "ID da etapa do funil"
                   },
                   "prefix": {
                     "type": "string",
-                    "description": "Prefixo do projeto",
-                    "example": "PREFIX"
+                    "example": "PREFIX",
+                    "description": "Prefixo do projeto"
                   },
                   "customer_id": {
                     "type": "string",
-                    "format": "uuid",
+                    "example": "019c75de-7e5d-726a-8667-a13179dfad68",
                     "description": "ID do cliente",
-                    "example": "019c75de-7e5d-726a-8667-a13179dfad68"
+                    "format": "uuid"
                   },
                   "from_project_template_id": {
                     "type": "string",
-                    "format": "uuid",
+                    "example": "019d2617-fa10-73da-91c3-4f096e703eb4",
                     "description": "ID do template de projeto",
-                    "example": "019d2617-fa10-73da-91c3-4f096e703eb4"
+                    "format": "uuid"
                   }
                 },
-                "additionalProperties": false
+                "required": [
+                  "name"
+                ]
               },
               "example": {
                 "name": "Nome do projeto",
@@ -6987,38 +7683,45 @@
             "description": "Funil criado com sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "X-Content-Type-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nosniff"
               },
               "X-Frame-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "SAMEORIGIN"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "160"
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "159"
               }
             },
@@ -7088,9 +7791,6 @@
                             },
                             "frame_id": {
                               "type": "string"
-                            },
-                            "deleted_at": {
-                              "nullable": true
                             }
                           }
                         },
@@ -7111,12 +7811,6 @@
                               "sensation_amount": {
                                 "type": "integer"
                               },
-                              "step_forward_id": {
-                                "nullable": true
-                              },
-                              "step_backward_id": {
-                                "nullable": true
-                              },
                               "order": {
                                 "type": "integer"
                               },
@@ -7125,9 +7819,6 @@
                               },
                               "form_id": {
                                 "type": "integer"
-                              },
-                              "sort_config": {
-                                "nullable": true
                               },
                               "allow_execution": {
                                 "type": "boolean"
@@ -7139,9 +7830,6 @@
                               "updated_at": {
                                 "type": "string",
                                 "format": "date-time"
-                              },
-                              "deleted_at": {
-                                "nullable": true
                               },
                               "checklists": {
                                 "type": "array",
@@ -7210,9 +7898,6 @@
                                       "type": "string",
                                       "format": "date-time"
                                     },
-                                    "deleted_at": {
-                                      "nullable": true
-                                    },
                                     "pivot": {
                                       "type": "object",
                                       "properties": {
@@ -7246,9 +7931,6 @@
                                   "updated_at": {
                                     "type": "string",
                                     "format": "date-time"
-                                  },
-                                  "deleted_at": {
-                                    "nullable": true
                                   }
                                 }
                               },
@@ -7271,14 +7953,10 @@
                                 "type": "string"
                               },
                               "color": {
-                                "type": "string",
-                                "format": "color"
+                                "type": "string"
                               },
                               "project_funnel_id": {
                                 "type": "integer"
-                              },
-                              "deleted_at": {
-                                "nullable": true
                               }
                             }
                           }
@@ -7299,8 +7977,7 @@
                                 "type": "string"
                               },
                               "color": {
-                                "type": "string",
-                                "format": "color"
+                                "type": "string"
                               },
                               "project_funnel_id": {
                                 "type": "integer"
@@ -7315,9 +7992,6 @@
                               "updated_at": {
                                 "type": "string",
                                 "format": "date-time"
-                              },
-                              "deleted_at": {
-                                "nullable": true
                               }
                             }
                           }
@@ -7550,13 +8224,15 @@
             "description": "Não autorizado",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               }
             },
@@ -7588,28 +8264,33 @@
             "description": "Campos obrigatórios",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "X-Frame-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "SAMEORIGIN"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "160"
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "integer"
+                },
                 "example": "159"
               }
             },
@@ -7851,7 +8532,6 @@
                       },
                       "project_term": {
                         "type": "object",
-                        "nullable": true,
                         "description": "Configuração dos termos de projeto por idioma.",
                         "properties": {
                           "key": {
