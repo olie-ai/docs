@@ -2691,8 +2691,7 @@
             "schema": {
               "type": "string",
               "default": "<string>"
-            },
-            "example": "<string>"
+            }
           },
           {
             "name": "search",
