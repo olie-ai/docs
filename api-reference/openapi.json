@@ -571,7 +571,236 @@
         "operationId": "obterMTricasComputadasDasEtapasDeUmProjetoEspecFicoNoFunil",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "headers": {
+              ":status": {
+                "deprecated": false,
+                "schema": {},
+                "example": 200
+              },
+              "date": {
+                "deprecated": false,
+                "schema": {},
+                "example": "Wed, 15 Apr 2026 13:03:27 GMT"
+              },
+              "set-cookie": {
+                "deprecated": false,
+                "schema": {},
+                "example": "AWSALBTGCORS=MdRkRrjF6vdyVhSJN/7lbEzcqAwbec+9eGNiz5On19Oo89wWU3mGYCz/ABLpUlenYImML8TxFaYk+WgFvYMaRoYBoA3khI711oprqAsgxKQm3iaenhz09ouOQg1RSDtcokDLTqAhfE3iPfQsGaK2CXS7wRVyCqP89ClgnWvdaifnetqhL6M=; Expires=Wed, 22 Apr 2026 13:03:27 GMT; Path=/ SameSite=None; Secure"
+              },
+              "server": {
+                "deprecated": false,
+                "schema": {},
+                "example": "cloudflare"
+              },
+              "vary": {
+                "deprecated": false,
+                "schema": {},
+                "example": "Accept-Encoding"
+              },
+              "cache-control": {
+                "deprecated": false,
+                "schema": {},
+                "example": "no-cache, private"
+              },
+              "x-ratelimit-limit": {
+                "deprecated": false,
+                "schema": {},
+                "example": "160"
+              },
+              "x-ratelimit-remaining": {
+                "deprecated": false,
+                "schema": {},
+                "example": "159"
+              },
+              "access-control-allow-origin": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "access-control-expose-headers": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "x-frame-options": {
+                "deprecated": false,
+                "schema": {},
+                "example": "SAMEORIGIN"
+              },
+              "x-content-type-options": {
+                "deprecated": false,
+                "schema": {},
+                "example": "nosniff"
+              },
+              "referrer-policy": {
+                "deprecated": false,
+                "schema": {},
+                "example": "strict-origin-when-cross-origin"
+              },
+              "strict-transport-security": {
+                "deprecated": false,
+                "schema": {},
+                "example": "max-age=31536000; includeSubDomains"
+              },
+              "content-encoding": {
+                "deprecated": false,
+                "schema": {},
+                "example": "gzip"
+              },
+              "cf-cache-status": {
+                "deprecated": false,
+                "schema": {},
+                "example": "DYNAMIC"
+              },
+              "nel": {
+                "deprecated": false,
+                "schema": {},
+                "example": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+              },
+              "report-to": {
+                "deprecated": false,
+                "schema": {},
+                "example": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=qsKhq1a6oB3t5BVHn9F2MM25UbfRKVUcjUFu1RN%2F%2BcNBY7%2BGwmO4ibWHqrVxPQsG1NGEfgdPI%2F9fwnmYANLwVoMW26AHTjSW5uOdDKfZ9kLW5h3SlWPjPF%2FgZnuTzkMNW1BfJMR%2FaJ2rcA%3D%3D\"}]}"
+              },
+              "cf-ray": {
+                "deprecated": false,
+                "schema": {},
+                "example": "9ecb2685d96e7810-GRU"
+              },
+              "alt-svc": {
+                "deprecated": false,
+                "schema": {},
+                "example": "h3=\":443\"; ma=86400"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "response",
+                    "metrics"
+                  ],
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "metrics": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "step_id",
+                          "max_time"
+                        ],
+                        "properties": {
+                          "step_id": {
+                            "type": "integer",
+                            "description": "ID da etapa do funil"
+                          },
+                          "max_time": {
+                            "type": "object",
+                            "required": [
+                              "value",
+                              "unit",
+                              "meta_data"
+                            ],
+                            "properties": {
+                              "value": {
+                                "type": "integer",
+                                "description": "Tempo total que o projeto passou na etapa"
+                              },
+                              "unit": {
+                                "type": "string",
+                                "enum": [
+                                  "seconds"
+                                ],
+                                "description": "Unidade de medida do tempo"
+                              },
+                              "meta_data": {
+                                "type": "object",
+                                "description": "Metadados adicionais da métrica",
+                                "nullable": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "metrics": [
+                    {
+                      "step_id": 1448,
+                      "max_time": {
+                        "value": 0,
+                        "unit": "seconds",
+                        "meta_data": null
+                      }
+                    },
+                    {
+                      "step_id": 1449,
+                      "max_time": {
+                        "value": 0,
+                        "unit": "seconds",
+                        "meta_data": null
+                      }
+                    },
+                    {
+                      "step_id": 1450,
+                      "max_time": {
+                        "value": 0,
+                        "unit": "seconds",
+                        "meta_data": null
+                      }
+                    },
+                    {
+                      "step_id": 1451,
+                      "max_time": {
+                        "value": 0,
+                        "unit": "seconds",
+                        "meta_data": null
+                      }
+                    },
+                    {
+                      "step_id": 1452,
+                      "max_time": {
+                        "value": 0,
+                        "unit": "seconds",
+                        "meta_data": null
+                      }
+                    },
+                    {
+                      "step_id": 1453,
+                      "max_time": {
+                        "value": 0,
+                        "unit": "seconds",
+                        "meta_data": null
+                      }
+                    },
+                    {
+                      "step_id": 1454,
+                      "max_time": {
+                        "value": 0,
+                        "unit": "seconds",
+                        "meta_data": null
+                      }
+                    },
+                    {
+                      "step_id": 1455,
+                      "max_time": {
+                        "value": 0,
+                        "unit": "seconds",
+                        "meta_data": null
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           }
         }
       },
@@ -583,7 +812,7 @@
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": "{{project_id}}"
         }
       ]
     },
