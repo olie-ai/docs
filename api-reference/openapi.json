@@ -572,108 +572,6 @@
         "responses": {
           "200": {
             "description": "Sucesso",
-            "headers": {
-              ":status": {
-                "deprecated": false,
-                "schema": {},
-                "example": 200
-              },
-              "date": {
-                "deprecated": false,
-                "schema": {},
-                "example": "Wed, 15 Apr 2026 13:03:27 GMT"
-              },
-              "set-cookie": {
-                "deprecated": false,
-                "schema": {},
-                "example": "AWSALBTGCORS=MdRkRrjF6vdyVhSJN/7lbEzcqAwbec+9eGNiz5On19Oo89wWU3mGYCz/ABLpUlenYImML8TxFaYk+WgFvYMaRoYBoA3khI711oprqAsgxKQm3iaenhz09ouOQg1RSDtcokDLTqAhfE3iPfQsGaK2CXS7wRVyCqP89ClgnWvdaifnetqhL6M=; Expires=Wed, 22 Apr 2026 13:03:27 GMT; Path=/ SameSite=None; Secure"
-              },
-              "server": {
-                "deprecated": false,
-                "schema": {},
-                "example": "cloudflare"
-              },
-              "vary": {
-                "deprecated": false,
-                "schema": {},
-                "example": "Accept-Encoding"
-              },
-              "cache-control": {
-                "deprecated": false,
-                "schema": {},
-                "example": "no-cache, private"
-              },
-              "x-ratelimit-limit": {
-                "deprecated": false,
-                "schema": {},
-                "example": "160"
-              },
-              "x-ratelimit-remaining": {
-                "deprecated": false,
-                "schema": {},
-                "example": "159"
-              },
-              "access-control-allow-origin": {
-                "deprecated": false,
-                "schema": {},
-                "example": "*"
-              },
-              "access-control-expose-headers": {
-                "deprecated": false,
-                "schema": {},
-                "example": "*"
-              },
-              "x-frame-options": {
-                "deprecated": false,
-                "schema": {},
-                "example": "SAMEORIGIN"
-              },
-              "x-content-type-options": {
-                "deprecated": false,
-                "schema": {},
-                "example": "nosniff"
-              },
-              "referrer-policy": {
-                "deprecated": false,
-                "schema": {},
-                "example": "strict-origin-when-cross-origin"
-              },
-              "strict-transport-security": {
-                "deprecated": false,
-                "schema": {},
-                "example": "max-age=31536000; includeSubDomains"
-              },
-              "content-encoding": {
-                "deprecated": false,
-                "schema": {},
-                "example": "gzip"
-              },
-              "cf-cache-status": {
-                "deprecated": false,
-                "schema": {},
-                "example": "DYNAMIC"
-              },
-              "nel": {
-                "deprecated": false,
-                "schema": {},
-                "example": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
-              },
-              "report-to": {
-                "deprecated": false,
-                "schema": {},
-                "example": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=qsKhq1a6oB3t5BVHn9F2MM25UbfRKVUcjUFu1RN%2F%2BcNBY7%2BGwmO4ibWHqrVxPQsG1NGEfgdPI%2F9fwnmYANLwVoMW26AHTjSW5uOdDKfZ9kLW5h3SlWPjPF%2FgZnuTzkMNW1BfJMR%2FaJ2rcA%3D%3D\"}]}"
-              },
-              "cf-ray": {
-                "deprecated": false,
-                "schema": {},
-                "example": "9ecb2685d96e7810-GRU"
-              },
-              "alt-svc": {
-                "deprecated": false,
-                "schema": {},
-                "example": "h3=\":443\"; ma=86400"
-              }
-            },
             "content": {
               "application/json": {
                 "schema": {
@@ -734,7 +632,7 @@
                   "response": true,
                   "metrics": [
                     {
-                      "step_id": 1448,
+                      "step_id": 123,
                       "max_time": {
                         "value": 0,
                         "unit": "seconds",
@@ -742,7 +640,7 @@
                       }
                     },
                     {
-                      "step_id": 1449,
+                      "step_id": 124,
                       "max_time": {
                         "value": 0,
                         "unit": "seconds",
@@ -750,7 +648,7 @@
                       }
                     },
                     {
-                      "step_id": 1450,
+                      "step_id": 125,
                       "max_time": {
                         "value": 0,
                         "unit": "seconds",
@@ -758,7 +656,7 @@
                       }
                     },
                     {
-                      "step_id": 1451,
+                      "step_id": 126,
                       "max_time": {
                         "value": 0,
                         "unit": "seconds",
@@ -766,7 +664,7 @@
                       }
                     },
                     {
-                      "step_id": 1452,
+                      "step_id": 127,
                       "max_time": {
                         "value": 0,
                         "unit": "seconds",
@@ -774,7 +672,7 @@
                       }
                     },
                     {
-                      "step_id": 1453,
+                      "step_id": 128,
                       "max_time": {
                         "value": 0,
                         "unit": "seconds",
@@ -782,7 +680,7 @@
                       }
                     },
                     {
-                      "step_id": 1454,
+                      "step_id": 129,
                       "max_time": {
                         "value": 0,
                         "unit": "seconds",
@@ -790,7 +688,7 @@
                       }
                     },
                     {
-                      "step_id": 1455,
+                      "step_id": 130,
                       "max_time": {
                         "value": 0,
                         "unit": "seconds",
