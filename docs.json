@@ -116,6 +116,37 @@
                 "openapi": "api-reference/openapi.json"
               }
             ]
+          },
+          {
+            "tab": "Marketplace",
+            "groups": [
+              {
+                "group": "Marketplace",
+                "pages": [
+                  "guides/marketplace/overview"
+                ]
+              },
+              {
+                "group": "Marketplace — Parceiro",
+                "pages": [
+                  "guides/marketplace/become-a-partner",
+                  "guides/marketplace/getting-started",
+                  "guides/marketplace/template-builder",
+                  "guides/marketplace/snapshots",
+                  "guides/marketplace/creating-template",
+                  "guides/marketplace/submission-flow",
+                  "guides/marketplace/managing-templates",
+                  "guides/marketplace/partner-guidelines"
+                ]
+              },
+              {
+                "group": "Marketplace — Usuário",
+                "pages": [
+                  "guides/marketplace/marketplace-user-guide",
+                  "guides/marketplace/reviews"
+                ]
+              }
+            ]
           }
         ]
       }

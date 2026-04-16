@@ -1,0 +1,57 @@
+---
+title: "Snapshots"
+description: "Entenda como funcionam os snapshots e o versionamento de templates"
+icon: "camera"
+---
+
+## O que é um snapshot
+
+Um snapshot é uma captura imutável do estado da empresa construtora em um determinado momento. Ele registra todas as configurações do ambiente e funciona como a "versão" do template que será publicada no Marketplace.
+
+<Warning>
+O snapshot é imutável. Uma vez gerado, ele representa o estado exato do ambiente no momento da captura e não pode ser alterado.
+</Warning>
+
+## Quando gerar um snapshot
+
+Você deve gerar um snapshot quando a empresa construtora estiver pronta para ser submetida como template. O snapshot será vinculado ao template durante o processo de [criação](/guides/marketplace/creating-template) e [submissão](/guides/marketplace/submission-flow).
+
+## Versionamento
+
+Cada snapshot gerado é numerado sequencialmente:
+
+- **Snapshot 1** — Primeira versão do template
+- **Snapshot 2** — Segunda versão, após ajustes
+- **Snapshot 3** — Terceira versão, e assim por diante
+
+Isso permite que você evolua a empresa construtora e gere novos snapshots conforme necessário, por exemplo, após receber feedback do time Olie durante o [fluxo de submissão](/guides/marketplace/submission-flow).
+
+## Regras importantes
+
+<Warning>
+**Mudanças após o snapshot não afetam snapshots anteriores.** Se você alterar a empresa construtora após gerar um snapshot, essas mudanças só serão refletidas em um novo snapshot. O snapshot já gerado permanece inalterado.
+</Warning>
+
+<Warning>
+**Atualizações do criador não propagam para quem já importou.** Se você publicar um novo snapshot do template, os usuários que já adquiriram e implantaram uma versão anterior **não** receberão as atualizações automaticamente. Cada implantação é uma cópia independente do snapshot adquirido.
+</Warning>
+
+## Exemplo de fluxo
+
+<Steps>
+<Step title="Configure a empresa construtora">
+  Ajuste as configurações do ambiente na [empresa construtora](/guides/marketplace/template-builder).
+</Step>
+
+<Step title="Gere o snapshot">
+  Quando estiver satisfeito com a configuração, gere o snapshot para capturar o estado atual.
+</Step>
+
+<Step title="Vincule ao template">
+  Selecione o snapshot ao [criar ou editar o template](/guides/marketplace/creating-template).
+</Step>
+
+<Step title="Evolua se necessário">
+  Se precisar de ajustes, modifique a empresa construtora e gere um novo snapshot com a próxima numeração.
+</Step>
+</Steps>
