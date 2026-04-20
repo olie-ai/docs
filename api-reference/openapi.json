@@ -576,6 +576,10 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "response",
+                    "metrics"
+                  ],
                   "properties": {
                     "response": {
                       "type": "boolean"
@@ -584,6 +588,10 @@
                       "type": "array",
                       "items": {
                         "type": "object",
+                        "required": [
+                          "step_id",
+                          "max_time"
+                        ],
                         "properties": {
                           "step_id": {
                             "type": "integer",
@@ -591,6 +599,11 @@
                           },
                           "max_time": {
                             "type": "object",
+                            "required": [
+                              "value",
+                              "unit",
+                              "meta_data"
+                            ],
                             "properties": {
                               "value": {
                                 "type": "integer",
@@ -605,27 +618,15 @@
                               },
                               "meta_data": {
                                 "type": "object",
-                                "description": "Metadados adicionais da métrica"
+                                "description": "Metadados adicionais da métrica",
+                                "nullable": true
                               }
-                            },
-                            "required": [
-                              "value",
-                              "unit",
-                              "meta_data"
-                            ]
+                            }
                           }
-                        },
-                        "required": [
-                          "step_id",
-                          "max_time"
-                        ]
+                        }
                       }
                     }
-                  },
-                  "required": [
-                    "response",
-                    "metrics"
-                  ]
+                  }
                 },
                 "example": {
                   "response": true,
@@ -2817,8 +2818,7 @@
             "schema": {
               "type": "string",
               "default": "<string>"
-            },
-            "example": "<string>"
+            }
           },
           {
             "name": "search",
@@ -6120,6 +6120,12 @@
                     "project": {
                       "type": "object",
                       "properties": {
+                        "parent_id": {
+                          "nullable": true
+                        },
+                        "old_id": {
+                          "nullable": true
+                        },
                         "code": {
                           "type": "string"
                         },
@@ -6141,6 +6147,15 @@
                         "contact_id": {
                           "type": "integer"
                         },
+                        "share_token": {
+                          "nullable": true
+                        },
+                        "share_settings": {
+                          "nullable": true
+                        },
+                        "merged_id": {
+                          "nullable": true
+                        },
                         "status": {
                           "type": "integer"
                         },
@@ -6152,6 +6167,9 @@
                         },
                         "created_by": {
                           "type": "string"
+                        },
+                        "deleted_at": {
+                          "nullable": true
                         },
                         "id": {
                           "type": "string"
@@ -6172,20 +6190,39 @@
                               "id": {
                                 "type": "string"
                               },
+                              "name": {
+                                "nullable": true
+                              },
+                              "technical_name": {
+                                "nullable": true
+                              },
                               "type": {
                                 "type": "integer"
                               },
+                              "extension": {
+                                "nullable": true
+                              },
                               "text": {
-                                "type": "string"
+                                "type": "string",
+                                "format": "style"
+                              },
+                              "file_url": {
+                                "nullable": true
                               },
                               "log": {
                                 "type": "string"
+                              },
+                              "user_id": {
+                                "nullable": true
                               },
                               "frame_id": {
                                 "type": "string"
                               },
                               "project_id": {
                                 "type": "string"
+                              },
+                              "task_id": {
+                                "nullable": true
                               },
                               "created_at": {
                                 "type": "string",
@@ -6194,6 +6231,9 @@
                               "updated_at": {
                                 "type": "string",
                                 "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "nullable": true
                               }
                             }
                           }
@@ -6241,8 +6281,17 @@
                                 "type": "string",
                                 "format": "date-time"
                               },
+                              "deleted_at": {
+                                "nullable": true
+                              },
+                              "funnel_config_template_id": {
+                                "nullable": true
+                              },
                               "allow_execution": {
                                 "type": "boolean"
+                              },
+                              "project_term": {
+                                "nullable": true
                               },
                               "pivot": {
                                 "type": "object",
@@ -6255,6 +6304,21 @@
                                   },
                                   "id": {
                                     "type": "integer"
+                                  },
+                                  "statuses_at": {
+                                    "nullable": true
+                                  },
+                                  "statuses_by": {
+                                    "nullable": true
+                                  },
+                                  "funnel_status_id": {
+                                    "nullable": true
+                                  },
+                                  "forecast_date": {
+                                    "nullable": true
+                                  },
+                                  "realized_forecast_date": {
+                                    "nullable": true
                                   },
                                   "created_at": {
                                     "type": "string",
@@ -6285,8 +6349,23 @@
                               "sensation_amount": {
                                 "type": "integer"
                               },
+                              "step_forward_id": {
+                                "nullable": true
+                              },
+                              "step_backward_id": {
+                                "nullable": true
+                              },
                               "order": {
                                 "type": "integer"
+                              },
+                              "help_text": {
+                                "nullable": true
+                              },
+                              "form_id": {
+                                "nullable": true
+                              },
+                              "sort_config": {
+                                "nullable": true
                               },
                               "allow_execution": {
                                 "type": "boolean"
@@ -6298,6 +6377,9 @@
                               "updated_at": {
                                 "type": "string",
                                 "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "nullable": true
                               },
                               "pivot": {
                                 "type": "object",
