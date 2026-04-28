@@ -99,7 +99,7 @@
             "schema": {
               "type": "integer"
             },
-            "example": "1"
+            "example": 1
           },
           {
             "name": "perPage",
@@ -108,7 +108,7 @@
             "schema": {
               "type": "integer"
             },
-            "example": "30"
+            "example": 30
           },
           {
             "name": "filter",
@@ -339,7 +339,7 @@
             "schema": {
               "type": "integer"
             },
-            "example": "1"
+            "example": 1
           },
           {
             "name": "perPage",
@@ -348,7 +348,7 @@
             "schema": {
               "type": "integer"
             },
-            "example": "30"
+            "example": 30
           },
           {
             "name": "filter",
@@ -576,10 +576,6 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "response",
-                    "metrics"
-                  ],
                   "properties": {
                     "response": {
                       "type": "boolean"
@@ -588,10 +584,6 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "required": [
-                          "step_id",
-                          "max_time"
-                        ],
                         "properties": {
                           "step_id": {
                             "type": "integer",
@@ -599,11 +591,6 @@
                           },
                           "max_time": {
                             "type": "object",
-                            "required": [
-                              "value",
-                              "unit",
-                              "meta_data"
-                            ],
                             "properties": {
                               "value": {
                                 "type": "integer",
@@ -618,15 +605,27 @@
                               },
                               "meta_data": {
                                 "type": "object",
-                                "description": "Metadados adicionais da métrica",
-                                "nullable": true
+                                "description": "Metadados adicionais da métrica"
                               }
-                            }
+                            },
+                            "required": [
+                              "value",
+                              "unit",
+                              "meta_data"
+                            ]
                           }
-                        }
+                        },
+                        "required": [
+                          "step_id",
+                          "max_time"
+                        ]
                       }
                     }
-                  }
+                  },
+                  "required": [
+                    "response",
+                    "metrics"
+                  ]
                 },
                 "example": {
                   "response": true,
@@ -1539,19 +1538,19 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "-1"
+                "example": -1
               },
               "X-RateLimit-Limit": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-RateLimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -1835,13 +1834,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-RateLimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "158"
+                "example": 158
               },
               "pragma": {
                 "schema": {
@@ -1853,7 +1852,7 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "-1"
+                "example": -1
               },
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -2376,13 +2375,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "154"
+                "example": 154
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -2663,13 +2662,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "150"
+                "example": 150
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -2796,7 +2795,7 @@
               "default": 1,
               "minLength": 1
             },
-            "example": "1"
+            "example": 1
           },
           {
             "name": "perPage",
@@ -2809,7 +2808,7 @@
               "minLength": 1,
               "maxLength": 100
             },
-            "example": "30"
+            "example": 30
           },
           {
             "name": "filter",
@@ -2818,7 +2817,8 @@
             "schema": {
               "type": "string",
               "default": "<string>"
-            }
+            },
+            "example": "<string>"
           },
           {
             "name": "search",
@@ -2840,7 +2840,7 @@
               "type": "boolean",
               "default": "<boolean>"
             },
-            "example": "true"
+            "example": true
           },
           {
             "name": "template",
@@ -2851,7 +2851,7 @@
               "type": "boolean",
               "default": "<boolean>"
             },
-            "example": "true"
+            "example": true
           },
           {
             "name": "sort",
@@ -2917,19 +2917,19 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "-1"
+                "example": -1
               },
               "X-RateLimit-Limit": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-RateLimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "158"
+                "example": 158
               },
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -3026,19 +3026,19 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "-1"
+                "example": -1
               },
               "X-RateLimit-Limit": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-RateLimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "158"
+                "example": 158
               },
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -3629,7 +3629,7 @@
             "schema": {
               "type": "boolean"
             },
-            "example": "true"
+            "example": true
           }
         ],
         "responses": {
@@ -3670,19 +3670,19 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "-1"
+                "example": -1
               },
               "X-RateLimit-Limit": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-RateLimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "158"
+                "example": 158
               },
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -5895,7 +5895,7 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "-1"
+                "example": -1
               },
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -6082,19 +6082,19 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "-1"
+                "example": -1
               },
               "X-RateLimit-Limit": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-RateLimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -6120,12 +6120,6 @@
                     "project": {
                       "type": "object",
                       "properties": {
-                        "parent_id": {
-                          "nullable": true
-                        },
-                        "old_id": {
-                          "nullable": true
-                        },
                         "code": {
                           "type": "string"
                         },
@@ -6147,15 +6141,6 @@
                         "contact_id": {
                           "type": "integer"
                         },
-                        "share_token": {
-                          "nullable": true
-                        },
-                        "share_settings": {
-                          "nullable": true
-                        },
-                        "merged_id": {
-                          "nullable": true
-                        },
                         "status": {
                           "type": "integer"
                         },
@@ -6167,9 +6152,6 @@
                         },
                         "created_by": {
                           "type": "string"
-                        },
-                        "deleted_at": {
-                          "nullable": true
                         },
                         "id": {
                           "type": "string"
@@ -6190,39 +6172,20 @@
                               "id": {
                                 "type": "string"
                               },
-                              "name": {
-                                "nullable": true
-                              },
-                              "technical_name": {
-                                "nullable": true
-                              },
                               "type": {
                                 "type": "integer"
                               },
-                              "extension": {
-                                "nullable": true
-                              },
                               "text": {
-                                "type": "string",
-                                "format": "style"
-                              },
-                              "file_url": {
-                                "nullable": true
+                                "type": "string"
                               },
                               "log": {
                                 "type": "string"
-                              },
-                              "user_id": {
-                                "nullable": true
                               },
                               "frame_id": {
                                 "type": "string"
                               },
                               "project_id": {
                                 "type": "string"
-                              },
-                              "task_id": {
-                                "nullable": true
                               },
                               "created_at": {
                                 "type": "string",
@@ -6231,9 +6194,6 @@
                               "updated_at": {
                                 "type": "string",
                                 "format": "date-time"
-                              },
-                              "deleted_at": {
-                                "nullable": true
                               }
                             }
                           }
@@ -6281,17 +6241,8 @@
                                 "type": "string",
                                 "format": "date-time"
                               },
-                              "deleted_at": {
-                                "nullable": true
-                              },
-                              "funnel_config_template_id": {
-                                "nullable": true
-                              },
                               "allow_execution": {
                                 "type": "boolean"
-                              },
-                              "project_term": {
-                                "nullable": true
                               },
                               "pivot": {
                                 "type": "object",
@@ -6304,21 +6255,6 @@
                                   },
                                   "id": {
                                     "type": "integer"
-                                  },
-                                  "statuses_at": {
-                                    "nullable": true
-                                  },
-                                  "statuses_by": {
-                                    "nullable": true
-                                  },
-                                  "funnel_status_id": {
-                                    "nullable": true
-                                  },
-                                  "forecast_date": {
-                                    "nullable": true
-                                  },
-                                  "realized_forecast_date": {
-                                    "nullable": true
                                   },
                                   "created_at": {
                                     "type": "string",
@@ -6349,23 +6285,8 @@
                               "sensation_amount": {
                                 "type": "integer"
                               },
-                              "step_forward_id": {
-                                "nullable": true
-                              },
-                              "step_backward_id": {
-                                "nullable": true
-                              },
                               "order": {
                                 "type": "integer"
-                              },
-                              "help_text": {
-                                "nullable": true
-                              },
-                              "form_id": {
-                                "nullable": true
-                              },
-                              "sort_config": {
-                                "nullable": true
                               },
                               "allow_execution": {
                                 "type": "boolean"
@@ -6377,9 +6298,6 @@
                               "updated_at": {
                                 "type": "string",
                                 "format": "date-time"
-                              },
-                              "deleted_at": {
-                                "nullable": true
                               },
                               "pivot": {
                                 "type": "object",
@@ -6420,157 +6338,65 @@
                 "example": {
                   "response": true,
                   "project": {
-                    "parent_id": null,
-                    "old_id": null,
-                    "code": "PREFIX-1",
-                    "name": "Nome do projeto",
-                    "description": "Essa é a descrição",
-                    "impact": 5,
                     "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
-                    "customer_id": "019d2619-03b5-7272-909c-736805be26ee",
-                    "contact_id": 343,
-                    "share_token": null,
-                    "share_settings": null,
-                    "merged_id": null,
-                    "status": 4,
-                    "budget": 0,
-                    "is_template": false,
+                    "status": 1,
+                    "impact": 10,
+                    "description": "Criação rápida",
+                    "name": "Nome do projeto",
+                    "contact_id": null,
+                    "customer_id": null,
+                    "code": "ZXC2HQA-22",
+                    "id": "019dd427-bb01-70ec-8f2e-c36442ac755f",
                     "created_by": "019c75de-509e-711a-8933-175cb2514cc5",
-                    "deleted_at": null,
-                    "id": "019d3fb0-ce62-71e8-9b2c-3a387ec86cd7",
-                    "updated_at": "2026-03-30T17:00:45.000000Z",
-                    "created_at": "2026-03-30T17:00:45.000000Z",
-                    "medias": [
+                    "updated_at": "2026-04-28T12:54:26.000000Z",
+                    "created_at": "2026-04-28T12:54:26.000000Z",
+                    "form_answers": [
                       {
-                        "id": "019d3fb0-ce89-72b2-a601-f731a4f238a1",
-                        "name": null,
-                        "technical_name": null,
-                        "type": 1,
-                        "extension": null,
-                        "text": "Vinculado ao funil <b>Onboarding de Clientes</b>. Ação de: <u@019c75de-509e-711a-8933-175cb2514cc5:Test User>. Automação: #1 - [7F22P] Simulação de Cenários",
-                        "file_url": null,
-                        "log": "69c41eb6d1d5bf36dd036978",
-                        "user_id": null,
-                        "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
-                        "project_id": "019d3fb0-ce62-71e8-9b2c-3a387ec86cd7",
-                        "task_id": null,
-                        "created_at": "2026-03-30T17:00:45.000000Z",
-                        "updated_at": "2026-03-30T17:00:45.000000Z",
-                        "deleted_at": null
-                      }
-                    ],
-                    "funnels": [
-                      {
-                        "id": 42,
-                        "name": "Onboarding de Clientes",
-                        "prefix": "AAAAAAAAAA",
-                        "order": 12,
-                        "condition": "active",
-                        "allow_multi_step": true,
-                        "show_cost_info": true,
-                        "business_area_id": 17,
-                        "form_id": 1,
-                        "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
-                        "created_at": "2026-02-19T12:27:22.000000Z",
-                        "updated_at": "2026-03-26T16:50:35.000000Z",
-                        "deleted_at": null,
-                        "funnel_config_template_id": null,
-                        "allow_execution": true,
-                        "project_term": null,
-                        "pivot": {
-                          "project_id": "019d3fb0-ce62-71e8-9b2c-3a387ec86cd7",
-                          "project_funnel_id": 42,
-                          "id": 662,
-                          "statuses_at": null,
-                          "statuses_by": null,
-                          "funnel_status_id": null,
-                          "forecast_date": null,
-                          "realized_forecast_date": null,
-                          "created_at": "2026-03-30T17:00:45.000000Z",
-                          "forecast_date_update_count": 0
-                        }
+                        "id": 36,
+                        "label": "Link",
+                        "answer": null,
+                        "model": "Project",
+                        "answered_by": null,
+                        "updated_at": "2026-04-01T13:03:13.000000Z"
                       },
                       {
-                        "id": 49,
-                        "name": "22222",
-                        "prefix": "AAAAAAAAAA2",
-                        "order": 6,
-                        "condition": "active",
-                        "allow_multi_step": false,
-                        "show_cost_info": true,
-                        "business_area_id": null,
-                        "form_id": null,
-                        "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
-                        "created_at": "2026-03-05T17:33:35.000000Z",
-                        "updated_at": "2026-03-06T18:12:36.000000Z",
-                        "deleted_at": null,
-                        "funnel_config_template_id": null,
-                        "allow_execution": true,
-                        "project_term": null,
-                        "pivot": {
-                          "project_id": "019d3fb0-ce62-71e8-9b2c-3a387ec86cd7",
-                          "project_funnel_id": 49,
-                          "id": 663,
-                          "statuses_at": null,
-                          "statuses_by": null,
-                          "funnel_status_id": null,
-                          "forecast_date": null,
-                          "realized_forecast_date": null,
-                          "created_at": "2026-03-30T17:00:45.000000Z",
-                          "forecast_date_update_count": 0
-                        }
+                        "id": 37,
+                        "label": "Link",
+                        "answer": null,
+                        "model": "Project",
+                        "answered_by": null,
+                        "updated_at": "2026-04-06T17:14:50.000000Z"
                       }
                     ],
-                    "funnel_steps": [
-                      {
-                        "id": 206,
-                        "name": "Simulação de Cenários",
-                        "project_funnel_id": 42,
-                        "sensation_amount": 99,
-                        "step_forward_id": null,
-                        "step_backward_id": null,
-                        "order": 1,
-                        "help_text": null,
-                        "form_id": null,
-                        "sort_config": null,
-                        "allow_execution": true,
-                        "created_at": "2026-02-19T12:27:22.000000Z",
-                        "updated_at": "2026-02-19T12:34:12.000000Z",
-                        "deleted_at": null,
-                        "pivot": {
-                          "project_id": "019d3fb0-ce62-71e8-9b2c-3a387ec86cd7",
-                          "funnel_step_id": 206,
-                          "id": 1087,
-                          "order": 3,
-                          "created_at": "2026-03-30T17:00:45.000000Z"
+                    "frame": {
+                      "id": "019c75de-532c-7047-9563-daf1448ca963",
+                      "old_id": null,
+                      "name": "Olie Company",
+                      "type": "2",
+                      "status": 1,
+                      "subdomain": "olieframe",
+                      "frame_billing_data_id": null,
+                      "model_forms": [
+                        {
+                          "id": 3,
+                          "class": "App\\Models\\FrameRelationship"
+                        },
+                        {
+                          "id": 14,
+                          "class": "App\\Models\\Contact"
+                        },
+                        {
+                          "id": 12,
+                          "class": "App\\Models\\Project"
+                        },
+                        {
+                          "id": 13,
+                          "class": "App\\Models\\Customer"
                         }
-                      },
-                      {
-                        "id": 232,
-                        "name": "tests",
-                        "project_funnel_id": 49,
-                        "sensation_amount": 0,
-                        "step_forward_id": null,
-                        "step_backward_id": null,
-                        "order": 1,
-                        "help_text": null,
-                        "form_id": null,
-                        "sort_config": null,
-                        "allow_execution": true,
-                        "created_at": "2026-03-05T17:33:35.000000Z",
-                        "updated_at": "2026-03-05T17:33:35.000000Z",
-                        "deleted_at": null,
-                        "pivot": {
-                          "project_id": "019d3fb0-ce62-71e8-9b2c-3a387ec86cd7",
-                          "funnel_step_id": 232,
-                          "id": 1088,
-                          "order": 0,
-                          "created_at": "2026-03-30T17:00:45.000000Z"
-                        }
-                      }
-                    ],
-                    "tags": [],
-                    "checklists": []
+                      ],
+                      "logo_img": null,
+                      "cockpit_access": 1
+                    }
                   }
                 }
               }
@@ -6725,13 +6551,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -6909,13 +6735,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -7541,13 +7367,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -7842,13 +7668,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               }
             },
             "content": {
@@ -8411,13 +8237,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               }
             },
             "content": {
@@ -9094,19 +8920,19 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "-1"
+                "example": -1
               },
               "X-RateLimit-Limit": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-RateLimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "136"
+                "example": 136
               },
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -9260,7 +9086,7 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "-1"
+                "example": -1
               },
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -9333,13 +9159,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-RateLimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "pragma": {
                 "schema": {
@@ -9351,7 +9177,7 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "-1"
+                "example": -1
               },
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -9592,13 +9418,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "155"
+                "example": 155
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -9923,7 +9749,7 @@
           "schema": {
             "type": "integer"
           },
-          "example": "6419"
+          "example": 6419
         }
       ]
     },
@@ -10355,13 +10181,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -10757,13 +10583,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "157"
+                "example": 157
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -10898,13 +10724,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -11250,13 +11076,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "157"
+                "example": 157
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -11297,13 +11123,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "157"
+                "example": 157
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -11801,13 +11627,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "155"
+                "example": 155
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -11888,13 +11714,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "152"
+                "example": 152
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -12576,13 +12402,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "157"
+                "example": 157
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -12674,13 +12500,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "157"
+                "example": 157
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -12866,7 +12692,7 @@
           "schema": {
             "type": "integer"
           },
-          "example": "159"
+          "example": 159
         }
       ]
     },
@@ -13099,19 +12925,19 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "-1"
+                "example": -1
               },
               "X-RateLimit-Limit": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-RateLimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "154"
+                "example": 154
               },
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -13224,7 +13050,7 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "-1"
+                "example": -1
               },
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -13271,13 +13097,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-RateLimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "pragma": {
                 "schema": {
@@ -13289,7 +13115,7 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "-1"
+                "example": -1
               },
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -13359,13 +13185,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-RateLimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "154"
+                "example": 154
               },
               "pragma": {
                 "schema": {
@@ -13377,7 +13203,7 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "-1"
+                "example": -1
               },
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -13917,7 +13743,8 @@
           "schema": {
             "type": "string",
             "example": ""
-          }
+          },
+          "example": ""
         }
       ]
     },
@@ -14557,13 +14384,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "153"
+                "example": 153
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -14583,7 +14410,7 @@
           "schema": {
             "type": "integer"
           },
-          "example": "1444"
+          "example": 1444
         }
       ]
     },
@@ -14628,13 +14455,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "150"
+                "example": 150
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -14746,13 +14573,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "149"
+                "example": 149
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -15523,7 +15350,8 @@
           "schema": {
             "type": "string",
             "example": ""
-          }
+          },
+          "example": ""
         }
       ]
     },
@@ -15861,13 +15689,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -17133,13 +16961,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -17263,13 +17091,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -17358,13 +17186,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "156"
+                "example": 156
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -17555,13 +17383,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -17685,13 +17513,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -17778,13 +17606,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -17973,13 +17801,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "157"
+                "example": 157
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -18665,7 +18493,7 @@
           "schema": {
             "type": "integer"
           },
-          "example": "8017"
+          "example": 8017
         }
       ]
     },
@@ -18700,7 +18528,7 @@
             "schema": {
               "type": "integer"
             },
-            "example": "8017"
+            "example": 8017
           },
           {
             "name": "filter[start_date_gt]",
@@ -18729,7 +18557,7 @@
             "schema": {
               "type": "boolean"
             },
-            "example": "true"
+            "example": true
           }
         ]
       },
@@ -18882,13 +18710,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "Transfer-Encoding": {
                 "schema": {
@@ -19271,7 +19099,7 @@
             "schema": {
               "type": "boolean"
             },
-            "example": "true"
+            "example": true
           }
         ],
         "responses": {
@@ -19398,13 +19226,13 @@
                 "schema": {
                   "type": "integer"
                 },
-                "example": "160"
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
                 "schema": {
                   "type": "integer"
                 },
-                "example": "159"
+                "example": 159
               },
               "Transfer-Encoding": {
                 "schema": {
