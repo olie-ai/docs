@@ -20062,39 +20062,51 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "description": "Payload para criar um ou mais convites (um por e-mail), com papéis e permissões de acesso a funis.",
                 "properties": {
                   "emails": {
                     "type": "array",
+                    "description": "Lista de e-mails que receberão convite. Cada e-mail gera um convite dentro da mesma requisição.",
                     "items": {
                       "type": "string",
-                      "format": "email"
+                      "format": "email",
+                      "description": "Endereço de e-mail do convidado."
                     }
                   },
                   "role_ids": {
                     "type": "array",
+                    "description": "Lista de IDs de papéis (roles) que serão atribuídos ao convidado ao aceitar o convite.",
                     "items": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "ID do papel (role) a ser associado ao convidado."
                     }
                   },
                   "funnel_access": {
                     "type": "array",
+                    "description": "Lista de permissões por funil que o convidado terá ao aceitar o convite.",
                     "items": {
                       "type": "object",
+                      "description": "Configuração de acesso do convidado para um funil específico.",
                       "properties": {
                         "project_funnel_id": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "ID do funil ao qual as permissões se aplicam."
                         },
                         "index_all": {
-                          "type": "boolean"
+                          "type": "boolean",
+                          "description": "Permite listar/visualizar todos os projetos do funil, independentemente de atribuição ou autoria."
                         },
                         "index_assigned": {
-                          "type": "boolean"
+                          "type": "boolean",
+                          "description": "Permite listar/visualizar apenas os projetos do funil atribuídos ao usuário."
                         },
                         "index_created": {
-                          "type": "boolean"
+                          "type": "boolean",
+                          "description": "Permite listar/visualizar apenas os projetos do funil criados pelo usuário."
                         },
                         "step_change": {
-                          "type": "boolean"
+                          "type": "boolean",
+                          "description": "Permite mover projetos de etapa dentro do funil."
                         }
                       }
                     }
