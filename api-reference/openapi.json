@@ -19562,6 +19562,157 @@
           "example": "aeb08293-dfd2-365f-9867-93c1251db399"
         }
       ]
+    },
+    "/api/management/invites": {
+      "get": {
+        "summary": "Listar convites",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "invites": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "token": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string",
+                            "format": "email"
+                          },
+                          "frame_id": {
+                            "type": "string"
+                          },
+                          "user_id": {
+                            "nullable": true
+                          },
+                          "role_ids": {
+                            "type": "string"
+                          },
+                          "funnel_access": {
+                            "type": "string",
+                            "format": "style"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "invites": [
+                    {
+                      "id": 19,
+                      "token": "585A52F30336EE64616075FC4984D7A0",
+                      "email": "user@example.com",
+                      "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                      "user_id": null,
+                      "role_ids": "[6, 1]",
+                      "funnel_access": "[{\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 46}, {\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 55}, {\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 49}, {\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 48}]",
+                      "created_at": "2026-04-16T15:05:55.000000Z",
+                      "updated_at": "2026-04-16T15:05:55.000000Z"
+                    },
+                    {
+                      "id": 21,
+                      "token": "B2F08265A7B9016EC6C42EF1FEF3A58D",
+                      "email": "user2@example.com",
+                      "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                      "user_id": null,
+                      "role_ids": "[6, 1]",
+                      "funnel_access": "[{\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 46}, {\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 55}, {\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 49}, {\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 48}]",
+                      "created_at": "2026-04-16T15:05:55.000000Z",
+                      "updated_at": "2026-04-16T15:05:55.000000Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Cache-Control": {
+                "deprecated": false,
+                "schema": {},
+                "example": "no-cache, private"
+              },
+              "Referrer-Policy": {
+                "deprecated": false,
+                "schema": {},
+                "example": "strict-origin-when-cross-origin"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "invites"
+        ]
+      }
     }
   },
   "components": {
