@@ -19803,7 +19803,7 @@
         "summary": "Enviar convites",
         "responses": {
           "201": {
-            "description": "New Request",
+            "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
                 "deprecated": false,
@@ -19893,11 +19893,11 @@
                   "response": true,
                   "invites": [
                     {
-                      "id": 66,
+                      "id": 64,
                       "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
                       "email": "user4@example.com",
                       "role_ids": [
-                        6,
+                        7,
                         1
                       ],
                       "funnel_access": [
@@ -19928,11 +19928,11 @@
                       "created_at": "2026-04-29T14:06:40.000000Z"
                     },
                     {
-                      "id": 67,
+                      "id": 65,
                       "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
                       "email": "user5@example.com",
                       "role_ids": [
-                        6,
+                        7,
                         1
                       ],
                       "funnel_access": [
@@ -19967,6 +19967,44 @@
               }
             }
           },
+          "401": {
+            "description": "Não autorizado",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
+                }
+              }
+            }
+          },
           "422": {
             "description": "Convite já enviado para este e-mail",
             "headers": {
@@ -19984,51 +20022,6 @@
                 "deprecated": false,
                 "schema": {},
                 "example": "no-cache, private"
-              },
-              "Date": {
-                "deprecated": false,
-                "schema": {},
-                "example": "Wed, 29 Apr 2026 14:01:56 GMT"
-              },
-              "Referrer-Policy": {
-                "deprecated": false,
-                "schema": {},
-                "example": "strict-origin-when-cross-origin"
-              },
-              "Server": {
-                "deprecated": false,
-                "schema": {},
-                "example": "nginx"
-              },
-              "Strict-Transport-Security": {
-                "deprecated": false,
-                "schema": {},
-                "example": "max-age=31536000; includeSubDomains"
-              },
-              "X-Content-Type-Options": {
-                "deprecated": false,
-                "schema": {},
-                "example": "nosniff"
-              },
-              "X-Frame-Options": {
-                "deprecated": false,
-                "schema": {},
-                "example": "SAMEORIGIN"
-              },
-              "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
-                "example": "160"
-              },
-              "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
-                "example": "159"
-              },
-              "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
-                "example": "chunked"
               }
             },
             "content": {
