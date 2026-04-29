@@ -19611,11 +19611,33 @@
                             "nullable": true
                           },
                           "role_ids": {
-                            "type": "string"
+                            "type": "array",
+                            "items": {
+                              "type": "integer"
+                            }
                           },
                           "funnel_access": {
-                            "type": "string",
-                            "format": "style"
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "index_all": {
+                                  "type": "boolean"
+                                },
+                                "step_change": {
+                                  "type": "boolean"
+                                },
+                                "index_created": {
+                                  "type": "boolean"
+                                },
+                                "index_assigned": {
+                                  "type": "boolean"
+                                },
+                                "project_funnel_id": {
+                                  "type": "integer"
+                                }
+                              }
+                            }
                           },
                           "created_at": {
                             "type": "string",
@@ -19639,8 +19661,40 @@
                       "email": "user@example.com",
                       "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
                       "user_id": null,
-                      "role_ids": "[6, 1]",
-                      "funnel_access": "[{\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 46}, {\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 55}, {\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 49}, {\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 48}]",
+                      "role_ids": [
+                        6,
+                        1
+                      ],
+                      "funnel_access": [
+                        {
+                          "index_all": true,
+                          "step_change": true,
+                          "index_created": true,
+                          "index_assigned": true,
+                          "project_funnel_id": 46
+                        },
+                        {
+                          "index_all": true,
+                          "step_change": true,
+                          "index_created": true,
+                          "index_assigned": true,
+                          "project_funnel_id": 55
+                        },
+                        {
+                          "index_all": true,
+                          "step_change": true,
+                          "index_created": true,
+                          "index_assigned": true,
+                          "project_funnel_id": 49
+                        },
+                        {
+                          "index_all": true,
+                          "step_change": true,
+                          "index_created": true,
+                          "index_assigned": true,
+                          "project_funnel_id": 48
+                        }
+                      ],
                       "created_at": "2026-04-16T15:05:55.000000Z",
                       "updated_at": "2026-04-16T15:05:55.000000Z"
                     },
@@ -19650,8 +19704,40 @@
                       "email": "user2@example.com",
                       "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
                       "user_id": null,
-                      "role_ids": "[6, 1]",
-                      "funnel_access": "[{\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 46}, {\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 55}, {\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 49}, {\"index_all\": true, \"step_change\": true, \"index_created\": true, \"index_assigned\": true, \"project_funnel_id\": 48}]",
+                      "role_ids": [
+                        6,
+                        1
+                      ],
+                      "funnel_access": [
+                        {
+                          "index_all": true,
+                          "step_change": true,
+                          "index_created": true,
+                          "index_assigned": true,
+                          "project_funnel_id": 46
+                        },
+                        {
+                          "index_all": true,
+                          "step_change": true,
+                          "index_created": true,
+                          "index_assigned": true,
+                          "project_funnel_id": 55
+                        },
+                        {
+                          "index_all": true,
+                          "step_change": true,
+                          "index_created": true,
+                          "index_assigned": true,
+                          "project_funnel_id": 49
+                        },
+                        {
+                          "index_all": true,
+                          "step_change": true,
+                          "index_created": true,
+                          "index_assigned": true,
+                          "project_funnel_id": 48
+                        }
+                      ],
                       "created_at": "2026-04-16T15:05:55.000000Z",
                       "updated_at": "2026-04-16T15:05:55.000000Z"
                     }
@@ -19712,6 +19798,93 @@
         "tags": [
           "invites"
         ]
+      },
+      "post": {
+        "summary": "Enviar convites",
+        "responses": {},
+        "tags": [
+          "invites"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "emails": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "email"
+                    }
+                  },
+                  "role_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "funnel_access": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "project_funnel_id": {
+                          "type": "integer"
+                        },
+                        "index_all": {
+                          "type": "boolean"
+                        },
+                        "index_assigned": {
+                          "type": "boolean"
+                        },
+                        "index_created": {
+                          "type": "boolean"
+                        },
+                        "step_change": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "emails": [
+                  "user3@example.com",
+                  "user4@example.com"
+                ],
+                "role_ids": [
+                  6,
+                  1
+                ],
+                "funnel_access": [
+                  {
+                    "project_funnel_id": 112,
+                    "index_all": false,
+                    "index_assigned": true,
+                    "index_created": false,
+                    "step_change": true
+                  },
+                  {
+                    "project_funnel_id": 42,
+                    "index_all": false,
+                    "index_assigned": false,
+                    "index_created": true,
+                    "step_change": true
+                  },
+                  {
+                    "project_funnel_id": 49,
+                    "index_all": true,
+                    "index_assigned": true,
+                    "index_created": true,
+                    "step_change": true
+                  }
+                ]
+              }
+            }
+          }
+        }
       }
     }
   },
