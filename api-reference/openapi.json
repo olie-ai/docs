@@ -19571,13 +19571,15 @@
             "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               }
             },
@@ -19606,9 +19608,6 @@
                           },
                           "frame_id": {
                             "type": "string"
-                          },
-                          "user_id": {
-                            "nullable": true
                           },
                           "role_ids": {
                             "type": "array",
@@ -19750,23 +19749,27 @@
             "description": "Não autorizado",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Referrer-Policy": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "strict-origin-when-cross-origin"
               }
             },
@@ -19806,18 +19809,21 @@
             "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               }
             },
@@ -19971,13 +19977,15 @@
             "description": "Não autorizado",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               }
             },
@@ -20009,18 +20017,21 @@
             "description": "Convite já enviado para este e-mail",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               }
             },
@@ -20151,7 +20162,7 @@
         }
       }
     },
-    "/api/management/invites/{inviteId}": {
+    "/api/management/invites/{invite}": {
       "delete": {
         "summary": "Deletar convite",
         "responses": {
@@ -20159,74 +20170,103 @@
             "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Content-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "gzip"
               },
               "Date": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Wed, 29 Apr 2026 14:13:22 GMT"
               },
               "Referrer-Policy": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "strict-origin-when-cross-origin"
               },
               "Server": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nginx"
               },
               "Strict-Transport-Security": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "max-age=31536000; includeSubDomains"
               },
               "Vary": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Accept-Encoding"
               },
               "X-Content-Type-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nosniff"
               },
               "X-Frame-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "SAMEORIGIN"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
-                "example": "160"
+                "schema": {
+                  "type": "integer"
+                },
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
-                "example": "159"
+                "schema": {
+                  "type": "integer"
+                },
+                "example": 159
               },
               "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
               }
             }
           },
@@ -20234,13 +20274,15 @@
             "description": "Não autorizado",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               }
             },
@@ -20275,11 +20317,12 @@
       },
       "parameters": [
         {
-          "name": "inviteId",
+          "name": "invite",
           "in": "path",
           "required": true,
-          "deprecated": false,
-          "schema": {},
+          "schema": {
+            "type": "string"
+          },
           "example": ""
         }
       ]
