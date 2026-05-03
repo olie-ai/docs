@@ -58,6 +58,16 @@
                 ]
               },
               {
+                "group": "Cobrança",
+                "pages": [
+                  "guides/billing/overview",
+                  "guides/billing/subscription-and-licenses",
+                  "guides/billing/payment-methods",
+                  "guides/billing/trial-and-subscription-flow",
+                  "guides/billing/read-only-mode"
+                ]
+              },
+              {
                 "group": "Gestão de projetos",
                 "pages": [
                   "guides/projects/project-hierarchy"
