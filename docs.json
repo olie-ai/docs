@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Olie Documentação",
+  "name": "Olie Doc",
   "colors": {
     "primary": "#FA870A",
-    "light": "#FA870A",
-    "dark": "#FA870A"
+    "light": "#fee6cf",
+    "dark": "#B3683A"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -164,7 +164,7 @@
   },
   "logo": {
     "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "dark": "/logo/light.svg"
   },
   "navbar": {
     "links": [
@@ -198,5 +198,14 @@
       "linkedin": "https://www.linkedin.com/company/olieflow/"
     }
   },
-  "description": "Explore os guias e exemplos para integrar a Olie, conheça todo o eco-sistema "
+  "description": "Explore os guias e exemplos para integrar a Olie, conheça todo o eco-sistema ",
+  "seo": {
+    "indexing": "all"
+  },
+  "fonts": {
+    "family": "Poppins"
+  },
+  "appearance": {
+    "default": "system"
+  }
 }
