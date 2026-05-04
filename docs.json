@@ -4,8 +4,8 @@
   "name": "Olie Doc",
   "colors": {
     "primary": "#FA870A",
-    "light": "#fee6cf",
-    "dark": "#B3683A"
+    "light": "#FA870A",
+    "dark": "#FA870A"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -20,11 +20,6 @@
           "anchor": "Documentação",
           "icon": "book-open-cover",
           "href": "https://docs.olie.ai"
-        },
-        {
-          "anchor": "Blog",
-          "icon": "newspaper",
-          "href": "https://blog.olie.ai"
         }
       ]
     },
@@ -164,7 +159,7 @@
   },
   "logo": {
     "light": "/logo/light.svg",
-    "dark": "/logo/light.svg"
+    "dark": "/logo/dark.svg"
   },
   "navbar": {
     "links": [
@@ -200,7 +195,7 @@
   },
   "description": "Explore os guias e exemplos para integrar a Olie, conheça todo o eco-sistema ",
   "seo": {
-    "indexing": "all"
+    "indexing": "navigable"
   },
   "fonts": {
     "family": "Poppins"
