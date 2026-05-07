@@ -7769,6 +7769,18 @@
                               "sensation_amount": {
                                 "type": "integer"
                               },
+                              "show_contact_form": {
+                                "type": "boolean"
+                              },
+                              "hide_contact_form_when_linked": {
+                                "type": "boolean"
+                              },
+                              "show_customer_form": {
+                                "type": "boolean"
+                              },
+                              "hide_customer_form_when_linked": {
+                                "type": "boolean"
+                              },
                               "order": {
                                 "type": "integer"
                               },
@@ -7993,6 +8005,10 @@
                         "sensation_amount": 50,
                         "step_forward_id": null,
                         "step_backward_id": null,
+                        "show_contact_form": false,
+                        "hide_contact_form_when_linked": false,
+                        "show_customer_form": false,
+                        "hide_customer_form_when_linked": false,
                         "order": 1,
                         "help_text": "Texto de ajuda da etapa",
                         "form_id": 7,
@@ -8082,6 +8098,10 @@
                         "sensation_amount": 0,
                         "step_forward_id": null,
                         "step_backward_id": null,
+                        "show_contact_form": false,
+                        "hide_contact_form_when_linked": false,
+                        "show_customer_form": false,
+                        "hide_customer_form_when_linked": false,
                         "order": 2,
                         "help_text": null,
                         "form_id": null,
@@ -8102,6 +8122,10 @@
                         "sensation_amount": 0,
                         "step_forward_id": null,
                         "step_backward_id": null,
+                        "show_contact_form": false,
+                        "hide_contact_form_when_linked": false,
+                        "show_customer_form": false,
+                        "hide_customer_form_when_linked": false,
                         "order": 3,
                         "help_text": null,
                         "form_id": null,
