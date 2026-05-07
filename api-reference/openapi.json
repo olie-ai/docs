@@ -20987,61 +20987,6 @@
                 "deprecated": false,
                 "schema": {},
                 "example": "no-cache, private"
-              },
-              "Content-Encoding": {
-                "deprecated": false,
-                "schema": {},
-                "example": "gzip"
-              },
-              "Date": {
-                "deprecated": false,
-                "schema": {},
-                "example": "Thu, 07 May 2026 12:53:55 GMT"
-              },
-              "Referrer-Policy": {
-                "deprecated": false,
-                "schema": {},
-                "example": "strict-origin-when-cross-origin"
-              },
-              "Server": {
-                "deprecated": false,
-                "schema": {},
-                "example": "nginx"
-              },
-              "Strict-Transport-Security": {
-                "deprecated": false,
-                "schema": {},
-                "example": "max-age=31536000; includeSubDomains"
-              },
-              "Vary": {
-                "deprecated": false,
-                "schema": {},
-                "example": "Accept-Encoding"
-              },
-              "X-Content-Type-Options": {
-                "deprecated": false,
-                "schema": {},
-                "example": "nosniff"
-              },
-              "X-Frame-Options": {
-                "deprecated": false,
-                "schema": {},
-                "example": "SAMEORIGIN"
-              },
-              "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
-                "example": "160"
-              },
-              "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
-                "example": "148"
-              },
-              "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
-                "example": "chunked"
               }
             },
             "content": {
@@ -21432,48 +21377,29 @@
                   "type": "string"
                 },
                 "example": "no-cache, private"
-              },
-              "Date": {
+              }
+            },
+            "content": {
+              "application/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
                 },
-                "example": "Thu, 07 May 2026 13:16:05 GMT"
-              },
-              "Referrer-Policy": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "strict-origin-when-cross-origin"
-              },
-              "Server": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "nginx"
-              },
-              "Strict-Transport-Security": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "max-age=31536000; includeSubDomains"
-              },
-              "X-Content-Type-Options": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "nosniff"
-              },
-              "X-Frame-Options": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "SAMEORIGIN"
-              },
-              "Transfer-Encoding": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "chunked"
+                "example": {
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
+                }
               }
             }
           },
