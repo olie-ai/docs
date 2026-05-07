@@ -17718,7 +17718,7 @@
         "summary": "Transições de etapas",
         "responses": {
           "200": {
-            "description": "New Request",
+            "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
                 "deprecated": false,
@@ -17788,6 +17788,515 @@
               "Transfer-Encoding": {
                 "deprecated": false,
                 "schema": {},
+                "example": "chunked"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta contendo o histórico de transições entre etapas do funil de um projeto.",
+                  "properties": {
+                    "funnel_step_transitions": {
+                      "type": "array",
+                      "description": "Lista de movimentações do projeto entre etapas do funil.",
+                      "items": {
+                        "type": "object",
+                        "description": "Representa uma transição de etapa do funil.",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Identificador único da transição."
+                          },
+                          "entry_time": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Data e hora em que o projeto entrou na etapa."
+                          },
+                          "exit_time": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Data e hora em que o projeto saiu da etapa. Será null caso ainda esteja ativo nesta etapa.",
+                            "nullable": true
+                          },
+                          "project_id": {
+                            "type": "string",
+                            "description": "ID do projeto relacionado à transição."
+                          },
+                          "funnel_step_id": {
+                            "type": "integer",
+                            "description": "ID da etapa do funil."
+                          },
+                          "exit_parent_id": {
+                            "type": "integer",
+                            "description": "ID da próxima transição relacionada.",
+                            "nullable": true
+                          },
+                          "entry_user_id": {
+                            "type": "string",
+                            "description": "ID do usuário responsável pela entrada na etapa."
+                          },
+                          "exit_user_id": {
+                            "type": "string",
+                            "description": "ID do usuário responsável pela saída da etapa.",
+                            "nullable": true
+                          },
+                          "duration_seconds": {
+                            "type": "integer",
+                            "description": "Tempo total de permanência na etapa em segundos.",
+                            "nullable": true
+                          },
+                          "funnel_step": {
+                            "type": "object",
+                            "description": "Informações da etapa do funil.",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "ID da etapa."
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Nome da etapa do funil."
+                              }
+                            }
+                          },
+                          "exit_parent": {
+                            "type": "object",
+                            "description": "Próxima transição vinculada a esta movimentação.",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "ID da transição."
+                              },
+                              "entry_time": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Data e hora de entrada na etapa."
+                              },
+                              "exit_time": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Data e hora de saída da etapa.",
+                                "nullable": true
+                              },
+                              "project_id": {
+                                "type": "string",
+                                "description": "ID do projeto relacionado."
+                              },
+                              "funnel_step_id": {
+                                "type": "integer",
+                                "description": "ID da etapa."
+                              },
+                              "exit_parent_id": {
+                                "type": "integer",
+                                "description": "ID da próxima transição vinculada.",
+                                "nullable": true
+                              },
+                              "entry_user_id": {
+                                "type": "string",
+                                "description": "ID do usuário responsável pela entrada."
+                              },
+                              "exit_user_id": {
+                                "type": "string",
+                                "description": "ID do usuário responsável pela saída.",
+                                "nullable": true
+                              },
+                              "duration_seconds": {
+                                "type": "integer",
+                                "description": "Tempo de permanência na etapa em segundos.",
+                                "nullable": true
+                              },
+                              "funnel_step": {
+                                "type": "object",
+                                "description": "Informações da etapa relacionada.",
+                                "properties": {
+                                  "id": {
+                                    "type": "integer",
+                                    "description": "ID da etapa."
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "description": "Nome da etapa."
+                                  }
+                                }
+                              }
+                            },
+                            "nullable": true
+                          },
+                          "entry_user": {
+                            "type": "object",
+                            "description": "Usuário responsável pela entrada na etapa.",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "ID do usuário."
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Nome do usuário."
+                              },
+                              "avatar_url": {
+                                "type": "string",
+                                "format": "uri",
+                                "description": "URL da imagem de avatar do usuário."
+                              }
+                            }
+                          },
+                          "exit_user": {
+                            "type": "object",
+                            "description": "Usuário responsável pela saída da etapa.",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "ID do usuário."
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Nome do usuário."
+                              },
+                              "avatar_url": {
+                                "type": "string",
+                                "format": "uri",
+                                "description": "URL da imagem de avatar do usuário."
+                              }
+                            },
+                            "nullable": true
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "description": "Metadados de paginação da resposta.",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer",
+                          "description": "Página atual."
+                        },
+                        "from": {
+                          "type": "integer",
+                          "description": "Índice inicial dos registros retornados."
+                        },
+                        "last_page": {
+                          "type": "integer",
+                          "description": "Última página disponível."
+                        },
+                        "per_page": {
+                          "type": "integer",
+                          "description": "Quantidade de registros por página."
+                        },
+                        "to": {
+                          "type": "integer",
+                          "description": "Índice final dos registros retornados."
+                        },
+                        "total": {
+                          "type": "integer",
+                          "description": "Quantidade total de registros."
+                        }
+                      }
+                    },
+                    "response": {
+                      "type": "boolean",
+                      "description": "Indica se a requisição foi concluída com sucesso."
+                    }
+                  }
+                },
+                "example": {
+                  "funnel_step_transitions": [
+                    {
+                      "id": 938,
+                      "entry_time": "2026-05-07T12:01:19.000000Z",
+                      "exit_time": null,
+                      "project_id": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7",
+                      "funnel_step_id": 197,
+                      "exit_parent_id": null,
+                      "entry_user_id": "019c75de-509e-711a-8933-175cb2514cc5",
+                      "exit_user_id": null,
+                      "duration_seconds": null,
+                      "funnel_step": {
+                        "id": 197,
+                        "name": "Desenvolvimento Conceitual"
+                      },
+                      "exit_parent": null,
+                      "entry_user": {
+                        "id": "019c75de-509e-711a-8933-175cb2514cc5",
+                        "name": "Test User",
+                        "avatar_url": "https://via.placeholder.com/124x124.png/00aa99?text=quas"
+                      },
+                      "exit_user": null
+                    },
+                    {
+                      "id": 936,
+                      "entry_time": "2026-05-07T11:52:43.000000Z",
+                      "exit_time": "2026-05-07T12:01:19.000000Z",
+                      "project_id": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7",
+                      "funnel_step_id": 200,
+                      "exit_parent_id": 938,
+                      "entry_user_id": "019c75de-50f0-7366-a948-b8cbdd1841be",
+                      "exit_user_id": "019c75de-509e-711a-8933-175cb2514cc5",
+                      "duration_seconds": 516,
+                      "funnel_step": {
+                        "id": 200,
+                        "name": "Aprovação do Cliente"
+                      },
+                      "exit_parent": {
+                        "id": 938,
+                        "entry_time": "2026-05-07T12:01:19.000000Z",
+                        "exit_time": null,
+                        "project_id": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7",
+                        "funnel_step_id": 197,
+                        "exit_parent_id": null,
+                        "entry_user_id": "019c75de-509e-711a-8933-175cb2514cc5",
+                        "exit_user_id": null,
+                        "duration_seconds": null,
+                        "funnel_step": {
+                          "id": 197,
+                          "name": "Desenvolvimento Conceitual"
+                        }
+                      },
+                      "entry_user": {
+                        "id": "019c75de-50f0-7366-a948-b8cbdd1841be",
+                        "name": "Cotestr User",
+                        "avatar_url": "https://via.placeholder.com/124x124.png/00aa99?text=quas"
+                      },
+                      "exit_user": {
+                        "id": "019c75de-509e-711a-8933-175cb2514cc5",
+                        "name": "Test User",
+                        "avatar_url": "https://via.placeholder.com/124x124.png/00aa99?text=quas"
+                      }
+                    },
+                    {
+                      "id": 935,
+                      "entry_time": "2026-05-07T11:52:39.000000Z",
+                      "exit_time": "2026-05-07T11:52:43.000000Z",
+                      "project_id": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7",
+                      "funnel_step_id": 197,
+                      "exit_parent_id": 936,
+                      "entry_user_id": "019c75de-50f0-7366-a948-b8cbdd1841be",
+                      "exit_user_id": "019c75de-50f0-7366-a948-b8cbdd1841be",
+                      "duration_seconds": 4,
+                      "funnel_step": {
+                        "id": 197,
+                        "name": "Desenvolvimento Conceitual"
+                      },
+                      "exit_parent": {
+                        "id": 936,
+                        "entry_time": "2026-05-07T11:52:43.000000Z",
+                        "exit_time": "2026-05-07T12:01:19.000000Z",
+                        "project_id": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7",
+                        "funnel_step_id": 200,
+                        "exit_parent_id": 938,
+                        "entry_user_id": "019c75de-50f0-7366-a948-b8cbdd1841be",
+                        "exit_user_id": "019c75de-509e-711a-8933-175cb2514cc5",
+                        "duration_seconds": 516,
+                        "funnel_step": {
+                          "id": 200,
+                          "name": "Aprovação do Cliente"
+                        }
+                      },
+                      "entry_user": {
+                        "id": "019c75de-50f0-7366-a948-b8cbdd1841be",
+                        "name": "Cotestr User",
+                        "avatar_url": "https://via.placeholder.com/124x124.png/00aa99?text=quas"
+                      },
+                      "exit_user": {
+                        "id": "019c75de-50f0-7366-a948-b8cbdd1841be",
+                        "name": "Cotestr User",
+                        "avatar_url": "https://via.placeholder.com/124x124.png/00aa99?text=quas"
+                      }
+                    },
+                    {
+                      "id": 923,
+                      "entry_time": "2026-04-28T12:54:10.000000Z",
+                      "exit_time": "2026-05-07T11:52:39.000000Z",
+                      "project_id": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7",
+                      "funnel_step_id": 201,
+                      "exit_parent_id": 935,
+                      "entry_user_id": "019c75de-509e-711a-8933-175cb2514cc5",
+                      "exit_user_id": "019c75de-50f0-7366-a948-b8cbdd1841be",
+                      "duration_seconds": 773909,
+                      "funnel_step": {
+                        "id": 201,
+                        "name": "sTeste de Produto"
+                      },
+                      "exit_parent": {
+                        "id": 935,
+                        "entry_time": "2026-05-07T11:52:39.000000Z",
+                        "exit_time": "2026-05-07T11:52:43.000000Z",
+                        "project_id": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7",
+                        "funnel_step_id": 197,
+                        "exit_parent_id": 936,
+                        "entry_user_id": "019c75de-50f0-7366-a948-b8cbdd1841be",
+                        "exit_user_id": "019c75de-50f0-7366-a948-b8cbdd1841be",
+                        "duration_seconds": 4,
+                        "funnel_step": {
+                          "id": 197,
+                          "name": "Desenvolvimento Conceitual"
+                        }
+                      },
+                      "entry_user": {
+                        "id": "019c75de-509e-711a-8933-175cb2514cc5",
+                        "name": "Test User",
+                        "avatar_url": "https://via.placeholder.com/124x124.png/00aa99?text=quas"
+                      },
+                      "exit_user": {
+                        "id": "019c75de-50f0-7366-a948-b8cbdd1841be",
+                        "name": "Cotestr User",
+                        "avatar_url": "https://via.placeholder.com/124x124.png/00aa99?text=quas"
+                      }
+                    }
+                  ],
+                  "meta": {
+                    "current_page": 1,
+                    "from": 1,
+                    "last_page": 1,
+                    "per_page": 30,
+                    "to": 4,
+                    "total": 4
+                  },
+                  "response": true
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "no-cache, private"
+              },
+              "Date": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Thu, 07 May 2026 13:16:05 GMT"
+              },
+              "Referrer-Policy": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "strict-origin-when-cross-origin"
+              },
+              "Server": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "nginx"
+              },
+              "Strict-Transport-Security": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "max-age=31536000; includeSubDomains"
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "nosniff"
+              },
+              "X-Frame-Options": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "SAMEORIGIN"
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "chunked"
+              }
+            }
+          },
+          "422": {
+            "description": "Campos inválidos",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "*"
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "no-cache, private"
+              },
+              "Date": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Thu, 07 May 2026 13:16:30 GMT"
+              },
+              "Referrer-Policy": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "strict-origin-when-cross-origin"
+              },
+              "Server": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "nginx"
+              },
+              "Strict-Transport-Security": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "max-age=31536000; includeSubDomains"
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "nosniff"
+              },
+              "X-Frame-Options": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "SAMEORIGIN"
+              },
+              "X-Ratelimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                },
+                "example": 160
+              },
+              "X-Ratelimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                },
+                "example": 159
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
               }
             }
