@@ -8342,6 +8342,26 @@
                               "example": null,
                               "description": "ID da etapa anterior permitida."
                             },
+                            "show_contact_form": {
+                              "type": "boolean",
+                              "example": false,
+                              "description": "Define se o formulário de contato deve ser exibido ao mover um projeto para essa etapa."
+                            },
+                            "hide_contact_form_when_linked": {
+                              "type": "boolean",
+                              "example": false,
+                              "description": "Não exibe o formulário de contato quando já existir um contato vinculado ao projeto."
+                            },
+                            "show_customer_form": {
+                              "type": "boolean",
+                              "example": false,
+                              "description": "Define se o formulário de cliente deve ser exibido ao mover um projeto para essa etapa."
+                            },
+                            "hide_customer_form_when_linked": {
+                              "type": "boolean",
+                              "example": false,
+                              "description": "Não exibe o formulário de cliente quando já existir um cliente vinculado ao projeto."
+                            },
                             "sensation_amount": {
                               "type": "integer",
                               "example": 50,
@@ -8676,6 +8696,10 @@
                     "name": "Backlog",
                     "step_forward": null,
                     "step_backward": null,
+                    "show_contact_form": false,
+                    "hide_contact_form_when_linked": false,
+                    "show_customer_form": false,
+                    "hide_customer_form_when_linked": false,
                     "sensation_amount": 50,
                     "checklists": [
                       {
@@ -8718,6 +8742,10 @@
                     "name": "Em andamento",
                     "step_forward": null,
                     "step_backward": null,
+                    "show_contact_form": true,
+                    "hide_contact_form_when_linked": false,
+                    "show_customer_form": true,
+                    "hide_customer_form_when_linked": false,
                     "sensation_amount": 0,
                     "checklists": [],
                     "attachments": [],
@@ -8729,6 +8757,10 @@
                     "name": "Concluído",
                     "step_forward": null,
                     "step_backward": null,
+                    "show_contact_form": false,
+                    "hide_contact_form_when_linked": false,
+                    "show_customer_form": false,
+                    "hide_customer_form_when_linked": false,
                     "sensation_amount": 0,
                     "checklists": [],
                     "attachments": [],
