@@ -6639,6 +6639,11 @@
                     "description": "ID do cliente",
                     "format": "uuid"
                   },
+                  "contact_id": {
+                    "type": "integer",
+                    "example": 123,
+                    "description": "ID do contato"
+                  },
                   "from_project_template_id": {
                     "type": "string",
                     "example": "019d2617-fa10-73da-91c3-4f096e703eb4",
@@ -6655,6 +6660,7 @@
                 "funnel_step_id": 207,
                 "prefix": "PREFIX",
                 "customer_id": "019c75de-7e5d-726a-8667-a13179dfad68",
+                "contact_id": 123,
                 "from_project_template_id": "019d2617-fa10-73da-91c3-4f096e703eb4"
               }
             }
@@ -20331,47 +20337,47 @@
           {
             "name": "start_date",
             "in": "query",
-            "required": false,
             "description": "Data inicial do período de busca das transições. Retorna apenas registros com entrada igual ou posterior à data informada",
-            "deprecated": false,
-            "schema": {},
+            "schema": {
+              "type": "string"
+            },
             "example": "2026-05-01"
           },
           {
             "name": "end_date",
             "in": "query",
-            "required": false,
             "description": "Data final do período de busca das transições. Retorna apenas registros com entrada igual ou anterior à data informada",
-            "deprecated": false,
-            "schema": {},
+            "schema": {
+              "type": "string"
+            },
             "example": "2026-05-15"
           },
           {
             "name": "funnel_step_id",
             "in": "query",
-            "required": false,
             "description": "ID da etapa do funil utilizado para filtrar as transições",
-            "deprecated": false,
-            "schema": {},
-            "example": "197"
+            "schema": {
+              "type": "integer"
+            },
+            "example": 197
           },
           {
             "name": "user_id",
             "in": "query",
-            "required": false,
             "description": "ID do usuário responsável pela movimentação do projeto entre etapas",
-            "deprecated": false,
-            "schema": {},
+            "schema": {
+              "type": "string"
+            },
             "example": "019c75de-509e-711a-8933-175cb2514cc5"
           },
           {
             "name": "page",
             "in": "query",
-            "required": false,
             "description": "Página atual em que os registros serão trazidos",
-            "deprecated": false,
-            "schema": {},
-            "example": "1"
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
           }
         ],
         "responses": {
@@ -20379,33 +20385,36 @@
             "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               }
             },
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
                   "description": "Resposta contendo o histórico de transições entre etapas do funil de um projeto.",
+                  "type": "object",
                   "properties": {
                     "funnel_step_transitions": {
                       "type": "array",
                       "description": "Lista de movimentações do projeto entre etapas do funil.",
                       "items": {
-                        "type": "object",
                         "description": "Representa uma transição de etapa do funil.",
+                        "type": "object",
                         "properties": {
                           "id": {
                             "type": "integer",
@@ -20413,14 +20422,13 @@
                           },
                           "entry_time": {
                             "type": "string",
-                            "format": "date-time",
-                            "description": "Data e hora em que o projeto entrou na etapa."
+                            "description": "Data e hora em que o projeto entrou na etapa.",
+                            "format": "date-time"
                           },
                           "exit_time": {
                             "type": "string",
-                            "format": "date-time",
                             "description": "Data e hora em que o projeto saiu da etapa. Será null caso ainda esteja ativo nesta etapa.",
-                            "nullable": true
+                            "format": "date-time"
                           },
                           "project_id": {
                             "type": "string",
@@ -20432,8 +20440,7 @@
                           },
                           "exit_parent_id": {
                             "type": "integer",
-                            "description": "ID da próxima transição relacionada.",
-                            "nullable": true
+                            "description": "ID da próxima transição relacionada."
                           },
                           "entry_user_id": {
                             "type": "string",
@@ -20441,13 +20448,11 @@
                           },
                           "exit_user_id": {
                             "type": "string",
-                            "description": "ID do usuário responsável pela saída da etapa.",
-                            "nullable": true
+                            "description": "ID do usuário responsável pela saída da etapa."
                           },
                           "duration_seconds": {
                             "type": "integer",
-                            "description": "Tempo total de permanência na etapa em segundos.",
-                            "nullable": true
+                            "description": "Tempo total de permanência na etapa em segundos."
                           },
                           "funnel_step": {
                             "type": "object",
@@ -20473,14 +20478,13 @@
                               },
                               "entry_time": {
                                 "type": "string",
-                                "format": "date-time",
-                                "description": "Data e hora de entrada na etapa."
+                                "description": "Data e hora de entrada na etapa.",
+                                "format": "date-time"
                               },
                               "exit_time": {
                                 "type": "string",
-                                "format": "date-time",
                                 "description": "Data e hora de saída da etapa.",
-                                "nullable": true
+                                "format": "date-time"
                               },
                               "project_id": {
                                 "type": "string",
@@ -20492,8 +20496,7 @@
                               },
                               "exit_parent_id": {
                                 "type": "integer",
-                                "description": "ID da próxima transição vinculada.",
-                                "nullable": true
+                                "description": "ID da próxima transição vinculada."
                               },
                               "entry_user_id": {
                                 "type": "string",
@@ -20501,13 +20504,11 @@
                               },
                               "exit_user_id": {
                                 "type": "string",
-                                "description": "ID do usuário responsável pela saída.",
-                                "nullable": true
+                                "description": "ID do usuário responsável pela saída."
                               },
                               "duration_seconds": {
                                 "type": "integer",
-                                "description": "Tempo de permanência na etapa em segundos.",
-                                "nullable": true
+                                "description": "Tempo de permanência na etapa em segundos."
                               },
                               "funnel_step": {
                                 "type": "object",
@@ -20523,8 +20524,7 @@
                                   }
                                 }
                               }
-                            },
-                            "nullable": true
+                            }
                           },
                           "entry_user": {
                             "type": "object",
@@ -20540,8 +20540,8 @@
                               },
                               "avatar_url": {
                                 "type": "string",
-                                "format": "uri",
-                                "description": "URL da imagem de avatar do usuário."
+                                "description": "URL da imagem de avatar do usuário.",
+                                "format": "uri"
                               }
                             }
                           },
@@ -20559,11 +20559,10 @@
                               },
                               "avatar_url": {
                                 "type": "string",
-                                "format": "uri",
-                                "description": "URL da imagem de avatar do usuário."
+                                "description": "URL da imagem de avatar do usuário.",
+                                "format": "uri"
                               }
-                            },
-                            "nullable": true
+                            }
                           }
                         }
                       }
@@ -20812,18 +20811,21 @@
             "description": "Campos inválidos",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               }
             },
@@ -20878,9 +20880,10 @@
           "name": "project_funnel_id",
           "in": "path",
           "required": true,
-          "deprecated": false,
-          "schema": {},
-          "example": "40"
+          "schema": {
+            "type": "integer"
+          },
+          "example": 40
         }
       ]
     }
