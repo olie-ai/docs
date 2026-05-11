@@ -19657,6 +19657,9 @@
                           "frame_id": {
                             "type": "string"
                           },
+                          "is_expired": {
+                            "type": "boolean"
+                          },
                           "role_ids": {
                             "type": "array",
                             "items": {
@@ -19707,6 +19710,7 @@
                       "token": "585A52F30336EE64616075FC4984D7A0",
                       "email": "user@example.com",
                       "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                      "is_expired": false,
                       "user_id": null,
                       "role_ids": [
                         6,
