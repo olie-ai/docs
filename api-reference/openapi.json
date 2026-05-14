@@ -1037,14 +1037,135 @@
           "{id}",
           "loose-checklist"
         ],
-        "summary": "Listar todos os checklists avulsos associados a um projeto",
-        "description": "Retorna todos os checklists avulsos associados a um projeto específico ordenados. Inclui informações sobre quem marcou como concluído e o autor de cada item.",
+        "summary": "Listar checklists avulsos do projeto",
+        "description": "Retorna a lista ordenada (por `order` ASC) de **checklists avulsos** vinculados a um projeto. Cada item já vem com os relacionamentos `author` (responsável atribuído ao item) e `checked_by` (quem marcou como concluído) carregados.\n\n### Endpoint\n\n`GET /api/management/projects/{project}/loose-checklist`\n\n### Path params\n\n| Param | Tipo | Descrição |\n| --- | --- | --- |\n| `project` | uuid | ID do projeto que possui os checklists. |\n\n### Headers\n\n- `Authorization: Bearer` (Sanctum Personal Access Token)\n    \n- `Accept: application/json`\n    \n\n### Resposta 200\n\n``` json\n{\n  \"response\": true,\n  \"loose_checklists\": [\n    {\n      \"id\": \"01HW8X9C3F2N7T4V…\",\n      \"name\": \"Aprovar layout final\",\n      \"completed_at\": null,\n      \"author_id\": \"01HW8X9C3F2N7T4V…\",\n      \"checked_by_id\": null,\n      \"project_id\": \"01HW8X9C3F2N7T4V…\",\n      \"order\": 0,\n      \"created_at\": \"2026-05-14T12:00:00.000000Z\",\n      \"updated_at\": \"2026-05-14T12:00:00.000000Z\",\n      \"author\": { \"id\": \"01HW…\", \"name\": \"Maria Souza\", \"email\": \"maria@empresa.com\" },\n      \"checked_by\": null\n    }\n  ]\n}\n\n ```\n\n### Notas\n\n- A lista é sempre ordenada por `order` crescente — a posição do item é controlada por POST/PUT/DELETE e o cliente não deve reordenar manualmente.\n    \n- `author_id` representa o **responsável** atribuído ao item (assignee), não quem criou. Quando `null`, o item está sem responsável.\n    \n- `checked_by_id` só fica preenchido quando o item está concluído (`completed_at` ≠ null).\n    \n- O campo interno `frame_id` nunca é retornado no JSON.",
         "operationId": "listarTodosOsChecklistsAvulsosAssociadosAUmProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "loose_checklists": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "completed_at": {
+                            "nullable": true
+                          },
+                          "author_id": {
+                            "type": "string"
+                          },
+                          "checked_by_id": {
+                            "nullable": true
+                          },
+                          "project_id": {
+                            "type": "string"
+                          },
+                          "order": {
+                            "type": "integer"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "author": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "email": {
+                                "type": "string",
+                                "format": "email"
+                              }
+                            }
+                          },
+                          "checked_by": {
+                            "nullable": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "loose_checklists": [
+                    {
+                      "id": "01HW8X9C3F2N7T4V0AB0CD1E2F",
+                      "name": "Aprovar layout final",
+                      "completed_at": null,
+                      "author_id": "01HW8XA1B2C3D4E5F6G7H8I9J0",
+                      "checked_by_id": null,
+                      "project_id": "01HW8XAA00BB00CC00DD00EE00",
+                      "order": 0,
+                      "created_at": "2026-05-14T12:00:00.000000Z",
+                      "updated_at": "2026-05-14T12:00:00.000000Z",
+                      "author": {
+                        "id": "01HW8XA1B2C3D4E5F6G7H8I9J0",
+                        "name": "Maria Souza",
+                        "email": "maria@empresa.com"
+                      },
+                      "checked_by": null
+                    },
+                    {
+                      "id": "01HW8X9C3F2N7T4V0AB0CD1E2G",
+                      "name": "Enviar contrato assinado",
+                      "completed_at": "2026-05-14T17:42:11.000000Z",
+                      "author_id": "01HW8XK1K2K3K4K5K6K7K8K9K0",
+                      "checked_by_id": "01HW8XK1K2K3K4K5K6K7K8K9K0",
+                      "project_id": "01HW8XAA00BB00CC00DD00EE00",
+                      "order": 1,
+                      "created_at": "2026-05-14T12:05:00.000000Z",
+                      "updated_at": "2026-05-14T17:42:11.000000Z",
+                      "author": {
+                        "id": "01HW8XK1K2K3K4K5K6K7K8K9K0",
+                        "name": "João Lima",
+                        "email": "joao@empresa.com"
+                      },
+                      "checked_by": {
+                        "id": "01HW8XK1K2K3K4K5K6K7K8K9K0",
+                        "name": "João Lima",
+                        "email": "joao@empresa.com"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Sanctum Personal Access Token do tenant",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {{token}}"
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -1052,8 +1173,8 @@
           "{id}",
           "loose-checklist"
         ],
-        "summary": "Criar um novo item de checklist avulso para um projeto",
-        "description": "Cria um novo item de checklist avulso para um projeto. O item é adicionado ao final da lista (ordem baseada na contagem existente).",
+        "summary": "Criar checklist avulso no projeto",
+        "description": "Cria um novo **checklist avulso** dentro de um projeto. O item é inserido no final da lista — o backend calcula a `order` com base na contagem atual de itens do projeto. Os campos internos `frame_id`, `project_id` e `order` são preenchidos automaticamente pelo servidor e **não devem ser enviados no body**.\n\n### Endpoint\n\n`POST /api/management/projects/{project}/loose-checklist`\n\n### Path params\n\n| Param | Tipo | Descrição |\n| --- | --- | --- |\n| `project` | uuid | ID do projeto onde o checklist será criado. |\n\n### Headers\n\n- `Authorization: Bearer`\n    \n- `Accept: application/json`\n    \n- `Content-Type: application/json`\n    \n\n### Body (`application/json`)\n\n| Campo | Tipo | Regras |\n| --- | --- | --- |\n| `name` | string | **Obrigatório**. `max:255`. Não aceita HTML (validado pela regra `NotHtml`). |\n\n``` json\n{\n  \"name\": \"Aprovar layout final\"\n}\n\n ```\n\n### Resposta 200\n\n``` json\n{ \"response\": true }\n\n ```\n\n### Efeitos colaterais\n\n- Registra activity log no projeto com evento `project.checklist.create` e o payload salvo em `properties.value`.",
         "operationId": "criarUmNovoItemDeChecklistAvulsoParaUmProjeto",
         "responses": {
           "200": {
@@ -1146,6 +1267,33 @@
               }
             }
           }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {{token}}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "Aprovar layout final"
+              }
+            }
+          }
         }
       },
       "parameters": [
@@ -1167,12 +1315,67 @@
           "{id}",
           "loose-checklist"
         ],
-        "summary": "Atualizar um item de checklist avulso",
-        "description": "Atualiza um item de checklist avulso existente. Permite atualizar informações como data de conclusão, autor e quem marcou como concluído. A ordem pode ser ajustada automaticamente.",
+        "summary": "Atualizar checklist avulso",
+        "description": "Atualiza um item de checklist avulso. Todos os campos do body são opcionais — envie apenas os que devem mudar (PATCH-like). É o endpoint usado para renomear o item, marcá-lo como concluído/pendente, atribuir um responsável (assignee) ou registrar quem o checou.\n\n### Endpoint\n`PUT /api/management/projects/{project}/loose-checklist/{loose_checklist}`\n\n### Path params\n| Param | Tipo | Descrição |\n|---|---|---|\n| `project` | uuid | ID do projeto. |\n| `loose_checklist` | uuid | ID do item de checklist. |\n\n### Headers\n- `Authorization: Bearer <token>`\n- `Accept: application/json`\n- `Content-Type: application/json`\n\n### Body (`application/json`) — todos opcionais\n| Campo | Tipo | Regras | Função |\n|---|---|---|---|\n| `name` | string | `max:255`, sem HTML | Renomear o item. |\n| `completed_at` | timestamp ISO 8601 ou `null` | nullable | Marcar (`<data>`) ou desmarcar (`null`) como concluído. |\n| `author_id` | uuid ou `null` | nullable | **Responsável atribuído** ao item (assignee). Passar `null` remove o responsável. |\n| `checked_by_id` | uuid ou `null` | nullable | Usuário que clicou em \"concluir\". Costuma vir junto com `completed_at`. |\n\n```json\n{\n  \"name\": \"Aprovar layout final – versão 2\",\n  \"completed_at\": \"2026-05-14T18:00:00Z\",\n  \"author_id\": \"01HW8X9C3F2N7T4V…\",\n  \"checked_by_id\": \"01HW8X9C3F2N7T4V…\"\n}\n```\n\n### Resposta 200\n```json\n{ \"response\": true }\n```\n\n### Efeitos colaterais\n- Se `completed_at` mudou: dispara activity log `project.checklist.check` (quando preenchido) ou `project.checklist.uncheck` (quando vira `null`).\n- Se `author_id` mudou:\n  - Cria uma `Media` de descrição no projeto com a menção do novo responsável (formato `@usuário atribuído como responsável da checklist <nome>`).\n  - Notifica o novo responsável via `ProjectLooseChecklistAssignmentNotification` (canal padrão de notificações).\n  - Registra activity log `project.checklist.author_change`.\n- A `order` pode ser recalculada automaticamente para manter a sequência consistente.\n\n### Observações\n- Apenas os campos listados acima são aceitos; demais campos do payload são descartados pelo backend.\n- `author_id` e `checked_by_id` aceitam apenas usuários do mesmo tenant — IDs de outras empresas não devem ser enviados.\n",
         "operationId": "atualizarUmItemDeChecklistAvulso",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {{token}}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "completed_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "author_id": {
+                    "type": "string"
+                  },
+                  "checked_by_id": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "Aprovar layout final – versão 2",
+                "completed_at": "2026-05-14T18:00:00Z",
+                "author_id": "01HW8X9C3F2N7T4V0000000000",
+                "checked_by_id": "01HW8X9C3F2N7T4V0000000000"
+              }
+            }
           }
         }
       },
@@ -1182,14 +1385,39 @@
           "{id}",
           "loose-checklist"
         ],
-        "summary": "Remover um item de checklist avulso de um projeto",
-        "description": "Remove um item de checklist avulso de um projeto. A ordem dos itens restantes é ajustada automaticamente.",
+        "summary": "Remover checklist avulso do projeto",
+        "description": "Remove um item de checklist avulso do projeto. Os itens posteriores na lista têm seu `order` decrementado automaticamente para manter a sequência contínua (sem \"buracos\").\n\n### Endpoint\n`DELETE /api/management/projects/{project}/loose-checklist/{loose_checklist}`\n\n### Path params\n| Param | Tipo | Descrição |\n|---|---|---|\n| `project` | uuid | ID do projeto. |\n| `loose_checklist` | uuid | ID do item a ser removido. |\n\n### Headers\n- `Authorization: Bearer <token>`\n- `Accept: application/json`\n\n### Body\nNenhum.\n\n### Resposta 200\n```json\n{ \"response\": true }\n```\n\n### Efeitos colaterais\n- Itens com `order` maior que o do item removido são decrementados em 1.\n- Registra activity log `project.checklist.deleted` no projeto com o snapshot do item em `properties.value`.\n- A exclusão é permanente (não há soft delete para checklists avulsos).\n",
         "operationId": "removerUmItemDeChecklistAvulsoDeUmProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {{token}}"
+          }
+        ]
       },
       "parameters": [
         {
