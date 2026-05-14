@@ -1057,7 +1057,94 @@
         "operationId": "criarUmNovoItemDeChecklistAvulsoParaUmProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Cache-Control": {
+                "deprecated": false,
+                "schema": {},
+                "example": "no-cache, private"
+              },
+              "Content-Encoding": {
+                "deprecated": false,
+                "schema": {},
+                "example": "gzip"
+              },
+              "Date": {
+                "deprecated": false,
+                "schema": {},
+                "example": "Thu, 14 May 2026 18:04:18 GMT"
+              },
+              "Referrer-Policy": {
+                "deprecated": false,
+                "schema": {},
+                "example": "strict-origin-when-cross-origin"
+              },
+              "Server": {
+                "deprecated": false,
+                "schema": {},
+                "example": "nginx"
+              },
+              "Strict-Transport-Security": {
+                "deprecated": false,
+                "schema": {},
+                "example": "max-age=31536000; includeSubDomains"
+              },
+              "Vary": {
+                "deprecated": false,
+                "schema": {},
+                "example": "Accept-Encoding"
+              },
+              "X-Content-Type-Options": {
+                "deprecated": false,
+                "schema": {},
+                "example": "nosniff"
+              },
+              "X-Frame-Options": {
+                "deprecated": false,
+                "schema": {},
+                "example": "SAMEORIGIN"
+              },
+              "X-Ratelimit-Limit": {
+                "deprecated": false,
+                "schema": {},
+                "example": "160"
+              },
+              "X-Ratelimit-Remaining": {
+                "deprecated": false,
+                "schema": {},
+                "example": "158"
+              },
+              "Transfer-Encoding": {
+                "deprecated": false,
+                "schema": {},
+                "example": "chunked"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
           }
         }
       },
