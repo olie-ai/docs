@@ -1222,7 +1222,7 @@
           "loose-checklist"
         ],
         "summary": "Criar checklist avulso no projeto",
-        "description": "Cria um novo item de checklist avulso no projeto. O item entra no fim da lista.",
+        "description": "Cria um novo item de checklist avulso no projeto. O item entra no fim da lista — a posição é atribuída automaticamente pelo servidor.",
         "operationId": "criarUmNovoItemDeChecklistAvulsoParaUmProjeto",
         "responses": {
           "200": {
@@ -1334,11 +1334,19 @@
                 "properties": {
                   "name": {
                     "type": "string"
+                  },
+                  "author_id": {
+                    "nullable": true
+                  },
+                  "checked_by_id": {
+                    "nullable": true
                   }
                 }
               },
               "example": {
-                "name": "Aprovar layout final"
+                "name": "",
+                "author_id": null,
+                "checked_by_id": null
               }
             }
           }
