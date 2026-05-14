@@ -1475,7 +1475,7 @@
           "schema": {
             "type": "string"
           },
-          "example": ""
+          "example": "{{project_id}}"
         },
         {
           "name": "loose_checklist",
