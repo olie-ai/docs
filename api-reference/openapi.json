@@ -1043,6 +1043,78 @@
         "responses": {
           "200": {
             "description": "Sucesso",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Access-Control-Expose-Headers": {
+                "deprecated": false,
+                "schema": {},
+                "example": "*"
+              },
+              "Cache-Control": {
+                "deprecated": false,
+                "schema": {},
+                "example": "no-cache, private"
+              },
+              "Content-Encoding": {
+                "deprecated": false,
+                "schema": {},
+                "example": "gzip"
+              },
+              "Date": {
+                "deprecated": false,
+                "schema": {},
+                "example": "Thu, 14 May 2026 19:40:20 GMT"
+              },
+              "Referrer-Policy": {
+                "deprecated": false,
+                "schema": {},
+                "example": "strict-origin-when-cross-origin"
+              },
+              "Server": {
+                "deprecated": false,
+                "schema": {},
+                "example": "nginx"
+              },
+              "Strict-Transport-Security": {
+                "deprecated": false,
+                "schema": {},
+                "example": "max-age=31536000; includeSubDomains"
+              },
+              "Vary": {
+                "deprecated": false,
+                "schema": {},
+                "example": "Accept-Encoding"
+              },
+              "X-Content-Type-Options": {
+                "deprecated": false,
+                "schema": {},
+                "example": "nosniff"
+              },
+              "X-Frame-Options": {
+                "deprecated": false,
+                "schema": {},
+                "example": "SAMEORIGIN"
+              },
+              "X-Ratelimit-Limit": {
+                "deprecated": false,
+                "schema": {},
+                "example": "160"
+              },
+              "X-Ratelimit-Remaining": {
+                "deprecated": false,
+                "schema": {},
+                "example": "158"
+              },
+              "Transfer-Encoding": {
+                "deprecated": false,
+                "schema": {},
+                "example": "chunked"
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1066,16 +1138,13 @@
                             "nullable": true
                           },
                           "author_id": {
-                            "type": "string"
+                            "nullable": true
                           },
                           "checked_by_id": {
                             "nullable": true
                           },
                           "project_id": {
                             "type": "string"
-                          },
-                          "order": {
-                            "type": "integer"
                           },
                           "created_at": {
                             "type": "string",
@@ -1085,22 +1154,13 @@
                             "type": "string",
                             "format": "date-time"
                           },
-                          "author": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "name": {
-                                "type": "string"
-                              },
-                              "email": {
-                                "type": "string",
-                                "format": "email"
-                              }
-                            }
+                          "order": {
+                            "type": "integer"
                           },
                           "checked_by": {
+                            "nullable": true
+                          },
+                          "author": {
                             "nullable": true
                           }
                         }
@@ -1112,42 +1172,30 @@
                   "response": true,
                   "loose_checklists": [
                     {
-                      "id": "01HW8X9C3F2N7T4V0AB0CD1E2F",
-                      "name": "Aprovar layout final",
+                      "id": "019e27ab-5064-71f9-aed4-78e0728a42d0",
+                      "name": "Fazer deploy",
                       "completed_at": null,
-                      "author_id": "01HW8XA1B2C3D4E5F6G7H8I9J0",
+                      "author_id": null,
                       "checked_by_id": null,
-                      "project_id": "01HW8XAA00BB00CC00DD00EE00",
+                      "project_id": "019e27a5-d444-713b-ac3c-50c01d4ebbab",
+                      "created_at": "2026-05-14T18:06:39.000000Z",
+                      "updated_at": "2026-05-14T19:04:43.000000Z",
                       "order": 0,
-                      "created_at": "2026-05-14T12:00:00.000000Z",
-                      "updated_at": "2026-05-14T12:00:00.000000Z",
-                      "author": {
-                        "id": "01HW8XA1B2C3D4E5F6G7H8I9J0",
-                        "name": "Maria Souza",
-                        "email": "maria@empresa.com"
-                      },
-                      "checked_by": null
+                      "checked_by": null,
+                      "author": null
                     },
                     {
-                      "id": "01HW8X9C3F2N7T4V0AB0CD1E2G",
-                      "name": "Enviar contrato assinado",
-                      "completed_at": "2026-05-14T17:42:11.000000Z",
-                      "author_id": "01HW8XK1K2K3K4K5K6K7K8K9K0",
-                      "checked_by_id": "01HW8XK1K2K3K4K5K6K7K8K9K0",
-                      "project_id": "01HW8XAA00BB00CC00DD00EE00",
+                      "id": "019e27a9-2b1b-7095-955a-3b0cc8bdabeb",
+                      "name": "Limpar o estoque",
+                      "completed_at": null,
+                      "author_id": null,
+                      "checked_by_id": null,
+                      "project_id": "019e27a5-d444-713b-ac3c-50c01d4ebbab",
+                      "created_at": "2026-05-14T18:04:18.000000Z",
+                      "updated_at": "2026-05-14T19:04:43.000000Z",
                       "order": 1,
-                      "created_at": "2026-05-14T12:05:00.000000Z",
-                      "updated_at": "2026-05-14T17:42:11.000000Z",
-                      "author": {
-                        "id": "01HW8XK1K2K3K4K5K6K7K8K9K0",
-                        "name": "João Lima",
-                        "email": "joao@empresa.com"
-                      },
-                      "checked_by": {
-                        "id": "01HW8XK1K2K3K4K5K6K7K8K9K0",
-                        "name": "João Lima",
-                        "email": "joao@empresa.com"
-                      }
+                      "checked_by": null,
+                      "author": null
                     }
                   ]
                 }
@@ -1304,7 +1352,7 @@
           "schema": {
             "type": "string"
           },
-          "example": ""
+          "example": "{{project_id}}"
         }
       ]
     },
