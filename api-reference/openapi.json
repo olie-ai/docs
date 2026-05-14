@@ -2181,7 +2181,7 @@
           "projects",
           "{id}"
         ],
-        "description": "Retorna os detalhes completos de um projeto pelo seu ID. O retorno inclui dados do próprio projeto, cliente e contato associados, funis em que o projeto está cadastrado (com todas as etapas, etiquetas, status e anexos), etapas atuais ocupadas, tarefas com responsável e cronômetro, checklists avulsos, formulários respondidos (estáticos e por etapa), grupos, membros do projeto, hierarquia (pai e filhos), forum, custos consolidados, executores envolvidos e dados do frame.",
+        "description": "Retorna os detalhes completos de um projeto pelo seu ID. O retorno inclui dados do próprio projeto, cliente e contato associados, funis em que o projeto está cadastrado (com todas as etapas, etiquetas, status e anexos), etapas atuais ocupadas, checklists avulsos, formulários respondidos do objeto projeto, grupos de projeto, usuários do projeto (criador e atribuídos), hierarquia (pai e filhos), executores envolvidos, etc.",
         "parameters": [
           {
             "name": "is_template",
