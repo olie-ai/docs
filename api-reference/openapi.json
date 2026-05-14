@@ -1316,7 +1316,7 @@
           "loose-checklist"
         ],
         "summary": "Atualizar checklist avulso",
-        "description": "Atualiza um item de checklist avulso. Todos os campos do body são opcionais — habilite somente os campos que devem mudar.\n\nAtribuir um novo responsável (`author_id`) notifica o usuário escolhido.",
+        "description": "Atualiza um item de checklist avulso. Todos os campos do body são opcionais — habilite somente os campos que devem mudar.\n\nAtribuir um novo responsável (`author_id`) notifica o usuário escolhido. Alterar `order` reposiciona o item na lista e os demais são deslocados automaticamente.",
         "operationId": "atualizarUmItemDeChecklistAvulso",
         "responses": {
           "200": {
