@@ -1045,73 +1045,87 @@
             "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Content-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "gzip"
               },
               "Date": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Thu, 14 May 2026 19:40:20 GMT"
               },
               "Referrer-Policy": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "strict-origin-when-cross-origin"
               },
               "Server": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nginx"
               },
               "Strict-Transport-Security": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "max-age=31536000; includeSubDomains"
               },
               "Vary": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Accept-Encoding"
               },
               "X-Content-Type-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nosniff"
               },
               "X-Frame-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "SAMEORIGIN"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
-                "example": "160"
+                "schema": {
+                  "type": "integer"
+                },
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
-                "example": "158"
+                "schema": {
+                  "type": "integer"
+                },
+                "example": 158
               },
               "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
               }
             },
@@ -1134,15 +1148,6 @@
                           "name": {
                             "type": "string"
                           },
-                          "completed_at": {
-                            "nullable": true
-                          },
-                          "author_id": {
-                            "nullable": true
-                          },
-                          "checked_by_id": {
-                            "nullable": true
-                          },
                           "project_id": {
                             "type": "string"
                           },
@@ -1156,12 +1161,6 @@
                           },
                           "order": {
                             "type": "integer"
-                          },
-                          "checked_by": {
-                            "nullable": true
-                          },
-                          "author": {
-                            "nullable": true
                           }
                         }
                       }
@@ -1229,73 +1228,87 @@
             "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Access-Control-Expose-Headers": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "*"
               },
               "Cache-Control": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "no-cache, private"
               },
               "Content-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "gzip"
               },
               "Date": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Thu, 14 May 2026 18:04:18 GMT"
               },
               "Referrer-Policy": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "strict-origin-when-cross-origin"
               },
               "Server": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nginx"
               },
               "Strict-Transport-Security": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "max-age=31536000; includeSubDomains"
               },
               "Vary": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "Accept-Encoding"
               },
               "X-Content-Type-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "nosniff"
               },
               "X-Frame-Options": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "SAMEORIGIN"
               },
               "X-Ratelimit-Limit": {
-                "deprecated": false,
-                "schema": {},
-                "example": "160"
+                "schema": {
+                  "type": "integer"
+                },
+                "example": 160
               },
               "X-Ratelimit-Remaining": {
-                "deprecated": false,
-                "schema": {},
-                "example": "158"
+                "schema": {
+                  "type": "integer"
+                },
+                "example": 158
               },
               "Transfer-Encoding": {
-                "deprecated": false,
-                "schema": {},
+                "schema": {
+                  "type": "string"
+                },
                 "example": "chunked"
               }
             },
@@ -1331,10 +1344,6 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "name"
-                ],
-                "additionalProperties": false,
                 "properties": {
                   "name": {
                     "type": "string",
@@ -1343,17 +1352,18 @@
                   },
                   "author_id": {
                     "type": "string",
-                    "format": "uuid",
-                    "nullable": true,
-                    "description": "UUID do responsável atribuído ao item (assignee). Aceita apenas usuários do mesmo tenant."
+                    "description": "UUID do responsável atribuído ao item (assignee). Aceita apenas usuários do mesmo tenant.",
+                    "format": "uuid"
                   },
                   "checked_by_id": {
                     "type": "string",
-                    "format": "uuid",
-                    "nullable": true,
-                    "description": "UUID do usuário que marcou como concluído. Aceita apenas usuários do mesmo tenant."
+                    "description": "UUID do usuário que marcou como concluído. Aceita apenas usuários do mesmo tenant.",
+                    "format": "uuid"
                   }
-                }
+                },
+                "required": [
+                  "name"
+                ]
               },
               "example": {
                 "name": "",
@@ -1421,7 +1431,6 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "name": {
                     "type": "string",
@@ -1430,21 +1439,18 @@
                   },
                   "completed_at": {
                     "type": "string",
-                    "format": "date-time",
-                    "nullable": true,
-                    "description": "Timestamp ISO 8601 para marcar como concluído. null desmarca."
+                    "description": "Timestamp ISO 8601 para marcar como concluído. null desmarca.",
+                    "format": "date-time"
                   },
                   "author_id": {
                     "type": "string",
-                    "format": "uuid",
-                    "nullable": true,
-                    "description": "UUID do responsável atribuído ao item (assignee). Aceita apenas usuários do mesmo tenant. null remove o responsável."
+                    "description": "UUID do responsável atribuído ao item (assignee). Aceita apenas usuários do mesmo tenant. null remove o responsável.",
+                    "format": "uuid"
                   },
                   "checked_by_id": {
                     "type": "string",
-                    "format": "uuid",
-                    "nullable": true,
-                    "description": "UUID do usuário que marcou como concluído. Aceita apenas usuários do mesmo tenant. Geralmente enviado junto com completed_at."
+                    "description": "UUID do usuário que marcou como concluído. Aceita apenas usuários do mesmo tenant. Geralmente enviado junto com completed_at.",
+                    "format": "uuid"
                   },
                   "order": {
                     "type": "integer",
@@ -1884,7 +1890,18 @@
           "projects",
           "{id}"
         ],
-        "description": "Retorna os detalhes de um projeto específico pelo ID."
+        "description": "Retorna os detalhes completos de um projeto pelo seu ID. O retorno inclui dados do próprio projeto, cliente e contato associados, funis em que o projeto está cadastrado (com todas as etapas, etiquetas, status e anexos), etapas atuais ocupadas, tarefas com responsável e cronômetro, checklists avulsos, formulários respondidos (estáticos e por etapa), grupos, membros do projeto, hierarquia (pai e filhos), forum, custos consolidados, executores envolvidos e dados do frame.",
+        "parameters": [
+          {
+            "name": "is_template",
+            "in": "query",
+            "description": "Quando `true`, busca o registro entre projetos do tipo template. Padrão: `false`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       },
       "parameters": [
         {
