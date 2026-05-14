@@ -1331,16 +1331,27 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false,
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "TESTE UEHEUHEHU"
+                    "maxLength": 255,
+                    "description": "Texto do checklist. Não aceita HTML."
                   },
                   "author_id": {
-                    "nullable": true
+                    "type": "string",
+                    "format": "uuid",
+                    "nullable": true,
+                    "description": "UUID do responsável atribuído ao item (assignee). Aceita apenas usuários do mesmo tenant."
                   },
                   "checked_by_id": {
-                    "nullable": true
+                    "type": "string",
+                    "format": "uuid",
+                    "nullable": true,
+                    "description": "UUID do usuário que marcou como concluído. Aceita apenas usuários do mesmo tenant."
                   }
                 }
               },
@@ -1420,20 +1431,20 @@
                   "completed_at": {
                     "type": "string",
                     "format": "date-time",
-                    "description": "Timestamp ISO 8601 para marcar como concluído. null desmarca.",
-                    "nullable": true
+                    "nullable": true,
+                    "description": "Timestamp ISO 8601 para marcar como concluído. null desmarca."
                   },
                   "author_id": {
                     "type": "string",
                     "format": "uuid",
-                    "description": "UUID do responsável atribuído ao item (assignee). Aceita apenas usuários do mesmo tenant. null remove o responsável.",
-                    "nullable": true
+                    "nullable": true,
+                    "description": "UUID do responsável atribuído ao item (assignee). Aceita apenas usuários do mesmo tenant. null remove o responsável."
                   },
                   "checked_by_id": {
                     "type": "string",
                     "format": "uuid",
-                    "description": "UUID do usuário que marcou como concluído. Aceita apenas usuários do mesmo tenant. Geralmente enviado junto com completed_at.",
-                    "nullable": true
+                    "nullable": true,
+                    "description": "UUID do usuário que marcou como concluído. Aceita apenas usuários do mesmo tenant. Geralmente enviado junto com completed_at."
                   },
                   "order": {
                     "type": "integer",
