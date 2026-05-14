@@ -1616,7 +1616,7 @@
         "summary": "Obter um projeto",
         "responses": {
           "200": {
-            "description": "Projeto retornado com sucesso",
+            "description": "Sucesso",
             "content": {
               "application/json": {
                 "schema": {
@@ -1792,43 +1792,304 @@
                   }
                 },
                 "example": {
-                  "response": "<boolean>",
+                  "response": true,
                   "project": {
-                    "id": "<uuid>",
-                    "old_id": "<string>",
-                    "code": "<string>",
-                    "name": "<string>",
-                    "description": "<string>",
-                    "impact": "<integer>",
-                    "parent_id": "<string>",
-                    "frame_id": "<string>",
-                    "created_at": "<dateTime>",
-                    "updated_at": "<dateTime>",
-                    "customer_id": "<string>",
-                    "contact_id": "<integer>",
-                    "share_token": "<string>",
-                    "share_settings": "<string>",
-                    "merged_id": "<string>",
-                    "status": "<integer>",
-                    "budget": "<float>",
-                    "is_template": "<boolean>",
-                    "created_by": "<string>",
-                    "deleted_at": "<dateTime>",
-                    "customer": {},
-                    "contact": {},
-                    "frame": {},
-                    "form": {},
-                    "step_form": {},
-                    "merged_project": {},
-                    "forum": {},
-                    "costs": {}
+                    "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                    "parent_id": null,
+                    "old_id": null,
+                    "code": "TS-4",
+                    "name": "Aprovar layout final",
+                    "description": "Aprovação do layout antes do envio à gráfica.",
+                    "impact": 8,
+                    "frame_id": "019def40-4c60-726c-b30f-1ecf669b009a",
+                    "created_at": "2026-05-09T22:28:57.000000Z",
+                    "updated_at": "2026-05-09T22:28:59.000000Z",
+                    "customer_id": null,
+                    "contact_id": null,
+                    "share_token": null,
+                    "share_settings": null,
+                    "merged_id": null,
+                    "status": 1,
+                    "budget": 1500,
+                    "is_template": false,
+                    "created_by": "019def40-491f-70cd-9d0a-91b43fa4f10e",
+                    "deleted_at": null,
+                    "children_count": 0,
+                    "form": null,
+                    "tasks": [
+                      {
+                        "id": "019e289a-a1b3-71a2-bd7d-001122334455",
+                        "name": "Revisar arte do anúncio",
+                        "status": 1,
+                        "start_datetime": "2026-05-15T09:00:00.000000Z",
+                        "end_datetime": "2026-05-15T18:00:00.000000Z",
+                        "finished_at": null,
+                        "duration": 480,
+                        "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                        "medias": [],
+                        "checklists": [],
+                        "cronometer": {
+                          "elapsed": {
+                            "seconds": 0,
+                            "formatted": "00:00:00"
+                          },
+                          "expected": {
+                            "seconds": 28800,
+                            "formatted": "08:00:00"
+                          }
+                        },
+                        "expiration": {
+                          "seconds": 32400,
+                          "formatted": "09:00:00"
+                        },
+                        "responsible": {
+                          "id": "019def40-491f-70cd-9d0a-91b43fa4f10e",
+                          "name": "Test User",
+                          "avatar_url": "https://api.dicebear.com/9.x/avataaars/svg?seed=olie-tester&size=80"
+                        }
+                      }
+                    ],
+                    "executors": [
+                      {
+                        "id": "019def40-491f-70cd-9d0a-91b43fa4f10e",
+                        "user": "Test User",
+                        "hourly_rate": 50,
+                        "elapsed": 0,
+                        "elapsed_amount": 0,
+                        "expected": 28800,
+                        "expected_amount": 400
+                      }
+                    ],
+                    "costs": {
+                      "elapsed_amount": "0,00",
+                      "expected_amount": "400,00",
+                      "diff_percentage": 0
+                    },
+                    "customer": null,
+                    "contact": null,
+                    "funnels": [
+                      {
+                        "id": 35,
+                        "name": "Aprovação de Criativos",
+                        "prefix": "TS",
+                        "order": 2,
+                        "condition": "active",
+                        "allow_multi_step": false,
+                        "show_cost_info": true,
+                        "business_area_id": null,
+                        "form_id": null,
+                        "frame_id": "019def40-4c60-726c-b30f-1ecf669b009a",
+                        "created_at": "2026-05-09T22:10:27.000000Z",
+                        "updated_at": "2026-05-09T22:10:27.000000Z",
+                        "deleted_at": null,
+                        "funnel_config_template_id": null,
+                        "allow_execution": true,
+                        "project_term": null,
+                        "pivot": {
+                          "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                          "project_funnel_id": 35,
+                          "id": 301,
+                          "statuses_at": null,
+                          "statuses_by": null,
+                          "funnel_status_id": null,
+                          "forecast_date": null,
+                          "realized_forecast_date": null,
+                          "created_at": "2026-05-09T22:28:57.000000Z",
+                          "forecast_date_update_count": 0
+                        },
+                        "steps": [
+                          {
+                            "id": 131,
+                            "name": "Briefing",
+                            "project_funnel_id": 35,
+                            "sensation_amount": 0,
+                            "step_forward_id": null,
+                            "step_backward_id": null,
+                            "order": 1,
+                            "help_text": null,
+                            "form_id": null,
+                            "sort_config": null,
+                            "allow_execution": true,
+                            "show_customer_form": false,
+                            "show_contact_form": false,
+                            "hide_customer_form_when_linked": false,
+                            "hide_contact_form_when_linked": false,
+                            "created_at": "2026-05-09T22:10:27.000000Z",
+                            "updated_at": "2026-05-09T22:10:27.000000Z",
+                            "deleted_at": null,
+                            "checklists": [],
+                            "attachments": [],
+                            "form": null
+                          },
+                          {
+                            "id": 133,
+                            "name": "Revisão",
+                            "project_funnel_id": 35,
+                            "sensation_amount": 0,
+                            "step_forward_id": null,
+                            "step_backward_id": null,
+                            "order": 2,
+                            "help_text": null,
+                            "form_id": null,
+                            "sort_config": null,
+                            "allow_execution": true,
+                            "show_customer_form": false,
+                            "show_contact_form": false,
+                            "hide_customer_form_when_linked": false,
+                            "hide_contact_form_when_linked": false,
+                            "created_at": "2026-05-09T22:10:27.000000Z",
+                            "updated_at": "2026-05-11T17:29:32.000000Z",
+                            "deleted_at": null,
+                            "checklists": [],
+                            "attachments": [],
+                            "form": null
+                          }
+                        ],
+                        "form": null,
+                        "tags": [
+                          {
+                            "id": 1,
+                            "name": "Urgente",
+                            "color": "#ff8d92",
+                            "project_funnel_id": 35,
+                            "deleted_at": null
+                          }
+                        ],
+                        "funnel_status": [
+                          {
+                            "id": 1,
+                            "name": "Concluído",
+                            "color": "#7fd87d",
+                            "project_funnel_id": 35,
+                            "is_conclusive": true,
+                            "created_at": "2026-05-09T22:10:27.000000Z",
+                            "updated_at": "2026-05-09T22:10:27.000000Z",
+                            "deleted_at": null
+                          },
+                          {
+                            "id": 2,
+                            "name": "Em andamento",
+                            "color": "#ffe66a",
+                            "project_funnel_id": 35,
+                            "is_conclusive": false,
+                            "created_at": "2026-05-09T22:10:27.000000Z",
+                            "updated_at": "2026-05-09T22:10:27.000000Z",
+                            "deleted_at": null
+                          }
+                        ],
+                        "attachments": []
+                      }
+                    ],
+                    "project_checklists": [
+                      {
+                        "id": "019e27a9-2b1b-7095-955a-3b0cc8bdabeb",
+                        "name": "Limpar o estoque",
+                        "completed_at": null,
+                        "author_id": "019def40-491f-70cd-9d0a-91b43fa4f10e",
+                        "checked_by_id": null,
+                        "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                        "created_at": "2026-05-14T18:04:18.000000Z",
+                        "updated_at": "2026-05-14T19:04:43.000000Z",
+                        "order": 0
+                      },
+                      {
+                        "id": "019e27ab-5064-71f9-aed4-78e0728a42d0",
+                        "name": "Fazer deploy",
+                        "completed_at": "2026-05-14T19:00:00.000000Z",
+                        "author_id": "019def40-491f-70cd-9d0a-91b43fa4f10e",
+                        "checked_by_id": "019def40-491f-70cd-9d0a-91b43fa4f10e",
+                        "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                        "created_at": "2026-05-14T18:06:39.000000Z",
+                        "updated_at": "2026-05-14T19:04:43.000000Z",
+                        "order": 1
+                      }
+                    ],
+                    "funnel_steps": [
+                      {
+                        "id": 131,
+                        "name": "Briefing",
+                        "project_funnel_id": 35,
+                        "sensation_amount": 0,
+                        "step_forward_id": null,
+                        "step_backward_id": null,
+                        "order": 1,
+                        "help_text": null,
+                        "form_id": null,
+                        "sort_config": null,
+                        "allow_execution": true,
+                        "show_customer_form": false,
+                        "show_contact_form": false,
+                        "hide_customer_form_when_linked": false,
+                        "hide_contact_form_when_linked": false,
+                        "created_at": "2026-05-09T22:10:27.000000Z",
+                        "updated_at": "2026-05-09T22:10:27.000000Z",
+                        "deleted_at": null,
+                        "pivot": {
+                          "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                          "funnel_step_id": 131,
+                          "id": 351,
+                          "order": 0,
+                          "created_at": "2026-05-09T22:28:59.000000Z"
+                        },
+                        "funnel_step_blockings": []
+                      }
+                    ],
+                    "step_form": [],
+                    "checklists": [],
+                    "tags": [
+                      {
+                        "id": 1,
+                        "name": "Urgente",
+                        "color": "#ff8d92",
+                        "project_funnel_id": 35,
+                        "deleted_at": null,
+                        "pivot": {
+                          "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                          "funnel_tag_id": 1,
+                          "id": 1
+                        }
+                      }
+                    ],
+                    "merged_project": null,
+                    "loose_forms": [],
+                    "forum": null,
+                    "groups": [],
+                    "users": [
+                      {
+                        "id": "019def40-491f-70cd-9d0a-91b43fa4f10e",
+                        "name": "Test User",
+                        "avatar_url": "https://api.dicebear.com/9.x/avataaars/svg?seed=olie-tester&size=80",
+                        "pivot": {
+                          "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                          "user_id": "019def40-491f-70cd-9d0a-91b43fa4f10e",
+                          "role": "creator",
+                          "created_at": "2026-05-09T22:28:57.000000Z",
+                          "updated_at": "2026-05-09T22:28:57.000000Z"
+                        }
+                      }
+                    ],
+                    "children": [],
+                    "parent": null,
+                    "frame": {
+                      "id": "019def40-4c60-726c-b30f-1ecf669b009a",
+                      "old_id": null,
+                      "name": "OlieDev Company",
+                      "type": "2",
+                      "read_only_until": null,
+                      "status": 1,
+                      "subdomain": "devframe",
+                      "frame_billing_data_id": "019df979-ee1d-71a9-8d84-08ad22537c8f",
+                      "model_forms": null,
+                      "logo_img": null,
+                      "cockpit_access": 0
+                    }
                   }
                 }
               }
             }
           },
           "401": {
-            "description": "Não autorizado",
+            "description": "Não autenticado",
             "content": {
               "application/json": {
                 "schema": {
@@ -1849,15 +2110,45 @@
                   }
                 },
                 "example": {
-                  "response": "<boolean>",
-                  "message": "<string>",
-                  "error": "<string>"
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "permission": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "permission_required",
+                  "error": "User does not have the right permissions.",
+                  "permission": "projects.view.019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf"
                 }
               }
             }
           },
           "404": {
-            "description": "Model não encontrada",
+            "description": "Projeto não encontrado",
             "content": {
               "application/json": {
                 "schema": {
@@ -1878,9 +2169,9 @@
                   }
                 },
                 "example": {
-                  "response": "<boolean>",
-                  "message": "<string>",
-                  "error": "<string>"
+                  "response": false,
+                  "message": "project_model_not_found",
+                  "error": "No query results for model [App\\Models\\Project] 00000000-0000-0000-0000-000000000000"
                 }
               }
             }
