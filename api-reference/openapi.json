@@ -1364,7 +1364,7 @@
           "loose-checklist"
         ],
         "summary": "Atualizar checklist avulso",
-        "description": "Atualiza um item de checklist avulso. Todos os campos do body são opcionais — habilite somente os campos que devem mudar.\n\nAtribuir um novo responsável (`author_id`) notifica o usuário escolhido. Alterar `order` reposiciona o item na lista e os demais são deslocados automaticamente.",
+        "description": "Atualiza um item de checklist avulso. Todos os campos do body são opcionais — envie apenas o que deve mudar.\n\nAtribuir um novo responsável (`author_id`) notifica o usuário escolhido. Alterar `order` reposiciona o item na lista; os itens vizinhos são deslocados automaticamente.\n\n## Body Schema\n\n```json\n{\n    \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n    \"type\": \"object\",\n    \"additionalProperties\": false,\n    \"properties\": {\n        \"name\": {\n            \"type\": \"string\",\n            \"maxLength\": 255,\n            \"description\": \"Renomeia o item. Não aceita HTML.\"\n        },\n        \"completed_at\": {\n            \"type\": [\"string\", \"null\"],\n            \"format\": \"date-time\",\n            \"description\": \"Timestamp ISO 8601 para marcar como concluído. null desmarca.\"\n        },\n        \"author_id\": {\n            \"type\": [\"string\", \"null\"],\n            \"format\": \"uuid\",\n            \"description\": \"UUID do responsável atribuído ao item (assignee). Aceita apenas usuários do mesmo tenant. null remove o responsável.\"\n        },\n        \"checked_by_id\": {\n            \"type\": [\"string\", \"null\"],\n            \"format\": \"uuid\",\n            \"description\": \"UUID do usuário que marcou como concluído. Aceita apenas usuários do mesmo tenant. Geralmente enviado junto com completed_at.\"\n        },\n        \"order\": {\n            \"type\": \"integer\",\n            \"minimum\": 0,\n            \"description\": \"Nova posição do item na lista (zero-based). Os demais itens são deslocados automaticamente.\"\n        }\n    }\n}\n```\n",
         "operationId": "atualizarUmItemDeChecklistAvulso",
         "responses": {
           "200": {
@@ -1401,27 +1401,44 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "additionalProperties": false,
                 "properties": {
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Renomeia o item. Não aceita HTML."
                   },
                   "completed_at": {
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date-time",
+                    "description": "Timestamp ISO 8601 para marcar como concluído. null desmarca.",
+                    "nullable": true
                   },
                   "author_id": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID do responsável atribuído ao item (assignee). Aceita apenas usuários do mesmo tenant. null remove o responsável.",
+                    "nullable": true
                   },
                   "checked_by_id": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID do usuário que marcou como concluído. Aceita apenas usuários do mesmo tenant. Geralmente enviado junto com completed_at.",
+                    "nullable": true
+                  },
+                  "order": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Nova posição do item na lista (zero-based). Os demais itens são deslocados automaticamente."
                   }
                 }
               },
               "example": {
-                "name": "Aprovar layout final – versão 2",
-                "completed_at": "2026-05-14T18:00:00Z",
-                "author_id": "01HW8X9C3F2N7T4V0000000000",
-                "checked_by_id": "01HW8X9C3F2N7T4V0000000000"
+                "name": "",
+                "completed_at": null,
+                "author_id": null,
+                "checked_by_id": null,
+                "order": 0
               }
             }
           }
