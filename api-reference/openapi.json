@@ -1333,7 +1333,8 @@
                 "type": "object",
                 "properties": {
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "TESTE UEHEUHEHU"
                   },
                   "author_id": {
                     "nullable": true
