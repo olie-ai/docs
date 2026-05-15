@@ -1646,8 +1646,6 @@
                         "created_at",
                         "updated_at",
                         "children_count",
-                        "costs",
-                        "tasks",
                         "executors",
                         "funnels",
                         "project_checklists",
