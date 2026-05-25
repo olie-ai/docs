@@ -59,7 +59,8 @@
                   "guides/billing/subscription-and-licenses",
                   "guides/billing/payment-methods",
                   "guides/billing/trial-and-subscription-flow",
-                  "guides/billing/read-only-mode"
+                  "guides/billing/read-only-mode",
+                  "guides/billing/ai-credits"
                 ]
               },
               {
@@ -85,12 +86,6 @@
                   "guides/automation/mention-users",
                   "guides/automation/relative-time",
                   "guides/automation/automated-hierarchy"
-                ]
-              },
-              {
-                "group": "Inteligência Artificial",
-                "pages": [
-                  "guides/ai/pricing"
                 ]
               },
               {
@@ -168,6 +163,12 @@
       }
     ]
   },
+  "redirects": [
+    {
+      "source": "/guides/ai/pricing",
+      "destination": "/guides/billing/ai-credits"
+    }
+  ],
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
