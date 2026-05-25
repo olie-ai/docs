@@ -108,28 +108,28 @@ O sistema verifica automaticamente estas regras e impede operações que as viol
 <Tab title="Filhos diretos">
   Visualize todos os projetos que dependem diretamente de um projeto específico.
   
-  ```
-  Shopping Center
-  ├── Fundação
-  ├── Estrutura
-  └── Acabamento
+  ```mermaid
+  flowchart TD
+      A[Shopping Center] --> B[Fundação]
+      A --> C[Estrutura]
+      A --> D[Acabamento]
   ```
 </Tab>
 
 <Tab title="Árvore completa">
   Visualize toda a estrutura hierárquica, desde o projeto raiz até todos os projetos filhos, netos e bisnetos.
   
-  ```
-  Shopping Center
-  ├── Fundação
-  │   ├── Escavação
-  │   └── Concretagem
-  ├── Estrutura
-  │   ├── Pilares
-  │   └── Lajes
-  └── Acabamento
-      ├── Pintura
-      └── Revestimento
+  ```mermaid
+  flowchart TD
+      A[Shopping Center] --> B[Fundação]
+      A --> C[Estrutura]
+      A --> D[Acabamento]
+      B --> B1[Escavação]
+      B --> B2[Concretagem]
+      C --> C1[Pilares]
+      C --> C2[Lajes]
+      D --> D1[Pintura]
+      D --> D2[Revestimento]
   ```
 </Tab>
 
@@ -207,18 +207,18 @@ O sistema verifica automaticamente estas regras e impede operações que as viol
 <Tab title="Desenvolvimento de software">
   **Divisão de sistemas complexos em módulos**
   
-  ```
-  Sistema ERP
-  ├── Módulo Financeiro
-  │   ├── Contas a Pagar
-  │   ├── Contas a Receber
-  │   └── Fluxo de Caixa
-  ├── Módulo RH
-  │   ├── Folha de Pagamento
-  │   └── Gestão de Férias
-  └── Módulo Estoque
-      ├── Controle de Entrada
-      └── Controle de Saída
+  ```mermaid
+  flowchart TD
+      A[Sistema ERP] --> B[Módulo Financeiro]
+      A --> C[Módulo RH]
+      A --> D[Módulo Estoque]
+      B --> B1[Contas a Pagar]
+      B --> B2[Contas a Receber]
+      B --> B3[Fluxo de Caixa]
+      C --> C1[Folha de Pagamento]
+      C --> C2[Gestão de Férias]
+      D --> D1[Controle de Entrada]
+      D --> D2[Controle de Saída]
   ```
   
   - Controle de versões e releases
@@ -229,18 +229,18 @@ O sistema verifica automaticamente estas regras e impede operações que as viol
 <Tab title="Construção civil">
   **Organização de grandes obras**
   
-  ```
-  Edifício Residencial
-  ├── Infraestrutura
-  │   ├── Terraplenagem
-  │   ├── Fundação
-  │   └── Contenção
-  ├── Superestrutura
-  │   ├── Estrutura
-  │   └── Alvenaria
-  └── Acabamento
-      ├── Instalações
-      └── Revestimentos
+  ```mermaid
+  flowchart TD
+      A[Edifício Residencial] --> B[Infraestrutura]
+      A --> C[Superestrutura]
+      A --> D[Acabamento]
+      B --> B1[Terraplenagem]
+      B --> B2[Fundação]
+      B --> B3[Contenção]
+      C --> C1[Estrutura]
+      C --> C2[Alvenaria]
+      D --> D1[Instalações]
+      D --> D2[Revestimentos]
   ```
   
   - Controle de etapas construtivas
@@ -251,17 +251,17 @@ O sistema verifica automaticamente estas regras e impede operações que as viol
 <Tab title="Consultoria">
   **Projetos por área de expertise**
   
-  ```
-  Transformação Digital
-  ├── Diagnóstico
-  │   ├── Análise de Processos
-  │   └── Mapeamento Tecnológico
-  ├── Estratégia
-  │   ├── Planejamento
-  │   └── Roadmap
-  └── Implementação
-      ├── Fase Piloto
-      └── Rollout
+  ```mermaid
+  flowchart TD
+      A[Transformação Digital] --> B[Diagnóstico]
+      A --> C[Estratégia]
+      A --> D[Implementação]
+      B --> B1[Análise de Processos]
+      B --> B2[Mapeamento Tecnológico]
+      C --> C1[Planejamento]
+      C --> C2[Roadmap]
+      D --> D1[Fase Piloto]
+      D --> D2[Rollout]
   ```
   
   - Controle de diferentes áreas
@@ -272,17 +272,17 @@ O sistema verifica automaticamente estas regras e impede operações que as viol
 <Tab title="Marketing">
   **Campanhas e eventos**
   
-  ```
-  Lançamento de Produto
-  ├── Pré-lançamento
-  │   ├── Teaser
-  │   └── PR
-  ├── Lançamento
-  │   ├── Evento
-  │   └── Mídia
-  └── Pós-lançamento
-      ├── Remarketing
-      └── Análise de Resultados
+  ```mermaid
+  flowchart TD
+      A[Lançamento de Produto] --> B[Pré-lançamento]
+      A --> C[Lançamento]
+      A --> D[Pós-lançamento]
+      B --> B1[Teaser]
+      B --> B2[PR]
+      C --> C1[Evento]
+      C --> C2[Mídia]
+      D --> D1[Remarketing]
+      D --> D2[Análise de Resultados]
   ```
   
   - Organização de campanhas por canal
@@ -361,32 +361,32 @@ O sistema verifica automaticamente estas regras e impede operações que as viol
 
 Vamos ver um exemplo completo de hierarquia de projetos:
 
-```
-🏢 Transformação Digital da Empresa (Raiz - Nível 0)
-│
-├── 📊 Fase 1: Diagnóstico (Nível 1)
-│   ├── 🔍 Análise de Processos Atuais (Nível 2)
-│   │   ├── ⚙️ Mapeamento Operacional (Nível 3)
-│   │   └── 📈 Análise de Indicadores (Nível 3)
-│   │
-│   └── 💻 Avaliação Tecnológica (Nível 2)
-│       ├── 🖥️ Infraestrutura (Nível 3)
-│       └── 📱 Sistemas (Nível 3)
-│
-├── 🎯 Fase 2: Planejamento (Nível 1)
-│   ├── 📋 Definição de Objetivos (Nível 2)
-│   └── 🗺️ Roadmap (Nível 2)
-│       ├── 📅 Q1 2026 (Nível 3)
-│       └── 📅 Q2 2026 (Nível 3)
-│
-└── 🚀 Fase 3: Implementação (Nível 1)
-    ├── 🧪 Piloto (Nível 2)
-    │   ├── 👥 Treinamento Equipe (Nível 3)
-    │   └── ⚡ Go-Live Piloto (Nível 3)
-    │
-    └── 🌐 Rollout (Nível 2)
-        ├── 📢 Comunicação (Nível 3)
-        └── 🎓 Treinamento Geral (Nível 3)
+```mermaid
+flowchart TD
+    A["🏢 Transformação Digital da Empresa<br/>Nível 0 (Raiz)"]
+
+    A --> B["📊 Fase 1: Diagnóstico<br/>Nível 1"]
+    A --> C["🎯 Fase 2: Planejamento<br/>Nível 1"]
+    A --> D["🚀 Fase 3: Implementação<br/>Nível 1"]
+
+    B --> B1["🔍 Análise de Processos Atuais<br/>Nível 2"]
+    B --> B2["💻 Avaliação Tecnológica<br/>Nível 2"]
+    B1 --> B1a["⚙️ Mapeamento Operacional<br/>Nível 3"]
+    B1 --> B1b["📈 Análise de Indicadores<br/>Nível 3"]
+    B2 --> B2a["🖥️ Infraestrutura<br/>Nível 3"]
+    B2 --> B2b["📱 Sistemas<br/>Nível 3"]
+
+    C --> C1["📋 Definição de Objetivos<br/>Nível 2"]
+    C --> C2["🗺️ Roadmap<br/>Nível 2"]
+    C2 --> C2a["📅 Q1 2026<br/>Nível 3"]
+    C2 --> C2b["📅 Q2 2026<br/>Nível 3"]
+
+    D --> D1["🧪 Piloto<br/>Nível 2"]
+    D --> D2["🌐 Rollout<br/>Nível 2"]
+    D1 --> D1a["👥 Treinamento Equipe<br/>Nível 3"]
+    D1 --> D1b["⚡ Go-Live Piloto<br/>Nível 3"]
+    D2 --> D2a["📢 Comunicação<br/>Nível 3"]
+    D2 --> D2b["🎓 Treinamento Geral<br/>Nível 3"]
 ```
 
 <Check>
