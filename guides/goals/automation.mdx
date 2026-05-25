@@ -1,0 +1,94 @@
+---
+title: "Metas e automações"
+description: "Atualize o progresso de metas manuais automaticamente usando fluxos de automação"
+---
+
+Metas do tipo **Manual** podem ter o progresso atualizado automaticamente por uma automação. Em vez de lançar números à mão, você cria um fluxo que ajusta a meta sempre que um evento acontece na plataforma — por exemplo, somar 1 a cada vez que um projeto é concluído.
+
+<Info>
+Essa integração funciona apenas com metas do tipo **Manual** e que estejam **ativas**. Metas automáticas já calculam o progresso sozinhas e não precisam (nem aceitam) esse tipo de ação.
+</Info>
+
+## A ação "Atualizar progresso de meta manual"
+
+Dentro do construtor de automações, você adiciona a ação de atualização de progresso e configura três coisas:
+
+<CardGroup cols={3}>
+<Card title="A meta" icon="bullseye">
+  Qual meta manual será atualizada quando a automação rodar.
+</Card>
+
+<Card title="A operação" icon="calculator">
+  O que fazer com o progresso: definir, somar ou subtrair.
+</Card>
+
+<Card title="O valor" icon="hashtag">
+  Quanto aplicar — um número fixo ou um valor que vem do próprio evento.
+</Card>
+</CardGroup>
+
+## Operações disponíveis
+
+<AccordionGroup>
+<Accordion title="Definir" icon="equals">
+  Substitui o progresso atual pelo valor informado. Use quando você quer fixar a meta em um número específico.
+
+  **Exemplo:** definir o progresso como `50`.
+</Accordion>
+
+<Accordion title="Somar" icon="plus">
+  Adiciona o valor ao progresso atual. É a operação mais comum para contar eventos.
+
+  **Exemplo:** somar `1` a cada projeto concluído.
+</Accordion>
+
+<Accordion title="Subtrair" icon="minus">
+  Reduz o progresso atual pelo valor informado. O progresso nunca fica abaixo de zero.
+
+  **Exemplo:** subtrair `1` quando um projeto é cancelado.
+</Accordion>
+</AccordionGroup>
+
+## Valor fixo ou dinâmico
+
+O valor aplicado pode ser de duas formas:
+
+<Tabs>
+<Tab title="Valor fixo">
+  Um número definido por você, sempre o mesmo a cada execução. Por exemplo, somar `1` sempre que o fluxo rodar.
+</Tab>
+
+<Tab title="Valor dinâmico">
+  Um valor que vem do próprio evento que disparou a automação, usando a [sintaxe avançada](/guides/advanced/advanced-syntax). Por exemplo, somar a quantidade informada no evento em vez de um número fixo.
+
+  <Warning>
+  Se o valor dinâmico apontar para uma informação que não existe no evento, a automação não consegue atualizar a meta. Confira se a variável usada está disponível no contexto do seu fluxo.
+  </Warning>
+</Tab>
+</Tabs>
+
+## Exemplo de fluxo
+
+<Steps>
+<Step title="Crie uma meta manual">
+  Por exemplo, "Projetos concluídos no mês", do tipo Manual e ativa.
+</Step>
+
+<Step title="Monte a automação">
+  Crie um fluxo disparado pelo evento desejado (como a conclusão de um projeto).
+</Step>
+
+<Step title="Adicione a ação de progresso">
+  Selecione a meta, escolha a operação **Somar** e o valor `1`.
+
+  <Check>
+  Toda vez que o evento acontecer, a meta avança automaticamente — sem nenhum lançamento manual.
+  </Check>
+</Step>
+</Steps>
+
+<Tip>
+Combine metas manuais com automações para transformar qualquer evento da plataforma em um indicador acompanhável, mesmo quando o número não é calculado automaticamente pela Olie.
+</Tip>
+
+[Saiba mais sobre a sintaxe avançada →](/guides/advanced/advanced-syntax)

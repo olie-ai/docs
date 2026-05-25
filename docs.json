@@ -69,6 +69,17 @@
                 ]
               },
               {
+                "group": "Metas",
+                "pages": [
+                  "guides/goals/overview",
+                  "guides/goals/goal-types",
+                  "guides/goals/creating-goals",
+                  "guides/goals/tracking-progress",
+                  "guides/goals/composite-goals",
+                  "guides/goals/automation"
+                ]
+              },
+              {
                 "group": "Automação",
                 "pages": [
                   "guides/automation/mention-users",

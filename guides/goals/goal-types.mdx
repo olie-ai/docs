@@ -1,0 +1,108 @@
+---
+title: "Tipos de meta"
+description: "Conheça os tipos de meta disponíveis e escolha o que melhor mede o seu objetivo"
+---
+
+O tipo de uma meta define **o que ela mede** e **como o progresso é contado**. Escolher o tipo certo é o passo mais importante na criação de uma meta, porque é ele que determina se a contagem será feita pela Olie automaticamente ou se você precisará atualizar o número manualmente.
+
+## Visão geral dos tipos
+
+<CardGroup cols={2}>
+<Card title="Manual" icon="hand-pointer">
+  Serve para metas customizadas, pode ser alimentada de forma automatizada ou manualmente.
+</Card>
+
+<Card title="Projetos criados" icon="folder-plus">
+  Conta automaticamente os projetos criados no período.
+</Card>
+
+<Card title="Projetos criados por usuário" icon="user-plus">
+  Conta os projetos criados por uma pessoa específica da equipe.
+</Card>
+
+<Card title="Projetos em uma etapa" icon="filter">
+  Conta os projetos que entraram em uma etapa específica do funil.
+</Card>
+
+<Card title="Projetos em uma etapa por usuário" icon="users-gear">
+  Conta os projetos que entraram em uma etapa do funil por uma pessoa específica.
+</Card>
+
+<Card title="Composta" icon="diagram-project">
+  Soma o progresso de várias outras metas em um resultado único.
+</Card>
+</CardGroup>
+
+## Detalhamento de cada tipo
+
+<AccordionGroup>
+<Accordion title="Manual" icon="hand-pointer">
+  Use quando o que você quer medir **não é algo que a Olie consegue contar sozinha** — por exemplo, ligações realizadas, reuniões agendadas ou qualquer número que venha de origens diferentes.
+
+  - Você ou uma automação informa o progresso diretamente.
+  - O número pode ser atualizado a qualquer momento por você ou por uma [automação](/guides/goals/automation).
+  - Não gera histórico de períodos passados (veja [progresso e períodos](/guides/goals/tracking-progress)).
+</Accordion>
+
+<Accordion title="Projetos criados" icon="folder-plus">
+  Conta automaticamente quantos projetos foram criados dentro do período da meta.
+
+  - Ideal para medir volume de novos projetos.
+  - A contagem é atualizada automaticamente pela Olie.
+  - Não exige nenhuma configuração extra além do alvo e das datas.
+</Accordion>
+
+<Accordion title="Projetos criados por usuário" icon="user-plus">
+  Igual ao tipo "Projetos criados", mas conta apenas os projetos criados por **uma pessoa específica**.
+
+  - Útil para acompanhar metas individuais da equipe.
+  - Ao criar a meta, você escolhe o usuário que será acompanhado.
+</Accordion>
+
+<Accordion title="Projetos em uma etapa" icon="filter">
+  Conta quantos projetos entraram em uma **etapa específica de um funil** durante o período.
+
+  - Ideal para medir avanço no funil de trabalho (por exemplo, "projetos que chegaram em Negociação").
+  - Ao criar a meta, você escolhe a etapa do funil que será acompanhada.
+</Accordion>
+
+<Accordion title="Projetos em uma etapa por usuário" icon="users-gear">
+  Igual ao tipo "Projetos em uma etapa", mas conta apenas os projetos movidos para a etapa por **uma pessoa específica**.
+
+  - Combina o filtro de etapa do funil com o filtro de usuário.
+  - Ao criar a meta, você escolhe a etapa e o usuário.
+</Accordion>
+
+<Accordion title="Composta" icon="diagram-project">
+  Não mede nada por conta própria: ela **soma o progresso de outras metas** que você escolher como filhas.
+
+  - Ideal para consolidar resultados (por exemplo, somar as metas individuais de cada vendedor em uma meta única da equipe).
+  - O progresso é recalculado automaticamente sempre que uma das metas filhas muda.
+  - Não gera histórico de períodos passados.
+
+  Saiba mais em [metas compostas](/guides/goals/composite-goals).
+</Accordion>
+</AccordionGroup>
+
+## Como escolher o tipo certo
+
+<Steps>
+<Step title="O número vem de dentro da Olie?">
+  Se o que você quer medir são projetos criados ou movimentações no funil, escolha um dos tipos automáticos. A Olie conta tudo para você.
+</Step>
+
+<Step title="O número vem de um campo específico do projeto ou fora da plataforma?">
+  Se o dado esta em algum formulário ou algum valor que requer consulta ou então não existe dentro da Olie, use o tipo **Manual** e atualize o progresso você mesmo — ou conecte uma automação.
+</Step>
+
+<Step title="Você quer somar várias metas?">
+  Se o objetivo é consolidar o resultado de outras metas em um só número, use o tipo **Composta**.
+</Step>
+</Steps>
+
+<Warning>
+O tipo de uma meta pode ser alterado depois de criada, mas isso muda a forma como o progresso passa a ser contado. Sempre que possível, defina o tipo corretamente já na criação para evitar confusão no histórico.
+</Warning>
+
+
+[Aprenda a criar sua primeira meta →](/guides/goals/creating-goals)

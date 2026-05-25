@@ -1,0 +1,125 @@
+---
+title: "Progresso e períodos"
+description: "Entenda como o progresso é calculado, quando é atualizado e como o histórico é registrado"
+---
+
+Esta página explica o que acontece com uma meta depois que ela é criada: como o progresso é calculado, com que frequência é atualizado, como funcionam os períodos e onde fica o histórico.
+
+## Como o progresso é calculado
+
+O progresso é o quanto você já avançou em direção ao alvo. A forma como ele é calculado depende do [tipo da meta](/guides/goals/goal-types):
+
+<CardGroup cols={2}>
+<Card title="Metas automáticas" icon="wand-magic-sparkles">
+  A Olie conta sozinha — projetos criados, movimentações no funil, etc. Você não precisa fazer nada.
+</Card>
+
+<Card title="Metas manuais" icon="hand-pointer">
+  Você informa o progresso, seja diretamente ou por meio de uma [automação](/guides/goals/automation).
+</Card>
+</CardGroup>
+
+A porcentagem alcançada é calculada comparando o progresso com o alvo. Por exemplo, com alvo de 100 e progresso de 42, a meta aparece como **42% alcançada**.
+
+## Atualização automática
+
+Para as metas automáticas, você não precisa apertar nenhum botão: a Olie **recalcula o progresso periodicamente**, ao longo do dia, para todas as metas ativas que já começaram.
+ 
+<Note>
+Metas **inativas** não são recalculadas. Se uma meta parou de atualizar, confira se o status dela está como ativa.
+</Note>
+
+## Períodos e periodicidade
+
+A periodicidade define se a meta cobre um único período ou se ela se divide em ciclos:
+
+<Tabs>
+<Tab title="Sem periodicidade">
+  Quando a periodicidade é zero, a meta tem **um único período** que cobre todo o intervalo entre a data de início e a data de fim (ou até hoje, se não houver data de fim).
+
+  Use quando você quer um número acumulado, sem reinício ao longo do tempo.
+
+  ```mermaid
+  gantt
+      title Meta sem periodicidade
+      dateFormat YYYY-MM-DD
+      axisFormat %d/%m
+      todayMarker off
+      section Meta
+      Período único (início ao fim) :2026-01-01, 28d
+  ```
+</Tab>
+
+<Tab title="Com periodicidade">
+  Quando você define uma quantidade de dias, a meta é dividida em **ciclos contíguos** desse tamanho, a partir da data de início. Cada ciclo é um período independente.
+
+  Use quando você quer acompanhar o desempenho ciclo a ciclo (por exemplo, a cada 7 dias).
+
+  ```mermaid
+  gantt
+      title Meta com periodicidade de 7 dias
+      dateFormat YYYY-MM-DD
+      axisFormat %d/%m
+      todayMarker off
+      section Períodos
+      Período 1 :p1, 2026-01-01, 7d
+      Período 2 :p2, after p1, 7d
+      Período 3 :p3, after p2, 7d
+      Período 4 :p4, after p3, 7d
+  ```
+</Tab>
+</Tabs>
+
+<Tip>
+A periodicidade é definida em dias e pode ir de 1 a 365. Deixe em zero quando quiser um acompanhamento corrido, sem ciclos.
+</Tip>
+
+## Modo de comparação
+
+O modo de comparação indica como interpretar o número da meta — se ele é algo bom de alcançar ou algo a ser evitado:
+
+<CardGroup cols={2}>
+<Card title="Alvo" icon="arrow-trend-up">
+  Valor **mínimo** a ser alcançado: quanto mais, melhor. Use para objetivos como vendas, projetos criados ou contatos atendidos.
+</Card>
+
+<Card title="Limite" icon="arrow-trend-down">
+  Valor **máximo** tolerável: quanto menos, melhor. Use para indicadores que você quer manter sob controle, como número de reclamações ou prazos estourados.
+</Card>
+</CardGroup>
+
+<Info>
+O modo de comparação muda a **leitura visual** da meta — por exemplo, quando o número de uma meta de limite é ultrapassado, isso é destacado como algo negativo. Ele não altera a forma como o progresso é contado.
+</Info>
+
+## Histórico de períodos
+
+Quando uma meta tem periodicidade, cada ciclo encerrado vira um registro no **histórico**, guardando o progresso e o alvo daquele período. Assim você consegue acompanhar a evolução ao longo do tempo e comparar um período com o outro.
+
+A diferença entre os tipos de meta está em **conseguir ou não reconstruir o passado**:
+
+<AccordionGroup>
+<Accordion title="Histórico do passado e do futuro (metas automáticas)" icon="backward">
+  Quando uma meta automática (como projetos criados ou movimentações no funil) começa em uma data no passado, a Olie consegue **reconstruir os períodos que já se encerraram**, porque é capaz de consultar o que aconteceu naquelas datas. O histórico cobre tanto os ciclos passados quanto os próximos.
+
+  Essa reconstrução é feita aos poucos, em segundo plano. Em metas com muitos períodos passados, o histórico completo pode levar algum tempo para aparecer por inteiro — basta aguardar.
+</Accordion>
+
+<Accordion title="Histórico apenas do futuro (metas manuais e compostas)" icon="forward">
+  Metas do tipo **Manual** e **Composta** também geram histórico — mas **só dos ciclos que se encerram daqui para frente**. A Olie não consegue reconstruir o passado delas, porque o valor depende do estado atual (o número que você informou ou a soma das metas filhas) e não há como saber, com fidelidade, qual era esse valor em datas anteriores.
+
+  Na prática: se você criar uma dessas metas com data de início no passado, os ciclos anteriores não aparecem no histórico, mas os próximos são registrados normalmente conforme forem fechando.
+</Accordion>
+
+<Accordion title="Quando o histórico ainda está vazio" icon="hourglass-half">
+  Se a meta tem periodicidade mas ainda não mostra histórico, pode ser que os registros dos períodos já encerrados ainda estejam sendo gerados. Metas sem periodicidade não têm períodos para registrar e, por isso, não exibem histórico.
+</Accordion>
+</AccordionGroup>
+
+## O que acontece quando a meta termina
+
+Se a meta tem uma data de fim, ao chegar nessa data ela é marcada automaticamente como **concluída** e deixa de ser recalculada. Metas sem data de fim continuam ativas indefinidamente, acompanhando o progresso até você pausá-las ou concluí-las.
+
+<Tip>
+Para uma visão consolidada de várias metas em um único número, conheça as [metas compostas](/guides/goals/composite-goals).
+</Tip>

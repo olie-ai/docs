@@ -1,0 +1,118 @@
+---
+title: "Criando e gerenciando metas"
+description: "Aprenda a criar, editar e organizar suas metas, campo a campo"
+---
+
+As metas ficam reunidas na seção **Metas**, onde você visualiza todas as metas em uma lista com seu progresso, status e período. É a partir dela que você cria novas metas e acessa os detalhes de cada uma.
+
+<Info>
+Para criar, editar ou excluir metas, é necessário ter permissão de edição de metas. Para apenas visualizar, basta a permissão de visualização. Fale com um administrador do seu ambiente se algum botão não estiver disponível para você.
+</Info>
+
+## Criando uma meta
+
+<Steps>
+<Step title="Abra a seção Metas">
+  Acesse a lista de metas e clique em **Nova meta**.
+</Step>
+
+<Step title="Defina o básico">
+  Informe um **título** e, uma **descrição** que ajude a equipe a entender o objetivo da meta.
+</Step>
+
+<Step title="Escolha o tipo">
+  Selecione o [tipo de meta](/guides/goals/goal-types). Dependendo da escolha, campos adicionais podem aparecer (como o usuário ou a etapa do funil a ser acompanhada).
+</Step>
+
+<Step title="Informe o alvo">
+  Digite o número que você quer alcançar. Esse é o valor de referência usado para medir o progresso.
+</Step>
+
+<Step title="Defina o período">
+  Escolha a **data de início** e, opcionalmente, a **data de fim**. Configure a **periodicidade** se quiser dividir a meta em ciclos.
+</Step>
+
+<Step title="Salve">
+  Confirme a criação. A partir daí, a Olie já começa a acompanhar o progresso (para os tipos automáticos).
+
+  <Check>
+  Sua meta foi criada e já aparece na lista, com o progresso sendo calculado.
+  </Check>
+</Step>
+</Steps>
+
+## Campos da meta
+
+<AccordionGroup>
+<Accordion title="Título e descrição" icon="pen">
+  O **título** identifica a meta na lista (até 90 caracteres). A **descrição** serve para dar contexto à equipe sobre o objetivo.
+</Accordion>
+
+<Accordion title="Tipo" icon="shapes">
+  Define o que a meta mede e como o progresso é contado. Veja todos os [tipos disponíveis](/guides/goals/goal-types).
+</Accordion>
+
+<Accordion title="Alvo" icon="bullseye">
+  O número que representa o objetivo da meta. Precisa ser maior que zero.
+</Accordion>
+
+<Accordion title="Data de início e data de fim" icon="calendar-days">
+  A **data de início** define quando a meta passa a contar, ela pode ser no passado, se for possível, vamos tentar preencher o histórico passado. A **data de fim** é opcional: quando você a define, a meta é encerrada automaticamente ao chegar nela e o status concluído é definido. Sem data de fim, a meta segue ativa até você decidir o contrário.
+</Accordion>
+
+<Accordion title="Periodicidade" icon="arrows-rotate">
+  Define se a meta cobre um único período ou se ela se repete em ciclos de uma quantidade de dias. Saiba mais em [progresso e períodos](/guides/goals/tracking-progress).
+</Accordion>
+
+<Accordion title="Modo de comparação" icon="scale-balanced">
+  Indica se o número deve ser **alcançado** (alvo) ou **não ultrapassado** (limite). Entenda a diferença em [progresso e períodos](/guides/goals/tracking-progress#modo-de-comparação).
+</Accordion>
+
+<Accordion title="Progresso (somente para metas manuais)" icon="hand-pointer">
+  Em metas do tipo Manual, você informa o progresso diretamente neste campo. Nos tipos automáticos, esse valor é calculado pela Olie e não precisa ser preenchido.
+</Accordion>
+</AccordionGroup>
+
+## Status de uma meta
+
+Toda meta tem um status que indica em que fase ela está:
+
+<CardGroup cols={3}>
+<Card title="Ativa" icon="play">
+  A meta está em andamento e tem o progresso atualizado automaticamente.
+</Card>
+
+<Card title="Inativa" icon="pause">
+  A meta está pausada. O progresso não é recalculado enquanto ela estiver nesse estado.
+</Card>
+
+<Card title="Concluída" icon="flag-checkered">
+  A meta foi encerrada. Metas com data de fim passam para este status automaticamente ao chegar na data.
+</Card>
+</CardGroup>
+
+## Editando e excluindo
+
+<Steps>
+<Step title="Editar">
+  Abra os detalhes da meta (ou use o botão de edição na lista) para ajustar qualquer campo. As alterações passam a valer imediatamente.
+
+  <Warning>
+  Mudar o **tipo** ou a **periodicidade** de uma meta que já tem histórico altera a forma como o progresso é contado. O histórico já registrado não é reorganizado, então faça esse tipo de mudança com cuidado.
+  </Warning>
+</Step>
+
+<Step title="Excluir">
+  Você pode excluir uma meta a partir da lista. Se a meta fizer parte de uma [meta composta](/guides/goals/composite-goals), o resultado consolidado é recalculado após a remoção.
+</Step>
+</Steps>
+
+## Encontrando suas metas
+
+Na lista de metas você pode **buscar pelo título** e **filtrar por status** para localizar rapidamente o que procura. Cada meta mostra, de relance, o tipo, o progresso atual, a porcentagem alcançada e o período.
+
+<Tip>
+Use títulos descritivos e padronizados (por exemplo, "Vendas — Janeiro" ou "Projetos criados — Equipe SP") para manter a lista organizada quando você tiver muitas metas.
+</Tip>
+
+[Entenda como o progresso é calculado →](/guides/goals/tracking-progress)
