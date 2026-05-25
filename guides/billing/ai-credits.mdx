@@ -1,0 +1,233 @@
+---
+title: "Créditos de IA"
+description: "Entenda como funcionam os créditos pré-pagos que abastecem o uso de inteligência artificial"
+---
+
+A Olie usa **créditos** para o uso dos recursos de inteligência artificial, como agentes e assistentes de etapa. O modelo é **pré-pago**: você adiciona créditos ao saldo do seu ambiente e cada uso de IA consome créditos desse saldo.
+
+<Info>
+A maior vantagem do modelo de créditos é a **previsibilidade**: não existe mais fatura-surpresa de IA no fim do mês. Você gasta apenas o que já tem em saldo e decide quando recarregar.
+</Info>
+
+## O que são créditos de IA
+
+<CardGroup cols={3}>
+<Card title="Crédito" icon="coins">
+  A unidade pré-paga usada pela IA. Você compra créditos e eles ficam disponíveis no saldo do seu ambiente.
+</Card>
+
+<Card title="Saldo" icon="wallet">
+  A quantidade de créditos que o seu ambiente tem disponível no momento. Cada ambiente tem o seu próprio saldo.
+</Card>
+
+<Card title="Consumo" icon="gauge-high">
+  Cada uso de IA desconta créditos do saldo, conforme o tamanho e a complexidade da tarefa.
+</Card>
+</CardGroup>
+
+## Como funciona
+
+<Steps>
+<Step title="Adicione créditos">
+  Compre um pacote de créditos. O preço e a quantidade de créditos são exibidos no checkout antes de você confirmar.
+</Step>
+
+<Step title="Use a IA">
+  Utilize agentes e assistentes de etapa normalmente. Não é preciso fazer nada a cada uso.
+</Step>
+
+<Step title="O consumo é descontado">
+  Cada execução desconta créditos do saldo automaticamente, e o lançamento aparece no seu extrato.
+</Step>
+
+<Step title="Recarregue quando precisar">
+  Quando o saldo estiver baixo, basta comprar mais créditos — ou deixar a [recarga automática](#recarga-automática) cuidar disso para você.
+
+  <Check>
+  Você sempre sabe quanto tem disponível e gasta apenas o que já pagou.
+  </Check>
+</Step>
+</Steps>
+
+## O que consome créditos
+
+O consumo acontece sempre que a IA é executada — principalmente em **agentes** e **assistentes de etapa**. O quanto cada execução consome varia de acordo com alguns fatores:
+
+<AccordionGroup>
+<Accordion title="O modelo escolhido" icon="brain">
+  Modelos mais avançados tendem a consumir mais créditos por execução do que modelos mais simples.
+</Accordion>
+
+<Accordion title="O tamanho da entrada e da resposta" icon="arrows-left-right">
+  Quanto mais conteúdo você envia e quanto mais longa é a resposta gerada, maior o consumo.
+</Accordion>
+
+<Accordion title="Recursos avançados" icon="bolt">
+  Recursos como **raciocínio profundo** e **busca na web** aumentam o consumo, porque exigem mais processamento.
+</Accordion>
+</AccordionGroup>
+
+<Note>
+O consumo exato de cada execução fica registrado no seu **extrato de créditos**, para que você acompanhe em detalhes onde os créditos foram usados.
+</Note>
+
+## Comprando créditos
+
+<Steps>
+<Step title="Escolha comprar créditos">
+  Acesse a área de créditos de IA e inicie a compra de um pacote.
+</Step>
+
+<Step title="Confira no checkout">
+  O checkout mostra a quantidade de créditos do pacote e o valor a pagar antes da confirmação.
+
+  <Tip>
+  Confira sempre o valor final no checkout — é onde o preço atualizado é apresentado.
+  </Tip>
+</Step>
+
+<Step title="Pague">
+  Conclua o pagamento com o seu método cadastrado. Assim que o pagamento é confirmado, os créditos entram no saldo.
+</Step>
+</Steps>
+
+<Info>
+Para comprar créditos é necessário ter um [método de pagamento](/guides/billing/payment-methods) válido cadastrado.
+</Info>
+
+## Recarga automática
+
+A recarga automática é opcional e serve para manter o uso da IA sem interrupções. Quando ativada, a Olie compra créditos sozinha assim que o saldo fica baixo.
+
+<Steps>
+<Step title="Ative a recarga automática">
+  Nas configurações de créditos, ligue a recarga automática.
+</Step>
+
+<Step title="Defina o limite e a quantidade">
+  Escolha o **saldo mínimo** que dispara a recarga e **quanto** recarregar a cada vez.
+</Step>
+
+<Step title="Deixe que a Olie cuide">
+  Sempre que o saldo cair abaixo do limite definido, a Olie compra créditos automaticamente usando o seu método de pagamento cadastrado.
+</Step>
+</Steps>
+
+### Pontos importantes da recarga automática
+
+<AccordionGroup>
+<Accordion title="Se um pagamento falhar" icon="triangle-exclamation">
+  Se a cobrança da recarga automática não for aprovada, ela é **desativada automaticamente** e você é notificado. Depois de corrigir o método de pagamento, reative a recarga manualmente.
+</Accordion>
+
+<Accordion title="Intervalo entre tentativas" icon="clock">
+  Existe um tempo de espera entre uma tentativa de recarga e a próxima. Isso evita cobranças repetidas em sequência — inclusive quando você aciona uma recarga manualmente.
+</Accordion>
+
+<Accordion title="Método de pagamento necessário" icon="credit-card">
+  A recarga automática depende de um [método de pagamento](/guides/billing/payment-methods) válido. Mantenha o seu cadastro atualizado para evitar interrupções.
+</Accordion>
+
+<Accordion title="Ambiente em modo somente leitura" icon="lock">
+  Se o ambiente estiver em [modo somente leitura](/guides/billing/read-only-mode), a recarga automática não é executada. Regularize a situação da assinatura primeiro.
+</Accordion>
+</AccordionGroup>
+
+## Quando o saldo acaba
+
+<Steps>
+<Step title="Novas execuções são bloqueadas">
+  Quando o saldo chega a zero, novas execuções de IA são bloqueadas e você recebe um aviso de créditos insuficientes. Basta recarregar para voltar a usar.
+</Step>
+
+<Step title="Execuções em andamento não são interrompidas">
+  Uma execução que já começou nunca é interrompida no meio — nem mesmo quando consome mais créditos do que havia disponível no saldo. Nesse caso, o saldo pode ficar **negativo**, justamente para não impedir a execução de terminar. Essa diferença é abatida automaticamente na sua próxima recarga.
+
+  <Note>
+  Na prática, a IA nunca para "no meio do caminho" por falta de créditos: o bloqueio acontece apenas ao iniciar uma nova execução, quando o saldo já está zerado ou negativo.
+  </Note>
+</Step>
+</Steps>
+
+## Acompanhando saldo e extrato
+
+<CardGroup cols={2}>
+<Card title="Saldo atual" icon="wallet">
+  Veja a qualquer momento quantos créditos o seu ambiente tem disponível.
+</Card>
+
+<Card title="Extrato de créditos" icon="receipt">
+  Acompanhe o histórico de movimentações: compras, consumos e demais ajustes no saldo.
+</Card>
+</CardGroup>
+
+<Info>
+O acesso às informações de créditos depende das suas permissões: há uma permissão para **visualizar** saldo e extrato e outra para **comprar** créditos e ajustar a recarga automática. Fale com um administrador do seu ambiente caso alguma opção não esteja disponível para você.
+</Info>
+
+## Seleção automática de modelos
+
+Você não precisa escolher manualmente qual modelo usar. A Olie oferece perfis de seleção automática que escolhem o melhor modelo para cada tarefa — e essa escolha influencia diretamente quanto crédito é consumido.
+
+<Tabs>
+<Tab title="Padrão">
+  **Equilíbrio entre qualidade e consumo**
+
+  - Melhor escolha para tarefas comuns e de média complexidade.
+  - Bom desempenho geral com consumo equilibrado.
+
+  <Check>
+  Recomendado para a maioria dos casos de uso.
+  </Check>
+</Tab>
+
+<Tab title="Econômico">
+  **Prioriza menor consumo**
+
+  - Escolhe modelos que consomem menos créditos.
+  - Ideal para tarefas simples e de alto volume.
+
+  <Tip>
+  Use quando economizar créditos é a prioridade.
+  </Tip>
+</Tab>
+
+<Tab title="Performance">
+  **Prioriza qualidade e velocidade**
+
+  - Escolhe modelos com melhor desempenho e tempo de resposta.
+  - Tende a consumir mais créditos.
+
+  <Warning>
+  Use quando qualidade e velocidade importam mais que economia de créditos.
+  </Warning>
+</Tab>
+</Tabs>
+
+## Boas práticas para economizar créditos
+
+<AccordionGroup>
+<Accordion title="Seja objetivo nas instruções" icon="compress">
+  Instruções mais curtas e diretas reduzem o consumo. Vá direto ao ponto em vez de escrever pedidos longos e cheios de rodeios.
+</Accordion>
+
+<Accordion title="Escolha o modelo adequado" icon="bullseye">
+  Modelos mais avançados nem sempre são necessários. Para tarefas simples, modelos mais econômicos costumam entregar resultados igualmente úteis — sem gastar créditos à toa.
+</Accordion>
+
+<Accordion title="Use raciocínio e busca na web com moderação" icon="lightbulb">
+  Esses recursos consomem mais créditos. Ative o **raciocínio profundo** apenas em problemas complexos e a **busca na web** somente quando precisar de informações atualizadas.
+</Accordion>
+
+<Accordion title="Limite o tamanho das respostas" icon="ruler">
+  Quando fizer sentido, peça respostas mais enxutas — por exemplo, "resuma em até 5 pontos". Respostas mais curtas consomem menos e muitas vezes são mais úteis.
+</Accordion>
+
+<Accordion title="Acompanhe o consumo" icon="chart-line">
+  Consulte o extrato com regularidade para identificar onde os créditos estão sendo gastos e ajustar o uso conforme necessário.
+</Accordion>
+</AccordionGroup>
+
+<Tip>
+Combinar o perfil de seleção de modelos com instruções objetivas é a forma mais simples de manter o consumo sob controle sem perder qualidade.
+</Tip>
