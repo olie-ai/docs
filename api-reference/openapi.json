@@ -1621,11 +1621,6 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "response",
-                    "project"
-                  ],
-                  "additionalProperties": false,
                   "properties": {
                     "response": {
                       "type": "boolean",
@@ -1633,47 +1628,19 @@
                     },
                     "project": {
                       "type": "object",
-                      "additionalProperties": false,
-                      "required": [
-                        "id",
-                        "code",
-                        "name",
-                        "impact",
-                        "frame_id",
-                        "status",
-                        "budget",
-                        "is_template",
-                        "created_at",
-                        "updated_at",
-                        "children_count",
-                        "executors",
-                        "funnels",
-                        "project_checklists",
-                        "funnel_steps",
-                        "step_form",
-                        "checklists",
-                        "tags",
-                        "loose_forms",
-                        "groups",
-                        "users",
-                        "children",
-                        "frame"
-                      ],
                       "properties": {
                         "id": {
                           "type": "string",
-                          "format": "uuid",
-                          "description": "Identificador do projeto."
+                          "description": "Identificador do projeto.",
+                          "format": "uuid"
                         },
                         "parent_id": {
                           "type": "string",
-                          "format": "uuid",
-                          "nullable": true,
-                          "description": "ID do projeto pai na hierarquia."
+                          "description": "ID do projeto pai na hierarquia.",
+                          "format": "uuid"
                         },
                         "old_id": {
                           "type": "string",
-                          "nullable": true,
                           "description": "Identificador legado, preservado em migrações."
                         },
                         "code": {
@@ -1684,8 +1651,7 @@
                           "type": "string"
                         },
                         "description": {
-                          "type": "string",
-                          "nullable": true
+                          "type": "string"
                         },
                         "impact": {
                           "type": "integer",
@@ -1695,8 +1661,8 @@
                         },
                         "frame_id": {
                           "type": "string",
-                          "format": "uuid",
-                          "description": "ID da empresa (frame) dona do projeto."
+                          "description": "ID da empresa (frame) dona do projeto.",
+                          "format": "uuid"
                         },
                         "created_at": {
                           "type": "string",
@@ -1708,29 +1674,23 @@
                         },
                         "customer_id": {
                           "type": "string",
-                          "format": "uuid",
-                          "nullable": true
+                          "format": "uuid"
                         },
                         "contact_id": {
                           "type": "string",
-                          "format": "uuid",
-                          "nullable": true
+                          "format": "uuid"
                         },
                         "share_token": {
                           "type": "string",
-                          "nullable": true,
                           "description": "Token público para compartilhamento externo."
                         },
                         "share_settings": {
-                          "type": "object",
-                          "nullable": true,
-                          "additionalProperties": true
+                          "type": "object"
                         },
                         "merged_id": {
                           "type": "string",
-                          "format": "uuid",
-                          "nullable": true,
-                          "description": "ID do projeto em que este foi mesclado."
+                          "description": "ID do projeto em que este foi mesclado.",
+                          "format": "uuid"
                         },
                         "status": {
                           "type": "integer",
@@ -1751,14 +1711,12 @@
                         },
                         "created_by": {
                           "type": "string",
-                          "format": "uuid",
-                          "nullable": true,
-                          "description": "ID do usuário que criou o projeto."
+                          "description": "ID do usuário que criou o projeto.",
+                          "format": "uuid"
                         },
                         "deleted_at": {
                           "type": "string",
-                          "format": "date-time",
-                          "nullable": true
+                          "format": "date-time"
                         },
                         "children_count": {
                           "type": "integer",
@@ -1767,8 +1725,6 @@
                         },
                         "form": {
                           "type": "object",
-                          "nullable": true,
-                          "additionalProperties": true,
                           "description": "Formulário dinâmico hidratado, quando aplicável."
                         },
                         "executors": {
@@ -1776,16 +1732,6 @@
                           "description": "Usuários executores envolvidos nas tarefas e seus custos.",
                           "items": {
                             "type": "object",
-                            "additionalProperties": false,
-                            "required": [
-                              "id",
-                              "user",
-                              "hourly_rate",
-                              "elapsed",
-                              "elapsed_amount",
-                              "expected",
-                              "expected_amount"
-                            ],
                             "properties": {
                               "id": {
                                 "type": "string",
@@ -1817,19 +1763,24 @@
                                 "type": "number",
                                 "description": "Custo previsto."
                               }
-                            }
+                            },
+                            "required": [
+                              "id",
+                              "user",
+                              "hourly_rate",
+                              "elapsed",
+                              "elapsed_amount",
+                              "expected",
+                              "expected_amount"
+                            ]
                           }
                         },
                         "customer": {
                           "type": "object",
-                          "nullable": true,
-                          "additionalProperties": true,
                           "description": "Cliente vinculado, com os campos do recurso Customer."
                         },
                         "contact": {
                           "type": "object",
-                          "nullable": true,
-                          "additionalProperties": true,
                           "description": "Contato vinculado, com os campos do recurso Contact."
                         },
                         "funnels": {
@@ -1837,19 +1788,6 @@
                           "description": "Funis em que o projeto está cadastrado, incluindo todas as etapas, etiquetas, status e anexos do funil.",
                           "items": {
                             "type": "object",
-                            "additionalProperties": true,
-                            "required": [
-                              "id",
-                              "name",
-                              "prefix",
-                              "condition",
-                              "frame_id",
-                              "pivot",
-                              "steps",
-                              "tags",
-                              "funnel_status",
-                              "attachments"
-                            ],
                             "properties": {
                               "id": {
                                 "type": "integer"
@@ -1878,12 +1816,10 @@
                                 "type": "boolean"
                               },
                               "business_area_id": {
-                                "type": "integer",
-                                "nullable": true
+                                "type": "integer"
                               },
                               "form_id": {
-                                "type": "integer",
-                                "nullable": true
+                                "type": "integer"
                               },
                               "frame_id": {
                                 "type": "string",
@@ -1899,30 +1835,19 @@
                               },
                               "deleted_at": {
                                 "type": "string",
-                                "format": "date-time",
-                                "nullable": true
+                                "format": "date-time"
                               },
                               "funnel_config_template_id": {
-                                "type": "integer",
-                                "nullable": true
+                                "type": "integer"
                               },
                               "allow_execution": {
                                 "type": "boolean"
                               },
                               "project_term": {
-                                "type": "integer",
-                                "nullable": true
+                                "type": "integer"
                               },
                               "pivot": {
                                 "type": "object",
-                                "additionalProperties": false,
-                                "required": [
-                                  "project_id",
-                                  "project_funnel_id",
-                                  "id",
-                                  "created_at",
-                                  "forecast_date_update_count"
-                                ],
                                 "properties": {
                                   "project_id": {
                                     "type": "string",
@@ -1936,27 +1861,22 @@
                                   },
                                   "statuses_at": {
                                     "type": "string",
-                                    "format": "date-time",
-                                    "nullable": true
+                                    "format": "date-time"
                                   },
                                   "statuses_by": {
                                     "type": "string",
-                                    "format": "uuid",
-                                    "nullable": true
+                                    "format": "uuid"
                                   },
                                   "funnel_status_id": {
-                                    "type": "integer",
-                                    "nullable": true
+                                    "type": "integer"
                                   },
                                   "forecast_date": {
                                     "type": "string",
-                                    "format": "date-time",
-                                    "nullable": true
+                                    "format": "date-time"
                                   },
                                   "realized_forecast_date": {
                                     "type": "string",
-                                    "format": "date-time",
-                                    "nullable": true
+                                    "format": "date-time"
                                   },
                                   "created_at": {
                                     "type": "string",
@@ -1966,19 +1886,19 @@
                                     "type": "integer",
                                     "minimum": 0
                                   }
-                                }
+                                },
+                                "required": [
+                                  "project_id",
+                                  "project_funnel_id",
+                                  "id",
+                                  "created_at",
+                                  "forecast_date_update_count"
+                                ]
                               },
                               "steps": {
                                 "type": "array",
                                 "items": {
                                   "type": "object",
-                                  "additionalProperties": true,
-                                  "required": [
-                                    "id",
-                                    "name",
-                                    "project_funnel_id",
-                                    "order"
-                                  ],
                                   "properties": {
                                     "id": {
                                       "type": "integer"
@@ -1993,28 +1913,22 @@
                                       "type": "integer"
                                     },
                                     "step_forward_id": {
-                                      "type": "integer",
-                                      "nullable": true
+                                      "type": "integer"
                                     },
                                     "step_backward_id": {
-                                      "type": "integer",
-                                      "nullable": true
+                                      "type": "integer"
                                     },
                                     "order": {
                                       "type": "integer"
                                     },
                                     "help_text": {
-                                      "type": "string",
-                                      "nullable": true
+                                      "type": "string"
                                     },
                                     "form_id": {
-                                      "type": "integer",
-                                      "nullable": true
+                                      "type": "integer"
                                     },
                                     "sort_config": {
-                                      "type": "object",
-                                      "nullable": true,
-                                      "additionalProperties": true
+                                      "type": "object"
                                     },
                                     "allow_execution": {
                                       "type": "boolean"
@@ -2041,47 +1955,39 @@
                                     },
                                     "deleted_at": {
                                       "type": "string",
-                                      "format": "date-time",
-                                      "nullable": true
+                                      "format": "date-time"
                                     },
                                     "checklists": {
                                       "type": "array",
                                       "items": {
-                                        "type": "object",
-                                        "additionalProperties": true
+                                        "type": "object"
                                       }
                                     },
                                     "attachments": {
                                       "type": "array",
                                       "items": {
-                                        "type": "object",
-                                        "additionalProperties": true
+                                        "type": "object"
                                       }
                                     },
                                     "form": {
-                                      "type": "object",
-                                      "nullable": true,
-                                      "additionalProperties": true
+                                      "type": "object"
                                     }
-                                  }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name",
+                                    "project_funnel_id",
+                                    "order"
+                                  ]
                                 }
                               },
                               "form": {
-                                "type": "object",
-                                "nullable": true,
-                                "additionalProperties": true
+                                "type": "object"
                               },
                               "tags": {
                                 "type": "array",
                                 "items": {
                                   "type": "object",
-                                  "additionalProperties": false,
-                                  "required": [
-                                    "id",
-                                    "name",
-                                    "color",
-                                    "project_funnel_id"
-                                  ],
                                   "properties": {
                                     "id": {
                                       "type": "integer"
@@ -2098,24 +2004,21 @@
                                     },
                                     "deleted_at": {
                                       "type": "string",
-                                      "format": "date-time",
-                                      "nullable": true
+                                      "format": "date-time"
                                     }
-                                  }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name",
+                                    "color",
+                                    "project_funnel_id"
+                                  ]
                                 }
                               },
                               "funnel_status": {
                                 "type": "array",
                                 "items": {
                                   "type": "object",
-                                  "additionalProperties": false,
-                                  "required": [
-                                    "id",
-                                    "name",
-                                    "color",
-                                    "project_funnel_id",
-                                    "is_conclusive"
-                                  ],
                                   "properties": {
                                     "id": {
                                       "type": "integer"
@@ -2142,20 +2045,37 @@
                                     },
                                     "deleted_at": {
                                       "type": "string",
-                                      "format": "date-time",
-                                      "nullable": true
+                                      "format": "date-time"
                                     }
-                                  }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name",
+                                    "color",
+                                    "project_funnel_id",
+                                    "is_conclusive"
+                                  ]
                                 }
                               },
                               "attachments": {
                                 "type": "array",
                                 "items": {
-                                  "type": "object",
-                                  "additionalProperties": true
+                                  "type": "object"
                                 }
                               }
-                            }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "prefix",
+                              "condition",
+                              "frame_id",
+                              "pivot",
+                              "steps",
+                              "tags",
+                              "funnel_status",
+                              "attachments"
+                            ]
                           }
                         },
                         "project_checklists": {
@@ -2163,15 +2083,6 @@
                           "description": "Itens de checklist avulsos vinculados ao projeto.",
                           "items": {
                             "type": "object",
-                            "additionalProperties": false,
-                            "required": [
-                              "id",
-                              "name",
-                              "project_id",
-                              "order",
-                              "created_at",
-                              "updated_at"
-                            ],
                             "properties": {
                               "id": {
                                 "type": "string",
@@ -2182,20 +2093,17 @@
                               },
                               "completed_at": {
                                 "type": "string",
-                                "format": "date-time",
-                                "nullable": true
+                                "format": "date-time"
                               },
                               "author_id": {
                                 "type": "string",
-                                "format": "uuid",
-                                "nullable": true,
-                                "description": "Usuário responsável pelo item."
+                                "description": "Usuário responsável pelo item.",
+                                "format": "uuid"
                               },
                               "checked_by_id": {
                                 "type": "string",
-                                "format": "uuid",
-                                "nullable": true,
-                                "description": "Usuário que marcou o item como concluído."
+                                "description": "Usuário que marcou o item como concluído.",
+                                "format": "uuid"
                               },
                               "project_id": {
                                 "type": "string",
@@ -2213,7 +2121,15 @@
                                 "type": "integer",
                                 "minimum": 0
                               }
-                            }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "project_id",
+                              "order",
+                              "created_at",
+                              "updated_at"
+                            ]
                           }
                         },
                         "funnel_steps": {
@@ -2221,14 +2137,6 @@
                           "description": "Etapas atualmente ocupadas pelo projeto, com bloqueios herdados da etapa.",
                           "items": {
                             "type": "object",
-                            "additionalProperties": true,
-                            "required": [
-                              "id",
-                              "name",
-                              "project_funnel_id",
-                              "pivot",
-                              "funnel_step_blockings"
-                            ],
                             "properties": {
                               "id": {
                                 "type": "integer"
@@ -2243,28 +2151,22 @@
                                 "type": "integer"
                               },
                               "step_forward_id": {
-                                "type": "integer",
-                                "nullable": true
+                                "type": "integer"
                               },
                               "step_backward_id": {
-                                "type": "integer",
-                                "nullable": true
+                                "type": "integer"
                               },
                               "order": {
                                 "type": "integer"
                               },
                               "help_text": {
-                                "type": "string",
-                                "nullable": true
+                                "type": "string"
                               },
                               "form_id": {
-                                "type": "integer",
-                                "nullable": true
+                                "type": "integer"
                               },
                               "sort_config": {
-                                "type": "object",
-                                "nullable": true,
-                                "additionalProperties": true
+                                "type": "object"
                               },
                               "allow_execution": {
                                 "type": "boolean"
@@ -2291,19 +2193,10 @@
                               },
                               "deleted_at": {
                                 "type": "string",
-                                "format": "date-time",
-                                "nullable": true
+                                "format": "date-time"
                               },
                               "pivot": {
                                 "type": "object",
-                                "additionalProperties": false,
-                                "required": [
-                                  "project_id",
-                                  "funnel_step_id",
-                                  "id",
-                                  "order",
-                                  "created_at"
-                                ],
                                 "properties": {
                                   "project_id": {
                                     "type": "string",
@@ -2323,47 +2216,50 @@
                                     "type": "string",
                                     "format": "date-time"
                                   }
-                                }
+                                },
+                                "required": [
+                                  "project_id",
+                                  "funnel_step_id",
+                                  "id",
+                                  "order",
+                                  "created_at"
+                                ]
                               },
                               "funnel_step_blockings": {
                                 "type": "array",
                                 "items": {
-                                  "type": "object",
-                                  "additionalProperties": true
+                                  "type": "object"
                                 }
                               }
-                            }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "project_funnel_id",
+                              "pivot",
+                              "funnel_step_blockings"
+                            ]
                           }
                         },
                         "step_form": {
                           "type": "array",
+                          "description": "Formulários respondidos por etapa do funil.",
                           "items": {
-                            "type": "object",
-                            "additionalProperties": true
-                          },
-                          "description": "Formulários respondidos por etapa do funil."
+                            "type": "object"
+                          }
                         },
                         "checklists": {
                           "type": "array",
+                          "description": "Checklists das etapas (não confundir com project_checklists).",
                           "items": {
-                            "type": "object",
-                            "additionalProperties": true
-                          },
-                          "description": "Checklists das etapas (não confundir com project_checklists)."
+                            "type": "object"
+                          }
                         },
                         "tags": {
                           "type": "array",
                           "description": "Etiquetas atribuídas ao projeto (sempre originárias de um funil).",
                           "items": {
                             "type": "object",
-                            "additionalProperties": false,
-                            "required": [
-                              "id",
-                              "name",
-                              "color",
-                              "project_funnel_id",
-                              "pivot"
-                            ],
                             "properties": {
                               "id": {
                                 "type": "integer"
@@ -2379,17 +2275,10 @@
                               },
                               "deleted_at": {
                                 "type": "string",
-                                "format": "date-time",
-                                "nullable": true
+                                "format": "date-time"
                               },
                               "pivot": {
                                 "type": "object",
-                                "additionalProperties": false,
-                                "required": [
-                                  "project_id",
-                                  "funnel_tag_id",
-                                  "id"
-                                ],
                                 "properties": {
                                   "project_id": {
                                     "type": "string",
@@ -2401,15 +2290,25 @@
                                   "id": {
                                     "type": "integer"
                                   }
-                                }
+                                },
+                                "required": [
+                                  "project_id",
+                                  "funnel_tag_id",
+                                  "id"
+                                ]
                               }
-                            }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "color",
+                              "project_funnel_id",
+                              "pivot"
+                            ]
                           }
                         },
                         "merged_project": {
                           "type": "object",
-                          "nullable": true,
-                          "additionalProperties": false,
                           "description": "Projeto resultante de uma fusão (apenas referência mínima).",
                           "properties": {
                             "id": {
@@ -2426,37 +2325,27 @@
                         },
                         "loose_forms": {
                           "type": "array",
+                          "description": "Formulários avulsos respondidos no projeto.",
                           "items": {
-                            "type": "object",
-                            "additionalProperties": true
-                          },
-                          "description": "Formulários avulsos respondidos no projeto."
+                            "type": "object"
+                          }
                         },
                         "forum": {
                           "type": "object",
-                          "nullable": true,
-                          "additionalProperties": true,
                           "description": "Forum dedicado do projeto, quando habilitado."
                         },
                         "groups": {
                           "type": "array",
+                          "description": "Grupos aos quais o projeto pertence.",
                           "items": {
-                            "type": "object",
-                            "additionalProperties": true
-                          },
-                          "description": "Grupos aos quais o projeto pertence."
+                            "type": "object"
+                          }
                         },
                         "users": {
                           "type": "array",
                           "description": "Membros do projeto. O pivot informa a função (creator, leader, member etc.).",
                           "items": {
                             "type": "object",
-                            "additionalProperties": false,
-                            "required": [
-                              "id",
-                              "name",
-                              "pivot"
-                            ],
                             "properties": {
                               "id": {
                                 "type": "string",
@@ -2467,17 +2356,10 @@
                               },
                               "avatar_url": {
                                 "type": "string",
-                                "format": "uri",
-                                "nullable": true
+                                "format": "uri"
                               },
                               "pivot": {
                                 "type": "object",
-                                "additionalProperties": false,
-                                "required": [
-                                  "project_id",
-                                  "user_id",
-                                  "role"
-                                ],
                                 "properties": {
                                   "project_id": {
                                     "type": "string",
@@ -2499,44 +2381,42 @@
                                     "type": "string",
                                     "format": "date-time"
                                   }
-                                }
+                                },
+                                "required": [
+                                  "project_id",
+                                  "user_id",
+                                  "role"
+                                ]
                               }
-                            }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "pivot"
+                            ]
                           }
                         },
                         "children": {
                           "type": "array",
                           "description": "Projetos filhos diretos na hierarquia (referências resumidas).",
                           "items": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "type": "object"
                           }
                         },
                         "parent": {
                           "type": "object",
-                          "nullable": true,
-                          "additionalProperties": true,
                           "description": "Projeto pai na hierarquia, quando houver."
                         },
                         "frame": {
                           "type": "object",
                           "description": "Empresa (tenant) dona do projeto.",
-                          "additionalProperties": false,
-                          "required": [
-                            "id",
-                            "name",
-                            "type",
-                            "status",
-                            "subdomain"
-                          ],
                           "properties": {
                             "id": {
                               "type": "string",
                               "format": "uuid"
                             },
                             "old_id": {
-                              "type": "string",
-                              "nullable": true
+                              "type": "string"
                             },
                             "name": {
                               "type": "string"
@@ -2547,9 +2427,8 @@
                             },
                             "read_only_until": {
                               "type": "string",
-                              "format": "date-time",
-                              "nullable": true,
-                              "description": "Frame em modo somente-leitura até esta data, quando preenchido."
+                              "description": "Frame em modo somente-leitura até esta data, quando preenchido.",
+                              "format": "date-time"
                             },
                             "status": {
                               "type": "integer",
@@ -2560,17 +2439,13 @@
                             },
                             "frame_billing_data_id": {
                               "type": "string",
-                              "format": "uuid",
-                              "nullable": true
+                              "format": "uuid"
                             },
                             "model_forms": {
-                              "type": "object",
-                              "nullable": true,
-                              "additionalProperties": true
+                              "type": "object"
                             },
                             "logo_img": {
                               "type": "string",
-                              "nullable": true,
                               "description": "URL/caminho do logo."
                             },
                             "cockpit_access": {
@@ -2581,11 +2456,47 @@
                               ],
                               "description": "Indica se o frame possui acesso ao cockpit."
                             }
-                          }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "type",
+                            "status",
+                            "subdomain"
+                          ]
                         }
-                      }
+                      },
+                      "required": [
+                        "id",
+                        "code",
+                        "name",
+                        "impact",
+                        "frame_id",
+                        "status",
+                        "budget",
+                        "is_template",
+                        "created_at",
+                        "updated_at",
+                        "children_count",
+                        "executors",
+                        "funnels",
+                        "project_checklists",
+                        "funnel_steps",
+                        "step_form",
+                        "checklists",
+                        "tags",
+                        "loose_forms",
+                        "groups",
+                        "users",
+                        "children",
+                        "frame"
+                      ]
                     }
-                  }
+                  },
+                  "required": [
+                    "response",
+                    "project"
+                  ]
                 },
                 "example": {
                   "response": true,
@@ -16295,9 +16206,6 @@
                           "updated_at": {
                             "type": "string",
                             "format": "date-time"
-                          },
-                          "deleted_at": {
-                            "nullable": true
                           }
                         }
                       }
