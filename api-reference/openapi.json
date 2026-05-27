@@ -16575,10 +16575,11 @@
                         "type": "string",
                         "enum": [
                           "active",
-                          "inactive"
+                          "inactive",
+                          "completed"
                         ],
                         "example": "active",
-                        "description": "Status atual da meta."
+                        "description": "Status atual da meta. Valores possíveis: active (Ativa), inactive (Inativa), completed (Concluída)."
                       },
                       "type": {
                         "type": "string",
@@ -16672,7 +16673,8 @@
                         "type": "string",
                         "enum": [
                           "active",
-                          "inactive"
+                          "inactive",
+                          "completed"
                         ],
                         "example": "active",
                         "description": "Status atual da meta. Valores possíveis: active (Ativa), inactive (Inativa), completed (Concluída)."
@@ -16755,9 +16757,11 @@
                         "type": "string",
                         "enum": [
                           "active",
-                          "inactive"
+                          "inactive",
+                          "completed"
                         ],
-                        "example": "active"
+                        "example": "active",
+                        "description": "Status atual da meta. Valores possíveis: active (Ativa), inactive (Inativa), completed (Concluída)."
                       },
                       "type": {
                         "type": "string",
@@ -16848,9 +16852,11 @@
                         "type": "string",
                         "enum": [
                           "active",
-                          "inactive"
+                          "inactive",
+                          "completed"
                         ],
-                        "example": "active"
+                        "example": "active",
+                        "description": "Status atual da meta. Valores possíveis: active (Ativa), inactive (Inativa), completed (Concluída)."
                       },
                       "type": {
                         "type": "string",
@@ -16939,9 +16945,11 @@
                         "type": "string",
                         "enum": [
                           "active",
-                          "inactive"
+                          "inactive",
+                          "completed"
                         ],
-                        "example": "active"
+                        "example": "active",
+                        "description": "Status atual da meta. Valores possíveis: active (Ativa), inactive (Inativa), completed (Concluída)."
                       },
                       "type": {
                         "type": "string",
@@ -17037,9 +17045,11 @@
                         "type": "string",
                         "enum": [
                           "active",
-                          "inactive"
+                          "inactive",
+                          "completed"
                         ],
-                        "example": "active"
+                        "example": "active",
+                        "description": "Status atual da meta. Valores possíveis: active (Ativa), inactive (Inativa), completed (Concluída)."
                       },
                       "type": {
                         "type": "string",
