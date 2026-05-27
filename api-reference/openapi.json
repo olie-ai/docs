@@ -16554,7 +16554,7 @@
             "application/json": {
               "schema": {
                 "title": "Criação de Meta",
-                "description": "Payload para criação de metas manuais, automáticas e compostas.",
+                "description": "Payload para criação de metas de diferentes tipos.",
                 "oneOf": [
                   {
                     "title": "Meta Manual",
@@ -17176,95 +17176,613 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "children": {
-                    "type": "array",
-                    "items": {
-                      "type": "array",
-                      "items": {},
-                      "example": []
-                    },
-                    "example": [
-                      []
-                    ]
-                  },
-                  "comparison_mode": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "description": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "end_date": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "periodicity": {
-                    "type": "number",
-                    "example": 72
-                  },
-                  "start_date": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "status": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "target": {
-                    "type": "number",
-                    "example": 10
-                  },
-                  "title": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "type": {
-                    "type": "string",
-                    "example": "sample_text"
-                  },
-                  "type_options": {
+                "title": "Edição de Meta",
+                "description": "Payload para edição de metas de diferentes tipos.",
+                "oneOf": [
+                  {
+                    "title": "Meta Manual",
                     "type": "object",
                     "properties": {
-                      "0": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "019e6a00-4e87-71f0-8c6d-b27ca3e23845",
+                        "description": "UUID da meta."
+                      },
+                      "title": {
+                        "type": "string",
+                        "maxLength": 191,
+                        "example": "Novo título",
+                        "description": "Título da meta."
+                      },
+                      "description": {
+                        "type": "string",
+                        "example": "Descrição da meta",
+                        "description": "Descrição detalhada da meta."
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "active",
+                          "inactive",
+                          "completed"
+                        ],
+                        "example": "active",
+                        "description": "Status atual da meta."
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "manual"
+                        ],
+                        "example": "manual"
+                      },
+                      "periodicity": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "target": {
+                        "type": "number",
+                        "example": 10
+                      },
+                      "unit": {
+                        "type": "string",
+                        "example": "count"
+                      },
+                      "comparison_mode": {
+                        "type": "string",
+                        "enum": [
+                          "target"
+                        ],
+                        "example": "target"
+                      },
+                      "progress": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-05-27"
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-06-05"
+                      },
+                      "type_options": {
+                        "type": "object",
+                        "example": {}
+                      },
+                      "children": {
                         "type": "array",
-                        "items": {},
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "example": []
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title",
+                      "status",
+                      "type",
+                      "periodicity",
+                      "target",
+                      "unit",
+                      "comparison_mode",
+                      "progress",
+                      "start_date",
+                      "end_date"
+                    ]
+                  },
+                  {
+                    "title": "Meta de Projetos Criados",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "019e6a00-4e87-71f0-8c6d-b27ca3e23845"
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Novo título"
+                      },
+                      "description": {
+                        "type": "string",
+                        "example": "Descrição da meta"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "active",
+                          "inactive",
+                          "completed"
+                        ],
+                        "example": "active"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "projects_created"
+                        ],
+                        "example": "projects_created"
+                      },
+                      "periodicity": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "target": {
+                        "type": "number",
+                        "example": 10
+                      },
+                      "unit": {
+                        "type": "string",
+                        "example": "count"
+                      },
+                      "comparison_mode": {
+                        "type": "string",
+                        "enum": [
+                          "target"
+                        ],
+                        "example": "target"
+                      },
+                      "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-05-27"
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-06-05"
+                      },
+                      "type_options": {
+                        "type": "object",
+                        "example": {}
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "example": []
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title",
+                      "status",
+                      "type",
+                      "periodicity",
+                      "target",
+                      "unit",
+                      "comparison_mode",
+                      "start_date",
+                      "end_date"
+                    ]
+                  },
+                  {
+                    "title": "Meta de Projetos Criados por Usuário",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "019e6a00-4e87-71f0-8c6d-b27ca3e23845"
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Novo título"
+                      },
+                      "description": {
+                        "type": "string",
+                        "example": "Descrição da meta"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "active",
+                          "inactive",
+                          "completed"
+                        ],
+                        "example": "active"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "projects_created_by_user"
+                        ],
+                        "example": "projects_created_by_user"
+                      },
+                      "periodicity": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "target": {
+                        "type": "number",
+                        "example": 10
+                      },
+                      "unit": {
+                        "type": "string",
+                        "example": "count"
+                      },
+                      "comparison_mode": {
+                        "type": "string",
+                        "enum": [
+                          "target"
+                        ],
+                        "example": "target"
+                      },
+                      "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-05-27"
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-06-05"
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
                         "example": []
                       },
-                      "step_id": {
-                        "type": "number",
-                        "example": 0
-                      },
-                      "user_id": {
-                        "type": "string",
-                        "example": "sample_text"
+                      "type_options": {
+                        "type": "object",
+                        "properties": {
+                          "user_id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "019c75de-5124-71d6-8698-271e32b743ce"
+                          }
+                        },
+                        "required": [
+                          "user_id"
+                        ]
                       }
-                    }
+                    },
+                    "required": [
+                      "id",
+                      "title",
+                      "status",
+                      "type",
+                      "periodicity",
+                      "target",
+                      "unit",
+                      "comparison_mode",
+                      "start_date",
+                      "end_date",
+                      "type_options"
+                    ]
+                  },
+                  {
+                    "title": "Meta de Projetos em Etapa",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "019e6a00-4e87-71f0-8c6d-b27ca3e23845"
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Novo título"
+                      },
+                      "description": {
+                        "type": "string",
+                        "example": "Descrição da meta"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "active",
+                          "inactive",
+                          "completed"
+                        ],
+                        "example": "active"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "funnel_steps_links"
+                        ],
+                        "example": "funnel_steps_links"
+                      },
+                      "periodicity": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "target": {
+                        "type": "number",
+                        "example": 10
+                      },
+                      "unit": {
+                        "type": "string",
+                        "example": "count"
+                      },
+                      "comparison_mode": {
+                        "type": "string",
+                        "enum": [
+                          "target"
+                        ],
+                        "example": "target"
+                      },
+                      "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-05-27"
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-06-05"
+                      },
+                      "type_options": {
+                        "type": "object",
+                        "properties": {
+                          "step_id": {
+                            "type": "integer",
+                            "example": 310
+                          }
+                        },
+                        "required": [
+                          "step_id"
+                        ]
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "example": []
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title",
+                      "status",
+                      "type",
+                      "periodicity",
+                      "target",
+                      "unit",
+                      "comparison_mode",
+                      "start_date",
+                      "end_date",
+                      "type_options"
+                    ]
+                  },
+                  {
+                    "title": "Meta de Projetos em Etapa por Usuário",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "019e6a00-4e87-71f0-8c6d-b27ca3e23845"
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Novo título"
+                      },
+                      "description": {
+                        "type": "string",
+                        "example": "Descrição da meta"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "active",
+                          "inactive",
+                          "completed"
+                        ],
+                        "example": "active"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "funnel_steps_links_by_user"
+                        ],
+                        "example": "funnel_steps_links_by_user"
+                      },
+                      "periodicity": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "target": {
+                        "type": "number",
+                        "example": 10
+                      },
+                      "unit": {
+                        "type": "string",
+                        "example": "count"
+                      },
+                      "comparison_mode": {
+                        "type": "string",
+                        "enum": [
+                          "target"
+                        ],
+                        "example": "target"
+                      },
+                      "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-05-27"
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-06-05"
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "example": []
+                      },
+                      "type_options": {
+                        "type": "object",
+                        "properties": {
+                          "step_id": {
+                            "type": "integer",
+                            "example": 197
+                          },
+                          "user_id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "019c75de-5124-71d6-8698-271e32b743ce"
+                          }
+                        },
+                        "required": [
+                          "step_id",
+                          "user_id"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title",
+                      "status",
+                      "type",
+                      "periodicity",
+                      "target",
+                      "unit",
+                      "comparison_mode",
+                      "start_date",
+                      "end_date",
+                      "type_options"
+                    ]
+                  },
+                  {
+                    "title": "Meta Composta",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "019e6a00-4e87-71f0-8c6d-b27ca3e23845"
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Novo título"
+                      },
+                      "description": {
+                        "type": "string",
+                        "example": "Descrição da meta"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "active",
+                          "inactive",
+                          "completed"
+                        ],
+                        "example": "active"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "composite"
+                        ],
+                        "example": "composite"
+                      },
+                      "periodicity": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "target": {
+                        "type": "number",
+                        "example": 10
+                      },
+                      "unit": {
+                        "type": "string",
+                        "example": "count"
+                      },
+                      "comparison_mode": {
+                        "type": "string",
+                        "enum": [
+                          "target"
+                        ],
+                        "example": "target"
+                      },
+                      "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-05-27"
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-06-05"
+                      },
+                      "type_options": {
+                        "type": "object",
+                        "example": {}
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "example": [
+                          "019e69d4-a622-7284-853c-762316b97783",
+                          "019e69d2-a05d-71b8-8092-71ef4698c5ba"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title",
+                      "status",
+                      "type",
+                      "periodicity",
+                      "target",
+                      "unit",
+                      "comparison_mode",
+                      "start_date",
+                      "end_date",
+                      "children"
+                    ]
                   }
-                }
+                ]
               },
               "examples": {
                 "Atualizar informações de uma meta": {
                   "value": {
-                    "children": [
-                      []
-                    ],
-                    "comparison_mode": "sample_text",
-                    "description": "sample_text",
-                    "end_date": "sample_text",
-                    "periodicity": 72,
-                    "start_date": "sample_text",
-                    "status": "sample_text",
-                    "target": 10,
-                    "title": "sample_text",
-                    "type": "sample_text",
+                    "id": "019e6a00-4e87-71f0-8c6d-b27ca3e23845",
+                    "title": "Novo título",
+                    "description": "Descrição da meta",
+                    "status": "active",
+                    "start_date": "2026-05-27",
+                    "end_date": "2026-06-05",
+                    "periodicity": 1,
+                    "type": "funnel_steps_links_by_user",
                     "type_options": {
-                      "0": [],
-                      "step_id": 0,
-                      "user_id": "sample_text"
-                    }
+                      "step_id": 197,
+                      "user_id": "019c75de-50f0-7366-a948-b8cbdd1841be"
+                    },
+                    "target": 10,
+                    "unit": "count",
+                    "comparison_mode": "target",
+                    "children": [],
+                    "progress_change_percentage": 0,
+                    "percentage": 0,
+                    "results_count": 0,
+                    "is_past_calculable": true,
+                    "created_at": "2026-05-27T15:14:25.000000Z",
+                    "updated_at": "2026-05-27T15:14:25.000000Z",
+                    "deleted_at": null
                   }
                 }
               }
