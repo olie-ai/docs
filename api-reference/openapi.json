@@ -16557,14 +16557,14 @@
                 "properties": {
                   "children": {
                     "type": "array",
-                    "items": {
-                      "type": "array",
-                      "items": {},
-                      "example": []
-                    },
                     "example": [
                       []
-                    ]
+                    ],
+                    "items": {
+                      "type": "array",
+                      "example": [],
+                      "items": {}
+                    }
                   },
                   "comparison_mode": {
                     "type": "string",
@@ -16607,8 +16607,8 @@
                     "properties": {
                       "0": {
                         "type": "array",
-                        "items": {},
-                        "example": []
+                        "example": [],
+                        "items": {}
                       },
                       "step_id": {
                         "type": "number",
@@ -16641,7 +16641,8 @@
                       "0": [],
                       "step_id": 7,
                       "user_id": "sample_text"
-                    }
+                    },
+                    "unit": "count"
                   }
                 }
               }
