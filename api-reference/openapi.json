@@ -16215,7 +16215,7 @@
           "goals"
         ],
         "summary": "Listar metas",
-        "description": "Retorna a lista paginada de metas do frame, ordenada por status (ativas primeiro) e por data de criação decrescente. Cada meta inclui suas metas filhas, a contagem de resultados e a variação percentual de progresso em relação ao último resultado registrado.",
+        "description": "Retorna a lista paginada de metas, ordenada por status (ativas primeiro) e por data de criação decrescente. Cada meta inclui suas metas filhas, a contagem de resultados e a variação percentual de progresso em relação ao último resultado registrado.",
         "operationId": "listarMetas",
         "responses": {
           "200": {
