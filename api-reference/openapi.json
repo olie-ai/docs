@@ -16432,7 +16432,12 @@
             "in": "query",
             "description": "Filtra pelo status exato: active, inactive ou completed.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "active",
+                " inactive",
+                " completed"
+              ]
             },
             "example": ""
           },
