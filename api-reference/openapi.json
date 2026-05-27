@@ -17176,23 +17176,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "title": "Edição de Meta",
-                "description": "Payload para edição de metas de diferentes tipos.",
+                "title": "Edição de meta",
+                "description": "Payload para edição de uma meta de diferentes tipos.",
                 "oneOf": [
                   {
                     "title": "Meta Manual",
                     "type": "object",
                     "properties": {
-                      "id": {
-                        "type": "string",
-                        "format": "uuid",
-                        "example": "019e6a00-4e87-71f0-8c6d-b27ca3e23845",
-                        "description": "UUID da meta."
-                      },
                       "title": {
                         "type": "string",
                         "maxLength": 191,
-                        "example": "Novo título",
+                        "example": "Nova meta",
                         "description": "Título da meta."
                       },
                       "description": {
@@ -17208,54 +17202,64 @@
                           "completed"
                         ],
                         "example": "active",
-                        "description": "Status atual da meta."
+                        "description": "Status atual da meta. Valores possíveis: active (Ativa), inactive (Inativa), completed (Concluída)."
                       },
                       "type": {
                         "type": "string",
                         "enum": [
                           "manual"
                         ],
-                        "example": "manual"
+                        "example": "manual",
+                        "description": "Tipo da meta."
                       },
                       "periodicity": {
                         "type": "integer",
-                        "example": 1
+                        "example": 1,
+                        "description": "Periodicidade da meta."
                       },
                       "target": {
                         "type": "number",
-                        "example": 10
+                        "example": 10,
+                        "description": "Valor alvo da meta."
                       },
                       "unit": {
                         "type": "string",
-                        "example": "count"
+                        "example": "count",
+                        "description": "Unidade utilizada na meta."
                       },
                       "comparison_mode": {
                         "type": "string",
                         "enum": [
                           "target"
                         ],
-                        "example": "target"
+                        "example": "target",
+                        "description": "Modo de comparação utilizado para validação da meta."
                       },
                       "progress": {
                         "type": "number",
-                        "example": 1
+                        "example": 1,
+                        "description": "Progresso inicial da meta manual."
                       },
                       "start_date": {
                         "type": "string",
                         "format": "date",
-                        "example": "2026-05-27"
+                        "example": "2026-05-27",
+                        "description": "Data de início da meta."
                       },
                       "end_date": {
                         "type": "string",
                         "format": "date",
-                        "example": "2026-06-05"
+                        "example": "2026-06-05",
+                        "description": "Data final da meta."
                       },
                       "type_options": {
                         "type": "object",
+                        "description": "Configurações adicionais específicas do tipo da meta.",
                         "example": {}
                       },
                       "children": {
                         "type": "array",
+                        "description": "Lista de metas filhas.",
                         "items": {
                           "type": "string",
                           "format": "uuid"
@@ -17264,7 +17268,6 @@
                       }
                     },
                     "required": [
-                      "id",
                       "title",
                       "status",
                       "type",
@@ -17281,14 +17284,9 @@
                     "title": "Meta de Projetos Criados",
                     "type": "object",
                     "properties": {
-                      "id": {
-                        "type": "string",
-                        "format": "uuid",
-                        "example": "019e6a00-4e87-71f0-8c6d-b27ca3e23845"
-                      },
                       "title": {
                         "type": "string",
-                        "example": "Novo título"
+                        "example": "Nova meta"
                       },
                       "description": {
                         "type": "string",
@@ -17301,7 +17299,8 @@
                           "inactive",
                           "completed"
                         ],
-                        "example": "active"
+                        "example": "active",
+                        "description": "Status atual da meta. Valores possíveis: active (Ativa), inactive (Inativa), completed (Concluída)."
                       },
                       "type": {
                         "type": "string",
@@ -17341,7 +17340,8 @@
                       },
                       "type_options": {
                         "type": "object",
-                        "example": {}
+                        "example": {},
+                        "description": "Objeto vazio para este tipo de meta."
                       },
                       "children": {
                         "type": "array",
@@ -17353,7 +17353,6 @@
                       }
                     },
                     "required": [
-                      "id",
                       "title",
                       "status",
                       "type",
@@ -17369,14 +17368,9 @@
                     "title": "Meta de Projetos Criados por Usuário",
                     "type": "object",
                     "properties": {
-                      "id": {
-                        "type": "string",
-                        "format": "uuid",
-                        "example": "019e6a00-4e87-71f0-8c6d-b27ca3e23845"
-                      },
                       "title": {
                         "type": "string",
-                        "example": "Novo título"
+                        "example": "Nova meta"
                       },
                       "description": {
                         "type": "string",
@@ -17389,7 +17383,8 @@
                           "inactive",
                           "completed"
                         ],
-                        "example": "active"
+                        "example": "active",
+                        "description": "Status atual da meta. Valores possíveis: active (Ativa), inactive (Inativa), completed (Concluída)."
                       },
                       "type": {
                         "type": "string",
@@ -17437,11 +17432,13 @@
                       },
                       "type_options": {
                         "type": "object",
+                        "description": "Configurações específicas para filtro por usuário.",
                         "properties": {
                           "user_id": {
                             "type": "string",
                             "format": "uuid",
-                            "example": "019c75de-5124-71d6-8698-271e32b743ce"
+                            "example": "019c75de-5124-71d6-8698-271e32b743ce",
+                            "description": "UUID do usuário associado à meta."
                           }
                         },
                         "required": [
@@ -17450,7 +17447,6 @@
                       }
                     },
                     "required": [
-                      "id",
                       "title",
                       "status",
                       "type",
@@ -17467,14 +17463,9 @@
                     "title": "Meta de Projetos em Etapa",
                     "type": "object",
                     "properties": {
-                      "id": {
-                        "type": "string",
-                        "format": "uuid",
-                        "example": "019e6a00-4e87-71f0-8c6d-b27ca3e23845"
-                      },
                       "title": {
                         "type": "string",
-                        "example": "Novo título"
+                        "example": "Nova meta"
                       },
                       "description": {
                         "type": "string",
@@ -17487,7 +17478,8 @@
                           "inactive",
                           "completed"
                         ],
-                        "example": "active"
+                        "example": "active",
+                        "description": "Status atual da meta. Valores possíveis: active (Ativa), inactive (Inativa), completed (Concluída)."
                       },
                       "type": {
                         "type": "string",
@@ -17530,7 +17522,8 @@
                         "properties": {
                           "step_id": {
                             "type": "integer",
-                            "example": 310
+                            "example": 310,
+                            "description": "ID da etapa do funil."
                           }
                         },
                         "required": [
@@ -17547,7 +17540,6 @@
                       }
                     },
                     "required": [
-                      "id",
                       "title",
                       "status",
                       "type",
@@ -17564,14 +17556,9 @@
                     "title": "Meta de Projetos em Etapa por Usuário",
                     "type": "object",
                     "properties": {
-                      "id": {
-                        "type": "string",
-                        "format": "uuid",
-                        "example": "019e6a00-4e87-71f0-8c6d-b27ca3e23845"
-                      },
                       "title": {
                         "type": "string",
-                        "example": "Novo título"
+                        "example": "Nova meta"
                       },
                       "description": {
                         "type": "string",
@@ -17584,7 +17571,8 @@
                           "inactive",
                           "completed"
                         ],
-                        "example": "active"
+                        "example": "active",
+                        "description": "Status atual da meta. Valores possíveis: active (Ativa), inactive (Inativa), completed (Concluída)."
                       },
                       "type": {
                         "type": "string",
@@ -17635,12 +17623,14 @@
                         "properties": {
                           "step_id": {
                             "type": "integer",
-                            "example": 197
+                            "example": 197,
+                            "description": "ID da etapa do funil."
                           },
                           "user_id": {
                             "type": "string",
                             "format": "uuid",
-                            "example": "019c75de-5124-71d6-8698-271e32b743ce"
+                            "example": "019c75de-5124-71d6-8698-271e32b743ce",
+                            "description": "UUID do usuário associado."
                           }
                         },
                         "required": [
@@ -17650,7 +17640,6 @@
                       }
                     },
                     "required": [
-                      "id",
                       "title",
                       "status",
                       "type",
@@ -17667,14 +17656,9 @@
                     "title": "Meta Composta",
                     "type": "object",
                     "properties": {
-                      "id": {
-                        "type": "string",
-                        "format": "uuid",
-                        "example": "019e6a00-4e87-71f0-8c6d-b27ca3e23845"
-                      },
                       "title": {
                         "type": "string",
-                        "example": "Novo título"
+                        "example": "Nova meta"
                       },
                       "description": {
                         "type": "string",
@@ -17687,7 +17671,8 @@
                           "inactive",
                           "completed"
                         ],
-                        "example": "active"
+                        "example": "active",
+                        "description": "Status atual da meta. Valores possíveis: active (Ativa), inactive (Inativa), completed (Concluída)."
                       },
                       "type": {
                         "type": "string",
@@ -17727,10 +17712,12 @@
                       },
                       "type_options": {
                         "type": "object",
-                        "example": {}
+                        "example": {},
+                        "description": "Objeto vazio para metas compostas."
                       },
                       "children": {
                         "type": "array",
+                        "description": "Lista de UUIDs das metas filhas que compõem esta meta.",
                         "items": {
                           "type": "string",
                           "format": "uuid"
@@ -17742,7 +17729,6 @@
                       }
                     },
                     "required": [
-                      "id",
                       "title",
                       "status",
                       "type",
@@ -17760,7 +17746,6 @@
               "examples": {
                 "Atualizar informações de uma meta": {
                   "value": {
-                    "id": "019e6a00-4e87-71f0-8c6d-b27ca3e23845",
                     "title": "Novo título",
                     "description": "Descrição da meta",
                     "status": "active",
