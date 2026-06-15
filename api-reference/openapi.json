@@ -16167,9 +16167,16 @@
                           "type": {
                             "type": "string"
                           },
-                          "type_options": {
-                            "type": "array",
-                            "items": {}
+                          "user_id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "nullable": true,
+                            "description": "ID do usuário associado à meta (tipos projects_created_by_user e funnel_steps_links_by_user)."
+                          },
+                          "funnel_step_id": {
+                            "type": "integer",
+                            "nullable": true,
+                            "description": "ID da etapa do funil (tipos funnel_steps_links e funnel_steps_links_by_user)."
                           },
                           "target": {
                             "type": "integer"
@@ -16249,7 +16256,8 @@
                       "end_date": "2026-12-31",
                       "periodicity": 30,
                       "type": "projects_created",
-                      "type_options": [],
+                      "user_id": null,
+                      "funnel_step_id": null,
                       "target": 50,
                       "unit": "count",
                       "comparison_mode": "target",
@@ -16272,7 +16280,8 @@
                       "end_date": null,
                       "periodicity": 90,
                       "type": "composite",
-                      "type_options": [],
+                      "user_id": null,
+                      "funnel_step_id": null,
                       "target": 100000,
                       "unit": "currency",
                       "comparison_mode": "target",
@@ -16287,9 +16296,8 @@
                           "end_date": null,
                           "periodicity": 90,
                           "type": "funnel_steps_links",
-                          "type_options": {
-                            "step_id": "4d7e9a2c-1b3f-4e6d-8c5a-9f2b1d3e4c6a"
-                          },
+                          "user_id": null,
+                          "funnel_step_id": 310,
                           "target": 60000,
                           "unit": "currency",
                           "comparison_mode": "target",
@@ -16379,16 +16387,16 @@
           {
             "name": "filter[user_id]",
             "in": "query",
-            "description": "Filtra metas cujo type_options.user_id corresponde ao ID (UUID) do usuário informado.",
+            "description": "Filtra metas cujo user_id corresponde ao ID do usuário informado.",
             "schema": {
               "type": "string"
             },
             "example": ""
           },
           {
-            "name": "filter[step_id]",
+            "name": "filter[funnel_step_id]",
             "in": "query",
-            "description": "Filtra metas cujo type_options.step_id corresponde ao ID (UUID) da etapa de funil informada.",
+            "description": "Filtra metas cujo funnel_step_id corresponde ao ID da etapa de funil informada.",
             "schema": {
               "type": "string"
             },
@@ -16537,11 +16545,6 @@
                         "example": "2026-06-05",
                         "description": "Data final da meta."
                       },
-                      "type_options": {
-                        "type": "object",
-                        "description": "Configurações adicionais específicas do tipo da meta.",
-                        "example": {}
-                      },
                       "children": {
                         "type": "array",
                         "description": "Lista de metas filhas.",
@@ -16623,11 +16626,6 @@
                         "format": "date",
                         "example": "2026-06-05"
                       },
-                      "type_options": {
-                        "type": "object",
-                        "example": {},
-                        "description": "Objeto vazio para este tipo de meta."
-                      },
                       "children": {
                         "type": "array",
                         "items": {
@@ -16707,6 +16705,12 @@
                         "format": "date",
                         "example": "2026-06-05"
                       },
+                      "user_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "019c75de-5124-71d6-8698-271e32b743ce",
+                        "description": "ID do usuário associado à meta."
+                      },
                       "children": {
                         "type": "array",
                         "items": {
@@ -16714,21 +16718,6 @@
                           "format": "uuid"
                         },
                         "example": []
-                      },
-                      "type_options": {
-                        "type": "object",
-                        "description": "Configurações específicas para filtro por usuário.",
-                        "properties": {
-                          "user_id": {
-                            "type": "string",
-                            "format": "uuid",
-                            "example": "019c75de-5124-71d6-8698-271e32b743ce",
-                            "description": "UUID do usuário associado à meta."
-                          }
-                        },
-                        "required": [
-                          "user_id"
-                        ]
                       }
                     },
                     "required": [
@@ -16741,7 +16730,7 @@
                       "comparison_mode",
                       "start_date",
                       "end_date",
-                      "type_options"
+                      "user_id"
                     ]
                   },
                   {
@@ -16802,18 +16791,10 @@
                         "format": "date",
                         "example": "2026-06-05"
                       },
-                      "type_options": {
-                        "type": "object",
-                        "properties": {
-                          "step_id": {
-                            "type": "integer",
-                            "example": 310,
-                            "description": "ID da etapa do funil."
-                          }
-                        },
-                        "required": [
-                          "step_id"
-                        ]
+                      "funnel_step_id": {
+                        "type": "integer",
+                        "example": 310,
+                        "description": "ID da etapa do funil."
                       },
                       "children": {
                         "type": "array",
@@ -16834,7 +16815,7 @@
                       "comparison_mode",
                       "start_date",
                       "end_date",
-                      "type_options"
+                      "funnel_step_id"
                     ]
                   },
                   {
@@ -16895,6 +16876,17 @@
                         "format": "date",
                         "example": "2026-06-05"
                       },
+                      "funnel_step_id": {
+                        "type": "integer",
+                        "example": 197,
+                        "description": "ID da etapa do funil."
+                      },
+                      "user_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "019c75de-5124-71d6-8698-271e32b743ce",
+                        "description": "ID do usuário associado à meta."
+                      },
                       "children": {
                         "type": "array",
                         "items": {
@@ -16902,26 +16894,6 @@
                           "format": "uuid"
                         },
                         "example": []
-                      },
-                      "type_options": {
-                        "type": "object",
-                        "properties": {
-                          "step_id": {
-                            "type": "integer",
-                            "example": 197,
-                            "description": "ID da etapa do funil."
-                          },
-                          "user_id": {
-                            "type": "string",
-                            "format": "uuid",
-                            "example": "019c75de-5124-71d6-8698-271e32b743ce",
-                            "description": "UUID do usuário associado."
-                          }
-                        },
-                        "required": [
-                          "step_id",
-                          "user_id"
-                        ]
                       }
                     },
                     "required": [
@@ -16934,7 +16906,8 @@
                       "comparison_mode",
                       "start_date",
                       "end_date",
-                      "type_options"
+                      "funnel_step_id",
+                      "user_id"
                     ]
                   },
                   {
@@ -16995,11 +16968,6 @@
                         "format": "date",
                         "example": "2026-06-05"
                       },
-                      "type_options": {
-                        "type": "object",
-                        "example": {},
-                        "description": "Objeto vazio para metas compostas."
-                      },
                       "children": {
                         "type": "array",
                         "description": "Lista de UUIDs das metas filhas que compõem esta meta.",
@@ -17042,10 +17010,8 @@
                     "start_date": "2026-05-27",
                     "end_date": "2026-06-05",
                     "children": [],
-                    "type_options": {
-                      "step_id": 197,
-                      "user_id": "019c75de-5124-71d6-8698-271e32b743ce"
-                    }
+                    "funnel_step_id": 197,
+                    "user_id": "019c75de-5124-71d6-8698-271e32b743ce"
                   }
                 }
               }
@@ -17160,11 +17126,6 @@
                         "example": "2026-06-05",
                         "description": "Data final da meta."
                       },
-                      "type_options": {
-                        "type": "object",
-                        "description": "Configurações adicionais específicas do tipo da meta.",
-                        "example": {}
-                      },
                       "children": {
                         "type": "array",
                         "description": "Lista de metas filhas.",
@@ -17246,11 +17207,6 @@
                         "format": "date",
                         "example": "2026-06-05"
                       },
-                      "type_options": {
-                        "type": "object",
-                        "example": {},
-                        "description": "Objeto vazio para este tipo de meta."
-                      },
                       "children": {
                         "type": "array",
                         "items": {
@@ -17330,6 +17286,12 @@
                         "format": "date",
                         "example": "2026-06-05"
                       },
+                      "user_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "019c75de-5124-71d6-8698-271e32b743ce",
+                        "description": "ID do usuário associado à meta."
+                      },
                       "children": {
                         "type": "array",
                         "items": {
@@ -17337,21 +17299,6 @@
                           "format": "uuid"
                         },
                         "example": []
-                      },
-                      "type_options": {
-                        "type": "object",
-                        "description": "Configurações específicas para filtro por usuário.",
-                        "properties": {
-                          "user_id": {
-                            "type": "string",
-                            "format": "uuid",
-                            "example": "019c75de-5124-71d6-8698-271e32b743ce",
-                            "description": "UUID do usuário associado à meta."
-                          }
-                        },
-                        "required": [
-                          "user_id"
-                        ]
                       }
                     },
                     "required": [
@@ -17364,7 +17311,7 @@
                       "comparison_mode",
                       "start_date",
                       "end_date",
-                      "type_options"
+                      "user_id"
                     ]
                   },
                   {
@@ -17425,18 +17372,10 @@
                         "format": "date",
                         "example": "2026-06-05"
                       },
-                      "type_options": {
-                        "type": "object",
-                        "properties": {
-                          "step_id": {
-                            "type": "integer",
-                            "example": 310,
-                            "description": "ID da etapa do funil."
-                          }
-                        },
-                        "required": [
-                          "step_id"
-                        ]
+                      "funnel_step_id": {
+                        "type": "integer",
+                        "example": 310,
+                        "description": "ID da etapa do funil."
                       },
                       "children": {
                         "type": "array",
@@ -17457,7 +17396,7 @@
                       "comparison_mode",
                       "start_date",
                       "end_date",
-                      "type_options"
+                      "funnel_step_id"
                     ]
                   },
                   {
@@ -17518,6 +17457,17 @@
                         "format": "date",
                         "example": "2026-06-05"
                       },
+                      "funnel_step_id": {
+                        "type": "integer",
+                        "example": 197,
+                        "description": "ID da etapa do funil."
+                      },
+                      "user_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "019c75de-5124-71d6-8698-271e32b743ce",
+                        "description": "ID do usuário associado à meta."
+                      },
                       "children": {
                         "type": "array",
                         "items": {
@@ -17525,26 +17475,6 @@
                           "format": "uuid"
                         },
                         "example": []
-                      },
-                      "type_options": {
-                        "type": "object",
-                        "properties": {
-                          "step_id": {
-                            "type": "integer",
-                            "example": 197,
-                            "description": "ID da etapa do funil."
-                          },
-                          "user_id": {
-                            "type": "string",
-                            "format": "uuid",
-                            "example": "019c75de-5124-71d6-8698-271e32b743ce",
-                            "description": "UUID do usuário associado."
-                          }
-                        },
-                        "required": [
-                          "step_id",
-                          "user_id"
-                        ]
                       }
                     },
                     "required": [
@@ -17557,7 +17487,8 @@
                       "comparison_mode",
                       "start_date",
                       "end_date",
-                      "type_options"
+                      "funnel_step_id",
+                      "user_id"
                     ]
                   },
                   {
@@ -17618,11 +17549,6 @@
                         "format": "date",
                         "example": "2026-06-05"
                       },
-                      "type_options": {
-                        "type": "object",
-                        "example": {},
-                        "description": "Objeto vazio para metas compostas."
-                      },
                       "children": {
                         "type": "array",
                         "description": "Lista de UUIDs das metas filhas que compõem esta meta.",
@@ -17661,10 +17587,8 @@
                     "end_date": "2026-06-05",
                     "periodicity": 1,
                     "type": "funnel_steps_links_by_user",
-                    "type_options": {
-                      "step_id": 197,
-                      "user_id": "019c75de-50f0-7366-a948-b8cbdd1841be"
-                    },
+                    "funnel_step_id": 197,
+                    "user_id": "019c75de-50f0-7366-a948-b8cbdd1841be",
                     "target": 10,
                     "unit": "count",
                     "comparison_mode": "target",
