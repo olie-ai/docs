@@ -23562,6 +23562,1135 @@
           "example": 40
         }
       ]
+    },
+    "/api/management/spreadsheet-operations": {
+      "get": {
+        "tags": [
+          "spreadsheet-operations",
+          "index"
+        ],
+        "summary": "Listar operações de planilha",
+        "description": "Lista operações de import/export assíncronas. Suporta paginação e filtros por `action` e `status`.",
+        "operationId": "listarOperacoesDePlanilha",
+        "responses": {
+          "200": {
+            "description": "Lista de operações de planilha retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "meta": {
+                      "type": "object",
+                      "title": "Informações de Paginação",
+                      "description": "Metadados de paginação",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "from": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "last_page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "per_page": {
+                          "type": "integer",
+                          "example": 30
+                        },
+                        "to": {
+                          "type": "integer",
+                          "example": 30
+                        },
+                        "total": {
+                          "type": "integer",
+                          "example": 5
+                        }
+                      }
+                    },
+                    "spreadsheet_operations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "action": {
+                            "type": "string",
+                            "example": "export"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "project"
+                          },
+                          "status": {
+                            "type": "string",
+                            "example": "completed"
+                          },
+                          "total_rows": {
+                            "type": "integer",
+                            "example": 120
+                          },
+                          "processed_rows": {
+                            "type": "integer",
+                            "example": 120
+                          },
+                          "percentage": {
+                            "type": "integer",
+                            "example": 100
+                          },
+                          "errors_count": {
+                            "type": "integer",
+                            "example": 0
+                          },
+                          "metadata": {
+                            "type": "object"
+                          },
+                          "file_name": {
+                            "type": "string",
+                            "nullable": true,
+                            "example": "project_2026-06-01-143022.xlsx"
+                          },
+                          "initiator_type": {
+                            "type": "string",
+                            "example": "App\\Models\\User"
+                          },
+                          "initiator_id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "initiator": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "avatar_url": {
+                                "type": "string",
+                                "nullable": true
+                              }
+                            }
+                          },
+                          "started_at": {
+                            "type": "string",
+                            "nullable": true,
+                            "format": "date-time"
+                          },
+                          "completed_at": {
+                            "type": "string",
+                            "nullable": true,
+                            "format": "date-time"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "meta": {
+                    "current_page": 1,
+                    "from": 1,
+                    "last_page": 1,
+                    "per_page": 30,
+                    "to": 30,
+                    "total": 5
+                  },
+                  "spreadsheet_operations": [
+                    {
+                      "id": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7",
+                      "action": "export",
+                      "type": "project",
+                      "status": "completed",
+                      "total_rows": 120,
+                      "processed_rows": 120,
+                      "percentage": 100,
+                      "errors_count": 0,
+                      "metadata": {
+                        "columns": [
+                          "project.id",
+                          "project.name"
+                        ],
+                        "filters": []
+                      },
+                      "file_name": "project_2026-06-01-143022.xlsx",
+                      "initiator_type": "App\\Models\\User",
+                      "initiator_id": "019c75de-50f0-7366-a948-b8cbdd1841be",
+                      "initiator": {
+                        "id": "019c75de-50f0-7366-a948-b8cbdd1841be",
+                        "name": "Tester",
+                        "avatar_url": "https://via.placeholder.com/124x124.png/00aa99?text=quas"
+                      },
+                      "started_at": "2026-06-01T14:30:22.000000Z",
+                      "completed_at": "2026-06-01T14:31:10.000000Z",
+                      "created_at": "2026-06-01T14:30:22.000000Z",
+                      "updated_at": "2026-06-01T14:31:10.000000Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autenticado"
+          },
+          "403": {
+            "description": "Sem permissão"
+          },
+          "422": {
+            "description": "Campos inválidos"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "page",
+          "in": "query",
+          "description": "Número da página a ser retornada. Começa em 1",
+          "schema": {
+            "type": "integer"
+          },
+          "example": 1
+        },
+        {
+          "name": "perPage",
+          "in": "query",
+          "description": "Quantidade de itens exibidos por página. Define o tamanho da página de resultados",
+          "schema": {
+            "type": "integer"
+          },
+          "example": 30
+        },
+        {
+          "name": "filter[action]",
+          "in": "query",
+          "description": "Filtra pelo tipo de operação: `import` ou `export`.",
+          "schema": {
+            "type": "string",
+            "enum": [
+              "import",
+              "export"
+            ]
+          },
+          "example": "export"
+        },
+        {
+          "name": "filter[status]",
+          "in": "query",
+          "description": "Filtra pelo status exato: `pending`, `processing`, `completed` ou `failed`.",
+          "schema": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "processing",
+              "completed",
+              "failed"
+            ]
+          },
+          "example": "completed"
+        }
+      ]
+    },
+    "/api/management/spreadsheet-operations/import/{type}": {
+      "post": {
+        "tags": [
+          "spreadsheet-operations",
+          "import"
+        ],
+        "summary": "Importar planilha",
+        "description": "Cria uma operação de import assíncrona (XLSX). O arquivo é processado em background e os erros são consultáveis em `/errors`.",
+        "operationId": "importarPlanilha",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Arquivo XLSX (até 50MB)."
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              },
+              "example": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Operação de import criada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "spreadsheet_operation": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "action": {
+                          "type": "string",
+                          "example": "export"
+                        },
+                        "type": {
+                          "type": "string",
+                          "example": "project"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "completed"
+                        },
+                        "total_rows": {
+                          "type": "integer",
+                          "example": 120
+                        },
+                        "processed_rows": {
+                          "type": "integer",
+                          "example": 120
+                        },
+                        "percentage": {
+                          "type": "integer",
+                          "example": 100
+                        },
+                        "errors_count": {
+                          "type": "integer",
+                          "example": 0
+                        },
+                        "metadata": {
+                          "type": "object"
+                        },
+                        "file_name": {
+                          "type": "string",
+                          "nullable": true,
+                          "example": "project_2026-06-01-143022.xlsx"
+                        },
+                        "initiator_type": {
+                          "type": "string",
+                          "example": "App\\Models\\User"
+                        },
+                        "initiator_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "initiator": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "avatar_url": {
+                              "type": "string",
+                              "nullable": true
+                            }
+                          }
+                        },
+                        "started_at": {
+                          "type": "string",
+                          "nullable": true,
+                          "format": "date-time"
+                        },
+                        "completed_at": {
+                          "type": "string",
+                          "nullable": true,
+                          "format": "date-time"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autenticado"
+          },
+          "403": {
+            "description": "Sem permissão"
+          },
+          "422": {
+            "description": "Campos inválidos"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "type",
+          "in": "path",
+          "required": true,
+          "description": "Tipo de operação (domínio alvo). Atualmente: `project`.",
+          "schema": {
+            "type": "string",
+            "enum": [
+              "project"
+            ]
+          },
+          "example": "project"
+        }
+      ]
+    },
+    "/api/management/spreadsheet-operations/export/{type}/columns": {
+      "get": {
+        "tags": [
+          "spreadsheet-operations",
+          "export-columns"
+        ],
+        "summary": "Obter colunas do export",
+        "description": "Retorna o catálogo de colunas disponíveis para exportação/importação do tipo especificado.",
+        "operationId": "obterColunasDeExportacao",
+        "responses": {
+          "200": {
+            "description": "Colunas retornadas com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "columns": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "key": {
+                            "type": "string",
+                            "example": "project.id"
+                          },
+                          "required": {
+                            "type": "boolean",
+                            "example": true
+                          },
+                          "importable": {
+                            "type": "boolean",
+                            "example": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "columns": [
+                    {
+                      "key": "project.id",
+                      "required": true,
+                      "importable": true
+                    },
+                    {
+                      "key": "project.name",
+                      "required": true,
+                      "importable": true
+                    },
+                    {
+                      "key": "project.code",
+                      "required": false,
+                      "importable": false
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autenticado"
+          },
+          "403": {
+            "description": "Sem permissão"
+          },
+          "422": {
+            "description": "Campos inválidos"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "type",
+          "in": "path",
+          "required": true,
+          "description": "Tipo de operação (domínio alvo). Atualmente: `project`.",
+          "schema": {
+            "type": "string",
+            "enum": [
+              "project"
+            ]
+          },
+          "example": "project"
+        }
+      ]
+    },
+    "/api/management/spreadsheet-operations/export/{type}": {
+      "post": {
+        "tags": [
+          "spreadsheet-operations",
+          "export"
+        ],
+        "summary": "Exportar planilha",
+        "description": "Cria uma operação de export assíncrona (XLSX). O body define quais colunas, formulários dinâmicos e filtros avançados devem ser aplicados.",
+        "operationId": "exportarPlanilha",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "columns": {
+                    "type": "array",
+                    "description": "Chaves das colunas (deve incluir todas as requiredKeys).",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "project.id",
+                        "project.code",
+                        "project.name",
+                        "project.description",
+                        "project.impact",
+                        "project.status",
+                        "project.customer",
+                        "project.contact",
+                        "project.budget",
+                        "project.created_by",
+                        "project.assignees",
+                        "project.funnels",
+                        "project.steps",
+                        "project.tags",
+                        "project.add_to_funnel",
+                        "project.groups",
+                        "project.created_at",
+                        "project.updated_at"
+                      ]
+                    }
+                  },
+                  "dynamic_forms": {
+                    "type": "array",
+                    "description": "Formulários dinâmicos opcionais que entram no layout e no payload de exportação.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "model": {
+                          "type": "string",
+                          "enum": [
+                            "project",
+                            "project_funnel",
+                            "funnel_step"
+                          ]
+                        },
+                        "id": {
+                          "type": "string",
+                          "nullable": true,
+                          "format": "uuid"
+                        }
+                      },
+                      "required": [
+                        "model"
+                      ]
+                    }
+                  },
+                  "filters": {
+                    "type": "array",
+                    "description": "Busca avançada (estrutura compatível com `App\\Utils\\QueryingModels`).",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "field": {
+                          "type": "string",
+                          "example": "status"
+                        },
+                        "operator": {
+                          "type": "string",
+                          "enum": [
+                            "EQUALS",
+                            "NOT_EQUALS",
+                            "CONTAINS",
+                            "NOT_CONTAINS",
+                            "GREATER_THAN",
+                            "GREATER_THAN_OR_EQUALS",
+                            "LESS_THAN",
+                            "LESS_THAN_OR_EQUALS",
+                            "IS_NULL",
+                            "IS_NOT_NULL"
+                          ]
+                        },
+                        "value": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "boolean"
+                            }
+                          ],
+                          "nullable": true
+                        },
+                        "logical_operator": {
+                          "type": "string",
+                          "enum": [
+                            "and",
+                            "or"
+                          ]
+                        },
+                        "arguments": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "argument_key": {
+                                "type": "string"
+                              },
+                              "argument_value_id": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "argument_value_type": {
+                                "type": "string",
+                                "nullable": true
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "operator"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "columns"
+                ]
+              },
+              "example": {
+                "columns": [
+                  "project.id",
+                  "project.name",
+                  "project.customer"
+                ],
+                "dynamic_forms": [
+                  {
+                    "model": "project"
+                  },
+                  {
+                    "model": "project_funnel",
+                    "id": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7"
+                  },
+                  {
+                    "model": "funnel_step",
+                    "id": "019dd427-5d13-71bf-9a09-d75aa2bf4be0"
+                  }
+                ],
+                "filters": [
+                  {
+                    "field": "status",
+                    "operator": "EQUALS",
+                    "value": 1,
+                    "logical_operator": "and",
+                    "arguments": []
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Operação de export criada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "spreadsheet_operation": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "action": {
+                          "type": "string",
+                          "example": "export"
+                        },
+                        "type": {
+                          "type": "string",
+                          "example": "project"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "completed"
+                        },
+                        "total_rows": {
+                          "type": "integer",
+                          "example": 120
+                        },
+                        "processed_rows": {
+                          "type": "integer",
+                          "example": 120
+                        },
+                        "percentage": {
+                          "type": "integer",
+                          "example": 100
+                        },
+                        "errors_count": {
+                          "type": "integer",
+                          "example": 0
+                        },
+                        "metadata": {
+                          "type": "object"
+                        },
+                        "file_name": {
+                          "type": "string",
+                          "nullable": true,
+                          "example": "project_2026-06-01-143022.xlsx"
+                        },
+                        "initiator_type": {
+                          "type": "string",
+                          "example": "App\\Models\\User"
+                        },
+                        "initiator_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "initiator": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "avatar_url": {
+                              "type": "string",
+                              "nullable": true
+                            }
+                          }
+                        },
+                        "started_at": {
+                          "type": "string",
+                          "nullable": true,
+                          "format": "date-time"
+                        },
+                        "completed_at": {
+                          "type": "string",
+                          "nullable": true,
+                          "format": "date-time"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autenticado"
+          },
+          "403": {
+            "description": "Sem permissão"
+          },
+          "422": {
+            "description": "Campos inválidos"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "type",
+          "in": "path",
+          "required": true,
+          "description": "Tipo de operação (domínio alvo). Atualmente: `project`.",
+          "schema": {
+            "type": "string",
+            "enum": [
+              "project"
+            ]
+          },
+          "example": "project"
+        }
+      ]
+    },
+    "/api/management/spreadsheet-operations/{operation}": {
+      "get": {
+        "tags": [
+          "spreadsheet-operations",
+          "show"
+        ],
+        "summary": "Detalhar operação",
+        "description": "Retorna os detalhes da operação de import/export especificada.",
+        "operationId": "obterOperacaoDePlanilha",
+        "responses": {
+          "200": {
+            "description": "Operação retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "spreadsheet_operation": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "action": {
+                          "type": "string",
+                          "example": "export"
+                        },
+                        "type": {
+                          "type": "string",
+                          "example": "project"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "completed"
+                        },
+                        "total_rows": {
+                          "type": "integer",
+                          "example": 120
+                        },
+                        "processed_rows": {
+                          "type": "integer",
+                          "example": 120
+                        },
+                        "percentage": {
+                          "type": "integer",
+                          "example": 100
+                        },
+                        "errors_count": {
+                          "type": "integer",
+                          "example": 0
+                        },
+                        "metadata": {
+                          "type": "object"
+                        },
+                        "file_name": {
+                          "type": "string",
+                          "nullable": true,
+                          "example": "project_2026-06-01-143022.xlsx"
+                        },
+                        "initiator_type": {
+                          "type": "string",
+                          "example": "App\\Models\\User"
+                        },
+                        "initiator_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "initiator": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "avatar_url": {
+                              "type": "string",
+                              "nullable": true
+                            }
+                          }
+                        },
+                        "started_at": {
+                          "type": "string",
+                          "nullable": true,
+                          "format": "date-time"
+                        },
+                        "completed_at": {
+                          "type": "string",
+                          "nullable": true,
+                          "format": "date-time"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autenticado"
+          },
+          "403": {
+            "description": "Sem permissão"
+          },
+          "404": {
+            "description": "Não encontrado"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "operation",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "example": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7"
+        }
+      ]
+    },
+    "/api/management/spreadsheet-operations/{operation}/errors": {
+      "get": {
+        "tags": [
+          "spreadsheet-operations",
+          "errors"
+        ],
+        "summary": "Listar erros da operação",
+        "description": "Lista erros por linha/coluna da operação de import.",
+        "operationId": "listarErrosDaOperacaoDePlanilha",
+        "responses": {
+          "200": {
+            "description": "Lista de erros retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "from": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "last_page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "per_page": {
+                          "type": "integer",
+                          "example": 30
+                        },
+                        "to": {
+                          "type": "integer",
+                          "example": 30
+                        },
+                        "total": {
+                          "type": "integer",
+                          "example": 4
+                        }
+                      }
+                    },
+                    "spreadsheet_operation_errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "row": {
+                            "type": "integer",
+                            "example": 5
+                          },
+                          "column_key": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "column_label": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "message": {
+                            "type": "string"
+                          },
+                          "context": {
+                            "type": "object",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "meta": {
+                    "current_page": 1,
+                    "from": 1,
+                    "last_page": 1,
+                    "per_page": 30,
+                    "to": 4,
+                    "total": 4
+                  },
+                  "spreadsheet_operation_errors": [
+                    {
+                      "id": "019c75de-50f0-7366-a948-b8cbdd1841be",
+                      "row": 5,
+                      "column_key": "project.name",
+                      "column_label": "Nome",
+                      "message": "The name field is required.",
+                      "context": null,
+                      "created_at": "2026-06-01T14:31:10.000000Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autenticado"
+          },
+          "403": {
+            "description": "Sem permissão"
+          },
+          "404": {
+            "description": "Não encontrado"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "operation",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "example": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7"
+        }
+      ]
+    },
+    "/api/management/spreadsheet-operations/{operation}/download": {
+      "get": {
+        "tags": [
+          "spreadsheet-operations",
+          "download"
+        ],
+        "summary": "Baixar resultado da operação",
+        "description": "Baixa o arquivo gerado da operação (somente para operações de `export` concluídas com sucesso).",
+        "operationId": "baixarResultadoDaOperacaoDePlanilha",
+        "responses": {
+          "200": {
+            "description": "Arquivo baixado com sucesso",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autenticado"
+          },
+          "403": {
+            "description": "Sem permissão"
+          },
+          "404": {
+            "description": "Não encontrado"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "operation",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "example": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7"
+        }
+      ]
     }
   },
   "components": {
