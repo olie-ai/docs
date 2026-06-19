@@ -25213,7 +25213,8 @@
           "required": true,
           "schema": {
             "type": "string"
-          }
+          },
+          "example": ""
         }
       ],
       "delete": {
@@ -25346,9 +25347,11 @@
           "name": "external_ref",
           "in": "path",
           "required": true,
+          "description": "Identificador externo do canal (resolve o webhook de entrada).",
           "schema": {
             "type": "string"
-          }
+          },
+          "example": ""
         }
       ]
     }
