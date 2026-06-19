@@ -25027,7 +25027,16 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object"
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Teste de schema do criar canal"
+                  }
+                }
+              },
+              "example": {
+                "name": "teste-nome-canal"
               }
             }
           }
