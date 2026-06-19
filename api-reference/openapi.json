@@ -25027,39 +25027,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "project_id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "audience": {
-                    "type": "string"
-                  },
-                  "connector_type": {
-                    "nullable": true
-                  },
-                  "connector_config": {
-                    "nullable": true
-                  },
-                  "external_ref": {
-                    "type": "string"
-                  },
-                  "is_active": {
-                    "type": "boolean"
-                  }
-                }
-              },
-              "example": {
-                "project_id": "019eae18-39d8-7175-b7ab-01ece2341134",
-                "name": "Whatsapp Communication",
-                "audience": "internal",
-                "connector_type": null,
-                "connector_config": null,
-                "external_ref": "asdasd123",
-                "is_active": true
+                "type": "object"
               }
             }
           }
