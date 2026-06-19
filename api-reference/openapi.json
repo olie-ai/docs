@@ -25030,7 +25030,7 @@
                 "type": "object",
                 "properties": {
                   "project_id": {
-                    "nullable": true
+                    "type": "string"
                   },
                   "name": {
                     "type": "string"
@@ -25045,7 +25045,7 @@
                     "nullable": true
                   },
                   "external_ref": {
-                    "nullable": true
+                    "type": "string"
                   },
                   "is_active": {
                     "type": "boolean"
@@ -25053,12 +25053,12 @@
                 }
               },
               "example": {
-                "project_id": null,
-                "name": "",
+                "project_id": "019eae18-39d8-7175-b7ab-01ece2341134",
+                "name": "Whatsapp Communication",
                 "audience": "internal",
                 "connector_type": null,
                 "connector_config": null,
-                "external_ref": null,
+                "external_ref": "asdasd123",
                 "is_active": true
               }
             }
