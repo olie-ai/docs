@@ -23978,11 +23978,13 @@
           "name": "type",
           "in": "path",
           "required": true,
-          "description": "Tipo de operação (domínio alvo). Atualmente: `project`.",
+          "description": "Tipo de operação. Atualmente: `project`, `customer` ou `contact`.",
           "schema": {
             "type": "string",
             "enum": [
-              "project"
+              "project",
+              "customer",
+              "contact"
             ]
           },
           "example": "project"
@@ -24071,11 +24073,13 @@
           "name": "type",
           "in": "path",
           "required": true,
-          "description": "Tipo de operação (domínio alvo). Atualmente: `project`.",
+          "description": "Tipo de operação. Atualmente: `project`, `customer` ou `contact`.",
           "schema": {
             "type": "string",
             "enum": [
-              "project"
+              "project",
+              "customer",
+              "contact"
             ]
           },
           "example": "project"
@@ -24089,7 +24093,7 @@
           "export"
         ],
         "summary": "Exportar planilha",
-        "description": "Cria uma operação de export assíncrona (XLSX). O body define quais colunas, formulários dinâmicos e filtros avançados devem ser aplicados.",
+        "description": "Cria uma operação de export assíncrona (XLSX). O body define quais colunas e filtros avançados devem ser aplicados. Para `project` use `dynamic_forms`; para `customer`/`contact` use `include_dynamic_form`.",
         "operationId": "exportarPlanilha",
         "requestBody": {
           "content": {
@@ -24106,7 +24110,7 @@
                   },
                   "dynamic_forms": {
                     "type": "array",
-                    "description": "Formulários dinâmicos opcionais que entram no layout e no payload de exportação.",
+                    "description": "Para `project`: formulários dinâmicos opcionais que entram no layout e no payload de exportação.",
                     "items": {
                       "type": "object",
                       "properties": {
@@ -24127,6 +24131,11 @@
                         "model"
                       ]
                     }
+                  },
+                  "include_dynamic_form": {
+                    "type": "boolean",
+                    "description": "Para `customer` e `contact`: quando `true`, inclui o formulário dinâmico do frame no payload/colunas do export.",
+                    "example": true
                   },
                   "filters": {
                     "type": "array",
@@ -24377,11 +24386,13 @@
           "name": "type",
           "in": "path",
           "required": true,
-          "description": "Tipo de operação (domínio alvo). Atualmente: `project`.",
+          "description": "Tipo de operação. Atualmente: `project`, `customer` ou `contact`.",
           "schema": {
             "type": "string",
             "enum": [
-              "project"
+              "project",
+              "customer",
+              "contact"
             ]
           },
           "example": "project"
