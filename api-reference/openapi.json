@@ -25168,15 +25168,6 @@
                   "audience": {
                     "type": "string"
                   },
-                  "connector_type": {
-                    "nullable": true
-                  },
-                  "connector_config": {
-                    "nullable": true
-                  },
-                  "external_ref": {
-                    "nullable": true
-                  },
                   "is_active": {
                     "type": "boolean"
                   }
