@@ -25403,6 +25403,18 @@
             }
           }
         }
+      },
+      "get": {
+        "summary": "List integrations",
+        "responses": {},
+        "tags": [
+          "integrations"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
       }
     },
     "/api/management/integrations/{integration_id}": {
