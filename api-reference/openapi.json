@@ -8,6 +8,9 @@
   "servers": [
     {
       "url": "https://api.olie.ai"
+    },
+    {
+      "url": "{{base_url}}"
     }
   ],
   "paths": {
@@ -25333,6 +25336,133 @@
           "example": ""
         }
       ]
+    },
+    "/api/management/integrations": {
+      "post": {
+        "summary": "Create integration (WhatsApp Meta Cloud)",
+        "responses": {},
+        "tags": [
+          "integrations"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "external_ref": {
+                    "type": "string",
+                    "format": "utc-millisec"
+                  },
+                  "config": {
+                    "type": "object"
+                  },
+                  "credentials": {
+                    "type": "object",
+                    "properties": {
+                      "phone_number_id": {
+                        "type": "string",
+                        "format": "utc-millisec"
+                      },
+                      "access_token": {
+                        "type": "string"
+                      },
+                      "app_secret": {
+                        "type": "string"
+                      },
+                      "verify_token": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "is_active": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "example": {
+                "type": "whatsapp_cloud",
+                "external_ref": "5517999990000",
+                "config": {},
+                "credentials": {
+                  "phone_number_id": "123456789012345",
+                  "access_token": "EAAG-exemplo-token",
+                  "app_secret": "meu-app-secret",
+                  "verify_token": "meu-verify-token"
+                },
+                "is_active": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/integrations/{integration_id}": {
+      "put": {
+        "summary": "Update integration",
+        "responses": {},
+        "tags": [
+          "integrations"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "external_ref": {
+                    "type": "string",
+                    "format": "utc-millisec"
+                  },
+                  "is_active": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "example": {
+                "external_ref": "5517988887777",
+                "is_active": false
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "integration_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "example": "{{integration_id}}"
+        }
+      ],
+      "delete": {
+        "summary": "Delete integration",
+        "responses": {},
+        "tags": [
+          "integrations"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
