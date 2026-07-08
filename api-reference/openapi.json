@@ -8,9 +8,6 @@
   "servers": [
     {
       "url": "https://api.olie.ai"
-    },
-    {
-      "url": "{{base_url}}"
     }
   ],
   "paths": {
