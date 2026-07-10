@@ -25042,7 +25042,7 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "Teste de schema do criar canal"
+                    "description": "Teste do schema para criar canal"
                   }
                 }
               },
