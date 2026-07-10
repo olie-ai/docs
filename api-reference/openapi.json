@@ -25337,7 +25337,11 @@
     "/api/management/integrations": {
       "post": {
         "summary": "Create integration (WhatsApp Meta Cloud)",
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "200"
+          }
+        },
         "tags": [
           "integrations"
         ],
@@ -25403,7 +25407,11 @@
       },
       "get": {
         "summary": "List integrations",
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "200"
+          }
+        },
         "tags": [
           "integrations"
         ],
@@ -25417,7 +25425,11 @@
     "/api/management/integrations/{integration_id}": {
       "put": {
         "summary": "Update integration",
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "200"
+          }
+        },
         "tags": [
           "integrations"
         ],
@@ -25462,7 +25474,11 @@
       ],
       "delete": {
         "summary": "Delete integration",
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "200"
+          }
+        },
         "tags": [
           "integrations"
         ],
