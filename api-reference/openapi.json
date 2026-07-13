@@ -17941,10 +17941,15 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "user_id"
+                ],
                 "properties": {
                   "user_id": {
-                    "description": "JUST TESTING XPTO",
-                    "nullable": true
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "ID (UUID) do usuário a ser consultado. Deve pertencer ao frame atual."
                   }
                 }
               },
