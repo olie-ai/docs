@@ -17930,6 +17930,11 @@
                         "aliases": []
                       }
                     }
+                  },
+                  "Usuário não encontrado": {
+                    "value": {
+                      "response": false
+                    }
                   }
                 }
               }
