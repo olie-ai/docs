@@ -17752,7 +17752,188 @@
         "operationId": "obterDetalhesDeUmUsuRioEspecFico",
         "responses": {
           "200": {
-            "description": "Sucesso"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": "email"
+                        },
+                        "lang": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "is_partner": {
+                          "type": "boolean"
+                        },
+                        "partner_approved_at": {
+                          "nullable": true
+                        },
+                        "partner_approved_by": {
+                          "nullable": true
+                        },
+                        "email_verified_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "relationships": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "user_id": {
+                                "type": "string"
+                              },
+                              "frame_id": {
+                                "type": "string"
+                              },
+                              "frame": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "subdomain": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "workdays": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "weekday": {
+                                      "type": "integer"
+                                    },
+                                    "start_time": {
+                                      "type": "string",
+                                      "format": "time"
+                                    },
+                                    "end_time": {
+                                      "type": "string",
+                                      "format": "time"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "squads": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "pivot": {
+                                "type": "object",
+                                "properties": {
+                                  "user_id": {
+                                    "type": "string"
+                                  },
+                                  "squad_id": {
+                                    "type": "string"
+                                  },
+                                  "type": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "aliases": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Sucesso": {
+                    "value": {
+                      "response": true,
+                      "user": {
+                        "id": "9c2f1a54-0f3b-4d2e-8a1c-6e7b2d4f9a01",
+                        "name": "Ana Souza",
+                        "email": "ana.souza@empresa.com",
+                        "lang": "pt-BR",
+                        "description": "Designer de produto",
+                        "is_partner": false,
+                        "partner_approved_at": null,
+                        "partner_approved_by": null,
+                        "email_verified_at": "2026-01-04T12:00:00.000000Z",
+                        "relationships": [
+                          {
+                            "id": "3d8e7c21-5b9a-4f6d-9c0e-1a2b3c4d5e6f",
+                            "user_id": "9c2f1a54-0f3b-4d2e-8a1c-6e7b2d4f9a01",
+                            "frame_id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+                            "frame": {
+                              "id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+                              "name": "Empresa Exemplo",
+                              "subdomain": "empresa"
+                            },
+                            "workdays": [
+                              {
+                                "id": "7f6e5d4c-3b2a-1908-7654-321fedcba098",
+                                "weekday": 1,
+                                "start_time": "09:00:00",
+                                "end_time": "18:00:00"
+                              }
+                            ]
+                          }
+                        ],
+                        "squads": [
+                          {
+                            "id": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e",
+                            "name": "Produto",
+                            "pivot": {
+                              "user_id": "9c2f1a54-0f3b-4d2e-8a1c-6e7b2d4f9a01",
+                              "squad_id": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e",
+                              "type": "member"
+                            }
+                          }
+                        ],
+                        "aliases": []
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -17762,6 +17943,7 @@
                 "type": "object",
                 "properties": {
                   "user_id": {
+                    "description": "JUST TESTING XPTO",
                     "nullable": true
                   }
                 }
@@ -17770,7 +17952,8 @@
                 "user_id": null
               }
             }
-          }
+          },
+          "required": true
         }
       }
     },
