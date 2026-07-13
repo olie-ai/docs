@@ -17748,11 +17748,28 @@
           "users"
         ],
         "summary": "Obter detalhes de um usuário específico",
-        "description": "Obter detalhes de um usuário específico",
+        "description": "Retorna os dados de um usuário específico, incluindo seus vínculos (relationships) com frame e jornadas de trabalho, squads e aliases. Retorna `response: false` quando o usuário informado não é encontrado.",
         "operationId": "obterDetalhesDeUmUsuRioEspecFico",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "user_id": null
+              }
+            }
           }
         }
       }
@@ -25360,8 +25377,7 @@
                     "type": "string"
                   },
                   "external_ref": {
-                    "type": "string",
-                    "format": "utc-millisec"
+                    "type": "string"
                   },
                   "config": {
                     "type": "object"
@@ -25370,8 +25386,7 @@
                     "type": "object",
                     "properties": {
                       "phone_number_id": {
-                        "type": "string",
-                        "format": "utc-millisec"
+                        "type": "string"
                       },
                       "access_token": {
                         "type": "string"
@@ -25445,8 +25460,7 @@
                 "type": "object",
                 "properties": {
                   "external_ref": {
-                    "type": "string",
-                    "format": "utc-millisec"
+                    "type": "string"
                   },
                   "is_active": {
                     "type": "boolean"
