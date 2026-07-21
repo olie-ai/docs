@@ -24122,7 +24122,7 @@
           "export-columns"
         ],
         "summary": "Obter colunas do export",
-        "description": "Retorna o catálogo de colunas disponíveis para exportação/importação do tipo especificado.",
+        "description": "Retorna o catálogo de colunas fixas disponíveis para o tipo especificado.\n\nTipos suportados: `project`, `customer`, `contact`, `form_answer`, `answer_history`, `agent_execution`, `project_execution`.\n\nPara `project`/`customer`/`contact`, as chaves retornadas devem ser usadas no body de `POST /export/{type}` (campo `columns`). Para `form_answer` e `answer_history`, a lista cobre apenas colunas fixas — campos dinâmicos do formulário entram automaticamente no XLSX. Para `agent_execution` e `project_execution`, todas as colunas do catálogo são exportadas (não há seleção via `columns`).",
         "operationId": "obterColunasDeExportacao",
         "responses": {
           "200": {
@@ -24197,13 +24197,17 @@
           "name": "type",
           "in": "path",
           "required": true,
-          "description": "Tipo de operação. Atualmente: `project`, `customer` ou `contact`.",
+          "description": "Tipo de exportação: `project`, `customer`, `contact`, `form_answer`, `answer_history`, `agent_execution` ou `project_execution`.",
           "schema": {
             "type": "string",
             "enum": [
               "project",
               "customer",
-              "contact"
+              "contact",
+              "form_answer",
+              "answer_history",
+              "agent_execution",
+              "project_execution"
             ]
           },
           "example": "project"
@@ -24217,150 +24221,294 @@
           "export"
         ],
         "summary": "Exportar planilha",
-        "description": "Cria uma operação de export assíncrona (XLSX). O body define quais colunas e filtros avançados devem ser aplicados. Para `project` use `dynamic_forms`; para `customer`/`contact` use `include_dynamic_form`.",
+        "description": "Cria uma operação de export assíncrona (XLSX). O body depende do `{type}` na URL (veja os schemas abaixo).\n\nA operação fica `pending` e o arquivo fica disponível em `GET /spreadsheet-operations/{operation}/download` após `completed`.",
         "operationId": "exportarPlanilha",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "columns": {
-                    "type": "array",
-                    "description": "Chaves das colunas (deve incluir todas as requiredKeys).",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "dynamic_forms": {
-                    "type": "array",
-                    "description": "Para `project`: formulários dinâmicos opcionais que entram no layout e no payload de exportação.",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "model": {
-                          "type": "string",
-                          "enum": [
-                            "project",
-                            "project_funnel",
-                            "funnel_step"
-                          ]
+                "title": "Exportação de Planilha",
+                "description": "Payload de exportação. O schema correto depende do `{type}` na URL.",
+                "oneOf": [
+                  {
+                    "title": "Export Project",
+                    "type": "object",
+                    "description": "Payload para `POST /export/project`.",
+                    "properties": {
+                      "columns": {
+                        "type": "array",
+                        "description": "Chaves das colunas (deve incluir todas as requiredKeys do catálogo em GET /export/{type}/columns).",
+                        "items": {
+                          "type": "string"
                         },
-                        "id": {
-                          "type": "string",
-                          "format": "uuid"
-                        }
+                        "example": [
+                          "project.id",
+                          "project.name",
+                          "project.customer"
+                        ]
                       },
-                      "required": [
-                        "model"
-                      ]
-                    }
-                  },
-                  "include_dynamic_form": {
-                    "type": "boolean",
-                    "description": "Para `customer` e `contact`: quando `true`, inclui o formulário dinâmico do frame no payload/colunas do export.",
-                    "example": true
-                  },
-                  "filters": {
-                    "type": "array",
-                    "description": "Busca avançada (estrutura compatível com `App\\Utils\\QueryingModels`).",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "field": {
-                          "type": "string",
-                          "example": "status"
-                        },
-                        "operator": {
-                          "type": "string",
-                          "enum": [
-                            "EQUALS",
-                            "NOT_EQUALS",
-                            "CONTAINS",
-                            "NOT_CONTAINS",
-                            "GREATER_THAN",
-                            "GREATER_THAN_OR_EQUALS",
-                            "LESS_THAN",
-                            "LESS_THAN_OR_EQUALS",
-                            "IS_NULL",
-                            "IS_NOT_NULL"
-                          ]
-                        },
-                        "value": {
-                          "oneOf": [
-                            {
-                              "type": "string"
+                      "dynamic_forms": {
+                        "type": "array",
+                        "description": "Formulários dinâmicos opcionais que entram no layout e no payload de exportação.",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "model": {
+                              "type": "string",
+                              "enum": [
+                                "project",
+                                "project_funnel",
+                                "funnel_step"
+                              ]
                             },
-                            {
-                              "type": "number"
-                            },
-                            {
-                              "type": "boolean"
+                            "id": {
+                              "type": "string",
+                              "format": "uuid",
+                              "description": "Obrigatório para `project_funnel` e `funnel_step`."
                             }
+                          },
+                          "required": [
+                            "model"
                           ]
                         },
-                        "logical_operator": {
-                          "type": "string",
-                          "enum": [
-                            "and",
-                            "or"
-                          ]
-                        },
-                        "arguments": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "argument_key": {
-                                "type": "string"
-                              },
-                              "argument_value_id": {
-                                "type": "string"
-                              },
-                              "argument_value_type": {
-                                "type": "string"
-                              }
-                            }
+                        "example": [
+                          {
+                            "model": "project"
+                          },
+                          {
+                            "model": "project_funnel",
+                            "id": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7"
                           }
+                        ]
+                      },
+                      "filters": {
+                        "type": "array",
+                        "description": "Busca avançada (array de filtros).",
+                        "items": {
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "required": [
+                      "columns"
+                    ]
+                  },
+                  {
+                    "title": "Export Customer",
+                    "type": "object",
+                    "description": "Payload para `POST /export/customer`.",
+                    "properties": {
+                      "columns": {
+                        "type": "array",
+                        "description": "Chaves das colunas (deve incluir todas as requiredKeys do catálogo em GET /export/{type}/columns).",
+                        "items": {
+                          "type": "string"
+                        },
+                        "example": [
+                          "customer.id",
+                          "customer.name"
+                        ]
+                      },
+                      "include_dynamic_form": {
+                        "type": "boolean",
+                        "description": "Quando `true`, inclui o formulário dinâmico do frame no payload/colunas do export.",
+                        "example": true
+                      },
+                      "filters": {
+                        "type": "array",
+                        "description": "Busca avançada (array de filtros).",
+                        "items": {
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "required": [
+                      "columns"
+                    ]
+                  },
+                  {
+                    "title": "Export Contact",
+                    "type": "object",
+                    "description": "Payload para `POST /export/contact`.",
+                    "properties": {
+                      "columns": {
+                        "type": "array",
+                        "description": "Chaves das colunas (deve incluir todas as requiredKeys do catálogo em GET /export/{type}/columns).",
+                        "items": {
+                          "type": "string"
+                        },
+                        "example": [
+                          "contact.id",
+                          "contact.name"
+                        ]
+                      },
+                      "include_dynamic_form": {
+                        "type": "boolean",
+                        "description": "Quando `true`, inclui o formulário dinâmico do frame no payload/colunas do export.",
+                        "example": true
+                      },
+                      "filters": {
+                        "type": "array",
+                        "description": "Busca avançada (array de filtros).",
+                        "items": {
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "required": [
+                      "columns"
+                    ]
+                  },
+                  {
+                    "title": "Export Form Answer",
+                    "type": "object",
+                    "description": "Payload para `POST /export/form_answer`. Exporta respostas do formulário; colunas dinâmicas vêm das edges do form.",
+                    "properties": {
+                      "form_id": {
+                        "type": "integer",
+                        "description": "ID do formulário (do frame atual) cujas respostas serão exportadas.",
+                        "example": 18
+                      }
+                    },
+                    "required": [
+                      "form_id"
+                    ]
+                  },
+                  {
+                    "title": "Export Answer History",
+                    "type": "object",
+                    "description": "Payload para `POST /export/answer_history`. Identifica o pivot/modelo cujo histórico de respostas será exportado.",
+                    "properties": {
+                      "target": {
+                        "type": "object",
+                        "properties": {
+                          "pivot_class": {
+                            "type": "string",
+                            "description": "FQCN do modelo pivot.",
+                            "example": "App\\Models\\Project"
+                          },
+                          "form_id": {
+                            "type": "integer",
+                            "description": "ID do formulário associado ao histórico.",
+                            "example": 18
+                          },
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "ID do registro pivot (quando aplicável).",
+                            "example": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7"
+                          },
+                          "father_class": {
+                            "type": "string",
+                            "description": "FQCN do modelo pai, quando o pivot depende de um pai."
+                          },
+                          "father_id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "Obrigatório quando `father_class` é informado."
+                          }
+                        },
+                        "required": [
+                          "pivot_class",
+                          "form_id"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "target"
+                    ]
+                  },
+                  {
+                    "title": "Export Agent Execution",
+                    "type": "object",
+                    "description": "Payload para `POST /export/agent_execution`. Exporta todas as colunas do catálogo. Body opcional com filtros Spatie QueryBuilder.",
+                    "properties": {
+                      "filter": {
+                        "type": "object",
+                        "description": "Filtros Spatie QueryBuilder. Campos: `agent_id`, `status`, `model`, `error`.",
+                        "properties": {
+                          "agent_id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "status": {
+                            "type": "string",
+                            "enum": [
+                              "pending",
+                              "completed",
+                              "failed"
+                            ],
+                            "example": "completed"
+                          },
+                          "model": {
+                            "type": "string"
+                          },
+                          "error": {
+                            "type": "string"
+                          }
+                        },
+                        "example": {
+                          "status": "completed"
                         }
                       },
-                      "required": [
-                        "field",
-                        "operator"
-                      ]
+                      "sort": {
+                        "type": "string",
+                        "description": "Ordenação Spatie (`campo` ou `-campo`). Campos: `credits_debited`, `tokens_used`, `latency`, `created_at`.",
+                        "example": "-created_at"
+                      }
                     }
-                  }
-                },
-                "required": [
-                  "columns"
-                ]
-              },
-              "example": {
-                "columns": [
-                  "project.id",
-                  "project.name",
-                  "project.customer"
-                ],
-                "dynamic_forms": [
-                  {
-                    "model": "project"
                   },
                   {
-                    "model": "project_funnel",
-                    "id": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7"
-                  },
-                  {
-                    "model": "funnel_step",
-                    "id": "019dd427-5d13-71bf-9a09-d75aa2bf4be0"
-                  }
-                ],
-                "filters": [
-                  {
-                    "field": "status",
-                    "operator": "EQUALS",
-                    "value": 1,
-                    "logical_operator": "and",
-                    "arguments": []
+                    "title": "Export Project Execution",
+                    "type": "object",
+                    "description": "Payload para `POST /export/project_execution`. Exporta todas as colunas do catálogo. Exige `project_id` e/ou `user_id` (ao menos um).",
+                    "properties": {
+                      "project_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID do projeto. Obrigatório se `user_id` não for enviado. Requer permissão de view no projeto.",
+                        "example": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7"
+                      },
+                      "user_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID do usuário. Obrigatório se `project_id` não for enviado. Requer permissão de view no usuário.",
+                        "example": "ee989a1d-afe3-4ff7-f4fb-bec440e8b372"
+                      },
+                      "filter": {
+                        "type": "object",
+                        "description": "Filtros Spatie QueryBuilder. Campos: `user_id`, `funnel_step_id`, `start_date_gt`, `end_date_lt`, `is_running`.",
+                        "properties": {
+                          "user_id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "funnel_step_id": {
+                            "type": "integer"
+                          },
+                          "start_date_gt": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "end_date_lt": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "is_running": {
+                            "type": "boolean",
+                            "example": false
+                          }
+                        },
+                        "example": {
+                          "is_running": false
+                        }
+                      },
+                      "sort": {
+                        "type": "string",
+                        "description": "Ordenação Spatie (`campo` ou `-campo`). Campos: `started_at`, `finished_at`.",
+                        "example": "-started_at"
+                      }
+                    }
                   }
                 ]
               }
@@ -24510,13 +24658,17 @@
           "name": "type",
           "in": "path",
           "required": true,
-          "description": "Tipo de operação. Atualmente: `project`, `customer` ou `contact`.",
+          "description": "Tipo de exportação: `project`, `customer`, `contact`, `form_answer`, `answer_history`, `agent_execution` ou `project_execution`.",
           "schema": {
             "type": "string",
             "enum": [
               "project",
               "customer",
-              "contact"
+              "contact",
+              "form_answer",
+              "answer_history",
+              "agent_execution",
+              "project_execution"
             ]
           },
           "example": "project"
