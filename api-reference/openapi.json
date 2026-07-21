@@ -21353,15 +21353,6 @@
               "format": "date-time"
             },
             "example": "2014-02-07T22:04:31.151Z"
-          },
-          {
-            "name": "export",
-            "in": "query",
-            "description": "Quando passado, o resultado virá como um CSV completo das execuções",
-            "schema": {
-              "type": "boolean"
-            },
-            "example": true
           }
         ]
       },
@@ -21895,15 +21886,6 @@
               "type": "string"
             },
             "example": "string"
-          },
-          {
-            "name": "export",
-            "in": "query",
-            "description": "Quando passado, o resultado virá como um CSV completo das execuções",
-            "schema": {
-              "type": "boolean"
-            },
-            "example": true
           }
         ],
         "responses": {
