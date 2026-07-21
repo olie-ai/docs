@@ -17759,123 +17759,76 @@
                   "type": "object",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Indica sucesso da requisição (true)."
                     },
                     "user": {
                       "type": "object",
+                      "description": "Dados do usuário encontrado.",
                       "properties": {
                         "id": {
-                          "type": "string"
+                          "type": "string",
+                          "format": "uuid",
+                          "description": "ID (UUID) do usuário."
                         },
                         "name": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Nome do usuário."
                         },
                         "email": {
                           "type": "string",
-                          "format": "email"
+                          "format": "email",
+                          "description": "E-mail do usuário."
                         },
                         "lang": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Idioma preferido do usuário (ex.: pt-BR)."
                         },
                         "description": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Descrição/cargo do usuário, ou null.",
+                          "nullable": true
                         },
                         "is_partner": {
-                          "type": "boolean"
+                          "type": "boolean",
+                          "description": "Se o usuário é parceiro."
                         },
                         "partner_approved_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Data/hora de aprovação como parceiro, ou null.",
                           "nullable": true
                         },
                         "partner_approved_by": {
+                          "type": "string",
+                          "description": "ID de quem aprovou o parceiro, ou null.",
                           "nullable": true
                         },
                         "email_verified_at": {
                           "type": "string",
-                          "format": "date-time"
+                          "format": "date-time",
+                          "description": "Data/hora de verificação do e-mail, ou null.",
+                          "nullable": true
                         },
                         "relationships": {
                           "type": "array",
+                          "description": "Vínculos do usuário com frames (cada item traz frame e jornadas de trabalho).",
                           "items": {
                             "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "user_id": {
-                                "type": "string"
-                              },
-                              "frame_id": {
-                                "type": "string"
-                              },
-                              "frame": {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "subdomain": {
-                                    "type": "string"
-                                  }
-                                }
-                              },
-                              "workdays": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "weekday": {
-                                      "type": "integer"
-                                    },
-                                    "start_time": {
-                                      "type": "string",
-                                      "format": "time"
-                                    },
-                                    "end_time": {
-                                      "type": "string",
-                                      "format": "time"
-                                    }
-                                  }
-                                }
-                              }
-                            }
+                            "description": "Vínculo (relationship) do usuário com um frame."
                           }
                         },
                         "squads": {
                           "type": "array",
+                          "description": "Squads das quais o usuário participa.",
                           "items": {
                             "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "name": {
-                                "type": "string"
-                              },
-                              "pivot": {
-                                "type": "object",
-                                "properties": {
-                                  "user_id": {
-                                    "type": "string"
-                                  },
-                                  "squad_id": {
-                                    "type": "string"
-                                  },
-                                  "type": {
-                                    "type": "string"
-                                  }
-                                }
-                              }
-                            }
+                            "description": "Squad do usuário."
                           }
                         },
                         "aliases": {
                           "type": "array",
+                          "description": "Aliases (apelidos) do usuário.",
                           "items": {}
                         }
                       }
