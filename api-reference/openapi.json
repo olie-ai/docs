@@ -15315,22 +15315,6 @@
         }
       }
     },
-    "/api/management/answers-history/export": {
-      "post": {
-        "tags": [
-          "answers-history",
-          "export"
-        ],
-        "summary": "Exportar histórico de respostas de formulário",
-        "description": "Exportar histórico de respostas de formulário para um arquivo excel.",
-        "operationId": "exportarHistRicoDeRespostasDeFormulRio",
-        "responses": {
-          "200": {
-            "description": "200"
-          }
-        }
-      }
-    },
     "/api/management/answers-history": {
       "post": {
         "tags": [
