@@ -3516,6 +3516,7 @@
                 "status": 3,
                 "budget": 25000,
                 "is_template": false,
+                "parent_id": "550e8400-e29b-41d4-a716-446655440000",
                 "funnels": {
                   "to_add": [
                     1,
@@ -4936,6 +4937,7 @@
                 "budget": 25000,
                 "is_template": false,
                 "prefix": "PRJ",
+                "parent_id": "550e8400-e29b-41d4-a716-446655440000",
                 "funnels": {
                   "to_add": [
                     1,
