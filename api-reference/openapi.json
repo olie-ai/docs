@@ -3495,6 +3495,13 @@
                             "action"
                           ]
                         }
+                      },
+                      "parent_id": {
+                        "type": "string",
+                        "example": "550e8400-e29b-41d4-a716-446655440000",
+                        "format": "uuid",
+                        "nullable": true,
+                        "description": "ID do projeto pai na hierarquia. Quando null, o projeto fica na raiz."
                       }
                     }
                   }
@@ -4906,6 +4913,13 @@
                           "to_rem"
                         ],
                         "description": "Objeto para gerenciar projetos filhos associados ao projeto. Contém arrays 'to_add' e 'to_rem' para adicionar ou remover projetos filhos."
+                      },
+                      "parent_id": {
+                        "type": "string",
+                        "example": "550e8400-e29b-41d4-a716-446655440000",
+                        "format": "uuid",
+                        "nullable": true,
+                        "description": "ID do projeto pai na hierarquia. Quando null, o projeto fica na raiz."
                       }
                     }
                   },
