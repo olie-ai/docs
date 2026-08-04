@@ -39,6 +39,22 @@
                 ]
               },
               {
+                "group": "Funis e etapas",
+                "pages": [
+                  "guides/funnels/overview",
+                  "guides/funnels/creating-funnels",
+                  "guides/funnels/steps",
+                  "guides/funnels/moving-projects",
+                  "guides/funnels/restrictions",
+                  "guides/funnels/requirements",
+                  "guides/funnels/tags-and-status",
+                  "guides/funnels/attachments",
+                  "guides/funnels/step-assistants",
+                  "guides/funnels/metrics",
+                  "guides/funnels/board-view"
+                ]
+              },
+              {
                 "group": "Conceitos fundamentais",
                 "pages": [
                   "guides/fundamentals/mentions"

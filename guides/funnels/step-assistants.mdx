@@ -1,0 +1,140 @@
+---
+title: "Assistentes de etapa"
+description: "Configure agentes de IA que rodam quando um projeto entra ou sai de uma etapa e gravam o resultado no projeto"
+keywords: ["assistente", "assistente de etapa", "IA", "agente de IA", "automação", "prompt", "créditos de IA"]
+---
+
+Um assistente de etapa é um agente de IA amarrado a uma etapa do funil. Quando o projeto entra ou sai daquela etapa, o assistente roda sozinho, recebe o contexto do projeto e devolve um resultado que é gravado de volta no projeto.
+
+<Info>
+A diferença para uma [automação](/guides/automation/overview) é o tipo de trabalho. A automação executa ações determinadas — mover, notificar, criar. O assistente **produz conteúdo**: resume, classifica, redige, extrai informação de um texto solto.
+</Info>
+
+## Onde configurar
+
+Dois caminhos levam ao mesmo lugar:
+
+- Pelo menu **Assistentes de etapa**, que lista todos os assistentes da conta com etapa, agente de IA e status.
+- Pelo botão **Assistentes** dentro da configuração de uma etapa, já vinculado a ela.
+
+## Como configurar
+
+<Steps>
+<Step title="Nome">
+  Identifica o assistente nas listas e nos registros de execução.
+</Step>
+
+<Step title="Agente de IA">
+  Qual agente executa a tarefa. O agente traz o modelo e as ferramentas; o assistente traz o momento e a instrução.
+</Step>
+
+<Step title="Etapa">
+  A etapa do funil à qual o assistente pertence.
+</Step>
+
+<Step title="Prompt">
+  A instrução dada ao agente. Aceita sintaxe avançada, então o prompt pode incorporar dados do projeto e da etapa em vez de ser um texto fixo. Veja [Sintaxe avançada](/guides/advanced/advanced-syntax).
+</Step>
+
+<Step title="Executar quando">
+  O gatilho: ao entrar na etapa, ao sair da etapa ou manualmente.
+</Step>
+
+<Step title="Saída e tratamento de falha">
+  Onde o resultado é gravado e o que acontece se a execução falhar. Detalhado abaixo.
+</Step>
+</Steps>
+
+## Quando o assistente roda
+
+<CardGroup cols={3}>
+<Card title="Entrar na etapa" icon="arrow-right-to-bracket">
+  Dispara quando o projeto é movido para a etapa. É o gatilho mais usado: o item chega e já vem processado.
+</Card>
+
+<Card title="Sair da etapa" icon="arrow-right-from-bracket">
+  Dispara quando o projeto deixa a etapa. Bom para consolidar o que foi feito ali antes de seguir.
+</Card>
+
+<Card title="Manual" icon="hand-pointer">
+  Só roda quando alguém pede. Para tarefas que dependem de julgamento sobre quando fazer.
+</Card>
+</CardGroup>
+
+Assistentes com gatilho automático podem ganhar também a opção **Habilitar execução manual**, que permite rodá-los sob demanda sem perder o disparo automático. Útil para reprocessar um caso específico.
+
+<Note>
+Apenas assistentes **ativos** são executados. Um assistente inativo continua salvo e editável, mas nunca dispara.
+</Note>
+
+## O que fazer com o resultado
+
+O resultado do assistente pode ser gravado de duas formas, e as duas podem ser usadas ao mesmo tempo.
+
+<Tabs>
+<Tab title="No conteúdo do projeto">
+  O resultado é salvo como conteúdo do projeto, junto do restante do material. É a opção direta, boa para resumos, análises e textos redigidos.
+</Tab>
+
+<Tab title="Em um campo de formulário">
+  O resultado é salvo em um campo específico de formulário dinâmico. É a opção avançada: exige indicar qual campo receberá o valor.
+
+  <Warning>
+  O resultado precisa ser compatível com o tipo do campo escolhido. Se não for, ele simplesmente não é salvo. Um assistente que devolve texto corrido não preenche um campo de data.
+  </Warning>
+</Tab>
+</Tabs>
+
+<Tip>
+Para gravar em campo de formulário, peça a saída no formato certo dentro do próprio prompt. "Responda apenas com uma das opções: baixo, médio, alto" produz um resultado que cabe em um campo de seleção; "analise o caso" não.
+</Tip>
+
+## Quando a execução falha
+
+Chamadas de IA falham por motivos variados: o modelo indisponível, um tempo de resposta estourado, saldo insuficiente. Você decide o que acontece com o projeto nesse caso.
+
+A opção **Mover para a etapa em caso de falha** envia o projeto para uma etapa escolhida quando a execução não dá certo. Se nenhuma etapa for indicada, o projeto fica onde está.
+
+<Tip>
+Uma etapa de "Revisão manual" como destino de falha transforma o erro em fila de trabalho, em vez de deixar itens travados sem ninguém perceber.
+</Tip>
+
+## Acompanhando as execuções
+
+Cada execução gera um registro, acessível pelo botão **Execuções** do assistente.
+
+| Status | O que significa |
+| --- | --- |
+| Pendente | A execução foi enfileirada e ainda está em andamento |
+| Sucesso | O agente respondeu e o resultado foi processado |
+| Erro | A execução falhou |
+
+O registro guarda o resultado, o momento da execução e o desfecho de cada destino separadamente — é possível a gravação no conteúdo do projeto dar certo e a gravação no campo de formulário falhar, e o registro mostra isso.
+
+<Note>
+A execução é assíncrona. O projeto se move na hora e o assistente roda em seguida, em segundo plano. Resultados aparecem alguns instantes depois da movimentação.
+</Note>
+
+## Custo e limites
+
+<Warning>
+Assistentes consomem **créditos de IA**. Um assistente com gatilho automático roda a cada movimentação, então o custo acompanha o volume do funil. Veja [Créditos de IA](/guides/billing/ai-credits).
+</Warning>
+
+A quantidade de assistentes de etapa também é limitada pelo plano. Ao atingir o teto, a criação de novos assistentes é bloqueada.
+
+## Arquivar
+
+Assistentes podem ser arquivados e desarquivados. Arquivar preserva a configuração e o histórico de execuções, mas tira o assistente de operação.
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Automações" icon="bolt" href="/guides/automation/overview">
+  Para ações determinadas, em vez de conteúdo gerado.
+</Card>
+
+<Card title="Créditos de IA" icon="coins" href="/guides/billing/ai-credits">
+  Como o consumo é medido e recarregado.
+</Card>
+</CardGroup>

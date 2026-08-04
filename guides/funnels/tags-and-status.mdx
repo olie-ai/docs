@@ -1,0 +1,113 @@
+---
+title: "Etiquetas, status e previsão"
+description: "Classifique os projetos do funil com etiquetas e status, marque conclusões e acompanhe a data de previsão"
+keywords: ["etiqueta", "etiquetas", "status", "status do funil", "conclusivo", "data de previsão", "previsão realizada"]
+---
+
+Etiquetas e status são as duas formas de marcar um projeto dentro de um funil. Ambas pertencem ao funil — não existem soltas na conta — e ambas são criadas na tela de edição do funil.
+
+<CardGroup cols={2}>
+<Card title="Etiqueta" icon="tags">
+  Um projeto pode ter **várias** ao mesmo tempo. Serve para caracterizar: "urgente", "cliente enterprise", "aguardando terceiro".
+</Card>
+
+<Card title="Status" icon="circle-half-stroke">
+  Um projeto tem **um só** por funil. Serve para dizer em que situação ele está: "em negociação", "ganho", "perdido".
+</Card>
+</CardGroup>
+
+## Etiquetas
+
+Cada etiqueta tem um nome e uma cor. Você as cria na seção **Etiquetas** do funil, com o botão **Adicionar etiqueta**.
+
+As etiquetas aparecem no cartão do kanban (se a configuração do cartão as exibir), servem de critério em restrições, filtros e automações, e podem bloquear etapas.
+
+<Tip>
+Cores só ajudam quando são poucas e consistentes. Reserve o vermelho para o que realmente exige atenção; se tudo é vermelho, nada é.
+</Tip>
+
+### Bloquear etapas a partir de uma etiqueta
+
+Ao configurar uma etiqueta, você pode marcar em quais etapas ela **bloqueia o vínculo**. Um projeto com a etiqueta "Bloqueado pelo cliente" pode ser impedido de estar em "Em produção", por exemplo.
+
+O bloqueio vale nos dois sentidos: o projeto etiquetado não entra na etapa, e o projeto que já está na etapa não recebe a etiqueta. Veja [Restrições e bloqueios](/guides/funnels/restrictions#bloqueios-de-etapa).
+
+## Status do funil
+
+O status responde "como está esse projeto neste processo". Você o cria na seção **Status** do funil, com nome, cor e a opção **Conclusivo**.
+
+<Note>
+O status do funil é diferente do status do projeto em si. Um projeto pode estar em três funis e ter um status diferente em cada um, porque o status pertence ao vínculo entre o projeto e aquele funil.
+</Note>
+
+Ao trocar o status, a plataforma registra **quando** a troca aconteceu e **quem** a fez. Essa data fica disponível como critério de filtro e de ordenação automática das etapas.
+
+### Status conclusivo
+
+Marcar um status como **Conclusivo** diz que, ao recebê-lo, o projeto chegou ao fim daquele processo. O efeito prático é sobre a previsão:
+
+<CardGroup cols={2}>
+<Card title="Ao aplicar um status conclusivo" icon="flag-checkered">
+  A previsão passa a ser considerada realizada, com a data do momento em que o status foi aplicado.
+</Card>
+
+<Card title="Ao sair de um status conclusivo" icon="rotate-left">
+  A previsão realizada é desfeita e o projeto volta a ser tratado como em andamento.
+</Card>
+</CardGroup>
+
+<Tip>
+Em um funil de vendas, "Ganho" e "Perdido" são ambos conclusivos: os dois encerram o processo, ainda que com resultados opostos. "Em negociação" não é.
+</Tip>
+
+## Data de previsão
+
+Cada vínculo entre projeto e funil tem sua própria **data de previsão** — quando se espera que aquele processo termine para aquele item.
+
+<AccordionGroup>
+<Accordion title="Definir a previsão" icon="calendar">
+  A data é definida no cartão ou nos detalhes do projeto. Como pertence ao vínculo com o funil, um projeto em dois funis pode ter duas previsões diferentes.
+</Accordion>
+
+<Accordion title="Previsão realizada" icon="circle-check">
+  Preenchida automaticamente quando o projeto recebe um status conclusivo. É o que permite comparar o que foi prometido com o que aconteceu.
+</Accordion>
+
+<Accordion title="Contador de alterações" icon="clock-rotate-left">
+  A plataforma conta quantas vezes a data de previsão foi alterada e exibe isso junto à data.
+
+  Um número alto é um sinal de processo: aquele item vem sendo reprogramado seguidamente, o que costuma indicar um impedimento que ninguém registrou.
+</Accordion>
+</AccordionGroup>
+
+A data de previsão também funciona como gatilho de automação: é possível disparar ações quando ela é atingida. Veja [Automações](/guides/automation/overview).
+
+## Onde etiquetas e status são usados
+
+| Recurso | Etiqueta | Status |
+| --- | --- | --- |
+| Exibição no cartão | Sim | Sim |
+| Critério de restrição | Sim | Sim |
+| Bloqueio de etapa | Sim | Sim |
+| Filtro e busca | Sim | Sim |
+| Ordenação automática da etapa | Sim | Sim |
+| Gatilho de automação | Sim | Sim |
+| Marca conclusão do processo | Não | Sim, quando conclusivo |
+| Vários por projeto | Sim | Não |
+
+## Ao clonar ou desvincular
+
+- **Clonar o funil** copia todas as etiquetas, todos os status e os bloqueios de etapa configurados neles.
+- **Desvincular o projeto do funil** desfaz as etiquetas daquele funil, junto com os checklists e formulários. O histórico permanece.
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Restrições e bloqueios" icon="shield" href="/guides/funnels/restrictions">
+  Como etiquetas e status viram regras de movimentação.
+</Card>
+
+<Card title="Configuração do quadro" icon="sliders" href="/guides/funnels/board-view">
+  Escolher se etiquetas, status e previsão aparecem no cartão.
+</Card>
+</CardGroup>

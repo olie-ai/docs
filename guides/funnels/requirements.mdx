@@ -1,0 +1,120 @@
+---
+title: "Checklists e formulários obrigatórios"
+description: "Use checklists e campos obrigatórios para garantir que nada saia de uma etapa pela metade"
+keywords: ["checklist", "obrigatório", "formulário", "campo obrigatório", "requisito", "travar etapa"]
+---
+
+Restrições controlam o caminho. Checklists e formulários obrigatórios controlam a **qualidade da entrega**: eles impedem que o projeto avance enquanto o trabalho da etapa atual não estiver realmente concluído.
+
+<Info>
+A frase que a interface usa resume bem: itens obrigatórios impedem o projeto de avançar de etapa até que sejam concluídos.
+</Info>
+
+## O que trava a saída de uma etapa
+
+<CardGroup cols={2}>
+<Card title="Checklists obrigatórios" icon="list-check">
+  Itens de checagem criados na etapa e marcados como obrigatórios. Enquanto não estiverem marcados no projeto, ele não sai.
+</Card>
+
+<Card title="Campos obrigatórios do formulário" icon="clipboard-list">
+  Campos do formulário da etapa marcados como obrigatórios e ainda sem resposta.
+</Card>
+</CardGroup>
+
+<Warning>
+A verificação é sobre a etapa **onde o projeto está**, não sobre a etapa de destino. Você não é impedido de entrar em uma etapa por causa dos itens obrigatórios dela — é impedido de sair dela.
+</Warning>
+
+Quando algo está pendente, a movimentação é recusada com a mensagem "Informações obrigatórias não preenchidas nas etapas atuais", acompanhada da lista do que falta: a etapa, e dentro dela cada checklist e cada campo pendente pelo nome.
+
+## Checklists da etapa
+
+Você cria os checklists no botão **Checklist da etapa**, dentro da configuração da etapa.
+
+<AccordionGroup>
+<Accordion title="Nome" icon="tag">
+  O texto do item, como aparece para quem vai marcar. Escreva como uma ação concluída: "Contrato assinado", "Orçamento validado com o financeiro".
+</Accordion>
+
+<Accordion title="Texto informativo" icon="circle-info">
+  Uma explicação opcional do item. É onde cabe o detalhe que não cabe no nome: onde encontrar o documento, com quem validar, qual é o critério de aceite.
+</Accordion>
+
+<Accordion title="Obrigatório" icon="asterisk">
+  Define se o item trava a saída da etapa. Um checklist não obrigatório continua útil como lembrete e como registro de que a pessoa passou por ali.
+</Accordion>
+
+<Accordion title="Ordem" icon="arrow-down-1-9">
+  A sequência em que os itens aparecem. Ordene na sequência real do trabalho, não por importância.
+</Accordion>
+</AccordionGroup>
+
+Quem executa marca os itens pelo botão **Checklists** do cartão. Cada marcação e desmarcação fica registrada no histórico do projeto, com autor e data.
+
+<Tip>
+Deixe obrigatório apenas o que de fato impede o próximo passo. Uma etapa com dez itens obrigatórios costuma virar uma etapa onde as pessoas marcam tudo sem ler.
+</Tip>
+
+## Formulários
+
+Existem dois níveis de formulário, e a diferença entre eles determina quando o dado é pedido.
+
+<Tabs>
+<Tab title="Formulário do funil">
+  Vinculado ao funil inteiro. Acompanha o projeto do começo ao fim, independentemente da etapa.
+
+  Use para o que vale durante todo o processo: origem do lead, canal de entrada, SLA contratado, número do contrato.
+</Tab>
+
+<Tab title="Formulário da etapa">
+  Vinculado a uma etapa específica. É preenchido enquanto o projeto está ali, e seus campos obrigatórios travam a saída.
+
+  Use para o que só existe naquele momento: resultado da qualificação, motivo da recusa, número da nota fiscal emitida.
+</Tab>
+</Tabs>
+
+### Como a obrigatoriedade é avaliada
+
+<Steps>
+<Step title="Só contam os campos visíveis">
+  Se o formulário tem lógica condicional e um campo obrigatório está oculto porque a condição não foi satisfeita, ele não é cobrado. A plataforma avalia apenas os campos que estão de fato aparecendo para quem preenche.
+</Step>
+
+<Step title="Só contam os campos sem resposta">
+  Campo respondido deixa de ser pendência. Um campo de múltipla escolha sem nenhuma opção marcada continua contando como vazio.
+</Step>
+
+<Step title="A pendência é listada pelo rótulo do campo">
+  A mensagem de recusa mostra o nome do campo como ele aparece no formulário, para que a pessoa saiba exatamente onde clicar.
+</Step>
+</Steps>
+
+## Formulários que abrem sozinhos
+
+A etapa pode abrir formulários automaticamente quando o projeto chega, sem depender de alguém lembrar. Isso é configurado em **Mostrar formulários**, na etapa, e vale para os formulários de **Cliente** e de **Contato** — com a opção de não exibir quando o projeto já tem cliente ou contato vinculado.
+
+Veja [Etapas do funil](/guides/funnels/steps#formulários-ao-mover).
+
+## Vídeo de visualização obrigatória
+
+Uma etapa pode ter um vídeo anexado com exigência de visualização. É útil em etapas de treinamento ou em processos com passo a passo crítico. Veja [Anexos](/guides/funnels/attachments#vídeos-da-etapa).
+
+## Quando os requisitos não são verificados
+
+Existem dois casos em que um projeto sai da etapa com pendências:
+
+- **Modo de administração para teste de fluxos**, que ignora requisitos deliberadamente.
+- **Funis com múltiplas etapas**, quando o movimento adiciona uma etapa sem retirar o projeto da atual. Como ele não está saindo de lugar nenhum, não há saída a ser travada.
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Restrições e bloqueios" icon="shield" href="/guides/funnels/restrictions">
+  Controlar o caminho, e não só o preenchimento.
+</Card>
+
+<Card title="Mover projetos" icon="arrow-right" href="/guides/funnels/moving-projects">
+  Onde a verificação de requisitos entra na sequência.
+</Card>
+</CardGroup>
