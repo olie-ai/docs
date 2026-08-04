@@ -1,0 +1,156 @@
+---
+title: "Mover projetos entre etapas"
+description: "Vincule projetos ao funil, mova entre etapas e entenda cada verificação feita antes de a movimentação ser aceita"
+keywords: ["mover", "movimentação", "arrastar", "vincular", "desvincular", "avançar etapa", "kanban"]
+---
+
+Mover um cartão parece simples, e na maior parte das vezes é: você arrasta e pronto. Mas por trás de cada movimentação a plataforma faz uma sequência de verificações. Entender essa sequência é o que permite ler as mensagens de recusa e saber exatamente o que ajustar.
+
+## Antes de tudo: vincular ao funil
+
+Um projeto só pode ocupar uma etapa se estiver vinculado ao funil daquela etapa. São dois vínculos diferentes:
+
+<CardGroup cols={2}>
+<Card title="Vínculo com o funil" icon="link">
+  Coloca o projeto no processo. A partir daí ele passa a ter, naquele funil, um status, uma data de previsão e um formulário do funil.
+</Card>
+
+<Card title="Vínculo com a etapa" icon="location-dot">
+  Posiciona o projeto em uma coluna específica do quadro. É o que você muda ao arrastar.
+</Card>
+</CardGroup>
+
+Um projeto pode estar em vários funis ao mesmo tempo, e cada funil guarda sua própria posição e seu próprio status.
+
+## Formas de mover
+
+<Tabs>
+<Tab title="Arrastando">
+  O jeito mais comum. Arraste o cartão de uma coluna para outra no kanban.
+</Tab>
+
+<Tab title="Avanço rápido">
+  Usa o caminho configurado na etapa: **Avançar para** e **Retroceder para**. Não exige escolher o destino, e por isso é o caminho mais seguro quando o processo é linear.
+
+  Se a etapa não tem destino configurado, a ação avisa que não há mais etapas.
+</Tab>
+
+<Tab title="Em massa">
+  Selecione vários cartões de uma etapa e mova todos de uma vez. Itens que já estão no destino são ignorados em vez de interromper a operação inteira.
+
+  <Note>
+  Cada item ainda passa individualmente por todas as verificações. Um lote pode mover uns e recusar outros.
+  </Note>
+</Tab>
+
+<Tab title="Por automação">
+  Uma automação pode mover o projeto sozinha quando um evento acontece. Veja [Automações](/guides/automation/overview).
+</Tab>
+</Tabs>
+
+## O que a plataforma verifica a cada movimentação
+
+A ordem importa: a primeira verificação que falhar interrompe a movimentação e é ela que aparece na mensagem.
+
+<Steps>
+<Step title="O funil está ativo?">
+  Um funil inativo recusa qualquer movimentação. Veja [funis ativos e inativos](/guides/funnels/creating-funnels#funil-ativo-e-funil-inativo).
+</Step>
+
+<Step title="Você tem permissão para alterar etapas neste funil?">
+  Sem a permissão de alteração de etapa, a movimentação é recusada mesmo que todo o resto esteja correto.
+</Step>
+
+<Step title="O projeto já está nesta etapa?">
+  Mover para onde ele já está não faz nada. Em movimentação individual isso vira um aviso; em lote, o item é apenas pulado.
+</Step>
+
+<Step title="O projeto está vinculado ao funil?">
+  Se ainda não estiver, a plataforma pede confirmação para vinculá-lo antes de posicioná-lo na etapa.
+</Step>
+
+<Step title="As restrições permitem?">
+  São verificadas as restrições de **entrada** da etapa de destino e as de **saída** da etapa atual. Veja [Restrições e bloqueios](/guides/funnels/restrictions).
+</Step>
+
+<Step title="Os itens obrigatórios da etapa atual estão concluídos?">
+  Checklists obrigatórios e campos obrigatórios do formulário da etapa travam a saída até serem preenchidos. Veja [Checklists e formulários](/guides/funnels/requirements).
+</Step>
+
+<Step title="Existe algum bloqueio na etapa de destino?">
+  Se o projeto carrega um status ou uma etiqueta que a etapa de destino bloqueia, o vínculo é recusado.
+</Step>
+
+<Step title="Movimentação efetivada">
+  O projeto entra na nova etapa. Se o funil não permite múltiplas etapas, ele sai das demais etapas daquele funil. A entrada e a saída ficam registradas no histórico, e a etapa é reordenada caso use ordenação automática.
+</Step>
+</Steps>
+
+## Mensagens de recusa e o que fazer
+
+| Mensagem | Causa | O que fazer |
+| --- | --- | --- |
+| O funil não está ativo | O funil está inativo | Reative o funil ou verifique o limite do plano |
+| O projeto já está vinculado com essa etapa | Destino igual à origem | Nada a fazer |
+| Este projeto não está vinculado a este funil | Falta o vínculo com o funil | Vincule ao funil antes de posicionar |
+| Restrições de entrada | Uma regra da etapa de destino não foi cumprida | Ajuste o projeto para atender ao critério exibido |
+| Informações obrigatórias não preenchidas | Checklist ou campo obrigatório pendente | Preencha o que a mensagem lista e mova de novo |
+| Não foi possível vincular, pois existe um bloqueio de etapa | Status ou etiqueta bloqueia a etapa de destino | Troque o status ou remova a etiqueta, ou revise o bloqueio |
+| A ação não foi concluída por restrições | Uma ou mais restrições reprovaram | A tela mostra quais critérios falharam |
+
+<Tip>
+As mensagens de restrição e de itens obrigatórios listam exatamente o que faltou — qual etapa, qual checklist, qual campo. Leia a lista antes de mexer na configuração do funil: quase sempre o ajuste é no projeto, não na regra.
+</Tip>
+
+## Múltiplas etapas ao mesmo tempo
+
+Quando o funil tem **Múltiplas etapas** ativado, mover o projeto para uma nova etapa não o tira da anterior: ele passa a ocupar as duas. O histórico registra isso como início de etapa simultânea, e não como movimentação.
+
+Para tirá-lo de uma etapa específica, use a desvinculação da etapa.
+
+<Warning>
+Se o projeto estiver vinculado a apenas uma etapa, ele não pode ser desvinculado dela. Nesse caso, mova-o para outra etapa ou desvincule-o do funil inteiro.
+</Warning>
+
+## Desvincular
+
+<AccordionGroup>
+<Accordion title="Desvincular de uma etapa" icon="location-dot-slash">
+  Tira o projeto daquela coluna, mantendo o vínculo com o funil. Faz sentido em funis com múltiplas etapas, para encerrar uma das frentes em andamento.
+</Accordion>
+
+<Accordion title="Desvincular do funil" icon="link-slash">
+  Tira o projeto do processo por completo.
+
+  <Warning>
+  Desvincular do funil desfaz as etiquetas, os checklists e os formulários daquele funil. O histórico continua registrado, mas os dados preenchidos no contexto do funil são perdidos.
+  </Warning>
+</Accordion>
+</AccordionGroup>
+
+## O que fica registrado
+
+Toda entrada e saída de etapa é gravada com data, hora e o usuário responsável. Esse registro alimenta duas coisas:
+
+- O **histórico do projeto**, que mostra quem moveu o quê e quando.
+- As **métricas de etapa**, que calculam tempo de permanência e contagem de entradas. Veja [Métricas](/guides/funnels/metrics).
+
+## Ignorando as regras propositalmente
+
+Existe um modo de administração que ignora restrições, bloqueios, validações de transição e a confirmação de vínculo ao funil. Ele existe para testar fluxos recém-configurados sem precisar montar um caso real.
+
+<Warning>
+Use apenas para teste. Movimentações feitas nesse modo pulam regras que existem por um motivo e podem deixar projetos em um estado que o processo normal não produziria.
+</Warning>
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Restrições e bloqueios" icon="shield" href="/guides/funnels/restrictions">
+  Como desenhar as regras que aprovam ou recusam uma movimentação.
+</Card>
+
+<Card title="Checklists e formulários" icon="list-check" href="/guides/funnels/requirements">
+  O que torna um item obrigatório e como isso trava a saída da etapa.
+</Card>
+</CardGroup>

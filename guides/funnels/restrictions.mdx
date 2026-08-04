@@ -1,0 +1,177 @@
+---
+title: "Restrições e bloqueios"
+description: "Controle de onde um projeto pode vir e para onde pode ir, e impeça que status ou etiquetas entrem em determinadas etapas"
+keywords: ["restrição", "restrições", "bloqueio", "entrada", "saída", "filtro", "hierarquia", "regra do funil"]
+---
+
+Restrições e bloqueios são os dois mecanismos que impedem um projeto de estar onde não deveria. Eles resolvem problemas diferentes:
+
+<CardGroup cols={2}>
+<Card title="Restrição" icon="shield">
+  Vive na etapa e olha para o **movimento**. Define de onde o projeto pode chegar e para onde pode sair, com base em critérios que ele precisa cumprir.
+</Card>
+
+<Card title="Bloqueio" icon="ban">
+  Vive no status ou na etiqueta e olha para a **combinação**. Impede que um projeto com aquela marca ocupe determinadas etapas.
+</Card>
+</CardGroup>
+
+<Warning>
+Restrições e bloqueios só podem ser configurados depois que o funil foi salvo pelo menos uma vez.
+</Warning>
+
+## Restrições
+
+Uma restrição limita a entrada ou a saída de uma etapa, permitindo o movimento apenas quando o projeto cumpre o critério estabelecido. Você as configura no botão **Restrições** da etapa.
+
+### Direção
+
+<Tabs>
+<Tab title="Entrada">
+  Vale quando o projeto está chegando nesta etapa. Responde à pergunta: "o que precisa ser verdade para o projeto poder entrar aqui?"
+
+  Exemplo: só entra em "Em desenvolvimento" quem vem de "Aprovado".
+</Tab>
+
+<Tab title="Saída">
+  Vale quando o projeto está deixando esta etapa. Responde à pergunta: "o que precisa ser verdade para o projeto poder sair daqui?"
+
+  Exemplo: só sai de "Proposta" quem está com o status "Proposta aceita".
+</Tab>
+</Tabs>
+
+### Tipos de restrição
+
+<AccordionGroup>
+<Accordion title="Restrição para etapa" icon="diagram-project">
+  Amarra o movimento a uma etapa específica.
+
+  Na **entrada**, exige que o projeto venha da etapa indicada. Na **saída**, exige que ele esteja indo para a etapa indicada.
+
+  <Note>
+  A restrição de entrada por etapa é ignorada quando o projeto está ocupando mais de uma etapa ao mesmo tempo, porque nesse caso não existe uma origem única. Isso só acontece em funis com múltiplas etapas.
+  </Note>
+</Accordion>
+
+<Accordion title="Restrição para etiqueta" icon="tag">
+  Exige que o projeto tenha uma etiqueta específica do funil.
+
+  Exemplo: só entra em "Atendimento prioritário" quem tem a etiqueta "Cliente enterprise".
+</Accordion>
+
+<Accordion title="Restrição para status do funil" icon="circle-half-stroke">
+  Exige que o projeto esteja com um status específico naquele funil.
+
+  Exemplo: só sai de "Aguardando aprovação" quem está com o status "Aprovado".
+</Accordion>
+
+<Accordion title="Restrição de decisão" icon="filter">
+  A mais poderosa. Em vez de um único critério, ela usa um **filtro salvo** — o mesmo tipo de filtro que você monta na busca avançada de projetos, com quantas condições quiser.
+
+  E vai além do projeto em movimento: ela pode avaliar a hierarquia dele.
+</Accordion>
+</AccordionGroup>
+
+### Escopo da hierarquia
+
+Só existe na restrição de decisão. Define **sobre quais projetos** o filtro é avaliado.
+
+| Escopo | O que é avaliado |
+| --- | --- |
+| Projeto atual | Apenas o projeto que está sendo movido |
+| Descendentes | Os projetos filhos, netos e bisnetos, conforme a profundidade escolhida |
+| Ancestrais | O projeto pai, avô e bisavô, conforme a profundidade escolhida |
+
+Quando o escopo é hierárquico, você escolhe até onde ir: todos os níveis, apenas filhos diretos, até netos (2 níveis) ou até bisnetos (3 níveis). O mesmo vale para ancestrais.
+
+<Info>
+**A regra decisiva**: a restrição só é aprovada se **todos** os projetos do escopo atenderem ao filtro. Se um único descendente não atender, o movimento é recusado.
+
+Se não houver nenhum projeto no escopo — um projeto sem filhos com escopo "descendentes", por exemplo — a restrição é considerada atendida.
+</Info>
+
+<Tip>
+É assim que se implementa "a entrega só avança quando todas as subtarefas estiverem concluídas": uma restrição de saída, escopo descendentes, com um filtro salvo que verifica o status de conclusão.
+</Tip>
+
+Para entender vínculos pai e filho, veja [Hierarquia de projetos](/guides/projects/project-hierarchy).
+
+### Como várias restrições se combinam
+
+Este é o ponto que mais causa surpresa. Restrições do mesmo tipo não se combinam todas do mesmo jeito.
+
+| Tipo | Combinação | Leitura |
+| --- | --- | --- |
+| Etapa | Basta **uma** ser atendida | "pode vir de A **ou** de B" |
+| Status do funil | Basta **uma** ser atendida | "pode estar com o status X **ou** Y" |
+| Decisão (filtro) | Basta **uma** ser atendida | "atende ao filtro A **ou** ao filtro B" |
+| Etiqueta | **Todas** precisam ser atendidas | "precisa ter a etiqueta X **e** a etiqueta Y" |
+
+Entre tipos diferentes a exigência é sempre conjunta: se a etapa tem restrições de etapa e de etiqueta, os dois grupos precisam ser aprovados.
+
+<Tip>
+Se você quer "precisa ter pelo menos uma dessas etiquetas", a restrição por etiqueta não serve, porque ela exige todas. Use uma restrição de decisão com um filtro salvo que aceite qualquer uma delas.
+</Tip>
+
+### Dando nome às restrições
+
+O nome da restrição é opcional, mas vale o esforço: ele é o que aparece para quem tomou a recusa. Comparar "Restrições de entrada" com "Só entra com proposta assinada" muda completamente a chance de a pessoa resolver sozinha.
+
+<Note>
+Restrições de etapa contam contra o limite do plano. Ao atingir o teto, a criação de novas restrições é bloqueada.
+</Note>
+
+## Bloqueios de etapa
+
+O bloqueio parte do outro lado: em vez de configurar a etapa, você configura o **status** ou a **etiqueta** e escolhe em quais etapas aquela marca não é permitida. A opção se chama **Bloquear vínculo nas etapas**.
+
+Exemplo: a etiqueta "Bloqueado pelo cliente" não pode conviver com as etapas "Em produção" e "Em entrega".
+
+### O bloqueio vale nos dois sentidos
+
+<CardGroup cols={2}>
+<Card title="Ao mover o projeto" icon="arrow-right">
+  Um projeto que já carrega o status ou a etiqueta bloqueada não consegue entrar na etapa.
+</Card>
+
+<Card title="Ao aplicar a marca" icon="tag">
+  Um projeto que já está na etapa não consegue receber o status ou a etiqueta bloqueada.
+</Card>
+</CardGroup>
+
+### Bloquear vínculo por automações
+
+Ao selecionar as etapas bloqueadas, cada uma oferece a opção **Bloquear vínculo por automações**.
+
+| Opção | Efeito |
+| --- | --- |
+| Marcada | Nem as automações conseguem aplicar aquele status ou etiqueta em um projeto que está na etapa bloqueada. |
+| Desmarcada | Automações conseguem aplicar a marca mesmo com o bloqueio ativo. Pessoas continuam bloqueadas. |
+
+<Note>
+Essa opção vale para a aplicação do status ou da etiqueta. A movimentação de um projeto para uma etapa bloqueada é recusada em qualquer caso, inclusive quando feita por automação.
+</Note>
+
+## Restrição ou bloqueio: qual usar
+
+<CardGroup cols={2}>
+<Card title="Use restrição quando" icon="shield">
+  A regra é sobre o caminho: de onde vem, para onde vai, o que precisa estar preenchido ou decidido para o projeto se mover.
+</Card>
+
+<Card title="Use bloqueio quando" icon="ban">
+  A regra é sobre incompatibilidade: existe um estado do projeto que simplesmente não combina com determinadas etapas, não importa por onde ele passou.
+</Card>
+</CardGroup>
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Etiquetas e status" icon="tags" href="/guides/funnels/tags-and-status">
+  Onde os bloqueios são configurados.
+</Card>
+
+<Card title="Mover projetos" icon="arrow-right" href="/guides/funnels/moving-projects">
+  A ordem em que as verificações acontecem.
+</Card>
+</CardGroup>

@@ -1,0 +1,102 @@
+---
+title: "Métricas e tempo por etapa"
+description: "Acompanhe tempo de permanência, contagem de entradas e o histórico de transições de cada etapa do funil"
+keywords: ["métrica", "métricas", "tempo médio", "gargalo", "transição", "permanência", "contagem de entradas"]
+---
+
+Toda vez que um projeto entra ou sai de uma etapa, a plataforma registra o momento e quem fez o movimento. Esse histórico de transições é a base de todas as métricas do funil — você não precisa preencher nada para tê-las.
+
+## Métricas de etapa
+
+No topo de cada coluna do kanban ficam as métricas daquela etapa.
+
+<CardGroup cols={2}>
+<Card title="Tempo médio" icon="clock">
+  Tempo médio de permanência dos projetos que passaram por essa etapa.
+</Card>
+
+<Card title="Contagem de entradas" icon="arrow-right-to-bracket">
+  Quantos projetos já entraram na etapa.
+</Card>
+
+<Card title="Tempo máximo" icon="hourglass-end">
+  O maior tempo de permanência registrado.
+</Card>
+
+<Card title="Tempo mínimo" icon="hourglass-start">
+  O menor tempo de permanência registrado.
+</Card>
+</CardGroup>
+
+Cada métrica pode ser vista em três períodos: **todo o tempo**, **últimos 7 dias** e **últimos 30 dias**.
+
+<Warning>
+As métricas de tempo consideram apenas as passagens **já concluídas** — aquelas em que o projeto entrou e saiu.
+
+Um projeto que está parado na etapa há três meses não aparece no tempo máximo enquanto não sair. Se você está caçando gargalo, o tempo médio conta o passado; para ver o presente, olhe também há quanto tempo os cartões atuais estão ali.
+</Warning>
+
+A contagem de entradas funciona de outro jeito: ela inclui todas as entradas do período, tenham elas terminado ou não.
+
+## Lendo as métricas na prática
+
+<AccordionGroup>
+<Accordion title="Tempo médio alto em uma etapa" icon="hourglass">
+  O candidato natural a gargalo. Antes de concluir, verifique se a etapa não é de espera por natureza — uma etapa "Aguardando cliente" com tempo alto pode ser exatamente o esperado.
+</Accordion>
+
+<Accordion title="Diferença grande entre tempo mínimo e máximo" icon="arrows-left-right">
+  A etapa trata casos muito diferentes sob o mesmo nome. Costuma ser sinal de que ela deveria ser dividida, ou de que existe um tipo de caso que trava enquanto os outros passam rápido.
+</Accordion>
+
+<Accordion title="Contagem de entradas maior que o número de projetos" icon="rotate">
+  Projetos estão voltando para a etapa. Retrabalho, reprovação em revisão ou um critério de avanço mal definido na etapa anterior.
+</Accordion>
+
+<Accordion title="Comparação entre 7 e 30 dias" icon="chart-line">
+  É o jeito mais rápido de ver se algo mudou. Um tempo médio de 7 dias bem acima do de 30 dias indica uma piora recente, não um problema estrutural.
+</Accordion>
+</AccordionGroup>
+
+## Métricas do funil
+
+Além da visão por etapa, o funil tem uma visão consolidada, com um período de análise que você escolhe.
+
+Ela reúne informações gerais do funil, contagens, distribuição dos projetos entre as etapas, resumo por etapa, tempo médio no funil e por etapa, uso de etiquetas e status, atividade no período e anexos.
+
+<Note>
+O período de análise do funil é limitado a três meses. Para acompanhar janelas maiores, compare períodos sucessivos.
+</Note>
+
+## Valores do funil no quadro
+
+O cabeçalho do quadro mostra dois valores somados a partir da receita esperada dos projetos:
+
+| Valor | Como é calculado |
+| --- | --- |
+| Total | A soma da receita esperada de todos os projetos do funil |
+| Total ponderado | A mesma soma, com cada projeto pesando conforme o **Progresso** da etapa em que está |
+
+Uma etapa com progresso de 30% contribui com 30% da receita esperada dos seus projetos. É o que transforma o quadro em previsão. Veja [Etapas do funil](/guides/funnels/steps#configurações-da-etapa).
+
+## Histórico de transições
+
+Além dos números agregados, o histórico individual fica disponível no projeto: por quais etapas ele passou, quando entrou e saiu de cada uma e quem realizou cada movimento.
+
+É o que responde "por que esse item demorou tanto" quando a média não basta.
+
+## Permissões
+
+Ver métricas é controlado separadamente de ver o funil: existem permissões distintas para as métricas do funil e para as métricas de etapa. Um usuário pode operar o quadro sem enxergar os números. Veja [Papéis e permissões](/guides/users/roles-permissions).
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Etapas do funil" icon="columns-3" href="/guides/funnels/steps">
+  Configurar o progresso que pondera a previsão.
+</Card>
+
+<Card title="Metas" icon="bullseye" href="/guides/goals/overview">
+  Transformar esses números em objetivos acompanhados.
+</Card>
+</CardGroup>

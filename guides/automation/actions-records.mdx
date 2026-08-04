@@ -1,0 +1,215 @@
+---
+title: "Ações: cadastros e pessoas"
+description: "Criar projetos, hierarquias, clientes e contatos e alterar os responsáveis de um projeto"
+keywords: ["ação", "criar projeto", "hierarquia", "cliente", "contato", "atribuídos", "responsáveis"]
+---
+
+As ações que criam registros novos e mexem em quem é responsável pelo trabalho.
+
+| Ação | O que faz |
+| --- | --- |
+| [Criar projeto](#criar-projeto) | Cria um projeto novo, do zero ou a partir de um modelo |
+| [Criar hierarquia de projetos](#criar-hierarquia-de-projetos) | Cria ou vincula projetos filhos abaixo do projeto atual |
+| [Criar cliente](#criar-cliente) | Cadastra um cliente |
+| [Criar contato](#criar-contato) | Cadastra um contato |
+| [Alterar usuários atribuídos](#alterar-usuários-atribuídos) | Adiciona, remove ou substitui responsáveis |
+
+<Info>
+Todos os campos de texto destas ações aceitam [variáveis e sintaxe avançada](/guides/automation/variables). É assim que o registro criado herda dados do projeto que disparou a automação.
+</Info>
+
+## Criar projeto
+
+Cria um projeto novo. O projeto criado é independente do que disparou a automação.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Projeto modelo | Não | Copia um modelo existente em vez de criar do zero |
+| Nome do projeto | Sim | O nome do novo projeto |
+| Descrição e impacto | Sim, sem modelo | Dados básicos do projeto criado do zero |
+| Etapa de destino | Não | Vincula o projeto criado a uma etapa |
+
+<Tabs>
+<Tab title="A partir de um modelo">
+  Selecione um projeto marcado como modelo. O novo projeto sai com uma cópia completa do modelo: cliente, funis, etiquetas, checklists, respostas de formulário, conteúdo, fórum, grupos e responsáveis.
+
+  Você informa apenas o nome — os outros campos vêm do modelo.
+</Tab>
+
+<Tab title="Do zero">
+  Sem modelo, informe nome, descrição e impacto. O projeto nasce vazio, sem vínculos.
+</Tab>
+</Tabs>
+
+<Note>
+O nome é cortado em 191 caracteres. Ao montar nomes com variáveis, considere esse limite antes de concatenar campos longos.
+</Note>
+
+Quando você indica uma etapa de destino, o projeto criado é vinculado a ela **ignorando restrições e bloqueios**. Se por algum motivo ele já estiver naquela etapa, a ação segue sem erro.
+
+<Warning>
+Um gatilho de criação combinado a esta ação forma um laço: o projeto criado pode acionar a mesma automação. O [limite de encadeamento](/guides/automation/anatomy#automações-que-acionam-automações) interrompe a cadeia, mas cada volta gasta execuções do plano. Use condições para garantir que o projeto criado não se encaixe no gatilho.
+</Warning>
+
+## Criar hierarquia de projetos
+
+Cria ou vincula projetos filhos abaixo do projeto que disparou a automação, montando a árvore de uma vez.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Criar ou vincular projetos? | Sim | Cria projetos novos ou vincula projetos existentes |
+| Estrutura da hierarquia | Sim | O desenho da árvore, uma linha por projeto |
+| Projeto modelo | Não | Base para os projetos filhos criados |
+| Etapa de destino | Não | Etapa que recebe os filhos marcados |
+
+A estrutura é escrita em texto, com `-` indicando o nível:
+
+```text
+Filho número 1
+- Neto número 1.1
+-- Bisneto número 1.1.1
+- Neto número 1.2
+Filho número 2
+```
+
+<Card title="Hierarquia automatizada" icon="sitemap" href="/guides/automation/automated-hierarchy">
+  Esta ação tem um guia dedicado, com a sintaxe completa da estrutura, uso de variáveis, vinculação seletiva por etapa e exemplos de árvores reais.
+</Card>
+
+## Criar cliente
+
+Cadastra um cliente e, opcionalmente, vincula ele a projetos.
+
+| Grupo de opções | O que contém |
+| --- | --- |
+| Informações básicas | Nome, razão social, e-mail, telefone, documento, endereço, atividade principal, descrição, tipo de cliente e tipo de documento |
+| Formulário | Campos do formulário de cliente, quando a sua conta usa um |
+| Configurações de duplicação | Como evitar criar um cliente que já existe |
+| Vínculo com projeto | Expressão que decide quais projetos recebem esse cliente |
+
+Os campos numéricos seguem esta convenção:
+
+| Campo | Valores |
+| --- | --- |
+| Tipo de cliente | `1` matriz, `2` filial |
+| Tipo de documento | `1` pessoa física, `2` pessoa jurídica |
+
+<Warning>
+O formulário desta ação é simplificado: **não há máscaras nem validações**. O que você escrever é gravado como está. Garanta o formato correto de documento e telefone, ou a ação falha na hora de criar.
+</Warning>
+
+### Evitar duplicados
+
+Ligue **Checar se o cliente já existe** e escolha os campos de comparação entre e-mail, telefone e documento.
+
+<Note>
+**Todos** os campos escolhidos precisam coincidir para o cliente ser considerado duplicado. Marcar e-mail e telefone significa "mesmo e-mail **e** mesmo telefone", não "um ou outro".
+</Note>
+
+Encontrando um duplicado, a ação **não cria nada** e segue usando o cliente que já existia — inclusive para o vínculo com projetos. O registro de execução indica que a criação foi evitada.
+
+### Vincular a projetos
+
+O campo de vínculo espera uma expressão que devolva uma **lista de identificadores de projeto**. O cliente resultante — novo ou encontrado como duplicado — é gravado nesses projetos.
+
+```twig
+["{{ project.id }}"]
+```
+
+<Warning>
+A expressão precisa devolver uma lista válida de identificadores. Qualquer outro formato faz a ação registrar erro.
+</Warning>
+
+Para vincular contatos ao cliente, informe os identificadores dos contatos separados por vírgula.
+
+## Criar contato
+
+Cadastra um contato. Funciona exatamente como a criação de cliente, com os campos próprios de contato.
+
+| Grupo de opções | O que contém |
+| --- | --- |
+| Informações básicas | Nome, e-mail, telefone, cargo e descrição |
+| Formulário | Campos do formulário de contato, quando a sua conta usa um |
+| Configurações de duplicação | Comparação por e-mail e telefone |
+| Vínculo com projeto | Expressão que decide quais projetos recebem esse contato |
+
+Para vincular clientes ao contato, informe os identificadores dos clientes separados por vírgula.
+
+<Tip>
+Criando cliente e contato na mesma automação, coloque a criação do cliente **antes** e use o resultado dela para preencher o vínculo do contato.
+</Tip>
+
+## Alterar usuários atribuídos
+
+Adiciona, remove ou substitui os responsáveis do projeto.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Tipo de ação | Sim | Adicionar, remover ou substituir |
+| Usuários a serem alterados | Sim, sem sintaxe avançada | A lista de usuários da ação |
+| Remover todos os usuários atribuídos | Não | Só com o tipo remover; limpa todos os responsáveis |
+| Usar usuário aleatório | Sim | Sorteia parte da lista em vez de usar todos |
+| Quantidade de usuários a selecionar | Sim | Quantos serão sorteados |
+| Usar sintaxe avançada | Sim | Monta a lista por expressão em vez de seleção manual |
+
+### Os três tipos de ação
+
+<CardGroup cols={3}>
+<Card title="Adicionar" icon="user-plus">
+  Os usuários selecionados entram na lista de responsáveis, mantendo quem já estava.
+</Card>
+
+<Card title="Remover" icon="user-minus">
+  Os usuários selecionados saem da lista.
+</Card>
+
+<Card title="Substituir" icon="user-pen">
+  Todos os responsáveis atuais saem e os selecionados entram.
+</Card>
+</CardGroup>
+
+<Warning>
+Em **Substituir**, quem foi removido é excluído do sorteio da mesma execução. Se todos os usuários da lista já eram responsáveis, não sobra ninguém para atribuir e a ação registra `empty_user_pool_after_exclusion` — o projeto fica sem responsáveis.
+</Warning>
+
+### Sorteio
+
+Com **Usar usuário aleatório** ligado, a ação sorteia a quantidade indicada dentro da lista, em vez de aplicar a lista inteira. É o caminho para distribuir demanda entre um time.
+
+<Note>
+A quantidade sorteada precisa ser menor ou igual ao tamanho da lista. Pedindo mais usuários do que a lista tem, a ação registra erro de dados inválidos.
+</Note>
+
+### Lista por expressão
+
+Ligando **Usar sintaxe avançada**, a lista de usuários deixa de ser uma seleção manual e passa a ser calculada. A expressão precisa devolver uma **lista de usuários ou de identificadores**:
+
+```twig
+{{ project.users|json }}
+```
+
+É assim que se atribui "quem respondeu o formulário", "o responsável indicado no campo X" ou "quem disparou o gatilho". Veja [Variáveis nas automações](/guides/automation/variables).
+
+<Warning>
+Se a expressão devolver algo que não é uma lista, devolver uma lista vazia, ou devolver itens sem identificador, a ação registra erro e nenhum responsável é alterado. O registro de execução mostra o texto gerado pela expressão — é a forma mais rápida de descobrir o que saiu errado.
+</Warning>
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Comunicação, IA e execução" icon="paper-plane" href="/guides/automation/actions-integrations">
+  Conteúdo, e-mail, webhook, assistente de etapa, metas e execução.
+</Card>
+
+<Card title="Variáveis" icon="brackets-curly" href="/guides/automation/variables">
+  Como montar listas e preencher campos com dados do projeto.
+</Card>
+
+<Card title="Hierarquia automatizada" icon="sitemap" href="/guides/automation/automated-hierarchy">
+  O guia completo da criação de árvores de projetos.
+</Card>
+
+<Card title="Mencionar usuários" icon="at" href="/guides/automation/mention-users">
+  Como transformar usuários em menções dentro de mensagens.
+</Card>
+</CardGroup>

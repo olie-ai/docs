@@ -1,0 +1,134 @@
+---
+title: "Etapas do funil"
+description: "Configure as etapas: ordem, avanço e retrocesso, progresso, formulários, execução e ordenação dos cartões"
+keywords: ["etapa", "etapas", "coluna", "avançar", "retroceder", "progresso", "ordenação automática", "formulário da etapa"]
+---
+
+A etapa é a unidade de trabalho do funil. No quadro ela é uma coluna; na configuração, é onde ficam quase todas as regras. Você edita as etapas dentro do funil, na seção **Etapas**.
+
+<Tip>
+Para reordenar, clique no título da etapa e arraste. A ordem das etapas é a ordem das colunas no kanban.
+</Tip>
+
+## Configurações da etapa
+
+<AccordionGroup>
+<Accordion title="Nome" icon="tag">
+  Aparece no topo da coluna e em toda referência à etapa (automações, restrições, métricas, histórico). Nomes curtos funcionam melhor, porque a coluna é estreita.
+</Accordion>
+
+<Accordion title="Avançar para e Retroceder para" icon="arrow-right-arrow-left">
+  Definem o caminho padrão a partir desta etapa. Quando alguém usa o avanço rápido no cartão, o projeto vai para a etapa configurada em **Avançar para**; o retrocesso usa **Retroceder para**.
+
+  Escolha **Não mover** quando a etapa não tiver um destino óbvio — em uma etapa final, por exemplo, ou quando a decisão de para onde ir depende do caso e você prefere que a pessoa escolha.
+
+  <Note>
+  Isso é o caminho sugerido, não uma amarra. Arrastar o cartão para qualquer outra coluna continua possível, desde que as [restrições](/guides/funnels/restrictions) permitam.
+  </Note>
+</Accordion>
+
+<Accordion title="Progresso" icon="percent">
+  Um percentual de 0 a 100 que diz o quanto do processo já foi vencido quando o projeto chega nesta etapa.
+
+  Ele não é só decorativo: o quadro usa esse percentual para ponderar a receita esperada. Uma etapa com 30% de progresso contribui com 30% da receita esperada dos seus projetos para o total ponderado do funil, enquanto o total bruto continua somando o valor cheio.
+
+  <Info>
+  Em um funil de vendas, é o equivalente à probabilidade de fechamento. "Proposta enviada" a 40% e "Contrato em assinatura" a 90% produzem uma previsão ponderada muito mais realista do que somar tudo.
+  </Info>
+</Accordion>
+
+<Accordion title="Texto de ajuda" icon="circle-info">
+  Uma orientação curta sobre o que se faz nesta etapa. Use para deixar o combinado explícito no lugar onde a dúvida aparece: "só entra aqui com proposta assinada", "responsável precisa validar o orçamento antes de avançar".
+</Accordion>
+
+<Accordion title="Formulário da etapa" icon="clipboard-list">
+  Vincula um formulário dinâmico à etapa. Ele é preenchido enquanto o projeto está ali, e os campos marcados como obrigatórios impedem que o projeto saia da etapa antes de serem respondidos.
+
+  Escolha **Sem formulário** se a etapa não precisa coletar nada. Veja [Checklists e formulários obrigatórios](/guides/funnels/requirements).
+</Accordion>
+
+<Accordion title="Permitir execução" icon="play">
+  Autoriza cronometrar o trabalho dos projetos que estão nesta etapa. O funil também precisa permitir execução — se ele estiver com a execução desativada, a configuração da etapa não tem efeito.
+
+  Deixe desmarcado em etapas de espera, onde ninguém está de fato trabalhando no item.
+</Accordion>
+</AccordionGroup>
+
+## Formulários ao mover
+
+Além do formulário da etapa, você pode fazer com que a chegada do projeto abra automaticamente os formulários de **Cliente** e de **Contato**. É o botão **Mostrar formulários** na configuração da etapa.
+
+<CardGroup cols={2}>
+<Card title="Mostrar formulário do cliente" icon="building">
+  Ao mover o projeto para esta etapa, abre o formulário de cliente.
+</Card>
+
+<Card title="Mostrar formulário do contato" icon="user">
+  Ao mover o projeto para esta etapa, abre o formulário de contato.
+</Card>
+</CardGroup>
+
+Cada um tem a opção **Não exibir se já houver**: com ela marcada, o formulário só aparece quando o projeto ainda não tem cliente (ou contato) vinculado. Isso evita perguntar de novo o que já foi respondido.
+
+<Tip>
+O uso típico é uma etapa de qualificação: o projeto chega, o formulário de cliente abre na hora, e quem atende preenche sem precisar lembrar de abrir a aba certa.
+</Tip>
+
+## Ordenação dos cartões
+
+Cada etapa decide como seus cartões são empilhados. O botão **Ordenação** oferece dois modos.
+
+<Tabs>
+<Tab title="Manual">
+  O padrão. As pessoas arrastam os cartões dentro da coluna e a ordem escolhida vale para todos.
+
+  No kanban também existe **Reordenar completamente a etapa**, que aplica uma propriedade de uma vez só a todos os cartões da coluna. Como isso muda a ordem para todos os usuários, a ação pede confirmação.
+</Tab>
+
+<Tab title="Automática">
+  Você escolhe uma propriedade e uma direção (crescente ou decrescente), e a etapa se reorganiza sozinha sempre que algo muda.
+
+  Propriedades disponíveis: nome, impacto, status, receita esperada, data de criação, atribuído a, data de vínculo na etapa, etiquetas, resposta de formulário, resposta do formulário do funil, nome do cliente, nome do contato, data de status do funil e data de previsão do funil.
+
+  <Warning>
+  Com a ordenação automática ativada, a ordenação manual é desativada. Arrastar um cartão continua funcionando visualmente para você, mas não persiste a nova ordem.
+  </Warning>
+</Tab>
+</Tabs>
+
+## O que mais vive dentro de uma etapa
+
+Cada etapa tem botões próprios que abrem configurações com guia dedicado:
+
+| Botão | O que configura |
+| --- | --- |
+| **Checklist da etapa** | Itens de checagem, obrigatórios ou não — veja [Checklists e formulários](/guides/funnels/requirements) |
+| **Anexos** | Arquivos, links e vídeos de apoio — veja [Anexos](/guides/funnels/attachments) |
+| **Restrições** | Regras de entrada e saída — veja [Restrições e bloqueios](/guides/funnels/restrictions) |
+| **Automações** | Ações disparadas por eventos da etapa — veja [Automações](/guides/automation/overview) |
+| **Assistentes** | Agentes de IA que rodam na entrada ou na saída — veja [Assistentes de etapa](/guides/funnels/step-assistants) |
+| **Ordenação** | Modo manual ou automático dos cartões |
+
+<Warning>
+Restrições, automações e bloqueios só podem ser criados depois que o funil foi salvo pelo menos uma vez. Em um funil novo, salve antes de configurá-los.
+</Warning>
+
+## Excluir uma etapa
+
+A exclusão é feita pelo botão de deletar na própria etapa, dentro da edição do funil. Antes de excluir, verifique se a etapa não está referenciada em outro lugar: um **Avançar para** de outra etapa, uma restrição, um bloqueio ou uma automação apontando para ela.
+
+<Tip>
+Se a etapa ainda tem projetos, mova-os primeiro. Assim você decide para onde eles vão em vez de descobrir depois que ficaram sem posição.
+</Tip>
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Mover projetos entre etapas" icon="arrow-right" href="/guides/funnels/moving-projects">
+  O que acontece a cada movimentação e por que ela pode ser recusada.
+</Card>
+
+<Card title="Métricas por etapa" icon="chart-line" href="/guides/funnels/metrics">
+  Quanto tempo os projetos ficam parados em cada coluna.
+</Card>
+</CardGroup>

@@ -1,0 +1,270 @@
+---
+title: "Receitas prontas"
+description: "Montagens completas de automação para cenários comuns do dia a dia"
+keywords: ["receita", "exemplo", "modelo", "caso de uso", "automação pronta"]
+---
+
+Montagens testadas para situações que aparecem em quase toda operação. Cada receita indica o gatilho, as condições e as ações na ordem em que devem aparecer no editor.
+
+<Info>
+Adapte os nomes de etapas, etiquetas e formulários para os da sua conta. A estrutura é o que importa.
+</Info>
+
+## Cobrar um card parado
+
+O clássico: avisar a equipe quando algo fica esquecido em uma etapa.
+
+<Steps>
+<Step title="Gatilho — Projeto ocioso em etapa" icon="bolt">
+  Etapa: "Em análise". Tempo: 3 dias. **Repetir recorrentemente** ligado, para cobrar a cada 3 dias enquanto não sair.
+</Step>
+
+<Step title="Condição — Projeto contém status do funil" icon="code-branch">
+  Status: "Aguardando cliente". A lógica é invertida de propósito: se o projeto está esperando o cliente, não faz sentido cobrar a equipe.
+
+  Coloque a ação de aviso no ramo **Se falso** e deixe o ramo **Se verdadeiro** vazio.
+</Step>
+
+<Step title="Ação — Envia conteúdo do projeto" icon="message">
+  ```twig
+  {{ project.users|mention }} este card está parado em "Em análise" há 3 dias. Precisa de alguma coisa para avançar?
+  ```
+</Step>
+</Steps>
+
+<Warning>
+Ao salvar, o gatilho dispara imediatamente para todos os cards que já estão parados além do prazo. Se a etapa tiver muitos cards, o primeiro efeito é uma enxurrada de avisos.
+</Warning>
+
+## Preparar o onboarding de um cliente novo
+
+Quando a venda fecha, o time de implantação precisa receber o projeto pronto para começar.
+
+<Steps>
+<Step title="Gatilho — Projeto movido de etapa" icon="bolt">
+  Etapa de destino: "Implantação".
+</Step>
+
+<Step title="Ação — Adicionar formulário avulso" icon="clipboard-list">
+  Formulário: "Checklist de onboarding". **Ignorar se já houver esse formulário** ligado, para o card não acumular cópias se voltar para a etapa.
+</Step>
+
+<Step title="Ação — Alterar usuários atribuídos" icon="user-plus">
+  Tipo: substituir. Lista: o time de implantação. **Usar usuário aleatório** ligado com 1 usuário, distribuindo a demanda.
+</Step>
+
+<Step title="Ação — Alterar campo de data" icon="calendar">
+  Destino: previsão do funil "Implantação". Tipo: data relativa a partir da data do acionamento do gatilho, incrementando vários dias — 15.
+</Step>
+
+<Step title="Ação — Envia conteúdo do projeto" icon="message">
+  ```twig
+  Implantação iniciada para {{ project.customer.name|default('cliente não informado') }}.
+  Responsável sorteado, prazo previsto em 15 dias.
+  ```
+</Step>
+</Steps>
+
+## Lembrar do prazo antes que ele chegue
+
+Aviso preventivo dois dias antes da data prevista — e só para quem ainda não terminou.
+
+<Steps>
+<Step title="Gatilho — Data de projeto atingida" icon="bolt">
+  Tipo de campo: previsão do funil. Funil: "Entregas". **Usar tempo relativo**: 2 dias antes.
+</Step>
+
+<Step title="Condição — Projeto contém status do funil" icon="code-branch">
+  Status: "Concluído". Coloque o envio no ramo **Se falso** — quem já entregou não recebe nada.
+</Step>
+
+<Step title="Ação — Enviar um e-mail" icon="envelope">
+  Assunto:
+
+  ```twig
+  Faltam 2 dias: {{ project.code }} - {{ project.name }}
+  ```
+
+  Corpo:
+
+  ```twig
+  O prazo previsto para {{ project.name }} vence em 2 dias.
+  Cliente: {{ project.customer.name|default('não informado') }}
+  ```
+</Step>
+</Steps>
+
+<Tip>
+Precisa avisar em dias úteis, e não em intervalo fixo? Use **Tempo relativo customizado** com expressões como `previous friday`. Veja [Tempo relativo customizado](/guides/automation/relative-time).
+</Tip>
+
+## Criar cliente a partir de um formulário
+
+O formulário de captação é preenchido e o cadastro nasce sozinho, sem duplicar quem já existe.
+
+<Steps>
+<Step title="Gatilho — Formulário editado" icon="bolt">
+  Formulário: "Dados do cliente". **Restringir aos campos**: nome, e-mail e documento, com **Apenas um campo respondido é suficiente** desligado — todos precisam estar preenchidos.
+</Step>
+
+<Step title="Ação — Criar cliente" icon="building">
+  Preencha os campos básicos com as respostas do formulário, usando variáveis. Ligue **Checar se o cliente já existe** e escolha comparação por documento.
+
+  No vínculo com projeto:
+
+  ```twig
+  ["{{ project.id }}"]
+  ```
+</Step>
+
+<Step title="Ação — Adicionar etiqueta" icon="tag">
+  Etiqueta: "Cadastro completo".
+</Step>
+</Steps>
+
+<Warning>
+O formulário de cliente da automação não tem máscara nem validação. Se o documento vier do formulário em formato livre, garanta o formato antes — um documento inválido faz a ação falhar.
+</Warning>
+
+## Quebrar um projeto aprovado em subprojetos
+
+Ao aprovar, a árvore de trabalho é montada de uma vez.
+
+<Steps>
+<Step title="Gatilho — Projeto movido de etapa" icon="bolt">
+  Etapa de destino: "Aprovado".
+</Step>
+
+<Step title="Condição — Projeto contém etiqueta" icon="code-branch">
+  Etiqueta: "Projeto completo". **Bloquear o fluxo** ligado, para não quebrar demandas pequenas.
+</Step>
+
+<Step title="Ação — Criar hierarquia de projetos" icon="sitemap">
+  Ação: criar. Estrutura:
+
+  ```text
+  > Levantamento
+  > Execução
+  - Frente A
+  - Frente B
+  > Validação
+  ```
+
+  Os itens com `>` são vinculados à etapa de destino escolhida na ação.
+</Step>
+</Steps>
+
+<Card title="Hierarquia automatizada" icon="sitemap" href="/guides/automation/automated-hierarchy">
+  A sintaxe completa da estrutura, incluindo variáveis nos nomes.
+</Card>
+
+## Fechar o ciclo de um formulário recorrente
+
+Formulários de acompanhamento periódico: guarda a versão do período e devolve o formulário em branco.
+
+<Steps>
+<Step title="Gatilho — Projeto ocioso em etapa" icon="bolt">
+  Etapa: "Acompanhamento". Tempo: 1 mês. **Repetir recorrentemente** ligado.
+</Step>
+
+<Step title="Ação — Atualizar contador" icon="hashtag">
+  Contador: "Ciclos concluídos". Ação: incrementar. Valor: 1.
+</Step>
+
+<Step title="Ação — Salvar versão do formulário" icon="floppy-disk">
+  Formulário: "Acompanhamento mensal". **Salvar versão e em seguida limpar os campos** ligado.
+</Step>
+
+<Step title="Ação — Envia conteúdo do projeto" icon="message">
+  ```twig
+  Ciclo de acompanhamento encerrado. Formulário arquivado e liberado para o próximo período.
+  ```
+</Step>
+</Steps>
+
+<Note>
+A ordem importa: o contador é atualizado **antes** da limpeza. Invertendo, você contaria um formulário já vazio.
+</Note>
+
+## Avisar um sistema externo
+
+Notificar um ERP, um canal de mensagens ou uma automação externa quando algo relevante acontece.
+
+<Steps>
+<Step title="Gatilho — Projeto movido de etapa" icon="bolt">
+  Etapa de destino: "Faturamento".
+</Step>
+
+<Step title="Ação — Disparar webhook" icon="satellite-dish">
+  Endpoint: a URL do sistema que vai receber. Corpo customizado:
+
+  ```twig
+  {{ {
+    "codigo": project.code,
+    "nome": project.name,
+    "orcamento": project.budget,
+    "cliente": project.customer.name|default(null)
+  }|json }}
+  ```
+
+  Use o botão **Testar webhook** antes de salvar.
+</Step>
+</Steps>
+
+## Garantir uma execução por vez
+
+Impede que a mesma pessoa fique com a contagem de tempo aberta em vários projetos.
+
+<Steps>
+<Step title="Gatilho — Execução de projeto" icon="bolt">
+  Evento: iniciar. **Qualquer etapa** ligado.
+</Step>
+
+<Step title="Ação — Controlar execução de projeto" icon="pause">
+  Tipo: pausar. Usuários alvo: usuário que disparou o gatilho.
+</Step>
+</Steps>
+
+<Warning>
+Esta receita pausa as execuções do usuário **naquele projeto**. Para o efeito valer em toda a operação, ela precisa ser combinada com o desenho do processo — não existe uma ação única que pause execuções em todos os projetos de uma vez.
+</Warning>
+
+## Antes de ativar qualquer uma
+
+<AccordionGroup>
+<Accordion title="Teste com um projeto de mentira" icon="vial">
+  Crie um projeto de teste, provoque o evento e leia o [registro de execução](/guides/automation/logs). É mais rápido do que descobrir o problema em um card real.
+</Accordion>
+
+<Accordion title="Cuidado com gatilhos de volume" icon="gauge-high">
+  Projeto ocioso com repetição e formulário editado disparam muito. Se as ações forem irreversíveis — e-mail, webhook, criação de registros — calcule o volume antes.
+</Accordion>
+
+<Accordion title="Nomeie pela regra, não pelo mecanismo" icon="tag">
+  "Cobrar card parado em análise" é muito mais útil do que "Automação 4" quando alguém abrir a lista daqui a seis meses.
+</Accordion>
+
+<Accordion title="Confira o teto do plano" icon="list-check">
+  Cada conta tem um limite de automações ativas. Ao atingir o limite, a automação é criada mas fica inativa até você liberar espaço.
+</Accordion>
+</AccordionGroup>
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Gatilhos" icon="bolt" href="/guides/automation/triggers">
+  Todas as opções de cada um dos sete eventos.
+</Card>
+
+<Card title="Ações" icon="play" href="/guides/automation/actions-projects">
+  O catálogo completo do que uma automação consegue fazer.
+</Card>
+
+<Card title="Variáveis" icon="brackets-curly" href="/guides/automation/variables">
+  Os dados disponíveis para montar mensagens e campos.
+</Card>
+
+<Card title="Logs e depuração" icon="list-check" href="/guides/automation/logs">
+  O que fazer quando a receita não sai como esperado.
+</Card>
+</CardGroup>

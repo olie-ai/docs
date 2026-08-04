@@ -1,0 +1,148 @@
+---
+title: "Visão geral dos funis"
+description: "Entenda o que é um funil, como ele organiza o trabalho em etapas e o que cada peça do funil controla"
+keywords: ["funil", "funis", "etapa", "etapas", "kanban", "fluxo", "processo", "pipeline"]
+---
+
+Um funil é o desenho de um processo da sua operação. Você define por quais etapas o trabalho passa, em que ordem, e o que precisa acontecer em cada uma delas. Os projetos entram no funil, caminham pelas etapas e saem quando o processo termina.
+
+<Info>
+Se você já usou um quadro kanban, a ideia inicial é familiar: colunas e cartões. A diferença é que aqui cada etapa também carrega regras — o que é obrigatório preencher, de onde o projeto pode vir, para onde pode ir e o que acontece automaticamente quando ele chega.
+</Info>
+
+## A anatomia de um funil
+
+<CardGroup cols={3}>
+<Card title="Funil" icon="filter">
+  O processo inteiro. Define o vocabulário, as etiquetas, os status e quem enxerga o quadro.
+</Card>
+
+<Card title="Etapa" icon="columns-3">
+  Cada fase do processo. É a coluna do quadro e o lugar onde ficam as regras, os checklists e os formulários.
+</Card>
+
+<Card title="Cartão" icon="rectangle-list">
+  Um projeto posicionado em uma etapa. É o que você arrasta de uma coluna para outra.
+</Card>
+</CardGroup>
+
+Um projeto pode estar em mais de um funil ao mesmo tempo. Cada vínculo é independente: o projeto tem uma posição, um status e uma data de previsão **por funil**.
+
+## O funil define como você chama as coisas
+
+Nem todo processo trabalha com "projetos". Um funil de suporte trabalha com chamados, um de vendas com oportunidades, um de logística com ordens. Por isso cada funil tem um **termo do projeto**: você escolhe como a plataforma vai chamar os itens daquele funil, e a interface passa a usar essa palavra.
+
+| Termo | Contexto típico |
+| --- | --- |
+| Ticket | Suporte, helpdesk |
+| Chamado | Suporte interno |
+| Issue | Desenvolvimento de software |
+| Deal | CRM, vendas |
+| Oportunidade | Vendas, pré-vendas |
+| Lead | Marketing, CRM |
+| Tarefa, Serviço, Caso, Solicitação, Demanda, Ordem, Processo | Operações diversas |
+| Personalizado | Você escreve o singular e o plural |
+
+<Note>
+Esta documentação usa a palavra **projeto** o tempo todo, porque é o termo padrão. Se o seu funil usa outro termo, leia "projeto" como "chamado", "negócio" ou o que você tiver configurado.
+</Note>
+
+## O que um funil controla
+
+<AccordionGroup>
+<Accordion title="Etapas e o caminho entre elas" icon="arrow-right-arrow-left">
+  A ordem das etapas, qual é a próxima ao avançar, qual é a anterior ao retroceder e quanto de progresso cada etapa representa.
+
+  Veja [Etapas do funil](/guides/funnels/steps).
+</Accordion>
+
+<Accordion title="Regras de entrada e saída" icon="shield">
+  Restrições que só deixam o projeto entrar ou sair quando ele cumpre critérios, e bloqueios que impedem o vínculo quando o projeto tem determinado status ou etiqueta.
+
+  Veja [Restrições e bloqueios](/guides/funnels/restrictions).
+</Accordion>
+
+<Accordion title="O que é obrigatório preencher" icon="list-check">
+  Checklists e campos de formulário marcados como obrigatórios travam a saída da etapa até serem concluídos.
+
+  Veja [Checklists e formulários obrigatórios](/guides/funnels/requirements).
+</Accordion>
+
+<Accordion title="Classificação dos projetos" icon="tags">
+  Etiquetas coloridas e status do funil. O status pode ser conclusivo, e nesse caso marca a previsão como realizada.
+
+  Veja [Etiquetas e status](/guides/funnels/tags-and-status).
+</Accordion>
+
+<Accordion title="Material de apoio" icon="paperclip">
+  Arquivos e links no funil inteiro, e arquivos ou vídeos por etapa — inclusive vídeo de visualização obrigatória.
+
+  Veja [Anexos do funil e da etapa](/guides/funnels/attachments).
+</Accordion>
+
+<Accordion title="Trabalho automático" icon="robot">
+  Automações disparadas por eventos da etapa e assistentes de IA que rodam quando o projeto entra ou sai.
+
+  Veja [Assistentes de etapa](/guides/funnels/step-assistants) e [Automações](/guides/automation/overview).
+</Accordion>
+
+<Accordion title="Medição" icon="chart-line">
+  Cada entrada e saída de etapa é registrada, o que gera tempo médio, tempo mínimo, tempo máximo e contagem de entradas por etapa.
+
+  Veja [Métricas e tempo por etapa](/guides/funnels/metrics).
+</Accordion>
+</AccordionGroup>
+
+## Onde os funis aparecem
+
+<Tabs>
+<Tab title="Kanban">
+  A visão principal, em **Funil**. Você escolhe a área de negócio e o funil, e o quadro mostra as etapas como colunas com os cartões dentro. É onde o dia a dia acontece: arrastar, abrir o cartão, preencher formulário, trocar status.
+</Tab>
+
+<Tab title="Lista de funis">
+  Em **Funis** você vê todos os funis da conta com ID, nome, quantidade de etapas, quantidade de projetos, área de negócio e acesso. É de onde se cria, edita, clona e arquiva.
+</Tab>
+
+<Tab title="Áreas de negócio">
+  Agrupam funis por frente de trabalho (comercial, suporte, operações). Servem para filtrar a lista e o seletor do kanban quando a conta tem muitos funis.
+</Tab>
+</Tabs>
+
+## Quem enxerga um funil
+
+O acesso ao funil é concedido por permissão, não por convite individual ao quadro. Vale saber três coisas:
+
+- Um usuário só vê no kanban os funis a que tem acesso.
+- A coluna **Acesso** na lista de funis serve para liberar o funil a quem ainda não pode vê-lo.
+- Quem tem permissões de administrador enxerga todos os funis, sempre.
+
+<Tip>
+Ao convidar um usuário, existe uma etapa de **Acessos a funis** no convite. Se os papéis escolhidos já cobrem os funis necessários, você pode deixá-la em branco.
+</Tip>
+
+Para entender como as permissões se combinam, veja [Papéis e permissões](/guides/users/roles-permissions).
+
+## Limites do plano
+
+Funis, restrições de etapa e assistentes de etapa contam contra o limite do seu plano. Ao atingir o teto, a criação é bloqueada com um aviso indicando qual limite foi alcançado. Veja [Assinatura e licenças](/guides/billing/subscription-and-licenses).
+
+## Por onde começar
+
+<CardGroup cols={2}>
+<Card title="Criar um funil" icon="plus" href="/guides/funnels/creating-funnels">
+  Nome, prefixo, área de negócio, termo do projeto e as primeiras etapas.
+</Card>
+
+<Card title="Configurar etapas" icon="columns-3" href="/guides/funnels/steps">
+  Ordem, avanço e retrocesso, progresso, formulários e ordenação dos cartões.
+</Card>
+
+<Card title="Mover projetos" icon="arrow-right" href="/guides/funnels/moving-projects">
+  O que acontece a cada movimentação e por que às vezes ela é recusada.
+</Card>
+
+<Card title="Configurar o quadro" icon="sliders" href="/guides/funnels/board-view">
+  O que cada cartão exibe, tamanho do cartão e modelos de configuração.
+</Card>
+</CardGroup>

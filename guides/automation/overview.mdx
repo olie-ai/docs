@@ -1,0 +1,148 @@
+---
+title: "Automações"
+description: "Automatize tarefas repetitivas ligando eventos do sistema a ações executadas sozinhas"
+keywords: ["automação", "automações", "gatilho", "ação", "condição", "fluxo"]
+---
+
+Uma automação observa algo que acontece na sua operação e reage sozinha. Quando um projeto entra em uma etapa, quando uma etiqueta é vinculada, quando um formulário é respondido ou quando uma data chega, a automação assume e executa o que você configurou: mover o projeto, avisar a equipe, criar um cliente, disparar um webhook.
+
+<Info>
+Tudo que uma automação faz, uma pessoa também poderia fazer manualmente. A diferença é que a automação faz na hora certa, sempre do mesmo jeito, sem depender de alguém lembrar.
+</Info>
+
+## Do que uma automação é feita
+
+<CardGroup cols={3}>
+<Card title="Gatilho" icon="bolt">
+  É onde tudo começa. O gatilho é o evento que aciona a automação. Toda automação tem exatamente um.
+</Card>
+
+<Card title="Condição" icon="code-branch">
+  Uma checagem que separa o fluxo em dois caminhos: o que acontece se for verdadeira e o que acontece se for falsa. Opcional.
+</Card>
+
+<Card title="Ação" icon="play">
+  O que de fato é feito. Uma automação precisa de pelo menos uma ação para ser salva.
+</Card>
+</CardGroup>
+
+A leitura de uma automação segue sempre a mesma frase: **quando** acontece o gatilho, **se** a condição for atendida, **então** execute as ações.
+
+<Steps>
+<Step title="Quando" icon="bolt">
+  Um projeto entra na etapa "Proposta enviada".
+</Step>
+
+<Step title="Se" icon="code-branch">
+  O projeto contém a etiqueta "Cliente novo".
+</Step>
+
+<Step title="Então" icon="play">
+  Adicione um formulário avulso de onboarding e envie um e-mail para o responsável comercial.
+</Step>
+</Steps>
+
+## Onde criar automações
+
+Existem dois caminhos, e a diferença entre eles muda quais gatilhos ficam disponíveis.
+
+<Tabs>
+<Tab title="Pela área de Automações">
+  No menu **Automações** você vê a lista completa da sua conta, com nome, gatilho, quantidade de ações, número de execuções e status. O botão **Nova automação** abre o editor com **todos os gatilhos disponíveis**.
+
+  Use este caminho para automações que não nascem de uma etapa específica, como "quando uma etiqueta for vinculada" ou "quando uma data for atingida".
+</Tab>
+
+<Tab title="Pela etapa do funil">
+  Dentro de uma etapa do funil existe o botão **Automações**, que abre o editor já vinculado àquela etapa.
+
+  Neste caminho os **gatilhos ficam limitados a eventos que envolvem aquela etapa**. Se você precisar de outro gatilho, o próprio editor oferece a opção de criar a automação fora do funil.
+
+  <Tip>
+  Criar pela etapa é o caminho mais rápido quando a regra é do tipo "assim que o card chegar aqui, faça X".
+  </Tip>
+</Tab>
+</Tabs>
+
+## Ativa ou inativa
+
+Toda automação tem um status. Uma automação **inativa** continua salva e editável, mas nunca é acionada, mesmo que o evento aconteça.
+
+<Warning>
+Ao salvar, uma automação nova já nasce ativa. Se você está montando algo que envolve muitos projetos de uma vez — como o gatilho de projeto ocioso —, monte com calma e revise antes, porque a primeira execução pode alcançar todos os projetos que já se encaixam na regra.
+</Warning>
+
+Desativar é a forma segura de pausar uma regra sem perder a configuração. Excluir remove a automação e o histórico de execuções deixa de estar acessível.
+
+## Quem pode mexer
+
+O acesso a automações é controlado por permissões separadas, e elas podem ser concedidas de forma independente:
+
+| Permissão | O que libera |
+| --- | --- |
+| Visualizar lista de automações | Ver a lista e abrir os registros de execução |
+| Criar automações | Criar novas automações |
+| Editar automações | Alterar automações existentes, incluindo ativar e desativar |
+| Deletar automações | Excluir automações |
+
+<Note>
+Ver a lista não é o mesmo que poder editar. É comum dar visualização para a operação acompanhar o que está rodando e reservar a edição para quem cuida do processo.
+</Note>
+
+## Limites que valem conhecer
+
+<AccordionGroup>
+<Accordion title="Quantidade de automações" icon="list-check">
+  Cada conta tem um teto de automações ativas definido pelo plano. Ao atingir o limite, a automação ainda é criada, mas fica **inativa** até que você libere espaço desativando outra ou amplie o plano.
+</Accordion>
+
+<Accordion title="Volume de execuções" icon="gauge-high">
+  O número de execuções também é contabilizado pelo plano e aparece na coluna **Execuções** da lista. Vale acompanhar automações que disparam com muita frequência, como as ligadas a edição de formulário.
+</Accordion>
+
+<Accordion title="Automações em cadeia" icon="link">
+  Uma ação pode provocar um evento que aciona outra automação. Isso é esperado e útil, mas existe um limite de encadeamento: a partir de certo ponto a cadeia é interrompida e o registro de execução aponta o motivo.
+
+  Se você percebeu que uma automação "não terminou", verifique se ela está no fim de uma cadeia longa. Veja [Logs e depuração](/guides/automation/logs).
+</Accordion>
+
+<Accordion title="Histórico de execuções" icon="clock-rotate-left">
+  O sistema mantém apenas os registros mais recentes de cada automação. Registros antigos são descartados conforme novos vão sendo criados, então não conte com o log como arquivo permanente.
+</Accordion>
+</AccordionGroup>
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Criando sua primeira automação" icon="wand-magic-sparkles" href="/guides/automation/first-automation">
+  Um passo a passo completo, do gatilho até o primeiro teste.
+</Card>
+
+<Card title="Como o fluxo é executado" icon="diagram-project" href="/guides/automation/anatomy">
+  Ordem dos componentes, ramificações e bloqueio de fluxo.
+</Card>
+
+<Card title="Gatilhos" icon="bolt" href="/guides/automation/triggers">
+  Os sete eventos que podem iniciar uma automação.
+</Card>
+
+<Card title="Condições" icon="code-branch" href="/guides/automation/conditions">
+  As quatro checagens que ramificam o fluxo.
+</Card>
+
+<Card title="Ações" icon="play" href="/guides/automation/actions-projects">
+  As 23 ações disponíveis, agrupadas por assunto.
+</Card>
+
+<Card title="Variáveis" icon="brackets-curly" href="/guides/automation/variables">
+  Como usar dados do projeto dentro de mensagens e campos.
+</Card>
+
+<Card title="Logs e depuração" icon="list-check" href="/guides/automation/logs">
+  Como ler o registro de execução e o que cada erro significa.
+</Card>
+
+<Card title="Receitas prontas" icon="book-open" href="/guides/automation/recipes">
+  Montagens completas para cenários comuns.
+</Card>
+</CardGroup>

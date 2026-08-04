@@ -1,0 +1,183 @@
+---
+title: "Gatilhos"
+description: "Os sete eventos que podem iniciar uma automação e como configurar cada um"
+keywords: ["gatilho", "evento", "disparo", "etapa", "etiqueta", "formulário", "data", "ocioso", "execução"]
+---
+
+O gatilho é o evento que aciona a automação. Toda automação tem **exatamente um** e ele é obrigatório: sem gatilho, o editor não deixa adicionar ações nem condições.
+
+<Info>
+Os gatilhos disponíveis dependem de onde você cria a automação. Pela área **Automações** você tem os sete. Pela etapa do funil, apenas os que envolvem aquela etapa. Veja [Onde criar automações](/guides/automation/overview#onde-criar-automações).
+</Info>
+
+## Visão geral
+
+| Gatilho | Dispara quando | Origem do disparo |
+| --- | --- | --- |
+| [Projeto movido de etapa](#projeto-movido-de-etapa) | Um projeto **entra** em uma etapa | Usuário ou automação |
+| [Projeto ocioso em etapa](#projeto-ocioso-em-etapa) | Um projeto passa X tempo parado em uma etapa | Agendamento |
+| [Campo do projeto alterado](#campo-do-projeto-alterado) | Um campo específico do projeto muda de valor | Usuário ou automação |
+| [Etiqueta vinculada a um projeto](#etiqueta-vinculada-a-um-projeto) | Uma etiqueta é vinculada ao projeto | Usuário ou automação |
+| [Formulário editado](#formulário-editado) | Um formulário dinâmico é respondido | Usuário ou automação |
+| [Data de projeto atingida](#data-de-projeto-atingida) | Uma data configurada chega | Agendamento |
+| [Execução de projeto](#execução-de-projeto) | Uma execução de tempo inicia ou finaliza | Usuário |
+
+## Projeto movido de etapa
+
+Aciona quando um projeto **entra** em uma etapa específica.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Etapa de destino | Sim | A etapa em que o projeto precisa entrar para acionar a automação |
+| Vindo da etapa | Não | Restringe o disparo a projetos que vieram de uma etapa específica |
+
+Sem **Vindo da etapa**, o gatilho aciona não importa de onde o projeto veio — inclusive de lugar nenhum, no caso de um projeto que acabou de ser vinculado ao funil.
+
+<Warning>
+Entrar em uma etapa é diferente de sair dela. Este gatilho olha para o destino, nunca para a origem. Não existe gatilho de "saiu da etapa" — para reagir à saída, use o gatilho de entrada na etapa seguinte.
+</Warning>
+
+O gatilho não dispara quando o projeto já estava na etapa, quando veio de uma etapa diferente da configurada em **Vindo da etapa**, ou quando entrou em uma etapa de mesmo nome em **outro funil**. Etapa é sempre um registro específico de um funil específico.
+
+## Projeto ocioso em etapa
+
+Aciona quando um projeto fica parado em uma etapa por mais tempo do que você tolera. É o gatilho de cobrança automática: "esse card está há cinco dias sem sair daqui".
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Etapa relacionada | Sim | A etapa observada |
+| Tempo ocioso para disparar | Sim | Um número e uma unidade: minutos, horas, dias ou meses |
+| Repetir recorrentemente | Não | Aciona a cada intervalo em vez de uma única vez |
+
+A contagem começa no momento em que o projeto entrou na etapa. Com **Repetir recorrentemente** desligado, o gatilho aciona **uma única vez** por projeto naquela etapa. Ligado, aciona **a cada intervalo** enquanto o projeto continuar parado ali — a cada 5 dias, indefinidamente, até o projeto sair.
+
+<Warning>
+Ao salvar, a automação roda **imediatamente para todos os projetos que já se encaixam na regra**. Se a etapa tem 300 cards parados há mais tempo que o configurado, os 300 disparam de uma vez.
+
+Monte com calma e revise antes de salvar, principalmente se a ação for irreversível ou envolver envio de e-mail.
+</Warning>
+
+<Note>
+A verificação roda a cada minuto, então o disparo acontece perto do tempo configurado, não no segundo exato.
+</Note>
+
+## Campo do projeto alterado
+
+Aciona quando um campo específico do projeto muda de valor. É um campo por gatilho.
+
+| Campo monitorado | Observação |
+| --- | --- |
+| Nome | |
+| Descrição | |
+| Impacto | |
+| Status | Em execução, concluído, arquivado ou parado |
+| Orçamento | |
+| Cliente | Vínculo do projeto com um cliente |
+| Contato | Vínculo do projeto com um contato |
+| Atribuídos | Qualquer mudança na lista de responsáveis |
+| Data de previsão do funil | Habilita a opção **Funil relacionado** |
+
+Quando o campo monitorado é a **data de previsão do funil**, aparece a opção **Funil relacionado**, que restringe o disparo à previsão daquele funil. Sem funil selecionado, o gatilho aciona para qualquer funil.
+
+<Tip>
+Para reagir a uma data que **chegou**, e não a uma data que **mudou**, use [Data de projeto atingida](#data-de-projeto-atingida). São gatilhos diferentes e é um engano comum.
+</Tip>
+
+## Etiqueta vinculada a um projeto
+
+Aciona quando uma etiqueta específica é vinculada ao projeto. Você escolhe a etiqueta observada e pode usar qualquer etiqueta de qualquer funil.
+
+O gatilho não dispara quando a etiqueta é **removida** — ele só observa o vínculo — nem quando a etiqueta já estava no projeto.
+
+## Formulário editado
+
+Aciona quando um formulário dinâmico é respondido no projeto, seja no corpo do projeto, na etapa, no funil ou em um formulário avulso.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Qual formulário? | Sim | O formulário observado |
+| Restringir aos campos | Não | Limita o disparo a campos específicos do formulário |
+| Apenas um campo respondido é suficiente | Não | Só faz diferença quando você restringiu campos |
+
+Sem restrição de campos, o gatilho aciona sempre que o formulário for respondido. Com restrição:
+
+- **Apenas um campo é suficiente, ligado:** basta **um** dos campos escolhidos ter mudado.
+- **Desligado:** **todos** os campos escolhidos precisam ter mudado na mesma submissão.
+
+<Warning>
+Um campo só conta se o valor **mudou** em relação à última resposta. Reenviar o mesmo formulário com os mesmos valores não aciona o gatilho quando há restrição de campos.
+</Warning>
+
+<Note>
+Este é o gatilho com maior potencial de volume: cada salvamento de formulário é uma possível execução. Se a coluna **Execuções** da sua automação está crescendo rápido, ele costuma ser o motivo.
+</Note>
+
+## Data de projeto atingida
+
+Aciona quando uma data chega — com a opção de antecipar ou atrasar o disparo em relação a ela.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Tipo de campo | Sim | **Previsão do funil** ou **campo de formulário** do tipo data |
+| Funil ou campo | Sim | O funil cuja previsão será observada, ou o campo de data específico |
+| Usar tempo relativo | Não | Dispara antes ou depois da data, e não exatamente nela |
+
+Em **Usar tempo relativo** você escolhe entre os intervalos prontos ou usa **Tempo relativo customizado** para expressões mais precisas, como "na segunda-feira seguinte" ou "no último dia do mês". Veja [Tempo relativo customizado](/guides/automation/relative-time) para a lista completa de expressões.
+
+### Como o agendamento funciona
+
+<AccordionGroup>
+<Accordion title="A data é agendada assim que é preenchida" icon="calendar-plus">
+  Quando alguém define ou altera a data no projeto, o sistema calcula o momento do disparo — aplicando o tempo relativo, se houver — e agenda.
+</Accordion>
+
+<Accordion title="Alterar a data reagenda" icon="calendar-days">
+  Se a data mudar antes de o disparo acontecer, o agendamento anterior é descartado e um novo é criado. Se a data for apagada, o agendamento é cancelado.
+</Accordion>
+
+<Accordion title="Datas no passado não são agendadas" icon="clock-rotate-left">
+  Se o momento calculado já passou, nada é agendado. Uma data de ontem com tempo relativo de "2 dias antes" simplesmente não dispara.
+</Accordion>
+
+<Accordion title="Salvar a automação reagenda o que está no futuro" icon="rotate">
+  Ao criar ou editar este gatilho, o sistema varre os projetos com datas futuras naquele campo e agenda todos. Não é preciso reabrir projeto por projeto.
+</Accordion>
+
+<Accordion title="Projeto excluído cancela o agendamento" icon="trash">
+  Agendamentos de projetos removidos são descartados sem disparar.
+</Accordion>
+</AccordionGroup>
+
+## Execução de projeto
+
+Aciona quando uma execução de tempo — o play/pause que registra quanto tempo alguém trabalhou no projeto — inicia ou termina.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Evento | Sim | **Iniciar**, **Finalizar** ou **Ambos** |
+| Etapa relacionada | Sim | A etapa em que a execução acontece; aceita mais de uma |
+| Qualquer etapa | Não | Aciona independentemente da etapa e desabilita a seleção acima |
+
+<Tip>
+Combine com a ação [Controlar execução de projeto](/guides/automation/actions-integrations#controlar-execução-de-projeto) para montar regras como "quando alguém iniciar a execução aqui, pause a execução dessa pessoa em qualquer outro projeto".
+</Tip>
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Condições" icon="code-branch" href="/guides/automation/conditions">
+  Como filtrar quais disparos merecem ação.
+</Card>
+
+<Card title="Ações" icon="play" href="/guides/automation/actions-projects">
+  Tudo o que uma automação consegue fazer depois de acionada.
+</Card>
+
+<Card title="Como o fluxo é executado" icon="diagram-project" href="/guides/automation/anatomy">
+  Ordem, ramificações e encadeamento entre automações.
+</Card>
+
+<Card title="Receitas prontas" icon="book-open" href="/guides/automation/recipes">
+  Montagens completas para cenários comuns.
+</Card>
+</CardGroup>

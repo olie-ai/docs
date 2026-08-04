@@ -1,0 +1,118 @@
+---
+title: "Ações: projeto e etapas"
+description: "Mover, desvincular, alternar funis e grupos e alterar o status do projeto"
+keywords: ["ação", "etapa", "mover projeto", "funil", "grupo", "status do projeto", "desvincular"]
+---
+
+As ações que movimentam o projeto pela operação. Uma automação precisa de **pelo menos uma ação** para ser salva.
+
+| Ação | O que faz |
+| --- | --- |
+| [Colocar projeto em etapa](#colocar-projeto-em-etapa) | Move o projeto para uma etapa específica |
+| [Desvincular projeto de uma etapa](#desvincular-projeto-de-uma-etapa) | Tira o projeto de uma etapa |
+| [Vincular ou desvincular funil](#vincular-ou-desvincular-funil) | Alterna o vínculo do projeto com um funil |
+| [Vincular ou desvincular grupo](#vincular-ou-desvincular-grupo) | Alterna o vínculo do projeto com um grupo |
+| [Alterar status do projeto](#alterar-status-do-projeto) | Muda entre em execução, concluído, arquivado e parado |
+
+## Colocar projeto em etapa
+
+Move o projeto para a etapa escolhida.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Etapa de destino | Sim | A etapa que vai receber o projeto |
+| Desvincular das outras etapas | Sim | Se o projeto estiver em outra etapa do mesmo funil, tira ele de lá |
+| Vincular ao funil mesmo sem vínculo | Sim | Vincula o projeto ao funil antes de colocá-lo na etapa |
+
+Com **Vincular ao funil mesmo sem vínculo** desligado, o projeto só é movido se já estiver em alguma etapa daquele funil. Ligado, o vínculo com o funil acontece automaticamente.
+
+<Warning>
+Esta ação **ignora as restrições de entrada e os bloqueios** da etapa de destino. Um card que uma pessoa não conseguiria mover manualmente é movido pela automação sem reclamar. Confira as regras da etapa antes de ativar.
+</Warning>
+
+<Note>
+Em funis que não permitem o projeto estar em várias etapas ao mesmo tempo, a desvinculação das outras etapas acontece de qualquer forma, independentemente da opção.
+</Note>
+
+**Quando não tem efeito**
+
+- O projeto **já está** na etapa de destino.
+- O projeto não está vinculado ao funil e a opção de vincular está desligada.
+
+<Tip>
+Esta ação dispara o gatilho **Projeto movido de etapa** de outras automações. É o principal caminho para cadeias — útil e perigoso na mesma medida. Veja o [limite de encadeamento](/guides/automation/anatomy#automações-que-acionam-automações).
+</Tip>
+
+## Desvincular projeto de uma etapa
+
+Tira o projeto de uma etapa específica.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Etapa para desvincular | Sim | A etapa da qual o projeto será removido |
+| Desvincular também do funil | Sim | Remove o vínculo com o funil quando essa era a única etapa |
+
+Com **Desvincular também do funil** ligado, o projeto sai do funil se aquela era sua única etapa nele. Desligado, o projeto só é desvinculado da etapa se estiver presente em outras etapas do mesmo funil.
+
+**Quando não tem efeito**
+
+- O projeto não está na etapa indicada — a ação registra sucesso e segue.
+- Aquela é a única etapa do projeto no funil e a opção de desvincular do funil está desligada — o log registra que não era possível desvincular.
+
+## Vincular ou desvincular funil
+
+Alterna o vínculo do projeto com um funil: vincula se não estiver vinculado, desvincula se estiver.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Funil | Sim | O funil cujo vínculo será alternado |
+
+Ao vincular, o projeto **entra na primeira etapa** do funil.
+
+<Warning>
+É uma ação de alternância, não de garantia. Se o projeto já estiver vinculado ao funil, esta ação o **desvincula**. Quando você quer apenas garantir a presença no funil, prefira [Colocar projeto em etapa](#colocar-projeto-em-etapa) com a opção de vincular ao funil ligada.
+</Warning>
+
+## Vincular ou desvincular grupo
+
+Alterna o vínculo do projeto com um grupo de projetos: vincula se não estiver vinculado, desvincula se estiver.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Grupo | Sim | O grupo cujo vínculo será alternado |
+
+Vale o mesmo aviso da ação anterior: é alternância, não garantia.
+
+## Alterar status do projeto
+
+Muda o status geral do projeto — o mesmo campo que aparece no cabeçalho dele, não o status do funil.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Status do projeto | Sim | Em execução, concluído, arquivado ou parado |
+
+<Note>
+Não confunda com [Editar status do funil](/guides/automation/actions-tags-status#editar-status-do-funil). O status do projeto é único e global; o status do funil é por funil vinculado.
+</Note>
+
+O status do projeto é um dos campos monitorados pelo gatilho [Campo do projeto alterado](/guides/automation/triggers#campo-do-projeto-alterado) — vale lembrar disso ao montar cadeias.
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Etiquetas e status" icon="tag" href="/guides/automation/actions-tags-status">
+  Adicionar e remover etiquetas, alterar status do funil.
+</Card>
+
+<Card title="Formulários e datas" icon="calendar" href="/guides/automation/actions-forms-dates">
+  Formulários avulsos, versões, contadores e campos de data.
+</Card>
+
+<Card title="Cadastros e pessoas" icon="users" href="/guides/automation/actions-records">
+  Criar projetos, hierarquias, clientes, contatos e alterar responsáveis.
+</Card>
+
+<Card title="Comunicação, IA e execução" icon="paper-plane" href="/guides/automation/actions-integrations">
+  Conteúdo, e-mail, webhook, assistente de etapa, metas e execução.
+</Card>
+</CardGroup>
