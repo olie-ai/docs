@@ -1,0 +1,233 @@
+---
+title: "Variáveis nas automações"
+description: "Quais dados ficam disponíveis dentro de uma automação e como usá-los em mensagens, campos e expressões"
+keywords: ["variável", "variáveis", "contexto", "template", "sintaxe avançada", "query", "twig"]
+---
+
+Vários campos de uma automação aceitam variáveis. Em vez de escrever "O projeto entrou na etapa", você escreve o nome real do projeto, o cliente, quem moveu e a data.
+
+<Info>
+Esta página trata do **que está disponível** dentro de uma automação. Para a linguagem em si — condicionais, laços, filtros — veja [Sintaxe avançada](/guides/advanced/advanced-syntax).
+</Info>
+
+## A forma básica
+
+Variáveis são escritas entre chaves duplas:
+
+```twig
+Projeto {{ project.code }} — {{ project.name }} entrou na etapa.
+```
+
+Blocos de lógica usam chave e porcentagem:
+
+```twig
+{% if project.customer %}Cliente: {{ project.customer.name }}{% endif %}
+```
+
+<Tip>
+Não é preciso decorar nada. O editor mostra a lista de variáveis disponíveis em cada campo que aceita esse recurso.
+</Tip>
+
+## O que fica disponível
+
+Toda automação recebe um conjunto de dados no momento da execução.
+
+### O projeto
+
+`project` traz os dados do projeto que acionou a automação:
+
+| Variável | Conteúdo |
+| --- | --- |
+| `project.id` | Identificador único |
+| `project.code` | Código visível do projeto |
+| `project.name` | Nome |
+| `project.description` | Descrição |
+| `project.status` | Status do projeto |
+| `project.impact` | Impacto |
+| `project.budget` | Orçamento |
+| `project.created_at` | Data de criação |
+| `project.customer` | Cliente vinculado, com os dados dele |
+| `project.contact` | Contato vinculado, com os dados dele |
+| `project.users` | Lista de usuários do projeto |
+| `project.form_answers` | Respostas de formulário já carregadas |
+
+<Warning>
+Etiquetas, funis e etapas **não vêm carregados por padrão** no contexto. Para acessá-los, use a consulta `project_details` descrita [mais abaixo](#buscando-dados-adicionais).
+</Warning>
+
+### Quem disparou
+
+`user` existe apenas quando o disparo veio de uma pessoa:
+
+```twig
+Movido por {{ user.name }} ({{ user.email }}).
+```
+
+<Warning>
+Em automações disparadas por agendamento — projeto ocioso ou data atingida — **não existe `user`**. Proteja o texto antes de usá-lo:
+
+```twig
+{% if user is defined %}Movido por {{ user.name }}.{% endif %}
+```
+</Warning>
+
+### O evento
+
+`trigger` traz os dados do disparo. O conteúdo varia conforme o gatilho:
+
+| Variável | Disponível em |
+| --- | --- |
+| `trigger.trigger_variant` | Todos os gatilhos |
+| `trigger.causer_type` | Todos — usuário, agendamento, aplicação ou sistema |
+| `trigger.step_id` | Movido de etapa, ocioso em etapa, execução de projeto |
+| `trigger.previous_step` | Movido de etapa |
+| `trigger.changes` | Campo do projeto alterado |
+| `trigger.tag_id` | Etiqueta vinculada |
+| `trigger.form_id` e `trigger.edges_updated` | Formulário editado |
+| `trigger.event_type` | Execução de projeto |
+| `trigger.trigger_date` | Data de projeto atingida |
+
+<Tip>
+Não tem certeza do que veio no evento? Publique `{{ trigger|json(true) }}` no conteúdo do projeto em uma automação de teste e veja tudo o que chegou.
+</Tip>
+
+### O resultado dos componentes anteriores
+
+Cada componente executado deposita o próprio resultado no contexto, disponível para os componentes seguintes. É um recurso avançado: o identificador do componente faz parte do nome da variável, então ele muda se o componente for recriado.
+
+## Onde as variáveis funcionam
+
+<AccordionGroup>
+<Accordion title="Mensagens e textos" icon="message">
+  Conteúdo do projeto, assunto e corpo de e-mail, corpo customizado de webhook.
+</Accordion>
+
+<Accordion title="Campos de cadastro" icon="address-card">
+  Todos os campos de criação de cliente, contato e projeto, incluindo respostas de formulário.
+</Accordion>
+
+<Accordion title="Cálculo de datas" icon="calendar">
+  A opção de sintaxe avançada da ação [Alterar campo de data](/guides/automation/actions-forms-dates#alterar-campo-de-data).
+</Accordion>
+
+<Accordion title="Listas de pessoas" icon="users">
+  A lista de usuários em [Alterar usuários atribuídos](/guides/automation/actions-records#alterar-usuários-atribuídos) e em [Controlar execução de projeto](/guides/automation/actions-integrations#controlar-execução-de-projeto).
+</Accordion>
+
+<Accordion title="Destinatários" icon="paper-plane">
+  Endereços de e-mail e o destinatário de uma linha externa de comunicação.
+</Accordion>
+
+<Accordion title="Estrutura de hierarquia" icon="sitemap">
+  O desenho da árvore em [Criar hierarquia de projetos](/guides/automation/actions-records#criar-hierarquia-de-projetos).
+</Accordion>
+</AccordionGroup>
+
+## Buscando dados adicionais
+
+Quando o contexto não tem o que você precisa, a função `query` busca. Ela recebe o nome da consulta e os parâmetros:
+
+```twig
+{% set dados = query('project_details', { 'project_code': project.code }) %}
+{{ dados.name }}
+```
+
+| Consulta | Parâmetro obrigatório | Devolve |
+| --- | --- | --- |
+| `project_details` | `project_code` | O projeto completo, com etiquetas, funis, etapas e respostas |
+| `project_dynamic_forms` | `project_code` | Os formulários dinâmicos disponíveis no projeto |
+| `project_medias` | `project_code` | O conteúdo publicado no projeto |
+| `user_details` | `user_id` | Os dados de um usuário |
+| `user_email` | `user_id` | O e-mail principal de um usuário |
+| `get_form_answers` | `pivot` | As respostas de um formulário específico |
+
+<Note>
+`project_details` também aceita `id` no lugar de `project_code`. As consultas são resolvidas dentro da sua conta — não há como acessar dados de outra.
+</Note>
+
+**Exemplo: listar as etiquetas do projeto em uma mensagem**
+
+```twig
+{% set p = query('project_details', { 'project_code': project.code }) %}
+{% for tag in p.tags %}{{ tag.name }}{% if not loop.last %}, {% endif %}{% endfor %}
+```
+
+## Menções
+
+Para transformar um usuário em uma menção clicável, use o filtro `mention`:
+
+```twig
+{{ project.users|mention }}
+```
+
+<Card title="Mencionar usuários com automação" icon="at" href="/guides/automation/mention-users">
+  O formato completo das menções e como montá-las a partir de qualquer dado que contenha um usuário.
+</Card>
+
+## Devolvendo listas em vez de texto
+
+Alguns campos não esperam texto, e sim uma **lista** — a lista de usuários atribuídos, os projetos que receberão um cliente. Nesses casos a expressão precisa terminar em uma lista válida, e o filtro `json` é o caminho:
+
+```twig
+{{ project.users|json }}
+```
+
+<Warning>
+Uma expressão que devolve texto solto onde se espera uma lista faz a ação registrar erro. O registro de execução mostra exatamente o texto gerado — compare com o formato esperado.
+</Warning>
+
+## Limites do mecanismo
+
+Expressões rodam dentro de um ambiente controlado, com tetos para proteger a execução:
+
+| Limite | Valor |
+| --- | --- |
+| Iterações por laço | 1.000 |
+| Consultas `query` por expressão | 50 |
+| Tempo de processamento | 5 segundos |
+| Tamanho da expressão | 1 MB |
+| Níveis de aninhamento | 10 |
+
+Somente um conjunto conhecido de blocos, filtros e funções é permitido. Os blocos disponíveis são `if`, `elseif`, `else`, `set`, `for` e `apply`; entre as funções estão `query`, `date`, `range`, `max`, `min`, `abs`, `round` e `number_format`. A lista de filtros está em [Sintaxe avançada](/guides/advanced/advanced-syntax#filtros).
+
+## Quando a expressão falha
+
+Um erro de expressão — variável inexistente usada de forma inválida, formato incorreto, limite estourado — faz o componente registrar `template_error` com a mensagem do problema. O que acontece depois depende da ação: a maioria registra o erro e o fluxo segue.
+
+<AccordionGroup>
+<Accordion title="A mensagem saiu com um pedaço vazio" icon="ghost">
+  A variável usada não existia no contexto. Proteja com `is defined` ou com o filtro `default`:
+
+  ```twig
+  {{ project.customer.name|default('sem cliente') }}
+  ```
+</Accordion>
+
+<Accordion title="A expressão não devolveu nada" icon="circle-question">
+  Confira no [registro de execução](/guides/automation/logs) o valor gerado. Ele aparece nos dados extras do componente e costuma revelar o campo errado ou a consulta sem resultado.
+</Accordion>
+
+<Accordion title="O texto apareceu com códigos estranhos" icon="code">
+  Caracteres especiais são escapados por segurança. Quando o campo espera HTML já formatado, aplique o filtro `raw`.
+</Accordion>
+</AccordionGroup>
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Sintaxe avançada" icon="brackets-curly" href="/guides/advanced/advanced-syntax">
+  A linguagem completa: condicionais, laços, filtros e operadores.
+</Card>
+
+<Card title="Mencionar usuários" icon="at" href="/guides/automation/mention-users">
+  Menções dentro de mensagens automáticas.
+</Card>
+
+<Card title="Logs e depuração" icon="list-check" href="/guides/automation/logs">
+  Ver o que a expressão gerou em uma execução real.
+</Card>
+
+<Card title="Receitas prontas" icon="book-open" href="/guides/automation/recipes">
+  Montagens completas que usam variáveis na prática.
+</Card>
+</CardGroup>

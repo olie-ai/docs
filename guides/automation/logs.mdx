@@ -1,0 +1,236 @@
+---
+title: "Logs e depuração"
+description: "Como ler o registro de execução de uma automação e o que fazer com cada erro"
+keywords: ["log", "registro de execução", "depuração", "erro", "não funcionou", "diagnóstico"]
+---
+
+Toda vez que uma automação é acionada, ela grava um registro completo do que aconteceu: quem disparou, qual projeto foi afetado, quais componentes rodaram, o resultado de cada um e quanto tempo levou.
+
+É o primeiro lugar para olhar quando algo não sai como esperado.
+
+## Onde encontrar
+
+Abra a automação e vá em **Registro de execuções**. A lista mostra as **20 execuções mais recentes**, da mais nova para a mais antiga.
+
+<Warning>
+O histórico não é permanente. Cada automação guarda cerca de **100 registros**; conforme novas execuções acontecem, as antigas são descartadas. Em automações de alto volume, isso pode significar poucas horas de histórico. Não conte com o log como arquivo de auditoria.
+</Warning>
+
+<Note>
+Excluir uma automação apaga o histórico dela. Se você precisa preservar a evidência de uma execução, desative em vez de excluir.
+</Note>
+
+## O que cada registro mostra
+
+<AccordionGroup>
+<Accordion title="Cabeçalho" icon="circle-info">
+  O identificador da execução, a data, a automação e o **Causado por** — a pessoa, o agendamento, a aplicação ou o sistema que originou o disparo.
+
+  Quando o disparo veio de agendamento, não há usuário associado. Isso é normal.
+</Accordion>
+
+<Accordion title="Projeto" icon="folder">
+  Nome, código e descrição do projeto afetado.
+
+  Dependendo do gatilho, um projeto pode ou não estar presente.
+</Accordion>
+
+<Accordion title="Resumo da execução" icon="chart-simple">
+  Quantos componentes tiveram sucesso, quantos deram erro e o tempo total.
+
+  É a leitura de dois segundos: se o número de erros é zero e mesmo assim nada mudou no projeto, o problema não é falha — é uma ação que rodou sem ter o que fazer.
+</Accordion>
+
+<Accordion title="Fluxo de execução" icon="diagram-project">
+  A lista dos componentes na ordem em que rodaram. Cada um mostra:
+
+  | Campo | O que diz |
+  | --- | --- |
+  | Resultado | Sucesso ou erro |
+  | Erro | O código do problema, quando houve |
+  | Mensagem | Uma explicação em texto |
+  | Tempo de execução | Quanto o componente levou |
+  | Dados extras | O que a ação produziu — identificadores criados, valores calculados, resposta de webhook |
+  | Condição | Nas condições, se o resultado foi verdadeiro ou falso |
+</Accordion>
+
+<Accordion title="Contexto final" icon="brackets-curly">
+  Todos os dados disponíveis no fim da execução. É onde você confere o que uma variável realmente continha na hora — a forma mais rápida de descobrir por que uma expressão gerou o texto errado.
+</Accordion>
+</AccordionGroup>
+
+## Diagnóstico em quatro passos
+
+<Steps>
+<Step title="Existe registro de execução?" icon="magnifying-glass">
+  **Não existe nenhum:** o gatilho não chegou a casar com o evento. O problema está antes da execução — automação inativa, gatilho apontando para outra etapa, evento diferente do configurado. Reveja [Gatilhos](/guides/automation/triggers).
+
+  **Existe:** siga para o próximo passo.
+</Step>
+
+<Step title="O componente rodou?" icon="list-check">
+  Procure o componente no fluxo de execução. Se ele não aparece, o fluxo não chegou nele: uma condição anterior bloqueou o fluxo, um erro inesperado interrompeu tudo, ou ele está dentro de um ramo que não foi executado.
+</Step>
+
+<Step title="Rodou com sucesso ou com erro?" icon="circle-exclamation">
+  **Erro:** procure o código na [tabela abaixo](#o-que-cada-erro-significa).
+
+  **Sucesso, mas sem efeito:** leia a **mensagem** do componente. Ações que não têm o que fazer registram sucesso e explicam o motivo — "já existe status e a configuração não sobrescreve", "não está na etapa", "formulário já existe".
+</Step>
+
+<Step title="A condição decidiu o que você esperava?" icon="code-branch">
+  Se o fluxo tomou o caminho errado, abra a condição e veja o resultado registrado. Compare com o estado do projeto **no momento do disparo** — não com o estado atual, que pode ter mudado depois.
+</Step>
+</Steps>
+
+## O que cada erro significa
+
+<AccordionGroup>
+<Accordion title="Etapas e funis" icon="diagram-project">
+  | Código | Significado | O que fazer |
+  | --- | --- | --- |
+  | `step_not_found` | A etapa configurada não existe mais | Reabra a automação e selecione a etapa novamente |
+  | `project_already_linked_to_that_step` | O projeto já estava na etapa de destino | Nenhuma ação necessária |
+  | `project_funnel_not_linked_with_project` | O projeto não está no funil da etapa | Ligue a opção de vincular ao funil, ou vincule antes no fluxo |
+  | `project_funnel_not_found` | O funil configurado não existe mais | Reconfigure a ação |
+  | `project_funnel_assignment_not_found` | O projeto não está vinculado ao funil indicado | Vincule o projeto ao funil antes desta ação |
+  | `unable_to_determine_funnel_id` | A ação usa "funil gatilhado" com um gatilho que não é de etapa | Escolha um funil específico ou troque o gatilho |
+  | `project_group_not_found` | O grupo configurado não existe mais | Reconfigure a ação |
+</Accordion>
+
+<Accordion title="Etiquetas e status" icon="tag">
+  | Código | Significado | O que fazer |
+  | --- | --- | --- |
+  | `tags_not_found_on_options` | Nenhuma etiqueta válida na configuração | Selecione as etiquetas novamente |
+  | `blocked_by_existing_step_blocking` | A etapa atual bloqueia essa etiqueta ou status | Ajuste o bloqueio no funil ou mova o projeto antes |
+  | `none_tag_defined` | A condição não tem etiquetas para checar | Reconfigure a condição |
+  | `none_status_defined` | A condição não tem status para checar | Reconfigure a condição |
+</Accordion>
+
+<Accordion title="Formulários e contadores" icon="clipboard-list">
+  | Código | Significado | O que fazer |
+  | --- | --- | --- |
+  | `form_not_found` | O formulário configurado não existe mais | Reconfigure a ação |
+  | `form_not_found_in_project` | O formulário não está disponível neste projeto | Adicione o formulário antes, ou revise o gatilho |
+  | `pivot_not_found_it_means_no_answers_yet` | O formulário nunca foi respondido | Não há o que versionar; use uma condição antes |
+  | `counter_edge_not_found` | O campo contador não existe mais | Reconfigure a ação |
+  | `the_counter_is_not_available_at_project_forms` | Nenhum formulário do projeto contém esse contador | Verifique se o formulário está vinculado ao projeto |
+</Accordion>
+
+<Accordion title="Datas" icon="calendar">
+  | Código | Significado | O que fazer |
+  | --- | --- | --- |
+  | `invalid_action_type` | O tipo de cálculo da data está inválido | Reabra a ação e escolha o tipo novamente |
+  | `invalid_action_type_date` | A data informada ou calculada não pôde ser lida | Confira o formato, principalmente com sintaxe avançada |
+  | `invalid_relative_date_type_date` | A data base não existe no projeto | Ligue a opção de usar a data do gatilho como alternativa |
+  | `invalid_target_field` | O destino da data está inválido | Reconfigure a ação |
+</Accordion>
+
+<Accordion title="Comunicação" icon="paper-plane">
+  | Código | Significado | O que fazer |
+  | --- | --- | --- |
+  | `message_not_found_on_options` | A mensagem está vazia | Preencha o texto |
+  | `invalid_options` | Falta assunto ou mensagem no e-mail | Preencha os dois campos |
+  | `invalid_emails` | Nenhum endereço válido sobrou | Confira a lista ou o resultado da expressão |
+  | `webhook_url_not_found_in_options` | O endereço do webhook está vazio | Preencha o endpoint |
+  | `template_error` | Uma expressão falhou ao ser processada | Veja [Variáveis](/guides/automation/variables#quando-a-expressão-falha) |
+</Accordion>
+
+<Accordion title="Cadastros e pessoas" icon="users">
+  | Código | Significado | O que fazer |
+  | --- | --- | --- |
+  | `invalid_data` | Dados obrigatórios faltando ou em formato errado | Confira os campos e o resultado das expressões |
+  | `error_creating_project` | A criação do projeto falhou | Leia a mensagem do componente para o motivo específico |
+  | `create_customer_action_validation_error` | Os dados do cliente não passaram na validação | Confira formato de documento, telefone e e-mail |
+  | `create_contact_action_validation_error` | Os dados do contato não passaram na validação | Confira os campos obrigatórios |
+  | `project_ids_result_is_not_an_array_of_project_ids` | A expressão de vínculo não devolveu uma lista | Ajuste a expressão para devolver uma lista de identificadores |
+  | `empty_user_pool_after_exclusion` | Substituir responsáveis esvaziou a lista | Amplie a lista de usuários da ação |
+  | `invalid_users` / `empty_user_list` | A expressão de usuários não devolveu uma lista válida | Compare o texto gerado com o formato esperado |
+  | `user_not_found` | Um usuário devolvido pela expressão não existe | Confira os identificadores |
+</Accordion>
+
+<Accordion title="Metas, assistentes e execução" icon="bullseye">
+  | Código | Significado | O que fazer |
+  | --- | --- | --- |
+  | `goal_must_be_manual_type` | A meta não é do tipo manual | Escolha uma meta manual |
+  | `goal_must_be_active_status` | A meta não está ativa | Ative a meta ou remova a ação |
+  | `step_assistant_not_found` | O assistente configurado não existe mais | Reconfigure a ação |
+  | `invalid_causer_type` | A ação exige um usuário e o disparo veio de agendamento | Troque a origem dos usuários alvo |
+  | `no_target_users_defined` | Nenhum usuário selecionado na ação | Selecione os usuários |
+  | `trigger_not_step_scoped` | A ação precisa de uma etapa e o gatilho não fornece | Escolha uma etapa fixa na ação |
+</Accordion>
+
+<Accordion title="Condições e filtros" icon="code-branch">
+  | Código | Significado | O que fazer |
+  | --- | --- | --- |
+  | `project_not_found` | A condição não recebeu projeto | Revise a compatibilidade entre gatilho e condição |
+  | `saved_filter_not_found` | O filtro da condição sumiu | Reabra a condição e monte o filtro novamente |
+  | `saved_filter_items_not_found` | O filtro está vazio | Adicione ao menos uma regra ao filtro |
+  | `validation_error` | O filtro ficou inválido | Um campo usado no filtro provavelmente foi removido |
+</Accordion>
+
+<Accordion title="Permissões e limites" icon="lock">
+  | Código | Significado | O que fazer |
+  | --- | --- | --- |
+  | `permission_required_exception` | Quem disparou não tem a permissão necessária | Ajuste as permissões ou o desenho do processo |
+  | `authorization_exception` | A ação não foi autorizada no contexto do disparo | Confira as permissões de quem disparou |
+  | `automation_run_limit_reached` | A cadeia de automações passou de cinco níveis | Reduza o encadeamento; veja [Como o fluxo é executado](/guides/automation/anatomy#automações-que-acionam-automações) |
+</Accordion>
+</AccordionGroup>
+
+## Sintomas comuns
+
+<AccordionGroup>
+<Accordion title="Nenhum registro de execução aparece" icon="ghost">
+  O gatilho nunca casou com o evento. Confira, nesta ordem:
+
+  1. A automação está **ativa**?
+  2. O evento provocado é exatamente o do gatilho? Entrar em uma etapa é diferente de sair dela.
+  3. O gatilho aponta para a etapa, etiqueta ou formulário corretos — e do funil correto?
+  4. Há alguma restrição extra configurada, como "vindo da etapa" ou campos obrigatórios no formulário?
+</Accordion>
+
+<Accordion title="A automação parou no meio" icon="circle-stop">
+  Três causas possíveis, e o log distingue as três:
+
+  - Uma condição com **bloquear o fluxo** deu falso.
+  - Um erro inesperado interrompeu a execução — o registro fica marcado com erro.
+  - A cadeia de automações atingiu o limite de cinco níveis.
+</Accordion>
+
+<Accordion title="Tudo deu sucesso mas nada mudou" icon="circle-check">
+  Praticamente sempre é uma opção de "não sobrescrever" ou um pré-requisito não atendido. Leia a **mensagem** de cada componente — ela explica o motivo em texto.
+
+  Os campeões: status do funil que já existia sem a opção de substituir, data já preenchida sem a opção de sobrescrever, etiqueta de um funil ao qual o projeto não está vinculado.
+</Accordion>
+
+<Accordion title="A automação rodou vezes demais" icon="repeat">
+  Verifique se o gatilho é de alto volume — formulário editado, projeto ocioso com repetição — ou se existe uma cadeia entre automações em que uma aciona a outra de volta.
+
+  A coluna **Execuções** da lista de automações mostra o acumulado e ajuda a identificar a responsável.
+</Accordion>
+
+<Accordion title="Funciona no teste e falha na operação" icon="user-check">
+  Quase sempre é permissão. No seu teste, quem disparou tem acesso amplo; na operação, não. Procure por `permission_required_exception` no log da execução que falhou.
+</Accordion>
+</AccordionGroup>
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Como o fluxo é executado" icon="diagram-project" href="/guides/automation/anatomy">
+  Entender a ordem ajuda a interpretar o registro.
+</Card>
+
+<Card title="Variáveis" icon="brackets-curly" href="/guides/automation/variables">
+  Conferir no contexto final o que a expressão realmente recebeu.
+</Card>
+
+<Card title="Gatilhos" icon="bolt" href="/guides/automation/triggers">
+  Quando não existe registro nenhum, o problema está aqui.
+</Card>
+
+<Card title="Receitas prontas" icon="book-open" href="/guides/automation/recipes">
+  Montagens já testadas para cenários comuns.
+</Card>
+</CardGroup>

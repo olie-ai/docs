@@ -99,9 +99,34 @@
               {
                 "group": "Automação",
                 "pages": [
-                  "guides/automation/mention-users",
-                  "guides/automation/relative-time",
-                  "guides/automation/automated-hierarchy"
+                  "guides/automation/overview",
+                  "guides/automation/first-automation",
+                  "guides/automation/anatomy",
+                  "guides/automation/triggers",
+                  "guides/automation/conditions",
+                  {
+                    "group": "Ações",
+                    "icon": "play",
+                    "pages": [
+                      "guides/automation/actions-projects",
+                      "guides/automation/actions-tags-status",
+                      "guides/automation/actions-forms-dates",
+                      "guides/automation/actions-records",
+                      "guides/automation/actions-integrations"
+                    ]
+                  },
+                  "guides/automation/variables",
+                  "guides/automation/logs",
+                  "guides/automation/recipes",
+                  {
+                    "group": "Aprofundamentos",
+                    "icon": "book-open",
+                    "pages": [
+                      "guides/automation/mention-users",
+                      "guides/automation/relative-time",
+                      "guides/automation/automated-hierarchy"
+                    ]
+                  }
                 ]
               },
               {

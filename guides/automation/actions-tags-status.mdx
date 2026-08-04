@@ -1,0 +1,124 @@
+---
+title: "Ações: etiquetas e status"
+description: "Adicionar e remover etiquetas e alterar o status do funil de um projeto"
+keywords: ["ação", "etiqueta", "tag", "status do funil", "vincular etiqueta", "remover etiqueta"]
+---
+
+As ações que classificam o projeto: etiquetas e status de funil.
+
+| Ação | O que faz |
+| --- | --- |
+| [Adicionar etiqueta](#adicionar-etiqueta) | Vincula uma ou mais etiquetas ao projeto |
+| [Remover etiqueta](#remover-etiqueta) | Desvincula uma ou mais etiquetas do projeto |
+| [Editar status do funil](#editar-status-do-funil) | Define ou remove o status do projeto em um funil |
+
+## Adicionar etiqueta
+
+Vincula ao projeto as etiquetas escolhidas.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Quais etiquetas serão vinculadas? | Sim | As etiquetas a aplicar; aceita mais de uma, de qualquer funil |
+
+<Warning>
+**A etiqueta só é aplicada se o projeto estiver vinculado ao funil dela.** Você pode escolher qualquer etiqueta na configuração, mas na hora de executar o vínculo com o funil é obrigatório.
+
+Se o projeto não estiver no funil, aquela etiqueta é **silenciosamente ignorada** e a ação segue para as próximas. O log registra o que aconteceu.
+</Warning>
+
+Etiquetas que o projeto já possui são ignoradas — a ação não duplica nem gera erro.
+
+**O que pode impedir a aplicação**
+
+<AccordionGroup>
+<Accordion title="O projeto não está no funil da etiqueta" icon="link-slash">
+  Coloque uma ação de [vínculo com o funil](/guides/automation/actions-projects#vincular-ou-desvincular-funil) ou de [colocar em etapa](/guides/automation/actions-projects#colocar-projeto-em-etapa) **antes** desta, na ordem do fluxo.
+</Accordion>
+
+<Accordion title="A etapa atual bloqueia essa etiqueta" icon="ban">
+  Etiquetas podem ser bloqueadas por etapa na configuração do funil. Diferente da ação de mover, esta **respeita** o bloqueio.
+
+  Para permitir que a automação passe por cima de um bloqueio específico, desmarque **Bloquear vínculo por automações** naquele bloqueio, na configuração do funil.
+</Accordion>
+
+<Accordion title="Quem disparou não pode editar o projeto" icon="lock">
+  Quando o disparo veio de uma pessoa, a ação usa as permissões dela. Sem permissão de edição naquele projeto, o componente registra erro de permissão e o fluxo continua. Disparos por agendamento não passam por essa checagem.
+</Accordion>
+</AccordionGroup>
+
+<Tip>
+Esta ação dispara o gatilho [Etiqueta vinculada a um projeto](/guides/automation/triggers#etiqueta-vinculada-a-um-projeto) de outras automações.
+</Tip>
+
+## Remover etiqueta
+
+Desvincula do projeto as etiquetas escolhidas.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Quais etiquetas serão desvinculadas? | Sim | As etiquetas a remover; aceita mais de uma, de qualquer funil |
+
+Valem as mesmas regras de vínculo com o funil: a etiqueta só é removida se o projeto estiver no funil dela. Etiquetas que o projeto não tem são ignoradas sem erro.
+
+## Editar status do funil
+
+Define, substitui ou remove o status do projeto em um funil.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Status para aplicar | Sim, ao definir | O status que será atribuído |
+| Substituir status existente | Sim | Permite trocar um status que já está lá |
+| Desvincular status | Sim | Em vez de definir, remove o status atual |
+| Alcance | Não | Ao desvincular, define quais funis são afetados |
+
+### Definir um status
+
+Escolha o status desejado. O funil afetado é o funil daquele status — você não precisa indicá-lo separadamente.
+
+<Warning>
+Se o projeto **já tiver um status** naquele funil e **Substituir status existente** estiver desligada, a ação não faz nada e registra sucesso. É a causa mais comum de "a automação rodou mas o status não mudou".
+</Warning>
+
+O projeto precisa estar vinculado ao funil do status. Sem vínculo, a ação registra erro.
+
+### Remover o status
+
+Com **Desvincular status** ligada, a opção **Alcance** define de onde o status sai:
+
+| Alcance | Efeito |
+| --- | --- |
+| Um funil específico | Remove o status apenas do funil escolhido |
+| Funil gatilhado | Remove o status do funil da etapa que acionou a automação |
+| Todos | Remove o status de todos os funis vinculados ao projeto |
+
+<Warning>
+O alcance **Funil gatilhado** só funciona com gatilhos ligados a uma etapa — projeto movido de etapa, projeto ocioso em etapa e execução de projeto. Com qualquer outro gatilho, a ação não consegue descobrir o funil e registra `unable_to_determine_funnel_id`.
+</Warning>
+
+### Bloqueios de etapa
+
+Assim como as etiquetas, os status **respeitam** os bloqueios configurados por etapa no funil, a menos que o bloqueio esteja marcado para ser ignorado por automações.
+
+<Card title="Bloqueios de etapa" icon="shield-halved" href="/guides/funnels/restrictions#bloqueios-de-etapa">
+  Como configurar quais etiquetas e status podem entrar em cada etapa.
+</Card>
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Projeto e etapas" icon="diagram-project" href="/guides/automation/actions-projects">
+  Mover, desvincular e alternar funis e grupos.
+</Card>
+
+<Card title="Formulários e datas" icon="calendar" href="/guides/automation/actions-forms-dates">
+  Formulários avulsos, versões, contadores e campos de data.
+</Card>
+
+<Card title="Condições" icon="code-branch" href="/guides/automation/conditions">
+  Checar etiquetas e status antes de agir.
+</Card>
+
+<Card title="Logs e depuração" icon="list-check" href="/guides/automation/logs">
+  Descobrir por que uma etiqueta não foi aplicada.
+</Card>
+</CardGroup>

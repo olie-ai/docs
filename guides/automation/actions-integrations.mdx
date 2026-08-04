@@ -1,0 +1,195 @@
+---
+title: "Ações: comunicação, IA e execução"
+description: "Publicar conteúdo, enviar e-mail, disparar webhook, acionar assistente de etapa, atualizar metas e controlar execução"
+keywords: ["ação", "conteúdo", "e-mail", "webhook", "assistente de etapa", "meta", "execução", "integração"]
+---
+
+As ações que falam com pessoas, com outros sistemas e com a inteligência artificial da plataforma.
+
+| Ação | O que faz |
+| --- | --- |
+| [Envia conteúdo do projeto](#envia-conteúdo-do-projeto) | Publica uma mensagem no conteúdo do projeto |
+| [Enviar um e-mail](#enviar-um-e-mail) | Envia e-mail para endereços fixos ou calculados |
+| [Disparar webhook](#disparar-webhook) | Notifica um sistema externo |
+| [Executar assistente de etapa](#executar-assistente-de-etapa) | Aciona um assistente de IA |
+| [Atualizar progresso de meta manual](#atualizar-progresso-de-meta-manual) | Soma, subtrai ou define o progresso de uma meta |
+| [Controlar execução de projeto](#controlar-execução-de-projeto) | Inicia ou pausa a contagem de tempo |
+
+## Envia conteúdo do projeto
+
+Publica uma mensagem no conteúdo do projeto. É a ação mais usada para comunicar o que a automação fez.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Mensagem | Sim | O texto publicado; aceita variáveis |
+| Destino | Não | Onde a mensagem é publicada |
+
+### Os três destinos
+
+<Tabs>
+<Tab title="Canal principal">
+  A mensagem é publicada solta no conteúdo do projeto, como qualquer registro que uma pessoa escreveria. É o padrão.
+</Tab>
+
+<Tab title="Canal interno nomeado">
+  A mensagem vai para um canal interno com nome, separando esse tipo de registro do restante do conteúdo. **Se o canal não existir no projeto, ele é criado.**
+
+  Útil para separar avisos automáticos ("Log de automações") do que a equipe conversa.
+</Tab>
+
+<Tab title="Linha externa (via integração)">
+  A mensagem é enviada para fora, por uma integração de comunicação, abrindo ou reaproveitando uma conversa com o destinatário.
+
+  | Opção | Obrigatória | O que faz |
+  | --- | --- | --- |
+  | Integração | Sim | Qual integração de comunicação será usada |
+  | Destinatário | Sim | O endereço de destino; aceita variáveis |
+  | Reabrir conversa ativa | Não | Encerra uma conversa ativa em outro projeto e abre uma nova aqui |
+  | Motivo do encerramento | Não | Nota registrada na conversa encerrada |
+
+  O destinatário é mantido **exatamente como a expressão devolver** — a plataforma não normaliza o formato. Se a expressão não devolver nada, a ação registra erro e a mensagem não sai.
+
+  <Note>
+  Este destino só aparece quando existe alguma integração de comunicação ativa na conta.
+  </Note>
+</Tab>
+</Tabs>
+
+### Mencionar pessoas
+
+Menções dentro de uma automação precisam do formato de menção, que você pode montar com variáveis. Veja [Mencionar usuários com automação](/guides/automation/mention-users).
+
+## Enviar um e-mail
+
+Envia um e-mail. Assunto e mensagem aceitam variáveis.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Emails | Sim | Destinatários, separados por vírgula |
+| Assunto | Sim | Assunto do e-mail; aceita variáveis |
+| Mensagem | Sim | Corpo do e-mail; aceita variáveis |
+
+O campo de destinatários também aceita uma expressão que devolve os endereços. Nesse caso, o resultado é separado por vírgula e cada endereço é validado — os inválidos são descartados e os repetidos, unificados.
+
+<Warning>
+Se, depois de calcular a expressão, nenhum endereço válido sobrar, a ação registra `invalid_emails` e nenhum e-mail é enviado.
+</Warning>
+
+<Note>
+O envio é enfileirado, não instantâneo. O registro de execução marca a ação como bem-sucedida quando o e-mail entra na fila, não quando chega na caixa de entrada.
+</Note>
+
+<Tip>
+Envio de e-mail é irreversível. Ao montar automações com gatilhos de alto volume — formulário editado ou projeto ocioso com repetição — pense no número de mensagens antes de ativar.
+</Tip>
+
+## Disparar webhook
+
+Notifica um sistema externo sobre o que aconteceu.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Endpoint | Sim | A URL que vai receber a requisição |
+| Corpo customizado | Não | Conteúdo extra enviado junto; aceita variáveis |
+
+A requisição leva o tipo do gatilho que acionou a automação e os dados do disparo. Preenchendo o corpo customizado, o conteúdo calculado vai em um campo exclusivo da requisição.
+
+<Tip>
+O editor tem um botão **Testar webhook**. Use antes de salvar para confirmar que o endpoint responde.
+</Tip>
+
+Uma falha na chamada — endpoint fora do ar, resposta de erro — é registrada no componente e **o fluxo continua** nas ações seguintes.
+
+## Executar assistente de etapa
+
+Aciona um assistente de etapa, a peça de IA que analisa o projeto e produz um resultado dentro dele.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Assistente de etapa | Sim | Qual assistente será executado |
+
+<Note>
+A lista mostra apenas assistentes configurados como **execução manual** ou com a execução manual habilitada. Assistentes que rodam automaticamente na etapa não aparecem aqui — eles já têm gatilho próprio.
+</Note>
+
+<Warning>
+Assistentes consomem créditos de IA da conta. Combinar esta ação com um gatilho de alto volume consome créditos na mesma proporção. Veja [Créditos de IA](/guides/billing/ai-credits).
+</Warning>
+
+<Card title="Assistentes de etapa" icon="robot" href="/guides/funnels/step-assistants">
+  Como criar um assistente e configurar a execução manual.
+</Card>
+
+## Atualizar progresso de meta manual
+
+Soma, subtrai ou define o progresso de uma meta do tipo manual.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Meta | Sim | A meta manual afetada |
+| Ação | Sim | Incrementar, decrementar ou definir |
+| Valor | Sim | Um número ou uma expressão que devolva um número |
+
+<Warning>
+A meta precisa ser do tipo **manual** e estar **ativa**. Metas de outros tipos calculam o próprio progresso e não aceitam esta ação — nesse caso o componente registra erro sem alterar nada.
+</Warning>
+
+O progresso nunca fica abaixo de zero: uma subtração maior que o valor atual resulta em zero.
+
+<Card title="Metas e automação" icon="bullseye" href="/guides/goals/automation">
+  Como as metas se conectam ao restante da operação.
+</Card>
+
+## Controlar execução de projeto
+
+Inicia ou pausa a contagem de tempo de um projeto para usuários específicos.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Tipo de ação | Sim | Iniciar execução ou pausar execução |
+| Usuários alvo | Sim | De onde vem a lista de usuários afetados |
+| Etapa | Não | Ao iniciar, a etapa vinculada à execução |
+
+### De onde vêm os usuários
+
+| Origem | Comportamento |
+| --- | --- |
+| Usuário que disparou o gatilho | Usa quem causou o evento |
+| Usuários selecionados | Usa a lista que você escolher |
+| Sintaxe avançada | Usa a lista devolvida por uma expressão |
+
+<Warning>
+A origem **Usuário que disparou o gatilho** exige que o disparo tenha vindo de uma pessoa. Em automações acionadas por agendamento — projeto ocioso ou data atingida — não existe usuário causador e a ação registra `invalid_causer_type`.
+</Warning>
+
+### Iniciar
+
+Ao iniciar, a execução é vinculada à etapa escolhida. Sem etapa selecionada, a ação usa a etapa que acionou a automação — o que exige um gatilho ligado a uma etapa. Com um gatilho que não é de etapa e sem etapa escolhida, a ação registra `trigger_not_step_scoped`.
+
+### Pausar
+
+Ao pausar, todas as execuções em andamento daqueles usuários **naquele projeto** são encerradas, registradas como parada programada.
+
+<Tip>
+O par mais útil: gatilho [Execução de projeto](/guides/automation/triggers#execução-de-projeto) no evento **Iniciar**, com esta ação em **Pausar** — garantindo que ninguém fique com duas execuções abertas ao mesmo tempo.
+</Tip>
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Variáveis" icon="brackets-curly" href="/guides/automation/variables">
+  Como montar mensagens, destinatários e corpos de webhook com dados do projeto.
+</Card>
+
+<Card title="Logs e depuração" icon="list-check" href="/guides/automation/logs">
+  Conferir se a mensagem saiu e o que o webhook respondeu.
+</Card>
+
+<Card title="Receitas prontas" icon="book-open" href="/guides/automation/recipes">
+  Montagens completas para cenários comuns.
+</Card>
+
+<Card title="Projeto e etapas" icon="diagram-project" href="/guides/automation/actions-projects">
+  As ações que movimentam o projeto pela operação.
+</Card>
+</CardGroup>

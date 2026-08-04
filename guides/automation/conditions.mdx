@@ -1,0 +1,139 @@
+---
+title: "Condições"
+description: "As quatro checagens que ramificam o fluxo de uma automação"
+keywords: ["condição", "condicional", "checagem", "ramo", "decisor", "filtro", "bloquear fluxo"]
+---
+
+Uma condição avalia algo sobre o projeto e devolve verdadeiro ou falso. O resultado decide qual ramo executa — e, opcionalmente, se a automação continua.
+
+Condições são **opcionais**. Uma automação sem nenhuma condição é perfeitamente válida.
+
+## Visão geral
+
+| Condição | Checa |
+| --- | --- |
+| [Projeto contém etiqueta](#projeto-contém-etiqueta) | Se as etiquetas escolhidas estão no projeto |
+| [Projeto contém status do funil](#projeto-contém-status-do-funil) | Se os status escolhidos estão nos funis do projeto |
+| [Projeto em etapa](#projeto-em-etapa) | Se o projeto está nas etapas escolhidas |
+| [Decisor com filtro](#decisor-com-filtro) | Se o projeto atende a um filtro montado por você |
+
+## Duas opções que aparecem em quase todas
+
+### Qualquer uma serve, ou todas precisam
+
+As três primeiras condições aceitam vários itens selecionados e mudam de comportamento conforme uma opção:
+
+<CardGroup cols={2}>
+<Card title="Ligada" icon="circle-check">
+  **Qualquer uma** das opções selecionadas torna a condição verdadeira.
+</Card>
+
+<Card title="Desligada" icon="list-check">
+  **Todas** as opções selecionadas precisam estar presentes.
+</Card>
+</CardGroup>
+
+Selecionando um único item, a opção não faz diferença.
+
+### Bloquear o fluxo
+
+Presente em todas as quatro condições, com o rótulo **Bloquear o fluxo completo dessa automação caso a condição seja falsa**.
+
+Ligada, uma condição falsa executa o ramo **Se falso** normalmente e, ao terminar esse ramo, encerra a automação. Os componentes seguintes do nível principal não executam.
+
+<Warning>
+O bloqueio só age quando o resultado é **falso**. Uma condição verdadeira nunca interrompe o fluxo.
+</Warning>
+
+<Tip>
+Deixar o ramo **Se falso** vazio é o uso mais comum: a automação simplesmente para. Preenchendo o ramo, você registra o motivo antes de parar.
+</Tip>
+
+<Tip>
+Precisa de duas checagens em sequência? Coloque as duas no nível principal do fluxo, uma após a outra, com **bloquear o fluxo** na primeira. Condições aninhadas dentro de ramos são avaliadas, mas os componentes dentro delas não executam — veja [Como o fluxo é executado](/guides/automation/anatomy#mantenha-as-condições-no-nível-principal).
+</Tip>
+
+## Projeto contém etiqueta
+
+Verdadeira quando as etiquetas escolhidas estão vinculadas ao projeto no momento da checagem.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Etiquetas para verificar | Sim | As etiquetas checadas; aceita mais de uma, de qualquer funil |
+| Qualquer uma serve | Não | Alterna entre "qualquer uma" e "todas" |
+| Bloquear o fluxo | Não | Encerra a automação se a condição for falsa |
+
+<Note>
+A checagem não exige que o projeto esteja vinculado ao funil da etiqueta — ela olha apenas para as etiquetas que o projeto tem agora.
+</Note>
+
+## Projeto contém status do funil
+
+Verdadeira quando os status de funil escolhidos estão presentes nos funis do projeto.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Status para verificar | Sim | Os status checados; aceita mais de um, de qualquer funil |
+| Qualquer uma serve | Não | Alterna entre "qualquer um" e "todos" |
+| Bloquear o fluxo | Não | Encerra a automação se a condição for falsa |
+
+Cada funil vinculado ao projeto carrega no máximo um status por vez. Por isso, exigir **todos** os status faz sentido apenas quando eles pertencem a funis diferentes.
+
+## Projeto em etapa
+
+Verdadeira quando o projeto está nas etapas escolhidas no momento da checagem.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Etapas para verificar | Sim | As etapas checadas; aceita mais de uma, de qualquer funil |
+| Qualquer uma serve | Não | Alterna entre "qualquer uma" e "todas" |
+| Bloquear o fluxo | Não | Encerra a automação se a condição for falsa |
+
+<Tip>
+Exigir **todas** só funciona em funis que permitem o projeto estar em mais de uma etapa ao mesmo tempo, ou quando as etapas são de funis diferentes.
+</Tip>
+
+## Decisor com filtro
+
+A condição mais poderosa das quatro: você monta um filtro de projetos — o mesmo tipo de filtro da listagem — e a condição é verdadeira quando o projeto do gatilho aparece no resultado.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Filtro a ser aplicado | Sim | O filtro que o projeto precisa atender |
+| Bloquear o fluxo | Não | Encerra a automação se a condição for falsa |
+
+Use quando a checagem envolve campos que as outras três condições não alcançam: cliente, responsáveis, orçamento, impacto, datas, respostas de formulário, combinações com "e" e "ou".
+
+<Note>
+O filtro é salvo junto com a automação. Editar a automação atualiza o filtro; não é preciso mantê-lo em outro lugar.
+</Note>
+
+<Warning>
+Um filtro que ficou inválido — por exemplo, porque o campo usado nele foi removido — faz a condição registrar erro. Nesse caso **nenhum dos dois ramos executa** e o fluxo segue para os componentes seguintes. O motivo aparece no registro de execução.
+</Warning>
+
+## Quando a condição não consegue avaliar
+
+Além do filtro inválido, uma condição registra erro quando não encontra o que precisa checar — por exemplo, uma etiqueta que foi excluída depois que a automação foi montada. O comportamento é sempre o mesmo: erro registrado, nenhum ramo executado, fluxo segue adiante.
+
+Se uma automação "pula" um trecho inteiro sem motivo aparente, abra o [registro de execução](/guides/automation/logs) e procure a condição — ela costuma ser a origem.
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Ações" icon="play" href="/guides/automation/actions-projects">
+  O que colocar dentro de cada ramo.
+</Card>
+
+<Card title="Como o fluxo é executado" icon="diagram-project" href="/guides/automation/anatomy">
+  Ordem, ramificações e bloqueio de fluxo em detalhe.
+</Card>
+
+<Card title="Logs e depuração" icon="list-check" href="/guides/automation/logs">
+  Como ver o resultado de cada condição em uma execução real.
+</Card>
+
+<Card title="Receitas prontas" icon="book-open" href="/guides/automation/recipes">
+  Montagens completas para cenários comuns.
+</Card>
+</CardGroup>

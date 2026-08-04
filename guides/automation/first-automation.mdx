@@ -1,0 +1,142 @@
+---
+title: "Criando sua primeira automação"
+description: "Monte, salve e teste uma automação completa do começo ao fim"
+keywords: ["criar automação", "primeira automação", "editor de automação", "tutorial"]
+---
+
+Este guia monta uma automação real do zero: **quando um projeto entrar na etapa "Proposta enviada", marque-o com a etiqueta "Aguardando retorno" e registre um aviso no conteúdo do projeto.**
+
+O mesmo caminho vale para qualquer outra combinação de gatilho e ações.
+
+## Antes de começar
+
+<Info>
+Você precisa da permissão **Criar automações**. Se o botão de nova automação não aparecer para você, fale com quem administra as permissões da sua conta.
+</Info>
+
+Tenha em mãos o que a automação vai referenciar — no exemplo, a etapa "Proposta enviada" e a etiqueta "Aguardando retorno" já precisam existir no funil.
+
+## Passo a passo
+
+<Steps>
+<Step title="Abra o editor" icon="plus">
+  Vá em **Automações** e clique em **Nova automação**. Dê um nome que descreva a regra, não o mecanismo.
+
+  <Tip>
+  "Marcar proposta enviada como aguardando retorno" diz muito mais do que "Automação 3" quando alguém abrir a lista daqui a seis meses.
+  </Tip>
+</Step>
+
+<Step title="Escolha o gatilho" icon="bolt">
+  Clique em **Adicionar gatilho** e selecione **Projeto movido de etapa**.
+
+  Em seguida configure a **etapa de destino**: "Proposta enviada". É o momento em que o projeto entra nessa etapa que aciona a automação.
+
+  <Note>
+  Enquanto não houver um gatilho, o editor não deixa adicionar ações nem condições. O gatilho é obrigatório e cada automação tem apenas um.
+  </Note>
+</Step>
+
+<Step title="Adicione a primeira ação" icon="play">
+  Clique em **Adicionar ação ou condição**, vá para a aba **Ações** e escolha **Adicionar etiqueta**.
+
+  Selecione a etiqueta "Aguardando retorno". Se a lista for longa, use o campo **Filtrar componentes** para encontrar o que precisa mais rápido.
+</Step>
+
+<Step title="Adicione a segunda ação" icon="message">
+  Clique novamente em **Adicionar ação ou condição** e escolha **Envia conteúdo do projeto**.
+
+  No campo de mensagem, escreva o texto do aviso. Você pode inserir dados do projeto usando variáveis:
+
+  ```twig
+  Proposta enviada para {{ project.customer.name }} em {{ "now"|date("d/m/Y") }}. Aguardando retorno.
+  ```
+
+  <Tip>
+  Não precisa decorar as variáveis: o editor mostra a lista das disponíveis para cada campo que aceita esse recurso. Veja [Variáveis nas automações](/guides/automation/variables).
+  </Tip>
+</Step>
+
+<Step title="Confira a ordem" icon="arrow-down-up-across-line">
+  As ações são executadas de cima para baixo, na ordem em que aparecem. Use **Mover para cima** e **Mover para baixo** no menu de cada componente para reordenar.
+
+  Aqui a ordem importa pouco, mas em automações que dependem umas das outras ela é decisiva — por exemplo, colocar o projeto em uma etapa antes de aplicar uma etiqueta daquele funil.
+</Step>
+
+<Step title="Salve e ative" icon="floppy-disk">
+  Clique em **Salvar**. Confirme que o **Status ativo** está marcado como **Ativo**.
+
+  <Check>
+  A partir daqui a automação já está valendo para os próximos projetos que entrarem na etapa.
+  </Check>
+</Step>
+
+<Step title="Teste com um caso real" icon="vial">
+  Mova um projeto de teste para a etapa "Proposta enviada" e confira se a etiqueta foi aplicada e se o texto apareceu no conteúdo do projeto.
+</Step>
+
+<Step title="Leia o registro de execução" icon="list-check">
+  Volte à automação e abra o **Registro de execuções**. Cada disparo mostra quem causou, qual projeto foi afetado, quais componentes rodaram e se cada um deu certo.
+
+  Se algo não saiu como esperado, o registro diz exatamente onde parou. Veja [Logs e depuração](/guides/automation/logs).
+</Step>
+</Steps>
+
+## Adicionando uma condição
+
+Suponha que o aviso só deva ser publicado para projetos de um determinado cliente. É aí que entra a condição.
+
+<Steps>
+<Step title="Adicione a condição">
+  Em **Adicionar ação ou condição**, vá para a aba **Condições** e escolha **Projeto contém etiqueta**. Selecione a etiqueta "Cliente estratégico".
+</Step>
+
+<Step title="Distribua as ações nos ramos">
+  A condição cria dois ramos: **Se verdadeiro** e **Se falso**. Arraste ou adicione a ação de enviar conteúdo dentro de **Se verdadeiro**.
+
+  O que estiver em **Se falso** roda apenas quando a checagem não é atendida. Ramos vazios simplesmente não fazem nada.
+</Step>
+</Steps>
+
+<Info>
+Uma condição não interrompe a automação por padrão: ela apenas escolhe qual ramo executar, e o fluxo segue para os componentes seguintes. Para fazer uma condição falsa parar o restante do fluxo, existe a opção de bloquear o fluxo — explicada em [Como o fluxo é executado](/guides/automation/anatomy#bloquear-o-fluxo).
+</Info>
+
+## Erros comuns na primeira automação
+
+<AccordionGroup>
+<Accordion title="A automação não salvou" icon="triangle-exclamation">
+  Os motivos mais frequentes:
+
+  - Falta um gatilho, ou falta pelo menos uma ação. Os dois são obrigatórios.
+  - Algum componente ficou com configuração incompleta, como uma etiqueta não selecionada.
+  - A conta atingiu o limite de automações do plano. Nesse caso a automação é criada, mas fica inativa.
+</Accordion>
+
+<Accordion title="A automação salvou, mas nada acontece" icon="circle-question">
+  Confira nesta ordem:
+
+  1. O status está **Ativo**?
+  2. O evento que você provocou é exatamente o do gatilho? Mover um projeto **para dentro** de uma etapa é diferente de tirá-lo dela.
+  3. O gatilho está apontando para a etapa, etiqueta ou formulário certo?
+  4. Existe algum registro de execução? Se não existe nenhum, o gatilho não chegou a casar com o evento.
+</Accordion>
+
+<Accordion title="A ação rodou, mas não teve efeito" icon="ban">
+  Várias ações têm pré-requisitos silenciosos. Uma etiqueta só é aplicada se o projeto estiver vinculado ao funil dela; um contador só é atualizado se o formulário estiver disponível no projeto.
+
+  O registro de execução mostra o resultado de cada componente e o motivo quando algo é ignorado.
+</Accordion>
+</AccordionGroup>
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Como o fluxo é executado" icon="diagram-project" href="/guides/automation/anatomy">
+  Ordem, ramificações, bloqueio e encadeamento entre automações.
+</Card>
+
+<Card title="Receitas prontas" icon="book-open" href="/guides/automation/recipes">
+  Montagens completas para cenários comuns do dia a dia.
+</Card>
+</CardGroup>

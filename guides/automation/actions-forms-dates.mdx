@@ -1,0 +1,173 @@
+---
+title: "Ações: formulários e datas"
+description: "Adicionar formulários avulsos, salvar versões, atualizar contadores e alterar campos de data"
+keywords: ["ação", "formulário", "formulário avulso", "versão", "contador", "data", "previsão do funil"]
+---
+
+As ações que mexem em formulários dinâmicos e em campos de data do projeto.
+
+| Ação | O que faz |
+| --- | --- |
+| [Adicionar formulário avulso](#adicionar-formulário-avulso) | Anexa um formulário ao projeto |
+| [Salvar versão do formulário](#salvar-versão-do-formulário) | Congela as respostas atuais no histórico |
+| [Atualizar contador](#atualizar-contador) | Incrementa ou decrementa um campo contador |
+| [Alterar campo de data](#alterar-campo-de-data) | Define uma data no projeto ou em um formulário |
+
+<Info>
+Três destas ações procuram o formulário em **todos os lugares onde ele pode estar no projeto**: no corpo do projeto, no funil, na etapa ou como formulário avulso. Se o mesmo formulário aparecer em mais de um lugar, todos são afetados.
+</Info>
+
+## Adicionar formulário avulso
+
+Anexa um formulário avulso ao projeto.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Formulário avulso | Sim | O formulário que será anexado |
+| Ignorar se já houver esse formulário | Sim | Evita anexar o mesmo formulário duas vezes |
+
+Com **Ignorar se já houver esse formulário** desligado, cada execução anexa **mais uma cópia** do formulário ao projeto. Ligado, a ação não faz nada quando o formulário já está lá.
+
+<Warning>
+Combinada com um gatilho de alto volume — formulário editado, projeto ocioso com repetição — esta ação sem a opção de ignorar enche o projeto de formulários repetidos rapidamente.
+</Warning>
+
+## Salvar versão do formulário
+
+Congela as respostas atuais do formulário no histórico, criando um registro daquele momento.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Formulário | Sim | O formulário cuja versão será salva |
+| Salvar versão e em seguida limpar os campos | Sim | Zera as respostas depois de salvar |
+
+A opção de limpar os campos é o que torna esta ação útil em processos cíclicos: o formulário é preenchido, a automação guarda a versão e devolve o formulário em branco para o próximo ciclo.
+
+**Quando não tem efeito**
+
+- O formulário não está disponível no projeto de nenhuma forma.
+- O formulário nunca foi respondido — não há o que versionar.
+
+## Atualizar contador
+
+Incrementa ou decrementa um campo do tipo contador de um formulário.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Contador | Sim | O campo contador que será alterado |
+| Ação | Sim | Incrementar ou decrementar |
+| Valor | Sim | Quanto somar ou subtrair; precisa ser maior que zero |
+
+Um contador que nunca foi preenchido é tratado como zero antes da operação.
+
+<Warning>
+O contador precisa estar em um formulário **disponível no projeto no momento da execução**. Se o campo existe no cadastro de formulários mas nenhum formulário do projeto o contém, a ação registra `the_counter_is_not_available_at_project_forms` e nada acontece.
+</Warning>
+
+<Note>
+Se o mesmo contador aparecer em formulários diferentes dentro do projeto, **todos** são atualizados.
+</Note>
+
+## Alterar campo de data
+
+Define uma data — na previsão do funil ou em um campo de formulário. É a ação com mais opções do sistema, então vale montá-la em três decisões.
+
+### 1. Onde está o campo de data
+
+| Destino | O que você precisa indicar |
+| --- | --- |
+| Previsão do funil | O funil cuja data de previsão será alterada |
+| Campo de formulário | O campo de data e onde o formulário está |
+
+Ao escolher **campo de formulário**, indique também a localização:
+
+| Localização | Significado |
+| --- | --- |
+| Próprio objeto projeto | O formulário está no corpo do projeto |
+| No funil | O formulário está vinculado a um funil — indique qual |
+| Na etapa do funil | O formulário está vinculado a uma etapa — indique qual |
+| Formulário avulso do projeto | O formulário está anexado como avulso |
+
+<Note>
+Um projeto pode ter o mesmo formulário avulso anexado várias vezes. Nesse caso a ação usa o **primeiro**, por ordem de criação.
+</Note>
+
+### 2. De onde vem a data
+
+<Tabs>
+<Tab title="Manual">
+  Você digita uma data fixa. Simples e previsível, útil para prazos legais e datas de virada.
+</Tab>
+
+<Tab title="Data relativa">
+  A data é calculada a partir de outra data do projeto.
+
+  **Ponto de partida:**
+
+  | Base | De onde vem |
+  | --- | --- |
+  | Criação do projeto | A data em que o projeto foi criado |
+  | Previsão do funil | A previsão do projeto em um funil que você indica |
+  | Data do acionamento do gatilho | O momento em que a automação foi acionada |
+
+  **Operação aplicada sobre a base:**
+
+  | Operação | Resultado |
+  | --- | --- |
+  | Sem alteração | Usa a data base como está |
+  | Incrementar / decrementar 1 dia | Um dia para frente ou para trás |
+  | Incrementar / decrementar 1 semana | Sete dias |
+  | Incrementar / decrementar 1 mês | Um mês |
+  | Incrementar / decrementar 1 ano | Um ano |
+  | Incrementar / decrementar vários dias | Você informa quantos |
+  | Início / fim do mês | Primeiro ou último dia do mês da data base |
+  | Início / fim do ano | Primeiro ou último dia do ano da data base |
+
+  Quando a base é a previsão do funil, aparece a opção **Se a data não estiver disponível, usar a data de acionamento do gatilho**. Sem ela, um projeto sem previsão faz a ação registrar erro em vez de calcular.
+</Tab>
+
+<Tab title="Sintaxe avançada">
+  Você escreve uma expressão que devolve a data. Serve para cálculos que dependem de outros dados do projeto:
+
+  ```twig
+  {{ project.created_at|date_modify("+15 days")|date("Y-m-d") }}
+  ```
+
+  Veja [Variáveis nas automações](/guides/automation/variables) e [Sintaxe avançada](/guides/advanced/advanced-syntax).
+</Tab>
+</Tabs>
+
+### 3. O que fazer se já houver data
+
+A opção **Sobrescrever caso já tenha data definida** decide o desfecho:
+
+- **Desligada:** um campo que já tem data é preservado e a ação registra sucesso sem alterar nada.
+- **Ligada:** a data existente é substituída.
+
+<Warning>
+"A automação rodou e a data não mudou" quase sempre é esta opção desligada com uma data já preenchida. Confira no registro de execução — a mensagem do componente diz exatamente isso.
+</Warning>
+
+<Tip>
+Alterar a previsão do funil dispara o gatilho [Campo do projeto alterado](/guides/automation/triggers#campo-do-projeto-alterado) e reagenda o gatilho [Data de projeto atingida](/guides/automation/triggers#data-de-projeto-atingida). Uma ação, dois efeitos em cadeia.
+</Tip>
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Cadastros e pessoas" icon="users" href="/guides/automation/actions-records">
+  Criar projetos, hierarquias, clientes, contatos e alterar responsáveis.
+</Card>
+
+<Card title="Comunicação, IA e execução" icon="paper-plane" href="/guides/automation/actions-integrations">
+  Conteúdo, e-mail, webhook, assistente de etapa, metas e execução.
+</Card>
+
+<Card title="Tempo relativo customizado" icon="clock" href="/guides/automation/relative-time">
+  Expressões para agendar em dias da semana e viradas de período.
+</Card>
+
+<Card title="Variáveis" icon="brackets-curly" href="/guides/automation/variables">
+  Como usar dados do projeto no cálculo de datas.
+</Card>
+</CardGroup>
