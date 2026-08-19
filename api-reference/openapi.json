@@ -8070,7 +8070,52 @@
         "operationId": "alternarVNculoDoFunilDeProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Funil inativo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "service": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "service": "App\\Exceptions\\Services\\ProjectFunnel\\ToggleProjectFunnelLinkException",
+                  "message": "project_funnel_not_active",
+                  "error": "The project funnel is not active"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -8107,7 +8152,128 @@
         "operationId": "atualizarStatusDoFunilDeProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "project_funnel_assignment": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "project_id": {
+                          "type": "string"
+                        },
+                        "project_funnel_id": {
+                          "type": "integer"
+                        },
+                        "funnel_status_id": {
+                          "type": "integer"
+                        },
+                        "statuses_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "statuses_by": {
+                          "type": "string"
+                        },
+                        "forecast_date": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "realized_forecast_date": {
+                          "nullable": true
+                        },
+                        "forecast_date_update_count": {
+                          "type": "integer"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "project_funnel_assignment": {
+                    "id": 5120,
+                    "project_id": "9c2f1a44-3b2e-4a0f-9b7a-1c4c5f7e8d90",
+                    "project_funnel_id": 74,
+                    "funnel_status_id": 9,
+                    "statuses_at": "2026-08-19T11:07:44.000000Z",
+                    "statuses_by": "019c75de-509e-711a-8933-175cb2514cc5",
+                    "forecast_date": "2026-08-30T00:00:00.000000Z",
+                    "realized_forecast_date": null,
+                    "forecast_date_update_count": 1,
+                    "created_at": "2026-08-02T13:04:11.000000Z",
+                    "updated_at": "2026-08-19T11:07:44.000000Z"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "project_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "funnel_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The project id field is required. (and 1 more error)",
+                  "validation": {
+                    "project_id": [
+                      "The project id field is required."
+                    ],
+                    "funnel_id": [
+                      "The funnel id field is required."
+                    ]
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -9054,7 +9220,57 @@
         "operationId": "alternarVNculoDeEtiquetaDoFunilDeUmProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Etiqueta bloqueia a etapa atual",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "service": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "step_blockings": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "service": "App\\Exceptions\\Services\\ProjectFunnel\\FunnelStepBlocking\\FunnelStepBlockingException",
+                  "message": "blocked_by_existing_step_blocking",
+                  "error": "Blocked by existing step blocking",
+                  "step_blockings": []
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -9091,7 +9307,118 @@
         "operationId": "arquivarFunil",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "project_funnel": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "prefix": {
+                          "type": "string"
+                        },
+                        "order": {
+                          "type": "integer"
+                        },
+                        "condition": {
+                          "type": "string"
+                        },
+                        "allow_multi_step": {
+                          "type": "boolean"
+                        },
+                        "project_term": {
+                          "nullable": true
+                        },
+                        "show_cost_info": {
+                          "type": "boolean"
+                        },
+                        "allow_execution": {
+                          "type": "boolean"
+                        },
+                        "business_area_id": {
+                          "type": "integer"
+                        },
+                        "form_id": {
+                          "nullable": true
+                        },
+                        "funnel_config_template_id": {
+                          "nullable": true
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "project_funnel": {
+                    "id": 74,
+                    "name": "Comercial",
+                    "prefix": "COM",
+                    "order": 0,
+                    "condition": "active",
+                    "allow_multi_step": false,
+                    "project_term": null,
+                    "show_cost_info": true,
+                    "allow_execution": true,
+                    "business_area_id": 83,
+                    "form_id": null,
+                    "funnel_config_template_id": null,
+                    "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                    "created_at": "2026-01-09T20:51:29.000000Z",
+                    "updated_at": "2026-08-19T11:07:44.000000Z",
+                    "deleted_at": "2026-08-19T11:07:44.000000Z"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Funil com projetos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "archive_funnel_error_message"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -9124,7 +9451,95 @@
         "operationId": "restaurarFunil",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "project_funnel": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "prefix": {
+                          "type": "string"
+                        },
+                        "order": {
+                          "type": "integer"
+                        },
+                        "condition": {
+                          "type": "string"
+                        },
+                        "allow_multi_step": {
+                          "type": "boolean"
+                        },
+                        "project_term": {
+                          "nullable": true
+                        },
+                        "show_cost_info": {
+                          "type": "boolean"
+                        },
+                        "allow_execution": {
+                          "type": "boolean"
+                        },
+                        "business_area_id": {
+                          "type": "integer"
+                        },
+                        "form_id": {
+                          "nullable": true
+                        },
+                        "funnel_config_template_id": {
+                          "nullable": true
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "project_funnel": {
+                    "id": 74,
+                    "name": "Comercial",
+                    "prefix": "COM",
+                    "order": 0,
+                    "condition": "active",
+                    "allow_multi_step": false,
+                    "project_term": null,
+                    "show_cost_info": true,
+                    "allow_execution": true,
+                    "business_area_id": 83,
+                    "form_id": null,
+                    "funnel_config_template_id": null,
+                    "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                    "created_at": "2026-01-09T20:51:29.000000Z",
+                    "updated_at": "2026-08-19T11:07:44.000000Z",
+                    "deleted_at": null
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -9157,7 +9572,117 @@
         "operationId": "clonarFunil",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "project_funnel": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "prefix": {
+                          "type": "string"
+                        },
+                        "order": {
+                          "type": "integer"
+                        },
+                        "condition": {
+                          "type": "string"
+                        },
+                        "allow_multi_step": {
+                          "type": "boolean"
+                        },
+                        "project_term": {
+                          "nullable": true
+                        },
+                        "show_cost_info": {
+                          "type": "boolean"
+                        },
+                        "allow_execution": {
+                          "type": "boolean"
+                        },
+                        "business_area_id": {
+                          "type": "integer"
+                        },
+                        "form_id": {
+                          "nullable": true
+                        },
+                        "funnel_config_template_id": {
+                          "nullable": true
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "project_funnel": {
+                    "id": 98,
+                    "name": "Comercial (cópia)",
+                    "prefix": "COMC",
+                    "order": 11,
+                    "condition": "active",
+                    "allow_multi_step": false,
+                    "project_term": null,
+                    "show_cost_info": true,
+                    "allow_execution": true,
+                    "business_area_id": 83,
+                    "form_id": null,
+                    "funnel_config_template_id": null,
+                    "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
+                    "created_at": "2026-01-09T20:51:29.000000Z",
+                    "updated_at": "2026-08-19T11:07:44.000000Z",
+                    "deleted_at": null
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Funil arquivado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "cant_clone_archived_project_funnel"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -9194,7 +9719,64 @@
         "operationId": "reordenarFunisDeProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "project_funnel_ids": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The project funnel ids field is required.",
+                  "validation": {
+                    "project_funnel_ids": [
+                      "The project funnel ids field is required."
+                    ]
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -9228,7 +9810,7 @@
         "operationId": "criarOuAtualizarFunilDeProjeto",
         "responses": {
           "200": {
-            "description": "Funil criado com sucesso",
+            "description": "Sucesso",
             "headers": {
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -9833,39 +10415,7 @@
             }
           },
           "422": {
-            "description": "Campos obrigatórios",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Access-Control-Expose-Headers": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "X-Frame-Options": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "SAMEORIGIN"
-              },
-              "X-Ratelimit-Limit": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 160
-              },
-              "X-Ratelimit-Remaining": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 159
-              }
-            },
+            "description": "Etiquetas repetidas",
             "content": {
               "application/json": {
                 "schema": {
@@ -9874,34 +10424,292 @@
                     "response": {
                       "type": "boolean"
                     },
-                    "message": {
-                      "type": "string"
-                    },
-                    "error": {
-                      "type": "string"
-                    },
-                    "validation": {
+                    "project_funnel": {
                       "type": "object",
                       "properties": {
+                        "order": {
+                          "type": "integer"
+                        },
                         "name": {
+                          "type": "string"
+                        },
+                        "condition": {
+                          "type": "string"
+                        },
+                        "allow_multi_step": {
+                          "type": "boolean"
+                        },
+                        "show_cost_info": {
+                          "type": "boolean"
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "allow_execution": {
+                          "type": "boolean"
+                        },
+                        "prefix": {
+                          "type": "string"
+                        },
+                        "form_id": {
+                          "type": "integer"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "id": {
+                          "type": "integer"
+                        },
+                        "business_area_id": {
+                          "type": "integer"
+                        },
+                        "business_area": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "order": {
+                              "type": "integer"
+                            },
+                            "frame_id": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "steps": {
                           "type": "array",
                           "items": {
-                            "type": "string"
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "project_funnel_id": {
+                                "type": "integer"
+                              },
+                              "sensation_amount": {
+                                "type": "integer"
+                              },
+                              "show_contact_form": {
+                                "type": "boolean"
+                              },
+                              "hide_contact_form_when_linked": {
+                                "type": "boolean"
+                              },
+                              "show_customer_form": {
+                                "type": "boolean"
+                              },
+                              "hide_customer_form_when_linked": {
+                                "type": "boolean"
+                              },
+                              "order": {
+                                "type": "integer"
+                              },
+                              "help_text": {
+                                "type": "string"
+                              },
+                              "form_id": {
+                                "type": "integer"
+                              },
+                              "allow_execution": {
+                                "type": "boolean"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "checklists": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "integer"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "info": {
+                                      "type": "string"
+                                    },
+                                    "funnel_step_id": {
+                                      "type": "integer"
+                                    },
+                                    "required": {
+                                      "type": "boolean"
+                                    },
+                                    "order": {
+                                      "type": "integer"
+                                    }
+                                  }
+                                }
+                              },
+                              "attachments": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "integer"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "technical_name": {
+                                      "type": "string"
+                                    },
+                                    "extension": {
+                                      "type": "string"
+                                    },
+                                    "file_url": {
+                                      "type": "string",
+                                      "format": "uri"
+                                    },
+                                    "popup_video": {
+                                      "type": "integer"
+                                    },
+                                    "watch": {
+                                      "type": "boolean"
+                                    },
+                                    "user_id": {
+                                      "type": "string"
+                                    },
+                                    "frame_id": {
+                                      "type": "string"
+                                    },
+                                    "created_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "updated_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "pivot": {
+                                      "type": "object",
+                                      "properties": {
+                                        "funnel_step_id": {
+                                          "type": "integer"
+                                        },
+                                        "step_attachment_id": {
+                                          "type": "integer"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "form": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "integer"
+                                  },
+                                  "title": {
+                                    "type": "string"
+                                  },
+                                  "frame_id": {
+                                    "type": "string"
+                                  },
+                                  "created_at": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "updated_at": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  }
+                                }
+                              },
+                              "restrictions": {
+                                "type": "array",
+                                "items": {}
+                              }
+                            }
+                          }
+                        },
+                        "tags": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "color": {
+                                "type": "string"
+                              },
+                              "project_funnel_id": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        },
+                        "attachments": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "funnel_status": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "color": {
+                                "type": "string"
+                              },
+                              "project_funnel_id": {
+                                "type": "integer"
+                              },
+                              "is_conclusive": {
+                                "type": "boolean"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              }
+                            }
                           }
                         }
                       }
+                    },
+                    "objects_above_limit": {
+                      "type": "array",
+                      "items": {}
                     }
                   }
                 },
                 "example": {
                   "response": false,
-                  "message": "validation_errors",
-                  "error": "O campo nome é obrigatório.",
-                  "validation": {
-                    "name": [
-                      "O campo nome é obrigatório."
-                    ]
-                  }
+                  "message": "repeated_tags_are_not_allowed"
                 }
               }
             }
@@ -10450,7 +11258,64 @@
         },
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Modelo de outro funil",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "funnel_config_template_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The selected funnel config template id is invalid.",
+                  "validation": {
+                    "funnel_config_template_id": [
+                      "The selected funnel config template id is invalid."
+                    ]
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -24789,7 +25654,7 @@
             }
           },
           "422": {
-            "description": "Campos inválidos",
+            "description": "Validação falhou",
             "headers": {
               "Access-Control-Allow-Origin": {
                 "schema": {
