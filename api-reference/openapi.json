@@ -17526,7 +17526,7 @@
       "post": {
         "tags": [
           "step-assistants",
-          "execute-manually"
+          "Execução"
         ],
         "summary": "Executar um assistente manualmente",
         "description": "Dispara um assistente sob demanda para um projeto, sem depender da movimentação de etapa.\n\nSó vale para assistentes com gatilho `manual` ou com a execução manual habilitada; os demais respondem como não encontrado. O projeto precisa estar na etapa do assistente e ser visível para quem faz a chamada.\n\nA execução é assíncrona: a resposta apenas confirma o enfileiramento, e o resultado aparece no projeto e no histórico de execuções alguns instantes depois. Um assistente inativo não executa nada e ainda assim responde com sucesso.",
@@ -17612,7 +17612,7 @@
       "get": {
         "tags": [
           "step-assistants",
-          "execution-logs"
+          "Execução"
         ],
         "summary": "Listar execuções dos assistentes",
         "description": "Histórico de execuções de todos os assistentes de uma etapa, do mais recente para o mais antigo.\n\nCada registro traz o assistente, o projeto, a execução do agente de IA (com o texto devolvido e o modelo usado) e o desfecho de cada destino separadamente: a gravação como conteúdo do projeto e a gravação em campo de formulário têm campos próprios de status e de erro, porque uma pode dar certo e a outra falhar.\n\nAceita filtros e paginação por query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)\n- [Paginação](https://docs.olie.ai/api-reference/general/pagination)\n\nOs campos de paginação (`current_page`, `per_page`, `total`, ...) vêm na raiz da resposta, ao lado de `data`, e não dentro de `meta` como no restante da API.",
