@@ -17934,7 +17934,8 @@
     "/api/management/step-assistants": {
       "get": {
         "tags": [
-          "step-assistants"
+          "step-assistants",
+          "Assistentes"
         ],
         "summary": "Listar todos os assistentes de etapa",
         "description": "Lista os assistentes de etapa de todos os funis da conta, sem precisar percorrer etapa por etapa. É a visão usada pelo menu de [Assistentes de etapa](https://docs.olie.ai/guides/funnels/step-assistants).\n\nCada item já vem com a etapa e o agente de IA associados. Aceita filtros e paginação por query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)\n- [Paginação](https://docs.olie.ai/api-reference/general/pagination)\n\nOs campos de paginação (`current_page`, `per_page`, `total`, ...) vêm na raiz da resposta, ao lado de `data`, e não dentro de `meta` como no restante da API.",
@@ -18246,7 +18247,8 @@
     "/api/management/steps/{step}/assistants": {
       "get": {
         "tags": [
-          "step-assistants"
+          "step-assistants",
+          "Assistentes"
         ],
         "summary": "Listar assistentes da etapa",
         "description": "Lista os assistentes de uma etapa específica, do mesmo formato da listagem geral e já restrita à etapa informada.\n\nAceita filtros e paginação por query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)\n- [Paginação](https://docs.olie.ai/api-reference/general/pagination)\n\nOs campos de paginação (`current_page`, `per_page`, `total`, ...) vêm na raiz da resposta, ao lado de `data`, e não dentro de `meta` como no restante da API.",
@@ -18542,7 +18544,8 @@
       },
       "post": {
         "tags": [
-          "step-assistants"
+          "step-assistants",
+          "Assistentes"
         ],
         "summary": "Criar um assistente da etapa",
         "description": "Cria um assistente na etapa. Se `active` for verdadeiro, ele já entra em operação e passa a disparar no gatilho escolhido em `execute_on`: ao entrar na etapa (`moved`), ao sair dela (`unlinked`) ou somente sob demanda (`manual`).\n\nÉ obrigatório indicar pelo menos um destino para o resultado: `result_as_media` grava como conteúdo do projeto e `result_as_dynamic_form` grava em um campo de formulário dinâmico. Os dois podem ser usados juntos.\n\nA etapa do assistente é a do corpo (`funnel_step_id`) — é ela que vale, e não a da URL.\n\nCada execução consome créditos de IA. Veja [Assistentes de etapa](https://docs.olie.ai/guides/funnels/step-assistants) e [Créditos de IA](https://docs.olie.ai/guides/billing/ai-credits).",
@@ -18821,7 +18824,8 @@
     "/api/management/steps/{step}/assistants/{assistant}": {
       "get": {
         "tags": [
-          "step-assistants"
+          "step-assistants",
+          "Assistentes"
         ],
         "summary": "Obter um assistente da etapa",
         "description": "Retorna a configuração de um assistente, já com a etapa e o agente de IA associados.",
@@ -18970,7 +18974,8 @@
       },
       "put": {
         "tags": [
-          "step-assistants"
+          "step-assistants",
+          "Assistentes"
         ],
         "summary": "Atualizar um assistente da etapa",
         "description": "Substitui a configuração do assistente. O corpo é o mesmo da criação e não aceita atualização parcial: `name`, `funnel_step_id`, `ai_agent_id`, `prompt` e `execute_on` precisam vir a cada requisição, e ao menos um destino de resultado continua obrigatório.\n\nEnviar `active: false` tira o assistente de operação sem apagar nada: a configuração e o histórico de execuções permanecem, mas ele deixa de disparar.",
@@ -19163,7 +19168,8 @@
       },
       "delete": {
         "tags": [
-          "step-assistants"
+          "step-assistants",
+          "Assistentes"
         ],
         "summary": "Deletar um assistente da etapa",
         "description": "Remove o assistente da etapa. A exclusão é lógica: ele para de disparar e some das listagens, mas o histórico de execuções continua acessível. Não há endpoint de restauração — para tirar um assistente de operação temporariamente, prefira desativá-lo pela edição.\n\nA resposta não tem corpo.",
