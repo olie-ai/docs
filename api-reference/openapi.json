@@ -72,19 +72,19 @@
           "{id}",
           "restore"
         ],
-        "description": "Restaura um projeto que foi deletado."
+        "description": "Restaura um projeto que foi deletado, devolvendo-o às listagens com todos os vínculos que tinha."
       },
       "parameters": [
         {
           "name": "id",
           "in": "path",
           "required": true,
-          "description": "ID do projeto",
+          "description": "ID (UUID) do projeto deletado.",
           "schema": {
             "type": "string",
             "format": "uuid"
           },
-          "example": "1ae02989-bd9d-6132-9018-c66ff2a9b41d"
+          "example": "{{project_id}}"
         }
       ]
     },
@@ -335,31 +335,49 @@
           {
             "name": "page",
             "in": "query",
-            "description": "Número da página a ser retornada. Começa em 1",
+            "description": "Página desejada. Padrão `1`.",
             "schema": {
               "type": "integer"
             },
-            "example": 1
+            "example": 0
           },
           {
             "name": "perPage",
             "in": "query",
-            "description": "Quantidade de itens exibidos por página. Define o tamanho da página de resultados",
+            "description": "Itens por página. Padrão `30`, máximo `100`.",
             "schema": {
               "type": "integer"
             },
-            "example": 30
+            "example": 0
           },
           {
             "name": "filter",
             "in": "query",
             "required": true,
-            "description": "Filtro aplicado ao resultado. Valores possíveis: logs, content, default.",
+            "description": "O que retornar: `default` (tudo, padrão), `content` (apenas conteúdos enviados por pessoas) ou `logs` (apenas registros de atividade).",
             "deprecated": false,
             "schema": {
               "type": "string"
             },
-            "example": "default"
+            "example": ""
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Termo buscado no texto do conteúdo.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "channel_id",
+            "in": "query",
+            "description": "ID (UUID) do canal cuja conversa deve ser retornada. Sem ele, apenas os conteúdos internos aparecem.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
           }
         ],
         "responses": {
@@ -556,7 +574,7 @@
           "{id}",
           "medias"
         ],
-        "description": "Retorna uma lista de conteúdos do projeto com base nos filtros fornecidos."
+        "description": "Lista os conteúdos de um projeto — textos, arquivos, áudios e registros de atividade — do mais recente para o mais antigo, com paginação.\n\nSem `channel_id`, apenas os conteúdos internos são retornados; informe o ID de um canal para ver a conversa trocada por ele. Consulte [Paginação](https://docs.olie.ai/api-reference/general/pagination)."
       }
     },
     "/api/management/projects/{project}/step-metrics": {
@@ -720,8 +738,8 @@
           "{id}",
           "files"
         ],
-        "summary": "Listar todos os arquivos associados a um projeto",
-        "description": "Retorna todos os arquivos associados a um projeto específico.",
+        "summary": "Listar arquivos do projeto",
+        "description": "Retorna todos os arquivos ligados ao projeto em um único conjunto: os enviados como conteúdo (no próprio projeto ou em suas tarefas) e os anexados em respostas de formulários. Não tem paginação.",
         "operationId": "listarTodosOsArquivosAssociadosAUmProjeto",
         "responses": {
           "200": {
@@ -734,10 +752,11 @@
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": "{{project_id}}"
         }
       ]
     },
@@ -749,11 +768,88 @@
           "clone"
         ],
         "summary": "Clonar um projeto",
-        "description": "Cria uma cópia de um projeto existente. Permite configurar quais elementos serão clonados (funis, tags, checklists, respostas de formulários, mídias, fórum, grupos, atribuições, etc.).",
+        "description": "Cria uma cópia de um projeto existente. Cada parte do projeto é copiada de forma independente: cliente, funis, etiquetas, checklists, respostas de formulários, conteúdos, fórum, grupos e responsáveis só entram no clone quando a opção correspondente é enviada como `true`.\n\nQuem só pode criar projetos a partir de modelos não escolhe as opções: nesse caso o clone é sempre completo, com todas as partes copiadas.",
         "operationId": "clonarUmProjeto",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "prefix": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "customer": {
+                    "type": "boolean"
+                  },
+                  "funnels": {
+                    "type": "boolean"
+                  },
+                  "clone_tags": {
+                    "type": "boolean"
+                  },
+                  "checklists": {
+                    "type": "boolean"
+                  },
+                  "clone_form_answers": {
+                    "type": "boolean"
+                  },
+                  "form_answers_content": {
+                    "nullable": true
+                  },
+                  "medias": {
+                    "type": "boolean"
+                  },
+                  "medias_mention": {
+                    "type": "boolean"
+                  },
+                  "forum": {
+                    "type": "boolean"
+                  },
+                  "loose_checklists": {
+                    "type": "boolean"
+                  },
+                  "loose_form_answers": {
+                    "type": "boolean"
+                  },
+                  "clone_groups": {
+                    "type": "boolean"
+                  },
+                  "clone_assignees": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "example": {
+                "name": "Nome do novo projeto",
+                "prefix": "PRJ",
+                "description": "Descrição do novo projeto",
+                "customer": true,
+                "funnels": true,
+                "clone_tags": true,
+                "checklists": true,
+                "clone_form_answers": true,
+                "form_answers_content": null,
+                "medias": false,
+                "medias_mention": false,
+                "forum": false,
+                "loose_checklists": true,
+                "loose_form_answers": true,
+                "clone_groups": true,
+                "clone_assignees": true
+              }
+            }
           }
         }
       },
@@ -762,10 +858,11 @@
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": "{{project_id}}"
         }
       ]
     },
@@ -777,11 +874,50 @@
           "share"
         ],
         "summary": "Compartilhar um projeto",
-        "description": "Configura ou atualiza as opções de compartilhamento de um projeto, incluindo geração de token de compartilhamento e configurações de acesso.",
+        "description": "Liga ou desliga o compartilhamento público de um projeto e define o que o link exibe. Ao ligar, um token de compartilhamento é gerado (ou reaproveitado, se já existir); ao desligar, o token é descartado e o link deixa de funcionar.\n\nUse `refresh` para invalidar o link atual e gerar um novo. A ativação e a desativação ficam registradas no histórico do projeto.",
         "operationId": "compartilharProjeto",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "refresh": {
+                    "type": "boolean"
+                  },
+                  "settings": {
+                    "type": "object",
+                    "properties": {
+                      "attributes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "enabled": true,
+                "refresh": false,
+                "settings": {
+                  "attributes": [
+                    "name",
+                    "status",
+                    "description"
+                  ]
+                }
+              }
+            }
           }
         }
       },
@@ -790,10 +926,11 @@
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": "{{project_id}}"
         }
       ]
     },
@@ -2855,7 +2992,7 @@
           {
             "name": "is_template",
             "in": "query",
-            "description": "Quando `true`, busca o registro entre projetos do tipo template. Padrão: `false`.",
+            "description": "`true` busca entre os modelos de projeto em vez dos projetos comuns.",
             "schema": {
               "type": "string"
             },
@@ -2868,11 +3005,11 @@
           "name": "id",
           "in": "path",
           "required": true,
-          "description": "ID do projeto",
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
-          "example": "<string>"
+          "example": "{{project_id}}"
         }
       ],
       "put": {
@@ -3298,7 +3435,7 @@
           "projects",
           "{id}"
         ],
-        "description": "Atualiza os dados de um projeto existente.",
+        "description": "Atualiza os dados de um projeto existente. Todos os campos são opcionais — envie apenas o que deve mudar. Vínculos (funis, etiquetas, grupos, filhos) são alterados pelas listas `to_add` e `to_rem`; o que não é citado permanece como está.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -3510,76 +3647,48 @@
                 "name": "Nome do projeto",
                 "description": "Descrição detalhada do projeto",
                 "impact": 5,
-                "contact_id": "770e8400-e29b-41d4-a716-446655440001",
-                "customer_id": "880e8400-e29b-41d4-a716-446655440001",
-                "status": 3,
+                "contact_id": null,
+                "customer_id": null,
+                "status": 1,
                 "budget": 25000,
                 "is_template": false,
-                "parent_id": "550e8400-e29b-41d4-a716-446655440000",
+                "parent_id": null,
                 "funnels": {
-                  "to_add": [
-                    1,
-                    2,
-                    3
-                  ],
+                  "to_add": [],
                   "to_rem": []
                 },
                 "groups": {
-                  "to_add": [
-                    "550e8400-e29b-41d4-a716-446655440000",
-                    "550e8400-e29b-41d4-a716-446655440001"
-                  ],
-                  "to_rem": [
-                    "550e8400-e29b-41d4-a716-446655440001"
-                  ]
+                  "to_add": [],
+                  "to_rem": []
                 },
                 "tags": {
-                  "to_add": [
-                    1,
-                    2,
-                    3
-                  ],
+                  "to_add": [],
                   "to_rem": []
                 },
                 "users": [
                   {
-                    "user_id": "550e8400-e29b-41d4-a716-446655440000",
+                    "user_id": null,
                     "role": "assignee",
-                    "action": "add"
-                  },
-                  {
-                    "user_id": "550e8400-e29b-41d4-a716-446655440001",
-                    "role": "follower",
                     "action": "add"
                   }
                 ],
                 "childrens": {
-                  "to_add": [
-                    "550e8400-e29b-41d4-a716-446655440002"
-                  ],
+                  "to_add": [],
                   "to_rem": []
                 },
                 "forecast_dates": [
                   {
-                    "date": "2025-06-01",
-                    "project_funnel_id": 4
-                  },
-                  {
-                    "date": "2025-07-15",
-                    "project_funnel_id": 5
+                    "date": "2026-09-01",
+                    "project_funnel_id": null
                   }
                 ],
                 "funnel_status": {
-                  "project_funnel_id": 5,
-                  "funnel_status_id": 2
+                  "project_funnel_id": null,
+                  "funnel_status_id": null
                 },
                 "form_answers": [
                   {
-                    "id": 1,
-                    "answer": "Resposta do campo"
-                  },
-                  {
-                    "id": 2,
+                    "id": null,
                     "answer": "Resposta do campo"
                   }
                 ]
@@ -3673,7 +3782,7 @@
           "projects",
           "{id}"
         ],
-        "description": "Deleta um projeto pelo ID."
+        "description": "Deleta um projeto pelo ID. A exclusão é lógica: o projeto sai das listagens, passa a ser encontrado com `trashed=true` e pode voltar pelo endpoint de restauração."
       }
     },
     "/api/management/projects/merge": {
@@ -3683,11 +3792,33 @@
           "merge"
         ],
         "summary": "Mesclar projetos",
-        "description": "Mesclar projetos",
+        "description": "Une dois ou mais projetos em um só. O resultado é um **projeto novo**, criado a partir do projeto principal (`majority`), que recebe os funis, conteúdos, fórum e tarefas de todos os demais.\n\nOs projetos de origem — inclusive o principal — são arquivados e removidos das listagens ao final, com o histórico registrando a mesclagem. Projetos já mesclados anteriormente não podem ser mesclados de novo.",
         "operationId": "mesclarProjetos",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "projects": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "majority": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "projects": [],
+                "majority": null
+              }
+            }
           }
         }
       }
@@ -3699,11 +3830,29 @@
           "ids"
         ],
         "summary": "Listar IDs de projetos",
-        "description": "Retorna uma lista de IDs de projetos que correspondem aos filtros aplicados na requisição.",
+        "description": "Retorna somente os IDs dos projetos que correspondem aos filtros enviados, sem paginação e sem os demais dados do projeto. Útil para aplicar uma ação em lote sobre todo o resultado de uma busca.\n\nOs filtros usam o mesmo formato da [busca avançada](https://docs.olie.ai/api-reference/general/advanced-search).",
         "operationId": "listarIdsDeProjetos",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "filters": {
+                    "type": "array",
+                    "items": {}
+                  }
+                }
+              },
+              "example": {
+                "filters": []
+              }
+            }
           }
         }
       }
@@ -4105,7 +4254,7 @@
         "tags": [
           "projects"
         ],
-        "description": "Salvar/enviar diferentes tipos de conteúdo (texto, áudio ou arquivo) em um ou múltiplos projetos.\n\n### Tipo 1 - Descrição\n\n- **text** (string, obrigatório): Conteúdo de texto. Menções não são suportadas via API\n    \n\n### Tipo 2 - Áudio\n\n- **audio** (file, obrigatório): Arquivo de áudio (multipart/form-data)\n    \n\n### Tipo 3 - Arquivo\n\n- **file** (array, obrigatório): Array de arquivos (multipart/form-data)\n    \n- **text** (string, opcional): Texto descritivo\n    \n\n## Observações\n\n- Projetos merged não podem receber novas mídias\n    \n- Múltiplos arquivos geram múltiplas entradas de mídia\n    \n- Menções em descrições processam notificações automaticamente\n    \n- Quando múltiplas mídias são criadas, o retorno usa `medias` (array) ao invés de `media` (objeto).",
+        "description": "Envia um conteúdo — texto, áudio ou arquivo — para um ou mais projetos. Cada projeto informado recebe uma entrada própria: quando mais de uma é criada, a resposta traz `medias` (lista) no lugar de `media` (objeto).\n\nÁudio e arquivos são enviados como `multipart/form-data`. Menções escritas no texto disparam as notificações correspondentes — veja [Menções](https://docs.olie.ai/guides/fundamentals/mentions). Projetos que já foram mesclados não aceitam novos conteúdos.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -4173,86 +4322,85 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Número da página a ser retornada. Começa em 1",
+            "description": "Página desejada. Padrão `1`.",
             "schema": {
               "type": "integer",
               "default": 1,
               "minLength": 1
             },
-            "example": 1
+            "example": 0
           },
           {
             "name": "perPage",
             "in": "query",
             "required": false,
-            "description": "Quantidade de itens exibidos por página. Define o tamanho da página de resultados",
+            "description": "Itens por página. Padrão `30`, máximo `100`.",
             "schema": {
               "type": "integer",
               "default": 30,
               "minLength": 1,
               "maxLength": 100
             },
-            "example": 30
-          },
-          {
-            "name": "filter",
-            "in": "query",
-            "description": "Permite aplicar filtros aos resultados da listagem. Use a sintaxe `filter[campo]=valor` para filtrar por campos específicos. Campos disponíveis variam por recurso. Consulte a documentação sobre [filtros básicos](https://docs.olie.ai/api-reference/general/basic-filters)",
-            "schema": {
-              "type": "string",
-              "default": "<string>"
-            },
-            "example": "<string>"
+            "example": 0
           },
           {
             "name": "search",
             "in": "query",
             "required": false,
-            "description": "Filtrar projetos pelo nome ou código",
+            "description": "Termo buscado no nome ou no código do projeto.",
             "schema": {
               "type": "string",
               "default": "<string>"
             },
-            "example": "Hopper"
+            "example": ""
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID (UUID) de um projeto específico. Quando informado, `search` é ignorado.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
           },
           {
             "name": "trashed",
             "in": "query",
             "required": false,
-            "description": "Filtrar deletados",
+            "description": "`true` retorna apenas os projetos na lixeira.",
             "schema": {
               "type": "boolean",
               "default": "<boolean>"
             },
-            "example": true
+            "example": false
           },
           {
             "name": "template",
             "in": "query",
             "required": false,
-            "description": "Filtrar projetos templates",
+            "description": "`true` retorna apenas os modelos de projeto.",
             "schema": {
               "type": "boolean",
               "default": "<boolean>"
             },
-            "example": true
+            "example": false
           },
           {
             "name": "sort",
             "in": "query",
             "required": false,
-            "description": "Campo usado para ordenação. Ex: name, created_at, etc.",
+            "description": "Campo de ordenação. Padrão `created_at`.",
             "schema": {
               "type": "string",
               "default": "<string>"
             },
-            "example": "name"
+            "example": ""
           },
           {
             "name": "direction",
             "in": "query",
             "required": false,
-            "description": "Direção da ordenação: asc (crescente) ou desc (decrescente).",
+            "description": "Direção da ordenação: `asc` ou `desc` (padrão).",
             "schema": {
               "type": "string",
               "enum": [
@@ -4260,7 +4408,7 @@
                 "desc"
               ]
             },
-            "example": "asc"
+            "example": ""
           }
         ],
         "responses": {
@@ -4368,7 +4516,7 @@
         "tags": [
           "projects"
         ],
-        "description": "Esta rota é normalmente utilizada para campos de autocomplete, e buscas mais simples, pois é uma rota que entrega menos informações que uma busca avançada. Se você estiver buscando encontrar projetos baseado em um conjunto de filtros avançados e específicos, considere usar a busca avançada.\n\nPossui paginação e aceita alguns filtros via query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)"
+        "description": "Esta rota é normalmente utilizada para campos de autocomplete, e buscas mais simples, pois é uma rota que entrega menos informações que uma busca avançada. Se você estiver buscando encontrar projetos baseado em um conjunto de filtros avançados e específicos, considere usar a busca avançada.\n\nPossui paginação e aceita alguns filtros via query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)\n- [Paginação](https://docs.olie.ai/api-reference/general/pagination)"
       },
       "post": {
         "summary": "Criar um projeto",
@@ -4929,77 +5077,49 @@
                 "name": "Nome do projeto",
                 "description": "Descrição detalhada do projeto",
                 "impact": 5,
-                "contact_id": "770e8400-e29b-41d4-a716-446655440001",
-                "customer_id": "880e8400-e29b-41d4-a716-446655440001",
-                "status": 3,
+                "contact_id": null,
+                "customer_id": null,
+                "status": 1,
                 "budget": 25000,
                 "is_template": false,
                 "prefix": "PRJ",
-                "parent_id": "550e8400-e29b-41d4-a716-446655440000",
+                "parent_id": null,
                 "funnels": {
-                  "to_add": [
-                    1,
-                    2,
-                    3
-                  ],
+                  "to_add": [],
                   "to_rem": []
                 },
                 "groups": {
-                  "to_add": [
-                    "550e8400-e29b-41d4-a716-446655440000",
-                    "550e8400-e29b-41d4-a716-446655440001"
-                  ],
-                  "to_rem": [
-                    "550e8400-e29b-41d4-a716-446655440001"
-                  ]
+                  "to_add": [],
+                  "to_rem": []
                 },
                 "tags": {
-                  "to_add": [
-                    1,
-                    2,
-                    3
-                  ],
+                  "to_add": [],
                   "to_rem": []
                 },
                 "users": [
                   {
-                    "user_id": "550e8400-e29b-41d4-a716-446655440000",
+                    "user_id": null,
                     "role": "assignee",
-                    "action": "add"
-                  },
-                  {
-                    "user_id": "550e8400-e29b-41d4-a716-446655440001",
-                    "role": "follower",
                     "action": "add"
                   }
                 ],
                 "childrens": {
-                  "to_add": [
-                    "550e8400-e29b-41d4-a716-446655440002"
-                  ],
+                  "to_add": [],
                   "to_rem": []
                 },
                 "forecast_dates": [
                   {
-                    "date": "2025-06-01",
-                    "project_funnel_id": 4
-                  },
-                  {
-                    "date": "2025-07-15",
-                    "project_funnel_id": 5
+                    "date": "2026-09-01",
+                    "project_funnel_id": null
                   }
                 ],
                 "funnel_status": {
-                  "project_funnel_id": 5,
-                  "funnel_status_id": 2
+                  "project_funnel_id": null,
+                  "funnel_status_id": null
                 },
                 "form_answers": [
                   {
-                    "id": 1,
-                    "answer": "Resposta do campo"
-                  },
-                  {
-                    "id": 2,
+                    "id": null,
                     "answer": "Resposta do campo"
                   }
                 ]
@@ -5016,11 +5136,11 @@
           {
             "name": "withPercentage",
             "in": "query",
-            "description": "Quando `true`, retorna projetos com campos adicionais calculados: percentual de conclusão (`completed_percentage`), contagem de tarefas (`tasks_count`), contagem de tarefas concluídas (`completed_count`), data de término prevista (`expected_finish`) baseada nas predições mais recentes, e informações de matriz (`headquarter`) e filial (`branch`) do cliente.",
+            "description": "`true` acrescenta a cada projeto o percentual de conclusão, a data estimada de término e os dados do cliente.",
             "schema": {
               "type": "boolean"
             },
-            "example": true
+            "example": false
           }
         ],
         "responses": {
@@ -7346,7 +7466,7 @@
         "tags": [
           "projects"
         ],
-        "description": "Retorna uma lista de projetos, com alguns detalhes adicionais.\n\nConsulte:\n\n- [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search)",
+        "description": "Retorna uma lista de projetos, com alguns detalhes adicionais.\n\nConsulte:\n\n- [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search)\n- [Paginação](https://docs.olie.ai/api-reference/general/pagination)",
         "requestBody": {
           "content": {
             "application/json": {
@@ -7425,7 +7545,8 @@
               "example": {
                 "filters": [],
                 "sorting": [],
-                "page": 1
+                "page": 1,
+                "perPage": 30
               }
             }
           }
@@ -8048,11 +8169,11 @@
               },
               "example": {
                 "name": "Nome do projeto",
-                "funnel_step_id": 207,
-                "prefix": "PREFIX",
-                "customer_id": "019c75de-7e5d-726a-8667-a13179dfad68",
-                "contact_id": 123,
-                "from_project_template_id": "019d2617-fa10-73da-91c3-4f096e703eb4"
+                "prefix": "PRJ",
+                "funnel_step_id": null,
+                "customer_id": null,
+                "contact_id": null,
+                "from_project_template_id": null
               }
             }
           }
