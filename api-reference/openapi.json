@@ -382,7 +382,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Lista de conteúdos do projeto retornada com sucesso",
+            "description": "Sucesso",
             "content": {
               "application/json": {
                 "schema": {
@@ -490,49 +490,57 @@
                   }
                 },
                 "example": {
-                  "response": "<boolean>",
+                  "response": true,
                   "meta": {
-                    "current_page": "<integer>",
-                    "from": "<integer>",
-                    "last_page": "<integer>",
-                    "per_page": "<integer>",
-                    "to": "<integer>",
-                    "total": "<integer>"
+                    "current_page": 1,
+                    "from": 1,
+                    "to": 2,
+                    "last_page": 1,
+                    "per_page": 30,
+                    "total": 2
                   },
                   "medias": [
                     {
-                      "id": "<uuid>",
-                      "name": "<string>",
-                      "technical_name": "<string>",
-                      "type": "<integer>",
-                      "extension": "<string>",
-                      "text": "<string>",
-                      "file_url": "<uri>",
-                      "log": "<string>",
-                      "user_id": "<uuid>",
-                      "frame_id": "<uuid>",
-                      "project_id": "<uuid>",
-                      "created_at": "<dateTime>",
-                      "updated_at": "<dateTime>",
-                      "deleted_at": "<dateTime>",
-                      "user": {}
+                      "id": "019e1a44-2f6d-70bb-9d21-64c0a3e91f77",
+                      "name": "proposta-comercial",
+                      "technical_name": "proposta-comercial.019e1a44",
+                      "type": 2,
+                      "extension": "pdf",
+                      "text": null,
+                      "file_url": "https://cdn.olie.ai/frames/projects/proposta-comercial.pdf",
+                      "log": null,
+                      "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                      "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                      "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "created_at": "2026-08-18T14:02:11.000000Z",
+                      "updated_at": "2026-08-18T14:02:11.000000Z",
+                      "deleted_at": null,
+                      "user": {
+                        "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                        "name": "Ana Souza",
+                        "avatar_url": null
+                      }
                     },
                     {
-                      "id": "<uuid>",
-                      "name": "<string>",
-                      "technical_name": "<string>",
-                      "type": "<integer>",
-                      "extension": "<string>",
-                      "text": "<string>",
-                      "file_url": "<uri>",
-                      "log": "<string>",
-                      "user_id": "<uuid>",
-                      "frame_id": "<uuid>",
-                      "project_id": "<uuid>",
-                      "created_at": "<dateTime>",
-                      "updated_at": "<dateTime>",
-                      "deleted_at": "<dateTime>",
-                      "user": {}
+                      "id": "019e1a41-0b8c-71f2-a6c4-1de9f5307a10",
+                      "name": "description.9f2a1c",
+                      "technical_name": "description.9f2a1c",
+                      "type": 1,
+                      "extension": null,
+                      "text": "Cliente aprovou o escopo na reunião de hoje.",
+                      "file_url": null,
+                      "log": null,
+                      "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                      "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                      "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "created_at": "2026-08-18T13:47:35.000000Z",
+                      "updated_at": "2026-08-18T13:47:35.000000Z",
+                      "deleted_at": null,
+                      "user": {
+                        "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                        "name": "Ana Souza",
+                        "avatar_url": null
+                      }
                     }
                   ]
                 }
@@ -561,9 +569,9 @@
                   }
                 },
                 "example": {
-                  "response": "<boolean>",
-                  "message": "<string>",
-                  "error": "<string>"
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
                 }
               }
             }
@@ -744,7 +752,86 @@
         "operationId": "listarTodosOsArquivosAssociadosAUmProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "files": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "extension": {
+                            "type": "string"
+                          },
+                          "file_url": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "type": {
+                            "type": "integer"
+                          },
+                          "technical_name": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "origin": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "files": [
+                    {
+                      "name": "contrato-assinado",
+                      "extension": "pdf",
+                      "file_url": "https://cdn.olie.ai/frames/forms/contrato-assinado.pdf",
+                      "type": 2,
+                      "technical_name": "contrato-assinado",
+                      "created_at": "2026-08-12T09:15:00.000000Z",
+                      "origin": "form_answers"
+                    },
+                    {
+                      "id": "019e1a44-2f6d-70bb-9d21-64c0a3e91f77",
+                      "name": "proposta-comercial",
+                      "technical_name": "proposta-comercial.019e1a44",
+                      "type": 2,
+                      "extension": "pdf",
+                      "text": null,
+                      "file_url": "https://cdn.olie.ai/frames/projects/proposta-comercial.pdf",
+                      "log": null,
+                      "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                      "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                      "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "task_id": null,
+                      "created_at": "2026-08-18T14:02:11.000000Z",
+                      "updated_at": "2026-08-18T14:02:11.000000Z",
+                      "deleted_at": null,
+                      "user": {
+                        "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                        "name": "Ana Souza",
+                        "avatar_url": null
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           }
         }
       },
@@ -773,7 +860,91 @@
         "operationId": "clonarUmProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "project": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "integer"
+                        },
+                        "impact": {
+                          "type": "integer"
+                        },
+                        "budget": {
+                          "type": "integer"
+                        },
+                        "is_template": {
+                          "type": "boolean"
+                        },
+                        "parent_id": {
+                          "nullable": true
+                        },
+                        "customer_id": {
+                          "nullable": true
+                        },
+                        "contact_id": {
+                          "nullable": true
+                        },
+                        "created_by": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "project": {
+                    "id": "019e1c02-77aa-7391-b0d5-5e4a2f8c6b13",
+                    "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                    "code": "SC-14",
+                    "name": "Shopping Center — Fase 2",
+                    "description": "Obra completa do empreendimento",
+                    "status": 1,
+                    "impact": 9,
+                    "budget": 340000,
+                    "is_template": false,
+                    "parent_id": null,
+                    "customer_id": null,
+                    "contact_id": null,
+                    "created_by": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                    "created_at": "2026-08-19T11:20:44.000000Z",
+                    "updated_at": "2026-08-19T11:20:44.000000Z"
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -879,7 +1050,93 @@
         "operationId": "compartilharProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Compartilhamento ativado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "share_token": {
+                          "type": "string"
+                        },
+                        "share_settings": {
+                          "type": "object",
+                          "properties": {
+                            "attributes": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Compartilhamento ativado": {
+                    "value": {
+                      "response": true,
+                      "result": {
+                        "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                        "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                        "code": "SC-1",
+                        "name": "Shopping Center",
+                        "share_token": "hV3q8Zt1LpXk9RbNsA6y",
+                        "share_settings": {
+                          "attributes": [
+                            "name",
+                            "status",
+                            "description",
+                            "funnels"
+                          ]
+                        },
+                        "updated_at": "2026-08-19T11:31:07.000000Z"
+                      }
+                    }
+                  },
+                  "Compartilhamento desativado": {
+                    "value": {
+                      "response": true,
+                      "result": {
+                        "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                        "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                        "code": "SC-1",
+                        "name": "Shopping Center",
+                        "share_token": null,
+                        "share_settings": {
+                          "attributes": []
+                        },
+                        "updated_at": "2026-08-19T11:34:52.000000Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -947,7 +1204,80 @@
         "operationId": "listarTodosOsProjetosFilhosDeUmProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "integer"
+                          },
+                          "parent_id": {
+                            "type": "string"
+                          },
+                          "impact": {
+                            "type": "integer"
+                          },
+                          "budget": {
+                            "type": "integer"
+                          },
+                          "children_count": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    },
+                    "parent": {
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "children": [
+                    {
+                      "id": "019e0f21-4b3c-71a8-8f0e-9c2d5a7b1e40",
+                      "code": "SC-2",
+                      "name": "Fundação",
+                      "status": 1,
+                      "parent_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "impact": 6,
+                      "budget": 120000,
+                      "children_count": 2
+                    },
+                    {
+                      "id": "019e0f22-8c11-7233-b5a1-77d0c9e41a02",
+                      "code": "SC-3",
+                      "name": "Estrutura",
+                      "status": 1,
+                      "parent_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "impact": 7,
+                      "budget": 340000,
+                      "children_count": 0
+                    }
+                  ],
+                  "parent": null
+                }
+              }
+            }
           }
         },
         "parameters": [
@@ -996,7 +1326,149 @@
         "operationId": "listarARvoreCompletaDeHierarquiaDeUmProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "current_project": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "breadcrumb": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "hierarchy_tree": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "integer"
+                              },
+                              "parent_id": {
+                                "nullable": true
+                              },
+                              "level": {
+                                "type": "integer"
+                              },
+                              "is_root": {
+                                "type": "boolean"
+                              },
+                              "is_leaf": {
+                                "type": "boolean"
+                              },
+                              "children_count": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        },
+                        "stats": {
+                          "type": "object",
+                          "properties": {
+                            "level": {
+                              "type": "integer"
+                            },
+                            "depth": {
+                              "type": "integer"
+                            },
+                            "children_count": {
+                              "type": "integer"
+                            },
+                            "descendants_count": {
+                              "type": "integer"
+                            },
+                            "is_root": {
+                              "type": "boolean"
+                            },
+                            "is_leaf": {
+                              "type": "boolean"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "data": {
+                    "current_project": {
+                      "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "name": "Shopping Center",
+                      "breadcrumb": "Shopping Center"
+                    },
+                    "hierarchy_tree": [
+                      {
+                        "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                        "name": "Shopping Center",
+                        "description": "Obra completa do empreendimento",
+                        "status": 1,
+                        "parent_id": null,
+                        "level": 0,
+                        "is_root": true,
+                        "is_leaf": false,
+                        "children_count": 2
+                      },
+                      {
+                        "id": "019e0f21-4b3c-71a8-8f0e-9c2d5a7b1e40",
+                        "name": "Fundação",
+                        "description": "Serviços de fundação",
+                        "status": 1,
+                        "parent_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                        "level": 1,
+                        "is_root": false,
+                        "is_leaf": false,
+                        "children_count": 1
+                      },
+                      {
+                        "id": "019e0f23-1a5e-7460-9c33-2b7f8de10c55",
+                        "name": "Escavação",
+                        "description": null,
+                        "status": 2,
+                        "parent_id": "019e0f21-4b3c-71a8-8f0e-9c2d5a7b1e40",
+                        "level": 2,
+                        "is_root": false,
+                        "is_leaf": true,
+                        "children_count": 0
+                      }
+                    ],
+                    "stats": {
+                      "level": 0,
+                      "depth": 2,
+                      "children_count": 2,
+                      "descendants_count": 3,
+                      "is_root": true,
+                      "is_leaf": false
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -1025,7 +1497,109 @@
         "operationId": "listarEstatSticasDaHierarquiaDeUmProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "project_id": {
+                          "type": "string"
+                        },
+                        "project_name": {
+                          "type": "string"
+                        },
+                        "stats": {
+                          "type": "object",
+                          "properties": {
+                            "level": {
+                              "type": "integer"
+                            },
+                            "depth": {
+                              "type": "integer"
+                            },
+                            "children_count": {
+                              "type": "integer"
+                            },
+                            "descendants_count": {
+                              "type": "integer"
+                            },
+                            "is_root": {
+                              "type": "boolean"
+                            },
+                            "is_leaf": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "siblings_count": {
+                          "type": "integer"
+                        },
+                        "ancestors_count": {
+                          "type": "integer"
+                        },
+                        "hierarchy_breadcrumb": {
+                          "type": "string"
+                        },
+                        "hierarchy": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "data": {
+                    "project_id": "019e0f21-4b3c-71a8-8f0e-9c2d5a7b1e40",
+                    "project_name": "Fundação",
+                    "stats": {
+                      "level": 1,
+                      "depth": 1,
+                      "children_count": 1,
+                      "descendants_count": 1,
+                      "is_root": false,
+                      "is_leaf": false
+                    },
+                    "siblings_count": 1,
+                    "ancestors_count": 1,
+                    "hierarchy_breadcrumb": "Shopping Center > Fundação",
+                    "hierarchy": [
+                      {
+                        "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                        "code": "SC-1",
+                        "name": "Shopping Center"
+                      },
+                      {
+                        "id": "019e0f21-4b3c-71a8-8f0e-9c2d5a7b1e40",
+                        "code": "SC-2",
+                        "name": "Fundação"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -1054,7 +1628,403 @@
         "operationId": "listarAnLisesAgregadasDeTodosOsProjetosDescendentes",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "budget": {
+                          "type": "object",
+                          "properties": {
+                            "total_budget": {
+                              "type": "integer"
+                            },
+                            "average_budget": {
+                              "type": "integer"
+                            },
+                            "budget_distribution": {
+                              "type": "object",
+                              "properties": {
+                                "120000": {
+                                  "type": "integer"
+                                },
+                                "340000": {
+                                  "type": "integer"
+                                }
+                              }
+                            },
+                            "projects_with_budget": {
+                              "type": "integer"
+                            },
+                            "projects_without_budget": {
+                              "type": "integer"
+                            },
+                            "budget_range": {
+                              "type": "object",
+                              "properties": {
+                                "min": {
+                                  "type": "integer"
+                                },
+                                "max": {
+                                  "type": "integer"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "funnels": {
+                          "type": "object",
+                          "properties": {
+                            "total_funnels": {
+                              "type": "integer"
+                            },
+                            "average_funnels_per_project": {
+                              "type": "number"
+                            },
+                            "funnels_per_project": {
+                              "type": "object",
+                              "properties": {
+                                "019e0f21-4b3c-71a8-8f0e-9c2d5a7b1e40": {
+                                  "type": "integer"
+                                }
+                              }
+                            },
+                            "projects_per_step": {
+                              "type": "object",
+                              "properties": {
+                                "181": {
+                                  "type": "integer"
+                                }
+                              }
+                            },
+                            "projects_with_funnels": {
+                              "type": "integer"
+                            },
+                            "projects_without_funnels": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "users": {
+                          "type": "object",
+                          "properties": {
+                            "total_users": {
+                              "type": "integer"
+                            },
+                            "total_user_assignments": {
+                              "type": "integer"
+                            },
+                            "average_users_per_project": {
+                              "type": "integer"
+                            },
+                            "users_by_role": {
+                              "type": "object",
+                              "properties": {
+                                "assignee": {
+                                  "type": "integer"
+                                },
+                                "follower": {
+                                  "type": "integer"
+                                }
+                              }
+                            },
+                            "users_per_project": {
+                              "type": "object",
+                              "properties": {
+                                "019e0f21-4b3c-71a8-8f0e-9c2d5a7b1e40": {
+                                  "type": "integer"
+                                }
+                              }
+                            },
+                            "projects_with_users": {
+                              "type": "integer"
+                            },
+                            "projects_without_users": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "status": {
+                          "type": "object",
+                          "properties": {
+                            "by_status": {
+                              "type": "object",
+                              "properties": {
+                                "1": {
+                                  "type": "integer"
+                                },
+                                "2": {
+                                  "type": "integer"
+                                }
+                              }
+                            },
+                            "total_projects": {
+                              "type": "integer"
+                            },
+                            "status_distribution_percentage": {
+                              "type": "object",
+                              "properties": {
+                                "1": {
+                                  "type": "number"
+                                },
+                                "2": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "impact": {
+                          "type": "object",
+                          "properties": {
+                            "by_impact": {
+                              "type": "object",
+                              "properties": {
+                                "6": {
+                                  "type": "integer"
+                                },
+                                "7": {
+                                  "type": "integer"
+                                },
+                                "9": {
+                                  "type": "integer"
+                                }
+                              }
+                            },
+                            "average_impact": {
+                              "type": "number"
+                            },
+                            "impact_range": {
+                              "type": "object",
+                              "properties": {
+                                "min": {
+                                  "type": "integer"
+                                },
+                                "max": {
+                                  "type": "integer"
+                                }
+                              }
+                            },
+                            "high_impact_projects": {
+                              "type": "integer"
+                            },
+                            "medium_impact_projects": {
+                              "type": "integer"
+                            },
+                            "low_impact_projects": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "hierarchy": {
+                          "type": "object",
+                          "properties": {
+                            "total_levels": {
+                              "type": "integer"
+                            },
+                            "level_distribution": {
+                              "type": "object",
+                              "properties": {
+                                "1": {
+                                  "type": "integer"
+                                },
+                                "2": {
+                                  "type": "integer"
+                                }
+                              }
+                            },
+                            "leaf_projects": {
+                              "type": "integer"
+                            },
+                            "branch_projects": {
+                              "type": "integer"
+                            },
+                            "branch_to_leaf_ratio": {
+                              "type": "number"
+                            },
+                            "average_children_per_branch": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "timeline": {
+                          "type": "object",
+                          "properties": {
+                            "recent_projects": {
+                              "type": "object",
+                              "properties": {
+                                "last_30_days": {
+                                  "type": "integer"
+                                },
+                                "last_90_days": {
+                                  "type": "integer"
+                                },
+                                "last_365_days": {
+                                  "type": "integer"
+                                }
+                              }
+                            },
+                            "recently_updated": {
+                              "type": "integer"
+                            },
+                            "monthly_creation_trend": {
+                              "type": "object",
+                              "properties": {
+                                "2026-06": {
+                                  "type": "integer"
+                                },
+                                "2026-07": {
+                                  "type": "integer"
+                                },
+                                "2026-08": {
+                                  "type": "integer"
+                                }
+                              }
+                            },
+                            "oldest_project_age_days": {
+                              "type": "integer"
+                            },
+                            "newest_project_age_days": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "data": {
+                    "budget": {
+                      "total_budget": 460000,
+                      "average_budget": 230000,
+                      "budget_distribution": {
+                        "120000": 1,
+                        "340000": 1
+                      },
+                      "projects_with_budget": 2,
+                      "projects_without_budget": 1,
+                      "budget_range": {
+                        "min": 0,
+                        "max": 340000
+                      }
+                    },
+                    "funnels": {
+                      "total_funnels": 1,
+                      "average_funnels_per_project": 0.67,
+                      "funnels_per_project": {
+                        "019e0f21-4b3c-71a8-8f0e-9c2d5a7b1e40": 1
+                      },
+                      "projects_per_step": {
+                        "181": 1
+                      },
+                      "projects_with_funnels": 1,
+                      "projects_without_funnels": 2
+                    },
+                    "users": {
+                      "total_users": 2,
+                      "total_user_assignments": 3,
+                      "average_users_per_project": 1,
+                      "users_by_role": {
+                        "assignee": 2,
+                        "follower": 1
+                      },
+                      "users_per_project": {
+                        "019e0f21-4b3c-71a8-8f0e-9c2d5a7b1e40": 2
+                      },
+                      "projects_with_users": 2,
+                      "projects_without_users": 1
+                    },
+                    "status": {
+                      "by_status": {
+                        "1": 2,
+                        "2": 1
+                      },
+                      "total_projects": 3,
+                      "status_distribution_percentage": {
+                        "1": 66.67,
+                        "2": 33.33
+                      }
+                    },
+                    "impact": {
+                      "by_impact": {
+                        "6": 1,
+                        "7": 1,
+                        "9": 1
+                      },
+                      "average_impact": 7.33,
+                      "impact_range": {
+                        "min": 6,
+                        "max": 9
+                      },
+                      "high_impact_projects": 1,
+                      "medium_impact_projects": 2,
+                      "low_impact_projects": 0
+                    },
+                    "hierarchy": {
+                      "total_levels": 2,
+                      "level_distribution": {
+                        "1": 2,
+                        "2": 1
+                      },
+                      "leaf_projects": 2,
+                      "branch_projects": 1,
+                      "branch_to_leaf_ratio": 0.5,
+                      "average_children_per_branch": 1
+                    },
+                    "timeline": {
+                      "recent_projects": {
+                        "last_30_days": 1,
+                        "last_90_days": 2,
+                        "last_365_days": 3
+                      },
+                      "recently_updated": 2,
+                      "monthly_creation_trend": {
+                        "2026-06": 1,
+                        "2026-07": 1,
+                        "2026-08": 1
+                      },
+                      "oldest_project_age_days": 74,
+                      "newest_project_age_days": 3
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Projeto sem descendentes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "no_descendants_for_analytics",
+                  "error": "No descendants found for project"
+                }
+              }
+            }
           }
         }
       },
@@ -1083,7 +2053,90 @@
         "operationId": "vincularProjetoComoFilhoDeOutroProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "parent": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "child": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "new_hierarchy_breadcrumb": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "data": {
+                    "parent": {
+                      "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "name": "Shopping Center"
+                    },
+                    "child": {
+                      "id": "019e0f21-4b3c-71a8-8f0e-9c2d5a7b1e40",
+                      "name": "Fundação"
+                    },
+                    "new_hierarchy_breadcrumb": "Shopping Center > Fundação"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Vínculo inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string",
+                      "format": "style"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "invalid_parent_child_relationship",
+                  "error": "Cannot attach child: would create invalid hierarchy (loop, depth limit, or self-reference)"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -1129,7 +2182,89 @@
         "operationId": "removerARelaODeHierarquiaEntreUmProjetoPaiESeuProjetoFilho",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "former_parent": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "detached_child": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "is_root": {
+                              "type": "boolean"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "data": {
+                    "former_parent": {
+                      "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "name": "Shopping Center"
+                    },
+                    "detached_child": {
+                      "id": "019e0f21-4b3c-71a8-8f0e-9c2d5a7b1e40",
+                      "name": "Fundação",
+                      "is_root": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Projeto não é filho deste pai",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "invalid_parent_child_relationship",
+                  "error": "The specified project is not a child of this project"
+                }
+              }
+            }
           }
         }
       },
@@ -1167,7 +2302,82 @@
         "operationId": "moverUmProjetoParaSerFilhoDeOutroProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "project": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "old_parent": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "new_parent": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "new_hierarchy_breadcrumb": {
+                          "type": "string"
+                        },
+                        "is_root": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "data": {
+                    "project": {
+                      "id": "019e0f21-4b3c-71a8-8f0e-9c2d5a7b1e40",
+                      "name": "Fundação"
+                    },
+                    "old_parent": {
+                      "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "name": "Shopping Center"
+                    },
+                    "new_parent": {
+                      "id": "019e0f22-8c11-7233-b5a1-77d0c9e41a02",
+                      "name": "Estrutura"
+                    },
+                    "new_hierarchy_breadcrumb": "Shopping Center > Estrutura > Fundação",
+                    "is_root": false
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -1213,7 +2423,85 @@
         "operationId": "removerUmProjetoDeSuaHierarquiaAtual",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "project": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "is_root": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "former_parent": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "data": {
+                    "project": {
+                      "id": "019e0f21-4b3c-71a8-8f0e-9c2d5a7b1e40",
+                      "name": "Fundação",
+                      "is_root": true
+                    },
+                    "former_parent": {
+                      "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "name": "Shopping Center"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Projeto já é raiz",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "Project is already at root level"
+                }
+              }
+            }
           }
         }
       },
@@ -3882,7 +5170,121 @@
         "operationId": "mesclarProjetos",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "project": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "integer"
+                        },
+                        "impact": {
+                          "type": "integer"
+                        },
+                        "budget": {
+                          "type": "integer"
+                        },
+                        "merged_id": {
+                          "nullable": true
+                        },
+                        "created_by": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "project": {
+                    "id": "019e1c19-3b40-7002-8a71-0f6d2c94e5aa",
+                    "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                    "code": "SC-15",
+                    "name": "Shopping Center",
+                    "description": "Obra completa do empreendimento",
+                    "status": 1,
+                    "impact": 9,
+                    "budget": 340000,
+                    "merged_id": null,
+                    "created_by": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                    "created_at": "2026-08-19T11:40:02.000000Z",
+                    "updated_at": "2026-08-19T11:40:02.000000Z"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Projetos insuficientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "projects": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "You must select at least 2 projects",
+                  "validation": {
+                    "projects": [
+                      "You must select at least 2 projects"
+                    ]
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -3920,7 +5322,33 @@
         "operationId": "listarIdsDeProjetos",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "project_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "project_ids": [
+                    "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                    "019e0f22-8c11-7233-b5a1-77d0c9e41a02",
+                    "019e0f23-1a5e-7460-9c33-2b7f8de10c55"
+                  ]
+                }
+              }
+            }
           }
         },
         "requestBody": {
