@@ -10681,8 +10681,7 @@
         },
         "tags": [
           "funnel-steps",
-          "{funnel_step_id}",
-          "projects"
+          "Movimentação de projetos"
         ],
         "description": "Vincula um projeto a uma etapa do funil",
         "requestBody": {
@@ -10738,7 +10737,7 @@
       "post": {
         "tags": [
           "funnel-steps",
-          "project-bulk-step-move"
+          "Movimentação de projetos"
         ],
         "summary": "Mover múltiplos projetos de etapa",
         "description": "Mover múltiplos projetos de etapa em uma única operação.",
@@ -10754,7 +10753,7 @@
       "get": {
         "tags": [
           "funnel-steps",
-          "get-available-steps"
+          "Etapas"
         ],
         "summary": "Listar etapas disponíveis",
         "description": "Listar todas as etapas disponíveis para associação com projetos.",
@@ -10770,7 +10769,7 @@
       "post": {
         "tags": [
           "funnel-steps",
-          "unlink-project-from-funnel-step"
+          "Movimentação de projetos"
         ],
         "summary": "Desvincular um projeto da etapa do funil",
         "description": "Desvincula um projeto de uma etapa específica do funil, removendo o card daquela etapa. Só é possível quando o projeto está vinculado a mais de uma etapa do mesmo funil: se aquela for a única, a operação é recusada. A desvinculação fica registrada no histórico de atividades do projeto.",
@@ -10927,7 +10926,7 @@
       "post": {
         "tags": [
           "funnel-steps",
-          "get-step-data"
+          "Etapas"
         ],
         "summary": "Obter dados da etapa",
         "description": "Obter dados e informações de uma etapa específica.",
@@ -10943,7 +10942,7 @@
       "get": {
         "tags": [
           "funnel-steps",
-          "get-step-attachments"
+          "Anexos"
         ],
         "summary": "Obter anexos da etapa",
         "description": "Obter todos os anexos associados a uma etapa específica.",
@@ -10959,7 +10958,7 @@
       "post": {
         "tags": [
           "funnel-steps",
-          "update-required-step-attachment"
+          "Anexos"
         ],
         "summary": "Atualizar vídeo obrigatório da etapa",
         "description": "Atualizar a configuração de vídeo obrigatório de uma etapa.",
@@ -10975,7 +10974,7 @@
       "get": {
         "tags": [
           "funnel-steps",
-          "metrics"
+          "Etapas"
         ],
         "summary": "Obter métricas da etapa",
         "description": "Obter métricas e estatísticas de uma etapa específica.",
