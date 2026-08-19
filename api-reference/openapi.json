@@ -321,12 +321,12 @@
           "name": "id",
           "in": "path",
           "required": true,
-          "description": "ID do projeto",
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string",
             "format": "uuid"
           },
-          "example": "78886ebc-716d-e628-c18d-da3f5bddb068"
+          "example": "{{project_id}}"
         }
       ],
       "post": {
@@ -584,8 +584,8 @@
           "{id}",
           "step-metrics"
         ],
-        "summary": "Obter métricas computadas das etapas de um projeto específico no funil",
-        "description": "Obter métricas computadas das etapas de um projeto específico no funil",
+        "summary": "Obter métricas de etapas do projeto",
+        "description": "Retorna, para cada etapa dos funis em que o projeto está cadastrado, o tempo que ele já passou ali — a soma de todas as passagens encerradas, em segundos. Passagens ainda em curso não entram na conta, e etapas por onde o projeto nunca passou vêm com zero.\n\nPara as métricas do funil como um todo, veja [Métricas do funil](https://docs.olie.ai/guides/funnels/metrics).",
         "operationId": "obterMTricasComputadasDasEtapasDeUmProjetoEspecFicoNoFunil",
         "responses": {
           "200": {
@@ -724,6 +724,7 @@
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
@@ -941,20 +942,41 @@
           "{id}",
           "hierarchy"
         ],
-        "summary": "Listar todos os projetos filhos de um projeto",
-        "description": "Retorna todos os projetos filhos de um projeto específico, incluindo informações sobre o projeto pai. Suporta filtros para projetos excluídos e templates.",
+        "summary": "Listar os filhos de um projeto",
+        "description": "Retorna os projetos filhos diretos de um projeto, cada um com a contagem dos próprios filhos, e também o projeto pai do projeto consultado (quando houver). Não desce além do primeiro nível — para a árvore inteira, use a rota de árvore da hierarquia.\n\nConceitos e regras em [Hierarquia de projetos](https://docs.olie.ai/guides/projects/project-hierarchy).",
         "operationId": "listarTodosOsProjetosFilhosDeUmProjeto",
         "responses": {
           "200": {
             "description": "200"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "trashed",
+            "in": "query",
+            "description": "`true` considera também os projetos na lixeira.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "template",
+            "in": "query",
+            "description": "`true` considera os modelos de projeto.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       },
       "parameters": [
         {
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
@@ -969,8 +991,8 @@
           "{id}",
           "hierarchy"
         ],
-        "summary": "Listar a árvore completa da hierarquia de um projeto",
-        "description": "Retorna a árvore completa de hierarquia de um projeto, incluindo todos os descendentes, estatísticas da hierarquia e breadcrumb do projeto atual.",
+        "summary": "Obter a árvore da hierarquia",
+        "description": "Retorna a árvore completa a partir do projeto informado — filhos, netos e bisnetos — com o nível de cada um, se é raiz ou folha, as estatísticas da estrutura e o caminho (breadcrumb) até o projeto atual.\n\nA plataforma permite até quatro níveis de profundidade; veja [Hierarquia de projetos](https://docs.olie.ai/guides/projects/project-hierarchy).",
         "operationId": "listarARvoreCompletaDeHierarquiaDeUmProjeto",
         "responses": {
           "200": {
@@ -983,6 +1005,7 @@
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
@@ -997,8 +1020,8 @@
           "{id}",
           "hierarchy"
         ],
-        "summary": "Listar estatísticas da hierarquia de um projeto",
-        "description": "Retorna estatísticas detalhadas da hierarquia de um projeto, incluindo contagem de irmãos, ancestrais e informações sobre a estrutura hierárquica.",
+        "summary": "Obter estatísticas da hierarquia",
+        "description": "Retorna os números da posição do projeto na estrutura: quantidade de irmãos e de ancestrais, estatísticas da árvore, o caminho até o projeto e a hierarquia a que ele pertence.\n\nConceitos e regras em [Hierarquia de projetos](https://docs.olie.ai/guides/projects/project-hierarchy).",
         "operationId": "listarEstatSticasDaHierarquiaDeUmProjeto",
         "responses": {
           "200": {
@@ -1011,6 +1034,7 @@
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
@@ -1025,8 +1049,8 @@
           "{id}",
           "hierarchy"
         ],
-        "summary": "Listar análises agregadas de todos os projetos descendentes",
-        "description": "Retorna análises agregadas de todos os projetos descendentes.",
+        "summary": "Obter análises dos descendentes",
+        "description": "Consolida em um único retorno os números de todos os projetos abaixo do projeto informado — financeiro, tarefas, funis e pessoas envolvidas — para uma visão macro da estrutura.\n\nProjetos sem nenhum descendente respondem com erro, já que não há o que consolidar.",
         "operationId": "listarAnLisesAgregadasDeTodosOsProjetosDescendentes",
         "responses": {
           "200": {
@@ -1039,6 +1063,7 @@
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
@@ -1053,12 +1078,29 @@
           "{id}",
           "hierarchy"
         ],
-        "summary": "Vincular um projeto como filho de outro projeto",
-        "description": "Vincula um projeto como filho de outro projeto, criando uma relação de hierarquia pai-filho.",
+        "summary": "Vincular um projeto filho",
+        "description": "Torna um projeto existente filho direto do projeto informado. O vínculo é recusado quando criaria um ciclo, quando o projeto seria pai de si mesmo ou quando ultrapassaria o limite de quatro níveis de profundidade.\n\nRegras completas em [Hierarquia de projetos](https://docs.olie.ai/guides/projects/project-hierarchy).",
         "operationId": "vincularProjetoComoFilhoDeOutroProjeto",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "child_id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "child_id": null
+              }
+            }
           }
         }
       },
@@ -1067,7 +1109,7 @@
           "name": "project",
           "in": "path",
           "required": true,
-          "description": "ID do projeto que será pai",
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
@@ -1082,8 +1124,8 @@
           "{id}",
           "hierarchy"
         ],
-        "summary": "Remover a relação de hierarquia entre um projeto pai e seu projeto filho",
-        "description": "Remove a relação de hierarquia entre um projeto pai e seu projeto filho, promovendo o filho para o nível raiz.",
+        "summary": "Desvincular um projeto filho",
+        "description": "Desfaz o vínculo entre um projeto pai e um de seus filhos diretos. O projeto desvinculado passa a ser raiz e mantém a própria descendência intacta. Se o projeto informado não for filho direto daquele pai, a operação é recusada.",
         "operationId": "removerARelaODeHierarquiaEntreUmProjetoPaiESeuProjetoFilho",
         "responses": {
           "200": {
@@ -1096,6 +1138,7 @@
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
@@ -1105,10 +1148,11 @@
           "name": "child",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto filho a desvincular.",
           "schema": {
             "type": "string"
           },
-          "example": "{{child_project_Id}}"
+          "example": ""
         }
       ]
     },
@@ -1118,12 +1162,29 @@
           "projects",
           "{id}"
         ],
-        "summary": "Mover um projeto para ser filho de outro projeto",
-        "description": "Move um projeto para ser filho de outro projeto, alterando sua posição na hierarquia.",
+        "summary": "Mover um projeto para outro pai",
+        "description": "Muda o projeto de lugar na estrutura, colocando-o sob outro pai. Enviar `new_parent_id` como `null` promove o projeto a raiz.\n\nA movimentação é recusada quando criaria um ciclo ou quando a subárvore do projeto ultrapassaria o limite de quatro níveis de profundidade — veja [Hierarquia de projetos](https://docs.olie.ai/guides/projects/project-hierarchy).",
         "operationId": "moverUmProjetoParaSerFilhoDeOutroProjeto",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "new_parent_id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "new_parent_id": null
+              }
+            }
           }
         }
       },
@@ -1132,10 +1193,11 @@
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": "{{project_id}}"
         }
       ]
     },
@@ -1146,8 +1208,8 @@
           "{id}",
           "hierarchy"
         ],
-        "summary": "Remover um projeto de sua hierarquia atual",
-        "description": "Remove um projeto de sua hierarquia atual, promovendo-o para o nível raiz (sem projeto pai).",
+        "summary": "Promover um projeto a raiz",
+        "description": "Desliga o projeto de seu pai, deixando-o como raiz de uma nova estrutura. Os filhos do projeto acompanham a mudança e mantêm as posições relativas entre si. Projetos que já são raiz respondem com erro.",
         "operationId": "removerUmProjetoDeSuaHierarquiaAtual",
         "responses": {
           "200": {
@@ -1160,6 +1222,7 @@
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
@@ -1516,6 +1579,7 @@
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
@@ -1652,6 +1716,7 @@
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
@@ -1661,6 +1726,7 @@
           "name": "loose_checklist",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do item de checklist avulso.",
           "schema": {
             "type": "string"
           },
@@ -1675,8 +1741,8 @@
           "{id}",
           "loose-forms"
         ],
-        "summary": "Listar formulários avulsos associados a um projeto",
-        "description": "Retorna todos os formulários avulsos associados a um projeto específico, incluindo informações do formulário relacionado.",
+        "summary": "Listar formulários avulsos do projeto",
+        "description": "Retorna os formulários avulsos vinculados ao projeto, cada um acompanhado da definição do formulário correspondente. Formulários avulsos são anexados ao projeto sob demanda, sem depender da etapa em que ele está.",
         "operationId": "listarFormulRiosAvulsosAssociadosAUmProjeto",
         "responses": {
           "200": {
@@ -1690,12 +1756,29 @@
           "{id}",
           "loose-forms"
         ],
-        "summary": "Vincular um formulário avulso a um projeto",
-        "description": "Vincular um formulário avulso a um projeto",
+        "summary": "Vincular um formulário avulso",
+        "description": "Anexa um formulário existente ao projeto como formulário avulso, deixando-o disponível para resposta independentemente da etapa. O mesmo formulário pode ser anexado mais de uma vez, gerando vínculos distintos.",
         "operationId": "vinculaUmFormulRioAvulsoAUmProjeto",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "id": null
+              }
+            }
           }
         }
       },
@@ -1704,10 +1787,11 @@
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": "{{project_id}}"
         }
       ]
     },
@@ -1718,8 +1802,8 @@
           "{id}",
           "loose-forms"
         ],
-        "summary": "Desvincular um formulário avulso de um projeto",
-        "description": "Desvincular um formulário avulso de um projeto",
+        "summary": "Desvincular um formulário avulso",
+        "description": "Remove o vínculo entre o projeto e um formulário avulso. O formulário em si continua existindo e pode ser anexado novamente.",
         "operationId": "desvinculaUmFormulRioAvulsoDeUmProjeto",
         "responses": {
           "200": {
@@ -1732,19 +1816,21 @@
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": "{{project_id}}"
         },
         {
           "name": "loose_form",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do vínculo do formulário avulso com o projeto.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -3863,12 +3949,54 @@
           "projects",
           "get-projects-by-forecast-dates"
         ],
-        "summary": "Obter projetos por datas de previsão",
-        "description": "Obter projetos filtrados por datas de previsão específicas.",
+        "summary": "Listar projetos por data de previsão",
+        "description": "Agrupa os projetos de um funil pelos meses de previsão informados. Para cada par ano/mês a resposta traz os projetos com data prevista naquele mês, a contagem e a soma dos orçamentos — é o que alimenta a visão de calendário do funil.\n\nAceita os mesmos filtros da [busca avançada](https://docs.olie.ai/api-reference/general/advanced-search), aplicados a todos os meses da consulta.",
         "operationId": "obterProjetosPorDatasDePrevisO",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "project_funnel_id": {
+                    "nullable": true
+                  },
+                  "dates": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "year": {
+                          "type": "integer"
+                        },
+                        "month": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  },
+                  "filters": {
+                    "type": "array",
+                    "items": {}
+                  }
+                }
+              },
+              "example": {
+                "project_funnel_id": null,
+                "dates": [
+                  {
+                    "year": 2026,
+                    "month": 9
+                  }
+                ],
+                "filters": []
+              }
+            }
           }
         }
       }
@@ -23463,7 +23591,7 @@
     },
     "/api/management/projects/{project}/project-executions": {
       "get": {
-        "summary": "Listar execuções de projeto",
+        "summary": "Listar execuções de um projeto",
         "responses": {
           "200": {
             "description": "200"
@@ -23476,52 +23604,89 @@
         ],
         "parameters": [
           {
+            "name": "page",
+            "in": "query",
+            "description": "Página desejada. Padrão `1`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "Itens por página. Padrão `30`, máximo `100`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
             "name": "filter[user_id]",
             "in": "query",
-            "description": "Filtra pelo ID do usuário",
+            "description": "ID (UUID) do usuário dono das execuções.",
             "schema": {
               "type": "string",
               "format": "uuid"
             },
-            "example": "78886ebc-716d-e628-c18d-da3f5bddb068"
+            "example": ""
           },
           {
             "name": "filter[funnel_step_id]",
             "in": "query",
-            "description": "Filtra pelo ID da etapa da execução",
+            "description": "ID da etapa do funil em que a execução ocorreu.",
             "schema": {
               "type": "integer"
             },
-            "example": 8017
+            "example": 0
           },
           {
             "name": "filter[start_date_gt]",
             "in": "query",
-            "description": "Filtra execuções que começaram depois da data usada no filtro",
+            "description": "Retorna execuções iniciadas nesta data ou depois dela.",
             "schema": {
               "type": "string",
               "format": "date-time"
             },
-            "example": "2014-02-07T22:04:31.151Z"
+            "example": ""
           },
           {
             "name": "filter[end_date_lt]",
             "in": "query",
-            "description": "Filtra execuções que começaram antes da data usada no filtro",
+            "description": "Retorna execuções encerradas nesta data ou antes dela.",
             "schema": {
               "type": "string",
               "format": "date-time"
             },
-            "example": "2014-02-07T22:04:31.151Z"
+            "example": ""
+          },
+          {
+            "name": "filter[is_running]",
+            "in": "query",
+            "description": "`true` retorna apenas as execuções em andamento; `false`, apenas as encerradas.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Ordenação por `started_at` ou `finished_at`. Use `-` antes do campo para ordem decrescente.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
           }
-        ]
+        ],
+        "description": "Lista as execuções registradas em um projeto, com paginação. Aceita recortes por pessoa, por etapa e por período, e ordenação por início ou término.\n\nConsulte [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters) e [Paginação](https://docs.olie.ai/api-reference/general/pagination)."
       },
       "parameters": [
         {
           "name": "project",
           "in": "path",
           "required": true,
-          "description": "ID do projeto",
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
@@ -23529,7 +23694,7 @@
         }
       ],
       "post": {
-        "summary": "Lançar execução de projeto",
+        "summary": "Iniciar uma execução",
         "responses": {
           "200": {
             "description": "200"
@@ -23550,12 +23715,30 @@
             },
             "example": "string"
           }
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "funnel_step_id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "funnel_step_id": null
+              }
+            }
+          }
+        },
+        "description": "Inicia a contagem de tempo do usuário autenticado no projeto, na etapa informada. Qualquer execução que ele tenha em andamento é encerrada automaticamente antes; se já houver uma execução rodando naquela mesma etapa, ela é devolvida sem que uma nova seja criada.\n\nO projeto precisa estar na etapa indicada, e tanto o funil quanto a etapa precisam permitir execução — veja [Permitir execução](https://docs.olie.ai/guides/funnels/creating-funnels). Tokens de aplicação não podem iniciar execuções."
       }
     },
     "/api/management/projects/{project_id}/project-executions/{project_execution_id}": {
       "put": {
-        "summary": "Atualizar execução de projeto",
+        "summary": "Atualizar uma execução",
         "responses": {
           "200": {
             "description": "200"
@@ -23565,13 +23748,40 @@
           "projects",
           "{id}",
           "project-execution"
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "started_at": {
+                    "nullable": true
+                  },
+                  "finished_at": {
+                    "nullable": true
+                  },
+                  "finish_now": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "example": {
+                "started_at": null,
+                "finished_at": null,
+                "finish_now": false
+              }
+            }
+          }
+        },
+        "description": "Ajusta os horários de uma execução ou a encerra imediatamente. Envie `finish_now` como `true` para parar a contagem agora — nesse caso `started_at` e `finished_at` não podem ser enviados.\n\nCorrigir horários exige permissão de edição da execução, enquanto encerrar a própria contagem não. Tokens de aplicação não podem atualizar execuções."
       },
       "parameters": [
         {
           "name": "project_id",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
@@ -23581,16 +23791,27 @@
           "name": "project_execution_id",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) da execução.",
           "schema": {
             "type": "string"
           },
-          "example": "a11073b8-e458-415d-94d0-c5b9fe8b9fb6"
+          "example": ""
         }
-      ]
+      ],
+      "delete": {
+        "summary": "Remover uma execução",
+        "responses": {},
+        "tags": [
+          "projects",
+          "{id}",
+          "project-execution"
+        ],
+        "description": "Apaga um registro de execução do projeto. O tempo deixa de contar nos totais do painel e nos relatórios. Exige permissão de edição da execução."
+      }
     },
     "/api/management/project-executions/me": {
       "get": {
-        "summary": "Minhas execuções",
+        "summary": "Obter minhas execuções",
         "responses": {
           "200": {
             "description": "Sucesso",
@@ -23986,12 +24207,33 @@
           "projects",
           "{id}",
           "project-execution"
-        ]
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Início do período (data ou data-hora). Padrão: começo do dia de hoje.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "Fim do período. Padrão: fim do dia de hoje. No máximo 30 dias após `start_date`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ],
+        "description": "Retorna o panorama de execuções do usuário autenticado: a execução em andamento (se houver), as execuções recentes e os tempos acumulados no período — total trabalhado, tempo ocioso e tempo no projeto e na etapa atuais.\n\nO período padrão é o dia de hoje e não pode passar de 30 dias. Quem não tem acesso aos cronômetros recebe os tempos como `null` e `hidden_timers` igual a `true`."
       }
     },
     "/api/management/projects/{project}/project-executions/dashboard": {
       "get": {
-        "summary": "Métricas sobre as execuções",
+        "summary": "Obter o painel de execuções do projeto",
         "responses": {
           "200": {
             "description": "200"
@@ -24001,14 +24243,15 @@
           "projects",
           "{id}",
           "project-execution"
-        ]
+        ],
+        "description": "Consolida o tempo trabalhado no projeto: total investido, número de sessões, duração média, distribuição por funil e etapa e o ranking de pessoas por tempo — indicando quem está executando no momento. Todos os tempos são em segundos."
       },
       "parameters": [
         {
           "name": "project",
           "in": "path",
           "required": true,
-          "description": "ID do projeto",
+          "description": "ID (UUID) do projeto.",
           "schema": {
             "type": "string"
           },
@@ -24097,7 +24340,7 @@
     },
     "/api/management/project-executions/{project_execution_id}": {
       "get": {
-        "summary": "Obter execução de projeto",
+        "summary": "Obter uma execução",
         "responses": {
           "200": {
             "description": "Sucesso",
@@ -24493,9 +24736,20 @@
           "projects",
           "{id}",
           "project-execution"
-        ]
+        ],
+        "description": "Retorna uma execução específica com o projeto, a etapa do funil e o usuário relacionados. O valor hora só aparece para quem tem acesso a custos."
       },
       "parameters": [
+        {
+          "name": "project_execution_id",
+          "in": "path",
+          "required": true,
+          "description": "ID (UUID) da execução.",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        },
         {
           "name": "project_execution_id",
           "in": "path",
