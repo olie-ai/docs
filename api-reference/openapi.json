@@ -64,13 +64,36 @@
             }
           },
           "404": {
-            "description": "Não encontrado"
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string",
+                      "format": "style"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "project_model_not_found",
+                  "error": "No query results for model [App\\Models\\Project] :id"
+                }
+              }
+            }
           }
         },
         "tags": [
           "projects",
-          "{id}",
-          "restore"
+          "Projetos"
         ],
         "description": "Restaura um projeto que foi deletado, devolvendo-o às listagens com todos os vínculos que tinha."
       },
@@ -579,8 +602,7 @@
         },
         "tags": [
           "projects",
-          "{id}",
-          "medias"
+          "Conteúdos e arquivos"
         ],
         "description": "Lista os conteúdos de um projeto — textos, arquivos, áudios e registros de atividade — do mais recente para o mais antigo, com paginação.\n\nSem `channel_id`, apenas os conteúdos internos são retornados; informe o ID de um canal para ver a conversa trocada por ele. Consulte [Paginação](https://docs.olie.ai/api-reference/general/pagination)."
       }
@@ -589,8 +611,7 @@
       "get": {
         "tags": [
           "projects",
-          "{id}",
-          "step-metrics"
+          "Métricas e previsão"
         ],
         "summary": "Obter métricas de etapas do projeto",
         "description": "Retorna, para cada etapa dos funis em que o projeto está cadastrado, o tempo que ele já passou ali — a soma de todas as passagens encerradas, em segundos. Passagens ainda em curso não entram na conta, e etapas por onde o projeto nunca passou vêm com zero.\n\nPara as métricas do funil como um todo, veja [Métricas do funil](https://docs.olie.ai/guides/funnels/metrics).",
@@ -744,8 +765,7 @@
       "get": {
         "tags": [
           "projects",
-          "{id}",
-          "files"
+          "Conteúdos e arquivos"
         ],
         "summary": "Listar arquivos do projeto",
         "description": "Retorna todos os arquivos ligados ao projeto em um único conjunto: os enviados como conteúdo (no próprio projeto ou em suas tarefas) e os anexados em respostas de formulários. Não tem paginação.",
@@ -852,8 +872,7 @@
       "post": {
         "tags": [
           "projects",
-          "{id}",
-          "clone"
+          "Cópia e compartilhamento"
         ],
         "summary": "Clonar um projeto",
         "description": "Cria uma cópia de um projeto existente. Cada parte do projeto é copiada de forma independente: cliente, funis, etiquetas, checklists, respostas de formulários, conteúdos, fórum, grupos e responsáveis só entram no clone quando a opção correspondente é enviada como `true`.\n\nQuem só pode criar projetos a partir de modelos não escolhe as opções: nesse caso o clone é sempre completo, com todas as partes copiadas.",
@@ -1042,8 +1061,7 @@
       "post": {
         "tags": [
           "projects",
-          "{id}",
-          "share"
+          "Cópia e compartilhamento"
         ],
         "summary": "Compartilhar um projeto",
         "description": "Liga ou desliga o compartilhamento público de um projeto e define o que o link exibe. Ao ligar, um token de compartilhamento é gerado (ou reaproveitado, se já existir); ao desligar, o token é descartado e o link deixa de funcionar.\n\nUse `refresh` para invalidar o link atual e gerar um novo. A ativação e a desativação ficam registradas no histórico do projeto.",
@@ -1196,8 +1214,7 @@
       "get": {
         "tags": [
           "projects",
-          "{id}",
-          "hierarchy"
+          "Hierarquia"
         ],
         "summary": "Listar os filhos de um projeto",
         "description": "Retorna os projetos filhos diretos de um projeto, cada um com a contagem dos próprios filhos, e também o projeto pai do projeto consultado (quando houver). Não desce além do primeiro nível — para a árvore inteira, use a rota de árvore da hierarquia.\n\nConceitos e regras em [Hierarquia de projetos](https://docs.olie.ai/guides/projects/project-hierarchy).",
@@ -1318,8 +1335,7 @@
       "get": {
         "tags": [
           "projects",
-          "{id}",
-          "hierarchy"
+          "Hierarquia"
         ],
         "summary": "Obter a árvore da hierarquia",
         "description": "Retorna a árvore completa a partir do projeto informado — filhos, netos e bisnetos — com o nível de cada um, se é raiz ou folha, as estatísticas da estrutura e o caminho (breadcrumb) até o projeto atual.\n\nA plataforma permite até quatro níveis de profundidade; veja [Hierarquia de projetos](https://docs.olie.ai/guides/projects/project-hierarchy).",
@@ -1489,8 +1505,7 @@
       "get": {
         "tags": [
           "projects",
-          "{id}",
-          "hierarchy"
+          "Hierarquia"
         ],
         "summary": "Obter estatísticas da hierarquia",
         "description": "Retorna os números da posição do projeto na estrutura: quantidade de irmãos e de ancestrais, estatísticas da árvore, o caminho até o projeto e a hierarquia a que ele pertence.\n\nConceitos e regras em [Hierarquia de projetos](https://docs.olie.ai/guides/projects/project-hierarchy).",
@@ -1620,8 +1635,7 @@
       "get": {
         "tags": [
           "projects",
-          "{id}",
-          "hierarchy"
+          "Hierarquia"
         ],
         "summary": "Obter análises dos descendentes",
         "description": "Consolida em um único retorno os números de todos os projetos abaixo do projeto informado — financeiro, tarefas, funis e pessoas envolvidas — para uma visão macro da estrutura.\n\nProjetos sem nenhum descendente respondem com erro, já que não há o que consolidar.",
@@ -2045,8 +2059,7 @@
       "post": {
         "tags": [
           "projects",
-          "{id}",
-          "hierarchy"
+          "Hierarquia"
         ],
         "summary": "Vincular um projeto filho",
         "description": "Torna um projeto existente filho direto do projeto informado. O vínculo é recusado quando criaria um ciclo, quando o projeto seria pai de si mesmo ou quando ultrapassaria o limite de quatro níveis de profundidade.\n\nRegras completas em [Hierarquia de projetos](https://docs.olie.ai/guides/projects/project-hierarchy).",
@@ -2174,8 +2187,7 @@
       "delete": {
         "tags": [
           "projects",
-          "{id}",
-          "hierarchy"
+          "Hierarquia"
         ],
         "summary": "Desvincular um projeto filho",
         "description": "Desfaz o vínculo entre um projeto pai e um de seus filhos diretos. O projeto desvinculado passa a ser raiz e mantém a própria descendência intacta. Se o projeto informado não for filho direto daquele pai, a operação é recusada.",
@@ -2295,7 +2307,7 @@
       "put": {
         "tags": [
           "projects",
-          "{id}"
+          "Hierarquia"
         ],
         "summary": "Mover um projeto para outro pai",
         "description": "Muda o projeto de lugar na estrutura, colocando-o sob outro pai. Enviar `new_parent_id` como `null` promove o projeto a raiz.\n\nA movimentação é recusada quando criaria um ciclo ou quando a subárvore do projeto ultrapassaria o limite de quatro níveis de profundidade — veja [Hierarquia de projetos](https://docs.olie.ai/guides/projects/project-hierarchy).",
@@ -2415,8 +2427,7 @@
       "put": {
         "tags": [
           "projects",
-          "{id}",
-          "hierarchy"
+          "Hierarquia"
         ],
         "summary": "Promover um projeto a raiz",
         "description": "Desliga o projeto de seu pai, deixando-o como raiz de uma nova estrutura. Os filhos do projeto acompanham a mudança e mantêm as posições relativas entre si. Projetos que já são raiz respondem com erro.",
@@ -2522,8 +2533,7 @@
       "get": {
         "tags": [
           "projects",
-          "{id}",
-          "loose-checklist"
+          "Checklists avulsos"
         ],
         "summary": "Listar checklists avulsos do projeto",
         "description": "Lista os checklists avulsos do projeto, ordenados pela posição do item. Cada item já inclui o responsável atribuído e o usuário que marcou como concluído (quando houver).",
@@ -2705,8 +2715,7 @@
       "post": {
         "tags": [
           "projects",
-          "{id}",
-          "loose-checklist"
+          "Checklists avulsos"
         ],
         "summary": "Criar checklist avulso no projeto",
         "description": "Cria um novo item de checklist avulso no projeto. O item entra no fim da lista — a posição é atribuída automaticamente pelo servidor.",
@@ -2879,8 +2888,7 @@
       "put": {
         "tags": [
           "projects",
-          "{id}",
-          "loose-checklist"
+          "Checklists avulsos"
         ],
         "summary": "Atualizar checklist avulso",
         "description": "Atualiza um item de checklist avulso. Todos os campos do body são opcionais — envie apenas o que deve mudar.\n\nAtribuir um novo responsável (`author_id`) notifica o usuário escolhido. Alterar `order` reposiciona o item na lista; os itens vizinhos são deslocados automaticamente.",
@@ -2962,8 +2970,7 @@
       "delete": {
         "tags": [
           "projects",
-          "{id}",
-          "loose-checklist"
+          "Checklists avulsos"
         ],
         "summary": "Remover checklist avulso do projeto",
         "description": "Remove um item de checklist avulso do projeto. Os itens posteriores na lista têm sua ordem ajustada automaticamente.",
@@ -3026,30 +3033,221 @@
       "get": {
         "tags": [
           "projects",
-          "{id}",
-          "loose-forms"
+          "Formulários avulsos"
         ],
         "summary": "Listar formulários avulsos do projeto",
         "description": "Retorna os formulários avulsos vinculados ao projeto, cada um acompanhado da definição do formulário correspondente. Formulários avulsos são anexados ao projeto sob demanda, sem depender da etapa em que ele está.",
         "operationId": "listarFormulRiosAvulsosAssociadosAUmProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "loose_forms": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "project_id": {
+                            "type": "string"
+                          },
+                          "form_id": {
+                            "type": "integer"
+                          },
+                          "frame_id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "form": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "title": {
+                                "type": "string"
+                              },
+                              "frame_id": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "loose_forms": [
+                    {
+                      "id": 412,
+                      "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "form_id": 119,
+                      "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                      "created_at": "2026-08-14T10:22:03.000000Z",
+                      "updated_at": "2026-08-14T10:22:03.000000Z",
+                      "form": {
+                        "id": 119,
+                        "title": "Vistoria técnica",
+                        "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                        "created_at": "2026-02-03T08:00:00.000000Z",
+                        "updated_at": "2026-02-03T08:00:00.000000Z",
+                        "deleted_at": null
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           }
         }
       },
       "post": {
         "tags": [
           "projects",
-          "{id}",
-          "loose-forms"
+          "Formulários avulsos"
         ],
         "summary": "Vincular um formulário avulso",
         "description": "Anexa um formulário existente ao projeto como formulário avulso, deixando-o disponível para resposta independentemente da etapa. O mesmo formulário pode ser anexado mais de uma vez, gerando vínculos distintos.",
         "operationId": "vinculaUmFormulRioAvulsoAUmProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "loose_form": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "project_id": {
+                          "type": "string"
+                        },
+                        "form_id": {
+                          "type": "integer"
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "form": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "frame_id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "updated_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "deleted_at": {
+                              "nullable": true
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "loose_form": {
+                    "id": 412,
+                    "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                    "form_id": 119,
+                    "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                    "created_at": "2026-08-14T10:22:03.000000Z",
+                    "updated_at": "2026-08-14T10:22:03.000000Z",
+                    "form": {
+                      "id": 119,
+                      "title": "Vistoria técnica",
+                      "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                      "created_at": "2026-02-03T08:00:00.000000Z",
+                      "updated_at": "2026-02-03T08:00:00.000000Z",
+                      "deleted_at": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Formulário não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "form_model_not_found",
+                  "error": "No query results for model [App\\\\Models\\\\Form] 999999"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -3087,15 +3285,29 @@
       "delete": {
         "tags": [
           "projects",
-          "{id}",
-          "loose-forms"
+          "Formulários avulsos"
         ],
         "summary": "Desvincular um formulário avulso",
         "description": "Remove o vínculo entre o projeto e um formulário avulso. O formulário em si continua existindo e pode ser anexado novamente.",
         "operationId": "desvinculaUmFormulRioAvulsoDeUmProjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
           }
         }
       },
@@ -3114,7 +3326,7 @@
           "name": "loose_form",
           "in": "path",
           "required": true,
-          "description": "ID (UUID) do vínculo do formulário avulso com o projeto.",
+          "description": "ID do vínculo entre o projeto e o formulário avulso.",
           "schema": {
             "type": "string"
           },
@@ -4359,7 +4571,7 @@
         },
         "tags": [
           "projects",
-          "{id}"
+          "Projetos"
         ],
         "description": "Retorna os detalhes completos de um projeto pelo seu ID. O retorno inclui dados do próprio projeto, cliente e contato associados, funis em que o projeto está cadastrado (com todas as etapas, etiquetas, status e anexos), etapas atuais ocupadas, checklists avulsos, formulários respondidos do objeto projeto, grupos de projeto, usuários do projeto (criador e atribuídos), hierarquia (pai e filhos), executores envolvidos, etc.",
         "parameters": [
@@ -4807,7 +5019,7 @@
         },
         "tags": [
           "projects",
-          "{id}"
+          "Projetos"
         ],
         "description": "Atualiza os dados de um projeto existente. Todos os campos são opcionais — envie apenas o que deve mudar. Vínculos (funis, etiquetas, grupos, filhos) são alterados pelas listas `to_add` e `to_rem`; o que não é citado permanece como está.",
         "requestBody": {
@@ -5154,7 +5366,7 @@
         },
         "tags": [
           "projects",
-          "{id}"
+          "Projetos"
         ],
         "description": "Deleta um projeto pelo ID. A exclusão é lógica: o projeto sai das listagens, passa a ser encontrado com `trashed=true` e pode voltar pelo endpoint de restauração."
       }
@@ -5163,7 +5375,7 @@
       "post": {
         "tags": [
           "projects",
-          "merge"
+          "Cópia e compartilhamento"
         ],
         "summary": "Mesclar projetos",
         "description": "Une dois ou mais projetos em um só. O resultado é um **projeto novo**, criado a partir do projeto principal (`majority`), que recebe os funis, conteúdos, fórum e tarefas de todos os demais.\n\nOs projetos de origem — inclusive o principal — são arquivados e removidos das listagens ao final, com o histórico registrando a mesclagem. Projetos já mesclados anteriormente não podem ser mesclados de novo.",
@@ -5315,7 +5527,7 @@
       "post": {
         "tags": [
           "projects",
-          "ids"
+          "Projetos"
         ],
         "summary": "Listar IDs de projetos",
         "description": "Retorna somente os IDs dos projetos que correspondem aos filtros enviados, sem paginação e sem os demais dados do projeto. Útil para aplicar uma ação em lote sobre todo o resultado de uma busca.\n\nOs filtros usam o mesmo formato da [busca avançada](https://docs.olie.ai/api-reference/general/advanced-search).",
@@ -5375,14 +5587,165 @@
       "post": {
         "tags": [
           "projects",
-          "get-projects-by-forecast-dates"
+          "Métricas e previsão"
         ],
         "summary": "Listar projetos por data de previsão",
         "description": "Agrupa os projetos de um funil pelos meses de previsão informados. Para cada par ano/mês a resposta traz os projetos com data prevista naquele mês, a contagem e a soma dos orçamentos — é o que alimenta a visão de calendário do funil.\n\nAceita os mesmos filtros da [busca avançada](https://docs.olie.ai/api-reference/general/advanced-search), aplicados a todos os meses da consulta.",
         "operationId": "obterProjetosPorDatasDePrevisO",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "dates_with_projects": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "object",
+                            "properties": {
+                              "year": {
+                                "type": "integer"
+                              },
+                              "month": {
+                                "type": "integer"
+                              }
+                            }
+                          },
+                          "projects": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "status": {
+                                  "type": "integer"
+                                },
+                                "impact": {
+                                  "type": "integer"
+                                },
+                                "budget": {
+                                  "type": "integer"
+                                },
+                                "forecast_date": {
+                                  "type": "string",
+                                  "format": "date"
+                                }
+                              }
+                            }
+                          },
+                          "projects_count": {
+                            "type": "integer"
+                          },
+                          "projects_budget": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "dates_with_projects": [
+                    {
+                      "date": {
+                        "year": 2026,
+                        "month": 9
+                      },
+                      "projects": [
+                        {
+                          "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                          "code": "SC-1",
+                          "name": "Shopping Center",
+                          "status": 1,
+                          "impact": 9,
+                          "budget": 340000,
+                          "forecast_date": "2026-09-14"
+                        }
+                      ],
+                      "projects_count": 1,
+                      "projects_budget": 340000
+                    },
+                    {
+                      "date": {
+                        "year": 2026,
+                        "month": 10
+                      },
+                      "projects": [],
+                      "projects_count": 0,
+                      "projects_budget": 0
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "project_funnel_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "dates": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo project funnel id é obrigatório. (and 1 more error)",
+                  "validation": {
+                    "project_funnel_id": [
+                      "O campo project funnel id é obrigatório."
+                    ],
+                    "dates": [
+                      "O campo dates é obrigatório."
+                    ]
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -5808,7 +6171,8 @@
           }
         },
         "tags": [
-          "projects"
+          "projects",
+          "Conteúdos e arquivos"
         ],
         "description": "Envia um conteúdo — texto, áudio ou arquivo — para um ou mais projetos. Cada projeto informado recebe uma entrada própria: quando mais de uma é criada, a resposta traz `medias` (lista) no lugar de `media` (objeto).\n\nÁudio e arquivos são enviados como `multipart/form-data`. Menções escritas no texto disparam as notificações correspondentes — veja [Menções](https://docs.olie.ai/guides/fundamentals/mentions). Projetos que já foram mesclados não aceitam novos conteúdos.",
         "requestBody": {
@@ -6031,6 +6395,2093 @@
                 },
                 "example": "*"
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "projects": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "old_id": {
+                            "nullable": true
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "impact": {
+                            "type": "integer"
+                          },
+                          "parent_id": {
+                            "nullable": true
+                          },
+                          "frame_id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "customer_id": {
+                            "nullable": true
+                          },
+                          "contact_id": {
+                            "nullable": true
+                          },
+                          "share_token": {
+                            "nullable": true
+                          },
+                          "share_settings": {
+                            "nullable": true
+                          },
+                          "merged_id": {
+                            "nullable": true
+                          },
+                          "status": {
+                            "type": "integer"
+                          },
+                          "budget": {
+                            "type": "integer"
+                          },
+                          "is_template": {
+                            "type": "boolean"
+                          },
+                          "created_by": {
+                            "type": "string"
+                          },
+                          "deleted_at": {
+                            "nullable": true
+                          },
+                          "form_answers": {
+                            "type": "array",
+                            "items": {}
+                          },
+                          "tasks": {
+                            "type": "array",
+                            "items": {}
+                          },
+                          "customer": {
+                            "nullable": true
+                          },
+                          "contact": {
+                            "nullable": true
+                          },
+                          "funnels": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "pivot": {
+                                  "type": "object",
+                                  "properties": {
+                                    "project_id": {
+                                      "type": "string"
+                                    },
+                                    "project_funnel_id": {
+                                      "type": "integer"
+                                    },
+                                    "id": {
+                                      "type": "integer"
+                                    },
+                                    "statuses_at": {
+                                      "nullable": true
+                                    },
+                                    "statuses_by": {
+                                      "nullable": true
+                                    },
+                                    "funnel_status_id": {
+                                      "nullable": true
+                                    },
+                                    "forecast_date": {
+                                      "nullable": true
+                                    },
+                                    "realized_forecast_date": {
+                                      "nullable": true
+                                    },
+                                    "created_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "forecast_date_update_count": {
+                                      "type": "integer"
+                                    }
+                                  }
+                                },
+                                "tags": {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              }
+                            }
+                          },
+                          "funnel_steps": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "project_funnel_id": {
+                                  "type": "integer"
+                                },
+                                "sensation_amount": {
+                                  "type": "integer"
+                                },
+                                "step_forward_id": {
+                                  "nullable": true
+                                },
+                                "step_backward_id": {
+                                  "nullable": true
+                                },
+                                "order": {
+                                  "type": "integer"
+                                },
+                                "help_text": {
+                                  "nullable": true
+                                },
+                                "form_id": {
+                                  "nullable": true
+                                },
+                                "sort_config": {
+                                  "nullable": true
+                                },
+                                "created_at": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                },
+                                "updated_at": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                },
+                                "pivot": {
+                                  "type": "object",
+                                  "properties": {
+                                    "project_id": {
+                                      "type": "string"
+                                    },
+                                    "funnel_step_id": {
+                                      "type": "integer"
+                                    },
+                                    "id": {
+                                      "type": "integer"
+                                    },
+                                    "order": {
+                                      "type": "integer"
+                                    },
+                                    "created_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    }
+                                  }
+                                },
+                                "funnel_step_blockings": {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              }
+                            }
+                          },
+                          "tags": {
+                            "type": "array",
+                            "items": {}
+                          },
+                          "groups": {
+                            "type": "array",
+                            "items": {}
+                          },
+                          "users": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "avatar_url": {
+                                  "type": "string",
+                                  "format": "uri"
+                                },
+                                "pivot": {
+                                  "type": "object",
+                                  "properties": {
+                                    "project_id": {
+                                      "type": "string"
+                                    },
+                                    "user_id": {
+                                      "type": "string"
+                                    },
+                                    "role": {
+                                      "type": "string"
+                                    },
+                                    "created_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "updated_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "frame": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "subdomain": {
+                                "type": "string"
+                              },
+                              "model_forms": {
+                                "nullable": true
+                              }
+                            }
+                          },
+                          "form": {
+                            "nullable": true
+                          },
+                          "executors": {
+                            "type": "array",
+                            "items": {}
+                          },
+                          "costs": {
+                            "nullable": true
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer"
+                        },
+                        "from": {
+                          "type": "integer"
+                        },
+                        "last_page": {
+                          "type": "integer"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "to": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "projects": [
+                    {
+                      "id": "019b140c-235d-73ee-96df-3d2afbf7d13d",
+                      "old_id": null,
+                      "code": "P-80",
+                      "name": "Demogorgon",
+                      "description": "Criação rápida",
+                      "impact": 10,
+                      "parent_id": null,
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-12T19:31:38.000000Z",
+                      "updated_at": "2025-12-12T19:31:38.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 0,
+                      "is_template": false,
+                      "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [
+                        {
+                          "id": 665,
+                          "name": "Educação Corporativa",
+                          "pivot": {
+                            "project_id": "019b140c-235d-73ee-96df-3d2afbf7d13d",
+                            "project_funnel_id": 665,
+                            "id": 42806,
+                            "statuses_at": null,
+                            "statuses_by": null,
+                            "funnel_status_id": null,
+                            "forecast_date": null,
+                            "realized_forecast_date": null,
+                            "created_at": "2025-12-12T19:31:38.000000Z",
+                            "forecast_date_update_count": 0
+                          },
+                          "tags": []
+                        }
+                      ],
+                      "funnel_steps": [
+                        {
+                          "id": 3808,
+                          "name": "Gestão de Mudanças",
+                          "project_funnel_id": 665,
+                          "sensation_amount": 25,
+                          "step_forward_id": null,
+                          "step_backward_id": null,
+                          "order": 40,
+                          "help_text": null,
+                          "form_id": null,
+                          "sort_config": null,
+                          "created_at": "2025-12-04T18:33:09.000000Z",
+                          "updated_at": "2025-12-04T18:33:09.000000Z",
+                          "pivot": {
+                            "project_id": "019b140c-235d-73ee-96df-3d2afbf7d13d",
+                            "funnel_step_id": 3808,
+                            "id": 144232,
+                            "order": 0,
+                            "created_at": "2025-12-12T19:31:38.000000Z"
+                          },
+                          "funnel_step_blockings": []
+                        }
+                      ],
+                      "tags": [],
+                      "groups": [],
+                      "users": [
+                        {
+                          "id": "019aeaa3-2370-731c-9008-be759795f449",
+                          "name": "Test User",
+                          "avatar_url": "https://via.placeholder.com/124x124.png/003388?text=facilis",
+                          "pivot": {
+                            "project_id": "019b140c-235d-73ee-96df-3d2afbf7d13d",
+                            "user_id": "019aeaa3-2370-731c-9008-be759795f449",
+                            "role": "creator",
+                            "created_at": "2025-12-12T19:31:38.000000Z",
+                            "updated_at": "2025-12-12T19:31:38.000000Z"
+                          }
+                        }
+                      ],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019b140b-e38e-7207-8016-9bfe6fa1d02f",
+                      "old_id": null,
+                      "code": "P-79",
+                      "name": "Demogorgon",
+                      "description": "Criação rápida",
+                      "impact": 10,
+                      "parent_id": null,
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-12T19:31:22.000000Z",
+                      "updated_at": "2025-12-12T19:31:22.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 0,
+                      "is_template": false,
+                      "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [
+                        {
+                          "id": "019aeaa3-2370-731c-9008-be759795f449",
+                          "name": "Test User",
+                          "avatar_url": "https://via.placeholder.com/124x124.png/003388?text=facilis",
+                          "pivot": {
+                            "project_id": "019b140b-e38e-7207-8016-9bfe6fa1d02f",
+                            "user_id": "019aeaa3-2370-731c-9008-be759795f449",
+                            "role": "creator",
+                            "created_at": "2025-12-12T19:31:22.000000Z",
+                            "updated_at": "2025-12-12T19:31:22.000000Z"
+                          }
+                        }
+                      ],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019b140a-4503-7141-9e4f-bc720d0f09a3",
+                      "old_id": null,
+                      "code": "P-78",
+                      "name": "Demogorgon",
+                      "description": "Criação rápida",
+                      "impact": 10,
+                      "parent_id": null,
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-12T19:29:36.000000Z",
+                      "updated_at": "2025-12-12T19:29:36.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 0,
+                      "is_template": false,
+                      "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [
+                        {
+                          "id": "019aeaa3-2370-731c-9008-be759795f449",
+                          "name": "Test User",
+                          "avatar_url": "https://via.placeholder.com/124x124.png/003388?text=facilis",
+                          "pivot": {
+                            "project_id": "019b140a-4503-7141-9e4f-bc720d0f09a3",
+                            "user_id": "019aeaa3-2370-731c-9008-be759795f449",
+                            "role": "creator",
+                            "created_at": "2025-12-12T19:29:36.000000Z",
+                            "updated_at": "2025-12-12T19:29:36.000000Z"
+                          }
+                        }
+                      ],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019b1409-4dab-71a4-b8b9-6ca95843e23f",
+                      "old_id": null,
+                      "code": "P-77",
+                      "name": "dwadaw",
+                      "description": "Criação rápida",
+                      "impact": 10,
+                      "parent_id": null,
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-12T19:28:32.000000Z",
+                      "updated_at": "2025-12-12T19:28:32.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 0,
+                      "is_template": false,
+                      "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [
+                        {
+                          "id": "019aeaa3-2370-731c-9008-be759795f449",
+                          "name": "Test User",
+                          "avatar_url": "https://via.placeholder.com/124x124.png/003388?text=facilis",
+                          "pivot": {
+                            "project_id": "019b1409-4dab-71a4-b8b9-6ca95843e23f",
+                            "user_id": "019aeaa3-2370-731c-9008-be759795f449",
+                            "role": "creator",
+                            "created_at": "2025-12-12T19:28:32.000000Z",
+                            "updated_at": "2025-12-12T19:28:32.000000Z"
+                          }
+                        }
+                      ],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019b1404-ad0c-73ed-a279-990911f8c308",
+                      "old_id": null,
+                      "code": "P-76",
+                      "name": "dawijdapwdjaiodjawdoijwdpoaiwjdaiowjdwopdijawpiodajwdoiawjdopawijdaowidjawopdijawdiajwdawijdapwdjaiodjawdoijwdpoaiwjdaiowjdwopdijawpiodajwdoiawjdopawijdaowidjawopdijawdiajwdawijdapwdjaiodjawd",
+                      "description": "Criação rápida",
+                      "impact": 10,
+                      "parent_id": null,
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-12T19:23:29.000000Z",
+                      "updated_at": "2025-12-12T19:23:29.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 0,
+                      "is_template": false,
+                      "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [
+                        {
+                          "id": "019aeaa3-2370-731c-9008-be759795f449",
+                          "name": "Test User",
+                          "avatar_url": "https://via.placeholder.com/124x124.png/003388?text=facilis",
+                          "pivot": {
+                            "project_id": "019b1404-ad0c-73ed-a279-990911f8c308",
+                            "user_id": "019aeaa3-2370-731c-9008-be759795f449",
+                            "role": "creator",
+                            "created_at": "2025-12-12T19:23:29.000000Z",
+                            "updated_at": "2025-12-12T19:23:29.000000Z"
+                          }
+                        }
+                      ],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019b1404-9ffe-719c-8a9d-08cbd2e94e59",
+                      "old_id": null,
+                      "code": "P-75",
+                      "name": "dawijdapwdjaiodjawdoijwdpoaiwjdaiowjdwopdijawpiodajwdoiawjdopawijdaowidjawopdijawdiajwdawijdapwdjaiodjawdoijwdpoaiwjdaiowjdwopdijawpiodajwdoiawjdopawijdaowidjawopdijawdiajwdawijdapwdjaiodjawd",
+                      "description": "Criação rápida",
+                      "impact": 10,
+                      "parent_id": null,
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-12T19:23:26.000000Z",
+                      "updated_at": "2025-12-12T19:23:26.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 0,
+                      "is_template": false,
+                      "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [
+                        {
+                          "id": "019aeaa3-2370-731c-9008-be759795f449",
+                          "name": "Test User",
+                          "avatar_url": "https://via.placeholder.com/124x124.png/003388?text=facilis",
+                          "pivot": {
+                            "project_id": "019b1404-9ffe-719c-8a9d-08cbd2e94e59",
+                            "user_id": "019aeaa3-2370-731c-9008-be759795f449",
+                            "role": "creator",
+                            "created_at": "2025-12-12T19:23:26.000000Z",
+                            "updated_at": "2025-12-12T19:23:26.000000Z"
+                          }
+                        }
+                      ],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019b1404-56b1-70f4-bfc8-8d17d8329811",
+                      "old_id": null,
+                      "code": "P-74",
+                      "name": "teste",
+                      "description": "Criação rápida",
+                      "impact": 10,
+                      "parent_id": null,
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-12T19:23:07.000000Z",
+                      "updated_at": "2025-12-12T19:23:07.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 0,
+                      "is_template": false,
+                      "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [
+                        {
+                          "id": "019aeaa3-2370-731c-9008-be759795f449",
+                          "name": "Test User",
+                          "avatar_url": "https://via.placeholder.com/124x124.png/003388?text=facilis",
+                          "pivot": {
+                            "project_id": "019b1404-56b1-70f4-bfc8-8d17d8329811",
+                            "user_id": "019aeaa3-2370-731c-9008-be759795f449",
+                            "role": "creator",
+                            "created_at": "2025-12-12T19:23:07.000000Z",
+                            "updated_at": "2025-12-12T19:23:07.000000Z"
+                          }
+                        }
+                      ],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019b0dc7-34e0-7312-93b1-841c61594f44",
+                      "old_id": null,
+                      "code": "P-73",
+                      "name": "dawdadwaadw",
+                      "description": "Criação rápida",
+                      "impact": 10,
+                      "parent_id": null,
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-11T14:18:37.000000Z",
+                      "updated_at": "2025-12-11T14:18:37.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 0,
+                      "is_template": false,
+                      "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [
+                        {
+                          "id": 667,
+                          "name": "Inovação",
+                          "pivot": {
+                            "project_id": "019b0dc7-34e0-7312-93b1-841c61594f44",
+                            "project_funnel_id": 667,
+                            "id": 42805,
+                            "statuses_at": null,
+                            "statuses_by": null,
+                            "funnel_status_id": null,
+                            "forecast_date": null,
+                            "realized_forecast_date": null,
+                            "created_at": "2025-12-11T14:18:37.000000Z",
+                            "forecast_date_update_count": 0
+                          },
+                          "tags": []
+                        }
+                      ],
+                      "funnel_steps": [
+                        {
+                          "id": 3817,
+                          "name": "Desenvolvimento Conceitual",
+                          "project_funnel_id": 667,
+                          "sensation_amount": 87,
+                          "step_forward_id": null,
+                          "step_backward_id": null,
+                          "order": 2,
+                          "help_text": null,
+                          "form_id": null,
+                          "sort_config": {
+                            "field": "budget",
+                            "arguments": [],
+                            "direction": "desc"
+                          },
+                          "created_at": "2025-12-04T18:33:09.000000Z",
+                          "updated_at": "2025-12-11T14:33:58.000000Z",
+                          "pivot": {
+                            "project_id": "019b0dc7-34e0-7312-93b1-841c61594f44",
+                            "funnel_step_id": 3817,
+                            "id": 144213,
+                            "order": 15,
+                            "created_at": "2025-12-11T14:18:40.000000Z"
+                          },
+                          "funnel_step_blockings": []
+                        }
+                      ],
+                      "tags": [],
+                      "groups": [],
+                      "users": [
+                        {
+                          "id": "019aeaa3-2370-731c-9008-be759795f449",
+                          "name": "Test User",
+                          "avatar_url": "https://via.placeholder.com/124x124.png/003388?text=facilis",
+                          "pivot": {
+                            "project_id": "019b0dc7-34e0-7312-93b1-841c61594f44",
+                            "user_id": "019aeaa3-2370-731c-9008-be759795f449",
+                            "role": "creator",
+                            "created_at": "2025-12-11T14:18:37.000000Z",
+                            "updated_at": "2025-12-11T14:18:37.000000Z"
+                          }
+                        }
+                      ],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019b0dc7-25a9-70f0-a448-e76c6478cb23",
+                      "old_id": null,
+                      "code": "P-72",
+                      "name": "dasdadwa",
+                      "description": "Criação rápida",
+                      "impact": 10,
+                      "parent_id": null,
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-11T14:18:33.000000Z",
+                      "updated_at": "2025-12-11T14:18:33.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 0,
+                      "is_template": false,
+                      "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [
+                        {
+                          "id": 667,
+                          "name": "Inovação",
+                          "pivot": {
+                            "project_id": "019b0dc7-25a9-70f0-a448-e76c6478cb23",
+                            "project_funnel_id": 667,
+                            "id": 42804,
+                            "statuses_at": null,
+                            "statuses_by": null,
+                            "funnel_status_id": null,
+                            "forecast_date": null,
+                            "realized_forecast_date": null,
+                            "created_at": "2025-12-11T14:18:33.000000Z",
+                            "forecast_date_update_count": 0
+                          },
+                          "tags": []
+                        }
+                      ],
+                      "funnel_steps": [
+                        {
+                          "id": 3817,
+                          "name": "Desenvolvimento Conceitual",
+                          "project_funnel_id": 667,
+                          "sensation_amount": 87,
+                          "step_forward_id": null,
+                          "step_backward_id": null,
+                          "order": 2,
+                          "help_text": null,
+                          "form_id": null,
+                          "sort_config": {
+                            "field": "budget",
+                            "arguments": [],
+                            "direction": "desc"
+                          },
+                          "created_at": "2025-12-04T18:33:09.000000Z",
+                          "updated_at": "2025-12-11T14:33:58.000000Z",
+                          "pivot": {
+                            "project_id": "019b0dc7-25a9-70f0-a448-e76c6478cb23",
+                            "funnel_step_id": 3817,
+                            "id": 144214,
+                            "order": 14,
+                            "created_at": "2025-12-11T14:18:43.000000Z"
+                          },
+                          "funnel_step_blockings": []
+                        }
+                      ],
+                      "tags": [],
+                      "groups": [],
+                      "users": [
+                        {
+                          "id": "019aeaa3-2370-731c-9008-be759795f449",
+                          "name": "Test User",
+                          "avatar_url": "https://via.placeholder.com/124x124.png/003388?text=facilis",
+                          "pivot": {
+                            "project_id": "019b0dc7-25a9-70f0-a448-e76c6478cb23",
+                            "user_id": "019aeaa3-2370-731c-9008-be759795f449",
+                            "role": "creator",
+                            "created_at": "2025-12-11T14:18:33.000000Z",
+                            "updated_at": "2025-12-11T14:18:33.000000Z"
+                          }
+                        },
+                        {
+                          "id": "019aeaa3-2370-731c-9008-be759795f449",
+                          "name": "Test User",
+                          "avatar_url": "https://via.placeholder.com/124x124.png/003388?text=facilis",
+                          "pivot": {
+                            "project_id": "019b0dc7-25a9-70f0-a448-e76c6478cb23",
+                            "user_id": "019aeaa3-2370-731c-9008-be759795f449",
+                            "role": "assignee",
+                            "created_at": "2025-12-11T14:32:52.000000Z",
+                            "updated_at": "2025-12-11T14:32:52.000000Z"
+                          }
+                        }
+                      ],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b747-726b-9918-97f1111156ef",
+                      "old_id": null,
+                      "code": "P-57",
+                      "name": "Escobar Ltda. qui - enim",
+                      "description": "Aut at iure et praesentium maiores rerum deserunt. Veniam rerum autem et eos. Ut facere commodi voluptates eius iure voluptatem enim.",
+                      "impact": 6,
+                      "parent_id": "019aeaa3-b735-716f-8a34-bf32802b5bd8",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 3,
+                      "budget": 743419.28,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [
+                        {
+                          "id": 667,
+                          "name": "Inovação",
+                          "pivot": {
+                            "project_id": "019aeaa3-b747-726b-9918-97f1111156ef",
+                            "project_funnel_id": 667,
+                            "id": 42755,
+                            "statuses_at": null,
+                            "statuses_by": null,
+                            "funnel_status_id": null,
+                            "forecast_date": null,
+                            "realized_forecast_date": null,
+                            "created_at": null,
+                            "forecast_date_update_count": 0
+                          },
+                          "tags": []
+                        }
+                      ],
+                      "funnel_steps": [
+                        {
+                          "id": 3817,
+                          "name": "Desenvolvimento Conceitual",
+                          "project_funnel_id": 667,
+                          "sensation_amount": 87,
+                          "step_forward_id": null,
+                          "step_backward_id": null,
+                          "order": 2,
+                          "help_text": null,
+                          "form_id": null,
+                          "sort_config": {
+                            "field": "budget",
+                            "arguments": [],
+                            "direction": "desc"
+                          },
+                          "created_at": "2025-12-04T18:33:09.000000Z",
+                          "updated_at": "2025-12-11T14:33:58.000000Z",
+                          "pivot": {
+                            "project_id": "019aeaa3-b747-726b-9918-97f1111156ef",
+                            "funnel_step_id": 3817,
+                            "id": 144185,
+                            "order": 5,
+                            "created_at": "2025-12-11T14:11:07.000000Z"
+                          },
+                          "funnel_step_blockings": []
+                        }
+                      ],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b7c7-7356-9ef1-124acc528805",
+                      "old_id": null,
+                      "code": "P-64",
+                      "name": "Escobar Ltda. qui - tempora - et",
+                      "description": "Sint perferendis accusamus consequatur qui et sapiente accusantium. Rerum enim sed placeat aut sapiente soluta nam. Repellat consequuntur facilis occaecati at quae quisquam.",
+                      "impact": 1,
+                      "parent_id": "019aeaa3-b756-7227-a837-f1f768ba17ed",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 124176.36,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [
+                        {
+                          "id": 666,
+                          "name": "Inovação",
+                          "pivot": {
+                            "project_id": "019aeaa3-b7c7-7356-9ef1-124acc528805",
+                            "project_funnel_id": 666,
+                            "id": 42752,
+                            "statuses_at": null,
+                            "statuses_by": null,
+                            "funnel_status_id": null,
+                            "forecast_date": null,
+                            "realized_forecast_date": null,
+                            "created_at": null,
+                            "forecast_date_update_count": 0
+                          },
+                          "tags": []
+                        }
+                      ],
+                      "funnel_steps": [
+                        {
+                          "id": 3814,
+                          "name": "Criação de Prototipagem",
+                          "project_funnel_id": 666,
+                          "sensation_amount": 50,
+                          "step_forward_id": null,
+                          "step_backward_id": null,
+                          "order": 45,
+                          "help_text": null,
+                          "form_id": null,
+                          "sort_config": null,
+                          "created_at": "2025-12-04T18:33:09.000000Z",
+                          "updated_at": "2025-12-04T18:33:09.000000Z",
+                          "pivot": {
+                            "project_id": "019aeaa3-b7c7-7356-9ef1-124acc528805",
+                            "funnel_step_id": 3814,
+                            "id": 144129,
+                            "order": 0,
+                            "created_at": "2025-12-04T18:33:09.000000Z"
+                          },
+                          "funnel_step_blockings": []
+                        }
+                      ],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b756-7227-a837-f1f768ba17ed",
+                      "old_id": null,
+                      "code": "P-58",
+                      "name": "Escobar Ltda. qui - tempora",
+                      "description": "Ea facilis quia sed quas et quae velit. Id facilis necessitatibus a eum modi est hic. A vero ut et quisquam impedit. Voluptas quia deserunt animi dignissimos et cumque sed.",
+                      "impact": 10,
+                      "parent_id": "019aeaa3-b735-716f-8a34-bf32802b5bd8",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 4,
+                      "budget": 151973.02,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [
+                        {
+                          "id": 666,
+                          "name": "Inovação",
+                          "pivot": {
+                            "project_id": "019aeaa3-b756-7227-a837-f1f768ba17ed",
+                            "project_funnel_id": 666,
+                            "id": 42751,
+                            "statuses_at": null,
+                            "statuses_by": null,
+                            "funnel_status_id": null,
+                            "forecast_date": null,
+                            "realized_forecast_date": null,
+                            "created_at": null,
+                            "forecast_date_update_count": 0
+                          },
+                          "tags": []
+                        }
+                      ],
+                      "funnel_steps": [
+                        {
+                          "id": 3814,
+                          "name": "Criação de Prototipagem",
+                          "project_funnel_id": 666,
+                          "sensation_amount": 50,
+                          "step_forward_id": null,
+                          "step_backward_id": null,
+                          "order": 45,
+                          "help_text": null,
+                          "form_id": null,
+                          "sort_config": null,
+                          "created_at": "2025-12-04T18:33:09.000000Z",
+                          "updated_at": "2025-12-04T18:33:09.000000Z",
+                          "pivot": {
+                            "project_id": "019aeaa3-b756-7227-a837-f1f768ba17ed",
+                            "funnel_step_id": 3814,
+                            "id": 144128,
+                            "order": 0,
+                            "created_at": "2025-12-04T18:33:09.000000Z"
+                          },
+                          "funnel_step_blockings": []
+                        }
+                      ],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b77e-708f-ae9d-66763cbb6f6d",
+                      "old_id": null,
+                      "code": "P-60",
+                      "name": "Escobar Ltda. qui - enim - et",
+                      "description": "Est voluptas amet et corrupti molestias. Tempora est voluptatem culpa hic. Corporis vitae quia dolor neque repudiandae dolorem.",
+                      "impact": 5,
+                      "parent_id": "019aeaa3-b747-726b-9918-97f1111156ef",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 4,
+                      "budget": 972764.55,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [
+                        {
+                          "id": 667,
+                          "name": "Inovação",
+                          "pivot": {
+                            "project_id": "019aeaa3-b77e-708f-ae9d-66763cbb6f6d",
+                            "project_funnel_id": 667,
+                            "id": 42763,
+                            "statuses_at": null,
+                            "statuses_by": null,
+                            "funnel_status_id": null,
+                            "forecast_date": null,
+                            "realized_forecast_date": null,
+                            "created_at": null,
+                            "forecast_date_update_count": 0
+                          },
+                          "tags": []
+                        }
+                      ],
+                      "funnel_steps": [
+                        {
+                          "id": 3815,
+                          "name": "Reestruturação Operacional",
+                          "project_funnel_id": 667,
+                          "sensation_amount": 32,
+                          "step_forward_id": null,
+                          "step_backward_id": null,
+                          "order": 1,
+                          "help_text": null,
+                          "form_id": null,
+                          "sort_config": null,
+                          "created_at": "2025-12-04T18:33:09.000000Z",
+                          "updated_at": "2025-12-11T14:13:14.000000Z",
+                          "pivot": {
+                            "project_id": "019aeaa3-b77e-708f-ae9d-66763cbb6f6d",
+                            "funnel_step_id": 3815,
+                            "id": 144226,
+                            "order": 5,
+                            "created_at": "2025-12-12T17:07:53.000000Z"
+                          },
+                          "funnel_step_blockings": []
+                        }
+                      ],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b85d-72bb-8cfd-cb980ca952f3",
+                      "old_id": null,
+                      "code": "P-71",
+                      "name": "Escobar Ltda. qui - tempora - reprehenderit - tempora",
+                      "description": "Animi quo molestias id fugiat deserunt. Modi voluptates autem eveniet aut ut. Quia fugit nemo omnis et dolorem. Hic expedita nulla occaecati.",
+                      "impact": 5,
+                      "parent_id": "019aeaa3-b838-7164-a45c-a9cf880dd9c6",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 2,
+                      "budget": 785931.65,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b84b-72c8-9bde-11fdf8a454a0",
+                      "old_id": null,
+                      "code": "P-70",
+                      "name": "Escobar Ltda. qui - tempora - expedita - aliquid",
+                      "description": "Esse excepturi accusamus accusamus ut ut aspernatur. Vero perspiciatis debitis est rerum. Dolor neque natus sed quasi distinctio vero.",
+                      "impact": 7,
+                      "parent_id": "019aeaa3-b829-7324-8cde-03743354e0db",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 4,
+                      "budget": 538057.72,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b838-7164-a45c-a9cf880dd9c6",
+                      "old_id": null,
+                      "code": "P-69",
+                      "name": "Escobar Ltda. qui - tempora - reprehenderit",
+                      "description": "Odit culpa voluptatibus quo consequatur ducimus. Officia similique doloribus voluptatibus adipisci sint consectetur voluptas explicabo.",
+                      "impact": 9,
+                      "parent_id": "019aeaa3-b76a-704e-bea9-78b2ffa18c75",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 392328.69,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b829-7324-8cde-03743354e0db",
+                      "old_id": null,
+                      "code": "P-68",
+                      "name": "Escobar Ltda. qui - tempora - expedita",
+                      "description": "Eaque voluptas repellendus est. Non occaecati quae saepe. Dolores delectus est est temporibus mollitia dolores repudiandae. Omnis quia nobis iure est. Dolores officia id itaque nesciunt reiciendis.",
+                      "impact": 6,
+                      "parent_id": "019aeaa3-b76a-704e-bea9-78b2ffa18c75",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 3,
+                      "budget": 376134.95,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b817-72d5-b6c4-117b4f0fce3f",
+                      "old_id": null,
+                      "code": "P-67",
+                      "name": "Escobar Ltda. qui - tempora - cupiditate - eaque",
+                      "description": "Et aliquid sed velit qui harum quas vel. Dolor ipsum magni alias qui repellendus expedita sit. Tenetur totam repellendus nulla et. Fugit ratione et voluptates fugiat odio.",
+                      "impact": 3,
+                      "parent_id": "019aeaa3-b7ee-7052-b936-5fa0923dff73",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 4,
+                      "budget": 586101.4,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b802-72de-9db9-022b465fa7cd",
+                      "old_id": null,
+                      "code": "P-66",
+                      "name": "Escobar Ltda. qui - tempora - et - deleniti",
+                      "description": "Qui quisquam dolores sit voluptatem voluptatem. Harum ut quo non qui quod cum fugit. Ut et recusandae quia dicta nostrum.",
+                      "impact": 10,
+                      "parent_id": "019aeaa3-b7c7-7356-9ef1-124acc528805",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 3,
+                      "budget": 844116.34,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b79f-7136-9b03-4b3522635da0",
+                      "old_id": null,
+                      "code": "P-62",
+                      "name": "Escobar Ltda. qui - enim - et - nam",
+                      "description": "Id ut enim est. Aut dolorum et quo deleniti fuga. Consequatur corporis magni odit voluptas qui ut sit. Molestias pariatur ut natus temporibus ut in aliquid.",
+                      "impact": 6,
+                      "parent_id": "019aeaa3-b77e-708f-ae9d-66763cbb6f6d",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 2,
+                      "budget": 414516.2,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b735-716f-8a34-bf32802b5bd8",
+                      "old_id": null,
+                      "code": "P-56",
+                      "name": "Escobar Ltda. qui",
+                      "description": "Sunt eos optio placeat repellendus expedita natus. Eligendi ullam adipisci quis autem. Ducimus sit earum eaque sit possimus recusandae ab.",
+                      "impact": 7,
+                      "parent_id": null,
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 735533.87,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b725-7280-bd62-f6db9b4259db",
+                      "old_id": null,
+                      "code": "P-55",
+                      "name": "Projeto Complexo Raiz - nihil - et - aut",
+                      "description": "Sit harum quasi officiis assumenda deleniti vel aspernatur. Hic commodi soluta quia officia. Ex id et dignissimos ut non.",
+                      "impact": 7,
+                      "parent_id": "019aeaa3-b68d-7105-b1cd-0e8409271926",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 2,
+                      "budget": 806353.5,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [
+                        {
+                          "id": 666,
+                          "name": "Inovação",
+                          "pivot": {
+                            "project_id": "019aeaa3-b725-7280-bd62-f6db9b4259db",
+                            "project_funnel_id": 666,
+                            "id": 42748,
+                            "statuses_at": null,
+                            "statuses_by": null,
+                            "funnel_status_id": null,
+                            "forecast_date": null,
+                            "realized_forecast_date": null,
+                            "created_at": null,
+                            "forecast_date_update_count": 0
+                          },
+                          "tags": []
+                        }
+                      ],
+                      "funnel_steps": [
+                        {
+                          "id": 3814,
+                          "name": "Criação de Prototipagem",
+                          "project_funnel_id": 666,
+                          "sensation_amount": 50,
+                          "step_forward_id": null,
+                          "step_backward_id": null,
+                          "order": 45,
+                          "help_text": null,
+                          "form_id": null,
+                          "sort_config": null,
+                          "created_at": "2025-12-04T18:33:09.000000Z",
+                          "updated_at": "2025-12-04T18:33:09.000000Z",
+                          "pivot": {
+                            "project_id": "019aeaa3-b725-7280-bd62-f6db9b4259db",
+                            "funnel_step_id": 3814,
+                            "id": 144125,
+                            "order": 0,
+                            "created_at": "2025-12-04T18:33:09.000000Z"
+                          },
+                          "funnel_step_blockings": []
+                        }
+                      ],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b6f9-72ce-9a2a-3eb06f384ab5",
+                      "old_id": null,
+                      "code": "P-54",
+                      "name": "Projeto Complexo Raiz - nihil - molestias - culpa",
+                      "description": "Voluptas ut perspiciatis quia harum vitae iure. Deserunt ea sed sit et non eos. Ex earum voluptatem voluptatem delectus a excepturi.",
+                      "impact": 2,
+                      "parent_id": "019aeaa3-b67e-7149-9966-0c55b4b9b2a8",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 3,
+                      "budget": 45691.3,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [
+                        {
+                          "id": 665,
+                          "name": "Educação Corporativa",
+                          "pivot": {
+                            "project_id": "019aeaa3-b6f9-72ce-9a2a-3eb06f384ab5",
+                            "project_funnel_id": 665,
+                            "id": 42739,
+                            "statuses_at": null,
+                            "statuses_by": null,
+                            "funnel_status_id": null,
+                            "forecast_date": null,
+                            "realized_forecast_date": null,
+                            "created_at": null,
+                            "forecast_date_update_count": 0
+                          },
+                          "tags": []
+                        }
+                      ],
+                      "funnel_steps": [
+                        {
+                          "id": 3808,
+                          "name": "Gestão de Mudanças",
+                          "project_funnel_id": 665,
+                          "sensation_amount": 25,
+                          "step_forward_id": null,
+                          "step_backward_id": null,
+                          "order": 40,
+                          "help_text": null,
+                          "form_id": null,
+                          "sort_config": null,
+                          "created_at": "2025-12-04T18:33:09.000000Z",
+                          "updated_at": "2025-12-04T18:33:09.000000Z",
+                          "pivot": {
+                            "project_id": "019aeaa3-b6f9-72ce-9a2a-3eb06f384ab5",
+                            "funnel_step_id": 3808,
+                            "id": 144116,
+                            "order": 0,
+                            "created_at": "2025-12-04T18:33:09.000000Z"
+                          },
+                          "funnel_step_blockings": []
+                        }
+                      ],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b6e8-7270-918b-84772673fec7",
+                      "old_id": null,
+                      "code": "P-53",
+                      "name": "Projeto Complexo Raiz - quibusdam - mollitia",
+                      "description": "Et eum deleniti praesentium aut autem. Et necessitatibus omnis at inventore. Laboriosam quisquam blanditiis et et. Quo voluptatem sit et voluptas.",
+                      "impact": 6,
+                      "parent_id": "019aeaa3-b66d-7088-9f8f-1a4d1b01e774",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 874936.31,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b6da-7025-a386-e1862820e450",
+                      "old_id": null,
+                      "code": "P-52",
+                      "name": "Projeto Complexo Raiz - quibusdam - asperiores",
+                      "description": "Sunt officia quo ducimus. Sint repellendus repellat illum facilis sit sed nihil ut. Repudiandae voluptatem id recusandae quis.",
+                      "impact": 6,
+                      "parent_id": "019aeaa3-b66d-7088-9f8f-1a4d1b01e774",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 2,
+                      "budget": 626667.46,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b6c9-700f-a885-eadd8e635941",
+                      "old_id": null,
+                      "code": "P-51",
+                      "name": "Projeto Complexo Raiz - mollitia - expedita",
+                      "description": "Aspernatur voluptates est adipisci odit ad. Quo eaque est et perspiciatis rerum. Ut fuga vel repudiandae est. Modi adipisci et provident nam dolore optio numquam. Debitis ea quis ea est voluptatem.",
+                      "impact": 2,
+                      "parent_id": "019aeaa3-b660-7270-b47d-46e094729100",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 4,
+                      "budget": 178639.31,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b6bb-728c-8191-01283e2623b0",
+                      "old_id": null,
+                      "code": "P-50",
+                      "name": "Projeto Complexo Raiz - mollitia - et",
+                      "description": "Nulla dolor sed fugit sed ea eos ex. Corporis inventore saepe nobis expedita molestiae repellendus. Dicta corporis et voluptatem beatae voluptatem inventore inventore id.",
+                      "impact": 8,
+                      "parent_id": "019aeaa3-b660-7270-b47d-46e094729100",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 925757.89,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b6ab-7139-9f43-0b8133dcc038",
+                      "old_id": null,
+                      "code": "P-49",
+                      "name": "Projeto Complexo Raiz - sint - sint",
+                      "description": "Sunt minima aut eos dicta impedit nihil atque. Corporis dignissimos id voluptas est occaecati et libero est. Nisi quis beatae unde quia. Ex quo quia recusandae ipsa qui eligendi.",
+                      "impact": 10,
+                      "parent_id": "019aeaa3-b650-71b5-ac4b-3465d17cf219",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 2,
+                      "budget": 656502.58,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [
+                        {
+                          "id": 667,
+                          "name": "Inovação",
+                          "pivot": {
+                            "project_id": "019aeaa3-b6ab-7139-9f43-0b8133dcc038",
+                            "project_funnel_id": 667,
+                            "id": 42766,
+                            "statuses_at": null,
+                            "statuses_by": null,
+                            "funnel_status_id": null,
+                            "forecast_date": null,
+                            "realized_forecast_date": null,
+                            "created_at": null,
+                            "forecast_date_update_count": 0
+                          },
+                          "tags": []
+                        }
+                      ],
+                      "funnel_steps": [
+                        {
+                          "id": 3817,
+                          "name": "Desenvolvimento Conceitual",
+                          "project_funnel_id": 667,
+                          "sensation_amount": 87,
+                          "step_forward_id": null,
+                          "step_backward_id": null,
+                          "order": 2,
+                          "help_text": null,
+                          "form_id": null,
+                          "sort_config": {
+                            "field": "budget",
+                            "arguments": [],
+                            "direction": "desc"
+                          },
+                          "created_at": "2025-12-04T18:33:09.000000Z",
+                          "updated_at": "2025-12-11T14:33:58.000000Z",
+                          "pivot": {
+                            "project_id": "019aeaa3-b6ab-7139-9f43-0b8133dcc038",
+                            "funnel_step_id": 3817,
+                            "id": 144188,
+                            "order": 7,
+                            "created_at": "2025-12-11T14:14:06.000000Z"
+                          },
+                          "funnel_step_blockings": []
+                        }
+                      ],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b69d-70b8-b7ae-cbed424cd04d",
+                      "old_id": null,
+                      "code": "P-48",
+                      "name": "Projeto Complexo Raiz - sint - dolores",
+                      "description": "Quas velit aut earum cupiditate. Qui at quaerat neque aperiam voluptatem. Nobis illum ducimus quae placeat et et. Voluptas recusandae quia deserunt quia.",
+                      "impact": 1,
+                      "parent_id": "019aeaa3-b650-71b5-ac4b-3465d17cf219",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 3,
+                      "budget": 842332.7,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    },
+                    {
+                      "id": "019aeaa3-b68d-7105-b1cd-0e8409271926",
+                      "old_id": null,
+                      "code": "P-47",
+                      "name": "Projeto Complexo Raiz - nihil - et",
+                      "description": "Cupiditate qui eveniet rem in tenetur. Quis consequuntur sit ea et. Et sit aut ut explicabo. Reiciendis cumque quidem quo cupiditate ut.",
+                      "impact": 1,
+                      "parent_id": "019aeaa3-b642-7107-88a9-fbf40c7028d0",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:09.000000Z",
+                      "updated_at": "2025-12-04T18:33:09.000000Z",
+                      "customer_id": null,
+                      "contact_id": null,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 324996.46,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": null,
+                      "contact": null,
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company ",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    }
+                  ],
+                  "meta": {
+                    "current_page": 1,
+                    "from": 1,
+                    "last_page": 3,
+                    "per_page": 30,
+                    "to": 30,
+                    "total": 78
+                  },
+                  "response": true
+                }
+              }
             }
           },
           "401": {
@@ -6066,11 +8517,35 @@
                 },
                 "example": "*"
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
+                }
+              }
             }
           }
         },
         "tags": [
-          "projects"
+          "projects",
+          "Projetos"
         ],
         "description": "Esta rota é normalmente utilizada para campos de autocomplete, e buscas mais simples, pois é uma rota que entrega menos informações que uma busca avançada. Se você estiver buscando encontrar projetos baseado em um conjunto de filtros avançados e específicos, considere usar a busca avançada.\n\nPossui paginação e aceita alguns filtros via query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)\n- [Paginação](https://docs.olie.ai/api-reference/general/pagination)"
       },
@@ -6345,6 +8820,29 @@
                 },
                 "example": "*"
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
+                }
+              }
             }
           },
           "422": {
@@ -6362,11 +8860,78 @@
                 },
                 "example": "keep-alive"
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "description": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "impact": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "status": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo nome é obrigatório. (and 3 more errors)",
+                  "validation": {
+                    "name": [
+                      "O campo nome é obrigatório."
+                    ],
+                    "description": [
+                      "O campo descrição deve ser uma string."
+                    ],
+                    "impact": [
+                      "O campo impact não pode ser superior a 10."
+                    ],
+                    "status": [
+                      "O status selecionado é inválido."
+                    ]
+                  }
+                }
+              }
             }
           }
         },
         "tags": [
-          "projects"
+          "projects",
+          "Projetos"
         ],
         "description": "Cria um novo projeto com os dados fornecidos.",
         "requestBody": {
@@ -9016,11 +11581,59 @@
                 },
                 "example": "keep-alive"
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "field": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "file": {
+                      "nullable": true
+                    },
+                    "stacktrace": {
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo nonExistsFilterField selecionado é inválido.",
+                  "validation": {
+                    "field": [
+                      "O campo nonExistsFilterField selecionado é inválido."
+                    ]
+                  },
+                  "file": null,
+                  "stacktrace": null
+                }
+              }
             }
           }
         },
         "tags": [
-          "projects"
+          "projects",
+          "Projetos"
         ],
         "description": "Retorna uma lista de projetos, com alguns detalhes adicionais.\n\nConsulte:\n\n- [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search)\n- [Paginação](https://docs.olie.ai/api-reference/general/pagination)",
         "requestBody": {
@@ -9676,7 +12289,8 @@
           }
         },
         "tags": [
-          "projects"
+          "projects",
+          "Projetos"
         ],
         "description": "O endpoint de criação rápida de projetos permite criar um novo projeto com apenas as informações essenciais, que no endpoint de criação comum, são obrigatórias. Este método é ideal para criação rápida de projetos quando você não precisa configurar todos os detalhes imediatamente.",
         "requestBody": {
@@ -25022,13 +27636,225 @@
         "summary": "Listar execuções de um projeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer"
+                        },
+                        "from": {
+                          "type": "integer"
+                        },
+                        "last_page": {
+                          "type": "integer"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "to": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "project_executions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "project_id": {
+                            "type": "string"
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "funnel_step_id": {
+                            "type": "integer"
+                          },
+                          "started_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "finished_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "hourly_rate": {
+                            "type": "integer"
+                          },
+                          "finished_reason": {
+                            "type": "string"
+                          },
+                          "started_at_real": {
+                            "nullable": true
+                          },
+                          "finished_at_real": {
+                            "nullable": true
+                          },
+                          "project": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "is_template": {
+                                "type": "boolean"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              }
+                            }
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "avatar_url": {
+                                "nullable": true
+                              }
+                            }
+                          },
+                          "funnel_step": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "project_funnel_id": {
+                                "type": "integer"
+                              },
+                              "funnel": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "integer"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "meta": {
+                    "current_page": 1,
+                    "from": 1,
+                    "last_page": 1,
+                    "per_page": 30,
+                    "to": 2,
+                    "total": 2
+                  },
+                  "project_executions": [
+                    {
+                      "id": "a14afcbd-38b1-4b97-8950-02c09547611a",
+                      "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                      "funnel_step_id": 181,
+                      "started_at": "2026-08-19T13:05:00.000000Z",
+                      "finished_at": "2026-08-19T14:47:12.000000Z",
+                      "hourly_rate": 85,
+                      "finished_reason": "self_stop",
+                      "started_at_real": null,
+                      "finished_at_real": null,
+                      "project": {
+                        "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                        "code": "SC-1",
+                        "name": "Shopping Center",
+                        "is_template": false,
+                        "deleted_at": null
+                      },
+                      "user": {
+                        "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                        "name": "Ana Souza",
+                        "avatar_url": null
+                      },
+                      "funnel_step": {
+                        "id": 181,
+                        "name": "Execução",
+                        "project_funnel_id": 36,
+                        "funnel": {
+                          "id": 36,
+                          "name": "Obras"
+                        }
+                      }
+                    },
+                    {
+                      "id": "a14afbe7-d2bc-4821-9c2b-7ce295f8a962",
+                      "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                      "funnel_step_id": 181,
+                      "started_at": "2026-08-18T09:12:44.000000Z",
+                      "finished_at": "2026-08-18T11:30:00.000000Z",
+                      "hourly_rate": 85,
+                      "finished_reason": "step_moved",
+                      "started_at_real": null,
+                      "finished_at_real": null,
+                      "project": {
+                        "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                        "code": "SC-1",
+                        "name": "Shopping Center",
+                        "is_template": false,
+                        "deleted_at": null
+                      },
+                      "user": {
+                        "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                        "name": "Ana Souza",
+                        "avatar_url": null
+                      },
+                      "funnel_step": {
+                        "id": 181,
+                        "name": "Execução",
+                        "project_funnel_id": 36,
+                        "funnel": {
+                          "id": 36,
+                          "name": "Obras"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           }
         },
         "tags": [
           "projects",
-          "{id}",
-          "project-execution"
+          "Execuções"
         ],
         "parameters": [
           {
@@ -25124,14 +27950,182 @@
       "post": {
         "summary": "Iniciar uma execução",
         "responses": {
-          "200": {
-            "description": "200"
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "project_id": {
+                          "type": "string"
+                        },
+                        "user_id": {
+                          "type": "string"
+                        },
+                        "funnel_step_id": {
+                          "type": "integer"
+                        },
+                        "started_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "finished_at": {
+                          "nullable": true
+                        },
+                        "hourly_rate": {
+                          "type": "integer"
+                        },
+                        "finished_reason": {
+                          "nullable": true
+                        },
+                        "started_at_real": {
+                          "nullable": true
+                        },
+                        "finished_at_real": {
+                          "nullable": true
+                        },
+                        "project": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "code": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "is_template": {
+                              "type": "boolean"
+                            },
+                            "deleted_at": {
+                              "nullable": true
+                            }
+                          }
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "avatar_url": {
+                              "nullable": true
+                            }
+                          }
+                        },
+                        "funnel_step": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "project_funnel_id": {
+                              "type": "integer"
+                            },
+                            "funnel": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "data": {
+                    "id": "a14afcbd-38b1-4b97-8950-02c09547611a",
+                    "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                    "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                    "funnel_step_id": 181,
+                    "started_at": "2026-08-19T13:05:00.000000Z",
+                    "finished_at": null,
+                    "hourly_rate": 85,
+                    "finished_reason": null,
+                    "started_at_real": null,
+                    "finished_at_real": null,
+                    "project": {
+                      "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "code": "SC-1",
+                      "name": "Shopping Center",
+                      "is_template": false,
+                      "deleted_at": null
+                    },
+                    "user": {
+                      "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                      "name": "Ana Souza",
+                      "avatar_url": null
+                    },
+                    "funnel_step": {
+                      "id": 181,
+                      "name": "Execução",
+                      "project_funnel_id": 36,
+                      "funnel": {
+                        "id": 36,
+                        "name": "Obras"
+                      }
+                    }
+                  },
+                  "response": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Etapa não permite execução",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "execution_not_allowed_on_step",
+                  "error": "Project executions are not allowed on this funnel/step"
+                }
+              }
+            }
           }
         },
         "tags": [
           "projects",
-          "{id}",
-          "project-execution"
+          "Execuções"
         ],
         "parameters": [
           {
@@ -25169,13 +28163,240 @@
         "summary": "Atualizar uma execução",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Encerrada agora",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "project_id": {
+                          "type": "string"
+                        },
+                        "user_id": {
+                          "type": "string"
+                        },
+                        "funnel_step_id": {
+                          "type": "integer"
+                        },
+                        "started_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "finished_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "hourly_rate": {
+                          "type": "integer"
+                        },
+                        "finished_reason": {
+                          "type": "string"
+                        },
+                        "started_at_real": {
+                          "nullable": true
+                        },
+                        "finished_at_real": {
+                          "nullable": true
+                        },
+                        "project": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "code": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "is_template": {
+                              "type": "boolean"
+                            },
+                            "deleted_at": {
+                              "nullable": true
+                            }
+                          }
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "avatar_url": {
+                              "nullable": true
+                            }
+                          }
+                        },
+                        "funnel_step": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "project_funnel_id": {
+                              "type": "integer"
+                            },
+                            "funnel": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "examples": {
+                  "Encerrada agora": {
+                    "value": {
+                      "data": {
+                        "id": "a14afcbd-38b1-4b97-8950-02c09547611a",
+                        "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                        "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                        "funnel_step_id": 181,
+                        "started_at": "2026-08-19T13:05:00.000000Z",
+                        "finished_at": "2026-08-19T14:47:12.000000Z",
+                        "hourly_rate": 85,
+                        "finished_reason": "self_stop",
+                        "started_at_real": null,
+                        "finished_at_real": null,
+                        "project": {
+                          "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                          "code": "SC-1",
+                          "name": "Shopping Center",
+                          "is_template": false,
+                          "deleted_at": null
+                        },
+                        "user": {
+                          "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                          "name": "Ana Souza",
+                          "avatar_url": null
+                        },
+                        "funnel_step": {
+                          "id": 181,
+                          "name": "Execução",
+                          "project_funnel_id": 36,
+                          "funnel": {
+                            "id": 36,
+                            "name": "Obras"
+                          }
+                        }
+                      },
+                      "response": true
+                    }
+                  },
+                  "Horários ajustados": {
+                    "value": {
+                      "data": {
+                        "id": "a14afcbd-38b1-4b97-8950-02c09547611a",
+                        "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                        "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                        "funnel_step_id": 181,
+                        "started_at": "2026-08-19T13:00:00.000000Z",
+                        "finished_at": "2026-08-19T15:00:00.000000Z",
+                        "hourly_rate": 85,
+                        "finished_reason": "self_stop",
+                        "started_at_real": null,
+                        "finished_at_real": null,
+                        "project": {
+                          "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                          "code": "SC-1",
+                          "name": "Shopping Center",
+                          "is_template": false,
+                          "deleted_at": null
+                        },
+                        "user": {
+                          "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                          "name": "Ana Souza",
+                          "avatar_url": null
+                        },
+                        "funnel_step": {
+                          "id": 181,
+                          "name": "Execução",
+                          "project_funnel_id": 36,
+                          "funnel": {
+                            "id": 36,
+                            "name": "Obras"
+                          }
+                        }
+                      },
+                      "response": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "finish_now": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo finish now proíbe que started at esteja presente.",
+                  "validation": {
+                    "finish_now": [
+                      "O campo finish now proíbe que started at esteja presente."
+                    ]
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
           "projects",
-          "{id}",
-          "project-execution"
+          "Execuções"
         ],
         "requestBody": {
           "content": {
@@ -25228,11 +28449,21 @@
       ],
       "delete": {
         "summary": "Remover uma execução",
-        "responses": {},
+        "responses": {
+          "204": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
         "tags": [
           "projects",
-          "{id}",
-          "project-execution"
+          "Execuções"
         ],
         "description": "Apaga um registro de execução do projeto. O tempo deixa de contar nos totais do painel e nos relatórios. Exige permissão de edição da execução."
       }
@@ -25633,8 +28864,7 @@
         },
         "tags": [
           "projects",
-          "{id}",
-          "project-execution"
+          "Execuções"
         ],
         "parameters": [
           {
@@ -25664,13 +28894,180 @@
         "summary": "Obter o painel de execuções do projeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "dashboard": {
+                      "type": "object",
+                      "properties": {
+                        "total_time_invested": {
+                          "type": "integer"
+                        },
+                        "total_sessions": {
+                          "type": "integer"
+                        },
+                        "average_duration": {
+                          "type": "integer"
+                        },
+                        "distribution_by_funnel": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "funnel_id": {
+                                "type": "integer"
+                              },
+                              "funnel_name": {
+                                "type": "string"
+                              },
+                              "steps": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "step_id": {
+                                      "type": "integer"
+                                    },
+                                    "step_name": {
+                                      "type": "string"
+                                    },
+                                    "time": {
+                                      "type": "integer"
+                                    },
+                                    "percentage": {
+                                      "type": "number"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "top_users_by_time": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "user_id": {
+                                "type": "string"
+                              },
+                              "user_name": {
+                                "type": "string"
+                              },
+                              "time": {
+                                "type": "integer"
+                              },
+                              "percentage": {
+                                "type": "number"
+                              },
+                              "is_currently_executing": {
+                                "type": "boolean"
+                              },
+                              "current_execution_id": {
+                                "type": "string"
+                              },
+                              "steps": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "step_id": {
+                                      "type": "integer"
+                                    },
+                                    "step_name": {
+                                      "type": "string"
+                                    },
+                                    "time": {
+                                      "type": "integer"
+                                    },
+                                    "percentage": {
+                                      "type": "integer"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "dashboard": {
+                    "total_time_invested": 14352,
+                    "total_sessions": 6,
+                    "average_duration": 2392,
+                    "distribution_by_funnel": [
+                      {
+                        "funnel_id": 36,
+                        "funnel_name": "Obras",
+                        "steps": [
+                          {
+                            "step_id": 181,
+                            "step_name": "Execução",
+                            "time": 10120,
+                            "percentage": 70.51
+                          },
+                          {
+                            "step_id": 182,
+                            "step_name": "Conferência",
+                            "time": 4232,
+                            "percentage": 29.49
+                          }
+                        ]
+                      }
+                    ],
+                    "top_users_by_time": [
+                      {
+                        "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                        "user_name": "Ana Souza",
+                        "time": 9840,
+                        "percentage": 68.56,
+                        "is_currently_executing": true,
+                        "current_execution_id": "a14afcbd-38b1-4b97-8950-02c09547611a",
+                        "steps": [
+                          {
+                            "step_id": 181,
+                            "step_name": "Execução",
+                            "time": 9840,
+                            "percentage": 100
+                          }
+                        ]
+                      },
+                      {
+                        "user_id": "019c1e88-2d70-71aa-9f04-6b5c1d8e4a37",
+                        "user_name": "Bruno Lima",
+                        "time": 4512,
+                        "percentage": 31.44,
+                        "is_currently_executing": false,
+                        "current_execution_id": null,
+                        "steps": [
+                          {
+                            "step_id": 182,
+                            "step_name": "Conferência",
+                            "time": 4512,
+                            "percentage": 100
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
           "projects",
-          "{id}",
-          "project-execution"
+          "Execuções"
         ],
         "description": "Consolida o tempo trabalhado no projeto: total investido, número de sessões, duração média, distribuição por funil e etapa e o ranking de pessoas por tempo — indicando quem está executando no momento. Todos os tempos são em segundos."
       },
@@ -25772,92 +29169,6 @@
         "responses": {
           "200": {
             "description": "Sucesso",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Access-Control-Expose-Headers": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Cache-Control": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "no-cache, private"
-              },
-              "Content-Encoding": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "gzip"
-              },
-              "Date": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Fri, 13 Mar 2026 21:17:54 GMT"
-              },
-              "Referrer-Policy": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "strict-origin-when-cross-origin"
-              },
-              "Server": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "nginx"
-              },
-              "Strict-Transport-Security": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "max-age=31536000; includeSubDomains"
-              },
-              "Vary": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Accept-Encoding"
-              },
-              "X-Content-Type-Options": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "nosniff"
-              },
-              "X-Frame-Options": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "SAMEORIGIN"
-              },
-              "X-Ratelimit-Limit": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 160
-              },
-              "X-Ratelimit-Remaining": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 159
-              },
-              "Transfer-Encoding": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "chunked"
-              }
-            },
             "content": {
               "application/json": {
                 "schema": {
@@ -26055,106 +29366,39 @@
                 },
                 "example": {
                   "response": true,
-                  "current_execution": {
+                  "project_execution": {
                     "id": "a14afcbd-38b1-4b97-8950-02c09547611a",
-                    "project_id": "019c2ffd-f4e9-709f-ae34-d4d149e3585d",
+                    "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
                     "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
                     "funnel_step_id": 181,
-                    "started_at": "2026-03-13T20:39:59.000000Z",
-                    "finished_at": null,
-                    "hourly_rate": 0,
-                    "finished_reason": null,
+                    "started_at": "2026-08-19T13:05:00.000000Z",
+                    "finished_at": "2026-08-19T14:47:12.000000Z",
+                    "hourly_rate": 85,
+                    "finished_reason": "self_stop",
                     "started_at_real": null,
                     "finished_at_real": null,
                     "project": {
-                      "id": "019c2ffd-f4e9-709f-ae34-d4d149e3585d",
-                      "code": "AD-1",
-                      "name": "awdawd"
+                      "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "code": "SC-1",
+                      "name": "Shopping Center",
+                      "is_template": false,
+                      "deleted_at": null
                     },
                     "user": {
                       "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                      "name": "Test User",
-                      "avatar_url": "https://olie-main-dev.s3.amazonaws.com/app/avatars/AKMCHJI5WBPqrvx6aF9okU2dwf4VlOtRg3bN-avatar-1773273837.png"
+                      "name": "Ana Souza",
+                      "avatar_url": null
                     },
                     "funnel_step": {
                       "id": 181,
-                      "name": "tres",
+                      "name": "Execução",
                       "project_funnel_id": 36,
                       "funnel": {
                         "id": 36,
-                        "name": "funil do abacaxi"
+                        "name": "Obras"
                       }
                     }
-                  },
-                  "recent_executions": [
-                    {
-                      "id": "a14afbe7-d2bc-4821-9c2b-7ce295f8a962",
-                      "project_id": "019c2ffd-f4e9-709f-ae34-d4d149e3585d",
-                      "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                      "funnel_step_id": 181,
-                      "started_at": "2026-03-13T16:00:39.000000Z",
-                      "finished_at": "2026-03-13T20:39:00.000000Z",
-                      "hourly_rate": 0,
-                      "finished_reason": "self_stop",
-                      "started_at_real": null,
-                      "finished_at_real": "2026-03-13T19:20:03.000000Z",
-                      "project": {
-                        "id": "019c2ffd-f4e9-709f-ae34-d4d149e3585d",
-                        "code": "AD-1",
-                        "name": "awdawd"
-                      },
-                      "user": {
-                        "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                        "name": "Test User",
-                        "avatar_url": "https://olie-main-dev.s3.amazonaws.com/app/avatars/AKMCHJI5WBPqrvx6aF9okU2dwf4VlOtRg3bN-avatar-1773273837.png"
-                      },
-                      "funnel_step": {
-                        "id": 181,
-                        "name": "tres",
-                        "project_funnel_id": 36,
-                        "funnel": {
-                          "id": 36,
-                          "name": "funil do abacaxi"
-                        }
-                      }
-                    },
-                    {
-                      "id": "a14afbe7-d2bc-4821-9c2b-7ce295f8a961",
-                      "project_id": "019c2ffd-f4e9-709f-ae34-d4d149e3585d",
-                      "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                      "funnel_step_id": 181,
-                      "started_at": "2026-03-13T10:00:39.000000Z",
-                      "finished_at": "2026-03-13T15:20:03.000000Z",
-                      "hourly_rate": 0,
-                      "finished_reason": "self_stop",
-                      "started_at_real": null,
-                      "finished_at_real": null,
-                      "project": {
-                        "id": "019c2ffd-f4e9-709f-ae34-d4d149e3585d",
-                        "code": "AD-1",
-                        "name": "awdawd"
-                      },
-                      "user": {
-                        "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                        "name": "Test User",
-                        "avatar_url": "https://olie-main-dev.s3.amazonaws.com/app/avatars/AKMCHJI5WBPqrvx6aF9okU2dwf4VlOtRg3bN-avatar-1773273837.png"
-                      },
-                      "funnel_step": {
-                        "id": 181,
-                        "name": "tres",
-                        "project_funnel_id": 36,
-                        "funnel": {
-                          "id": 36,
-                          "name": "funil do abacaxi"
-                        }
-                      }
-                    }
-                  ],
-                  "hidden_timers": false,
-                  "total_time": 38140,
-                  "idle_time": 27734,
-                  "current_project_total_time": 38140,
-                  "current_step_total_time": 38140
+                  }
                 }
               }
             }
@@ -26162,8 +29406,7 @@
         },
         "tags": [
           "projects",
-          "{id}",
-          "project-execution"
+          "Execuções"
         ],
         "description": "Retorna uma execução específica com o projeto, a etapa do funil e o usuário relacionados. O valor hora só aparece para quem tem acesso a custos."
       },
