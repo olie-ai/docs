@@ -17533,7 +17533,48 @@
         "operationId": "executarAssistenteDeEtapaManualmente",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Enfileirado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Assistente não aceita execução manual",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "step_assistant_model_not_found",
+                  "error": "No query results for model [App\\Models\\StepAssistant] c4e2a7d1-58b6-4f09-a3c7-1e9d24b7f065"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -17578,7 +17619,264 @@
         "operationId": "obterRegistrosDeExecuODosAssistentes",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "step_assistant_id": {
+                            "type": "string"
+                          },
+                          "project_id": {
+                            "type": "string"
+                          },
+                          "agent_execution_id": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "result": {
+                            "type": "string"
+                          },
+                          "media_result_status": {
+                            "type": "boolean"
+                          },
+                          "media_result_error": {
+                            "nullable": true
+                          },
+                          "dynamic_form_result_status": {
+                            "nullable": true
+                          },
+                          "dynamic_form_result_error": {
+                            "nullable": true
+                          },
+                          "execution_time": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "step_assistant": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "ai_agent_id": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "project": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "agent_execution": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string"
+                              },
+                              "response": {
+                                "type": "string"
+                              },
+                              "model": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "first_page_url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "from": {
+                      "type": "integer"
+                    },
+                    "last_page": {
+                      "type": "integer"
+                    },
+                    "last_page_url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "links": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "nullable": true
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "page": {
+                            "nullable": true
+                          },
+                          "active": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    },
+                    "next_page_url": {
+                      "nullable": true
+                    },
+                    "path": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "prev_page_url": {
+                      "nullable": true
+                    },
+                    "to": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "current_page": 1,
+                  "data": [
+                    {
+                      "id": "e1a90c37-2d64-4f8b-93a5-0b7c46d182ef",
+                      "step_assistant_id": "9f1c4b02-6f3a-4b8e-9d21-7c5e0a41b8d3",
+                      "project_id": "5d8b3e21-4c07-49f6-a1d3-96b8e70c2f54",
+                      "agent_execution_id": "b62f80d4-13c9-4e57-a08d-3f5216c9e7ab",
+                      "status": "success",
+                      "result": "O cliente pediu revisão do orçamento e aguarda retorno sobre o prazo de entrega.",
+                      "media_result_status": true,
+                      "media_result_error": null,
+                      "dynamic_form_result_status": null,
+                      "dynamic_form_result_error": null,
+                      "execution_time": "2026-08-18T16:44:09.000000Z",
+                      "created_at": "2026-08-18T16:44:02.000000Z",
+                      "updated_at": "2026-08-18T16:44:09.000000Z",
+                      "step_assistant": {
+                        "id": "9f1c4b02-6f3a-4b8e-9d21-7c5e0a41b8d3",
+                        "name": "Resumo do atendimento",
+                        "ai_agent_id": "2b7d94f6-0c31-4a85-b6e2-58f1c0d93a47"
+                      },
+                      "project": {
+                        "id": "5d8b3e21-4c07-49f6-a1d3-96b8e70c2f54",
+                        "name": "Reforma da fachada",
+                        "code": "OBR-114"
+                      },
+                      "agent_execution": {
+                        "id": "b62f80d4-13c9-4e57-a08d-3f5216c9e7ab",
+                        "status": "completed",
+                        "response": "O cliente pediu revisão do orçamento e aguarda retorno sobre o prazo de entrega.",
+                        "model": "claude-sonnet-5"
+                      }
+                    },
+                    {
+                      "id": "4c72b8f0-9a15-4e63-b0d8-72e5931ac48f",
+                      "step_assistant_id": "c4e2a7d1-58b6-4f09-a3c7-1e9d24b7f065",
+                      "project_id": "5d8b3e21-4c07-49f6-a1d3-96b8e70c2f54",
+                      "agent_execution_id": "0a54e9b3-7c28-4d16-95f7-e83b104c6d29",
+                      "status": "error",
+                      "result": null,
+                      "media_result_status": null,
+                      "media_result_error": null,
+                      "dynamic_form_result_status": false,
+                      "dynamic_form_result_error": "No query results for model [App\\Models\\FormEdge] 2231",
+                      "execution_time": "2026-08-18T15:02:31.000000Z",
+                      "created_at": "2026-08-18T15:02:27.000000Z",
+                      "updated_at": "2026-08-18T15:02:31.000000Z",
+                      "step_assistant": {
+                        "id": "c4e2a7d1-58b6-4f09-a3c7-1e9d24b7f065",
+                        "name": "Classificar urgência",
+                        "ai_agent_id": "7a3f16c8-9e42-4d70-8b15-c2064ef3d891"
+                      },
+                      "project": {
+                        "id": "5d8b3e21-4c07-49f6-a1d3-96b8e70c2f54",
+                        "name": "Reforma da fachada",
+                        "code": "OBR-114"
+                      },
+                      "agent_execution": {
+                        "id": "0a54e9b3-7c28-4d16-95f7-e83b104c6d29",
+                        "status": "failed",
+                        "response": null,
+                        "model": "claude-sonnet-5"
+                      }
+                    }
+                  ],
+                  "first_page_url": "https://api.olie.ai/api/management/steps/312/assistants/execution-logs?page=1",
+                  "from": 1,
+                  "last_page": 1,
+                  "last_page_url": "https://api.olie.ai/api/management/steps/312/assistants/execution-logs?page=1",
+                  "links": [
+                    {
+                      "url": null,
+                      "label": "&laquo; Anterior",
+                      "page": null,
+                      "active": false
+                    },
+                    {
+                      "url": "https://api.olie.ai/api/management/steps/312/assistants/execution-logs?page=1",
+                      "label": "1",
+                      "page": 1,
+                      "active": true
+                    },
+                    {
+                      "url": null,
+                      "label": "Próximo &raquo;",
+                      "page": null,
+                      "active": false
+                    }
+                  ],
+                  "next_page_url": null,
+                  "path": "https://api.olie.ai/api/management/steps/312/assistants/execution-logs",
+                  "per_page": 30,
+                  "prev_page_url": null,
+                  "to": 2,
+                  "total": 2
+                }
+              }
+            }
           }
         },
         "parameters": [
@@ -17643,7 +17941,239 @@
         "operationId": "listarTodosOsAssistentesDeEtapa",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "active": {
+                            "type": "boolean"
+                          },
+                          "funnel_step_id": {
+                            "type": "integer"
+                          },
+                          "ai_agent_id": {
+                            "type": "string"
+                          },
+                          "prompt": {
+                            "type": "string"
+                          },
+                          "execute_on": {
+                            "type": "string"
+                          },
+                          "manual_execution_enabled": {
+                            "type": "boolean"
+                          },
+                          "result_as_media": {
+                            "type": "boolean"
+                          },
+                          "result_as_dynamic_form": {
+                            "nullable": true
+                          },
+                          "failure_funnel_step_id": {
+                            "type": "integer"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "deleted_at": {
+                            "nullable": true
+                          },
+                          "funnel_step": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "project_funnel_id": {
+                                "type": "integer"
+                              }
+                            }
+                          },
+                          "ai_agent": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "first_page_url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "from": {
+                      "type": "integer"
+                    },
+                    "last_page": {
+                      "type": "integer"
+                    },
+                    "last_page_url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "links": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "nullable": true
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "page": {
+                            "nullable": true
+                          },
+                          "active": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    },
+                    "next_page_url": {
+                      "nullable": true
+                    },
+                    "path": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "prev_page_url": {
+                      "nullable": true
+                    },
+                    "to": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "current_page": 1,
+                  "data": [
+                    {
+                      "id": "9f1c4b02-6f3a-4b8e-9d21-7c5e0a41b8d3",
+                      "name": "Resumo do atendimento",
+                      "active": true,
+                      "funnel_step_id": 312,
+                      "ai_agent_id": "2b7d94f6-0c31-4a85-b6e2-58f1c0d93a47",
+                      "prompt": "Resuma em até cinco linhas o histórico de conversas do projeto e destaque o que ficou pendente.",
+                      "execute_on": "moved",
+                      "manual_execution_enabled": true,
+                      "result_as_media": true,
+                      "result_as_dynamic_form": null,
+                      "failure_funnel_step_id": 318,
+                      "created_at": "2026-07-28T14:12:03.000000Z",
+                      "updated_at": "2026-08-11T09:41:57.000000Z",
+                      "deleted_at": null,
+                      "funnel_step": {
+                        "id": 312,
+                        "name": "Triagem",
+                        "project_funnel_id": 47
+                      },
+                      "ai_agent": {
+                        "id": "2b7d94f6-0c31-4a85-b6e2-58f1c0d93a47",
+                        "name": "Analista de atendimento"
+                      }
+                    },
+                    {
+                      "id": "c4e2a7d1-58b6-4f09-a3c7-1e9d24b7f065",
+                      "name": "Classificar urgência",
+                      "active": false,
+                      "funnel_step_id": 312,
+                      "ai_agent_id": "7a3f16c8-9e42-4d70-8b15-c2064ef3d891",
+                      "prompt": "Leia a descrição do projeto e responda apenas com uma das opções: baixa, média ou alta.",
+                      "execute_on": "manual",
+                      "manual_execution_enabled": false,
+                      "result_as_media": false,
+                      "result_as_dynamic_form": {
+                        "pivot_class": "App\\Models\\Project",
+                        "form_id": 118,
+                        "edge_id": 2231,
+                        "id": "{{project.id}}"
+                      },
+                      "failure_funnel_step_id": null,
+                      "created_at": "2026-08-02T10:03:44.000000Z",
+                      "updated_at": "2026-08-02T10:03:44.000000Z",
+                      "deleted_at": null,
+                      "funnel_step": {
+                        "id": 312,
+                        "name": "Triagem",
+                        "project_funnel_id": 47
+                      },
+                      "ai_agent": {
+                        "id": "7a3f16c8-9e42-4d70-8b15-c2064ef3d891",
+                        "name": "Classificador"
+                      }
+                    }
+                  ],
+                  "first_page_url": "https://api.olie.ai/api/management/step-assistants?page=1",
+                  "from": 1,
+                  "last_page": 1,
+                  "last_page_url": "https://api.olie.ai/api/management/step-assistants?page=1",
+                  "links": [
+                    {
+                      "url": null,
+                      "label": "&laquo; Anterior",
+                      "page": null,
+                      "active": false
+                    },
+                    {
+                      "url": "https://api.olie.ai/api/management/step-assistants?page=1",
+                      "label": "1",
+                      "page": 1,
+                      "active": true
+                    },
+                    {
+                      "url": null,
+                      "label": "Próximo &raquo;",
+                      "page": null,
+                      "active": false
+                    }
+                  ],
+                  "next_page_url": null,
+                  "path": "https://api.olie.ai/api/management/step-assistants",
+                  "per_page": 30,
+                  "prev_page_url": null,
+                  "to": 2,
+                  "total": 2
+                }
+              }
+            }
           }
         },
         "parameters": [
@@ -17723,7 +18253,234 @@
         "operationId": "listarAssistentesDeUmaEtapaEspecFica",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "active": {
+                            "type": "boolean"
+                          },
+                          "funnel_step_id": {
+                            "type": "integer"
+                          },
+                          "ai_agent_id": {
+                            "type": "string"
+                          },
+                          "prompt": {
+                            "type": "string"
+                          },
+                          "execute_on": {
+                            "type": "string"
+                          },
+                          "manual_execution_enabled": {
+                            "type": "boolean"
+                          },
+                          "result_as_media": {
+                            "type": "boolean"
+                          },
+                          "result_as_dynamic_form": {
+                            "nullable": true
+                          },
+                          "failure_funnel_step_id": {
+                            "type": "integer"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "deleted_at": {
+                            "nullable": true
+                          },
+                          "funnel_step": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "ai_agent": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "first_page_url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "from": {
+                      "type": "integer"
+                    },
+                    "last_page": {
+                      "type": "integer"
+                    },
+                    "last_page_url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "links": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "nullable": true
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "page": {
+                            "nullable": true
+                          },
+                          "active": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    },
+                    "next_page_url": {
+                      "nullable": true
+                    },
+                    "path": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "prev_page_url": {
+                      "nullable": true
+                    },
+                    "to": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "current_page": 1,
+                  "data": [
+                    {
+                      "id": "9f1c4b02-6f3a-4b8e-9d21-7c5e0a41b8d3",
+                      "name": "Resumo do atendimento",
+                      "active": true,
+                      "funnel_step_id": 312,
+                      "ai_agent_id": "2b7d94f6-0c31-4a85-b6e2-58f1c0d93a47",
+                      "prompt": "Resuma em até cinco linhas o histórico de conversas do projeto e destaque o que ficou pendente.",
+                      "execute_on": "moved",
+                      "manual_execution_enabled": true,
+                      "result_as_media": true,
+                      "result_as_dynamic_form": null,
+                      "failure_funnel_step_id": 318,
+                      "created_at": "2026-07-28T14:12:03.000000Z",
+                      "updated_at": "2026-08-11T09:41:57.000000Z",
+                      "deleted_at": null,
+                      "funnel_step": {
+                        "id": 312,
+                        "name": "Triagem"
+                      },
+                      "ai_agent": {
+                        "id": "2b7d94f6-0c31-4a85-b6e2-58f1c0d93a47",
+                        "name": "Analista de atendimento"
+                      }
+                    },
+                    {
+                      "id": "c4e2a7d1-58b6-4f09-a3c7-1e9d24b7f065",
+                      "name": "Classificar urgência",
+                      "active": false,
+                      "funnel_step_id": 312,
+                      "ai_agent_id": "7a3f16c8-9e42-4d70-8b15-c2064ef3d891",
+                      "prompt": "Leia a descrição do projeto e responda apenas com uma das opções: baixa, média ou alta.",
+                      "execute_on": "manual",
+                      "manual_execution_enabled": false,
+                      "result_as_media": false,
+                      "result_as_dynamic_form": {
+                        "pivot_class": "App\\Models\\Project",
+                        "form_id": 118,
+                        "edge_id": 2231,
+                        "id": "{{project.id}}"
+                      },
+                      "failure_funnel_step_id": null,
+                      "created_at": "2026-08-02T10:03:44.000000Z",
+                      "updated_at": "2026-08-02T10:03:44.000000Z",
+                      "deleted_at": null,
+                      "funnel_step": {
+                        "id": 312,
+                        "name": "Triagem"
+                      },
+                      "ai_agent": {
+                        "id": "7a3f16c8-9e42-4d70-8b15-c2064ef3d891",
+                        "name": "Classificador"
+                      }
+                    }
+                  ],
+                  "first_page_url": "https://api.olie.ai/api/management/steps/312/assistants?page=1",
+                  "from": 1,
+                  "last_page": 1,
+                  "last_page_url": "https://api.olie.ai/api/management/steps/312/assistants?page=1",
+                  "links": [
+                    {
+                      "url": null,
+                      "label": "&laquo; Anterior",
+                      "page": null,
+                      "active": false
+                    },
+                    {
+                      "url": "https://api.olie.ai/api/management/steps/312/assistants?page=1",
+                      "label": "1",
+                      "page": 1,
+                      "active": true
+                    },
+                    {
+                      "url": null,
+                      "label": "Próximo &raquo;",
+                      "page": null,
+                      "active": false
+                    }
+                  ],
+                  "next_page_url": null,
+                  "path": "https://api.olie.ai/api/management/steps/312/assistants",
+                  "per_page": 30,
+                  "prev_page_url": null,
+                  "to": 2,
+                  "total": 2
+                }
+              }
+            }
           }
         },
         "parameters": [
@@ -17891,8 +18648,160 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "200"
+          "201": {
+            "description": "Criado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "assistant": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "active": {
+                          "type": "boolean"
+                        },
+                        "funnel_step_id": {
+                          "type": "integer"
+                        },
+                        "ai_agent_id": {
+                          "type": "string"
+                        },
+                        "prompt": {
+                          "type": "string"
+                        },
+                        "execute_on": {
+                          "type": "string"
+                        },
+                        "manual_execution_enabled": {
+                          "type": "boolean"
+                        },
+                        "result_as_media": {
+                          "type": "boolean"
+                        },
+                        "result_as_dynamic_form": {
+                          "nullable": true
+                        },
+                        "failure_funnel_step_id": {
+                          "type": "integer"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Criado": {
+                    "value": {
+                      "response": true,
+                      "assistant": {
+                        "id": "9f1c4b02-6f3a-4b8e-9d21-7c5e0a41b8d3",
+                        "name": "Resumo do atendimento",
+                        "active": true,
+                        "funnel_step_id": 312,
+                        "ai_agent_id": "2b7d94f6-0c31-4a85-b6e2-58f1c0d93a47",
+                        "prompt": "Resuma em até cinco linhas o histórico de conversas do projeto e destaque o que ficou pendente.",
+                        "execute_on": "moved",
+                        "manual_execution_enabled": true,
+                        "result_as_media": true,
+                        "result_as_dynamic_form": null,
+                        "failure_funnel_step_id": 318,
+                        "created_at": "2026-07-28T14:12:03.000000Z",
+                        "updated_at": "2026-08-11T09:41:57.000000Z",
+                        "deleted_at": null
+                      }
+                    }
+                  },
+                  "Criado com resultado em campo de formulário": {
+                    "value": {
+                      "response": true,
+                      "assistant": {
+                        "id": "c4e2a7d1-58b6-4f09-a3c7-1e9d24b7f065",
+                        "name": "Classificar urgência",
+                        "active": true,
+                        "funnel_step_id": 312,
+                        "ai_agent_id": "7a3f16c8-9e42-4d70-8b15-c2064ef3d891",
+                        "prompt": "Leia a descrição do projeto e responda apenas com uma das opções: baixa, média ou alta.",
+                        "execute_on": "manual",
+                        "manual_execution_enabled": false,
+                        "result_as_media": false,
+                        "result_as_dynamic_form": {
+                          "pivot_class": "App\\Models\\Project",
+                          "form_id": 118,
+                          "edge_id": 2231,
+                          "id": "{{project.id}}"
+                        },
+                        "failure_funnel_step_id": null,
+                        "created_at": "2026-08-02T10:03:44.000000Z",
+                        "updated_at": "2026-08-02T10:03:44.000000Z",
+                        "deleted_at": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "ai_agent_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo ai agent id selecionado é inválido.",
+                  "validation": {
+                    "ai_agent_id": [
+                      "O campo ai agent id selecionado é inválido."
+                    ]
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -17919,7 +18828,143 @@
         "operationId": "obterAssistenteDaEtapa",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "assistant": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "active": {
+                          "type": "boolean"
+                        },
+                        "funnel_step_id": {
+                          "type": "integer"
+                        },
+                        "ai_agent_id": {
+                          "type": "string"
+                        },
+                        "prompt": {
+                          "type": "string"
+                        },
+                        "execute_on": {
+                          "type": "string"
+                        },
+                        "manual_execution_enabled": {
+                          "type": "boolean"
+                        },
+                        "result_as_media": {
+                          "type": "boolean"
+                        },
+                        "result_as_dynamic_form": {
+                          "nullable": true
+                        },
+                        "failure_funnel_step_id": {
+                          "type": "integer"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        },
+                        "funnel_step": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "ai_agent": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "assistant": {
+                    "id": "9f1c4b02-6f3a-4b8e-9d21-7c5e0a41b8d3",
+                    "name": "Resumo do atendimento",
+                    "active": true,
+                    "funnel_step_id": 312,
+                    "ai_agent_id": "2b7d94f6-0c31-4a85-b6e2-58f1c0d93a47",
+                    "prompt": "Resuma em até cinco linhas o histórico de conversas do projeto e destaque o que ficou pendente.",
+                    "execute_on": "moved",
+                    "manual_execution_enabled": true,
+                    "result_as_media": true,
+                    "result_as_dynamic_form": null,
+                    "failure_funnel_step_id": 318,
+                    "created_at": "2026-07-28T14:12:03.000000Z",
+                    "updated_at": "2026-08-11T09:41:57.000000Z",
+                    "deleted_at": null,
+                    "funnel_step": {
+                      "id": 312,
+                      "name": "Triagem"
+                    },
+                    "ai_agent": {
+                      "id": "2b7d94f6-0c31-4a85-b6e2-58f1c0d93a47",
+                      "name": "Analista de atendimento"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "step_assistant_model_not_found",
+                  "error": "No query results for model [App\\Models\\StepAssistant] 9f1c4b02-6f3a-4b8e-9d21-7c5e0a41b8d3"
+                }
+              }
+            }
           }
         }
       },
@@ -18032,7 +19077,87 @@
         },
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "assistant": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "active": {
+                          "type": "boolean"
+                        },
+                        "funnel_step_id": {
+                          "type": "integer"
+                        },
+                        "ai_agent_id": {
+                          "type": "string"
+                        },
+                        "prompt": {
+                          "type": "string"
+                        },
+                        "execute_on": {
+                          "type": "string"
+                        },
+                        "manual_execution_enabled": {
+                          "type": "boolean"
+                        },
+                        "result_as_media": {
+                          "type": "boolean"
+                        },
+                        "result_as_dynamic_form": {
+                          "nullable": true
+                        },
+                        "failure_funnel_step_id": {
+                          "type": "integer"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "assistant": {
+                    "id": "9f1c4b02-6f3a-4b8e-9d21-7c5e0a41b8d3",
+                    "name": "Resumo do atendimento",
+                    "active": false,
+                    "funnel_step_id": 312,
+                    "ai_agent_id": "2b7d94f6-0c31-4a85-b6e2-58f1c0d93a47",
+                    "prompt": "Resuma em até cinco linhas o histórico de conversas do projeto e destaque o que ficou pendente.",
+                    "execute_on": "moved",
+                    "manual_execution_enabled": true,
+                    "result_as_media": true,
+                    "result_as_dynamic_form": null,
+                    "failure_funnel_step_id": 318,
+                    "created_at": "2026-07-28T14:12:03.000000Z",
+                    "updated_at": "2026-08-19T11:07:22.000000Z",
+                    "deleted_at": null
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -18044,8 +19169,15 @@
         "description": "Remove o assistente da etapa. A exclusão é lógica: ele para de disparar e some das listagens, mas o histórico de execuções continua acessível. Não há endpoint de restauração — para tirar um assistente de operação temporariamente, prefira desativá-lo pela edição.\n\nA resposta não tem corpo.",
         "operationId": "deletarAssistenteDaEtapa",
         "responses": {
-          "200": {
-            "description": "200"
+          "204": {
+            "description": "Removido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         }
       },
