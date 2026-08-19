@@ -10337,7 +10337,7 @@
         "summary": "Vincular um projeto a uma etapa",
         "responses": {
           "200": {
-            "description": "Projeto vinculado com sucesso",
+            "description": "Sucesso",
             "headers": {
               "Date": {
                 "schema": {
@@ -10582,7 +10582,7 @@
             }
           },
           "422": {
-            "description": "Erro: projeto já vinculado",
+            "description": "Projeto já vinculado à etapa",
             "headers": {
               "Date": {
                 "schema": {
@@ -10744,7 +10744,130 @@
         "operationId": "moverMLtiplosProjetosDeEtapa",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "projects": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "parent_id": {
+                            "nullable": true
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "nullable": true
+                          },
+                          "impact": {
+                            "type": "integer"
+                          },
+                          "budget": {
+                            "type": "integer"
+                          },
+                          "frame_id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "projects": [
+                    {
+                      "id": "9c2f1a44-3b2e-4a0f-9b7a-1c4c5f7e8d90",
+                      "parent_id": null,
+                      "code": "COM-83",
+                      "name": "Implantação Laboratório Hawkins",
+                      "description": null,
+                      "impact": 1,
+                      "budget": 18500,
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2026-08-02T13:04:11.000000Z",
+                      "updated_at": "2026-08-19T10:41:02.000000Z"
+                    },
+                    {
+                      "id": "9c2f1a44-77b1-4e52-8d31-2a9f0c6b45ee",
+                      "parent_id": null,
+                      "code": "COM-91",
+                      "name": "Reforma da subestação",
+                      "description": null,
+                      "impact": 1,
+                      "budget": 18500,
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2026-08-02T13:04:11.000000Z",
+                      "updated_at": "2026-08-19T10:41:02.000000Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "step_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The step id field is required.",
+                  "validation": {
+                    "step_id": [
+                      "The step id field is required."
+                    ]
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -10790,7 +10913,188 @@
         "operationId": "listarEtapasDisponVeis",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "funnels": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "frame_id": {
+                            "type": "string"
+                          },
+                          "condition": {
+                            "type": "string"
+                          },
+                          "allow_multi_step": {
+                            "type": "boolean"
+                          },
+                          "form_id": {
+                            "nullable": true
+                          },
+                          "allow_execution": {
+                            "type": "boolean"
+                          },
+                          "steps": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "project_funnel_id": {
+                                  "type": "integer"
+                                },
+                                "form_id": {
+                                  "nullable": true
+                                },
+                                "allow_execution": {
+                                  "type": "boolean"
+                                },
+                                "checklists": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "integer"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "info": {
+                                        "nullable": true
+                                      },
+                                      "funnel_step_id": {
+                                        "type": "integer"
+                                      },
+                                      "required": {
+                                        "type": "boolean"
+                                      },
+                                      "order": {
+                                        "type": "integer"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "tags": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "color": {
+                                  "type": "string",
+                                  "format": "color"
+                                },
+                                "project_funnel_id": {
+                                  "type": "integer"
+                                }
+                              }
+                            }
+                          },
+                          "funnel_status": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "color": {
+                                  "type": "string",
+                                  "format": "color"
+                                },
+                                "project_funnel_id": {
+                                  "type": "integer"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "funnels": [
+                    {
+                      "id": 12,
+                      "name": "Comercial",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "condition": "active",
+                      "allow_multi_step": false,
+                      "form_id": null,
+                      "allow_execution": true,
+                      "steps": [
+                        {
+                          "id": 128,
+                          "name": "Qualificação",
+                          "project_funnel_id": 12,
+                          "form_id": null,
+                          "allow_execution": true,
+                          "checklists": [
+                            {
+                              "id": 7,
+                              "name": "Confirmar orçamento com o cliente",
+                              "info": null,
+                              "funnel_step_id": 128,
+                              "required": true,
+                              "order": 1
+                            }
+                          ]
+                        }
+                      ],
+                      "tags": [
+                        {
+                          "id": 45,
+                          "name": "Urgente",
+                          "color": "#E53935",
+                          "project_funnel_id": 12
+                        }
+                      ],
+                      "funnel_status": [
+                        {
+                          "id": 9,
+                          "name": "Ganho",
+                          "color": "#43A047",
+                          "project_funnel_id": 12
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
           }
         },
         "parameters": [
@@ -10983,7 +11287,239 @@
         "operationId": "obterDadosDaEtapa",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "steps": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "project_funnel_id": {
+                            "type": "integer"
+                          },
+                          "sort_config": {
+                            "nullable": true
+                          },
+                          "projects": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "parent_id": {
+                                  "nullable": true
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "description": {
+                                  "type": "string"
+                                },
+                                "budget": {
+                                  "type": "integer"
+                                },
+                                "impact": {
+                                  "type": "integer"
+                                },
+                                "frame_id": {
+                                  "type": "string"
+                                },
+                                "children_count": {
+                                  "type": "integer"
+                                },
+                                "customer": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "contact": {
+                                  "nullable": true
+                                },
+                                "tags": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "integer"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "color": {
+                                        "type": "string",
+                                        "format": "color"
+                                      }
+                                    }
+                                  }
+                                },
+                                "funnel_steps": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "integer"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                },
+                                "created_at": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                },
+                                "updated_at": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                }
+                              }
+                            }
+                          },
+                          "projects_count": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Sucesso": {
+                    "value": {
+                      "response": true,
+                      "steps": [
+                        {
+                          "id": 128,
+                          "project_funnel_id": 12,
+                          "sort_config": null,
+                          "projects": [
+                            {
+                              "id": "9c2f1a44-3b2e-4a0f-9b7a-1c4c5f7e8d90",
+                              "parent_id": null,
+                              "code": "COM-83",
+                              "name": "Implantação Laboratório Hawkins",
+                              "description": "Migração do parque de energia",
+                              "budget": 18500,
+                              "impact": 1,
+                              "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                              "children_count": 0,
+                              "customer": {
+                                "id": "019b277f-e453-733d-a00e-6d26d444008b",
+                                "name": "Hawkins Energia"
+                              },
+                              "contact": null,
+                              "tags": [
+                                {
+                                  "id": 45,
+                                  "name": "Urgente",
+                                  "color": "#E53935"
+                                }
+                              ],
+                              "funnel_steps": [
+                                {
+                                  "id": 128,
+                                  "name": "Qualificação"
+                                }
+                              ],
+                              "created_at": "2026-08-02T13:04:11.000000Z",
+                              "updated_at": "2026-08-14T09:22:47.000000Z"
+                            }
+                          ],
+                          "projects_count": 37
+                        }
+                      ]
+                    }
+                  },
+                  "Sucesso (apenas contagem)": {
+                    "value": {
+                      "response": true,
+                      "steps": [
+                        {
+                          "id": 128,
+                          "project_funnel_id": 12,
+                          "sort_config": null,
+                          "projects_count": 37,
+                          "projects_budget": 412300
+                        },
+                        {
+                          "id": 129,
+                          "project_funnel_id": 12,
+                          "sort_config": null,
+                          "projects_count": 12,
+                          "projects_budget": 88750.5
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "steps": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The steps field is required.",
+                  "validation": {
+                    "steps": [
+                      "The steps field is required."
+                    ]
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -11075,7 +11611,123 @@
         "operationId": "obterAnexosDaEtapa",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "technical_name": {
+                            "type": "string"
+                          },
+                          "extension": {
+                            "type": "string"
+                          },
+                          "file_url": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "popup_video": {
+                            "type": "boolean"
+                          },
+                          "watch": {
+                            "type": "boolean"
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "frame_id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "deleted_at": {
+                            "nullable": true
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "avatar_url": {
+                                "nullable": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "attachments": [
+                    {
+                      "id": 84,
+                      "name": "Como preencher a qualificação",
+                      "technical_name": "019b277f-e453-733d-a00e-6d26d444008b.mp4",
+                      "extension": "mp4",
+                      "file_url": "https://cdn.olie.ai/step-attachments/019b277f-e453-733d-a00e-6d26d444008b.mp4?expires=1755600000",
+                      "popup_video": true,
+                      "watch": true,
+                      "user_id": "019c75de-509e-711a-8933-175cb2514cc5",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2026-07-30T18:12:05.000000Z",
+                      "updated_at": "2026-08-11T14:03:44.000000Z",
+                      "deleted_at": null,
+                      "user": {
+                        "id": "019c75de-509e-711a-8933-175cb2514cc5",
+                        "name": "Equipe de Processos",
+                        "avatar_url": null
+                      }
+                    },
+                    {
+                      "id": 82,
+                      "name": "Modelo de proposta comercial",
+                      "technical_name": "019b1f04-1c2a-7a3e-9f55-3d6b8e2a1c77.pdf",
+                      "extension": "pdf",
+                      "file_url": "https://cdn.olie.ai/step-attachments/019b1f04-1c2a-7a3e-9f55-3d6b8e2a1c77.pdf?expires=1755600000",
+                      "popup_video": false,
+                      "watch": false,
+                      "user_id": "019c75de-509e-711a-8933-175cb2514cc5",
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2026-07-22T09:41:19.000000Z",
+                      "updated_at": "2026-07-22T09:41:19.000000Z",
+                      "deleted_at": null,
+                      "user": {
+                        "id": "019c75de-509e-711a-8933-175cb2514cc5",
+                        "name": "Equipe de Processos",
+                        "avatar_url": null
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           }
         }
       }
@@ -11091,7 +11743,99 @@
         "operationId": "atualizarVDeoObrigatRioDaEtapa",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Anexo não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "step_attachment_model_not_found",
+                  "error": "No query results for model [App\\Models\\StepAttachment] 999999"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "watch": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The id field is required. (and 1 more error)",
+                  "validation": {
+                    "id": [
+                      "The id field is required."
+                    ],
+                    "watch": [
+                      "The watch field is required."
+                    ]
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -11129,50 +11873,6 @@
         "responses": {
           "200": {
             "description": "Sucesso",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Access-Control-Expose-Headers": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Cache-Control": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "no-cache, private"
-              },
-              "Date": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Thu, 15 Jan 2026 21:45:19 GMT"
-              },
-              "X-Ratelimit-Limit": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 160
-              },
-              "X-Ratelimit-Remaining": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 155
-              },
-              "Transfer-Encoding": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "chunked"
-              }
-            },
             "content": {
               "application/json": {
                 "schema": {
@@ -11391,89 +12091,127 @@
                   "metrics": {
                     "all_time": {
                       "average_time": {
-                        "value": 0,
+                        "value": 184320.5,
                         "unit": "seconds",
                         "meta_data": null
                       },
                       "entry_count": {
-                        "value": 0,
+                        "value": 214,
                         "unit": "count",
-                        "meta_data": {
-                          "user_frequency": []
-                        }
+                        "meta_data": null
                       },
                       "max_time": {
-                        "value": 0,
+                        "value": 1209600,
                         "unit": "seconds",
-                        "meta_data": {
-                          "max_project_id": null
-                        }
+                        "meta_data": null
                       },
                       "min_time": {
-                        "value": 0,
+                        "value": 900,
                         "unit": "seconds",
-                        "meta_data": {
-                          "min_project_id": null
-                        }
+                        "meta_data": null
                       }
                     },
                     "last_seven_days": {
                       "average_time": {
-                        "value": 0,
+                        "value": 93600,
                         "unit": "seconds",
                         "meta_data": null
                       },
                       "entry_count": {
-                        "value": 0,
+                        "value": 9,
                         "unit": "count",
-                        "meta_data": {
-                          "user_frequency": []
-                        }
+                        "meta_data": null
                       },
                       "max_time": {
-                        "value": 0,
+                        "value": 259200,
                         "unit": "seconds",
-                        "meta_data": {
-                          "max_project_id": null
-                        }
+                        "meta_data": null
                       },
                       "min_time": {
-                        "value": 0,
+                        "value": 3600,
                         "unit": "seconds",
-                        "meta_data": {
-                          "min_project_id": null
-                        }
+                        "meta_data": null
                       }
                     },
                     "last_thirty_days": {
                       "average_time": {
-                        "value": 0,
+                        "value": 127440,
                         "unit": "seconds",
                         "meta_data": null
                       },
                       "entry_count": {
-                        "value": 0,
+                        "value": 41,
                         "unit": "count",
-                        "meta_data": {
-                          "user_frequency": []
-                        }
+                        "meta_data": null
                       },
                       "max_time": {
-                        "value": 0,
+                        "value": 604800,
                         "unit": "seconds",
-                        "meta_data": {
-                          "max_project_id": null
-                        }
+                        "meta_data": null
                       },
                       "min_time": {
-                        "value": 0,
+                        "value": 1800,
                         "unit": "seconds",
-                        "meta_data": {
-                          "min_project_id": null
-                        }
+                        "meta_data": null
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "permission": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "permission_required",
+                  "error": "This action is unauthorized.",
+                  "permission": "project_funnels.see_step_metrics"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Etapa não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "funnel_step_model_not_found",
+                  "error": "No query results for model [App\\Models\\FunnelStep] 999999"
                 }
               }
             }
