@@ -8066,11 +8066,32 @@
           "Vínculo com projetos"
         ],
         "summary": "Alternar vínculo do funil de projeto",
-        "description": "Alternar o estado do vínculo entre projeto e funil.",
+        "description": "Liga ou desliga o projeto do funil, conforme o estado atual: se ainda não estiver vinculado, vincula e já coloca o projeto na primeira etapa; se estiver, desvincula e remove o projeto de todas as etapas daquele funil. Funis inativos não aceitam vínculo. Ver [Mover projetos entre etapas](https://docs.olie.ai/guides/funnels/moving-projects).",
         "operationId": "alternarVNculoDoFunilDeProjeto",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "project_id": {
+                    "nullable": true
+                  },
+                  "project_funnel_id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "project_id": null,
+                "project_funnel_id": null
+              }
+            }
           }
         }
       }
@@ -8082,11 +8103,36 @@
           "Vínculo com projetos"
         ],
         "summary": "Atualizar status do funil de projeto",
-        "description": "Atualizar o status de um funil de projeto específico.",
+        "description": "Define o status do projeto dentro do funil — o marcador de desfecho, como ganho ou perdido. Enviar `status_id` nulo limpa o status. Status conclusivos encerram a participação do projeto no funil, e status configurados como bloqueio impedem a entrada nas etapas bloqueadas. Ver [Etiquetas, status e previsão](https://docs.olie.ai/guides/funnels/tags-and-status).",
         "operationId": "atualizarStatusDoFunilDeProjeto",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "project_id": {
+                    "nullable": true
+                  },
+                  "project_funnel_id": {
+                    "nullable": true
+                  },
+                  "status_id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "project_id": null,
+                "project_funnel_id": null,
+                "status_id": null
+              }
+            }
           }
         }
       }
@@ -8098,7 +8144,7 @@
           "Funis"
         ],
         "summary": "Obter um funil de projeto",
-        "description": "Retorna os dados completos de um funil de projeto específico, incluindo todas as suas etapas, configurações de visualização, restrições de fluxo e recursos disponíveis.\n\n**Objetos retornados:**\n\n- **project_funnel**: Dados do funil incluindo:\n    \n    - **steps**: Etapas sequenciais do funil com suas restrições de movimentação, assistentes de IA, checklists e formulário\n        \n    - **restrictions**: Regras que controlam a movimentação de itens entre etapas (incoming/outgoing)\n        \n    - **assistants**: Assistentes de IA configurados para executar ações automatizadas em etapas específicas\n        \n    - **business_area**: Área de negócio à qual o funil pertence\n        \n    - **tags**: Etiquetas disponíveis para categorizar itens no funil\n        \n    - **funnel_status**: Status disponíveis para itens (ex: Urgente) com seus bloqueios de etapa\n        \n    - **form**: Formulário principal associado ao funil",
+        "description": "Retorna a configuração completa de um funil: etapas com checklists, restrições, anexos, formulário e assistentes, além de etiquetas, status, bloqueios, projetos-modelo e área de negócio. Traz também a lista de usuários com acesso ao funil e, quando o autenticado é um usuário, a configuração de quadro dele. Ver [Criar e configurar um funil](https://docs.olie.ai/guides/funnels/creating-funnels) e [Etapas do funil](https://docs.olie.ai/guides/funnels/steps).",
         "operationId": "obterFunilDeProjeto",
         "responses": {
           "200": {
@@ -8703,7 +8749,7 @@
                     }
                   }
                 },
-                "example": "{\n    \"response\": true,\n    \"project_funnel\": {\n        \"id\": 74,\n        \"name\": \"Desenvolvimento\",\n        \"prefix\": \"DL\",\n        \"order\": 0,\n        \"condition\": \"active\",\n        \"business_area_id\": 83,\n        \"form_id\": 18,\n        \"frame_id\": \"019b329a-4346-7064-bba3-e7c19057cda4\",\n        \"created_at\": \"2026-01-09T20:51:29.000000Z\",\n        \"updated_at\": \"2026-01-09T20:51:29.000000Z\",\n        \"deleted_at\": null,\n        \"funnel_config_template_id\": null,\n        \"access\": [],\n        \"steps\": [\n            {\n                \"id\": 441,\n                \"name\": \"Levantamento de Requisitos\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 1,\n                \"help_text\": \"Entender o problema a ser resolvido\",\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 190,\n                        \"name\": null,\n                        \"step_id\": 441,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 442,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            },\n            {\n                \"id\": 442,\n                \"name\": \"Planejamento\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 2,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": {\n                    \"field\": \"impact\",\n                    \"arguments\": [],\n                    \"direction\": \"desc\"\n                },\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 191,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 443,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 192,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 193,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 441,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 194,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 195,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 443,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 196,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 441,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": [\n                    {\n                        \"id\": \"019ba487-5289-734a-ab6f-30fc0c22cf61\",\n                        \"name\": \"Gerador de branch\",\n                        \"active\": true,\n                        \"funnel_step_id\": 442,\n                        \"ai_agent_id\": \"019ba487-5276-7333-968f-90d353740216\",\n                        \"prompt\": \"Sugira um nome de branch para: \"{{project.name}}\"\",\n                        \"execute_on\": \"manual\",\n                        \"manual_execution_enabled\": false,\n                        \"result_as_media\": true,\n                        \"result_as_dynamic_form\": {\n                            \"edge_id\": 1,\n                            \"form_id\": 1,\n                            \"project_id\": \"{{project.id}}\",\n                            \"pivot_class\": \"App\\\\Models\\\\ProjectFunnelAssignment\",\n                            \"project_funnel_id\": 1\n                        },\n                        \"failure_funnel_step_id\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"deleted_at\": null\n                    }\n                ]\n            },\n            {\n                \"id\": 443,\n                \"name\": \"Design\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 3,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 197,\n                        \"name\": null,\n                        \"step_id\": 443,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 442,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 198,\n                        \"name\": null,\n                        \"step_id\": 443,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 199,\n                        \"name\": null,\n                        \"step_id\": 443,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 200,\n                        \"name\": null,\n                        \"step_id\": 443,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 442,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 201,\n                        \"name\": null,\n                        \"step_id\": 443,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"filter\",\n                        \"target_step_id\": null,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": \"019ba487-4f91-72d0-82c1-ecd757e034ed\",\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            },\n            {\n                \"id\": 444,\n                \"name\": \"Desenvolvimento\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 4,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 202,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 442,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 203,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 443,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 204,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 445,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 205,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 442,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 206,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 443,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 207,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 446,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 208,\n                        \"name\": \"Atribua uma etiqueta que defina o item\",\n                        \"step_id\": 444,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"filter\",\n                        \"target_step_id\": null,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": \"019ba487-4f94-714b-aa68-49f59e07c9ce\",\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            },\n            {\n                \"id\": 445,\n                \"name\": \"Correção\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 5,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 209,\n                        \"name\": null,\n                        \"step_id\": 445,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 446,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 210,\n                        \"name\": null,\n                        \"step_id\": 445,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 211,\n                        \"name\": null,\n                        \"step_id\": 445,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 447,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            },\n            {\n                \"id\": 446,\n                \"name\": \"Testes\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 6,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 212,\n                        \"name\": null,\n                        \"step_id\": 446,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 213,\n                        \"name\": null,\n                        \"step_id\": 446,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 447,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 214,\n                        \"name\": null,\n                        \"step_id\": 446,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 445,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            },\n            {\n                \"id\": 447,\n                \"name\": \"Finalizado\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 7,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 215,\n                        \"name\": null,\n                        \"step_id\": 447,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 446,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 216,\n                        \"name\": null,\n                        \"step_id\": 447,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 445,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            }\n        ],\n        \"business_area\": {\n            \"id\": 83,\n            \"name\": \"Desenvolvimento de software\",\n            \"order\": 4,\n            \"frame_id\": \"019b329a-4346-7064-bba3-e7c19057cda4\",\n            \"deleted_at\": null\n        },\n        \"attachments\": [],\n        \"form\": {\n            \"id\": 18,\n            \"title\": \"Informações adicionais do desenvolvimento\"\n        },\n        \"template_projects\": [],\n        \"tags\": [\n            {\n                \"id\": 22,\n                \"name\": \"Função\",\n                \"color\": \"#28a745\",\n                \"project_funnel_id\": 74,\n                \"deleted_at\": null,\n                \"funnel_step_blockings\": []\n            },\n            {\n                \"id\": 23,\n                \"name\": \"Bug\",\n                \"color\": \"#ff8d92\",\n                \"project_funnel_id\": 74,\n                \"deleted_at\": null,\n                \"funnel_step_blockings\": []\n            },\n            {\n                \"id\": 24,\n                \"name\": \"Ajuste\",\n                \"color\": \"#258aff\",\n                \"project_funnel_id\": 74,\n                \"deleted_at\": null,\n                \"funnel_step_blockings\": []\n            }\n        ],\n        \"funnel_status\": [\n            {\n                \"id\": 8,\n                \"name\": \"Urgente\",\n                \"color\": \"#dc3545\",\n                \"project_funnel_id\": 74,\n                \"is_conclusive\": false,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"deleted_at\": null,\n                \"funnel_step_blockings\": [\n                    {\n                        \"id\": 8,\n                        \"automation_bypass\": false,\n                        \"funnel_step_id\": 447,\n                        \"funnel_status_id\": 8,\n                        \"funnel_tag_id\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ]\n            }\n        ]\n    },\n    \"funnel_view_configs\": [\n        {\n            \"key\": \"card.weight\",\n            \"value\": \"medium\",\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.tags\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.task_summary\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.customer\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.contact\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.assigned_to\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.created_by\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.impact\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.status\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.budget\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.expected_cost\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.elapsed_cost\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.costs_per_user\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.created_at\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.description\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.forecast_date\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.groups\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show_buttons_on_hover\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.content\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.funnel_tags\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.collect_data\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.checklists\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.files\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.forms\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.project_edit\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.hierarchy\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.forum\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.funnel_status\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.copy_link\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"df_project_funnel\",\n            \"value\": true,\n            \"form_edge_id\": 61\n        },\n        {\n            \"key\": \"df_project_funnel\",\n            \"value\": true,\n            \"form_edge_id\": 62\n        },\n        {\n            \"key\": \"df_project_funnel\",\n            \"value\": true,\n            \"form_edge_id\": 63\n        }\n    ]\n}"
+                "example": "{\n    \"response\": true,\n    \"project_funnel\": {\n        \"id\": 74,\n        \"name\": \"Desenvolvimento\",\n        \"prefix\": \"DL\",\n        \"order\": 0,\n        \"condition\": \"active\",\n        \"business_area_id\": 83,\n        \"form_id\": 18,\n        \"frame_id\": \"019b329a-4346-7064-bba3-e7c19057cda4\",\n        \"created_at\": \"2026-01-09T20:51:29.000000Z\",\n        \"updated_at\": \"2026-01-09T20:51:29.000000Z\",\n        \"deleted_at\": null,\n        \"funnel_config_template_id\": null,\n        \"access\": [],\n        \"steps\": [\n            {\n                \"id\": 441,\n                \"name\": \"Levantamento de Requisitos\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 1,\n                \"help_text\": \"Entender o problema a ser resolvido\",\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 190,\n                        \"name\": null,\n                        \"step_id\": 441,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 442,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            },\n            {\n                \"id\": 442,\n                \"name\": \"Planejamento\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 2,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": {\n                    \"field\": \"impact\",\n                    \"arguments\": [],\n                    \"direction\": \"desc\"\n                },\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 191,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 443,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 192,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 193,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 441,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 194,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 195,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 443,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 196,\n                        \"name\": null,\n                        \"step_id\": 442,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 441,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": [\n                    {\n                        \"id\": \"019ba487-5289-734a-ab6f-30fc0c22cf61\",\n                        \"name\": \"Gerador de branch\",\n                        \"active\": true,\n                        \"funnel_step_id\": 442,\n                        \"ai_agent_id\": \"019ba487-5276-7333-968f-90d353740216\",\n                        \"prompt\": \"Sugira um nome de branch para: \\\"\"{{project.name}}\"\\\"\",\n                        \"execute_on\": \"manual\",\n                        \"manual_execution_enabled\": false,\n                        \"result_as_media\": true,\n                        \"result_as_dynamic_form\": {\n                            \"edge_id\": 1,\n                            \"form_id\": 1,\n                            \"project_id\": \"{{project.id}}\",\n                            \"pivot_class\": \"App\\\\Models\\\\ProjectFunnelAssignment\",\n                            \"project_funnel_id\": 1\n                        },\n                        \"failure_funnel_step_id\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"deleted_at\": null\n                    }\n                ]\n            },\n            {\n                \"id\": 443,\n                \"name\": \"Design\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 3,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 197,\n                        \"name\": null,\n                        \"step_id\": 443,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 442,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 198,\n                        \"name\": null,\n                        \"step_id\": 443,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 199,\n                        \"name\": null,\n                        \"step_id\": 443,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 200,\n                        \"name\": null,\n                        \"step_id\": 443,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 442,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 201,\n                        \"name\": null,\n                        \"step_id\": 443,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"filter\",\n                        \"target_step_id\": null,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": \"019ba487-4f91-72d0-82c1-ecd757e034ed\",\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            },\n            {\n                \"id\": 444,\n                \"name\": \"Desenvolvimento\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 4,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 202,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 442,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 203,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 443,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 204,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 445,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 205,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 442,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 206,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 443,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 207,\n                        \"name\": null,\n                        \"step_id\": 444,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 446,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 208,\n                        \"name\": \"Atribua uma etiqueta que defina o item\",\n                        \"step_id\": 444,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"filter\",\n                        \"target_step_id\": null,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": \"019ba487-4f94-714b-aa68-49f59e07c9ce\",\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            },\n            {\n                \"id\": 445,\n                \"name\": \"Correção\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 5,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 209,\n                        \"name\": null,\n                        \"step_id\": 445,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 446,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 210,\n                        \"name\": null,\n                        \"step_id\": 445,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 211,\n                        \"name\": null,\n                        \"step_id\": 445,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 447,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            },\n            {\n                \"id\": 446,\n                \"name\": \"Testes\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 6,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 212,\n                        \"name\": null,\n                        \"step_id\": 446,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 444,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 213,\n                        \"name\": null,\n                        \"step_id\": 446,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 447,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 214,\n                        \"name\": null,\n                        \"step_id\": 446,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 445,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            },\n            {\n                \"id\": 447,\n                \"name\": \"Finalizado\",\n                \"project_funnel_id\": 74,\n                \"sensation_amount\": 0,\n                \"step_forward_id\": null,\n                \"step_backward_id\": null,\n                \"order\": 7,\n                \"help_text\": null,\n                \"form_id\": null,\n                \"sort_config\": null,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"step_forward\": null,\n                \"step_backward\": null,\n                \"checklists\": [],\n                \"restrictions\": [\n                    {\n                        \"id\": 215,\n                        \"name\": null,\n                        \"step_id\": 447,\n                        \"direction\": \"incoming\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 446,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    },\n                    {\n                        \"id\": 216,\n                        \"name\": null,\n                        \"step_id\": 447,\n                        \"direction\": \"outgoing\",\n                        \"restriction_type\": \"step\",\n                        \"target_step_id\": 445,\n                        \"target_tag_id\": null,\n                        \"target_status_id\": null,\n                        \"target_saved_filter_id\": null,\n                        \"target_filter\": null,\n                        \"hierarchy_scope\": \"current\",\n                        \"hierarchy_depth\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ],\n                \"attachments\": [],\n                \"form\": null,\n                \"assistants\": []\n            }\n        ],\n        \"business_area\": {\n            \"id\": 83,\n            \"name\": \"Desenvolvimento de software\",\n            \"order\": 4,\n            \"frame_id\": \"019b329a-4346-7064-bba3-e7c19057cda4\",\n            \"deleted_at\": null\n        },\n        \"attachments\": [],\n        \"form\": {\n            \"id\": 18,\n            \"title\": \"Informações adicionais do desenvolvimento\"\n        },\n        \"template_projects\": [],\n        \"tags\": [\n            {\n                \"id\": 22,\n                \"name\": \"Função\",\n                \"color\": \"#28a745\",\n                \"project_funnel_id\": 74,\n                \"deleted_at\": null,\n                \"funnel_step_blockings\": []\n            },\n            {\n                \"id\": 23,\n                \"name\": \"Bug\",\n                \"color\": \"#ff8d92\",\n                \"project_funnel_id\": 74,\n                \"deleted_at\": null,\n                \"funnel_step_blockings\": []\n            },\n            {\n                \"id\": 24,\n                \"name\": \"Ajuste\",\n                \"color\": \"#258aff\",\n                \"project_funnel_id\": 74,\n                \"deleted_at\": null,\n                \"funnel_step_blockings\": []\n            }\n        ],\n        \"funnel_status\": [\n            {\n                \"id\": 8,\n                \"name\": \"Urgente\",\n                \"color\": \"#dc3545\",\n                \"project_funnel_id\": 74,\n                \"is_conclusive\": false,\n                \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"updated_at\": \"2026-01-09T20:51:30.000000Z\",\n                \"deleted_at\": null,\n                \"funnel_step_blockings\": [\n                    {\n                        \"id\": 8,\n                        \"automation_bypass\": false,\n                        \"funnel_step_id\": 447,\n                        \"funnel_status_id\": 8,\n                        \"funnel_tag_id\": null,\n                        \"created_at\": \"2026-01-09T20:51:30.000000Z\",\n                        \"updated_at\": \"2026-01-09T20:51:30.000000Z\"\n                    }\n                ]\n            }\n        ]\n    },\n    \"funnel_view_configs\": [\n        {\n            \"key\": \"card.weight\",\n            \"value\": \"medium\",\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.tags\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.task_summary\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.customer\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.contact\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.assigned_to\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.created_by\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.impact\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.status\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.budget\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.expected_cost\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.elapsed_cost\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.costs_per_user\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.created_at\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.description\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.forecast_date\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"info.show.groups\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show_buttons_on_hover\",\n            \"value\": false,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.content\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.funnel_tags\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.collect_data\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.checklists\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.files\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.forms\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.project_edit\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.hierarchy\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.forum\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.funnel_status\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"buttons.show.copy_link\",\n            \"value\": true,\n            \"form_edge_id\": null\n        },\n        {\n            \"key\": \"df_project_funnel\",\n            \"value\": true,\n            \"form_edge_id\": 61\n        },\n        {\n            \"key\": \"df_project_funnel\",\n            \"value\": true,\n            \"form_edge_id\": 62\n        },\n        {\n            \"key\": \"df_project_funnel\",\n            \"value\": true,\n            \"form_edge_id\": 63\n        }\n    ]\n}"
               }
             }
           }
@@ -8724,7 +8770,9 @@
                 ]
               },
               "example": {
-                "project_funnel_id": 0
+                "project_funnel_id": null,
+                "include_automations": false,
+                "with_trashed_relations": false
               }
             }
           }
@@ -8936,7 +8984,63 @@
           "project-funnels",
           "Funis"
         ],
-        "description": "Listar todos os funis de projeto com informações simples."
+        "description": "Lista os funis da conta na ordem de exibição definida pelo usuário, cada um com a área de negócio e as contagens de projetos, etapas, etiquetas, status e anexos. **Só retorna os funis ativos por padrão** — envie `filter[condition]=inactive` para os inativos e `filter[trashed]=with` ou `only` para incluir os arquivados. Funis que o usuário autenticado não tem permissão de ver são omitidos da lista. Ver [Criar e configurar um funil](https://docs.olie.ai/guides/funnels/creating-funnels) e [Filtros básicos](https://docs.olie.ai/api-reference/general/basic-filters).",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Termo buscado no nome do funil. Ignorado quando `id` é informado.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID de um funil específico. Retorna apenas ele.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[condition]",
+            "in": "query",
+            "description": "Situação do funil: `active` (padrão quando o parâmetro é omitido) ou `inactive`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[name]",
+            "in": "query",
+            "description": "Nome exato do funil.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[business_area.id]",
+            "in": "query",
+            "description": "ID da área de negócio dona dos funis.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[trashed]",
+            "in": "query",
+            "description": "Arquivados: `with` inclui, `only` retorna apenas eles, `without` (padrão) omite.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       }
     },
     "/api/management/toggle-funnel-tag": {
@@ -8946,11 +9050,32 @@
           "Vínculo com projetos"
         ],
         "summary": "Alternar vínculo de etiqueta do funil de um projeto",
-        "description": "Alternar vínculo de etiqueta do funil de um projeto.",
+        "description": "Aplica ou remove uma etiqueta do projeto, conforme o estado atual. A etiqueta precisa pertencer a um dos funis aos quais o projeto está vinculado. Etiquetas configuradas como bloqueio de etapa impedem o projeto de entrar nas etapas bloqueadas enquanto estiverem aplicadas. Ver [Etiquetas, status e previsão](https://docs.olie.ai/guides/funnels/tags-and-status).",
         "operationId": "alternarVNculoDeEtiquetaDoFunilDeUmProjeto",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "project_id": {
+                    "nullable": true
+                  },
+                  "funnel_tag_id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "project_id": null,
+                "funnel_tag_id": null
+              }
+            }
           }
         }
       }
@@ -8962,11 +9087,28 @@
           "Ciclo de vida"
         ],
         "summary": "Arquivar um funil",
-        "description": "Arquivar um funil específico.",
+        "description": "Arquiva o funil, tirando-o das listagens do dia a dia sem apagar o histórico — a operação é reversível pelo endpoint de restauração. Só funciona com o funil vazio: havendo qualquer projeto vinculado, a requisição é recusada e o funil permanece como está. Ver [Criar e configurar um funil](https://docs.olie.ai/guides/funnels/creating-funnels).",
         "operationId": "arquivarFunil",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "project_funnel_id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "project_funnel_id": null
+              }
+            }
           }
         }
       }
@@ -8978,11 +9120,28 @@
           "Ciclo de vida"
         ],
         "summary": "Restaurar um funil",
-        "description": "Restaurar um funil que foi arquivado anteriormente.",
+        "description": "Traz de volta um funil arquivado, com a configuração que ele tinha. O funil volta a aparecer nas listagens e a aceitar projetos. Ver [Criar e configurar um funil](https://docs.olie.ai/guides/funnels/creating-funnels).",
         "operationId": "restaurarFunil",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "project_funnel_id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "project_funnel_id": null
+              }
+            }
           }
         }
       }
@@ -8994,11 +9153,32 @@
           "Ciclo de vida"
         ],
         "summary": "Clonar um funil",
-        "description": "Clonar um funil existente criando uma cópia.",
+        "description": "Cria uma cópia do funil com toda a configuração — etapas, checklists, restrições, etiquetas, status e anexos — sem trazer os projetos. Sem `name`, a cópia recebe um nome derivado do original. Funis arquivados não podem ser clonados. Ver [Criar e configurar um funil](https://docs.olie.ai/guides/funnels/creating-funnels).",
         "operationId": "clonarFunil",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "project_funnel_id": {
+                    "nullable": true
+                  },
+                  "name": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "project_funnel_id": null,
+                "name": null
+              }
+            }
           }
         }
       }
@@ -9010,11 +9190,29 @@
           "Funis"
         ],
         "summary": "Reordenar funis de projeto",
-        "description": "Reordenar funis de projeto no sistema.",
+        "description": "Define a ordem de exibição dos funis da conta. A posição de cada funil é a posição dele no array enviado — o primeiro ID vira o primeiro funil da lista. Funis arquivados também podem ser reordenados. A ordem vale para toda a conta, não por usuário.",
         "operationId": "reordenarFunisDeProjeto",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "project_funnel_ids": {
+                    "type": "array",
+                    "items": {}
+                  }
+                }
+              },
+              "example": {
+                "project_funnel_ids": []
+              }
+            }
           }
         }
       }
@@ -9026,7 +9224,7 @@
           "Funis"
         ],
         "summary": "Criar ou atualizar um funil de projeto",
-        "description": "Criar ou atualizar funil de projeto.",
+        "description": "Salva o funil inteiro de uma vez — é o payload da tela de edição. Sem `id` cria um funil novo; com `id` substitui a configuração do funil existente. **O payload é a verdade final**: etapas, checklists, restrições, etiquetas e status que não vierem na requisição são removidos do funil. Itens que estouram o limite do plano não são criados e voltam listados em `objects_above_limit`, sem derrubar o resto do salvamento. Ver [Criar e configurar um funil](https://docs.olie.ai/guides/funnels/creating-funnels), [Etapas do funil](https://docs.olie.ai/guides/funnels/steps) e [Restrições e bloqueios](https://docs.olie.ai/guides/funnels/restrictions).",
         "operationId": "criarOuAtualizarFunilDeProjeto",
         "responses": {
           "200": {
@@ -10105,178 +10303,112 @@
               },
               "example": {
                 "id": null,
-                "name": "Nome do funil",
-                "prefix": "PREFIX",
+                "name": "",
+                "prefix": null,
+                "condition": "active",
+                "allow_multi_step": false,
+                "allow_execution": true,
+                "show_cost_info": true,
+                "project_term": null,
+                "form": {
+                  "id": null
+                },
                 "steps": [
                   {
-                    "name": "Backlog",
-                    "step_forward": null,
-                    "step_backward": null,
-                    "show_contact_form": false,
-                    "hide_contact_form_when_linked": false,
+                    "id": null,
+                    "name": "",
+                    "help_text": null,
+                    "sensation_amount": 0,
+                    "allow_execution": true,
                     "show_customer_form": false,
+                    "show_contact_form": false,
                     "hide_customer_form_when_linked": false,
-                    "sensation_amount": 50,
+                    "hide_contact_form_when_linked": false,
+                    "step_forward": {
+                      "name": ""
+                    },
+                    "step_backward": {
+                      "name": ""
+                    },
+                    "form": {
+                      "id": null
+                    },
+                    "sort_config": {
+                      "field": "",
+                      "direction": "asc",
+                      "arguments": []
+                    },
                     "checklists": [
                       {
-                        "name": "Checklist 1",
-                        "info": "Texto informativo da checklist",
-                        "required": true,
-                        "order": 0
-                      },
-                      {
-                        "name": "Checklist 2",
-                        "info": "",
-                        "required": true,
-                        "order": 1
-                      },
-                      {
-                        "name": "Checklist 3",
-                        "info": "",
+                        "id": null,
+                        "name": "",
+                        "info": null,
                         "required": false,
-                        "order": 2
+                        "order": 0
+                      }
+                    ],
+                    "restrictions": [
+                      {
+                        "name": null,
+                        "direction": "incoming",
+                        "restriction_type": "step",
+                        "target_step_id": null,
+                        "target_tag_id": null,
+                        "target_status_id": null,
+                        "hierarchy_scope": "current",
+                        "hierarchy_depth": 1
                       }
                     ],
                     "attachments": [
                       {
-                        "id": 1
-                      },
-                      {
-                        "id": 2
+                        "id": null
                       }
-                    ],
-                    "restrictions": [],
-                    "sort_config": null,
-                    "allow_execution": true,
-                    "form": {
-                      "id": 7,
-                      "title": "Formulário para funil"
-                    },
-                    "help_text": "Texto de ajuda da etapa"
-                  },
-                  {
-                    "name": "Em andamento",
-                    "step_forward": null,
-                    "step_backward": null,
-                    "show_contact_form": true,
-                    "hide_contact_form_when_linked": false,
-                    "show_customer_form": true,
-                    "hide_customer_form_when_linked": false,
-                    "sensation_amount": 0,
-                    "checklists": [],
-                    "attachments": [],
-                    "restrictions": [],
-                    "sort_config": null,
-                    "allow_execution": true
-                  },
-                  {
-                    "name": "Concluído",
-                    "step_forward": null,
-                    "step_backward": null,
-                    "show_contact_form": false,
-                    "hide_contact_form_when_linked": false,
-                    "show_customer_form": false,
-                    "hide_customer_form_when_linked": false,
-                    "sensation_amount": 0,
-                    "checklists": [],
-                    "attachments": [],
-                    "restrictions": [],
-                    "sort_config": null,
-                    "allow_execution": true
+                    ]
                   }
                 ],
                 "tags": [
                   {
-                    "name": "Nova etiqueta 1",
-                    "color": "#5e4ff8",
-                    "funnel_step_blockings": []
-                  },
-                  {
-                    "name": "Nova etiqueta 2",
-                    "color": "#7fd87d",
-                    "funnel_step_blockings": []
-                  },
-                  {
-                    "name": "Nova etiqueta 3",
-                    "color": "#5e4ff8",
-                    "funnel_step_blockings": []
-                  }
-                ],
-                "project_term": {
-                  "key": "called",
-                  "en": {
-                    "project_term": {
-                      "singular": "called",
-                      "plural": "calls"
-                    }
-                  },
-                  "pt_br": {
-                    "project_term": {
-                      "singular": "chamado",
-                      "plural": "chamados"
-                    }
-                  }
-                },
-                "dynamic_form": null,
-                "business_area": {
-                  "id": 19,
-                  "name": "Área de negócio",
-                  "frame_id": "019c75de-532c-7047-9563-daf1448ca963"
-                },
-                "allow_multi_step": true,
-                "show_cost_info": true,
-                "form": {
-                  "id": 7,
-                  "title": "Formulário para funil"
-                },
-                "attachments": [
-                  {
-                    "id": 3
-                  }
-                ],
-                "access": [
-                  {
-                    "id": "019c75de-509e-711a-8933-175cb2514cc5",
-                    "name": "Test User",
-                    "avatar_url": "https://via.placeholder.com/124x124.png/00aa99?text=quas",
-                    "index_all": false,
-                    "index_assigned": true,
-                    "index_created": false
-                  },
-                  {
-                    "id": "019c75de-50f0-7366-a948-b8cbdd1841be",
-                    "name": "Cotestr User",
-                    "avatar_url": null,
-                    "index_all": true,
-                    "index_assigned": false,
-                    "index_created": false
+                    "id": null,
+                    "name": "",
+                    "color": "#E53935",
+                    "funnel_step_blockings": [
+                      {
+                        "funnel_step_id": null,
+                        "automation_bypass": false
+                      }
+                    ]
                   }
                 ],
                 "funnel_status": [
                   {
-                    "name": "Novo status 1",
-                    "color": "#b59ef6",
+                    "id": null,
+                    "name": "",
+                    "color": "#43A047",
                     "is_conclusive": false,
-                    "funnel_step_blockings": []
-                  },
-                  {
-                    "name": "Novo status 2",
-                    "color": "#7fd87d",
-                    "is_conclusive": false,
-                    "funnel_step_blockings": []
-                  },
-                  {
-                    "name": "Novo status 3",
-                    "color": "#b59ef6",
-                    "is_conclusive": false,
-                    "funnel_step_blockings": []
+                    "funnel_step_blockings": [
+                      {
+                        "funnel_step_id": null,
+                        "automation_bypass": false
+                      }
+                    ]
                   }
                 ],
-                "condition": "active",
-                "allow_execution": true,
+                "access": [
+                  {
+                    "id": null,
+                    "index_all": false,
+                    "index_assigned": true,
+                    "index_created": true
+                  }
+                ],
+                "attachments": [
+                  {
+                    "id": null
+                  }
+                ],
                 "template_projects": [
                   {
-                    "id": "019c75de-7fcf-70af-b840-1340626e2764"
+                    "id": null
                   }
                 ]
               }
@@ -10291,8 +10423,8 @@
           "project-funnels",
           "Funis"
         ],
-        "summary": "Atualizar um funil de projeto",
-        "description": "Atualizar dados de um funil de projeto específico.",
+        "summary": "Definir modelo de configuração do funil",
+        "description": "Define qual modelo de configuração de quadro o funil passa a usar. É o único campo que este endpoint altera — o restante da configuração do funil é salvo pelo endpoint de criação/edição. O modelo precisa pertencer ao próprio funil; enviar `null` desfaz a associação. Ver [Configuração do quadro](https://docs.olie.ai/guides/funnels/board-view).",
         "operationId": "atualizarFunilDeProjeto",
         "requestBody": {
           "content": {
@@ -10309,7 +10441,7 @@
               "examples": {
                 "Atualizar funil de projeto": {
                   "value": {
-                    "funnel_config_template_id": 5
+                    "funnel_config_template_id": null
                   }
                 }
               }
@@ -10327,10 +10459,11 @@
           "name": "project_funnel",
           "in": "path",
           "required": true,
+          "description": "ID do funil de projeto.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -22305,26 +22438,26 @@
           "project-funnels",
           "Métricas"
         ],
-        "description": "Obtém métricas detalhadas de um funil de projetos, incluindo distribuição por etapa, tempo médio, atividade e contadores.\n\nSuporta filtro por período (padrão: últimos 30 dias, máximo: 3 meses).\n\nRequer permissão `project_funnels.see_funnel_metrics` e acesso de visualização ao funil (`project_funnels.view.{funnel_id}` ou `project_funnels.view_all`).",
+        "description": "Consolida os números do funil no período: contagens de projetos e etapas, distribuição e ocupação por etapa, tempo médio no funil e por etapa, atividade recente, uso de etiquetas e status e os anexos do funil. Sem `start_date` e `end_date` o período são os últimos 30 dias; o intervalo informado não pode passar de 3 meses e as datas devem estar em `YYYY-MM-DD`. Ver [Métricas e tempo por etapa](https://docs.olie.ai/guides/funnels/metrics).",
         "parameters": [
           {
             "name": "start_date",
             "in": "query",
-            "description": "Data de início do período. Opcional",
+            "description": "Início do período no formato `YYYY-MM-DD`. Não pode ser futura. Padrão: 30 dias atrás.",
             "schema": {
               "type": "string",
               "format": "date"
             },
-            "example": "2019-03-07"
+            "example": ""
           },
           {
             "name": "end_date",
             "in": "query",
-            "description": "Data de fim do período. Obrigatório quando o start_date for informado.",
+            "description": "Fim do período no formato `YYYY-MM-DD`. Obrigatória quando `start_date` é informada e não pode ser anterior a ela. Padrão: hoje.",
             "schema": {
               "type": "string"
             },
-            "example": "string"
+            "example": ""
           }
         ]
       },
@@ -22333,12 +22466,12 @@
           "name": "project_funnel_id",
           "in": "path",
           "required": true,
-          "description": "ID do funil de projeto",
+          "description": "ID do funil de projeto.",
           "deprecated": false,
           "schema": {
             "type": "integer"
           },
-          "example": 8017
+          "example": 0
         }
       ]
     },
@@ -24166,57 +24299,66 @@
             "name": "project_id",
             "in": "query",
             "required": false,
-            "description": "ID do projeto utilizado para filtrar as transições do funil",
+            "description": "Restringe as transições a um projeto (UUID).",
             "deprecated": false,
             "schema": {
               "type": "string"
             },
-            "example": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "description": "Data inicial do período de busca das transições. Retorna apenas registros com entrada igual ou posterior à data informada",
-            "schema": {
-              "type": "string"
-            },
-            "example": "2026-05-01"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "description": "Data final do período de busca das transições. Retorna apenas registros com entrada igual ou anterior à data informada",
-            "schema": {
-              "type": "string"
-            },
-            "example": "2026-05-15"
+            "example": ""
           },
           {
             "name": "funnel_step_id",
             "in": "query",
-            "description": "ID da etapa do funil utilizado para filtrar as transições",
+            "description": "Restringe às transições de entrada ou de saída daquela etapa.",
             "schema": {
               "type": "integer"
             },
-            "example": 197
+            "example": 0
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "ID do usuário responsável pela movimentação do projeto entre etapas",
+            "description": "Restringe às transições feitas por um usuário (UUID), na entrada ou na saída.",
             "schema": {
               "type": "string"
             },
-            "example": "019c75de-509e-711a-8933-175cb2514cc5"
+            "example": ""
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Data ou data/hora inicial da entrada na etapa. Só com data, considera o dia inteiro.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "Data ou data/hora final da entrada na etapa. Não pode ser anterior a `start_date`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
           },
           {
             "name": "page",
             "in": "query",
-            "description": "Página atual em que os registros serão trazidos",
+            "description": "Página desejada. Padrão 1.",
             "schema": {
               "type": "integer"
             },
-            "example": 1
+            "example": 0
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "Itens por página. Padrão 30, máximo 100.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
           }
         ],
         "responses": {
@@ -24712,17 +24854,19 @@
         "tags": [
           "project-funnels",
           "Métricas"
-        ]
+        ],
+        "description": "Lista o histórico de entradas e saídas das etapas do funil, com quem moveu, quando e quanto tempo o projeto ficou em cada etapa. É a base bruta das métricas: cada registro traz a etapa, o usuário de entrada e de saída e a transição anterior que o originou. O resultado é paginado. Ver [Métricas e tempo por etapa](https://docs.olie.ai/guides/funnels/metrics) e [Paginação](https://docs.olie.ai/api-reference/general/pagination)."
       },
       "parameters": [
         {
           "name": "project_funnel_id",
           "in": "path",
           "required": true,
+          "description": "ID do funil de projeto.",
           "schema": {
             "type": "integer"
           },
-          "example": 40
+          "example": 0
         }
       ]
     },
