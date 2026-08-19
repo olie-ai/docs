@@ -17528,12 +17528,29 @@
           "step-assistants",
           "execute-manually"
         ],
-        "summary": "Executar assistente de etapa manualmente",
-        "description": "Executar manualmente um assistente de etapa específico.",
+        "summary": "Executar um assistente manualmente",
+        "description": "Dispara um assistente sob demanda para um projeto, sem depender da movimentação de etapa.\n\nSó vale para assistentes com gatilho `manual` ou com a execução manual habilitada; os demais respondem como não encontrado. O projeto precisa estar na etapa do assistente e ser visível para quem faz a chamada.\n\nA execução é assíncrona: a resposta apenas confirma o enfileiramento, e o resultado aparece no projeto e no histórico de execuções alguns instantes depois. Um assistente inativo não executa nada e ainda assim responde com sucesso.",
         "operationId": "executarAssistenteDeEtapaManualmente",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "project_id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "project_id": null
+              }
+            }
           }
         }
       },
@@ -17542,10 +17559,11 @@
           "name": "step_assistant",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do assistente de etapa.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -17555,24 +17573,63 @@
           "step-assistants",
           "execution-logs"
         ],
-        "summary": "Obter registros de execução dos assistentes",
-        "description": "Obter registros de execução dos assistentes associados a uma etapa específica.",
+        "summary": "Listar execuções dos assistentes",
+        "description": "Histórico de execuções de todos os assistentes de uma etapa, do mais recente para o mais antigo.\n\nCada registro traz o assistente, o projeto, a execução do agente de IA (com o texto devolvido e o modelo usado) e o desfecho de cada destino separadamente: a gravação como conteúdo do projeto e a gravação em campo de formulário têm campos próprios de status e de erro, porque uma pode dar certo e a outra falhar.\n\nAceita filtros e paginação por query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)\n- [Paginação](https://docs.olie.ai/api-reference/general/pagination)\n\nOs campos de paginação (`current_page`, `per_page`, `total`, ...) vêm na raiz da resposta, ao lado de `data`, e não dentro de `meta` como no restante da API.",
         "operationId": "obterRegistrosDeExecuODosAssistentes",
         "responses": {
           "200": {
             "description": "200"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Página desejada. Padrão `1`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "Itens por página. Padrão `30`, máximo `100`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[status]",
+            "in": "query",
+            "description": "Situação da execução: `pending`, `success` ou `error`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[step_assistant_id]",
+            "in": "query",
+            "description": "ID (UUID) do assistente cujas execuções devem ser retornadas.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       },
       "parameters": [
         {
           "name": "step",
           "in": "path",
           "required": true,
+          "description": "ID da etapa do funil.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -17582,13 +17639,78 @@
           "step-assistants"
         ],
         "summary": "Listar todos os assistentes de etapa",
-        "description": "Listar todos os assistentes de etapa cadastrados no sistema.",
+        "description": "Lista os assistentes de etapa de todos os funis da conta, sem precisar percorrer etapa por etapa. É a visão usada pelo menu de [Assistentes de etapa](https://docs.olie.ai/guides/funnels/step-assistants).\n\nCada item já vem com a etapa e o agente de IA associados. Aceita filtros e paginação por query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)\n- [Paginação](https://docs.olie.ai/api-reference/general/pagination)\n\nOs campos de paginação (`current_page`, `per_page`, `total`, ...) vêm na raiz da resposta, ao lado de `data`, e não dentro de `meta` como no restante da API.",
         "operationId": "listarTodosOsAssistentesDeEtapa",
         "responses": {
           "200": {
             "description": "200"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Página desejada. Padrão `1`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "Itens por página. Padrão `30`, máximo `100`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[id]",
+            "in": "query",
+            "description": "ID (UUID) de um assistente específico. Aceita vários IDs separados por vírgula.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[name]",
+            "in": "query",
+            "description": "Trecho do nome do assistente.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[active]",
+            "in": "query",
+            "description": "`1` retorna apenas os ativos, `0` apenas os inativos.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[funnel_step_id]",
+            "in": "query",
+            "description": "ID da etapa do funil à qual o assistente pertence.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[ai_agent_id]",
+            "in": "query",
+            "description": "ID (UUID) do agente de IA que executa o assistente.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       }
     },
     "/api/management/steps/{step}/assistants": {
@@ -17596,21 +17718,77 @@
         "tags": [
           "step-assistants"
         ],
-        "summary": "Listar assistentes de uma etapa específica",
-        "description": "Listar todos os assistentes associados a uma etapa específica.",
+        "summary": "Listar assistentes da etapa",
+        "description": "Lista os assistentes de uma etapa específica, do mesmo formato da listagem geral e já restrita à etapa informada.\n\nAceita filtros e paginação por query params, consulte:\n\n- [Filtro básico](https://docs.olie.ai/api-reference/general/basic-filters)\n- [Paginação](https://docs.olie.ai/api-reference/general/pagination)\n\nOs campos de paginação (`current_page`, `per_page`, `total`, ...) vêm na raiz da resposta, ao lado de `data`, e não dentro de `meta` como no restante da API.",
         "operationId": "listarAssistentesDeUmaEtapaEspecFica",
         "responses": {
           "200": {
             "description": "200"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Página desejada. Padrão `1`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "Itens por página. Padrão `30`, máximo `100`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[name]",
+            "in": "query",
+            "description": "Trecho do nome do assistente.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[active]",
+            "in": "query",
+            "description": "`1` retorna apenas os ativos, `0` apenas os inativos.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[funnel_step_id]",
+            "in": "query",
+            "description": "ID da etapa do funil. Redundante aqui, já que a etapa vem da URL.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[ai_agent_id]",
+            "in": "query",
+            "description": "ID (UUID) do agente de IA que executa o assistente.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       },
       "post": {
         "tags": [
           "step-assistants"
         ],
         "summary": "Criar um assistente da etapa",
-        "description": "Criar um novo assistente para uma etapa específica.",
+        "description": "Cria um assistente na etapa. Se `active` for verdadeiro, ele já entra em operação e passa a disparar no gatilho escolhido em `execute_on`: ao entrar na etapa (`moved`), ao sair dela (`unlinked`) ou somente sob demanda (`manual`).\n\nÉ obrigatório indicar pelo menos um destino para o resultado: `result_as_media` grava como conteúdo do projeto e `result_as_dynamic_form` grava em um campo de formulário dinâmico. Os dois podem ser usados juntos.\n\nA etapa do assistente é a do corpo (`funnel_step_id`) — é ela que vale, e não a da URL.\n\nCada execução consome créditos de IA. Veja [Assistentes de etapa](https://docs.olie.ai/guides/funnels/step-assistants) e [Créditos de IA](https://docs.olie.ai/guides/billing/ai-credits).",
         "operationId": "criarAssistenteDaEtapa",
         "requestBody": {
           "content": {
@@ -17696,25 +17874,16 @@
               "examples": {
                 "Criar assistente da etapa": {
                   "value": {
-                    "active": 1,
-                    "ai_agent_id": "sample_text",
-                    "execute_on": "sample_text",
-                    "failure_funnel_step_id": "sample_text",
-                    "funnel_step_id": 3,
-                    "manual_execution_enabled": 0,
-                    "name": "sample_text",
-                    "prompt": "sample_text",
-                    "result_as_dynamic_form": {
-                      "edge_id": 9,
-                      "form_id": 8,
-                      "funnel_step_id": "sample_text",
-                      "id": "sample_text",
-                      "loose_form_id": "sample_text",
-                      "pivot_class": "sample_text",
-                      "project_funnel_id": "sample_text",
-                      "project_id": "sample_text"
-                    },
-                    "result_as_media": 1
+                    "name": "Resumo do atendimento",
+                    "active": true,
+                    "funnel_step_id": null,
+                    "ai_agent_id": null,
+                    "prompt": "",
+                    "execute_on": "moved",
+                    "manual_execution_enabled": false,
+                    "failure_funnel_step_id": null,
+                    "result_as_media": true,
+                    "result_as_dynamic_form": null
                   }
                 }
               }
@@ -17732,10 +17901,11 @@
           "name": "step",
           "in": "path",
           "required": true,
+          "description": "ID da etapa do funil.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -17744,8 +17914,8 @@
         "tags": [
           "step-assistants"
         ],
-        "summary": "Obter assistente da etapa",
-        "description": "Obter detalhes de um assistente específico de uma etapa.",
+        "summary": "Obter um assistente da etapa",
+        "description": "Retorna a configuração de um assistente, já com a etapa e o agente de IA associados.",
         "operationId": "obterAssistenteDaEtapa",
         "responses": {
           "200": {
@@ -17758,7 +17928,7 @@
           "step-assistants"
         ],
         "summary": "Atualizar um assistente da etapa",
-        "description": "Atualizar dados de um assistente específico de uma etapa.",
+        "description": "Substitui a configuração do assistente. O corpo é o mesmo da criação e não aceita atualização parcial: `name`, `funnel_step_id`, `ai_agent_id`, `prompt` e `execute_on` precisam vir a cada requisição, e ao menos um destino de resultado continua obrigatório.\n\nEnviar `active: false` tira o assistente de operação sem apagar nada: a configuração e o histórico de execuções permanecem, mas ele deixa de disparar.",
         "operationId": "atualizarAssistenteDaEtapa",
         "requestBody": {
           "content": {
@@ -17844,25 +18014,16 @@
               "examples": {
                 "Atualizar assistente da etapa": {
                   "value": {
-                    "active": 1,
-                    "ai_agent_id": "sample_text",
-                    "execute_on": "sample_text",
-                    "failure_funnel_step_id": "sample_text",
-                    "funnel_step_id": 3,
-                    "manual_execution_enabled": 0,
-                    "name": "sample_text",
-                    "prompt": "sample_text",
-                    "result_as_dynamic_form": {
-                      "edge_id": 7,
-                      "form_id": 8,
-                      "funnel_step_id": "sample_text",
-                      "id": "sample_text",
-                      "loose_form_id": "sample_text",
-                      "pivot_class": "sample_text",
-                      "project_funnel_id": "sample_text",
-                      "project_id": "sample_text"
-                    },
-                    "result_as_media": 1
+                    "name": "Resumo do atendimento",
+                    "active": true,
+                    "funnel_step_id": null,
+                    "ai_agent_id": null,
+                    "prompt": "",
+                    "execute_on": "moved",
+                    "manual_execution_enabled": false,
+                    "failure_funnel_step_id": null,
+                    "result_as_media": true,
+                    "result_as_dynamic_form": null
                   }
                 }
               }
@@ -17880,7 +18041,7 @@
           "step-assistants"
         ],
         "summary": "Deletar um assistente da etapa",
-        "description": "Deletar um assistente específico de uma etapa.",
+        "description": "Remove o assistente da etapa. A exclusão é lógica: ele para de disparar e some das listagens, mas o histórico de execuções continua acessível. Não há endpoint de restauração — para tirar um assistente de operação temporariamente, prefira desativá-lo pela edição.\n\nA resposta não tem corpo.",
         "operationId": "deletarAssistenteDaEtapa",
         "responses": {
           "200": {
@@ -17893,19 +18054,21 @@
           "name": "step",
           "in": "path",
           "required": true,
+          "description": "ID da etapa do funil.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         },
         {
           "name": "assistant",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do assistente de etapa.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
