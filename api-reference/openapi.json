@@ -8063,7 +8063,7 @@
       "post": {
         "tags": [
           "project-funnels",
-          "{project_funnel_id}"
+          "Vínculo com projetos"
         ],
         "summary": "Alternar vínculo do funil de projeto",
         "description": "Alternar o estado do vínculo entre projeto e funil.",
@@ -8079,7 +8079,7 @@
       "post": {
         "tags": [
           "project-funnels",
-          "{project_funnel_id}"
+          "Vínculo com projetos"
         ],
         "summary": "Atualizar status do funil de projeto",
         "description": "Atualizar o status de um funil de projeto específico.",
@@ -8095,7 +8095,7 @@
       "post": {
         "tags": [
           "project-funnels",
-          "get-project-funnels"
+          "Funis"
         ],
         "summary": "Obter um funil de projeto",
         "description": "Retorna os dados completos de um funil de projeto específico, incluindo todas as suas etapas, configurações de visualização, restrições de fluxo e recursos disponíveis.\n\n**Objetos retornados:**\n\n- **project_funnel**: Dados do funil incluindo:\n    \n    - **steps**: Etapas sequenciais do funil com suas restrições de movimentação, assistentes de IA, checklists e formulário\n        \n    - **restrictions**: Regras que controlam a movimentação de itens entre etapas (incoming/outgoing)\n        \n    - **assistants**: Assistentes de IA configurados para executar ações automatizadas em etapas específicas\n        \n    - **business_area**: Área de negócio à qual o funil pertence\n        \n    - **tags**: Etiquetas disponíveis para categorizar itens no funil\n        \n    - **funnel_status**: Status disponíveis para itens (ex: Urgente) com seus bloqueios de etapa\n        \n    - **form**: Formulário principal associado ao funil",
@@ -8934,7 +8934,7 @@
         },
         "tags": [
           "project-funnels",
-          "get-project-funnels"
+          "Funis"
         ],
         "description": "Listar todos os funis de projeto com informações simples."
       }
@@ -8943,7 +8943,7 @@
       "post": {
         "tags": [
           "project-funnels",
-          "{project_funnel_id}"
+          "Vínculo com projetos"
         ],
         "summary": "Alternar vínculo de etiqueta do funil de um projeto",
         "description": "Alternar vínculo de etiqueta do funil de um projeto.",
@@ -8959,7 +8959,7 @@
       "post": {
         "tags": [
           "project-funnels",
-          "{project_funnel_id}"
+          "Ciclo de vida"
         ],
         "summary": "Arquivar um funil",
         "description": "Arquivar um funil específico.",
@@ -8975,7 +8975,7 @@
       "post": {
         "tags": [
           "project-funnels",
-          "{project_funnel_id}"
+          "Ciclo de vida"
         ],
         "summary": "Restaurar um funil",
         "description": "Restaurar um funil que foi arquivado anteriormente.",
@@ -8991,7 +8991,7 @@
       "post": {
         "tags": [
           "project-funnels",
-          "{project_funnel_id}"
+          "Ciclo de vida"
         ],
         "summary": "Clonar um funil",
         "description": "Clonar um funil existente criando uma cópia.",
@@ -9007,7 +9007,7 @@
       "post": {
         "tags": [
           "project-funnels",
-          "{project_funnel_id}"
+          "Funis"
         ],
         "summary": "Reordenar funis de projeto",
         "description": "Reordenar funis de projeto no sistema.",
@@ -9022,7 +9022,8 @@
     "/api/management/project-funnel": {
       "post": {
         "tags": [
-          "project-funnels"
+          "project-funnels",
+          "Funis"
         ],
         "summary": "Criar ou atualizar um funil de projeto",
         "description": "Criar ou atualizar funil de projeto.",
@@ -10287,7 +10288,8 @@
     "/api/management/project-funnels/{project_funnel}": {
       "put": {
         "tags": [
-          "project-funnels"
+          "project-funnels",
+          "Funis"
         ],
         "summary": "Atualizar um funil de projeto",
         "description": "Atualizar dados de um funil de projeto específico.",
@@ -22301,7 +22303,7 @@
         },
         "tags": [
           "project-funnels",
-          "{project_funnel_id}"
+          "Métricas"
         ],
         "description": "Obtém métricas detalhadas de um funil de projetos, incluindo distribuição por etapa, tempo médio, atividade e contadores.\n\nSuporta filtro por período (padrão: últimos 30 dias, máximo: 3 meses).\n\nRequer permissão `project_funnels.see_funnel_metrics` e acesso de visualização ao funil (`project_funnels.view.{funnel_id}` ou `project_funnels.view_all`).",
         "parameters": [
@@ -24709,7 +24711,7 @@
         },
         "tags": [
           "project-funnels",
-          "{project_funnel_id}"
+          "Métricas"
         ]
       },
       "parameters": [
