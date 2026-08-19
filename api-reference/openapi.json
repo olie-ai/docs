@@ -10683,7 +10683,7 @@
           "funnel-steps",
           "Movimentação de projetos"
         ],
-        "description": "Vincula um projeto a uma etapa do funil",
+        "description": "Vincula um projeto a uma etapa do funil — o mesmo efeito de arrastar o cartão para a coluna. Antes de aceitar, a plataforma verifica, nessa ordem, se o funil está ativo e vinculado ao projeto, as restrições de entrada e saída, os requisitos pendentes da etapa de origem e os bloqueios por etiqueta ou status; qualquer recusa volta com o detalhe do que impediu. Use `unlink_others` para mover o projeto (desvinculando as demais etapas do funil) em vez de deixá-lo em etapas simultâneas. A sequência completa está em [Mover projetos entre etapas](https://docs.olie.ai/guides/funnels/moving-projects), e as regras em [Restrições e bloqueios](https://docs.olie.ai/guides/funnels/restrictions) e [Checklists e formulários obrigatórios](https://docs.olie.ai/guides/funnels/requirements).",
         "requestBody": {
           "content": {
             "application/json": {
@@ -10712,9 +10712,9 @@
                 ]
               },
               "example": {
-                "project_id": "00000000-0000-0000-0000-000000000000",
+                "project_id": null,
                 "unlink_others": true,
-                "force_funnel_link": true
+                "force_funnel_link": false
               }
             }
           }
@@ -10725,11 +10725,11 @@
           "name": "funnel_step_id",
           "in": "path",
           "required": true,
-          "description": "ID da etapa do funil",
+          "description": "ID da etapa do funil que receberá o projeto.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -10740,11 +10740,41 @@
           "Movimentação de projetos"
         ],
         "summary": "Mover múltiplos projetos de etapa",
-        "description": "Mover múltiplos projetos de etapa em uma única operação.",
+        "description": "Aplica a mesma movimentação a vários projetos de uma vez, com as mesmas verificações da movimentação individual. Projetos que já estão na etapa de destino são ignorados sem erro; qualquer outra recusa — restrição, requisito pendente ou bloqueio — interrompe o lote no projeto em que ocorreu, e os projetos seguintes da lista não são processados. As verificações estão descritas em [Mover projetos entre etapas](https://docs.olie.ai/guides/funnels/moving-projects).",
         "operationId": "moverMLtiplosProjetosDeEtapa",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "project_ids": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "step_id": {
+                    "nullable": true
+                  },
+                  "unlink_others": {
+                    "type": "boolean"
+                  },
+                  "force_funnel_link": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "example": {
+                "project_ids": [],
+                "step_id": null,
+                "unlink_others": true,
+                "force_funnel_link": false
+              }
+            }
           }
         }
       }
@@ -10756,13 +10786,33 @@
           "Etapas"
         ],
         "summary": "Listar etapas disponíveis",
-        "description": "Listar todas as etapas disponíveis para associação com projetos.",
+        "description": "Lista os funis da conta com suas etapas, etiquetas e status, para alimentar seletores de destino em telas de movimentação, automação e filtros. Os parâmetros `id` e `search` filtram etapas, etiquetas e status ao mesmo tempo e devolvem apenas os funis que tiverem alguma correspondência — `id` tem precedência sobre `search`. Os conceitos estão em [Etapas do funil](https://docs.olie.ai/guides/funnels/steps) e [Etiquetas, status e previsão](https://docs.olie.ai/guides/funnels/tags-and-status).",
         "operationId": "listarEtapasDisponVeis",
         "responses": {
           "200": {
             "description": "200"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Termo buscado no nome da etapa, da etiqueta e do status. Ignorado quando `id` é informado.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID de uma etapa, etiqueta ou status específico. Retorna somente o funil dono do item.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       }
     },
     "/api/management/unlink-project-from-funnel-step": {
@@ -10772,7 +10822,7 @@
           "Movimentação de projetos"
         ],
         "summary": "Desvincular um projeto da etapa do funil",
-        "description": "Desvincula um projeto de uma etapa específica do funil, removendo o card daquela etapa. Só é possível quando o projeto está vinculado a mais de uma etapa do mesmo funil: se aquela for a única, a operação é recusada. A desvinculação fica registrada no histórico de atividades do projeto.",
+        "description": "Desvincula um projeto de uma etapa específica do funil, removendo o card daquela etapa. Só é possível quando o projeto está vinculado a mais de uma etapa do mesmo funil: se aquela for a única, a operação é recusada. A desvinculação fica registrada no histórico de atividades do projeto. Ver [Mover projetos entre etapas](https://docs.olie.ai/guides/funnels/moving-projects).",
         "operationId": "desvincularProjetoDaEtapaDoFunil",
         "responses": {
           "200": {
@@ -10929,11 +10979,87 @@
           "Etapas"
         ],
         "summary": "Obter dados da etapa",
-        "description": "Obter dados e informações de uma etapa específica.",
+        "description": "Carrega o conteúdo das colunas do quadro: para cada etapa informada, devolve os projetos visíveis ao usuário autenticado, já recortados por `offset`/`limit`, e o total de projetos da etapa. Com `is_counting` a resposta traz apenas os totalizadores da etapa — contagem e soma de orçamento — sem a lista de projetos, que é o modo usado para montar os cabeçalhos das colunas. O quadro está descrito em [Configuração do quadro](https://docs.olie.ai/guides/funnels/board-view) e o formato de `filters` segue [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search).",
         "operationId": "obterDadosDaEtapa",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "steps": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "nullable": true
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "sorting": {
+                          "type": "object",
+                          "properties": {
+                            "field": {
+                              "type": "string"
+                            },
+                            "direction": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "is_counting": {
+                    "type": "boolean"
+                  },
+                  "filters": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "date_range": {
+                    "type": "object",
+                    "properties": {
+                      "init": {
+                        "nullable": true
+                      },
+                      "end": {
+                        "nullable": true
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "steps": [
+                  {
+                    "id": null,
+                    "offset": 0,
+                    "limit": 20,
+                    "sorting": {
+                      "field": "",
+                      "direction": "desc"
+                    }
+                  }
+                ],
+                "is_counting": false,
+                "filters": [],
+                "date_range": {
+                  "init": null,
+                  "end": null
+                }
+              }
+            }
           }
         }
       }
@@ -10944,8 +11070,8 @@
           "funnel-steps",
           "Anexos"
         ],
-        "summary": "Obter anexos da etapa",
-        "description": "Obter todos os anexos associados a uma etapa específica.",
+        "summary": "Listar anexos de etapas",
+        "description": "Lista todos os anexos de etapa cadastrados na conta — arquivos, links e vídeos — do mais recente para o mais antigo, com o usuário que enviou cada um. A lista não é recortada por etapa: ela é a biblioteca de onde os anexos são vinculados às etapas. O link de download de arquivo é temporário e expira. Ver [Anexos do funil e da etapa](https://docs.olie.ai/guides/funnels/attachments).",
         "operationId": "obterAnexosDaEtapa",
         "responses": {
           "200": {
@@ -10961,11 +11087,32 @@
           "Anexos"
         ],
         "summary": "Atualizar vídeo obrigatório da etapa",
-        "description": "Atualizar a configuração de vídeo obrigatório de uma etapa.",
+        "description": "Marca ou desmarca um anexo de vídeo como de visualização obrigatória. Quando obrigatório, o vídeo abre sozinho para quem move o projeto para a etapa e a janela não pode ser dispensada enquanto a movimentação está em curso; a visualização fica registrada no histórico do projeto. Ver [Anexos do funil e da etapa](https://docs.olie.ai/guides/funnels/attachments).",
         "operationId": "atualizarVDeoObrigatRioDaEtapa",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "nullable": true
+                  },
+                  "watch": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "example": {
+                "id": null,
+                "watch": true
+              }
+            }
           }
         }
       }
@@ -10977,7 +11124,7 @@
           "Etapas"
         ],
         "summary": "Obter métricas da etapa",
-        "description": "Obter métricas e estatísticas de uma etapa específica.",
+        "description": "Devolve as métricas de permanência da etapa calculadas sobre o histórico de transições: tempo médio, mínimo e máximo (em segundos) e a contagem de entradas. Cada métrica vem em três janelas — desde a criação da etapa, últimos 7 dias e últimos 30 dias. A leitura dos números e o que cada um indica sobre gargalos estão em [Métricas e tempo por etapa](https://docs.olie.ai/guides/funnels/metrics).",
         "operationId": "obterMTricasDaEtapa",
         "responses": {
           "200": {
@@ -11338,11 +11485,11 @@
           "name": "step",
           "in": "path",
           "required": true,
-          "description": "ID da etapa",
+          "description": "ID da etapa do funil.",
           "schema": {
             "type": "integer"
           },
-          "example": 6419
+          "example": 0
         }
       ]
     },
