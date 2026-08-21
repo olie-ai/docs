@@ -31,15 +31,18 @@
         "tabs": [
           {
             "tab": "Guides",
+            "icon": "book-open",
             "groups": [
               {
                 "group": "Começando",
+                "icon": "rocket",
                 "pages": [
                   "index"
                 ]
               },
               {
                 "group": "Funis e etapas",
+                "icon": "diagram-project",
                 "pages": [
                   "guides/funnels/overview",
                   "guides/funnels/creating-funnels",
@@ -56,12 +59,14 @@
               },
               {
                 "group": "Conceitos fundamentais",
+                "icon": "lightbulb",
                 "pages": [
                   "guides/fundamentals/mentions"
                 ]
               },
               {
                 "group": "Gestão de usuários",
+                "icon": "users",
                 "pages": [
                   "guides/users/user-management",
                   "guides/users/roles-permissions",
@@ -70,6 +75,7 @@
               },
               {
                 "group": "Cobrança",
+                "icon": "credit-card",
                 "pages": [
                   "guides/billing/overview",
                   "guides/billing/subscription-and-licenses",
@@ -81,12 +87,14 @@
               },
               {
                 "group": "Gestão de projetos",
+                "icon": "folder-tree",
                 "pages": [
                   "guides/projects/project-hierarchy"
                 ]
               },
               {
                 "group": "Metas",
+                "icon": "bullseye",
                 "pages": [
                   "guides/goals/overview",
                   "guides/goals/goal-types",
@@ -98,6 +106,7 @@
               },
               {
                 "group": "Automação",
+                "icon": "bolt",
                 "pages": [
                   "guides/automation/overview",
                   "guides/automation/first-automation",
@@ -131,6 +140,7 @@
               },
               {
                 "group": "Avançado",
+                "icon": "gear",
                 "pages": [
                   "guides/advanced/advanced-syntax"
                 ]
@@ -139,9 +149,11 @@
           },
           {
             "tab": "Referência da API",
+            "icon": "code",
             "groups": [
               {
                 "group": "Introdução",
+                "icon": "circle-info",
                 "pages": [
                   "api-reference/introduction",
                   "api-reference/introduction/authentication",
@@ -150,6 +162,7 @@
               },
               {
                 "group": "Geral",
+                "icon": "sliders",
                 "pages": [
                   "api-reference/general/response-structure",
                   "api-reference/general/pagination",
@@ -165,21 +178,25 @@
               },
               {
                 "group": "Referência da API",
+                "icon": "server",
                 "openapi": "api-reference/openapi.json"
               }
             ]
           },
           {
             "tab": "Marketplace",
+            "icon": "bag-shopping",
             "groups": [
               {
                 "group": "Marketplace",
+                "icon": "store",
                 "pages": [
                   "guides/marketplace/overview"
                 ]
               },
               {
                 "group": "Marketplace — Parceiro",
+                "icon": "handshake",
                 "pages": [
                   "guides/marketplace/become-a-partner",
                   "guides/marketplace/getting-started",
@@ -193,6 +210,7 @@
               },
               {
                 "group": "Marketplace — Usuário",
+                "icon": "user",
                 "pages": [
                   "guides/marketplace/marketplace-user-guide",
                   "guides/marketplace/reviews"
