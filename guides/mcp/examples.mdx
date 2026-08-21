@@ -1,0 +1,228 @@
+---
+title: "Exemplos de uso"
+description: "Perguntas prontas para consultar, analisar, relatar e operar a Olie pelo assistente"
+keywords: ["exemplos", "prompts", "perguntas", "relatório", "conversão", "auditoria", "gargalo", "chatgpt", "claude"]
+---
+
+Com a conexão ativa, você conversa com a sua operação. As perguntas abaixo funcionam como estão — troque os nomes de funil, etapa e projeto pelos da sua conta.
+
+<Tip>
+Comece por `Quem sou eu na Olie e qual workspace está conectado?`. Além de confirmar que a integração está de pé, a resposta mostra qual workspace o assistente está enxergando.
+</Tip>
+
+## Consultar a operação
+
+<CodeGroup>
+```text Buscar um projeto
+Me mostra os detalhes do projeto ABC-142.
+```
+
+```text Ver o que está em uma etapa
+Quais projetos estão parados na etapa "Proposta enviada"?
+```
+
+```text Buscar por texto
+Procura projetos com "onboarding" no nome e me diz em que etapa cada um está.
+```
+
+```text Filtrar por responsável
+Lista os projetos em andamento sob responsabilidade da Ana, ordenados por impacto.
+```
+</CodeGroup>
+
+<Note>
+Você pode citar o projeto pelo código (`ABC-142`) ou pelo nome. Pelo código é mais rápido e não corre risco de ambiguidade.
+</Note>
+
+## Analisar funis e conversão
+
+Aqui está o uso que mais rende. O assistente cruza a distribuição de projetos com as métricas de tempo e interpreta o resultado.
+
+<CodeGroup>
+```text Panorama do funil
+Analisa o funil de vendas dos últimos 30 dias: quantos projetos em cada
+etapa, tempo médio por etapa e onde está o maior gargalo.
+```
+
+```text Conversão entre etapas
+No funil comercial, qual a taxa de conversão entre "Proposta enviada" e
+"Fechado"? Compara os últimos 30 dias com os 30 anteriores.
+```
+
+```text Trajetória de um projeto
+Quanto tempo o projeto ABC-142 passou em cada etapa? Alguma etapa
+fugiu muito da média do funil?
+```
+
+```text Caçar projetos travados
+Quais projetos estão há mais tempo sem sair da etapa atual no funil
+de implantação?
+```
+</CodeGroup>
+
+<Warning>
+As métricas de tempo contam apenas passagens já concluídas. Um projeto parado há três meses em uma etapa não entra no tempo médio enquanto não sair dela. Se a pergunta é sobre o presente, peça explicitamente há quanto tempo os projetos atuais estão na etapa — como no último exemplo. O critério completo está em [Métricas e tempo por etapa](/guides/funnels/metrics).
+</Warning>
+
+## Gerar relatórios
+
+<CodeGroup>
+```text Resumo do período
+Monta um resumo da operação deste mês: projetos criados, concluídos,
+e como está a distribuição no funil de vendas.
+```
+
+```text Relatório por cliente
+Lista todos os projetos do cliente Acme, com status, etapa atual e
+data prevista, em formato de tabela.
+```
+
+```text Carteira por responsável
+Quantos projetos em andamento cada pessoa da equipe tem hoje?
+Aponta quem está sobrecarregado.
+```
+
+```text Acompanhamento de orçamento
+Soma o orçamento dos projetos em andamento no funil comercial e
+separa por etapa.
+```
+</CodeGroup>
+
+<Tip>
+Peça o formato junto com a pergunta — "em tabela", "em tópicos", "em um parágrafo para eu mandar no grupo". O assistente já entrega pronto para colar.
+</Tip>
+
+## Verificar atividade e auditar
+
+Este é o exemplo demonstrado no vídeo: descobrir o que uma pessoa específica mexeu no sistema.
+
+<CodeGroup>
+```text Alterações de uma pessoa
+Quais alterações o Marcelo fez no funil comercial nos últimos 7 dias?
+```
+
+```text Histórico de um projeto
+Me mostra o histórico de movimentações do projeto ABC-142: quem moveu,
+de qual etapa para qual e quando.
+```
+
+```text Registros do sistema
+Traz os logs do projeto ABC-142 e resume o que mudou desde a semana passada.
+```
+
+```text Quem movimentou o funil
+No funil de implantação, quem foram as pessoas que moveram projetos
+entre etapas neste mês?
+```
+</CodeGroup>
+
+## Operar pelo chat
+
+<Warning>
+As ações desta seção alteram dados. Revise o que o assistente propôs antes de aprovar.
+</Warning>
+
+<CodeGroup>
+```text Criar um projeto
+Cria um projeto chamado "Implantação Acme" na etapa "Levantamento"
+do funil de implantação.
+```
+
+```text Mover de etapa
+Move o projeto ABC-142 para a etapa "Proposta enviada".
+```
+
+```text Atualizar informação
+Atualiza o orçamento do projeto ABC-142 para 45000 e coloca o impacto em 8.
+```
+
+```text Registrar uma anotação
+Registra no projeto ABC-142: "Cliente pediu para revisar o escopo do
+módulo fiscal antes de assinar."
+```
+
+```text Clonar a partir de um modelo
+Cria um projeto novo clonando o ABC-100, com o nome "Implantação Beta",
+sem copiar o conteúdo antigo.
+```
+</CodeGroup>
+
+<Note>
+Mover um projeto pelo assistente tem exatamente o mesmo efeito de arrastar o cartão no kanban: a transição entra no histórico e as [automações](/guides/automation/overview) daquela etapa são acionadas.
+</Note>
+
+## No celular
+
+As mesmas perguntas funcionam no aplicativo. Na prática, o que mais se usa em movimento são consultas curtas:
+
+<CodeGroup>
+```text Antes de uma reunião
+Resume a situação do cliente Acme: projetos abertos, etapa de cada um
+e o que aconteceu na última semana.
+```
+
+```text Checagem rápida
+Quantos projetos entraram no funil de vendas hoje?
+```
+
+```text Registro na hora
+Registra no projeto ABC-142 que a reunião de hoje definiu a virada
+para a fase de testes na próxima segunda.
+```
+</CodeGroup>
+
+## Como perguntar melhor
+
+<AccordionGroup>
+<Accordion title="Cite o período" icon="calendar">
+  "Últimos 30 dias", "este mês", "desde segunda". Sem período, a consulta tende a puxar o padrão de 30 dias ou o histórico inteiro, e a resposta fica menos útil.
+</Accordion>
+
+<Accordion title="Nomeie funil e etapa" icon="diagram-project">
+  Uma conta com muitos funis gera um volume grande de dados na descoberta. Dizer o nome do funil deixa a consulta direta e evita resposta truncada.
+</Accordion>
+
+<Accordion title="Peça a interpretação, não só o número" icon="lightbulb">
+  Em vez de "qual o tempo médio da etapa X", tente "o tempo da etapa X está pior que o das outras? o que isso sugere?". A leitura junto com o dado é o que a integração tem de melhor.
+</Accordion>
+
+<Accordion title="Encadeie em uma pergunta só" icon="link">
+  "Pega os projetos parados há mais de 15 dias na etapa de proposta e me diz quem é o responsável de cada um" resolve em uma rodada. O assistente busca, cruza e responde.
+</Accordion>
+
+<Accordion title="Confirme depois de alterar" icon="circle-check">
+  Ao editar um projeto, peça a confirmação: "atualiza e depois me mostra como ficou". Algumas alterações não voltam completas na resposta da própria edição.
+</Accordion>
+</AccordionGroup>
+
+## Limites que valem conhecer
+
+<AccordionGroup>
+<Accordion title="Você só enxerga o que já enxergava" icon="eye">
+  O assistente herda as permissões do seu usuário. Um projeto invisível para você na plataforma continua invisível aqui. Veja [Papéis e permissões](/guides/users/roles-permissions).
+</Accordion>
+
+<Accordion title="Um workspace por conexão" icon="building">
+  O workspace é fixado na autorização. Para acompanhar mais de um, mantenha uma conexão por workspace.
+</Accordion>
+
+<Accordion title="Respostas muito grandes" icon="scissors">
+  Consultas amplas podem estourar o limite de resposta do assistente. Reduza o escopo citando funil, etapa ou período.
+</Accordion>
+
+<Accordion title="O assistente pode errar a leitura" icon="triangle-exclamation">
+  Os dados vêm da plataforma, mas a interpretação é gerada. Para números que vão para uma decisão ou um relatório externo, confira na Olie antes.
+</Accordion>
+</AccordionGroup>
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Instalação" icon="download" href="/guides/mcp/installation">
+  Conectar a Olie a outro assistente ou ao celular.
+</Card>
+
+<Card title="Automações" icon="bolt" href="/guides/automation/overview">
+  Quando a tarefa é repetitiva, uma automação resolve melhor que uma pergunta.
+</Card>
+</CardGroup>

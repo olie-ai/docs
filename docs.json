@@ -139,6 +139,15 @@
                 ]
               },
               {
+                "group": "MCP",
+                "icon": "plug",
+                "pages": [
+                  "guides/mcp/overview",
+                  "guides/mcp/installation",
+                  "guides/mcp/examples"
+                ]
+              },
+              {
                 "group": "Avançado",
                 "icon": "gear",
                 "pages": [

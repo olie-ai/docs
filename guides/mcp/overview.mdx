@@ -1,0 +1,120 @@
+---
+title: "MCP da Olie"
+description: "Conecte a Olie ao ChatGPT, ao Claude e a outros assistentes para consultar dados e executar ações por conversa"
+keywords: ["mcp", "model context protocol", "chatgpt", "claude", "conector", "plugin", "integração", "assistente", "ia"]
+---
+
+O MCP da Olie é um servidor que expõe a sua operação — projetos, funis, etapas, formulários e métricas — para assistentes de IA como o ChatGPT e o Claude. Depois de conectado, você pergunta em linguagem natural e o assistente consulta a plataforma na hora, sem que você precise abrir a Olie.
+
+<Info>
+MCP é a sigla de **Model Context Protocol**, um padrão aberto para conectar assistentes de IA a sistemas externos. Na prática, ele funciona como um plugin: você autoriza uma vez e o assistente passa a enxergar os dados da sua conta.
+</Info>
+
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="https://www.youtube.com/embed/Uyupie0JeTs"
+  title="Olie Flow — Gerando relatórios, consultas e entradas através do ChatGPT e do Claude"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+
+## O endereço do servidor
+
+Todo o processo de instalação se resume a informar uma URL ao seu assistente:
+
+```text Endereço do servidor MCP
+https://api.olie.ai/mcp/management
+```
+
+O transporte é **HTTP** e a autenticação é feita por **OAuth**: ao conectar, você faz login na sua conta Olie e escolhe o workspace que aquela conexão vai enxergar.
+
+## O que você consegue fazer
+
+<CardGroup cols={2}>
+<Card title="Consultar a operação" icon="magnifying-glass">
+  Buscar projetos por nome, código ou etiqueta, ver detalhes de um cartão, listar o que está parado em uma etapa.
+</Card>
+
+<Card title="Analisar funis e conversão" icon="chart-mixed">
+  Tempo médio por etapa, contagem de entradas, gargalos e a distribuição dos projetos ao longo do funil.
+</Card>
+
+<Card title="Gerar relatórios" icon="file-lines">
+  Pedir um resumo do mês, comparar períodos, cruzar métricas de funil com o histórico de movimentações.
+</Card>
+
+<Card title="Gerenciar projetos" icon="pen-to-square">
+  Criar, editar, clonar e mover projetos entre etapas — tudo pela conversa.
+</Card>
+
+<Card title="Verificar atividade" icon="clock-rotate-left">
+  Consultar o histórico de transições e o conteúdo dos projetos para saber quem mexeu no quê e quando.
+</Card>
+
+<Card title="Registrar informação" icon="comment">
+  Enviar texto para o conteúdo de um projeto, no canal principal ou em um canal específico.
+</Card>
+</CardGroup>
+
+## O que você precisa
+
+<Steps>
+<Step title="Uma conta na Olie" icon="user">
+  A conexão autentica com o seu usuário. Você não precisa de token de API nem de permissão de administrador para conectar.
+</Step>
+
+<Step title="Um assistente compatível" icon="plug">
+  ChatGPT, Claude, Claude Code, Cursor ou qualquer cliente que aceite servidores MCP remotos via HTTP.
+</Step>
+
+<Step title="Começar pelo desktop" icon="desktop">
+  A primeira configuração precisa ser feita no computador. Depois de autorizada, a conexão aparece sozinha no aplicativo do celular.
+</Step>
+</Steps>
+
+## Segurança e permissões
+
+O MCP autentica **como você**, e não como a conta inteira. Isso muda bastante o que ele enxerga.
+
+<CardGroup cols={2}>
+<Card title="Respeita as suas permissões" icon="shield-check">
+  As consultas são automaticamente restritas ao que o seu usuário já podia ver na plataforma. Um projeto fora do seu alcance também está fora do alcance do assistente.
+</Card>
+
+<Card title="Autorização revogável" icon="key">
+  Você autoriza uma vez, entrando com a sua conta na própria Olie, e pode remover a conexão pelo assistente a qualquer momento.
+</Card>
+</CardGroup>
+
+<Warning>
+Não confunda o MCP com o **token de API**. O token de aplicação descrito em [Autenticação e segurança](/api-reference/introduction/authentication) é um acesso de nível proprietário, com permissões totais. O MCP é o caminho seguro para uso no dia a dia, porque herda exatamente as permissões do seu usuário.
+</Warning>
+
+<Note>
+Uma conexão enxerga **um workspace por vez**, escolhido no momento da autorização. Se você trabalha em mais de um, configure uma conexão para cada, com nomes diferentes.
+</Note>
+
+## Consultar é diferente de alterar
+
+O assistente não só lê a sua operação — ele também pode criar projeto, editar, mover de etapa e registrar conteúdo. São alterações reais, iguais às que você faria na plataforma.
+
+<Tip>
+Assistentes costumam pedir confirmação antes de executar uma ação que grava algo. Vale manter esse comportamento ligado enquanto você se acostuma com a integração, principalmente em contas com muitos projetos.
+</Tip>
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Instalação" icon="download" href="/guides/mcp/installation">
+  Passo a passo no ChatGPT, no Claude, no celular e em editores de código.
+</Card>
+
+<Card title="Exemplos de uso" icon="comments" href="/guides/mcp/examples">
+  Perguntas prontas para consulta, relatório, gestão de projetos e auditoria.
+</Card>
+
+<Card title="Referência da API" icon="code" href="/api-reference/introduction">
+  Quando você precisa de integração programática em vez de conversa.
+</Card>
+</CardGroup>

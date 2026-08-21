@@ -1,0 +1,167 @@
+---
+title: "Instalação"
+description: "Como conectar o MCP da Olie ao ChatGPT, ao Claude, ao celular e a editores de código"
+keywords: ["instalação", "configurar mcp", "conector", "plugin", "chatgpt", "claude", "cursor", "claude code", "oauth", "workspace"]
+---
+
+A instalação é sempre a mesma ideia: você informa ao assistente o endereço do servidor, faz login na Olie e escolhe o workspace. O que muda de um cliente para outro é apenas onde fica essa tela.
+
+```text Endereço do servidor MCP
+https://api.olie.ai/mcp/management
+```
+
+<Warning>
+Faça a primeira configuração **no computador**. Os aplicativos de celular não oferecem a tela de criação de conexão, mas exibem as conexões já autorizadas.
+</Warning>
+
+## ChatGPT
+
+<Steps>
+<Step title="Abra a área de conectores" icon="plug">
+  No ChatGPT do desktop, vá em **Configurações** e abra a área de conectores e plugins da sua conta.
+</Step>
+
+<Step title="Crie uma nova conexão" icon="plus">
+  Escolha adicionar um conector personalizado. O ChatGPT pede dois campos:
+
+  | Campo | O que preencher |
+  | --- | --- |
+  | Nome | Um nome que você reconheça, como `Olie Flow` |
+  | URL | `https://api.olie.ai/mcp/management` |
+</Step>
+
+<Step title="Autentique a sua conta" icon="key">
+  Ao salvar, o ChatGPT abre a tela de consentimento da Olie. Faça login com o seu usuário e autorize o acesso.
+</Step>
+
+<Step title="Escolha o workspace" icon="building">
+  Ainda na tela de autorização, selecione o workspace que essa conexão vai enxergar. Confirme para voltar ao ChatGPT.
+
+  <Check>
+  A conexão aparece na lista de conectores. A partir daqui, basta perguntar.
+  </Check>
+</Step>
+</Steps>
+
+<Note>
+Conectores personalizados dependem do seu tipo de plano no ChatGPT. Se a opção de adicionar um conector não aparecer nas configurações, verifique o plano da sua conta.
+</Note>
+
+## Claude
+
+<Steps>
+<Step title="Abra as configurações de conectores" icon="gear">
+  No Claude, acesse **Settings** e abra a seção de conectores.
+</Step>
+
+<Step title="Adicione um conector personalizado" icon="plus">
+  Informe o nome e a URL `https://api.olie.ai/mcp/management`.
+</Step>
+
+<Step title="Conecte e autorize" icon="key">
+  Clique em conectar. A Olie abre a tela de consentimento, você faz login e escolhe o workspace.
+</Step>
+
+<Step title="Ative na conversa" icon="comment">
+  Com a conexão autorizada, a Olie fica disponível no seletor de ferramentas da conversa.
+</Step>
+</Steps>
+
+## No celular
+
+Não existe uma segunda configuração a fazer. A conexão criada no desktop está ligada à sua conta, então ela sincroniza sozinha.
+
+<Steps>
+<Step title="Abra o aplicativo" icon="mobile">
+  Entre no ChatGPT ou no Claude com a mesma conta que você usou no computador.
+</Step>
+
+<Step title="Localize a Olie nas extensões" icon="grid-2">
+  Na conversa, abra a área de extensões e ferramentas. A conexão da Olie aparece na lista, já autorizada.
+</Step>
+
+<Step title="Pergunte normalmente" icon="comment">
+  As mesmas perguntas do desktop funcionam aqui.
+
+  <Check>
+  Sua operação fica acessível na palma da mão, sem abrir a plataforma.
+  </Check>
+</Step>
+</Steps>
+
+## Claude Code
+
+Um comando resolve:
+
+```bash Terminal
+claude mcp add --transport http olie-flow-ai https://api.olie.ai/mcp/management
+```
+
+Na primeira chamada de ferramenta, o Claude Code abre o navegador para a autorização. Depois disso, verifique o estado da conexão com:
+
+```bash Terminal
+claude mcp list
+```
+
+## Cursor e outros clientes
+
+Clientes que leem um arquivo de configuração aceitam o servidor no formato padrão de MCP remoto:
+
+```json mcp.json
+{
+  "mcpServers": {
+    "olie-flow-ai": {
+      "type": "http",
+      "url": "https://api.olie.ai/mcp/management"
+    }
+  }
+}
+```
+
+<Tip>
+Não coloque token nem chave nesse arquivo. A autenticação é feita por OAuth no primeiro uso, e as credenciais ficam guardadas pelo próprio cliente — nunca no arquivo de configuração.
+</Tip>
+
+## Como funciona a autorização
+
+<Note>
+A conexão usa **OAuth**, o mesmo mecanismo de "entrar com a sua conta" que você já conhece. Nenhum token precisa ser copiado ou guardado: o assistente descobre sozinho, a partir da URL, para onde mandar você autenticar, e cuida da renovação depois.
+
+Sua senha nunca passa pelo assistente — o login acontece na própria Olie.
+</Note>
+
+## Problemas comuns
+
+<AccordionGroup>
+<Accordion title="O assistente diz que não tem acesso à Olie" icon="plug-circle-xmark">
+  Confirme que a conexão está ativada **naquela conversa**. Em vários clientes, adicionar o conector não o liga automaticamente em todos os chats — é preciso selecioná-lo no seletor de ferramentas.
+</Accordion>
+
+<Accordion title="Os dados são de outro workspace" icon="building">
+  O workspace é definido no momento da autorização e não muda sozinho. Remova a conexão e crie de novo, escolhendo o workspace correto na tela de consentimento. Para acompanhar mais de um workspace, mantenha uma conexão por workspace, com nomes distintos.
+</Accordion>
+
+<Accordion title="Parou de funcionar depois de um tempo" icon="clock">
+  A autorização expirou e a renovação falhou. Reconecte pelo assistente para refazer o login.
+</Accordion>
+
+<Accordion title="Faltam projetos no resultado" icon="eye-slash">
+  O MCP só enxerga o que o seu usuário enxerga na plataforma. Se um projeto não aparece, verifique as suas permissões em [Papéis e permissões](/guides/users/roles-permissions).
+</Accordion>
+
+<Accordion title="A resposta veio truncada" icon="scissors">
+  Algumas consultas retornam volume alto — a lista completa de funis de uma conta grande, por exemplo. Refine a pergunta citando o funil, a etapa ou o período em vez de pedir tudo de uma vez.
+</Accordion>
+</AccordionGroup>
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Exemplos de uso" icon="comments" href="/guides/mcp/examples">
+  Perguntas prontas para começar a usar hoje.
+</Card>
+
+<Card title="Visão geral" icon="plug" href="/guides/mcp/overview">
+  O que dá para fazer com a integração e como funciona a segurança.
+</Card>
+</CardGroup>
