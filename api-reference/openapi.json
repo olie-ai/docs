@@ -9446,7 +9446,7 @@
                         "name": "Contact Name Example",
                         "role": "blanditiis",
                         "email": "email@example.org",
-                        "phone": "(91) 99999-0000",
+                        "phone": "+5591999990000",
                         "description": "Omnis molestias qui nobis voluptas quis sunt sapiente neque.",
                         "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
                         "created_at": "2025-12-04T18:33:07.000000Z",
@@ -9503,7 +9503,7 @@
                         "name": "Nome do contato",
                         "role": "doloribus",
                         "email": "email@example.org",
-                        "phone": "(91) 99999-0000",
+                        "phone": "+5591999990000",
                         "description": "Hic error ut sunt aut qui dolorem porro. Repellat qui aut eos debitis.",
                         "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
                         "created_at": "2025-12-04T18:33:07.000000Z",
@@ -9827,7 +9827,7 @@
                         "name": "Nome do contato",
                         "role": "repudiandae",
                         "email": "email@example.org",
-                        "phone": "(91) 99999-0000",
+                        "phone": "+5591999990000",
                         "description": "Aperiam quam quaerat necessitatibus et nostrum ea harum.",
                         "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
                         "created_at": "2025-12-04T18:33:07.000000Z",
@@ -10015,7 +10015,7 @@
                         "name": "Nome do contato",
                         "role": "esse",
                         "email": "email@example.org",
-                        "phone": "(91) 99999-0000",
+                        "phone": "+5591999990000",
                         "description": "Dolores nobis similique tempora vero. Eos alias ut quis maxime aliquam.",
                         "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
                         "created_at": "2025-12-04T18:33:07.000000Z",
@@ -10198,7 +10198,7 @@
                         "name": "Dr. Elisa Medina",
                         "role": "quaerat",
                         "email": "email@example.org",
-                        "phone": "(91) 99999-0000",
+                        "phone": "+5591999990000",
                         "description": "Sunt id repellendus at dolores. Soluta minima magnam sed temporibus.",
                         "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
                         "created_at": "2025-12-04T18:33:07.000000Z",
@@ -10316,7 +10316,7 @@
                         "name": "Contact Name Example",
                         "role": "blanditiis",
                         "email": "email@example.org",
-                        "phone": "(91) 99999-0000",
+                        "phone": "+5591999990000",
                         "description": "Omnis molestias qui nobis voluptas quis sunt sapiente neque.",
                         "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
                         "created_at": "2025-12-04T18:33:07.000000Z",
@@ -10368,7 +10368,7 @@
                         "name": "Dr. Luis Rosa Filho",
                         "role": "sunt",
                         "email": "email@example.org",
-                        "phone": "(91) 99999-0000",
+                        "phone": "+5591999990000",
                         "description": "Est eius dicta quod facere dolores ut quo.",
                         "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
                         "created_at": "2025-12-04T18:33:07.000000Z",
@@ -10470,7 +10470,7 @@
                         "name": "Sara Maya Uchoa Neto",
                         "role": "et",
                         "email": "email@example.org",
-                        "phone": "(91) 99999-0000",
+                        "phone": "+5591999990000",
                         "description": "Itaque quo quo voluptates rerum ut eum saepe.",
                         "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
                         "created_at": "2025-12-04T18:33:07.000000Z",
@@ -10547,7 +10547,7 @@
                         "name": "Srta. Léia Delatorre Sobrinho",
                         "role": "aut",
                         "email": "email@example.org",
-                        "phone": "(91) 99999-0000",
+                        "phone": "+5591999990000",
                         "description": "Architecto eaque sunt ab magnam maiores ut aut.",
                         "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
                         "created_at": "2025-12-04T18:33:07.000000Z",
@@ -13589,7 +13589,7 @@
           "Ciclo de vida"
         ],
         "summary": "Clonar um funil",
-        "description": "Cria uma cópia do funil com toda a configuração — etapas, checklists, restrições, etiquetas, status e anexos — sem trazer os projetos. Sem `name`, a cópia recebe um nome derivado do original. Funis arquivados não podem ser clonados. Ver [Criar e configurar um funil](https://docs.olie.ai/guides/funnels/creating-funnels).",
+        "description": "Cria uma cópia do funil com toda a configuração — etapas, checklists, restrições, etiquetas, status, anexos, automações, assistentes, modelos de configurações de visualização, permissões e templates de projeto (sem trazer os projetos reais). Sem `name`, a cópia recebe o nome do original seguido de ` (Clone)`. Funis arquivados não podem ser clonados.\n\n**O que clonar:** cada categoria pode ser desligada individualmente pelas flags booleanas do corpo. Flag omitida ou `null` equivale a `true`, então uma chamada sem flags clona tudo.\n\n**Dependências forçadas:** algumas categorias são ligadas automaticamente quando outra depende delas. Se `automations`, `step_restrictions` ou `funnel_step_blockings` estiver `true`, então `funnel_tags` e `funnel_statuses` viram `true` mesmo que enviados como `false`. Se `automations` estiver `true`, `step_assistants` também vira `true`. Ou seja, desligar etiquetas/status só tem efeito quando os três primeiros estão `false`.\n\nO funil, as etapas, os vínculos de formulário e a área de negócio são sempre clonados e não têm flag. Formulários, agentes de IA e áreas de negócio são reaproveitados (não duplicados).\n\nVer [Criar e configurar um funil](https://docs.olie.ai/guides/funnels/creating-funnels).",
         "operationId": "clonarFunil",
         "responses": {
           "200": {
@@ -13699,7 +13699,7 @@
                   "response": true,
                   "project_funnel": {
                     "id": 98,
-                    "name": "Comercial (cópia)",
+                    "name": "Comercial (Clone)",
                     "prefix": "COMC",
                     "order": 11,
                     "condition": "active",
@@ -13720,7 +13720,7 @@
             }
           },
           "422": {
-            "description": "Funil arquivado",
+            "description": "Funil arquivado, validação inválida ou falha parcial do clone",
             "content": {
               "application/json": {
                 "schema": {
@@ -13732,7 +13732,13 @@
                     },
                     "message": {
                       "type": "string",
-                      "description": "Identificador do erro, usado pelo cliente para tratar o caso."
+                      "description": "Identificador do erro, usado pelo cliente para tratar o caso. `cant_clone_archived_project_funnel`: o funil de origem está arquivado. `funnel_clone_partial_failure`: não foi possível clonar este funil — nenhuma alteração foi feita, pois existem itens relacionados que impediram a clonagem. `funnel_clone_missing_funnel`: o funil clonado não foi localizado ao final do processo. `validation_errors`: corpo inválido.",
+                      "enum": [
+                        "cant_clone_archived_project_funnel",
+                        "funnel_clone_partial_failure",
+                        "funnel_clone_missing_funnel",
+                        "validation_errors"
+                      ]
                     }
                   },
                   "required": [
@@ -13760,7 +13766,74 @@
                   },
                   "name": {
                     "type": "string",
-                    "description": "Nome da cópia. Sem ele, o nome é derivado do original.",
+                    "description": "Nome do funil clonado. Sem ele, o nome vira o do original seguido de ` (Clone)`. Máximo de 255 caracteres.",
+                    "maxLength": 255,
+                    "nullable": true
+                  },
+                  "automations": {
+                    "type": "boolean",
+                    "description": "Automações: copia as automações ligadas às etapas deste funil. Quando true, força `funnel_tags`, `funnel_statuses` e `step_assistants`. Padrão true.",
+                    "default": true,
+                    "nullable": true
+                  },
+                  "step_restrictions": {
+                    "type": "boolean",
+                    "description": "Restrições: copia as restrições das etapas. Quando true, força `funnel_tags` e `funnel_statuses`. Padrão true.",
+                    "default": true,
+                    "nullable": true
+                  },
+                  "step_assistants": {
+                    "type": "boolean",
+                    "description": "Assistentes: copia os vínculos de assistente nas etapas (os agentes existentes são reutilizados). Forçado para true quando `automations` é true. Padrão true.",
+                    "default": true,
+                    "nullable": true
+                  },
+                  "step_checklists": {
+                    "type": "boolean",
+                    "description": "Checklists: copia os checklists das etapas. Padrão true.",
+                    "default": true,
+                    "nullable": true
+                  },
+                  "funnel_step_blockings": {
+                    "type": "boolean",
+                    "description": "Bloqueio de etapas: copia os bloqueios de etapas das etiquetas/status do funil. Quando true, força `funnel_tags` e `funnel_statuses`. Padrão true.",
+                    "default": true,
+                    "nullable": true
+                  },
+                  "funnel_tags": {
+                    "type": "boolean",
+                    "description": "Etiquetas: copia as etiquetas do funil. Obrigatório enquanto automações, restrições ou bloqueios estiverem marcados — só tem efeito como false quando `automations`, `step_restrictions` e `funnel_step_blockings` estão todos false. Padrão true.",
+                    "default": true,
+                    "nullable": true
+                  },
+                  "funnel_statuses": {
+                    "type": "boolean",
+                    "description": "Status: copia os status do funil. Obrigatório enquanto automações, restrições ou bloqueios estiverem marcados — só tem efeito como false quando `automations`, `step_restrictions` e `funnel_step_blockings` estão todos false. Padrão true.",
+                    "default": true,
+                    "nullable": true
+                  },
+                  "funnel_attachments": {
+                    "type": "boolean",
+                    "description": "Anexos: copia anexos do funil e vínculos de anexo nas etapas. Padrão true.",
+                    "default": true,
+                    "nullable": true
+                  },
+                  "funnel_config_templates": {
+                    "type": "boolean",
+                    "description": "Modelos de configurações de visualização: copia modelos de configurações de visualização do funil. Padrão true.",
+                    "default": true,
+                    "nullable": true
+                  },
+                  "permissions": {
+                    "type": "boolean",
+                    "description": "Permissões: replica permissões de acesso do funil original para o clone. Padrão true.",
+                    "default": true,
+                    "nullable": true
+                  },
+                  "template_projects": {
+                    "type": "boolean",
+                    "description": "Templates de projeto: copia os vínculos com templates de projeto do funil original. Padrão true.",
+                    "default": true,
                     "nullable": true
                   }
                 },
@@ -13770,8 +13843,19 @@
                 "additionalProperties": false
               },
               "example": {
-                "project_funnel_id": null,
-                "name": null
+                "project_funnel_id": 97,
+                "name": "Comercial (Clone)",
+                "automations": false,
+                "step_restrictions": true,
+                "step_assistants": true,
+                "step_checklists": true,
+                "funnel_step_blockings": true,
+                "funnel_tags": true,
+                "funnel_statuses": true,
+                "funnel_attachments": false,
+                "funnel_config_templates": true,
+                "permissions": true,
+                "template_projects": false
               }
             }
           }
@@ -19834,7 +19918,7 @@
                       "document": "12.345.678/0000-00",
                       "main_activity": null,
                       "email": "rp@clienteexemplo.com.br",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "address": "Av. Exemplo, 456 - Campinas/SP",
                       "description": null,
                       "custom_fields": null,
@@ -20509,7 +20593,7 @@
                       "document": "12.345.678/0001-90",
                       "main_activity": "Comércio de produtos alimentícios",
                       "email": "contato@clienteexemplo.com.br",
-                      "phone": "(91) 99999-0000",
+                      "phone": "+5591999990000",
                       "address": "Rua Exemplo, 123 - Centro - São Paulo/SP",
                       "description": "Cliente do segmento de alimentação",
                       "custom_fields": null,
@@ -20719,7 +20803,7 @@
                     "document": "12.345.678/0000-00",
                     "main_activity": null,
                     "email": "rp@clienteexemplo.com.br",
-                    "phone": "(91) 99999-0000",
+                    "phone": "+5591999990000",
                     "address": "Av. Exemplo, 456 - Campinas/SP",
                     "description": null,
                     "custom_fields": null,
@@ -20894,7 +20978,7 @@
                 "company_name": "Cliente Exemplo Comércio LTDA",
                 "document": "12.345.678/0002-71",
                 "email": "rp@clienteexemplo.com.br",
-                "phone": "(91) 99999-0000",
+                "phone": "+5591999990000",
                 "address": "Av. Exemplo, 456 - Campinas/SP",
                 "status": true,
                 "parent_id": null,
@@ -21349,7 +21433,7 @@
                       "name": "Thalia Pietra Lira",
                       "role": "sunt",
                       "email": "goncalves.malena@example.net",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "In aut et aliquam odio in aut. Sapiente modi dolorum sunt vitae.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21392,7 +21476,7 @@
                       "name": "Ariane Valéria Alves",
                       "role": "laboriosam",
                       "email": "juliano67@example.com",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Ratione quia consequatur nam unde consequatur.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21427,7 +21511,7 @@
                       "name": "Sra. Júlia Brito Deverso",
                       "role": "eius",
                       "email": "allison.fonseca@example.com",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Qui id voluptatibus culpa praesentium qui.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21445,7 +21529,7 @@
                       "name": "Ricardo Sérgio Valente Neto",
                       "role": "fugit",
                       "email": "ohana36@example.com",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Pariatur optio voluptatem sed eveniet eveniet.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21472,7 +21556,7 @@
                       "name": "Lia Samanta Valentin",
                       "role": "accusamus",
                       "email": "norma47@example.net",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Veritatis et dolorum omnis voluptas officia temporibus architecto.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21490,7 +21574,7 @@
                       "name": "Elisa Renata Barreto",
                       "role": "totam",
                       "email": "valdez.wilson@example.com",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "At similique recusandae molestias fugit unde reiciendis.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21517,7 +21601,7 @@
                       "name": "Franco Abreu",
                       "role": "nemo",
                       "email": "qgalindo@example.org",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Quaerat provident sint quia.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21544,7 +21628,7 @@
                       "name": "Dr. Luiz Serna Filho",
                       "role": "soluta",
                       "email": "mares.sophie@example.org",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Provident deleniti qui aspernatur velit repudiandae dolor.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21562,7 +21646,7 @@
                       "name": "Sr. Ricardo Benites",
                       "role": "ullam",
                       "email": "cesar.domingues@example.com",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Est omnis assumenda laboriosam tenetur magnam deleniti aspernatur.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21580,7 +21664,7 @@
                       "name": "Flávio Emílio Quintana Neto",
                       "role": "non",
                       "email": "noemi.rico@example.org",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Consectetur quidem et ducimus consequatur.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21607,7 +21691,7 @@
                       "name": "Henrique Marin da Rosa",
                       "role": "est",
                       "email": "pacheco.naiara@example.org",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Non ea sapiente numquam tempore tenetur voluptate accusantium.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21625,7 +21709,7 @@
                       "name": "Maurício Dias Gil",
                       "role": "natus",
                       "email": "wpadrao@example.net",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Officiis exercitationem ipsum nobis voluptates quia tempore labore.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21668,7 +21752,7 @@
                       "name": "Dr. Sara Medina Bonilha",
                       "role": "quaerat",
                       "email": "noel.davila@example.org",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Cumque sed nam dolor et neque repudiandae.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21686,7 +21770,7 @@
                       "name": "Sra. Heloise Rocha Rodrigues Sobrinho",
                       "role": "neque",
                       "email": "emilio91@example.com",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Laudantium nostrum necessitatibus et voluptatem dolores ipsa.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21729,7 +21813,7 @@
                       "name": "Dr. Luciana Cíntia Lira Neto",
                       "role": "nihil",
                       "email": "flores.pedro@example.com",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Ut voluptatem fugiat consequatur in quod temporibus nobis.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21772,7 +21856,7 @@
                       "name": "Daniella Esther Valentin",
                       "role": "possimus",
                       "email": "theo68@example.net",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Est debitis quo iusto magnam hic molestiae molestias.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21790,7 +21874,7 @@
                       "name": "Manuel Colaço Jr.",
                       "role": "commodi",
                       "email": "santana.jonas@example.com",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Dolore est accusantium corrupti aut. Esse maxime facere ullam.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -21808,7 +21892,7 @@
                       "name": "Dr. Melinda Benites Filho",
                       "role": "repellendus",
                       "email": "augusto40@example.org",
-                      "phone": "(99) 99999-9999",
+                      "phone": "+5599999999999",
                       "description": "Itaque quae debitis voluptatem deserunt. Ea nihil iusto saepe ut provident ea.",
                       "created_at": "2025-12-18T17:55:48.000000Z",
                       "updated_at": "2025-12-18T17:55:48.000000Z",
@@ -22130,7 +22214,7 @@
                 "name": "João Silva",
                 "role": "Gerente de Vendas",
                 "email": "joao.silva@exemplo.com.br",
-                "phone": "(91) 99999-0000",
+                "phone": "+5591999990000",
                 "description": "Contato principal da empresa",
                 "customers": {
                   "to_add": [],
@@ -32622,7 +32706,7 @@
           "export-columns"
         ],
         "summary": "Obter colunas do export",
-        "description": "Retorna o catálogo de colunas fixas disponíveis para o tipo especificado.\n\nTipos suportados: `project`, `customer`, `contact`, `form_answer`, `answer_history`, `agent_execution`, `project_execution`.\n\nPara `project`/`customer`/`contact`, as chaves retornadas devem ser usadas no body de `POST /export/{type}` (campo `columns`). Para `form_answer` e `answer_history`, a lista cobre apenas colunas fixas — campos dinâmicos do formulário entram automaticamente no XLSX. Para `agent_execution` e `project_execution`, todas as colunas do catálogo são exportadas (não há seleção via `columns`).",
+        "description": "Retorna o catálogo de colunas fixas disponíveis para o tipo especificado.\n\nTipos suportados: `project`, `customer`, `contact`, `form_answer`, `answer_history`, `agent_execution`, `project_execution`, `user`.\n\nPara `project`/`customer`/`contact`/`user`, as chaves retornadas devem ser usadas no body de `POST /export/{type}` (campo `columns`). Para `form_answer` e `answer_history`, a lista cobre apenas colunas fixas — campos dinâmicos do formulário entram automaticamente no XLSX. Para `agent_execution` e `project_execution`, todas as colunas do catálogo são exportadas (não há seleção via `columns`).",
         "operationId": "obterColunasDeExportacao",
         "responses": {
           "200": {
@@ -32697,7 +32781,7 @@
           "name": "type",
           "in": "path",
           "required": true,
-          "description": "Tipo de exportação: `project`, `customer`, `contact`, `form_answer`, `answer_history`, `agent_execution` ou `project_execution`.",
+          "description": "Tipo de exportação: `project`, `customer`, `contact`, `form_answer`, `answer_history`, `agent_execution`, `project_execution` ou `user`.",
           "schema": {
             "type": "string",
             "enum": [
@@ -32707,7 +32791,8 @@
               "form_answer",
               "answer_history",
               "agent_execution",
-              "project_execution"
+              "project_execution",
+              "user"
             ]
           },
           "example": "project"
@@ -33009,6 +33094,84 @@
                         "description": "Ordenação Spatie (`campo` ou `-campo`). Campos: `started_at`, `finished_at`."
                       }
                     }
+                  },
+                  {
+                    "description": "Payload para `POST /export/user`. Exporta os usuários vinculados ao frame atual. Requer permissão `export` em usuários.",
+                    "title": "Export User",
+                    "type": "object",
+                    "properties": {
+                      "columns": {
+                        "type": "array",
+                        "description": "Chaves das colunas (deve incluir todas as requiredKeys do catálogo em GET /export/{type}/columns: `user.id`, `user.name`, `user.email`).",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "user.id",
+                            "user.name",
+                            "user.email",
+                            "user.description",
+                            "user.lang",
+                            "user.status",
+                            "user.roles",
+                            "user.last_login_at",
+                            "user.last_login_browser"
+                          ]
+                        },
+                        "example": [
+                          "user.id",
+                          "user.name",
+                          "user.email",
+                          "user.status",
+                          "user.roles"
+                        ]
+                      },
+                      "filters": {
+                        "type": "array",
+                        "description": "Filtros avançados (mesmo formato do `POST /users/search`). Campos disponíveis: `id` (`equals`), `status` (`equals`, `not_equals`; valores: 1 = aguardando resposta, 2 = ativo, 3 = inativo) e `search` (`contains`, aplica LIKE em nome e e-mail).",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "field": {
+                              "type": "string",
+                              "enum": [
+                                "id",
+                                "status",
+                                "search"
+                              ],
+                              "example": "status"
+                            },
+                            "operator": {
+                              "type": "string",
+                              "enum": [
+                                "equals",
+                                "not_equals",
+                                "contains"
+                              ],
+                              "example": "equals"
+                            },
+                            "value": {
+                              "nullable": true,
+                              "example": 2
+                            },
+                            "logical_operator": {
+                              "type": "string",
+                              "enum": [
+                                "and",
+                                "or"
+                              ],
+                              "example": "and"
+                            }
+                          },
+                          "required": [
+                            "field",
+                            "operator"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "columns"
+                    ]
                   }
                 ]
               },
@@ -33173,7 +33336,7 @@
           "name": "type",
           "in": "path",
           "required": true,
-          "description": "Tipo de exportação: `project`, `customer`, `contact`, `form_answer`, `answer_history`, `agent_execution` ou `project_execution`.",
+          "description": "Tipo de exportação: `project`, `customer`, `contact`, `form_answer`, `answer_history`, `agent_execution`, `project_execution` ou `user`.",
           "schema": {
             "type": "string",
             "enum": [
@@ -33183,7 +33346,8 @@
               "form_answer",
               "answer_history",
               "agent_execution",
-              "project_execution"
+              "project_execution",
+              "user"
             ]
           },
           "example": "project"
