@@ -430,7 +430,7 @@ O retorno é uma estrutura de dados, não um texto — por isso `query` quase se
 | `project_details` | `project_code` **ou** `id` | O projeto completo, com etiquetas, funis, etapas e respostas |
 | `project_dynamic_forms` | `project_code` | Os formulários dinâmicos do projeto; cada item traz `pivot` e `form_answers` |
 | `project_medias` | `project_code` | `medias` (o conteúdo publicado no projeto) e `pagination` |
-| `get_form_answers` | `pivot` — opcionais: `edge_id`, `format` | As respostas de um formulário, dentro de `response` |
+| `get_form_answers` | [`pivot`](/api-reference/general/form-answer-pivot) — opcionais: `edge_id`, `format` | As respostas de um formulário, dentro de `response` |
 | `user_details` | `user_id` | Os dados de um usuário |
 | `user_email` | `user_id` | O e-mail principal do usuário, como texto |
 
@@ -447,7 +447,7 @@ O retorno é uma estrutura de dados, não um texto — por isso `query` quase se
 </Tab>
 
 <Tab title="Respostas de um formulário">
-  `get_form_answers` precisa do `pivot`, que vem de `project_dynamic_forms`. As duas consultas se encadeiam:
+  `get_form_answers` precisa do `pivot` — o endereço que diz **onde** o formulário está anexado. Ele vem pronto de `project_dynamic_forms`, e as duas consultas se encadeiam:
 
   ```twig
   {% set formularios = query('project_dynamic_forms', { 'project_code': project.code }) %}
@@ -499,9 +499,15 @@ O retorno é uma estrutura de dados, não um texto — por isso `query` quase se
 </Accordion>
 </AccordionGroup>
 
+<CardGroup cols={2}>
 <Card title="Variáveis nas automações" icon="brackets-curly" href="/guides/automation/variables">
   O que já vem carregado no contexto de uma automação — e, portanto, dispensa `query`.
 </Card>
+
+<Card title="Formulários dinâmicos e o pivot" icon="list-check" href="/api-reference/general/form-answer-pivot">
+  O que é o `pivot`, por que ele muda de formato e como descobrir o endereço certo.
+</Card>
+</CardGroup>
 
 ## Como funciona o mecanismo
 

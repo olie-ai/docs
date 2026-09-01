@@ -1,0 +1,337 @@
+---
+title: 'Formulários dinâmicos e o pivot'
+icon: 'list-check'
+description: 'O endereço de resposta que identifica onde um formulário está anexado — a chave para ler e gravar respostas pela API'
+keywords: ["formulário", "formulários dinâmicos", "pivot", "target", "respostas", "form_id", "pivot_class", "father_class"]
+---
+
+Na Olie, um **formulário é um objeto abstrato**: um conjunto de campos que existe por conta própria, sem dono. Ele não pertence a um projeto nem a um cliente — ele é **anexado** a lugares, e pode estar anexado a vários ao mesmo tempo.
+
+O mesmo formulário "Qualificação" pode estar, simultaneamente, no funil de Vendas, na etapa "Proposta enviada" de outro funil e no cadastro de cliente. Em cada um desses lugares ele acumula um conjunto **diferente** de respostas.
+
+<Warning>
+Por isso o `form_id` sozinho não identifica respostas. A pergunta *"quais são as respostas do formulário 19?"* não tem resposta única — o formulário 19 tem um conjunto de respostas para cada lugar em que está anexado, e para cada registro.
+</Warning>
+
+O **pivot** — também chamado de `target` nos endpoints de escrita — é o objeto que responde à pergunta que falta: **onde está esse formulário?** É ele que endereça a leitura e a gravação.
+
+## Onde um formulário pode estar
+
+O `pivot_class` diz qual é o tipo de vínculo. Cada tipo exige atributos diferentes para completar o endereço.
+
+| Onde o formulário está | `pivot_class` | Atributos do endereço |
+| --- | --- | --- |
+| No objeto **Projeto** | `App\Models\Project` | `id` (do projeto) |
+| No objeto **Cliente** | `App\Models\Customer` | `id` (do cliente) |
+| No objeto **Contato** | `App\Models\Contact` | `id` (do contato) |
+| No objeto **Usuário** | `App\Models\FrameRelationship` | `id` (do vínculo do usuário com a conta) |
+| No **funil** — relação projeto ↔ funil | `App\Models\ProjectFunnelAssignment` | `project_id`, `project_funnel_id` |
+| Na **etapa** — relação projeto ↔ etapa | `App\Models\ProjectStepForm` | `project_id`, `funnel_step_id` |
+| **Avulso** no projeto | `App\Models\ProjectLooseForm` | `project_id`, `id` (do avulso), `form_id` |
+
+<Info>
+Os formulários **de objeto** (projeto, cliente, contato e usuário) são configurados por conta: cada tipo de objeto tem no máximo um formulário anexado, e ele vale para todos os registros daquele tipo. Já funil, etapa e avulso são vínculos individuais.
+</Info>
+
+<Tip>
+`pivot_class` aceita tanto o nome completo (`App\Models\ProjectStepForm`) quanto o nome curto (`projectstepform`, `project_step_form`, `project`). O mesmo vale para `father_class`.
+</Tip>
+
+## A anatomia do pivot
+
+```json
+{
+  "pivot_class": "App\\Models\\ProjectStepForm",
+  "form_id": 20,
+  "project_id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+  "funnel_step_id": 73,
+  "father_class": "App\\Models\\Project",
+  "father_id": "01a05e04-a29c-73e3-9e5b-a9df981974df"
+}
+```
+
+<ParamField body="pivot_class" type="string" required>
+O tipo de vínculo. Define quais outros atributos são obrigatórios — veja a tabela acima.
+</ParamField>
+
+<ParamField body="form_id" type="integer" required>
+Qual formulário será lido ou respondido.
+</ParamField>
+
+<ParamField body="atributos do endereço" type="variável" required>
+Variam conforme o `pivot_class`. São eles que dizem **em qual registro** o formulário está: `id`, ou `project_id` + `funnel_step_id`, e assim por diante.
+</ParamField>
+
+<ParamField body="father_class / father_id" type="string">
+O registro de origem — quase sempre o projeto. Serve como conferência: a plataforma verifica se aquele formulário está mesmo naquele lugar daquele registro.
+
+**Opcional na leitura. Obrigatório na gravação.**
+</ParamField>
+
+## Não monte o pivot à mão: descubra
+
+O caminho seguro é perguntar à plataforma quais formulários existem em um registro. A resposta já vem com os pivots prontos.
+
+```bash
+GET /api/management/dynamic-forms/{model}/{model_id}
+```
+
+`{model}` aceita `project`, `customer`, `contact` ou `frame_relationship`.
+
+```json Resposta
+{
+  "response": true,
+  "forms": {
+    "model_form": [
+      {
+        "pivot_class": "App\\Models\\Project",
+        "form_id": 21,
+        "related_model_attribute_id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+        "id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+        "father_class": "App\\Models\\Project",
+        "father_id": "01a05e04-a29c-73e3-9e5b-a9df981974df"
+      }
+    ],
+    "forms_from_project_funnel": [
+      {
+        "pivot_class": "App\\Models\\ProjectFunnelAssignment",
+        "form_id": 19,
+        "project_funnel_id": 14,
+        "project_id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+        "father_class": "App\\Models\\Project",
+        "father_id": "01a05e04-a29c-73e3-9e5b-a9df981974df"
+      }
+    ],
+    "forms_from_project_funnel_steps": [
+      {
+        "pivot_class": "App\\Models\\ProjectStepForm",
+        "form_id": 20,
+        "funnel_step_id": 73,
+        "project_id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+        "father_class": "App\\Models\\Project",
+        "father_id": "01a05e04-a29c-73e3-9e5b-a9df981974df"
+      }
+    ],
+    "forms_from_project_loose_forms": [
+      {
+        "pivot_class": "App\\Models\\ProjectLooseForm",
+        "form_id": 22,
+        "id": 3,
+        "project_id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+        "father_class": "App\\Models\\Project",
+        "father_id": "01a05e04-a29c-73e3-9e5b-a9df981974df"
+      }
+    ]
+  }
+}
+```
+
+| Chave | O que agrupa |
+| --- | --- |
+| `model_form` | O formulário anexado ao próprio objeto |
+| `forms_from_project_funnel` | Formulários dos funis em que o projeto está |
+| `forms_from_project_funnel_steps` | Formulários das etapas dos funis em que o projeto está |
+| `forms_from_project_loose_forms` | Formulários avulsos criados dentro do projeto |
+
+Um grupo vazio significa que não há formulário anexado ali. **Cada item da lista já é um pivot válido** — copie o objeto inteiro para as chamadas de leitura e escrita.
+
+<Note>
+O item de `model_form` traz `related_model_attribute_id` além de `id`, com o mesmo valor. Só o `id` é usado como endereço; o outro campo é resíduo do formato de descoberta e pode ser ignorado.
+</Note>
+
+## Ler respostas
+
+```bash
+POST /api/management/dynamic-forms/get-form-answers
+```
+
+Aqui os campos do pivot vão **na raiz do corpo**, e `father_class` / `father_id` são opcionais.
+
+<Tabs>
+<Tab title="Objeto (projeto)">
+```json
+{
+  "pivot_class": "App\\Models\\Project",
+  "form_id": 21,
+  "id": "01a05e04-a29c-73e3-9e5b-a9df981974df"
+}
+```
+</Tab>
+
+<Tab title="Funil">
+```json
+{
+  "pivot_class": "App\\Models\\ProjectFunnelAssignment",
+  "form_id": 19,
+  "project_id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+  "project_funnel_id": 14
+}
+```
+</Tab>
+
+<Tab title="Etapa">
+```json
+{
+  "pivot_class": "App\\Models\\ProjectStepForm",
+  "form_id": 20,
+  "project_id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+  "funnel_step_id": 73
+}
+```
+</Tab>
+
+<Tab title="Avulso">
+```json
+{
+  "pivot_class": "App\\Models\\ProjectLooseForm",
+  "form_id": 22,
+  "project_id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+  "id": 3
+}
+```
+</Tab>
+</Tabs>
+
+A resposta traz **um item por campo do formulário**, respondido ou não:
+
+```json
+{
+  "response": true,
+  "answers": [
+    {
+      "id": 22,
+      "label": "Origem do lead",
+      "answer": "Indicação",
+      "model": "ProjectFunnelAssignment",
+      "answered_by": null,
+      "updated_at": "2026-09-01T20:30:04.000000Z"
+    }
+  ],
+  "last_updated_at": null
+}
+```
+
+<ResponseField name="id" type="integer">
+O identificador do **campo** do formulário. É esse valor que você usa para gravar a resposta.
+</ResponseField>
+
+<ResponseField name="answer" type="mixed">
+A resposta gravada, ou `null` quando o campo nunca foi respondido naquele endereço.
+</ResponseField>
+
+<ResponseField name="model" type="string">
+O `pivot_class` que produziu a resposta — útil para conferir que você leu o endereço certo.
+</ResponseField>
+
+## Gravar respostas
+
+```bash
+POST /api/management/dynamic-forms/set-form-answers
+```
+
+Na escrita o pivot vai **dentro de `target`**, e `father_class` / `father_id` passam a ser **obrigatórios**.
+
+```json
+{
+  "target": {
+    "pivot_class": "App\\Models\\ProjectFunnelAssignment",
+    "form_id": 19,
+    "project_id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+    "project_funnel_id": 14,
+    "father_class": "App\\Models\\Project",
+    "father_id": "01a05e04-a29c-73e3-9e5b-a9df981974df"
+  },
+  "form_answers": [
+    { "id": 22, "answer": "Indicação" },
+    { "id": 23, "answer": "15000" }
+  ]
+}
+```
+
+<ParamField body="form_answers" type="array" required>
+Cada item precisa de `id` — o identificador do campo, obtido na leitura — e `answer`. Campos não enviados permanecem como estavam.
+</ParamField>
+
+A resposta devolve o formulário inteiro já com os valores gravados, no mesmo formato de `answers`.
+
+<Warning>
+Ler e gravar são endereçados de formas diferentes: **leitura na raiz do corpo, escrita dentro de `target`**. Reaproveitar o mesmo JSON entre os dois endpoints sem esse ajuste é o erro mais comum.
+</Warning>
+
+## Erros comuns
+
+<AccordionGroup>
+<Accordion title="validation_errors — falta um atributo do endereço" icon="triangle-exclamation">
+  Cada `pivot_class` tem seus atributos obrigatórios. Enviar `ProjectFunnelAssignment` sem `project_funnel_id`, por exemplo, devolve `422`:
+
+  ```json
+  {
+    "response": false,
+    "message": "validation_errors",
+    "validation": {
+      "project_funnel_id": ["O campo project funnel id é obrigatório quando pivot class ... está presente."]
+    }
+  }
+  ```
+</Accordion>
+
+<Accordion title="father_df_options_has_none_compatible_possibility" icon="link-slash">
+  O `father` informado não tem esse formulário nesse lugar. Acontece quando o `form_id`, a etapa ou o funil não batem com o registro de origem — por exemplo, uma etapa que não pertence a nenhum funil daquele projeto.
+
+  Resolva consultando `GET /dynamic-forms/{model}/{model_id}` e usando um pivot de lá.
+</Accordion>
+
+<Accordion title="form_model_not_found" icon="file-circle-question">
+  O `form_id` não existe na conta autenticada.
+</Accordion>
+</AccordionGroup>
+
+## O mesmo pivot na sintaxe avançada
+
+Dentro de uma automação, a consulta `get_form_answers` recebe exatamente esse objeto no parâmetro `pivot`. Ele vem pronto da consulta `project_dynamic_forms`:
+
+```twig
+{% set formularios = query('project_dynamic_forms', { 'project_code': project.code }) %}
+{% for f in formularios %}
+  {% set respostas = query('get_form_answers', { 'pivot': f.pivot }) %}
+  {{ respostas.response|json(true) }}
+{% endfor %}
+```
+
+<Card title="Funções de consulta" icon="magnifying-glass" href="/guides/advanced/advanced-syntax#funções-de-consulta">
+  Como usar `query` nas automações, com todas as consultas disponíveis.
+</Card>
+
+## O pivot como link de resposta
+
+```bash
+POST /api/management/dynamic-forms/pivot-accessor/url-generate
+```
+
+Empacota um pivot em um link assinado, para alguém responder o formulário sem acessar a plataforma. A resposta traz `decode_url` (carrega o formulário) e `reply_url` (recebe as respostas).
+
+```json
+{
+  "pivot_class": {
+    "pivot_class": "App\\Models\\ProjectStepForm",
+    "form_id": 20,
+    "project_id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+    "funnel_step_id": 73,
+    "father_class": "App\\Models\\Project",
+    "father_id": "01a05e04-a29c-73e3-9e5b-a9df981974df"
+  },
+  "expire_after_answer": true
+}
+```
+
+<Warning>
+Atenção ao nome: neste endpoint, `pivot_class` é o **objeto pivot inteiro**, e não a string do tipo de vínculo. É o mesmo nome com dois significados diferentes.
+</Warning>
+
+<ParamField body="expires_at" type="date">
+Quando o link deixa de valer. Sem ele, o padrão é 24 horas.
+</ParamField>
+
+<ParamField body="expire_after_answer" type="boolean" default="false">
+Invalida o link assim que ele for usado para responder.
+</ParamField>
