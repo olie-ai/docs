@@ -68,9 +68,42 @@ O registro de origem — quase sempre o projeto. Serve como conferência: a plat
 **Opcional na leitura. Obrigatório na gravação.**
 </ParamField>
 
-## Não monte o pivot à mão: descubra
+## Como obter um pivot pronto
 
-O caminho seguro é perguntar à plataforma quais formulários existem em um registro. A resposta já vem com os pivots prontos.
+Montar o pivot à mão é possível, mas desnecessário — e é onde os erros acontecem. A plataforma entrega o objeto pronto por dois caminhos.
+
+### Copiando pela interface
+
+Na aba **Formulários** de um projeto, cada formulário anexado aparece como um cartão. O menu **⋯** do cartão traz, em **Opções avançadas**, a opção **Copiar pivô como JSON**: ela coloca na área de transferência o endereço exato daquele cartão, pronto para colar na requisição.
+
+<Frame caption="O menu do cartão de formulário, com a opção Copiar pivô como JSON">
+  <img src="/images/api-reference/copiar-pivot-como-json.png" alt="Cartão do formulário Qualificação do lead, do funil BACKEND, com o menu aberto mostrando os grupos Formulário, Versões e Opções avançadas, este último com Copiar pivô como JSON e Gerar link de resposta" />
+</Frame>
+
+O número no badge do cartão — `#24` na imagem — é o `form_id`. O JSON copiado traz o pivot completo daquele cartão:
+
+```json
+{
+  "pivot_class": "App\\Models\\ProjectFunnelAssignment",
+  "form_id": 24,
+  "project_funnel_id": 14,
+  "project_id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+  "father_class": "project",
+  "father_id": "01a05e04-a29c-73e3-9e5b-a9df981974df"
+}
+```
+
+<Tip>
+É o caminho mais rápido para testar uma chamada: cole o JSON direto no corpo de `get-form-answers`, ou dentro de `target` em `set-form-answers`.
+</Tip>
+
+<Note>
+O mesmo menu aparece nos cartões da aba **Funil** do projeto. A opção vizinha, **Gerar link de resposta**, empacota esse mesmo pivot em um link assinado — veja [O pivot como link de resposta](#o-pivot-como-link-de-resposta).
+</Note>
+
+### Pelo endpoint de descoberta
+
+Para fazer o mesmo por código, pergunte à plataforma quais formulários existem em um registro. A resposta já vem com os pivots prontos.
 
 ```bash
 GET /api/management/dynamic-forms/{model}/{model_id}
@@ -278,7 +311,7 @@ Ler e gravar são endereçados de formas diferentes: **leitura na raiz do corpo,
 <Accordion title="father_df_options_has_none_compatible_possibility" icon="link-slash">
   O `father` informado não tem esse formulário nesse lugar. Acontece quando o `form_id`, a etapa ou o funil não batem com o registro de origem — por exemplo, uma etapa que não pertence a nenhum funil daquele projeto.
 
-  Resolva consultando `GET /dynamic-forms/{model}/{model_id}` e usando um pivot de lá.
+  Resolva copiando o pivot [pela interface](#copiando-pela-interface) ou consultando `GET /dynamic-forms/{model}/{model_id}`.
 </Accordion>
 
 <Accordion title="form_model_not_found" icon="file-circle-question">
