@@ -406,6 +406,103 @@ Filtros transformam dados antes de exibi-los.
 </Accordion>
 </AccordionGroup>
  
+## Funções de consulta
+
+Nem tudo que você precisa está disponível no contexto. A função `query` busca o que falta, direto da plataforma, no meio da expressão.
+
+### Sintaxe
+
+```twig
+query('nome_da_consulta', { 'parametro': valor })
+```
+
+O retorno é uma estrutura de dados, não um texto — por isso `query` quase sempre vem com `set`:
+
+```twig
+{% set p = query('project_details', { 'project_code': project.code }) %}
+{{ p.name }}
+```
+
+### Consultas disponíveis
+
+| Consulta | Parâmetros | Devolve |
+| --- | --- | --- |
+| `project_details` | `project_code` **ou** `id` | O projeto completo, com etiquetas, funis, etapas e respostas |
+| `project_dynamic_forms` | `project_code` | Os formulários dinâmicos do projeto; cada item traz `pivot` e `form_answers` |
+| `project_medias` | `project_code` | `medias` (o conteúdo publicado no projeto) e `pagination` |
+| `get_form_answers` | `pivot` — opcionais: `edge_id`, `format` | As respostas de um formulário, dentro de `response` |
+| `user_details` | `user_id` | Os dados de um usuário |
+| `user_email` | `user_id` | O e-mail principal do usuário, como texto |
+
+### Exemplos
+
+<Tabs>
+<Tab title="Etiquetas do projeto">
+  Etiquetas não vêm carregadas no contexto — é preciso buscá-las:
+
+  ```twig
+  {% set p = query('project_details', { 'project_code': project.code }) %}
+  {% for tag in p.tags %}{{ tag.name }}{% if not loop.last %}, {% endif %}{% endfor %}
+  ```
+</Tab>
+
+<Tab title="Respostas de um formulário">
+  `get_form_answers` precisa do `pivot`, que vem de `project_dynamic_forms`. As duas consultas se encadeiam:
+
+  ```twig
+  {% set formularios = query('project_dynamic_forms', { 'project_code': project.code }) %}
+  {% for f in formularios %}
+    {% set respostas = query('get_form_answers', { 'pivot': f.pivot }) %}
+    {{ respostas.response|json(true) }}
+  {% endfor %}
+  ```
+</Tab>
+
+<Tab title="E-mail de um responsável">
+  ```twig
+  {% for u in project.users %}{{ query('user_email', { 'user_id': u.id }) }}
+  {% endfor %}
+  ```
+</Tab>
+
+<Tab title="Descobrir o formato">
+  Na dúvida sobre o que a consulta devolve, imprima tudo uma vez e olhe o resultado no registro de execução:
+
+  ```twig
+  {{ query('project_medias', { 'project_code': project.code })|json(true) }}
+  ```
+</Tab>
+</Tabs>
+
+### Cuidados
+
+<AccordionGroup>
+<Accordion title="Limite de consultas" icon="gauge-high">
+  Cada expressão pode executar no máximo **50 consultas**. Um `query` dentro de um laço conta uma vez por iteração — cuidado ao consultar dentro de `for`.
+</Accordion>
+
+<Accordion title="Quando a consulta não encontra nada" icon="circle-question">
+  O retorno é nulo. Proteja antes de usar:
+
+  ```twig
+  {% set p = query('project_details', { 'project_code': project.code }) %}
+  {% if p %}{{ p.name }}{% else %}Projeto não encontrado{% endif %}
+  ```
+</Accordion>
+
+<Accordion title="Nome ou parâmetro errado" icon="triangle-exclamation">
+  Um nome de consulta que não existe, ou a falta de um parâmetro obrigatório, interrompe a expressão e registra `template_error`. O [registro de execução](/guides/automation/logs) mostra a mensagem.
+</Accordion>
+
+<Accordion title="Escopo e repetição" icon="shield-halved">
+  As consultas são resolvidas sempre dentro da sua própria conta — não há como acessar dados de outra. E a mesma consulta, com os mesmos parâmetros, é reaproveitada em vez de repetida.
+</Accordion>
+</AccordionGroup>
+
+<Card title="Variáveis nas automações" icon="brackets-curly" href="/guides/automation/variables">
+  O que já vem carregado no contexto de uma automação — e, portanto, dispensa `query`.
+</Card>
+
 ## Como funciona o mecanismo
 
 Por trás da sintaxe avançada, a plataforma utiliza um mecanismo baseado no **Twig**, uma das engines de templates mais modernas e seguras do ecossistema web.
