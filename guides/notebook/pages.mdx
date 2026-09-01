@@ -1,0 +1,110 @@
+---
+title: "Páginas e subpáginas"
+description: "Como montar a árvore do Caderno: criar páginas, aninhar subpáginas, escolher a página principal e reorganizar"
+keywords: ["página", "páginas", "subpágina", "caderno", "hierarquia", "página principal", "duplicar", "mover"]
+---
+
+Um Caderno é um conjunto de **páginas**. Cada página é um documento independente, e qualquer página pode ter **subpáginas** — que por sua vez podem ter as suas. É assim que um Caderno deixa de ser um bloco de notas e vira uma estrutura navegável.
+
+## O painel de páginas
+
+À esquerda do Caderno fica o painel **Páginas**, com a árvore inteira. Clicar em uma página abre o conteúdo dela à direita.
+
+Páginas que têm subpáginas exibem uma seta à esquerda do nome — clique nela para expandir ou recolher o ramo. Uma página expandida sem filhas mostra **Nenhuma página aqui**.
+
+## Criando páginas
+
+<Tabs>
+<Tab title="Página na raiz">
+  O botão **+** no cabeçalho do painel **Páginas** cria uma página no primeiro nível.
+
+  Dê o nome e clique em **Criar**. A página nasce vazia e já fica selecionada.
+</Tab>
+
+<Tab title="Subpágina">
+  Passe o mouse sobre a página que será a mãe. Aparecem dois ícones à direita do nome: **⋯** (ações) e **+**.
+
+  O **+** cria uma subpágina dentro dela. O nome vai no mesmo campo, e o ramo é expandido automaticamente.
+</Tab>
+</Tabs>
+
+<Tip>
+O nome da página aceita até 255 caracteres, mas nomes curtos funcionam melhor: o painel é estreito e corta o que não couber.
+</Tip>
+
+## A página principal
+
+Toda vez que alguém abre a aba **Caderno**, é a **página principal** que carrega. É a porta de entrada do Caderno.
+
+O primeiro Caderno já nasce com uma página chamada *Página principal*, mas isso é só o nome inicial — você pode renomeá-la, e pode eleger outra página no lugar dela.
+
+<Warning>
+Duas regras valem para a página principal:
+
+- Ela **não pode ser removida**. Para excluí-la, defina outra página como principal antes.
+- Ela **precisa estar na raiz**. Uma subpágina não pode ser eleita página principal.
+</Warning>
+
+## As ações de cada página
+
+As ações ficam no **⋯**, que aparece ao passar o mouse sobre a página no painel — e também no cabeçalho da página aberta, ao lado do botão **Histórico**.
+
+<Frame caption="As ações da página aberta, no ⋯ ao lado do Histórico">
+  <img src="/images/guides/notebook/caderno-acoes-da-pagina.png" alt="Cabeçalho de uma página do Caderno com o nome Página principal, o botão Salvar, o selo Salvo e o menu aberto com as opções Renomear, Imprimir página, Mover, Duplicar, Definir como principal e Remover" />
+</Frame>
+
+| Ação | O que faz |
+| --- | --- |
+| Renomear | Troca o nome da página, sem mexer no conteúdo |
+| Mover | Abre a janela **Editar página**, para mudar a posição e a página-mãe |
+| Duplicar | Cria uma cópia com o mesmo conteúdo, ao lado da original |
+| Definir como principal | Elege a página como porta de entrada do Caderno |
+| Remover | Apaga a página **e todas as subpáginas dela** |
+
+<Note>
+**Imprimir página** está temporariamente desabilitada. A própria interface avisa isso ao passar o mouse sobre a opção.
+</Note>
+
+### Mover uma página
+
+A janela **Editar página** tem três campos:
+
+| Campo | O que faz |
+| --- | --- |
+| Nome da página | O mesmo nome que aparece no painel |
+| Posição | Um número que define a ordem entre as páginas do mesmo nível |
+| Mover posição | Qual página passa a ser a mãe — ou **Na raiz do caderno**, para tirá-la de dentro de outra |
+
+<Warning>
+Uma página não pode ser movida para dentro dela mesma nem de uma das suas próprias subpáginas. A plataforma bloqueia e avisa.
+</Warning>
+
+### Duplicar como modelo
+
+**Duplicar** copia a página com todo o conteúdo e coloca a cópia logo em seguida, no mesmo nível, com o sufixo `(2)` no nome.
+
+É o jeito prático de trabalhar com modelo de página dentro de um Caderno: monte uma página *Ata de reunião* com a estrutura pronta, e duplique a cada reunião nova.
+
+<Tip>
+Para padronizar o Caderno entre projetos diferentes, o caminho é outro: mantenha um projeto-modelo com o Caderno montado e use **Clonar o caderno** ao clonar o projeto. Veja [O Caderno](/guides/notebook/overview#o-caderno-em-outros-lugares).
+</Tip>
+
+### Remover
+
+A remoção é em cascata: a página escolhida e **todas as subpáginas abaixo dela** são apagadas juntas. A plataforma pede confirmação antes.
+
+<Warning>
+Se você quer manter as subpáginas, mova-as para outro lugar antes de remover a página-mãe.
+</Warning>
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Escrever, salvar e versionar" icon="pen-to-square" href="/guides/notebook/editing">
+  O editor da página, o menu de comandos e o histórico de versões.
+</Card>
+
+<Card title="O Caderno" icon="book" href="/guides/notebook/overview">
+  Onde o Caderno existe e como ele se diferencia do conteúdo do projeto.
+</Card>
+</CardGroup>

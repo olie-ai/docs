@@ -65,6 +65,16 @@
                 ]
               },
               {
+                "group": "Caderno",
+                "icon": "book",
+                "pages": [
+                  "guides/notebook/overview",
+                  "guides/notebook/pages",
+                  "guides/notebook/editing",
+                  "guides/notebook/automation-and-api"
+                ]
+              },
+              {
                 "group": "Gestão de usuários",
                 "icon": "users",
                 "pages": [

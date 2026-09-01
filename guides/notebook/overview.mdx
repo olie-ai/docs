@@ -1,0 +1,135 @@
+---
+title: "O Caderno"
+description: "O espaço de documentação de um projeto, cliente, contato ou usuário — organizado em páginas, com histórico de versões"
+keywords: ["caderno", "página", "páginas", "subpágina", "anotação", "documentação", "wiki", "fórum", "thread"]
+---
+
+O Caderno é o lugar onde a informação **fica** — o briefing, o escopo, as decisões, o roteiro de uma reunião. Em vez de uma sequência de mensagens, ele é um documento vivo: você organiza o conteúdo em páginas, edita quando a informação muda e a plataforma guarda cada versão.
+
+<Frame caption="O Caderno de um projeto: as páginas à esquerda, a página aberta à direita">
+  <img src="/images/guides/notebook/caderno-visao-geral.png" alt="Aba Caderno de um projeto, com o painel Páginas à esquerda listando Página principal, Escopo e entregas com a subpágina Wireframes aprovados, e Reuniões com a subpágina Kickoff com o cliente; à direita, o editor da Página principal com os títulos Briefing e Decisões tomadas" />
+</Frame>
+
+## Onde o Caderno existe
+
+O Caderno **não é exclusivo do projeto**. Ele é um recurso que se acopla a um registro, e hoje aparece em quatro deles:
+
+<CardGroup cols={2}>
+<Card title="Projeto" icon="folder-open">
+  Aba **Caderno** nos detalhes do projeto. É o uso mais comum: briefing, escopo, atas e decisões daquele trabalho.
+</Card>
+
+<Card title="Cliente" icon="handshake">
+  Aba **Caderno** nos detalhes do cliente. Serve para o que vale para a conta inteira, e não para um projeto só.
+</Card>
+
+<Card title="Contato" icon="address-card">
+  Aba **Caderno** nos detalhes do contato. Histórico de relacionamento, preferências, combinados.
+</Card>
+
+<Card title="Usuário" icon="user">
+  Aba **Caderno** nos detalhes do usuário. Útil para plano de desenvolvimento, combinados de time e registros de 1:1.
+</Card>
+</CardGroup>
+
+Cada registro tem o seu próprio Caderno, independente dos demais. O Caderno de um cliente não aparece dentro dos projetos dele, e vice-versa.
+
+<Frame caption="O Caderno em um cliente, antes de existir">
+  <img src="/images/guides/notebook/caderno-em-um-cliente.png" alt="Abas Geral, Contatos, Configurações, Caderno e Arquivos de um cliente, com a aba Caderno aberta mostrando o botão Criar caderno" />
+</Frame>
+
+## Criando o Caderno
+
+O Caderno não nasce junto com o registro — ele só passa a existir quando alguém cria.
+
+<Steps>
+<Step title="Abra a aba Caderno" icon="book">
+  Nos detalhes do projeto, cliente, contato ou usuário.
+</Step>
+
+<Step title="Clique em Criar caderno" icon="plus">
+  Enquanto o Caderno não existe, a aba mostra apenas a descrição e esse botão.
+</Step>
+
+<Step title="Comece pela Página principal" icon="file-lines">
+  O Caderno já nasce com uma página chamada **Página principal**. É ela que abre toda vez que alguém entra na aba.
+
+  <Check>
+  Pronto. Daqui em diante, é escrever e criar as páginas que fizerem sentido.
+  </Check>
+</Step>
+</Steps>
+
+## Caderno e Conteúdo do projeto não são a mesma coisa
+
+Essa é a confusão mais comum, porque as duas abas ficam lado a lado no projeto. São recursos diferentes, com propósitos diferentes.
+
+O **Conteúdo do projeto** é a linha do tempo: cada registro é um lançamento novo, em ordem cronológica, como um chat do projeto. O **Caderno** é a documentação: as páginas são reescritas conforme a informação muda.
+
+| | Caderno | Conteúdo do projeto |
+| --- | --- | --- |
+| Formato | Páginas e subpáginas, editadas no lugar | Registros em ordem cronológica |
+| O que entra | Texto formatado, listas, tabelas, imagens, código | Texto, arquivos e áudios |
+| Ao atualizar | A página é reescrita e vira uma nova versão | Um novo registro é acrescentado |
+| Menções | Não tem | Sim — a pessoa mencionada é notificada |
+| Onde existe | Projeto, cliente, contato e usuário | Somente no projeto |
+| Automação alcança | Não | Sim, pela ação **Envia conteúdo do projeto** |
+
+<Tip>
+Uma regra prática: se a informação **acontece** (aconteceu tal coisa, respondi o cliente, subiu o arquivo), é Conteúdo. Se ela **vale** enquanto ninguém mudar (o escopo é esse, a decisão foi essa), é Caderno.
+</Tip>
+
+<Warning>
+O Caderno não é alcançado por automações nem pela API pública. Se o seu processo precisa levar informação para fora automaticamente, veja [Caderno em automações e integrações](/guides/notebook/automation-and-api).
+</Warning>
+
+## Quem pode ver e editar
+
+No **projeto**, o acesso é controlado por duas permissões, atribuídas ao papel do usuário (veja [Papéis e permissões](/guides/users/roles-permissions)):
+
+| Permissão | O que libera |
+| --- | --- |
+| Visualizar caderno de projetos | A aba **Caderno** aparece nos detalhes do projeto |
+| Editar caderno dos projetos | Criar o Caderno, criar páginas e salvar alterações |
+
+Em **cliente, contato e usuário** não existe permissão separada: quem pode editar o registro pode usar o Caderno dele.
+
+## O Caderno em outros lugares
+
+<AccordionGroup>
+<Accordion title="No quadro do funil" icon="table-columns">
+  **Caderno** é um dos botões que o cartão pode exibir. Com ele ligado, o Caderno abre em uma janela, sem sair do quadro.
+
+  Quais botões aparecem no cartão é uma escolha de cada pessoa, em [Configuração do quadro](/guides/funnels/board-view).
+</Accordion>
+
+<Accordion title="No projeto compartilhado por link" icon="share-nodes">
+  Quando um projeto é compartilhado por link, o Caderno aparece entre as abas da visão compartilhada.
+</Accordion>
+
+<Accordion title="Ao clonar um projeto" icon="clone">
+  A janela de clonagem tem a opção **Clonar o caderno**. Marcada, todas as páginas e subpáginas do original vão para o clone, com o conteúdo.
+
+  É o caminho para transformar um Caderno bem montado em modelo: mantenha um projeto-modelo com o Caderno pronto e clone a partir dele.
+</Accordion>
+</AccordionGroup>
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Páginas e subpáginas" icon="sitemap" href="/guides/notebook/pages">
+  Como montar a árvore, escolher a página principal e mover, duplicar ou remover páginas.
+</Card>
+
+<Card title="Escrever, salvar e versionar" icon="pen-to-square" href="/guides/notebook/editing">
+  O editor, o menu de comandos, o salvamento e o histórico de versões.
+</Card>
+
+<Card title="Automações e integrações" icon="bolt" href="/guides/notebook/automation-and-api">
+  O que a automação e a API alcançam — e o que não alcançam.
+</Card>
+
+<Card title="Configuração do quadro" icon="table-columns" href="/guides/funnels/board-view">
+  Ligar o botão Caderno nos cartões do funil.
+</Card>
+</CardGroup>

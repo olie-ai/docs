@@ -1,0 +1,85 @@
+---
+title: "Escrever, salvar e versionar"
+description: "O editor das páginas do Caderno, o menu de comandos, o salvamento e o histórico de versões"
+keywords: ["editor", "caderno", "página", "formatação", "comandos", "barra", "versão", "histórico", "salvar"]
+---
+
+Cada página do Caderno é um documento com editor de texto rico. Você escreve como escreveria em um editor comum, e a plataforma guarda uma versão a cada salvamento.
+
+## A barra de formatação
+
+A barra fixa no topo da página traz o essencial:
+
+| Botão | O que faz |
+| --- | --- |
+| Negrito, itálico, sublinhado, tachado | Formatação do trecho selecionado |
+| Estilo de texto | Títulos de H1 a H6, parágrafo, bloco de código e citação |
+| Listas | Com marcadores, numerada e de tarefas (com caixa de seleção) |
+| Bloco de código | Um bloco monoespaçado, para trecho de código |
+| Imagem | Envia uma imagem para dentro da página |
+| Tabela | Insere uma tabela 3×3 com linha de cabeçalho |
+| Linha divisória | Separa seções da página |
+| Limpar formatação | Devolve o trecho selecionado ao texto simples |
+
+Ao **selecionar um trecho**, aparece uma barra flutuante com as opções de formatação de texto mais três que não estão na barra fixa: **link**, **cor do texto** e **marca-texto**.
+
+## O menu de comandos
+
+Digitar `/` em uma linha vazia abre o menu de comandos — o caminho mais rápido para inserir um bloco sem tirar as mãos do teclado. A própria página avisa: *Tecle "/" para acessar os comandos*.
+
+O menu lista títulos, parágrafo, listas, lista de tarefas, bloco de código, citação, linha divisória, tabela e imagem. Digite parte do nome para filtrar.
+
+<Tip>
+Vários blocos também têm atalho de escrita, mostrado ao lado do nome no menu: `#` para título, `-` para lista, `1.` para lista numerada, `[]` para tarefa, três crases para bloco de código, `>` para citação e `---` para linha divisória.
+</Tip>
+
+## Imagens
+
+Além do botão da barra e do comando `/`, a página aceita imagem **colada** e **arrastada** para dentro do editor.
+
+A imagem é enviada para a sua conta e exibida na página. Ela não fica pública: o acesso é feito por um endereço temporário, gerado a cada abertura da página.
+
+## Salvando
+
+O Caderno **não salva sozinho**. Ao lado do nome da página existe um selo que mostra a situação:
+
+| Selo | Significa |
+| --- | --- |
+| Salvo | Não há alteração pendente |
+| Não salvo | Existe alteração que ainda não foi para o servidor |
+
+Para salvar, use o botão **Salvar** ou o atalho **⌘S** (Mac) / **Ctrl+S** (Windows e Linux).
+
+<Info>
+A plataforma protege o trabalho não salvo em dois momentos: ao **trocar de página** dentro do Caderno e ao **sair da tela**. Nos dois casos ela pergunta se você quer salvar antes de seguir.
+</Info>
+
+## Histórico de versões
+
+Cada salvamento cria uma versão nova da página. O botão **Histórico**, no canto direito do cabeçalho, lista as versões por data e hora, da mais recente para a mais antiga.
+
+<Frame caption="O histórico de versões de uma página">
+  <img src="/images/guides/notebook/caderno-historico-de-versoes.png" alt="Menu Histórico de versões aberto, listando duas versões com data e hora e a instrução Clique para ver e editar" />
+</Frame>
+
+Clicar em uma versão carrega o conteúdo dela no editor. A partir daí você pode simplesmente ler — ou editar e salvar, e o que estava na versão antiga volta a ser o conteúdo atual da página.
+
+<Warning>
+Abrir uma versão antiga **não** desfaz nada sozinho. A página só muda quando você salva. Enquanto isso, a versão mais recente continua sendo a que os outros veem.
+</Warning>
+
+<Note>
+Páginas escritas no editor anterior da plataforma abrem em modo somente leitura, com um aviso no topo: *"Esta versão foi criada com o editor antigo e está disponível apenas para visualização."* O conteúdo continua acessível; para voltar a editar, crie uma página nova e traga o texto para ela.
+</Note>
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Páginas e subpáginas" icon="sitemap" href="/guides/notebook/pages">
+  Montar a árvore do Caderno e organizar as páginas.
+</Card>
+
+<Card title="Automações e integrações" icon="bolt" href="/guides/notebook/automation-and-api">
+  O que a automação e a API alcançam no Caderno.
+</Card>
+</CardGroup>

@@ -1,0 +1,129 @@
+---
+title: "Caderno em automações e integrações"
+description: "O que a automação, a API e o MCP alcançam do Caderno — e o caminho para levar informação da plataforma para fora"
+keywords: ["caderno", "automação", "api", "webhook", "integração", "mcp", "fórum", "exportar"]
+---
+
+Uma dúvida recorrente: *dá para enviar o conteúdo do Caderno por uma automação?* A resposta curta é **não** — e esta página explica o que dá, o que não dá e por onde ir.
+
+## O quadro em uma tabela
+
+| Recurso | Caderno | Conteúdo do projeto | Respostas de formulário |
+| --- | --- | --- | --- |
+| Ler em uma automação | Não | Sim, pela consulta `project_medias` | Sim, direto no contexto |
+| Escrever por automação | Não | Sim, pela ação **Envia conteúdo do projeto** | Sim, pela ação de responder formulário |
+| Ler pela API pública | Não | Sim | Sim |
+| Copiar ao clonar um projeto | Sim | Sim | Sim |
+
+<Warning>
+O conteúdo das páginas do Caderno **não está disponível** para automações, nem na referência da API, nem no MCP. A única operação de Caderno exposta fora da interface é copiá-lo junto com um projeto clonado.
+</Warning>
+
+## Por que a automação não alcança o Caderno
+
+Os campos de uma automação que aceitam variáveis — mensagem, assunto e corpo de e-mail, corpo customizado de webhook — leem o que está no **contexto de execução**, e completam o que falta com a função `query`.
+
+Nenhuma das consultas disponíveis devolve páginas do Caderno. A que mais se aproxima pelo nome é `project_medias`, e ela traz o **conteúdo publicado no projeto** — a aba **Conteúdo**, não o Caderno. A lista completa está em [Variáveis nas automações](/guides/automation/variables#buscando-dados-adicionais).
+
+## O que fazer no lugar
+
+Na maioria dos casos, o que precisa sair da plataforma é uma informação estruturada — e essa informação costuma já estar em um formulário ou no conteúdo do projeto.
+
+<Tabs>
+<Tab title="Enviar respostas de formulário">
+  As respostas de formulário já vêm carregadas no contexto, em `project.form_answers`. Não é preciso consulta.
+
+  Uma montagem comum: gatilho **Formulário editado** + ação **Disparar webhook**, com o corpo customizado assim:
+
+  ```twig
+  {{ project.form_answers|json(true) }}
+  ```
+
+  O filtro `json` com `true` devolve o JSON identado — bom para enxergar a estrutura na primeira execução e depois recortar só os campos que interessam:
+
+  ```twig
+  {% set respostas = query('get_form_answers', { 'pivot': trigger.form_id }) %}
+  Projeto {{ project.code }} — {{ project.name }}
+  {{ respostas|json(true) }}
+  ```
+</Tab>
+
+<Tab title="Enviar o conteúdo do projeto">
+  O conteúdo publicado no projeto sai pela consulta `project_medias`:
+
+  ```twig
+  {% set conteudos = query('project_medias', { 'project_code': project.code }) %}
+  {{ conteudos.medias|json(true) }}
+  ```
+
+  Serve quando a informação relevante foi registrada na aba **Conteúdo** — mensagens, arquivos e áudios lançados no projeto.
+</Tab>
+
+<Tab title="Escrever de volta na plataforma">
+  Para registrar algo automaticamente, o destino é o **Conteúdo do projeto**, com a ação **Envia conteúdo do projeto**. Ela aceita variáveis e pode publicar no canal principal ou em um canal interno nomeado.
+
+  O Caderno não recebe escrita por automação.
+</Tab>
+</Tabs>
+
+<Card title="Ações: comunicação, IA e execução" icon="paper-plane" href="/guides/automation/actions-integrations">
+  Os detalhes de **Envia conteúdo do projeto** e de **Disparar webhook**, incluindo o botão de testar o endpoint.
+</Card>
+
+## O Caderno na API
+
+A [referência da API](/api-reference/introduction) não expõe endpoints para ler ou escrever páginas do Caderno. A única operação disponível é ao **clonar um projeto**: o corpo da requisição aceita `forum`, que copia o Caderno do projeto de origem para o clone.
+
+```json Trecho do corpo de POST /api/management/projects/{project}/clone
+{
+  "name": "Implantação — Cliente novo",
+  "forum": true,
+  "medias": false
+}
+```
+
+<Note>
+Na referência da API essa opção ainda aparece com o nome técnico **fórum**, que é como o recurso se chama internamente. Na interface, o mesmo recurso é o **Caderno**.
+</Note>
+
+## O Caderno no MCP
+
+O [MCP da Olie](/guides/mcp/overview) segue a mesma regra da API: o assistente consegue consultar projetos, funis, métricas, formulários e o **conteúdo** dos projetos, e consegue clonar um projeto pedindo que o Caderno venha junto — mas não lê nem escreve as páginas.
+
+## Se o Caderno é mesmo o alvo
+
+Quando a informação que precisa sair está no Caderno e não em outro lugar, hoje as saídas são manuais:
+
+<CardGroup cols={2}>
+<Card title="Copiar da página" icon="copy">
+  O conteúdo da página é texto rico comum — selecionar e copiar funciona para levar para outro documento.
+</Card>
+
+<Card title="Repetir a informação no lugar certo" icon="arrow-right-arrow-left">
+  Se um dado do Caderno precisa circular por integração toda vez, o caminho sustentável é registrá-lo também em um campo de formulário, que a automação alcança.
+</Card>
+</CardGroup>
+
+<Tip>
+Vale medir a necessidade antes: em boa parte dos casos o que a integração precisa não é a página inteira, e sim dois ou três campos. Esses campos rendem mais como formulário dinâmico — ficam consultáveis, filtráveis e disponíveis para automação.
+</Tip>
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Variáveis nas automações" icon="brackets-curly" href="/guides/automation/variables">
+  O que existe no contexto e todas as consultas disponíveis.
+</Card>
+
+<Card title="Sintaxe avançada" icon="code" href="/guides/advanced/advanced-syntax">
+  Condicionais, laços e filtros das expressões.
+</Card>
+
+<Card title="O Caderno" icon="book" href="/guides/notebook/overview">
+  O que é o Caderno e onde ele existe.
+</Card>
+
+<Card title="Referência da API" icon="server" href="/api-reference/introduction">
+  Autenticação, filtros e todos os endpoints.
+</Card>
+</CardGroup>
