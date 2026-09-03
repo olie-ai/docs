@@ -2887,7 +2887,7 @@
           "Checklists avulsos"
         ],
         "summary": "Listar checklists avulsos do projeto",
-        "description": "Lista os checklists avulsos do projeto, ordenados pela posição do item. Cada item já inclui o responsável atribuído e o usuário que marcou como concluído (quando houver).",
+        "description": "Lista os checklists avulsos do projeto, ordenados pela posição do item. Cada item já inclui o responsável atribuído, o usuário que marcou como concluído e o prazo de conclusão (`completion_deadline`), quando houver.",
         "operationId": "listarTodosOsChecklistsAvulsosAssociadosAUmProjeto",
         "responses": {
           "200": {
@@ -3012,6 +3012,12 @@
                             "description": "Data em que o item foi concluído.",
                             "nullable": true
                           },
+                          "completion_deadline": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Prazo de conclusão do item.",
+                            "nullable": true
+                          },
                           "project_id": {
                             "type": "string",
                             "description": "Projeto dono do item.",
@@ -3048,7 +3054,7 @@
                           "checked_by_id": {
                             "type": "string",
                             "format": "uuid",
-                            "description": "Quem marcou o item como concluído.",
+                            "description": "Usuário que marcou o item como concluído.",
                             "nullable": true
                           }
                         },
@@ -3070,6 +3076,7 @@
                       "id": "019e27ab-5064-71f9-aed4-78e0728a42d0",
                       "name": "Fazer deploy",
                       "completed_at": null,
+                      "completion_deadline": "2026-12-31 18:00:00",
                       "author_id": null,
                       "checked_by_id": null,
                       "project_id": "019e27a5-d444-713b-ac3c-50c01d4ebbab",
@@ -3083,6 +3090,7 @@
                       "id": "019e27a9-2b1b-7095-955a-3b0cc8bdabeb",
                       "name": "Limpar o estoque",
                       "completed_at": null,
+                      "completion_deadline": null,
                       "author_id": null,
                       "checked_by_id": null,
                       "project_id": "019e27a5-d444-713b-ac3c-50c01d4ebbab",
@@ -3247,7 +3255,20 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "Texto do item de checklist."
+                    "description": "Texto do item de checklist.",
+                    "maxLength": 255
+                  },
+                  "completed_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Data de conclusão. Se informado sem `checked_by_id`, o servidor atribui o usuário autenticado.",
+                    "nullable": true
+                  },
+                  "completion_deadline": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Prazo de conclusão do item. `null` deixa sem prazo.",
+                    "nullable": true
                   },
                   "author_id": {
                     "type": "string",
@@ -3268,7 +3289,9 @@
                 ]
               },
               "example": {
-                "name": "",
+                "name": "Fazer deploy",
+                "completed_at": null,
+                "completion_deadline": "2026-12-31 18:00:00",
                 "author_id": null,
                 "checked_by_id": null
               }
@@ -3296,7 +3319,7 @@
           "Checklists avulsos"
         ],
         "summary": "Atualizar checklist avulso",
-        "description": "Atualiza um item de checklist avulso. Todos os campos do body são opcionais — envie apenas o que deve mudar.\n\nAtribuir um novo responsável (`author_id`) notifica o usuário escolhido. Alterar `order` reposiciona o item na lista; os itens vizinhos são deslocados automaticamente.",
+        "description": "Atualiza um item de checklist avulso. Todos os campos do body são opcionais — envie apenas o que deve mudar.\n\nAtribuir um novo responsável (`author_id`) notifica o usuário escolhido. Alterar `order` reposiciona o item na lista; os itens vizinhos são deslocados automaticamente. Enviar `completion_deadline: null` remove o prazo; omitir o campo mantém o valor atual.",
         "operationId": "atualizarUmItemDeChecklistAvulso",
         "responses": {
           "200": {
@@ -3341,12 +3364,19 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "Texto do item de checklist."
+                    "description": "Texto do item de checklist.",
+                    "maxLength": 255
                   },
                   "completed_at": {
                     "type": "string",
                     "format": "date-time",
                     "description": "Data de conclusão. `null` desmarca o item.",
+                    "nullable": true
+                  },
+                  "completion_deadline": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Prazo de conclusão do item. `null` remove o prazo.",
                     "nullable": true
                   },
                   "author_id": {
@@ -3363,14 +3393,16 @@
                   },
                   "order": {
                     "type": "integer",
+                    "minimum": 0,
                     "description": "Nova posição do item na lista."
                   }
                 },
                 "description": "Campos a alterar no item. Todos são opcionais."
               },
               "example": {
-                "name": "",
+                "name": "Fazer deploy",
                 "completed_at": null,
+                "completion_deadline": "2026-12-31 18:00:00",
                 "author_id": null,
                 "checked_by_id": null,
                 "order": 0
