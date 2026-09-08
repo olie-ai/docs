@@ -1,0 +1,79 @@
+---
+title: "Áreas de negócio"
+description: "Agrupe funis por frente de trabalho para organizar contas com muitos processos"
+keywords: ["área de negócio", "áreas de negócio", "departamento", "unidade", "agrupamento", "organização"]
+---
+
+Uma **área de negócio** agrupa funis. Quando a conta tem muitos processos, ela é o que impede a lista de funis e o seletor do quadro de virarem uma parede de nomes.
+
+<Info>
+O campo é **opcional** no funil. Um funil sem área de negócio funciona normalmente — ele apenas não aparece agrupado.
+</Info>
+
+## O que ela faz hoje
+
+<CardGroup cols={2}>
+<Card title="Filtra a lista de funis" icon="filter">
+  Em **Funis**, você escolhe primeiro a área e depois o funil. Em contas grandes, encurta bastante a busca.
+</Card>
+
+<Card title="Organiza o quadro" icon="table-columns">
+  O seletor do kanban usa a área como primeiro nível de escolha.
+</Card>
+</CardGroup>
+
+<Note>
+A área de negócio **não carrega permissões próprias**. Quem enxerga um funil continua sendo definido pelo [papel do usuário](/guides/users/roles-permissions) e pela lista de acesso do próprio funil.
+</Note>
+
+## Como usar
+
+Não existe uma resposta única para o que uma área deve representar. Os três recortes que aparecem com mais frequência:
+
+<Tabs>
+<Tab title="Departamento">
+  Comercial, Financeiro, RH, Suporte, Marketing.
+
+  É o recorte mais comum, e o que costuma bater com a forma como a empresa já se organiza.
+</Tab>
+
+<Tab title="Unidade de negócio">
+  Uma área por filial, franquia ou operação regional.
+
+  <Warning>
+  Antes de separar por unidade, decida se as unidades vão ter **funis diferentes** ou **um funil compartilhado com visibilidade segmentada**. Funis separados obrigam a replicar cada automação em cada unidade; um funil só mantém a automação em um lugar. Ver [perguntas de descoberta](/guides/implementation/discovery).
+  </Warning>
+</Tab>
+
+<Tab title="Processo principal">
+  Uma área representa um macroprocesso e os funis dentro dela são os subprocessos.
+
+  Funciona bem quando a operação é grande o bastante para que um processo não caiba em um funil só.
+</Tab>
+</Tabs>
+
+<Tip>
+Os dois recortes podem conviver. Uma rede com várias lojas costuma ter uma área para os serviços compartilhados — financeiro, RH, administrativo, que atendem todo mundo — e uma área por loja para o que é local.
+</Tip>
+
+## Ordem e arquivamento
+
+As áreas podem ser reordenadas, e a ordem vale para os seletores. Deixe à frente as áreas mais usadas.
+
+Uma área pode ser arquivada quando deixa de ser usada. Os funis que estavam nela continuam existindo — apenas perdem o agrupamento.
+
+## Áreas de negócio no Marketplace
+
+As áreas de negócio fazem parte dos objetos de configuração copiados por um [template do Marketplace](/guides/marketplace/template-builder). Um template que entrega vários funis costuma entregar também a área que os agrupa.
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Criar e configurar um funil" icon="filter" href="/guides/funnels/creating-funnels">
+  Onde a área de negócio é escolhida, junto com prefixo, vocabulário e demais configurações.
+</Card>
+
+<Card title="Visão geral dos funis" icon="diagram-project" href="/guides/funnels/overview">
+  Como o funil se encaixa no resto da plataforma.
+</Card>
+</CardGroup>

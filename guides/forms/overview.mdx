@@ -1,0 +1,171 @@
+---
+title: "Formulários dinâmicos"
+description: "O recurso que guarda as informações do seu processo: um formulário sem dono, anexado a vários lugares, com um conjunto de respostas em cada um"
+keywords: ["formulário", "formulários", "formulário dinâmico", "campos", "campo customizado", "resposta", "pivot"]
+---
+
+Tudo o que a plataforma não guarda em [campo nativo do projeto](/guides/projects/overview) — nome, descrição, impacto, receita, cliente — mora em um formulário dinâmico. Na prática, é onde a informação específica do **seu** processo fica.
+
+<Info>
+Uma forma útil de encarar o recurso: cada planilha e cada documento que a equipe preenche hoje é candidato a virar um formulário. O que se ganha não é só digitalizar a coleta — é que a resposta passa a servir de critério para restrição, condição de automação e entrada de agente de IA.
+</Info>
+
+## Um formulário não pertence a nada
+
+Este é o conceito que precisa assentar antes de qualquer configuração.
+
+Um formulário é **um objeto abstrato**: um conjunto de campos que existe por conta própria, sem dono. Ele não pertence a um projeto nem a um cliente — ele é **anexado** a lugares, e pode estar anexado a vários ao mesmo tempo.
+
+E a consequência que muda tudo: **em cada lugar onde está anexado, ele acumula um conjunto diferente de respostas**.
+
+O mesmo formulário "Qualificação" pode estar, ao mesmo tempo, no funil de Vendas, na etapa "Proposta enviada" de outro funil e no cadastro de cliente. São três conjuntos de respostas independentes, da mesma definição de campos.
+
+<Warning>
+Por isso a pergunta *"quais são as respostas do formulário Qualificação?"* não tem resposta única. Falta dizer **onde**. É esse endereço que a API chama de [pivot](/api-reference/general/form-answer-pivot).
+</Warning>
+
+### Grava por endereço, lê tudo junto
+
+A outra metade da regra é o que evita a conclusão errada:
+
+<CardGroup cols={2}>
+<Card title="Na gravação" icon="pen">
+  Cada endereço guarda o seu. A resposta dada no funil Comercial não é a mesma dada na etapa "Proposta".
+</Card>
+
+<Card title="Na leitura" icon="eye">
+  Tudo aparece junto, no cartão, **por qualquer porta de entrada**. Não importa por qual funil você abriu o projeto.
+</Card>
+</CardGroup>
+
+O dado se espalha na coleta e se junta na leitura. No rodapé do cartão, o botão **Formulários** reúne as respostas de todos os formulários anexados àquele projeto — do objeto, do funil, das etapas e dos avulsos.
+
+## Onde um formulário pode ser anexado
+
+<Tabs>
+<Tab title="No objeto">
+  Vale para **todos** os registros daquele tipo na conta. É configurado uma vez, em **Ajustes → Formulários de objeto**, e passa a valer para todo projeto, todo cliente, todo contato ou todo usuário.
+
+  Quatro objetos aceitam formulário: **projeto**, **cliente**, **contato** e **usuário**. Cada um aceita **um** formulário.
+
+  Guarde aqui o que vale em qualquer processo: quantidade de colaboradores do cliente, budget anual, atividade principal.
+
+  <Note>
+  O formulário do objeto projeto aparece dentro do cartão **independentemente do funil**. Ele está acima de qualquer funil, e o que for respondido vale para todo mundo.
+  </Note>
+</Tab>
+
+<Tab title="No funil">
+  Acompanha o projeto do começo ao fim daquele funil, independentemente da etapa. **Um formulário por funil.**
+
+  Guarde aqui o que vale do início ao fim do processo: origem do lead, canal de entrada, SLA contratado, número do contrato.
+
+  Os campos do formulário do funil podem ser exibidos **na frente do cartão**, pela [configuração do quadro](/guides/funnels/board-view). Como o mesmo projeto aparece em vários funis, cada funil mostra as suas próprias informações no cartão.
+</Tab>
+
+<Tab title="Na etapa">
+  Existe apenas no contexto daquela etapa. **Um formulário por etapa.**
+
+  Guarde aqui o que só existe naquele momento: resultado da qualificação, motivo da recusa, número da nota emitida, nota de conferência.
+
+  Campos obrigatórios do formulário da etapa **travam a saída** dela. Ver [checklists e formulários obrigatórios](/guides/funnels/requirements).
+</Tab>
+
+<Tab title="Avulso">
+  Anexado a um projeto específico, fora do funil e da etapa. **Vários por projeto** — inclusive o mesmo formulário mais de uma vez.
+
+  É a saída para a exceção: aquele caso que precisa de uma informação que o processo normal não pede.
+</Tab>
+</Tabs>
+
+### Como escolher o nível
+
+A decisão é sempre a mesma pergunta: **essa informação vale onde?**
+
+| A informação vale... | Nível |
+| --- | --- |
+| Para todo registro daquele tipo, em qualquer processo | **Objeto** |
+| Do começo ao fim daquele processo | **Funil** |
+| Só naquele momento do processo | **Etapa** |
+| Só naquele caso, por exceção | **Avulso** |
+
+<Warning>
+Errar o nível é o erro que mais custa depois: **mudar um formulário de endereço não leva as respostas junto**. Vale gastar alguns minutos nesta decisão antes de criar o primeiro campo.
+</Warning>
+
+## Por onde um formulário é preenchido
+
+O mesmo formulário pode receber resposta por caminhos bem diferentes:
+
+<CardGroup cols={2}>
+<Card title="Pela pessoa, ao mover o cartão" icon="hand-pointer">
+  O formulário da etapa abre automaticamente na movimentação, junto com o checklist.
+</Card>
+
+<Card title="Pela pessoa, no cadastro" icon="address-card">
+  Formulários de cliente, contato e usuário, na tela do próprio registro.
+</Card>
+
+<Card title="Por link público" icon="link" href="/guides/forms/public-forms">
+  Uma publicação de formulário, respondida por quem está fora da plataforma.
+</Card>
+
+<Card title="Por solicitação" icon="inbox" href="/guides/forms/requests">
+  O catálogo de serviços, para quem está dentro mas não tem acesso ao funil.
+</Card>
+
+<Card title="Por agente de IA" icon="robot" href="/guides/funnels/step-assistants">
+  A saída de um assistente de etapa gravada em um campo.
+</Card>
+
+<Card title="Por API ou automação" icon="code" href="/api-reference/general/form-answer-pivot">
+  Integrações que trazem dados de outro sistema para dentro do projeto.
+</Card>
+</CardGroup>
+
+## O que uma resposta pode acionar
+
+É aqui que o formulário deixa de ser cadastro e vira processo:
+
+| Mecanismo | Como |
+| --- | --- |
+| **Gatilho de automação** | O gatilho **Formulário editado**, com restrição opcional a campos específicos |
+| **Condição de automação** | O **decisor com filtro** avalia respostas de formulário |
+| **Restrição de movimentação** | Campo obrigatório trava a saída; restrição de decisão avalia o conteúdo |
+| **Ordenação da etapa** | A etapa pode ordenar os cartões por resposta de formulário |
+| **Exibição no cartão** | Campos escolhidos aparecem direto no quadro |
+| **Entrada de agente de IA** | O prompt do assistente lê respostas por [sintaxe avançada](/guides/advanced/advanced-syntax) |
+| **Exportação** | Todo formulário é exportável para planilha |
+
+<Note>
+Um campo só conta como alterado se o **valor mudou** em relação à última resposta. Reenviar o mesmo formulário com os mesmos valores não aciona o gatilho quando há restrição de campos.
+</Note>
+
+## Onde as respostas aparecem
+
+| Lugar | O que mostra |
+| --- | --- |
+| Botão **Formulários** do cartão | Todos os formulários do projeto, agrupados por onde estão anexados |
+| Modal de movimentação | O formulário da etapa e o checklist, ao mover o cartão |
+| Frente do cartão | Os campos que você escolher exibir, na [configuração do quadro](/guides/funnels/board-view) |
+| Tela do cliente, contato ou usuário | O formulário de objeto daquele registro |
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Criar um formulário" icon="table-list" href="/guides/forms/creating-forms">
+  Os 20 tipos de campo, as configurações de cada um e a lógica condicional.
+</Card>
+
+<Card title="Publicação de formulários" icon="globe" href="/guides/forms/public-forms">
+  Links públicos que criam projeto ao serem respondidos.
+</Card>
+
+<Card title="Solicitações" icon="inbox" href="/guides/forms/requests">
+  O catálogo de serviços liberado por papel.
+</Card>
+
+<Card title="O pivot na API" icon="code" href="/api-reference/general/form-answer-pivot">
+  Como ler e gravar respostas programaticamente.
+</Card>
+</CardGroup>

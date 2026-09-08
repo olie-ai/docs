@@ -1,0 +1,137 @@
+---
+title: "O projeto"
+description: "A unidade que caminha pelos funis: campos nativos, formas de criar e o que pertence ao projeto em vez de pertencer ao funil"
+keywords: ["projeto", "cartão", "card", "campos", "criar projeto", "receita", "impacto", "código"]
+---
+
+O projeto é a unidade de trabalho da Olie. Ele nasce em um funil, recebe um código, e a partir daí pode se vincular a quantos funis a operação exigir — sempre como **o mesmo projeto**.
+
+<Info>
+Dependendo do [termo do projeto](/guides/funnels/overview) configurado no funil, a interface vai chamá-lo de ticket, chamado, deal, lead, tarefa, demanda ou o que fizer sentido para aquele processo. É o mesmo objeto com outro nome.
+</Info>
+
+## O código
+
+Todo projeto recebe um código formado pelo **prefixo do funil onde ele nasceu** e um número sequencial — `CS-1`, `COM-83`.
+
+<Note>
+O prefixo não muda quando o projeto entra em outros funis. Um projeto criado no suporte continua com o prefixo do suporte mesmo depois de vinculado ao comercial. O código carrega a origem, não a posição atual.
+</Note>
+
+Isso torna o código útil como identificador em sistemas externos — em convenções de nome de branch, número de pedido ou referência de contrato, por exemplo.
+
+## Campos nativos
+
+Estes campos existem em qualquer projeto, sem nenhum formulário configurado, e podem ser exibidos no cartão pela [configuração do quadro](/guides/funnels/board-view):
+
+| Campo | O que guarda |
+| --- | --- |
+| **Nome** | O título do projeto |
+| **Descrição** | Contexto livre |
+| **Impacto** | Grau de 1 a 10, usado em filtros e ordenação |
+| **Status do projeto** | Em execução, concluído, arquivado ou parado — global, não por funil |
+| **Receita** | O valor esperado. Alimenta o **Total** e o **Total ponderado** do funil |
+| **Custo esperado, custo real e custo usuário** | Os valores de custo do projeto |
+| **Cliente** | Um por projeto |
+| **Contato** | Vários por projeto |
+| **Atribuído a** | Os responsáveis. Vários, e também define quem enxerga o projeto em funis com acesso restrito |
+| **Criado por** | Registrado automaticamente |
+| **Criação** e **Previsão** | Data de criação do projeto e data de previsão do vínculo com cada funil |
+| **Etiquetas** e **Grupos** | Classificações aplicadas |
+
+<Warning>
+**Receita é campo nativo, não campo de formulário.** A permissão de vê-lo é controlada por papel e pela configuração do cartão — o que importa quando parte da equipe não deve saber o valor negociado.
+</Warning>
+
+Tudo o que não estiver nesta lista é [formulário dinâmico](/guides/forms/overview).
+
+## O que é do projeto e o que é do vínculo
+
+Vale repetir aqui, porque é a distinção mais usada no dia a dia:
+
+| Do projeto — vale em qualquer funil | Do vínculo com cada funil |
+| --- | --- |
+| Todos os campos nativos acima | A etapa que ele ocupa |
+| Conteúdo, arquivos e Caderno | O [status do funil](/guides/funnels/tags-and-status) |
+| Hierarquia e etiquetas aplicadas | A [data de previsão](/guides/funnels/tags-and-status) |
+| Respostas dos formulários de objeto | As respostas dos formulários daquele funil e das etapas dele |
+
+Ver [o modelo mental](/guides/fundamentals/mental-model) para o porquê.
+
+## Formas de criar um projeto
+
+<Tabs>
+<Tab title="Pelo quadro">
+  O caminho normal. No topo de uma etapa, o botão de adicionar cria o projeto **já vinculado àquele funil e àquela etapa**.
+
+  A janela de criação tem dois lados: criar livremente e criar a partir de um [modelo de projeto](/guides/projects/project-templates). O que cada pessoa enxerga depende da permissão dela — é comum que a operação só possa criar a partir de modelo.
+</Tab>
+
+<Tab title="Por formulário público ou solicitação">
+  Uma [publicação de formulário](/guides/forms/public-forms) ou uma [solicitação](/guides/forms/requests) pode criar o projeto ao ser respondida, já vinculado à etapa configurada.
+
+  É o caminho para quem está fora da plataforma, ou para quem está dentro mas não tem acesso ao funil.
+</Tab>
+
+<Tab title="Por automação">
+  A ação **Criar projeto** cria do zero ou a partir de um modelo, e a ação **Criar hierarquia de projetos** monta uma árvore inteira de uma vez.
+
+  Ver [Ações: cadastros e pessoas](/guides/automation/actions-records).
+</Tab>
+
+<Tab title="Por API ou MCP">
+  Os endpoints de criação e de criação rápida, ou uma conversa no [MCP](/guides/mcp/overview).
+</Tab>
+</Tabs>
+
+<Warning>
+Criar um projeto pelo menu superior, fora de um funil, produz um projeto **sem vínculo com funil nenhum**. Ele existe, mas não aparece em quadro algum — é preciso vinculá-lo depois. Prefira criar pela etapa.
+</Warning>
+
+## Clonar um projeto
+
+A clonagem cria um projeto novo a partir de um existente, e cada parte é copiada de forma independente: cliente, funis, etiquetas, checklists, respostas de formulário, conteúdo, Caderno, grupos e responsáveis.
+
+<Tip>
+Manter um projeto bem montado — com o Caderno preenchido, os formulários respondidos e os checklists prontos — e cloná-lo é uma alternativa ao modelo de projeto quando cada novo caso precisa de ajuste manual logo no início.
+</Tip>
+
+## Vínculos e hierarquia
+
+Um projeto pode ter:
+
+- **Um pai e vários filhos**, até quatro níveis. Ver [hierarquia de projetos](/guides/projects/project-hierarchy).
+- **Vários grupos**, que são um agrupamento independente da hierarquia.
+- **Vários funis**, cada um com sua própria posição, status e previsão.
+
+## O que mais vive dentro de um projeto
+
+<CardGroup cols={2}>
+<Card title="Conteúdo" icon="comments" href="/guides/content/overview">
+  A linha do tempo: mensagens, arquivos, áudios e logs.
+</Card>
+
+<Card title="Formulários" icon="table-list" href="/guides/forms/overview">
+  As respostas de todos os formulários anexados, reunidas em um lugar.
+</Card>
+
+<Card title="Caderno" icon="book" href="/guides/notebook/overview">
+  A documentação em páginas, com histórico de versões.
+</Card>
+
+<Card title="Execução" icon="stopwatch" href="/guides/funnels/execution">
+  O tempo cronometrado no projeto e o custo que ele gera.
+</Card>
+</CardGroup>
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Modelos de projeto" icon="copy" href="/guides/projects/project-templates">
+  Padronize a criação com campos já preenchidos e nome em formato fixo.
+</Card>
+
+<Card title="Hierarquia de projetos" icon="sitemap" href="/guides/projects/project-hierarchy">
+  Pai, filho, neto e bisneto — e as regras que a plataforma verifica sozinha.
+</Card>
+</CardGroup>

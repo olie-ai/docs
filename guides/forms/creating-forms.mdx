@@ -1,0 +1,190 @@
+---
+title: "Criar um formulário"
+description: "Os tipos de campo disponíveis, as configurações de cada um e a lógica condicional que transforma o formulário em árvore de decisão"
+keywords: ["criar formulário", "campo", "tipos de campo", "condicional", "obrigatório", "regex", "validação"]
+---
+
+Formulários são criados em **Ajustes → Formulários**, e existem por conta própria — você os anexa a lugares depois. Ver [Formulários dinâmicos](/guides/forms/overview).
+
+## Os tipos de campo
+
+<AccordionGroup>
+<Accordion title="Texto e números" icon="font">
+| Tipo | Para que serve |
+| --- | --- |
+| **Texto curto** | Respostas curtas, como nomes ou endereços |
+| **Texto longo** | Respostas longas, como descrições ou explicações |
+| **Texto com formatação** | Aceita formatação visual, como negrito e listas |
+| **Numérico** | Respostas numéricas, aceitando apenas números |
+| **Moeda** | Valores monetários, como preços ou orçamentos |
+| **Contador** | Contador numérico. **Somente leitura** — o valor é alterado apenas por automações |
+
+<Note>
+O campo **Texto com formatação** está em fase beta e aparece marcado como tal na tela de criação.
+</Note>
+</Accordion>
+
+<Accordion title="Escolha entre opções" icon="list-check">
+| Tipo | Para que serve |
+| --- | --- |
+| **Checkbox** | Uma lista em que **uma ou mais** opções podem ser selecionadas |
+| **Seleção de lista** | Uma lista longa em que **uma** opção pode ser selecionada |
+| **Seleção de única** | Uma lista curta em que **uma** opção pode ser selecionada |
+
+Para os três, as opções são cadastradas no próprio campo, uma por linha.
+
+<Tip>
+A escolha entre **Seleção de lista** e **Seleção de única** é de interface, não de comportamento: a primeira rende melhor com muitas opções, a segunda com poucas, porque mostra todas de uma vez.
+</Tip>
+</Accordion>
+
+<Accordion title="Datas e horas" icon="calendar">
+| Tipo | Para que serve |
+| --- | --- |
+| **Data** | Um seletor de dia, mês e ano |
+| **Data e hora** | Data e hora — reuniões, compromissos e lembretes |
+| **Hora** | Um horário específico, em horas e minutos |
+
+Campos de data podem alimentar o gatilho [**Data de projeto atingida**](/guides/automation/triggers).
+</Accordion>
+
+<Accordion title="Contato e identificação" icon="address-book">
+| Tipo | Para que serve |
+| --- | --- |
+| **Email** | Endereço de e-mail, com validação de formato |
+| **Número de telefone** | Telefone com validação e código do país |
+| **Link** | Uma URL válida |
+</Accordion>
+
+<Accordion title="Registros da plataforma" icon="database">
+| Tipo | Para que serve |
+| --- | --- |
+| **Usuário** | Usuários ativos da organização |
+| **Contato** | Um ou mais contatos cadastrados |
+| **Cliente** | Um ou mais clientes cadastrados |
+| **Projeto** | Um ou mais projetos — o rótulo acompanha o [termo do projeto](/guides/funnels/overview) do funil |
+
+<Tip>
+Estes tipos guardam o **vínculo** com o registro, e não um texto solto. É o que permite navegar do formulário para o cadastro e usar a resposta em filtros.
+</Tip>
+</Accordion>
+
+<Accordion title="Arquivos" icon="paperclip">
+| Tipo | Para que serve |
+| --- | --- |
+| **Anexo(s)** | Documentos, imagens ou outros arquivos |
+
+Arquivos anexados em campo de formulário aparecem também no botão **Arquivos** do cartão. Ver [Conteúdo do projeto](/guides/content/overview).
+</Accordion>
+</AccordionGroup>
+
+## As configurações de cada campo
+
+| Configuração | O que faz |
+| --- | --- |
+| **Título do campo** | O rótulo. Até 255 caracteres |
+| **Descrição** | Um subtexto abaixo do nome, sempre visível. Até 255 caracteres |
+| **Texto de ajuda** | Habilita um ícone de informação ao lado do nome, exibido ao passar o mouse. Até 255 caracteres |
+| **Valor inicial** | O valor com que o campo já vem preenchido |
+| **Validação Regex** | Máscara de validação. Ver abaixo |
+| **Esse campo é obrigatório** | Impede salvar o formulário sem preencher — e **trava a saída da etapa** |
+| **Múltiplas respostas** | Permite mais de um valor no mesmo campo |
+| **Condicional** | Mostra ou esconde o campo conforme a resposta de outro |
+
+<Note>
+**Múltiplas respostas** não é exclusivo de anexo. Ela está disponível para **Anexo(s)**, **Contato**, **Cliente**, **Projeto**, **Usuário** e **Link**.
+</Note>
+
+### Validação Regex
+
+Disponível para **Texto curto**, **Texto longo**, **Email**, **Número de telefone**, **Moeda** e **Numérico**.
+
+Nos campos de texto, além de escrever a própria expressão, existem máscaras prontas: **CPF**, **CNPJ**, **Apenas letras**, **CEP**, **Placa Mercosul** e **RG**.
+
+<Warning>
+A validação de regex e a obrigatoriedade **não são aplicadas no servidor para campos que têm condicional configurada** — nesses casos a verificação acontece apenas na interface. Se a integridade do dado for crítica, prefira validar também no consumo, ou evite condicional em campos que dependem de máscara.
+</Warning>
+
+## Lógica condicional
+
+A condicional é o que transforma um formulário em árvore de decisão: o campo aparece ou some conforme o que foi respondido antes.
+
+<Steps>
+<Step title="Escolha a ação">
+  **Mostrar** ou **Esconder** o campo.
+</Step>
+
+<Step title="Escolha o campo que decide">
+  Qual resposta anterior será avaliada.
+</Step>
+
+<Step title="Escolha o operador e o valor">
+  Igual a · Diferente de · Contém · Não contém · Começa com · Termina com · Maior que · Menor que · Maior ou igual a · Menor ou igual a · Está vazio · Não está vazio
+</Step>
+</Steps>
+
+Encadeando condicionais, o formulário vai se abrindo: a pessoa preenche o primeiro campo, aparece o segundo; preenche o segundo, aparece o terceiro.
+
+<Tip>
+Uma árvore de decisão bem montada substitui vários formulários diferentes. Em vez de um formulário por tipo de pedido, um único formulário cujo primeiro campo é o tipo — e o resto se ajusta.
+</Tip>
+
+### Condicional e obrigatoriedade
+
+<Note>
+Um campo obrigatório que está **oculto** por condicional **não é cobrado**. A plataforma avalia apenas os campos que de fato estão aparecendo para quem preenche. Ver [Checklists e formulários obrigatórios](/guides/funnels/requirements).
+</Note>
+
+### O campo oculto como decisão de administrador
+
+A condicional também serve para o contrário do que parece: **esconder um campo de quase todo mundo**.
+
+Um campo visível apenas para quem administra, cuja resposta dispara uma automação, é a forma de dar a alguém o poder de corrigir uma rota — mover um projeto que a restrição não deixa voltar, por exemplo — sem dar a essa pessoa permissão para furar as regras do funil.
+
+Ver [Padrões de desenho](/guides/implementation/design-patterns).
+
+## Limites dos campos de texto
+
+| Campo | Limite na interface |
+| --- | --- |
+| Texto curto | 120 caracteres |
+| Texto longo | 30.000 caracteres |
+| Título, descrição e texto de ajuda | 255 caracteres cada |
+
+## Depois de criar
+
+Um formulário recém-criado ainda não coleta nada — ele precisa ser **anexado** a um lugar:
+
+<CardGroup cols={2}>
+<Card title="Em um objeto" icon="cube">
+  **Ajustes → Formulários → Formulário dos objetos**, para valer em todos os registros daquele tipo.
+</Card>
+
+<Card title="Em um funil ou etapa" icon="filter">
+  Na edição do funil, no campo **Formulário dinâmico** ou no formulário da etapa.
+</Card>
+
+<Card title="Em um projeto específico" icon="file-circle-plus" href="/guides/forms/loose-forms">
+  Como formulário avulso, manualmente ou por automação.
+</Card>
+
+<Card title="Publicado" icon="globe" href="/guides/forms/public-forms">
+  Como link público ou como solicitação.
+</Card>
+</CardGroup>
+
+<Warning>
+A tela **Formulário dos objetos** lista cinco objetos, mas apenas **Projeto**, **Cliente**, **Contato** e **Usuário** aceitam formulário hoje. Squad aparece na lista sem suporte correspondente.
+</Warning>
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Formulários dinâmicos" icon="table-list" href="/guides/forms/overview">
+  Onde anexar e como escolher o nível certo.
+</Card>
+
+<Card title="Formulário avulso, versões e contador" icon="clock-rotate-left" href="/guides/forms/loose-forms">
+  Exceções, ciclos recorrentes e medição de retrabalho.
+</Card>
+</CardGroup>

@@ -1,0 +1,101 @@
+---
+title: "Ordem de implantação"
+description: "A sequência em que um processo é construído na Olie, e por que a restrição vem quase no fim"
+keywords: ["implantação", "implementação", "ordem", "metodologia", "processo", "consultoria", "onboarding"]
+---
+
+Configurar um funil na ordem errada custa retrabalho. A sequência abaixo é a que a Olie usa para implantar processos em clientes, e cada posição tem um motivo prático.
+
+<Info>
+Esta página descreve **método**, não funcionalidade. Nada aqui é imposto pela plataforma — você pode configurar na ordem que quiser. A ordem existe porque as outras custam mais caro.
+</Info>
+
+## A sequência
+
+<Steps>
+<Step title="Definir os KPIs">
+  Antes de criar qualquer coisa, decida **o que se quer medir**. O desenho do fluxo é feito de trás para frente a partir dos indicadores.
+
+  Ver [Perguntas de descoberta](/guides/implementation/discovery).
+</Step>
+
+<Step title="Montar a esteira e as camadas">
+  Desenhe o caminho horizontal — as etapas de cada funil — e as camadas verticais: qual funil é estratégico, qual é tático, qual é operacional.
+
+  Esta é a única parte que é desenho de processo, e não configuração de ferramenta. Se ela estiver errada, tudo o que vier depois estará errado sobre uma base errada.
+</Step>
+
+<Step title="Mapear as intersecções">
+  Para onde o projeto salta quando sai de cada funil? Quais etapas distribuem trabalho para outras áreas?
+
+  Sem este passo, os departamentos ficam ilhados e cada um vira uma planilha própria.
+</Step>
+
+<Step title="Validar o movimento">
+  Faça o cartão andar de ponta a ponta, incluindo os saltos entre funis, antes de qualquer outra coisa.
+
+  <Tip>
+  Para testar a movimentação automática, use um **checklist de um item** em vez de um formulário. É muito mais rápido de criar e de marcar, e nesta fase você só quer saber se o cartão para no lugar certo.
+  </Tip>
+</Step>
+
+<Step title="Construir os formulários">
+  Agora sim os [formulários dinâmicos](/guides/forms/overview). Eles vêm depois do movimento porque definem os **parâmetros de decisão** — e você só sabe quais parâmetros precisa depois de saber onde as decisões acontecem.
+
+  É nesta fase que se faz o levantamento dos artefatos do cliente: cada planilha e cada documento que a equipe preenche hoje é candidato a formulário.
+</Step>
+
+<Step title="Construir as automações">
+  As [automações](/guides/automation/overview) vêm depois dos formulários porque a maior parte delas lê ou escreve em campo de formulário. Sem os campos definidos, a automação não tem de onde ler nem onde gravar.
+</Step>
+
+<Step title="Ligar as restrições">
+  As [restrições](/guides/funnels/restrictions) vêm quase no fim, e o motivo é operacional: **restrição é justamente o que impede o cartão de andar**. Se você as liga antes de terminar os testes, cada teste vira uma luta contra a própria configuração.
+</Step>
+
+<Step title="Fazer as integrações">
+  [API, webhooks e canais de comunicação](/guides/integrations/overview) por último, porque é a parte mais cara de refazer. A integração só entra quando o fluxo interno já está fechado e travado.
+</Step>
+
+<Step title="Criar os papéis">
+  E as pessoas no fim de tudo. Ver abaixo.
+</Step>
+</Steps>
+
+## Por que os papéis ficam por último
+
+O [tipo de papel](/guides/users/role-types) — e, portanto, a licença cobrada — é **calculado a partir das permissões marcadas**. Definir papéis antes de saber quem faz o quê no fluxo produz papéis genéricos, e papel genérico produz licença cara sem necessidade.
+
+Depois que o fluxo existe, a pergunta fica concreta: esta pessoa edita funil? Ela exporta dados? Ela só abre solicitação? Cada resposta tem um custo conhecido.
+
+## Resumo em uma tabela
+
+| Ordem | O que se faz | O que dá errado se inverter |
+| --- | --- | --- |
+| 1 | Definir os KPIs | Você constrói um fluxo que não mede nada |
+| 2 | Montar a esteira e as camadas | Configuração sobre base errada |
+| 3 | Mapear as intersecções | Departamentos ilhados |
+| 4 | Validar o movimento com checklist | Testes cinco vezes mais lentos |
+| 5 | Construir os formulários | Automação sem onde ler nem gravar |
+| 6 | Construir as automações | — |
+| 7 | Ligar as restrições | **Você não consegue mais testar nada** |
+| 8 | Fazer as integrações | Refaz integração a cada mudança de fluxo |
+| 9 | Criar os papéis | Papéis errados e licenças caras à toa |
+
+## Uma advertência sobre processos que não existem
+
+Ao mapear o processo de um cliente, é comum descobrir que ele não está definido — existe na cabeça das pessoas, com variações por pessoa.
+
+Isso muda a natureza do trabalho: o mapeamento deixa de ser levantamento e passa a ser **desenho**. Vale reservar tempo para isso no cronograma, porque a alternativa é digitalizar uma bagunça e culpar a ferramenta depois.
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Perguntas de descoberta" icon="clipboard-question" href="/guides/implementation/discovery">
+  O roteiro de perguntas que antecede o passo 1, por nível — empresa, processo, etapa e dado.
+</Card>
+
+<Card title="Padrões de desenho" icon="shapes" href="/guides/implementation/design-patterns">
+  Soluções repetíveis para os problemas que aparecem em quase toda implantação.
+</Card>
+</CardGroup>

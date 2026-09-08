@@ -1,0 +1,139 @@
+---
+title: "Integrações"
+description: "Como informação entra e sai da plataforma: canais de comunicação, aplicações, webhooks e a API"
+keywords: ["integração", "integrações", "canal", "whatsapp", "webhook", "API", "token", "aplicação", "conector"]
+---
+
+A plataforma resolve muita coisa sem depender de terceiros. Quando é preciso trocar informação com outro sistema — trazer dados de fora ou avisar alguém lá fora —, os caminhos são estes.
+
+## Onde fica
+
+Em **Ajustes → Integrações**, com quatro abas:
+
+<CardGroup cols={2}>
+<Card title="Integrações" icon="plug">
+  As contas conectadas — hoje, canais de comunicação.
+</Card>
+
+<Card title="Aplicações" icon="key">
+  Os tokens de acesso à [API](/api-reference/introduction).
+</Card>
+
+<Card title="MCP" icon="robot" href="/guides/mcp/overview">
+  A conexão com ChatGPT e Claude.
+</Card>
+
+<Card title="Webhooks" icon="bell">
+  Notificações de eventos nativos da plataforma.
+</Card>
+</CardGroup>
+
+## Canais de comunicação
+
+Uma integração de comunicação conecta um número ou uma conta externa à plataforma. A partir daí, a conversa acontece **dentro do projeto**, em um canal — e fica registrada na empresa, não no celular de quem atendeu.
+
+### Conectores disponíveis
+
+| Conector | Como conecta |
+| --- | --- |
+| **WhatsApp Cloud (Meta)** | Credenciais da API oficial: Phone Number ID, Access Token, App Secret e Verify Token |
+| **Evolution** | Servidor próprio: API Key, instância e endereço do servidor |
+| **WhatsApp hospedado pela Olie** | Leitura de QR Code, sem infraestrutura própria |
+
+### Criação automática de projeto
+
+O campo **Criar o projeto nesta etapa** define o que acontece quando chega uma mensagem de alguém que ainda não tem projeto aberto.
+
+<Warning>
+Se nenhuma etapa for escolhida, **mensagens de números sem projeto aberto são ignoradas**. É a configuração que mais passa despercebida ao ligar um canal pela primeira vez.
+</Warning>
+
+<Note>
+O destino é uma **etapa**, não um funil. Isso importa porque a etapa é que carrega automações, restrições e assistentes — a mensagem que chega já cai dentro do processo.
+</Note>
+
+### Recuperar histórico
+
+A opção **Recuperar mensagens anteriores ao abrir um canal** traz as últimas 10, 25, 50 ou 100 mensagens da conversa.
+
+<Note>
+Disponível nos conectores **Evolution** e **WhatsApp hospedado pela Olie**. O **WhatsApp Cloud (Meta)** não oferece essa opção.
+</Note>
+
+### Origem de campanha
+
+Para quem usa anúncios com clique para o WhatsApp, os dados de origem — identificador do clique, ID do anúncio, tipo de origem, título e texto do anúncio — podem ser mapeados para campos de um [formulário](/guides/forms/overview), chegando junto com a conversa.
+
+### Governança
+
+<Info>
+Quem atende não escolhe de qual número a resposta sai, e não vê o número do outro lado quando a configuração assim define. Vários números podem estar conectados ao mesmo tempo, cada um com o seu funil. A conversa fica registrada na empresa, e não some quando alguém sai.
+</Info>
+
+<Warning>
+Quando um projeto tem **mais de um canal externo**, a ação de enviar conteúdo escolhe por qual sair pela **configuração da automação**, não pela origem da conversa. Em funis que recebem por mais de um número, nomeie os canais e aponte cada automação para o canal certo. Ver [Conteúdo do projeto](/guides/content/overview).
+</Warning>
+
+## Aplicações e tokens de API
+
+Em **Ajustes → Integrações → Aplicações** você cria o token usado pela [API](/api-reference/introduction/authentication).
+
+<Warning>
+**O token é exibido uma única vez.** Ao fechar a janela, não há como vê-lo de novo — só gerar outro.
+</Warning>
+
+<Warning>
+As permissões de uma aplicação são de **nível proprietário**: o token passa por qualquer verificação de permissão da plataforma. Ele não herda o papel de ninguém e não pode ser restringido hoje.
+
+Guarde-o como você guardaria uma senha de banco de dados. Para acesso com as permissões de uma pessoa, use o [MCP](/guides/mcp/overview), que herda exatamente o que aquele usuário enxerga.
+</Warning>
+
+## Webhooks
+
+Existem dois mecanismos diferentes com o mesmo nome:
+
+<Tabs>
+<Tab title="Disparar webhook por automação">
+  **Disponível hoje.** A ação **Disparar webhook** chama uma URL externa quando a automação roda, levando os dados do disparo e um corpo customizado que aceita [sintaxe avançada](/guides/advanced/advanced-syntax).
+
+  Há um botão de teste no editor. Uma falha na chamada é registrada e **o fluxo continua** nas ações seguintes.
+
+  Ver [Ações: comunicação, IA e execução](/guides/automation/actions-integrations).
+</Tab>
+
+<Tab title="Webhooks de eventos nativos">
+  **Em breve.** A aba Webhooks existe e está marcada como tal.
+
+  São eventos que nenhuma automação pegaria — um projeto criado sem vínculo com funil algum, um usuário novo entrando na conta.
+
+  Enquanto isso, o caminho para reagir a esses casos é consultar a API periodicamente, ou desenhar o fluxo de modo que o evento passe por uma etapa.
+</Tab>
+</Tabs>
+
+## A API como integração
+
+A API cobre leitura e escrita, e é a mesma que a interface usa.
+
+<Tip>
+O caminho mais rápido para descobrir como fazer algo pela API é **executar a ação na interface com as ferramentas de desenvolvedor do navegador abertas** e observar a requisição. O que o front chama é o que você pode chamar — a diferença é que, no seu caso, a autenticação é por token fixo.
+</Tip>
+
+Ver [Referência da API](/api-reference/introduction) para autenticação, limites e estrutura das respostas.
+
+## Quando não integrar
+
+<Info>
+Nem todo par de sistemas precisa de integração. Quando dois sistemas não trocam dados entre si, mas alguém quer enxergar os dois juntos, uma convenção comum — o mesmo identificador nos dois lados — mais um assistente conectado por [MCP](/guides/mcp/overview) resolve sem construir nada.
+</Info>
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Conteúdo do projeto" icon="comments" href="/guides/content/overview">
+  Como os canais aparecem dentro do projeto.
+</Card>
+
+<Card title="MCP" icon="plug" href="/guides/mcp/overview">
+  Consultar e operar por conversa, com as suas permissões.
+</Card>
+</CardGroup>

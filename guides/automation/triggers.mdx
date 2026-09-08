@@ -1,13 +1,13 @@
 ---
 title: "Gatilhos"
-description: "Os sete eventos que podem iniciar uma automação e como configurar cada um"
-keywords: ["gatilho", "evento", "disparo", "etapa", "etiqueta", "formulário", "data", "ocioso", "execução"]
+description: "Os oito eventos que podem iniciar uma automação e como configurar cada um"
+keywords: ["gatilho", "evento", "disparo", "etapa", "etiqueta", "formulário", "data", "ocioso", "execução", "conteúdo", "canal"]
 ---
 
 O gatilho é o evento que aciona a automação. Toda automação tem **exatamente um** e ele é obrigatório: sem gatilho, o editor não deixa adicionar ações nem condições.
 
 <Info>
-Os gatilhos disponíveis dependem de onde você cria a automação. Pela área **Automações** você tem os sete. Pela etapa do funil, apenas os que envolvem aquela etapa. Veja [Onde criar automações](/guides/automation/overview#onde-criar-automações).
+Os gatilhos disponíveis dependem de onde você cria a automação. Pela área **Automações** você tem todos. Pela etapa do funil, apenas os que envolvem aquela etapa. Veja [Onde criar automações](/guides/automation/overview#onde-criar-automações).
 </Info>
 
 ## Visão geral
@@ -21,6 +21,7 @@ Os gatilhos disponíveis dependem de onde você cria a automação. Pela área *
 | [Formulário editado](#formulário-editado) | Um formulário dinâmico é respondido | Usuário ou automação |
 | [Data de projeto atingida](#data-de-projeto-atingida) | Uma data configurada chega | Agendamento |
 | [Execução de projeto](#execução-de-projeto) | Uma execução de tempo inicia ou finaliza | Usuário |
+| [Conteúdo enviado no projeto](#conteúdo-enviado-no-projeto) | Alguém publica conteúdo no projeto | Usuário, integração ou automação |
 
 ## Projeto movido de etapa
 
@@ -160,6 +161,47 @@ Aciona quando uma execução de tempo — o play/pause que registra quanto tempo
 
 <Tip>
 Combine com a ação [Controlar execução de projeto](/guides/automation/actions-integrations#controlar-execução-de-projeto) para montar regras como "quando alguém iniciar a execução aqui, pause a execução dessa pessoa em qualquer outro projeto".
+</Tip>
+
+## Conteúdo enviado no projeto
+
+Aciona quando alguém publica um registro no [conteúdo do projeto](/guides/content/overview) — uma resposta que chega por uma integração, um recado interno da equipe ou uma mensagem publicada por outra automação.
+
+<Note>
+Este gatilho pertence a **Canais**, liberado por conta. Enquanto o recurso não estiver ativo na sua, ele não aparece na lista de gatilhos. Automações já criadas com ele continuam abrindo e rodando normalmente.
+</Note>
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Onde o conteúdo chegou | Não | Restringe o disparo a um tipo de canal. Padrão: **Qualquer lugar** |
+| Integração | Não | Só aparece com **Linha externa** selecionada; restringe a uma integração específica |
+| Quem enviou | Não | Restringe por autoria. Padrão: **Qualquer pessoa** |
+
+### Onde o conteúdo chegou
+
+| Opção | O que entra |
+| --- | --- |
+| **Qualquer lugar** | Canal principal, canais internos e linhas externas |
+| **Canal principal** | Só o conteúdo publicado solto, fora de qualquer canal nomeado |
+| **Canal interno** | Só os canais internos nomeados, que ninguém de fora recebe |
+| **Linha externa (via integração)** | Só os canais ligados a uma integração, por onde as mensagens entram e saem |
+
+Com **Linha externa** selecionada, aparece o campo **Integração**. Deixá-lo em branco aciona com qualquer integração conectada; preenchê-lo restringe o gatilho àquela linha. Trocar o escopo para qualquer outro valor limpa a integração escolhida — ela só faz sentido restringindo uma linha externa.
+
+### Quem enviou
+
+| Opção | O que entra |
+| --- | --- |
+| **Qualquer pessoa** | Tanto o que chega de fora quanto o que a equipe escreve |
+| **Quem está do outro lado** | Só o que chega de fora pela integração |
+| **Alguém da equipe** | Só o que sai do seu lado, escrito na Olie ou respondido pelo celular na mesma conta |
+
+<Note>
+Mensagens seguidas viram **um acionamento só**. O gatilho espera alguns segundos depois da primeira mensagem e entrega a sequência inteira para a automação, em vez de rodar uma vez por mensagem. É o que impede que um cliente mandando cinco linhas seguidas dispare cinco vezes a mesma resposta automática.
+</Note>
+
+<Tip>
+A combinação mais útil é **Linha externa** + **Quem está do outro lado**: aciona só quando o cliente responde, ignorando tudo o que a própria equipe publica. É a base de regras como "cliente respondeu, tire o projeto de Aguardando retorno" ou "cliente respondeu fora do horário, avise o plantão".
 </Tip>
 
 ## Por onde continuar

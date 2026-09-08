@@ -1,0 +1,94 @@
+---
+title: "Publicações de formulários"
+description: "Publique um formulário em um link aberto e faça com que a resposta crie um projeto já vinculado à etapa certa"
+keywords: ["formulário público", "publicação", "link público", "embed", "captação", "lead", "formulário externo"]
+---
+
+Uma **publicação de formulário** é um formulário disponível em um link aberto, que qualquer pessoa responde sem ter conta na plataforma. É a porta de entrada para quem está fora: cliente, candidato, fornecedor.
+
+O que torna o recurso útil não é o link em si — é que a resposta pode **criar um projeto já vinculado à etapa certa**, com o processo inteiro rodando a partir dali.
+
+## Criar uma publicação
+
+Em **Ajustes → Formulários → Publicações de formulários**.
+
+<Steps>
+<Step title="Identifique a publicação">
+  **Título**, **Descrição** — que aparece dentro do formulário para quem responde — e o **Status**, entre publicado e não publicado.
+</Step>
+
+<Step title="Escolha o formulário">
+  Qualquer formulário já criado. Ver [Criar um formulário](/guides/forms/creating-forms).
+</Step>
+
+<Step title="Defina a janela de publicação">
+  **Data de início** e **Data de término**, ambas opcionais.
+
+  Sem data de início, a publicação vale a partir de hoje. Sem data de término, ela não expira.
+</Step>
+
+<Step title="Ajuste a aparência">
+  **Cor de fundo**, com a opção de usar a cor padrão.
+</Step>
+
+<Step title="Defina o que acontece depois">
+  Um **link de redirecionamento** leva a pessoa para outra página assim que ela responde.
+</Step>
+</Steps>
+
+O link público aparece na própria tela. Existe também a opção **Invalidar link**, que gera um endereço novo e derruba o anterior.
+
+## Criar projeto a partir da resposta
+
+Este é o bloco que transforma o formulário em entrada de processo. Ative **Ativar criação de projeto?** e configure:
+
+| Opção | O que define |
+| --- | --- |
+| **Usar modelo?** | Se o projeto nasce a partir de um [modelo de projeto](/guides/projects/project-templates) |
+| **Modo de vínculo das respostas** | Onde a resposta é gravada: **no conteúdo do projeto** ou **como formulário avulso** |
+| **Nome do projeto** | **Manual** — um nome fixo — ou **Resposta de um campo**, usando o que a pessoa escreveu |
+| **Vincular projeto em etapa** | A etapa que vai receber o projeto criado |
+
+<Tip>
+Nomear o projeto por um campo da resposta é o que evita uma coluna cheia de itens chamados "Nova solicitação". Escolha um campo que a pessoa sempre preenche — nome, empresa, assunto.
+</Tip>
+
+<Warning>
+Como quem responde não está autenticado, o campo **Criado por** do projeto fica vazio. Se você precisa saber quem pediu, inclua isso como **campo do formulário**.
+</Warning>
+
+## Incorporar em uma página
+
+O botão **Incorporar formulário** gera um trecho de HTML para colar na sua própria página, com escolha entre **tema claro** e **tema escuro**.
+
+É o caminho para captação em site institucional, landing page ou intranet, sem tirar a pessoa do seu domínio.
+
+## Acompanhar as respostas
+
+A publicação guarda as respostas recebidas, acessíveis a partir da própria tela. Quando a criação de projeto está ativa, cada resposta também vira um item no funil escolhido — e a partir dali segue as automações, restrições e assistentes daquela etapa.
+
+## Publicação ou solicitação?
+
+Os dois publicam um formulário, mas resolvem problemas diferentes:
+
+<CardGroup cols={2}>
+<Card title="Publicação de formulário" icon="globe">
+  Para quem está **fora** da plataforma. Link aberto, sem login.
+</Card>
+
+<Card title="Solicitação" icon="inbox" href="/guides/forms/requests">
+  Para quem está **dentro** da plataforma mas não tem acesso ao funil. Liberada por papel.
+</Card>
+</CardGroup>
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Solicitações" icon="inbox" href="/guides/forms/requests">
+  O catálogo de serviços interno, liberado por papel.
+</Card>
+
+<Card title="Formulários dinâmicos" icon="table-list" href="/guides/forms/overview">
+  Como o formulário se encaixa no resto da plataforma.
+</Card>
+</CardGroup>

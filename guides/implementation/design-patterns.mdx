@@ -1,0 +1,237 @@
+---
+title: "Padrões de desenho"
+description: "Soluções repetíveis para os problemas que aparecem em quase toda implantação: etapa espelho, funil gerencial, esteira de agentes e outros"
+keywords: ["padrão", "padrões", "desenho", "etapa espelho", "funil gerencial", "esteira de agentes", "boas práticas", "arquitetura"]
+---
+
+Alguns problemas aparecem em praticamente toda implantação, e cada um tem uma montagem conhecida. Esta página reúne essas montagens.
+
+Nenhuma delas é um recurso próprio da plataforma — todas combinam funis, etapas, automações e restrições que já existem. O valor está na combinação.
+
+## Etapa espelho
+
+<Card title="O problema" icon="circle-question">
+Quem solicita fica perguntando "e aí, como está?" — e quem executa para de executar para responder.
+</Card>
+
+**A solução:** no funil de quem solicita, crie etapas que **não executam nada**. Elas existem apenas para refletir onde o projeto está no funil de quem faz. O projeto anda nas duas por automação.
+
+<Steps>
+<Step title="Espelhe as etapas">
+  No funil do solicitante, crie etapas com os mesmos nomes das etapas relevantes do funil do executor.
+</Step>
+
+<Step title="Ligue as automações">
+  Em cada etapa do funil do executor, crie uma automação com gatilho **Projeto movido de etapa** e ação **Colocar projeto em etapa**, apontando para a etapa espelho correspondente, com a opção de desvincular das outras etapas ligada.
+</Step>
+
+<Step title="Trave o arrasto manual">
+  No funil espelho, crie [restrições](/guides/funnels/restrictions) que impeçam qualquer movimentação manual. Não é opcional: sem elas, alguém vai arrastar um cartão e dessincronizar os dois funis.
+</Step>
+</Steps>
+
+**O que isso entrega além do acompanhamento:** como cada etapa carrega o próprio [tempo médio](/guides/funnels/metrics), quem solicita passa a estimar sozinho. Se a etapa "Em análise" tem média de nove horas e o projeto acabou de entrar nela, a previsão sai sem ninguém perguntar nada.
+
+## Funil gerencial
+
+<Card title="O problema" icon="circle-question">
+A diretoria quer enxergar a operação inteira, mas não opera nada. Um relatório mostra o número; não faz nada quando ele estoura.
+</Card>
+
+**A solução:** um funil cujas colunas são **critérios de visão**, e não etapas de trabalho. O projeto entra e sai por automação.
+
+<Tabs>
+<Tab title="Por faixa de SLA">
+  Colunas: até 10 dias · 10 a 30 dias · mais de 30 dias · resolvido · cancelado.
+
+  Automações de **projeto ocioso em etapa** movem o cartão de faixa em faixa. Ao entrar na faixa mais crítica, uma ação notifica quem precisa saber.
+</Tab>
+
+<Tab title="Por responsável externo">
+  Colunas: aguardando início · em análise · em atendimento · pendente com o cliente · resolvido.
+
+  Serve para acompanhar demandas de terceiros sem expor o funil operacional.
+</Tab>
+
+<Tab title="Por departamento">
+  Uma coluna por área, cada uma mostrando o que interessa daquela área para a diretoria.
+
+  É o painel executivo — com a diferença de que cada coluna aceita gatilho de ação.
+</Tab>
+</Tabs>
+
+<Tip>
+A diferença entre este padrão e um relatório é que **cada etapa aqui tem métrica e gatilho**. O indicador estourou? A plataforma aplica a etiqueta, escala o caso e avisa o responsável — em vez de esperar alguém reparar na barra vermelha.
+</Tip>
+
+## Esteira de agentes
+
+<Card title="O problema" icon="circle-question">
+Vários agentes de IA precisam rodar em sequência sobre o mesmo projeto, e cada um demora um tempo diferente.
+</Card>
+
+**A solução:** um funil separado, sem acesso para a operação, com uma etapa por agente. O projeto entra por automação, percorre a esteira e volta para o funil operado.
+
+<Steps>
+<Step title="Crie o funil da esteira">
+  Uma etapa por agente. Ninguém da operação tem acesso — não há interação humana ali.
+</Step>
+
+<Step title="Um assistente por etapa">
+  Cada [assistente de etapa](/guides/funnels/step-assistants) roda ao entrar na etapa e grava o resultado **em um campo de formulário**, não no conteúdo.
+</Step>
+
+<Step title="Encadeie pelo campo, não pelo tempo">
+  A automação que move para a próxima etapa usa o gatilho **Formulário editado**, restrito ao campo que o agente acabou de preencher.
+</Step>
+
+<Step title="Devolva ao funil operado">
+  Na última etapa, uma automação traz o projeto de volta para a etapa de revisão humana.
+</Step>
+</Steps>
+
+<Warning>
+Encadear por **tempo ocioso** parece mais simples e é frágil: se um agente responde em vinte segundos hoje e em três minutos amanhã, o cartão avança antes de a saída existir. Encadear pelo **preenchimento do campo** não tem esse problema.
+</Warning>
+
+### Agentes especialistas, não um agente grande
+
+A montagem que reduz erro é contraintuitiva: em vez de um agente que faz tudo, vários agentes estreitos em sequência, cada um gravando a própria conclusão em um campo.
+
+E o agente final — o que decide — **não relê o material original**. Ele lê apenas as saídas dos anteriores. Isso reduz a chance de resposta inventada e o custo em créditos ao mesmo tempo.
+
+<Note>
+O agente não tem memória entre execuções. Cada projeto que chega é a primeira vez para ele — o que torna a divisão em etapas especialistas ainda mais importante.
+</Note>
+
+## Catálogo de serviço por papel
+
+<Card title="O problema" icon="circle-question">
+Pessoas precisam pedir coisas a outros departamentos, mas não devem ver o funil de quem executa. Hoje elas mandam e-mail.
+</Card>
+
+**A solução:** [solicitações](/guides/forms/requests) liberadas por papel. Cada pessoa vê apenas a lista de serviços que o papel dela pode pedir, e abre a demanda sem nenhum acesso ao processo que a atende.
+
+O retorno vai pelo mesmo caminho: automações avisam o solicitante do andamento, por conteúdo, e-mail ou canal externo.
+
+## Aprovação por etiqueta
+
+<Card title="O problema" icon="circle-question">
+Uma demanda pode surgir **em qualquer momento** do fluxo — pedir apoio ao gerente, acionar um revisor, solicitar uma exceção. Por isso ela não cabe em uma etapa fixa.
+</Card>
+
+**A solução:** um funil próprio para quem atende, acionado por **etiqueta** em vez de movimentação.
+
+<Steps>
+<Step title="Crie as etiquetas do ciclo">
+  Por exemplo: `Revisão solicitada`, `Revisão devolvida`, `Revisão aprovada`.
+</Step>
+
+<Step title="Crie o funil de quem atende">
+  Duas ou três etapas bastam: aguardando · em análise · resolvido.
+</Step>
+
+<Step title="Ligue por gatilho de etiqueta">
+  A automação usa o gatilho **Etiqueta vinculada a um projeto** e coloca o projeto na primeira etapa do funil de atendimento.
+</Step>
+
+<Step title="Defina o SLA do atendimento">
+  Um gatilho de ocioso na etapa de espera cobra quem precisa responder, pelo canal que ele usa.
+</Step>
+</Steps>
+
+<Note>
+Este padrão funciona porque a etiqueta aplicada é **visível em todos os funis** onde o projeto está — e pode disparar automação a partir de qualquer um deles. É um caminho de intersecção que não passa por movimentação de cartão.
+</Note>
+
+<Warning>
+Aplicar uma etiqueta **não abre um formulário** para quem aplicou. Se o pedido precisa vir acompanhado de informação, o formulário tem de estar na etapa de destino ou ser anexado por automação como formulário avulso.
+</Warning>
+
+## Restrição cruzada entre funis
+
+<Card title="O problema" icon="circle-question">
+Um negócio avança até o fim no comercial enquanto o financeiro nunca liberou o cadastro do cliente.
+</Card>
+
+**A solução:** uma [restrição de decisão](/guides/funnels/restrictions) na etapa do comercial, com um filtro salvo que consulta informação de **outro** funil. A restrição é configurada no funil onde ela trava, mas o filtro não está limitado a ele.
+
+## Dependência hierárquica nos dois sentidos
+
+<Card title="O problema" icon="circle-question">
+A entrega só deveria avançar quando todas as subtarefas terminarem — ou o contrário: a subtarefa só deveria começar quando o projeto pai chegar em determinada fase.
+</Card>
+
+**A solução:** restrição de decisão com **escopo de hierarquia**, escolhendo descendentes ou ancestrais e a profundidade.
+
+<Note>
+A regra é dura em um sentido e generosa no outro: a restrição só aprova se **todos** os projetos do escopo atenderem ao filtro — mas, se **não houver ninguém** no escopo, ela é considerada atendida. Um projeto sem filhos passa por uma restrição de descendentes.
+</Note>
+
+## Etapa de entrada sem ação
+
+<Card title="O problema" icon="circle-question">
+O projeto nasce vazio e a primeira automação dispara antes de qualquer informação existir.
+</Card>
+
+**A solução:** sempre ter uma primeira etapa sem ação automática, e uma última.
+
+O projeto precisa existir antes de o formulário obrigatório poder ser preenchido. Uma etapa de entrada dá esse espaço — e é também onde o backlog naturalmente se acumula.
+
+## Etapa própria para cada exceção que você quer contar
+
+<Card title="O problema" icon="circle-question">
+Quando a triagem automática não consegue classificar, o cartão fica preso na etapa da automação e polui a contagem dela.
+</Card>
+
+**A solução:** uma etapa própria para o caso — "Necessidade humana", "Transbordo", "Revisão manual".
+
+A regra geral vale além deste caso: **toda exceção que você quer medir precisa da própria etapa**. Se a exceção acontece "no mesmo lugar" do fluxo normal, você perde a métrica dela e ainda distorce a métrica da etapa que a hospeda.
+
+<Tip>
+O mesmo raciocínio serve para a etapa de falha dos [assistentes de etapa](/guides/funnels/step-assistants): apontar a falha para uma etapa de revisão manual transforma o erro em fila de trabalho, em vez de deixar projetos travados sem ninguém perceber.
+</Tip>
+
+## Campo oculto como saída de emergência
+
+<Card title="O problema" icon="circle-question">
+Alguém moveu o projeto para o lugar errado e a restrição não deixa voltar. Corrigir exige desfazer a regra, mover e recriar a regra — dependendo sempre de quem sabe mexer na configuração.
+</Card>
+
+**A solução:** um campo de formulário — uma lista ou uma seleção — **visível apenas para quem administra**, com as opções de correção de rota. Uma automação com gatilho de formulário editado lê a resposta e move o projeto.
+
+O padrão vale além da correção de rota: qualquer decisão que só o administrador pode tomar, mas que precisa disparar automação, cabe em um campo oculto.
+
+## Contador para medir retrabalho
+
+<Card title="O problema" icon="circle-question">
+Ninguém sabe quantas vezes uma entrega voltou para correção — e "voltou muito" não é um número.
+</Card>
+
+**A solução:** um campo do tipo contador, incrementado por automação a cada retorno, e opcionalmente somado a uma [meta manual](/guides/goals/automation).
+
+<Note>
+A plataforma já mede parte disso sozinha: nas [métricas de etapa](/guides/funnels/metrics), uma **contagem de entradas maior que o número de projetos** significa que projetos estão voltando. O contador serve quando você precisa do número por projeto, e não por etapa.
+</Note>
+
+## Operação fora da plataforma
+
+<Card title="O problema" icon="circle-question">
+A operação não vai adotar mais um sistema — e insistir custa mais do que o processo vale.
+</Card>
+
+**A solução:** manter todos os pontos de contato no canal que a equipe já usa e deixar a plataforma como motor e painel.
+
+A entrada vem por formulário público, catálogo de solicitações ou [canal de comunicação](/guides/integrations/overview); o retorno sai pelo mesmo canal, por automação; e o gestor acompanha o quadro em tempo real. A operação praticamente não percebe a troca — o que muda é que agora existe registro, métrica e regra.
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Ordem de implantação" icon="list-check" href="/guides/implementation/order">
+  Em que ordem montar tudo isso, e por que a restrição fica quase no fim.
+</Card>
+
+<Card title="Perguntas de descoberta" icon="clipboard-question" href="/guides/implementation/discovery">
+  O roteiro que revela qual destes padrões o caso pede.
+</Card>
+</CardGroup>

@@ -1,0 +1,145 @@
+---
+title: "Perguntas de descoberta"
+description: "Comece pelo indicador e trabalhe de trás para frente — o roteiro de perguntas que antecede a construção do funil"
+keywords: ["descoberta", "discovery", "KPI", "indicador", "levantamento", "implantação", "requisitos"]
+---
+
+A primeira pergunta de uma implantação não é "como você trabalha hoje". É **"quais indicadores você quer medir"**.
+
+A diferença não é retórica. A metodologia convencional levanta o processo como ele é, mapeia os artefatos e, no fim, pergunta o que o gestor gostaria de enxergar — descobrindo tarde demais que o processo desenhado não produz aquele número. Começar pelo indicador inverte isso: você sabe desde o início quais etapas precisam existir para que a medição seja possível.
+
+<Info>
+Quem já implantou um ERP reconhece a lógica: você não começa pelos lançamentos, começa pelo plano de contas e pelo DRE que o cliente quer ver. Depois destrincha a operação.
+</Info>
+
+## Nível empresa
+
+Perguntas que definem a estrutura antes de qualquer funil existir.
+
+<AccordionGroup>
+<Accordion title="Quais indicadores você quer medir?" icon="chart-line">
+  O que o dono da operação quer ver na tela toda manhã. É desta resposta que saem as etapas, as métricas e os gatilhos de gestão.
+</Accordion>
+
+<Accordion title="Qual é a estrutura — matriz e unidades?" icon="sitemap">
+  E, principalmente: as unidades trabalham igual ou diferente?
+
+  A decisão que decorre é entre **um funil compartilhado** e **um funil por unidade**:
+
+  | Desenho | Vantagem | Custo |
+  | --- | --- | --- |
+  | Um funil, cada unidade enxergando só o que é dela | A automação é mantida em um lugar só | Exige acerto fino de acesso |
+  | Um funil por unidade | Cada unidade pode divergir do padrão | Você replica a automação em cada funil |
+
+  A separação se justifica quando uma unidade realmente trabalha de forma diferente das outras. Fora disso, ela cobra manutenção sem entregar nada.
+</Accordion>
+
+<Accordion title="Onde a operação trabalha hoje?" icon="comments">
+  Sistema, e-mail, WhatsApp, papel?
+
+  Se a operação já vive no WhatsApp, o desenho mais barato costuma ser deixá-la lá e usar a plataforma como motor por trás — em vez de exigir que todo mundo mude de ferramenta. Ver [Integrações](/guides/integrations/overview).
+</Accordion>
+
+<Accordion title="Quais sistemas precisam conversar — e quais não precisam?" icon="plug">
+  A segunda metade da pergunta é a mais esquecida. Dois sistemas que não trocam dados entre si podem não precisar de integração nenhuma: basta uma convenção comum (o mesmo identificador nos dois) e um assistente de IA consultando os dois pelo [MCP](/guides/mcp/overview).
+</Accordion>
+</AccordionGroup>
+
+## Nível processo
+
+<AccordionGroup>
+<Accordion title="Este funil é de qual camada?" icon="layer-group">
+  Estratégico, tático, operacional ou microatividade. Ver [o modelo mental](/guides/fundamentals/mental-model).
+</Accordion>
+
+<Accordion title="Quem executa cada etapa? São pessoas diferentes?" icon="users">
+  Esta é uma pergunta de qualificação técnica, e vale fazer cedo.
+
+  <Warning>
+  Se **uma única pessoa executa todas as etapas**, o ganho de esteira desaparece — sobra o ganho de registro e de métrica, que é real mas bem menor. A plataforma rende mais onde existe passagem de bastão entre pessoas ou áreas.
+  </Warning>
+</Accordion>
+
+<Accordion title="Quem precisa saber do andamento sem executar nada?" icon="eye">
+  A resposta vira [etapa espelho](/guides/implementation/design-patterns): etapas sem execução, no funil de quem solicita, refletindo o andamento do funil de quem faz.
+</Accordion>
+
+<Accordion title="Para onde o projeto salta quando sai daqui?" icon="arrow-right-arrow-left">
+  São as intersecções. Cada uma vira uma automação de **Colocar projeto em etapa** apontando para outro funil.
+</Accordion>
+
+<Accordion title="Há dependência entre pai e filhos? Em qual direção?" icon="diagram-project">
+  O pai só avança quando todos os filhos terminarem? Ou o filho só avança quando o pai chegar em determinada etapa?
+
+  As duas direções são possíveis com [restrição de decisão e escopo de hierarquia](/guides/funnels/restrictions).
+</Accordion>
+</AccordionGroup>
+
+## Nível etapa
+
+Para cada etapa, na ordem:
+
+<Steps>
+<Step title="O que acontece aqui?">
+  Uma tarefa executada, um retorno de feedback, uma distribuição para outros funis, ou apenas uma entrada.
+</Step>
+
+<Step title="Precisa de pré-requisito?">
+  Vira checklist, campo obrigatório ou restrição de saída.
+</Step>
+
+<Step title="Vale cronometrar o trabalho?">
+  Se o tempo gasto aqui vira custo, habilite a [execução](/guides/funnels/execution).
+</Step>
+
+<Step title="Tem meta?">
+  Quantitativa, qualitativa ou financeira. Ver [Metas](/guides/goals/overview).
+</Step>
+
+<Step title="Qual é o tempo tolerável antes de cobrar?">
+  Vira o gatilho de **projeto ocioso em etapa**.
+</Step>
+</Steps>
+
+## Nível dado
+
+O levantamento que alimenta os formulários.
+
+<Tip>
+O pedido mais produtivo desta fase é simples: **peça todos os documentos que a equipe preenche hoje**. Planilhas de controle, formulários em Word, briefings, fichas, checklists de conferência. Cada um é candidato a virar um formulário dinâmico.
+</Tip>
+
+Depois, para cada informação levantada, decida onde ela mora:
+
+| A informação vale... | Vai no formulário |
+| --- | --- |
+| Para todo registro daquele tipo, em qualquer processo | De **objeto** (projeto, cliente, contato ou usuário) |
+| Do começo ao fim daquele processo | Do **funil** |
+| Só naquele momento do processo | Da **etapa** |
+| Só naquele caso específico, por exceção | **Avulso** |
+
+Ver [Formulários dinâmicos](/guides/forms/overview) para o detalhe de cada nível.
+
+## Nível pessoas — por último
+
+<AccordionGroup>
+<Accordion title="Quem pode ver receita e custo?" icon="eye-slash">
+  Receita é campo nativo do projeto, e a visibilidade dela é configurada por papel e pela configuração do cartão. É comum que a equipe de execução não deva ver o valor vendido.
+</Accordion>
+
+<Accordion title="Quem só abre solicitação e não vê o funil?" icon="inbox">
+  Vira um [catálogo de solicitações por papel](/guides/forms/requests): a pessoa pede sem ter acesso ao processo que executa.
+</Accordion>
+
+<Accordion title="Quem configura e quem só executa?" icon="gear">
+  A permissão de editar funil é o que separa os dois — e é também o que muda o [tipo de papel](/guides/users/role-types) e o custo da licença.
+</Accordion>
+</AccordionGroup>
+
+## Uma decisão que economiza resistência
+
+Vale decidir cedo se a implantação vai **mudar a forma de trabalhar** ou apenas **capturar o que já acontece**.
+
+Implantar sem exigir mudança cultural é consideravelmente mais barato: em vez de treinar a equipe em uma ferramenta nova, você mantém o canal onde ela já está — WhatsApp, formulário público, catálogo de solicitações — e coloca a plataforma como motor invisível. O gestor ganha a visão em tempo real; a operação quase não percebe a troca.
+
+Nem sempre é possível. Mas quando é, é a diferença entre uma implantação de semanas e um projeto de mudança organizacional.
