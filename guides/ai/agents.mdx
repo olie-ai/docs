@@ -1,0 +1,164 @@
+---
+title: "Agentes de IA"
+description: "A base de conhecimento e as ferramentas que os assistentes usam — e a auditoria de cada execução, com tokens, latência e custo"
+keywords: ["agente de IA", "agente", "modelo", "ferramentas", "contexto", "prompt", "execução", "auditoria", "IA"]
+---
+
+Um **agente de IA** é a base: o modelo que será usado, as ferramentas que ele pode acionar, as instruções que definem o papel dele e os documentos que servem de referência.
+
+<Warning>
+**O agente de IA sozinho não executa nada.** Quem executa é o [assistente de etapa](/guides/funnels/step-assistants), que aponta para um agente e acrescenta a instrução específica, o momento de rodar e o destino da saída.
+</Warning>
+
+Essa separação existe para permitir reuso: um agente serve a vários assistentes. **A base de conhecimento fica no agente; o que muda de um assistente para outro é a instrução.**
+
+## Criar um agente
+
+Em **Ajustes → Agentes de IA**.
+
+| Campo | O que define |
+| --- | --- |
+| **Nome** | Como o agente aparece nas listas |
+| **Descrição** | Controle interno. **Não entra nas instruções do modelo** |
+| **Modelo padrão** | Qual modelo o agente usa por padrão |
+| **Ferramentas** | O que ele pode acionar além de gerar texto |
+| **Instruções para o agente** | O contexto inicial de todas as interações — o papel, o tom, o que nunca fazer |
+| **Contextos** | Documentos e textos de referência, em aba própria |
+
+<Tip>
+Escreva as **instruções para o agente** como definição de papel, não como tarefa. "Você é um analista de suporte experiente; seja conciso; nunca invente informação que não esteja no chamado" é instrução de agente. "Classifique este chamado" é instrução de assistente.
+</Tip>
+
+## Escolher o modelo
+
+A lista de modelos vem com busca e filtros por capacidade:
+
+<CardGroup cols={2}>
+<Card title="Filtros disponíveis" icon="filter">
+  Todos os modelos · Modelos com ferramentas · Modelos com raciocínio · Modelos que realizam buscas na internet.
+</Card>
+
+<Card title="O que cada modelo aceita" icon="circle-info">
+  Ícones indicam a entrada aceita (texto, imagem, arquivo) e os recursos (ferramentas, saídas estruturadas, busca na internet, raciocínio).
+</Card>
+</CardGroup>
+
+Cada modelo mostra o **preço em créditos por milhão de tokens**, o que permite comparar antes de escolher.
+
+<Note>
+Alguns modelos aparecem com **Preço variável**. São modelos de seleção automática: o modelo real é escolhido em tempo de execução e o preço acompanha essa escolha. Ver [perfis de seleção automática](/guides/billing/ai-credits).
+</Note>
+
+<Warning>
+Nem todo modelo aceita todas as ferramentas. Se o agente precisa de busca na internet ou de chamada de ferramenta, filtre a lista por essa capacidade antes de escolher — caso contrário a ferramenta configurada simplesmente não será usada.
+</Warning>
+
+## Ferramentas
+
+Ferramentas são o que permite ao agente **consultar e agir** na plataforma, em vez de apenas gerar texto: buscar detalhes de um projeto, listar e filtrar projetos, consultar usuário, mover projeto de etapa, criar ou clonar projeto, pesquisar na internet.
+
+<Warning>
+Cada ferramenta acionada é uma ida a mais ao modelo. Isso **aumenta o tempo e o custo** da execução. Habilite apenas o que o agente precisa para a tarefa dele.
+</Warning>
+
+## Contextos
+
+A aba **Contextos** guarda o material de referência do agente. Cada contexto é de um dos dois tipos:
+
+| Tipo | Para que serve |
+| --- | --- |
+| **Texto** | Regras, definições, exemplos escritos direto na plataforma |
+| **Arquivo** | Documentos que servem de base — manual, política, modelo de saída |
+
+<Tip>
+Um exemplo do formato de saída esperado, anexado como contexto, costuma render mais do que uma instrução longa descrevendo esse formato.
+</Tip>
+
+## Testar antes de usar
+
+O agente pode ser executado avulso, para afinar o prompt sem gastar movimentação de cartão. É possível usar o **modelo padrão do agente** ou **escolher um modelo para testar**, comparando resultados antes de trocar o padrão.
+
+## Execuções e auditoria
+
+Toda execução fica registrada, e é aqui que a plataforma se diferencia de colar uma chave de API em um script.
+
+A lista de execuções mostra, por linha: **data, agente, modelo, latência, tokens, créditos, status e fatura**.
+
+O detalhe de cada execução traz ainda:
+
+<CardGroup cols={2}>
+<Card title="O que entrou" icon="arrow-right-to-bracket">
+  O **prompt** completo enviado ao modelo.
+</Card>
+
+<Card title="O que saiu" icon="arrow-right-from-bracket">
+  A **resposta** gerada, o status e o erro, quando houver.
+</Card>
+
+<Card title="Quanto custou" icon="coins">
+  Latência, tokens consumidos e créditos debitados, com link para a fatura.
+</Card>
+
+<Card title="Chamadas de ferramenta" icon="wrench">
+  Cada ferramenta acionada, com raciocínio, argumentos, retorno e tokens por etapa.
+</Card>
+</CardGroup>
+
+<Info>
+Essa é a diferença de governança que vale registrar: quem opera o funil vê apenas a saída no formulário ou no conteúdo. Não vê o prompt, não vê o modelo e não consegue alterar a instrução de entrada — porque ela é montada por [sintaxe avançada](/guides/advanced/advanced-syntax) a partir dos dados do projeto.
+</Info>
+
+## Custo
+
+Cada execução consome [créditos de IA](/guides/billing/ai-credits). O que faz o consumo variar:
+
+- O **modelo** escolhido.
+- O **tamanho** da entrada e da resposta.
+- Recursos avançados como **raciocínio** e **busca na internet**.
+- O número de **chamadas de ferramenta**, que multiplicam as idas ao modelo.
+
+<Tip>
+Um agente com gatilho automático roda a cada movimentação — o custo acompanha o volume do funil, não o número de agentes configurados. Antes de ligar um assistente automático em uma etapa movimentada, faça a conta.
+</Tip>
+
+## Como montar agentes que erram menos
+
+<AccordionGroup>
+<Accordion title="Prefira vários agentes especialistas a um agente grande" icon="scissors">
+  Um agente com escopo estreito e instrução curta erra menos que um agente que faz tudo. Cada um grava a conclusão em um campo, e o próximo lê dali.
+</Accordion>
+
+<Accordion title="O agente não tem memória entre execuções" icon="brain">
+  Cada projeto que chega é a primeira vez para ele. Tudo o que ele precisa saber tem de vir do prompt, do contexto ou de uma ferramenta.
+</Accordion>
+
+<Accordion title="Faça o agente final ler resumos, não o material original" icon="layer-group">
+  Quando vários agentes trabalham em sequência, o que decide deve ler apenas as saídas dos anteriores. Reduz a chance de resposta inventada e o custo ao mesmo tempo.
+</Accordion>
+
+<Accordion title="Peça o formato da saída dentro do prompt" icon="align-left">
+  "Responda apenas com uma das opções: baixo, médio, alto" cabe em um campo de seleção. "Analise o caso" não cabe em campo nenhum — e o resultado é descartado silenciosamente.
+</Accordion>
+</AccordionGroup>
+
+Ver [Padrões de desenho](/guides/implementation/design-patterns) para a montagem completa de uma esteira de agentes.
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Assistentes de etapa" icon="wand-magic-sparkles" href="/guides/funnels/step-assistants">
+  Como o agente é acionado em uma etapa e onde a saída é gravada.
+</Card>
+
+<Card title="Créditos de IA" icon="coins" href="/guides/billing/ai-credits">
+  O modelo de consumo e como acompanhar o extrato.
+</Card>
+
+<Card title="MCP" icon="plug" href="/guides/mcp/overview">
+  Conectar a Olie ao ChatGPT e ao Claude, com as suas permissões.
+</Card>
+
+<Card title="Padrões de desenho" icon="shapes" href="/guides/implementation/design-patterns">
+  A esteira de agentes e outras montagens repetíveis.
+</Card>
+</CardGroup>
