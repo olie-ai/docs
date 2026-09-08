@@ -1,0 +1,68 @@
+---
+title: "Solicitações"
+description: "Um catálogo de serviços liberado por papel, para quem precisa pedir sem ter acesso ao funil que executa"
+keywords: ["solicitação", "solicitações", "catálogo de serviço", "pedido", "papel", "chamado interno"]
+---
+
+Uma **solicitação** é um formulário disponível dentro da plataforma para papéis específicos. Quem tem o papel abre o pedido; quem executa recebe o item no funil — sem que o solicitante precise de acesso nenhum a esse funil.
+
+<Info>
+É o recurso que substitui o e-mail interno. Em vez de "manda um e-mail para o financeiro pedindo o reembolso", a pessoa abre a lista de serviços que **o papel dela** pode pedir e preenche o formulário certo.
+</Info>
+
+## Por que ela é liberada por papel
+
+Este é o ponto que diferencia a solicitação de uma publicação pública: **o catálogo de um papel não é o catálogo de outro**.
+
+Um diretor vê solicitação de viagem e aprovação de compra. Um vendedor vê reembolso de despesa com cliente. Alguém da operação vê pedido de material. Cada um enxerga apenas o que faz sentido para a função, e nenhum deles precisa entender como o processo é executado do outro lado.
+
+## Criar uma solicitação
+
+Em **Ajustes → Formulários → Solicitações**, use **Criar Solicitação**.
+
+<Steps>
+<Step title="Escolha os papéis">
+  O campo **Selecione um ou mais papeis para a solicitação** define quem enxerga esta solicitação no catálogo.
+
+  É o campo que não existe na publicação de formulário, e é o coração do recurso.
+</Step>
+
+<Step title="Escolha o formulário">
+  O formulário que a pessoa vai preencher.
+</Step>
+
+<Step title="Configure a criação do projeto">
+  Onde a resposta é gravada, como o nome do projeto é montado e em qual etapa ele nasce — as mesmas opções da [publicação de formulário](/guides/forms/public-forms).
+</Step>
+</Steps>
+
+## Onde o solicitante encontra
+
+O botão **Nova solicitação** fica na barra superior da plataforma, com ícone de envelope. Ao abrir, a pessoa vê apenas as solicitações liberadas para os papéis que ela tem.
+
+<Tip>
+Para alguém que só deve abrir pedidos e nada mais, crie um papel com **apenas** a permissão de criar solicitação. A pessoa entra na plataforma, encontra o botão de nova solicitação e não vê mais nada — nem funis, nem projetos, nem relatórios.
+</Tip>
+
+## O retorno para quem pediu
+
+O solicitante não acompanha o funil, mas isso não significa que ele fique sem resposta. As formas usuais de fechar o ciclo:
+
+| Caminho | Como |
+| --- | --- |
+| **Menção no conteúdo** | Uma automação menciona o solicitante a cada mudança relevante |
+| **E-mail** | A ação de enviar e-mail, com o endereço vindo de um campo do formulário |
+| **Canal externo** | Se houver [integração de comunicação](/guides/integrations/overview), a resposta vai pelo canal que a pessoa já usa |
+| **Etapa espelho** | Para quem tem acesso à plataforma, um funil de acompanhamento sem execução. Ver [padrões de desenho](/guides/implementation/design-patterns) |
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Publicações de formulários" icon="globe" href="/guides/forms/public-forms">
+  A porta de entrada para quem está fora da plataforma.
+</Card>
+
+<Card title="Papéis e permissões" icon="user-shield" href="/guides/users/roles-permissions">
+  Como montar o papel que só abre solicitação.
+</Card>
+</CardGroup>
