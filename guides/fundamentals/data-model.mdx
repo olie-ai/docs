@@ -1,0 +1,169 @@
+---
+title: "Modelo de dados"
+description: "Quantos de cada coisa cabem em cada lugar — o mapa que evita a maior parte dos erros de configuração"
+keywords: ["modelo de dados", "cardinalidade", "estrutura", "entidades", "quantos", "relação"]
+---
+
+Boa parte dos erros de configuração é um erro de cardinalidade: alguém supôs que cabiam vários onde cabe um só. Esta página é o mapa.
+
+## O desenho geral
+
+```text
+Empresa
+ └── Área de negócio ......... 0..N   (agrupa funis; opcional)
+      └── Funil .............. 0..N
+           └── Etapa ......... 1..N   (um funil sem etapas não funciona)
+
+Projeto  ──vincula-se a──►  N funis, ocupando 1 ou mais etapas em cada um
+   │
+   ├── pai / filho / neto / bisneto ..... 4 níveis (0 a 3)
+   ├── Cliente .......................... 1
+   ├── Contatos ......................... N
+   ├── Usuários atribuídos .............. N
+   ├── Grupos de projeto ................ N
+   ├── Conteúdo ......................... 1 linha do tempo, com N canais
+   ├── Caderno .......................... 0 ou 1 (criado sob demanda)
+   └── Formulários ...................... vários, em endereços diferentes
+```
+
+## Empresa e usuário
+
+| Relação | Quantos |
+| --- | --- |
+| Usuário → empresas | **N**, sempre por convite |
+| Empresa → usuários | **N** |
+| Usuário → empresa Personal | **1**, criada automaticamente no cadastro |
+| Usuário → e-mails alternativos (alias) | **N**, com um marcado como principal |
+
+<Note>
+A conta **Personal** tem as mesmas funcionalidades de uma conta empresa. A diferença é que ela não permite adicionar outros usuários.
+</Note>
+
+## Área de negócio e funil
+
+| Relação | Quantos |
+| --- | --- |
+| Área de negócio → funis | **N** |
+| Funil → área de negócio | **0 ou 1** — o campo é opcional |
+
+## Dentro do funil
+
+| Item | Quantos |
+| --- | --- |
+| Etapas | **N**, e pelo menos uma |
+| **Formulário dinâmico do funil** | **1** |
+| Etiquetas | **N** |
+| Status do funil | **N** |
+| Anexos | **N** |
+| Projetos templates habilitados | **N** |
+| Modelos de configuração de cartão | **N**, com no máximo 1 marcado como padrão |
+
+## Dentro da etapa
+
+| Item | Quantos |
+| --- | --- |
+| **Formulário da etapa** | **1** |
+| Checklist | **1 bloco**, com N itens dentro |
+| Anexos | **N** |
+| Vídeo com abertura automática | **1** |
+| Assistentes de etapa | **N** |
+| Automações | **N** |
+| Restrições | **N** |
+| Ordenação automática | **1** propriedade e uma direção |
+
+## Projeto
+
+| Relação | Quantos |
+| --- | --- |
+| Projeto → cliente | **1** |
+| Projeto → contatos | **N** |
+| Projeto → usuários atribuídos | **N** |
+| Projeto → funis | **N** |
+| Projeto → grupos | **N** |
+| Projeto → projeto pai | **0 ou 1** |
+| Projeto → filhos | **N**, em até 4 níveis no total |
+| Projeto → Caderno | **0 ou 1** |
+
+### O que existe uma vez por vínculo com funil
+
+Isto é o que mais confunde. Estes itens **não** pertencem ao projeto — pertencem ao par projeto + funil, e por isso existem uma vez para cada funil em que ele está:
+
+- A **etapa** que ele ocupa naquele funil
+- O **status do funil**
+- A **data de previsão** e o contador de alterações dela
+- As respostas do **formulário do funil** e dos formulários das etapas daquele funil
+
+Ver [o modelo mental](/guides/fundamentals/mental-model).
+
+## Cliente e contato
+
+| Relação | Quantos |
+| --- | --- |
+| Cliente → contatos | **N** |
+| Contato → clientes | **N** |
+| Cliente → formulário de objeto | **1** por conta |
+| Contato → formulário de objeto | **1** por conta |
+
+## Formulários
+
+O ponto que mais gera erro. Um formulário **não pertence a nada** — ele é anexado a lugares, e acumula um conjunto de respostas em cada um.
+
+| Onde | Quantos por registro |
+| --- | --- |
+| Objeto **Projeto** | 1 por conta, valendo para todos os projetos |
+| Objeto **Cliente** | 1 por conta |
+| Objeto **Contato** | 1 por conta |
+| Objeto **Usuário** | 1 por conta |
+| **Funil** | 1 por funil |
+| **Etapa** | 1 por etapa |
+| **Avulso** no projeto | **N**, e o mesmo formulário pode repetir |
+
+Ver [Formulários dinâmicos](/guides/forms/overview) e, para o endereçamento na API, [o pivot](/api-reference/general/form-answer-pivot).
+
+## Etiqueta e status
+
+| | Etiqueta | Status do funil |
+| --- | --- | --- |
+| Quantos por projeto | **N** | **1 por funil** |
+| Onde é criada | No funil | No funil |
+| Onde aparece depois de aplicada | **Em todos os funis** onde o projeto está | **Só naquele funil** |
+| Pode ser conclusivo | Não | Sim |
+
+<Note>
+É por isso que o mesmo item pode estar verde em um funil e vermelho em outro — isso é status — e ao mesmo tempo aparecer como "Urgente" nos dois — isso é etiqueta.
+</Note>
+
+## Agente de IA e assistente
+
+| | Agente de IA | Assistente de etapa |
+| --- | --- | --- |
+| Onde vive | Ajustes → Agentes de IA | Em uma etapa |
+| Executa sozinho | **Não** | Sim |
+| Quantos por etapa | — | **N** |
+| Reutilização | Um agente serve a **N** assistentes | — |
+
+Ver [Agentes de IA](/guides/ai/agents).
+
+## Automação
+
+| Item | Quantos |
+| --- | --- |
+| Gatilhos por automação | **Exatamente 1**, obrigatório |
+| Condições | **N**, opcionais |
+| Ações | **N**, e pelo menos 1 |
+| Encadeamento entre automações | **5 níveis** |
+| Ramificação de condição | **1 nível** |
+
+Ver [Limites e tetos](/guides/fundamentals/limits) para a lista completa de números.
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="O modelo mental" icon="lightbulb" href="/guides/fundamentals/mental-model">
+  Por que o projeto é único e a etapa é onde as regras vivem.
+</Card>
+
+<Card title="Glossário" icon="book-open" href="/guides/fundamentals/glossary">
+  O nome de cada objeto na interface, na documentação e na API.
+</Card>
+</CardGroup>

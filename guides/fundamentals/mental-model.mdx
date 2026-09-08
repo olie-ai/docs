@@ -1,0 +1,167 @@
+---
+title: "O modelo mental da Olie"
+description: "As quatro ideias que sustentam a Olie — o que vale ter em mente antes de desenhar o primeiro processo"
+keywords: ["modelo mental", "conceito", "card vivo", "projeto", "etapa", "esteira", "intersecção", "camadas"]
+---
+
+A Olie se apoia em quatro ideias. Elas reaparecem em praticamente toda a plataforma, e conhecê-las de antemão faz o resto da documentação encaixar rápido.
+
+São quatro, e esta página cobre todas em poucos minutos.
+
+<Info>
+Não é preciso decorar nada aqui. Leia uma vez e siga em frente: as quatro ideias voltam em cada guia, sempre no contexto prático.
+</Info>
+
+## 1. O projeto é único e vive em vários funis
+
+Na Olie, **o projeto é uma entidade única que se vincula a vários funis ao mesmo tempo**, carregando todo o histórico consigo. Quando o trabalho precisa continuar em outro funil, o mesmo projeto passa a viver lá também: ele não é duplicado, não é copiado e não é recriado.
+
+O mesmo item pode ser um chamado no service desk, virar uma oportunidade no comercial e terminar como uma conta a receber no financeiro — sendo, o tempo inteiro, **o mesmo projeto, com o mesmo código**.
+
+<Tip>
+O prefixo do código vem do funil onde o projeto **nasceu**, e não muda quando ele entra em outros. Um projeto criado no funil de prefixo `TS` continua sendo `TS-1` mesmo depois de vinculado ao comercial e ao financeiro.
+</Tip>
+
+### O que é do projeto e o que é do vínculo
+
+Esta é a consequência prática, e vale um minuto de atenção. Algumas informações pertencem ao projeto e valem em todo lugar. Outras pertencem ao **vínculo entre o projeto e um funil específico**, e por isso existem uma vez por funil.
+
+| Pertence ao projeto — um só, vale em qualquer funil | Pertence ao vínculo com cada funil |
+| --- | --- |
+| Código e nome | A etapa que ele ocupa naquele funil |
+| Data de criação | O status do funil |
+| Descrição, impacto, receita esperada | A data de previsão |
+| Cliente e contato vinculados | O formulário do funil e os das etapas daquele funil |
+| Usuários atribuídos | Em quais etapas daquele funil uma etiqueta pode ser aplicada |
+| Status do projeto | |
+| Conteúdo, arquivos e Caderno | |
+| Hierarquia e etiquetas aplicadas | |
+
+O exemplo que fixa a diferença: o mesmo negócio está com o status **Ganho**, em verde, no funil comercial, e com o status **Pendente**, em vermelho, no financeiro. Um projeto, dois status — porque status pertence ao vínculo.
+
+<Warning>
+Não confunda o **status do funil** com o **status do projeto**. O primeiro é criado por você dentro de cada funil e existe uma vez por vínculo. O segundo é um campo global do projeto — em execução, concluído, arquivado ou parado — e vale em qualquer lugar.
+</Warning>
+
+### O cartão é onde tudo se junta
+
+A tabela acima diz onde cada informação **é gravada**. Onde ela **é lida** é mais simples: sempre no mesmo lugar.
+
+**O dado se espalha na coleta e se junta na leitura.** Dez funis coletando, uma tela para ler.
+
+Não importa por qual funil você abre o cartão: as respostas de todos os formulários, o conteúdo, os arquivos, o Caderno, os checklists e as etiquetas estão todos lá. O cartão é o consolidador.
+
+## 2. A etapa é o cérebro, o projeto é a solicitação
+
+A segunda ideia, e a que mais orienta a forma de desenhar.
+
+Na Olie, **a tarefa é a etapa; o projeto é a solicitação que passa por ela**. A etapa não é apenas um estado do trabalho: é onde ficam as regras, a execução e a medição.
+
+Olhe o que vive dentro de uma etapa e não dentro do cartão:
+
+<CardGroup cols={2}>
+<Card title="Regras" icon="shield">
+  [Restrições](/guides/funnels/restrictions) de entrada e saída, [checklists e campos obrigatórios](/guides/funnels/requirements).
+</Card>
+
+<Card title="Execução" icon="bolt">
+  [Automações](/guides/automation/overview) e [assistentes de IA](/guides/funnels/step-assistants) que rodam ao entrar ou ao sair.
+</Card>
+
+<Card title="Apoio" icon="paperclip">
+  [Formulário da etapa](/guides/funnels/steps), [anexos e vídeo de visualização obrigatória](/guides/funnels/attachments).
+</Card>
+
+<Card title="Medição" icon="chart-simple">
+  [Tempo médio, contagem de entradas e o histórico de transições](/guides/funnels/metrics).
+</Card>
+</CardGroup>
+
+Nada disso está no cartão. Tudo está na etapa.
+
+A pergunta que decorre disso, e que vale fazer para cada etapa antes de criá-la:
+
+<Steps>
+<Step title="O que acontece aqui?">
+  É uma tarefa executada por alguém, um retorno de feedback, um ponto de distribuição para outros funis, ou apenas uma entrada?
+</Step>
+
+<Step title="Precisa de pré-requisito?">
+  Existe algo que tem de estar preenchido ou decidido antes de o projeto seguir? Isso vira checklist, campo obrigatório ou restrição.
+</Step>
+
+<Step title="Vale cronometrar?">
+  Se o tempo gasto nesta etapa vira custo, habilite a execução.
+</Step>
+
+<Step title="Tem meta?">
+  Quantitativa, qualitativa ou financeira — ou nenhuma, e é só uma etapa de passagem.
+</Step>
+</Steps>
+
+## 3. Esteira e intersecção: o movimento horizontal e o vertical
+
+Um projeto faz dois movimentos, e vale ter nome para cada um.
+
+<CardGroup cols={2}>
+<Card title="Esteira" icon="arrow-right">
+  O movimento **horizontal**: o projeto anda de etapa em etapa dentro do mesmo funil. É o processo de um time.
+</Card>
+
+<Card title="Intersecção" icon="arrow-down">
+  O movimento **vertical**: o projeto salta para outro funil — outro departamento, outra camada. É a passagem de bastão entre times.
+</Card>
+</CardGroup>
+
+A intersecção é implementada pela ação de automação [**Colocar projeto em etapa**](/guides/automation/actions-projects), que aceita uma etapa de qualquer funil da conta.
+
+E porque o projeto é único, a intersecção não perde nada no caminho: tudo o que foi coletado no funil de origem continua disponível para quem recebe.
+
+## 4. As camadas: estratégico, tático, operacional, microatividade
+
+Além de *o que* acontece, vale pensar em *que altura* cada coisa acontece. A Olie separa as duas ideias.
+
+Funis podem representar camadas da operação, e a [hierarquia de projetos](/guides/projects/project-hierarchy) espelha essa separação:
+
+| Camada | Quem acompanha | Nível na hierarquia |
+| --- | --- | --- |
+| Estratégico | Diretoria | Projeto raiz |
+| Tático | Gerência | Filho |
+| Operacional | Time | Neto |
+| Microatividade | Execução | Bisneto |
+
+<Note>
+A camada da etapa não precisa ser a camada do funil. Um funil operacional pode ter uma etapa estratégica — aquela em que a demanda é distribuída para outras áreas. E um funil tático pode ter etapas puramente operacionais.
+</Note>
+
+Quatro níveis é o limite: raiz, filho, neto e bisneto. Não é uma restrição arbitrária — é onde a leitura gerencial ainda faz sentido. O que precisaria de um quinto nível costuma ser microtarefa, e microtarefa cabe melhor em um checklist.
+
+## O que a Olie deliberadamente não é
+
+Vale dizer o que fica de fora, porque a expectativa errada custa mais do que a funcionalidade ausente.
+
+A Olie não é uma ferramenta de relatório. Um relatório indica **como está** — não o que deve ser feito. E quando a barra fica vermelha, o congestionamento já aconteceu.
+
+A aposta é outra: em vez de um número que alguém precisa olhar, cada etapa carrega a própria métrica **e** o gatilho de ação correspondente. O KPI estourou? A plataforma aplica a etiqueta, move o projeto, avisa o responsável e escala — sem depender de alguém reparar.
+
+Para as consultas e os recortes que cada pessoa quer ver, o caminho é o [MCP](/guides/mcp/overview): você pergunta em linguagem natural e o assistente lê a operação na hora.
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Modelo de dados" icon="sitemap" href="/guides/fundamentals/data-model">
+  Quantos de cada coisa cabem em cada lugar — o mapa que evita a maior parte dos erros de configuração.
+</Card>
+
+<Card title="Glossário" icon="book-open" href="/guides/fundamentals/glossary">
+  O mesmo objeto tem nome diferente na interface, na documentação e na API. Aqui eles se reconciliam.
+</Card>
+
+<Card title="Ordem de implantação" icon="list-check" href="/guides/implementation/order">
+  A sequência de construção que decorre deste modelo, e por que a restrição fica por último.
+</Card>
+
+<Card title="Visão geral dos funis" icon="filter" href="/guides/funnels/overview">
+  A partir daqui, a parte prática: criar o funil, as etapas e as regras.
+</Card>
+</CardGroup>
