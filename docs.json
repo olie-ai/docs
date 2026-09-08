@@ -41,10 +41,22 @@
                 ]
               },
               {
+                "group": "Conceitos fundamentais",
+                "icon": "lightbulb",
+                "pages": [
+                  "guides/fundamentals/mental-model",
+                  "guides/fundamentals/data-model",
+                  "guides/fundamentals/glossary",
+                  "guides/fundamentals/mentions",
+                  "guides/fundamentals/limits"
+                ]
+              },
+              {
                 "group": "Funis e etapas",
                 "icon": "diagram-project",
                 "pages": [
                   "guides/funnels/overview",
+                  "guides/funnels/business-areas",
                   "guides/funnels/creating-funnels",
                   "guides/funnels/steps",
                   "guides/funnels/moving-projects",
@@ -54,14 +66,36 @@
                   "guides/funnels/attachments",
                   "guides/funnels/step-assistants",
                   "guides/funnels/metrics",
-                  "guides/funnels/board-view"
+                  "guides/funnels/board-view",
+                  "guides/funnels/execution"
                 ]
               },
               {
-                "group": "Conceitos fundamentais",
-                "icon": "lightbulb",
+                "group": "Gestão de projetos",
+                "icon": "folder-tree",
                 "pages": [
-                  "guides/fundamentals/mentions"
+                  "guides/projects/overview",
+                  "guides/projects/project-hierarchy",
+                  "guides/projects/project-groups",
+                  "guides/projects/project-templates"
+                ]
+              },
+              {
+                "group": "Formulários dinâmicos",
+                "icon": "clipboard-list",
+                "pages": [
+                  "guides/forms/overview",
+                  "guides/forms/creating-forms",
+                  "guides/forms/public-forms",
+                  "guides/forms/requests",
+                  "guides/forms/loose-forms"
+                ]
+              },
+              {
+                "group": "Conteúdo do projeto",
+                "icon": "comments",
+                "pages": [
+                  "guides/content/overview"
                 ]
               },
               {
@@ -72,34 +106,6 @@
                   "guides/notebook/pages",
                   "guides/notebook/editing",
                   "guides/notebook/automation-and-api"
-                ]
-              },
-              {
-                "group": "Gestão de usuários",
-                "icon": "users",
-                "pages": [
-                  "guides/users/user-management",
-                  "guides/users/roles-permissions",
-                  "guides/users/role-types"
-                ]
-              },
-              {
-                "group": "Cobrança",
-                "icon": "credit-card",
-                "pages": [
-                  "guides/billing/overview",
-                  "guides/billing/subscription-and-licenses",
-                  "guides/billing/payment-methods",
-                  "guides/billing/trial-and-subscription-flow",
-                  "guides/billing/read-only-mode",
-                  "guides/billing/ai-credits"
-                ]
-              },
-              {
-                "group": "Gestão de projetos",
-                "icon": "folder-tree",
-                "pages": [
-                  "guides/projects/project-hierarchy"
                 ]
               },
               {
@@ -149,12 +155,56 @@
                 ]
               },
               {
+                "group": "Inteligência artificial",
+                "icon": "robot",
+                "pages": [
+                  "guides/ai/agents"
+                ]
+              },
+              {
+                "group": "Integrações",
+                "icon": "puzzle-piece",
+                "pages": [
+                  "guides/integrations/overview"
+                ]
+              },
+              {
                 "group": "MCP",
                 "icon": "plug",
                 "pages": [
                   "guides/mcp/overview",
                   "guides/mcp/installation",
                   "guides/mcp/examples"
+                ]
+              },
+              {
+                "group": "Gestão de usuários",
+                "icon": "users",
+                "pages": [
+                  "guides/users/user-management",
+                  "guides/users/roles-permissions",
+                  "guides/users/role-types"
+                ]
+              },
+              {
+                "group": "Cobrança",
+                "icon": "credit-card",
+                "pages": [
+                  "guides/billing/overview",
+                  "guides/billing/subscription-and-licenses",
+                  "guides/billing/payment-methods",
+                  "guides/billing/trial-and-subscription-flow",
+                  "guides/billing/read-only-mode",
+                  "guides/billing/ai-credits"
+                ]
+              },
+              {
+                "group": "Implantação",
+                "icon": "map",
+                "pages": [
+                  "guides/implementation/order",
+                  "guides/implementation/discovery",
+                  "guides/implementation/design-patterns"
                 ]
               },
               {
