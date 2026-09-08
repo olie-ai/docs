@@ -1,0 +1,61 @@
+---
+title: "Grupos de projetos"
+description: "Um agrupamento livre de projetos, independente da hierarquia e dos funis"
+keywords: ["grupo", "grupos", "grupo de projetos", "agrupamento", "visão de grupos"]
+---
+
+Um **grupo de projetos** reúne projetos que fazem sentido juntos, sem que exista relação de pai e filho entre eles e sem depender de estarem no mesmo funil.
+
+<Info>
+Grupo não é hierarquia. Na [hierarquia](/guides/projects/project-hierarchy) um projeto depende de outro; no grupo, eles apenas convivem. Um projeto pode estar em **vários grupos** e continuar tendo o próprio pai.
+</Info>
+
+## Para que serve
+
+Alguns recortes que a hierarquia e o funil não dão:
+
+| Uso | Exemplo |
+| --- | --- |
+| Recorte temporal | Todos os itens de uma sprint, de um mês ou de uma campanha |
+| Recorte por iniciativa | Projetos de áreas diferentes que servem ao mesmo objetivo |
+| Recorte de acompanhamento | Um conjunto que alguém precisa olhar junto, sem mudar o processo de ninguém |
+
+## A visão de Grupos
+
+Na lista de projetos existem três visões: **Quadro**, **Lista** e **Grupos**.
+
+A visão de Grupos mostra os grupos existentes e permite **arrastar um projeto para dentro de um grupo**, o que é a forma mais rápida de montar o agrupamento.
+
+<Note>
+Não confunda com o quadro do funil, que tem as visões **kanban**, **lista** e **calendário**. A visão de Grupos vive na lista de projetos, não no quadro.
+</Note>
+
+## Criar e gerenciar
+
+Os grupos são criados na própria visão de Grupos, com **Criar grupo**, e editados ali mesmo.
+
+<Warning>
+Ao excluir um grupo, **todos os projetos vinculados a ele são desvinculados**. Os projetos continuam existindo — o que se perde é o agrupamento.
+</Warning>
+
+## Grupos no cartão e em automações
+
+O grupo pode ser exibido no cartão pela [configuração do quadro](/guides/funnels/board-view), entre as informações disponíveis.
+
+Em automações, a ação **Vincular ou desvincular grupo** cuida do vínculo.
+
+<Warning>
+Essa ação é uma **alternância**, não uma garantia. Se o projeto já estiver no grupo, ela o **tira**. Quando o que você quer é assegurar a presença no grupo, monte a automação de modo que ela não rode duas vezes sobre o mesmo projeto — ou use uma condição para verificar antes.
+</Warning>
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Hierarquia de projetos" icon="sitemap" href="/guides/projects/project-hierarchy">
+  Quando a relação entre os projetos é de dependência, e não de convivência.
+</Card>
+
+<Card title="O projeto" icon="rectangle-list" href="/guides/projects/overview">
+  Campos nativos e o que mais vive dentro de um projeto.
+</Card>
+</CardGroup>

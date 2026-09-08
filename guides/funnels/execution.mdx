@@ -1,0 +1,127 @@
+---
+title: "Execução e apontamento de tempo"
+description: "Cronometre o trabalho em cada etapa e transforme o tempo apontado em custo do projeto"
+keywords: ["execução", "timesheet", "apontamento", "cronômetro", "tempo", "custo", "valor hora", "play"]
+---
+
+A **execução** é o cronômetro da plataforma. Quando ela está habilitada, quem trabalha em um projeto inicia a contagem, e o tempo apontado vira custo automaticamente.
+
+<Info>
+É o mecanismo que responde "quanto custou este projeto" sem depender de ninguém preencher uma planilha de horas no fim do mês.
+</Info>
+
+## A corrente completa
+
+O apontamento só funciona quando as três pontas estão configuradas. Elas ficam em lugares diferentes, e é comum uma delas ficar de fora.
+
+<Steps>
+<Step title="Habilite a execução no funil">
+  Na configuração do funil, **Permitir execução**.
+
+  <Warning>
+  Se estiver desmarcado no funil, a execução fica desabilitada em **todas as etapas**, independentemente do que cada uma tenha configurado. O funil é a chave geral.
+  </Warning>
+</Step>
+
+<Step title="Habilite a execução na etapa">
+  Na configuração de cada etapa, o mesmo **Permitir execução**. Deixe desmarcado nas etapas de espera, onde ninguém está de fato trabalhando no item.
+</Step>
+
+<Step title="Defina o valor hora do usuário">
+  Em **Ajustes → Usuários**, no cadastro de cada pessoa. É esse valor que o tempo apontado cruza para virar dinheiro.
+
+  Sem ele, o tempo continua sendo registrado — mas não gera custo.
+</Step>
+</Steps>
+
+Com as três pontas prontas, o cartão passa a exibir um botão de **execução** quando está em uma etapa que a permite. A pessoa inicia, trabalha e encerra.
+
+## O valor hora é por pessoa
+
+<Warning>
+O valor hora pertence ao **usuário**, e não à etapa nem ao funil. Não importa em qual projeto ou em qual etapa a pessoa aponta: o custo sempre usa o valor cadastrado no perfil dela.
+</Warning>
+
+A consequência de implantação importa: **não é possível cobrar a hora da mesma pessoa mais caro em um processo do que em outro** pelo apontamento. Se o modelo de negócio exige isso, o cálculo precisa acontecer por fora — em campo de formulário alimentado por automação, ou na integração que consome os dados.
+
+## O que fica registrado
+
+Cada execução guarda quem executou, em qual projeto e em qual etapa, quando começou, quando terminou, o valor hora aplicado e o **motivo do encerramento**:
+
+| Motivo | Quando acontece |
+| --- | --- |
+| `self_stop` | A própria pessoa encerrou |
+| `scheduled_stop` | Encerramento por agendamento |
+| `step_moved` | O projeto foi movido para outra etapa |
+| `step_deleted` | A etapa deixou de existir |
+| `project_deleted` | O projeto foi excluído |
+| `project_template` | O projeto virou modelo |
+
+<Note>
+Mover o cartão de etapa **encerra a contagem sozinho**. Ninguém fica com o cronômetro rodando por esquecimento depois de passar o trabalho adiante.
+</Note>
+
+Horários podem ser corrigidos depois. Quando isso acontece, os horários originais ficam preservados em campos próprios, e a correção exige permissão de edição da execução.
+
+## Execução em automações
+
+A execução aparece nos dois lados de uma automação.
+
+<Tabs>
+<Tab title="Como gatilho">
+  O gatilho **Execução de projeto** dispara quando uma contagem **inicia**, **finaliza** ou nos dois casos, em uma etapa específica ou em qualquer uma.
+
+  Serve para reagir ao começo real do trabalho, e não à movimentação do cartão. Ver [Gatilhos](/guides/automation/triggers).
+</Tab>
+
+<Tab title="Como ação">
+  A ação **Controlar execução de projeto** inicia ou pausa a contagem para o usuário que disparou o gatilho, para uma lista escolhida, ou para uma lista calculada por expressão.
+
+  Ver [Ações: comunicação, IA e execução](/guides/automation/actions-integrations).
+</Tab>
+</Tabs>
+
+<Tip>
+A combinação "gatilho de execução iniciada" com "ação de pausar execução para o usuário que disparou" é a receita para **garantir uma execução por vez**: quando a pessoa começa a trabalhar em um item, o cronômetro do anterior é encerrado sozinho.
+</Tip>
+
+<Warning>
+A opção **usuário que disparou o gatilho** exige que o disparo tenha vindo de uma pessoa. Em automações por agendamento — projeto ocioso ou data atingida — não existe usuário causador, e a ação registra `invalid_causer_type`.
+</Warning>
+
+## Onde ver os números
+
+<CardGroup cols={2}>
+<Card title="No projeto" icon="rectangle-list">
+  O painel de execuções consolida o tempo total investido, o número de sessões, a duração média e a distribuição por funil, etapa e pessoa.
+</Card>
+
+<Card title="Por pessoa" icon="user-clock">
+  Cada usuário acompanha as próprias execuções: a que está em andamento, as recentes, o tempo trabalhado e o tempo ocioso no período.
+</Card>
+</CardGroup>
+
+<Note>
+O valor hora só aparece para quem tem permissão de acesso a custos. Quem não tem enxerga o tempo, mas não o dinheiro.
+</Note>
+
+## Custo de operação e custo de licença
+
+São coisas diferentes e é fácil misturar:
+
+| | O que é |
+| --- | --- |
+| **Custo da execução** | Quanto o trabalho naquele projeto custou, em horas × valor hora. É gestão de operação |
+| **Custo da licença** | Quanto a conta paga por cada assento de usuário. É [cobrança](/guides/billing/subscription-and-licenses) |
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Etapas do funil" icon="columns-3" href="/guides/funnels/steps">
+  Onde a execução é habilitada, junto com as demais configurações da etapa.
+</Card>
+
+<Card title="Métricas e tempo por etapa" icon="chart-line" href="/guides/funnels/metrics">
+  O tempo de permanência do projeto, que é diferente do tempo apontado por pessoas.
+</Card>
+</CardGroup>

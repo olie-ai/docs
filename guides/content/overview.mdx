@@ -1,0 +1,119 @@
+---
+title: "Conteúdo do projeto"
+description: "A linha do tempo de cada projeto: mensagens, arquivos, áudios, logs e os canais que separam o que é interno do que vai para fora"
+keywords: ["conteúdo", "canal", "canais", "linha do tempo", "logs", "histórico", "arquivos", "chat"]
+---
+
+Cada projeto tem uma aba **Conteúdo**: o registro cronológico de tudo o que foi dito, enviado e feito nele. É o lugar que substitui a troca de e-mail interno e concentra a comunicação de um assunto em um lugar só.
+
+<Info>
+Como o projeto é único e vive em vários funis, o conteúdo é único também. O que foi escrito pelo funil comercial está visível para quem abre o mesmo projeto pelo funil financeiro.
+</Info>
+
+## O que entra no conteúdo
+
+<CardGroup cols={2}>
+<Card title="Mensagens" icon="message">
+  Texto escrito por pessoas, com [menções](/guides/fundamentals/mentions) que notificam quem foi citado.
+</Card>
+
+<Card title="Arquivos e áudios" icon="paperclip">
+  Enviados diretamente no projeto, e listados também no botão **Arquivos** do cartão.
+</Card>
+
+<Card title="Logs" icon="clock-rotate-left">
+  O registro automático do que aconteceu: movimentações, vínculos, alterações e execuções de automação, com autor e horário.
+</Card>
+
+<Card title="Saída de automações e agentes" icon="robot">
+  Mensagens publicadas pela ação **Envia conteúdo do projeto** e resultados de [assistentes de etapa](/guides/funnels/step-assistants) configurados para gravar no conteúdo.
+</Card>
+</CardGroup>
+
+O filtro no topo da aba separa as três coisas: tudo, apenas conteúdo enviado por pessoas, ou apenas logs.
+
+<Tip>
+A leitura do histórico é **de baixo para cima**: o registro mais antigo fica embaixo. Quando estiver investigando por que um projeto foi parar em algum lugar, comece pelo fim da lista.
+</Tip>
+
+## Conteúdo e Caderno não são a mesma coisa
+
+Os dois guardam texto no projeto, e a escolha entre eles não é de gosto.
+
+| | Conteúdo do projeto | [Caderno](/guides/notebook/overview) |
+| --- | --- | --- |
+| Formato | Registros em ordem cronológica | Páginas e subpáginas, editadas no lugar |
+| Ao atualizar | Um registro novo é acrescentado | A página é reescrita e vira uma nova versão |
+| Menções | Sim | Não |
+| Onde existe | Só no projeto | Projeto, cliente, contato e usuário |
+| Automação alcança | Sim | Não |
+
+A regra prática: se a informação **acontece** — respondi o cliente, subiu o arquivo, o prazo mudou —, é conteúdo. Se ela **vale enquanto ninguém mudar** — o escopo é este, a decisão foi essa —, é Caderno.
+
+## Canais
+
+Por padrão, tudo é publicado no canal principal do projeto, misturado na mesma linha do tempo. Canais permitem separar o que precisa ficar separado.
+
+<Note>
+**Canais** é liberado por conta. Enquanto o recurso não estiver ativo na sua, a criação e a seleção de canais nomeados não aparecem — o conteúdo do projeto continua funcionando na linha única.
+</Note>
+
+<Tabs>
+<Tab title="Canal principal">
+  O padrão. A mensagem é publicada solta no conteúdo, como qualquer outro registro.
+</Tab>
+
+<Tab title="Canal interno nomeado">
+  Um canal com nome, que separa aquele tipo de registro do resto. Serve para tirar o ruído automático de perto da conversa da equipe — um canal "Log de automações" mantém os avisos do sistema fora do fio principal.
+
+  <Note>
+  Quando uma automação publica em um canal interno que ainda não existe no projeto, **o canal é criado na hora**.
+  </Note>
+</Tab>
+
+<Tab title="Linha externa">
+  A mensagem sai da plataforma por uma [integração de comunicação](/guides/integrations/overview), abrindo ou reaproveitando uma conversa com alguém de fora — normalmente o cliente.
+
+  Este destino só aparece quando existe alguma integração de comunicação ativa na conta.
+</Tab>
+</Tabs>
+
+Ver [Ações: comunicação, IA e execução](/guides/automation/actions-integrations) para as opções completas da ação que publica no conteúdo.
+
+<Warning>
+Quando um projeto tem **mais de um canal externo**, a ação de enviar conteúdo escolhe por qual sair pela **configuração da automação** — e não pela origem da conversa que está sendo respondida. Em funis que recebem por mais de um número ou endereço, nomeie os canais e aponte a automação para o canal certo.
+</Warning>
+
+## Arquivos do projeto
+
+O botão **Arquivos** do cartão reúne tudo o que foi enviado **naquele projeto**, incluindo arquivos anexados em campos de formulário. A lista é organizada por dia de envio e por quem encaminhou.
+
+<Note>
+Os [anexos do funil e da etapa](/guides/funnels/attachments) **não aparecem aqui**. Eles são material de apoio do processo, não conteúdo do projeto — e ficam acessíveis a partir do funil e da etapa, respectivamente.
+</Note>
+
+## O que a automação alcança
+
+| Operação | Disponível |
+| --- | --- |
+| Publicar no conteúdo | Sim — ação **Envia conteúdo do projeto** |
+| Ler o conteúdo em uma expressão | Sim — consulta `project_medias` na [sintaxe avançada](/guides/advanced/advanced-syntax) |
+| Mencionar pessoas na mensagem | Sim — filtro `mention`. Ver [mencionar usuários com automação](/guides/automation/mention-users) |
+| Ler ou escrever no Caderno | Não. Ver [Caderno em automações e integrações](/guides/notebook/automation-and-api) |
+
+Exemplo de expressão que devolve o conteúdo publicado no projeto:
+
+```twig
+{% set conteudos = query('project_medias', { 'project_code': project.code }) %}
+{{ conteudos.medias|json(true) }}
+```
+
+## Histórico de transições
+
+Além do conteúdo e dos logs, o projeto guarda o **histórico de transições**: por quais etapas ele passou, quando entrou e saiu de cada uma, e quem realizou cada movimento.
+
+É o que responde "por que este item demorou tanto" quando a média da etapa não basta. Ver [métricas e tempo por etapa](/guides/funnels/metrics).
+
+## Uma nota sobre a atualização do quadro
+
+Nem toda alteração feita por outra pessoa aparece na sua tela imediatamente. O quadro atualiza quando você interage com ele — ao mover um cartão, trocar de funil ou usar o botão de atualizar ao lado da lista, que recarrega apenas aquele funil sem recarregar a página inteira.

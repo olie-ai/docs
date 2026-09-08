@@ -1,0 +1,95 @@
+---
+title: "Modelos de projeto"
+description: "Padronize a criação de projetos com campos já preenchidos, nome em formato fixo e o funil configurado para oferecê-los"
+keywords: ["modelo de projeto", "template", "projeto modelo", "padronização", "criar projeto"]
+---
+
+Um **modelo de projeto** é um projeto comum marcado como modelo. Quando alguém cria um item novo a partir dele, o projeto nasce com tudo o que o modelo já tinha preenchido.
+
+Ele resolve dois problemas diferentes: garantir que nada essencial fique de fora na abertura, e padronizar o nome dos itens para que a busca funcione.
+
+## Criar um modelo
+
+<Steps>
+<Step title="Monte um projeto normal">
+  Crie um projeto e preencha nele tudo o que deve vir pronto: descrição, impacto, receita, cliente, contato, responsáveis, respostas de formulário, checklists, páginas do Caderno e conteúdo.
+</Step>
+
+<Step title="Transforme em modelo">
+  Nas ações do projeto, use **alternar projeto modelo**.
+</Step>
+
+<Step title="Ofereça no funil">
+  Vá ao funil, abra a edição e selecione o modelo em **Projetos templates**. É essa configuração que faz o modelo aparecer para quem cria itens naquele funil.
+</Step>
+</Steps>
+
+<Note>
+Um modelo não é oferecido em todos os funis automaticamente. Ele precisa ser selecionado em cada funil onde deve aparecer — o que permite ter modelos diferentes por processo.
+</Note>
+
+## O que vai junto
+
+| Vai | Observação |
+| --- | --- |
+| Campos nativos preenchidos | Impacto, status, receita, descrição, cliente, contato, responsáveis |
+| Respostas de formulário | Incluindo as dos formulários do funil e das etapas |
+| Checklists | Já criados, prontos para marcar |
+| Etapas vinculadas | O projeto pode nascer já posicionado |
+| Caderno | Com todas as páginas e o conteúdo delas |
+| Conteúdo | O que foi publicado na linha do tempo do modelo |
+| Grupos | Os agrupamentos aplicados |
+
+<Tip>
+O Caderno é a parte mais subestimada. Um modelo com o Caderno já montado — briefing padrão, checklist de conferência, ata em branco — economiza a montagem manual em todo projeto novo.
+</Tip>
+
+## Nome padronizado com variáveis
+
+No campo de nome do modelo, você pode escrever um padrão usando **variáveis entre chaves duplas**. Cada variável vira um campo que a pessoa preenche na hora de criar o projeto.
+
+```text
+CS - {{descrição}} - {{data da solicitação}}
+```
+
+Quem criar um item a partir desse modelo vai encontrar dois campos para responder — `descrição` e `data da solicitação` — e o nome final será montado com o prefixo `CS - ` fixo.
+
+<Warning>
+Esses campos servem **exclusivamente para montar o nome do cartão**. Eles não puxam campos de formulário existentes e o valor digitado não fica guardado em nenhum outro lugar além do nome.
+</Warning>
+
+**Por que vale a pena mesmo assim:** com o nome padronizado, a busca do quadro passa a funcionar de verdade. Procurar todos os itens que começam com `CS` ou que contenham uma palavra específica deixa de depender da disciplina de cada pessoa.
+
+## Modelo em automação
+
+A ação **Criar projeto** aceita um modelo como base, e nesse caso o projeto criado herda tudo o que o modelo tem. É como se monta, por exemplo, um onboarding completo disparado pela entrada de um cliente novo.
+
+Ver [Ações: cadastros e pessoas](/guides/automation/actions-records) e [Hierarquia de projetos automatizada](/guides/automation/automated-hierarchy).
+
+## Modelo e permissão
+
+A janela de criação de projeto tem dois lados: criar livremente e criar a partir de um modelo. **São duas permissões separadas.**
+
+<Tip>
+Deixar a operação apenas com a permissão de criar a partir de modelo é a forma mais simples de garantir que todo item novo entre no funil com as informações mínimas — sem depender de treinamento nem de cobrança.
+</Tip>
+
+## Quando usar modelo e quando usar clone
+
+| Situação | Caminho |
+| --- | --- |
+| Todo item daquele tipo começa igual | **Modelo de projeto** |
+| Cada caso parte de um anterior parecido, com ajustes | **Clonar** um projeto existente |
+| A abertura precisa acontecer sozinha, disparada por um evento | **Automação** com a ação Criar projeto |
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="O projeto" icon="rectangle-list" href="/guides/projects/overview">
+  Campos nativos, formas de criar e o que pertence ao projeto.
+</Card>
+
+<Card title="Criar e configurar um funil" icon="filter" href="/guides/funnels/creating-funnels">
+  Onde os modelos são selecionados para aparecer no funil.
+</Card>
+</CardGroup>
