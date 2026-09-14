@@ -47,7 +47,6 @@
                   "guides/fundamentals/mental-model",
                   "guides/fundamentals/data-model",
                   "guides/fundamentals/glossary",
-                  "guides/fundamentals/mentions",
                   "guides/fundamentals/limits"
                 ]
               },
@@ -64,20 +63,31 @@
                   "guides/funnels/requirements",
                   "guides/funnels/tags-and-status",
                   "guides/funnels/attachments",
-                  "guides/funnels/step-assistants",
                   "guides/funnels/metrics",
                   "guides/funnels/board-view",
                   "guides/funnels/execution"
                 ]
               },
               {
-                "group": "Gestão de projetos",
+                "group": "Projetos",
                 "icon": "folder-tree",
                 "pages": [
                   "guides/projects/overview",
                   "guides/projects/project-hierarchy",
                   "guides/projects/project-groups",
-                  "guides/projects/project-templates"
+                  "guides/projects/project-templates",
+                  "guides/content/overview",
+                  "guides/fundamentals/mentions",
+                  {
+                    "group": "Caderno",
+                    "icon": "book",
+                    "pages": [
+                      "guides/notebook/overview",
+                      "guides/notebook/pages",
+                      "guides/notebook/editing",
+                      "guides/notebook/automation-and-api"
+                    ]
+                  }
                 ]
               },
               {
@@ -89,23 +99,6 @@
                   "guides/forms/public-forms",
                   "guides/forms/requests",
                   "guides/forms/loose-forms"
-                ]
-              },
-              {
-                "group": "Conteúdo do projeto",
-                "icon": "comments",
-                "pages": [
-                  "guides/content/overview"
-                ]
-              },
-              {
-                "group": "Caderno",
-                "icon": "book",
-                "pages": [
-                  "guides/notebook/overview",
-                  "guides/notebook/pages",
-                  "guides/notebook/editing",
-                  "guides/notebook/automation-and-api"
                 ]
               },
               {
@@ -149,7 +142,8 @@
                     "pages": [
                       "guides/automation/mention-users",
                       "guides/automation/relative-time",
-                      "guides/automation/automated-hierarchy"
+                      "guides/automation/automated-hierarchy",
+                      "guides/advanced/advanced-syntax"
                     ]
                   }
                 ]
@@ -158,44 +152,51 @@
                 "group": "Inteligência artificial",
                 "icon": "robot",
                 "pages": [
-                  "guides/ai/agents"
+                  "guides/ai/agents",
+                  "guides/funnels/step-assistants"
                 ]
               },
               {
                 "group": "Integrações",
                 "icon": "puzzle-piece",
                 "pages": [
-                  "guides/integrations/overview"
+                  "guides/integrations/overview",
+                  {
+                    "group": "MCP",
+                    "icon": "plug",
+                    "pages": [
+                      "guides/mcp/overview",
+                      "guides/mcp/installation",
+                      "guides/mcp/examples"
+                    ]
+                  }
                 ]
               },
               {
-                "group": "MCP",
-                "icon": "plug",
+                "group": "Conta",
+                "icon": "building",
                 "pages": [
-                  "guides/mcp/overview",
-                  "guides/mcp/installation",
-                  "guides/mcp/examples"
-                ]
-              },
-              {
-                "group": "Gestão de usuários",
-                "icon": "users",
-                "pages": [
-                  "guides/users/user-management",
-                  "guides/users/roles-permissions",
-                  "guides/users/role-types"
-                ]
-              },
-              {
-                "group": "Cobrança",
-                "icon": "credit-card",
-                "pages": [
-                  "guides/billing/overview",
-                  "guides/billing/subscription-and-licenses",
-                  "guides/billing/payment-methods",
-                  "guides/billing/trial-and-subscription-flow",
-                  "guides/billing/read-only-mode",
-                  "guides/billing/ai-credits"
+                  {
+                    "group": "Gestão de usuários",
+                    "icon": "users",
+                    "pages": [
+                      "guides/users/user-management",
+                      "guides/users/roles-permissions",
+                      "guides/users/role-types"
+                    ]
+                  },
+                  {
+                    "group": "Cobrança",
+                    "icon": "credit-card",
+                    "pages": [
+                      "guides/billing/overview",
+                      "guides/billing/subscription-and-licenses",
+                      "guides/billing/payment-methods",
+                      "guides/billing/trial-and-subscription-flow",
+                      "guides/billing/read-only-mode",
+                      "guides/billing/ai-credits"
+                    ]
+                  }
                 ]
               },
               {
@@ -205,13 +206,6 @@
                   "guides/implementation/order",
                   "guides/implementation/discovery",
                   "guides/implementation/design-patterns"
-                ]
-              },
-              {
-                "group": "Avançado",
-                "icon": "gear",
-                "pages": [
-                  "guides/advanced/advanced-syntax"
                 ]
               }
             ]
