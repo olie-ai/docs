@@ -28,6 +28,11 @@ Procura projetos com "onboarding" no nome e me diz em que etapa cada um está.
 ```text Filtrar por responsável
 Lista os projetos em andamento sob responsabilidade da Ana, ordenados por impacto.
 ```
+
+```text Ler um formulário
+Quais formulários o projeto ABC-142 tem? Me mostra as respostas do
+formulário "Qualificação".
+```
 </CodeGroup>
 
 <Note>
@@ -145,7 +150,16 @@ módulo fiscal antes de assinar."
 Cria um projeto novo clonando o ABC-100, com o nome "Implantação Beta",
 sem copiar o conteúdo antigo.
 ```
+
+```text Preencher um formulário
+No projeto ABC-142, preenche o formulário "Qualificação": segmento
+varejo e 12 funcionários. Depois me mostra como ficou.
+```
 </CodeGroup>
+
+<Note>
+Ao preencher um formulário, só os campos que você citar são alterados. Os demais continuam com o valor que já tinham.
+</Note>
 
 <Note>
 Mover um projeto pelo assistente tem exatamente o mesmo efeito de arrastar o cartão no kanban: a transição entra no histórico e as [automações](/guides/automation/overview) daquela etapa são acionadas.

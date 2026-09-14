@@ -55,7 +55,7 @@ Nem todo modelo aceita todas as ferramentas. Se o agente precisa de busca na int
 
 ## Ferramentas
 
-Ferramentas são o que permite ao agente **consultar e agir** na plataforma, em vez de apenas gerar texto: buscar detalhes de um projeto, listar e filtrar projetos, consultar usuário, mover projeto de etapa, criar ou clonar projeto, pesquisar na internet.
+Ferramentas são o que permite ao agente **consultar e agir** na plataforma, em vez de apenas gerar texto: buscar detalhes de um projeto, listar e filtrar projetos, consultar usuário, mover projeto de etapa, criar ou clonar projeto, consultar e responder formulários dinâmicos, pesquisar na internet.
 
 <Warning>
 Cada ferramenta acionada é uma ida a mais ao modelo. Isso **aumenta o tempo e o custo** da execução. Habilite apenas o que o agente precisa para a tarefa dele.
@@ -103,6 +103,12 @@ O detalhe de cada execução traz ainda:
   Cada ferramenta acionada, com raciocínio, argumentos, retorno e tokens por etapa.
 </Card>
 </CardGroup>
+
+Em **Chamadas de ferramenta**, cada chamada aparece marcada como **executada**, **erro** ou **não executada** (uma chamada que o agente pediu, mas que não chegou a rodar). Quando um agente se comporta mal, é o primeiro lugar a olhar.
+
+<Note>
+Uma execução que termina sem resposta, ou que acaba com o agente ainda pedindo ferramentas, é registrada como **Falhou**. No segundo caso, um aviso acima das chamadas indica que a resposta está incompleta. Os créditos do que o modelo já processou são debitados mesmo assim.
+</Note>
 
 <Info>
 Essa é a diferença de governança que vale registrar: quem opera o funil vê apenas a saída no formulário ou no conteúdo. Não vê o prompt, não vê o modelo e não consegue alterar a instrução de entrada — porque ela é montada por [sintaxe avançada](/guides/advanced/advanced-syntax) a partir dos dados do projeto.
