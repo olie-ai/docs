@@ -28,6 +28,10 @@ Em **Ajustes → Integrações**, com quatro abas:
 </Card>
 </CardGroup>
 
+<Note>
+Ver e configurar integrações depende das permissões do grupo **Integrações** no [papel](/guides/users/roles-permissions): visualizar, criar, editar e remover integrações. Por padrão, só o papel Property recebe essas permissões. Para os demais papéis, marque-as na configuração do papel.
+</Note>
+
 ## Canais de comunicação
 
 Uma integração de comunicação conecta um número ou uma conta externa à plataforma. A partir daí, a conversa acontece **dentro do projeto**, em um canal — e fica registrada na empresa, não no celular de quem atendeu.
@@ -62,7 +66,23 @@ Disponível nos conectores **Evolution** e **WhatsApp hospedado pela Olie**. O *
 
 ### Origem de campanha
 
-Para quem usa anúncios com clique para o WhatsApp, os dados de origem — identificador do clique, ID do anúncio, tipo de origem, título e texto do anúncio — podem ser mapeados para campos de um [formulário](/guides/forms/overview), chegando junto com a conversa.
+Disponível no **WhatsApp Cloud (Meta)**. Quando alguém chega por um anúncio do Facebook ou do Instagram que abre o WhatsApp, a Meta informa de qual anúncio a conversa veio, e a integração pode guardar esses dados no projeto.
+
+<Steps>
+<Step title="Escolha o formulário">
+  Na seção **Origem de campanha** da integração, selecione em **Formulário que recebe os dados** o formulário onde os dados vão ficar. Se ainda não existe um, **Criar formulário com esses campos** cria um com os cinco campos já relacionados.
+</Step>
+
+<Step title="Relacione os campos">
+  Para cada dado do anúncio — identificador do clique, ID do anúncio, tipo de origem, título e texto do anúncio — escolha o campo do formulário que o recebe, ou deixe **Não gravar este campo**.
+</Step>
+</Steps>
+
+Os dados chegam junto com a mensagem vinda do anúncio e são gravados como [formulário avulso](/guides/forms/loose-forms) no projeto da conversa. Se a mesma pessoa voltar depois por outro anúncio, os dados do anúncio mais recente substituem os anteriores.
+
+<Note>
+Sem formulário escolhido, a origem da campanha fica só no **Registro de atividade** da integração. Se a gravação no formulário falhar — por exemplo, porque um campo relacionado foi excluído —, os dados são registrados no conteúdo do projeto para não se perderem.
+</Note>
 
 ### Governança
 

@@ -42,7 +42,9 @@ O painel traz um atalho para os modelos de configuração e três grupos de opç
 </Tab>
 
 <Tab title="Botões do cartão">
-  Quais ações ficam à mão sem precisar abrir o projeto: conteúdo do projeto, etiquetas, adicionar informações, checklists, arquivos, formulários, editar projeto, vínculos, [caderno](/guides/notebook/overview), status do funil, copiar link, execução e histórico de etapas.
+  Quais ações ficam à mão sem precisar abrir o projeto: conteúdo do projeto, etiquetas, adicionar informações, checklists, arquivos, formulários, editar projeto, vínculos, [caderno](/guides/notebook/overview), status do funil, copiar link, execução, histórico de etapas e [resolver conversa](#conversas-aguardando-resposta).
+
+  Todos vêm ligados, menos **Resolver conversa**, que você liga quando o funil recebe conversas por integração.
 
   Existe ainda a opção de **mostrar os botões somente ao passar o mouse sobre o cartão**, que deixa o quadro mais limpo sem perder o acesso rápido.
 </Tab>
@@ -105,6 +107,25 @@ A **barra de informações** pode ser alternada para dar mais espaço às coluna
 <Note>
 Filtrar muda o que você enxerga, não o que existe. Se um cartão "sumiu", o primeiro lugar a verificar é o filtro ativo e o intervalo de datas.
 </Note>
+
+## Conversas aguardando resposta
+
+Quando o projeto conversa com alguém de fora por uma [integração de comunicação](/guides/integrations/overview) e a última mensagem é de quem está do outro lado, o cartão mostra o aviso **Aguardando resposta**, com o tempo desde essa mensagem. O aviso some quando alguém da equipe responde.
+
+Nem toda última mensagem pede resposta: um "obrigado" ou um "tá bom" do cliente deixaria o cartão aceso para sempre. Nesses casos, marque a conversa como resolvida.
+
+| Onde | Como funciona |
+| --- | --- |
+| Menu do cartão | **Marcar como resolvido** aparece enquanto o cartão está aguardando resposta. Depois de resolvida, o mesmo menu passa a oferecer **Reabrir conversa**. |
+| Botão no cartão | Em **Configurações do cartão**, no grupo **Botões do cartão**, ligue **Resolver conversa**. O botão vem desligado, só aparece nos cartões aguardando resposta ou já resolvidos e alterna entre marcar como resolvido e reabrir. |
+
+Marcar como resolvido vale para o projeto inteiro: todas as conversas dele que estavam aguardando resposta são resolvidas de uma vez. As duas ações exigem a permissão de **Editar projetos**.
+
+<Note>
+Resolver não fecha a conversa. Quando o cliente escreve de novo, o aviso volta sozinho, contando a partir da nova mensagem. **Reabrir conversa** existe para desfazer uma marcação feita por engano.
+</Note>
+
+O filtro **Canal aguardando resposta desde** e a ordenação por **Tempo de espera de resposta do canal** seguem a mesma regra do aviso: uma conversa resolvida não aparece como aguardando resposta.
 
 ## Ordenação dos cartões
 

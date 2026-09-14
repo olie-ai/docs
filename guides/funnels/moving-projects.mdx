@@ -41,6 +41,10 @@ Um projeto pode estar em vários funis ao mesmo tempo, e cada funil guarda sua p
   <Note>
   Cada item ainda passa individualmente por todas as verificações. Um lote pode mover uns e recusar outros.
   </Note>
+
+  <Info>
+  Você faz **uma operação em massa por vez**. Enquanto um lote seu ainda está sendo processado — mover cartões selecionados, editar em massa ou adicionar conteúdo em vários projetos —, iniciar outro mostra o aviso **Já existe uma operação em massa em andamento, aguarde para fazer outra.** A trava vale só para você: os colegas continuam trabalhando normalmente.
+  </Info>
 </Tab>
 
 <Tab title="Por automação">
@@ -97,6 +101,7 @@ A ordem importa: a primeira verificação que falhar interrompe a movimentação
 | Informações obrigatórias não preenchidas | Checklist ou campo obrigatório pendente | Preencha o que a mensagem lista e mova de novo |
 | Não foi possível vincular, pois existe um bloqueio de etapa | Status ou etiqueta bloqueia a etapa de destino | Troque o status ou remova a etiqueta, ou revise o bloqueio |
 | A ação não foi concluída por restrições | Uma ou mais restrições reprovaram | A tela mostra quais critérios falharam |
+| Já existe uma operação em massa em andamento | Outro lote seu ainda está sendo processado | Aguarde o primeiro terminar e tente de novo |
 
 <Tip>
 As mensagens de restrição e de itens obrigatórios listam exatamente o que faltou — qual etapa, qual checklist, qual campo. Leia a lista antes de mexer na configuração do funil: quase sempre o ajuste é no projeto, não na regra.
