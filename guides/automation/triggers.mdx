@@ -165,7 +165,7 @@ Combine com a ação [Controlar execução de projeto](/guides/automation/action
 
 ## Conteúdo enviado no projeto
 
-Aciona quando alguém publica um registro no [conteúdo do projeto](/guides/content/overview) — uma resposta que chega por uma integração, um recado interno da equipe ou uma mensagem publicada por outra automação.
+Aciona quando alguém publica um registro no [conteúdo do projeto](/guides/content/overview) — uma resposta que chega por uma integração ou um recado da equipe.
 
 | Opção | Obrigatória | O que faz |
 | --- | --- | --- |
@@ -193,8 +193,12 @@ Com **Linha externa** selecionada, aparece o campo **Integração**. Deixá-lo e
 | **Alguém da equipe** | Só o que sai do seu lado, escrito na Olie ou respondido pelo celular na mesma conta |
 
 <Note>
-Mensagens seguidas viram **um acionamento só**. O gatilho espera alguns segundos depois da primeira mensagem e entrega a sequência inteira para a automação, em vez de rodar uma vez por mensagem. É o que impede que um cliente mandando cinco linhas seguidas dispare cinco vezes a mesma resposta automática.
+Mensagens seguidas viram **um acionamento só**. Cada mensagem nova na mesma conversa reinicia a espera: o gatilho dispara depois de cerca de **20 segundos sem mensagem nova** e entrega a sequência inteira — até 20 mensagens — para a automação, em vez de rodar uma vez por mensagem. É o que impede que um cliente mandando cinco linhas seguidas dispare cinco vezes a mesma resposta automática.
 </Note>
+
+<Warning>
+Conteúdo publicado por uma automação — pela ação [Envia conteúdo do projeto](/guides/automation/actions-integrations#envia-conteúdo-do-projeto), por exemplo — **não aciona** este gatilho. Isso evita que uma automação responda a si mesma sem parar; em troca, automações não se encadeiam por conteúdo.
+</Warning>
 
 <Tip>
 A combinação mais útil é **Linha externa** + **Quem está do outro lado**: aciona só quando o cliente responde, ignorando tudo o que a própria equipe publica. É a base de regras como "cliente respondeu, tire o projeto de Aguardando retorno" ou "cliente respondeu fora do horário, avise o plantão".

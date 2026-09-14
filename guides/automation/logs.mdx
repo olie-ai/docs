@@ -69,7 +69,7 @@ Excluir uma automação apaga o histórico dela. Se você precisa preservar a ev
 </Step>
 
 <Step title="O componente rodou?" icon="list-check">
-  Procure o componente no fluxo de execução. Se ele não aparece, o fluxo não chegou nele: uma condição anterior bloqueou o fluxo, um erro inesperado interrompeu tudo, ou ele está dentro de um ramo que não foi executado.
+  Procure o componente no fluxo de execução. Se ele não aparece, o fluxo não chegou nele: uma condição anterior bloqueou o fluxo, a cadeia de automações atingiu o limite, ou ele está dentro de um ramo que não foi executado.
 </Step>
 
 <Step title="Rodou com sucesso ou com erro?" icon="circle-exclamation">
@@ -134,6 +134,9 @@ Excluir uma automação apaga o histórico dela. Se você precisa preservar a ev
   | `invalid_emails` | Nenhum endereço válido sobrou | Confira a lista ou o resultado da expressão |
   | `webhook_url_not_found_in_options` | O endereço do webhook está vazio | Preencha o endpoint |
   | `template_error` | Uma expressão falhou ao ser processada | Veja [Variáveis](/guides/automation/variables#quando-a-expressão-falha) |
+  | `channel_counterpart_not_found` | O destinatário ficou em branco e o projeto não tem conversa nessa integração | Preencha o destinatário |
+  | `channel_counterpart_ambiguous` | O destinatário ficou em branco e o projeto conversa com mais de um contato nessa integração | Preencha o destinatário para escolher um deles |
+  | `channel_counterpart_unresolved` | A expressão do destinatário não devolveu nada | Confira a variável usada; a ação não recorre à conversa do projeto |
 </Accordion>
 
 <Accordion title="Cadastros e pessoas" icon="users">
@@ -169,6 +172,14 @@ Excluir uma automação apaga o histórico dela. Se você precisa preservar a ev
   | `validation_error` | O filtro ficou inválido | Um campo usado no filtro provavelmente foi removido |
 </Accordion>
 
+<Accordion title="Projetos alvo" icon="sitemap">
+  | Código | Significado | O que fazer |
+  | --- | --- | --- |
+  | `project_scope_resolution_failed` | A lista de projetos alvo não pôde ser montada — a expressão de sintaxe avançada falhou ou o filtro ficou inválido | Revise a escolha em **Definir projetos alvo** ou **Definir em quais projetos** |
+  | `scoped_action_iteration_failed` / `scoped_condition_iteration_failed` | O componente falhou em um dos projetos da lista; quando a falha tem um código próprio, é ele que aparece | Leia a mensagem daquele projeto; os demais continuam sendo processados |
+  | `iteration_failed` | Marca a execução quando algum projeto da lista falhou ou quando a lista passou de 50 projetos e foi cortada | Procure no fluxo o componente com erro; veja [Em quais projetos cada componente age](/guides/automation/anatomy#em-quais-projetos-cada-componente-age) |
+</Accordion>
+
 <Accordion title="Permissões e limites" icon="lock">
   | Código | Significado | O que fazer |
   | --- | --- | --- |
@@ -191,17 +202,20 @@ Excluir uma automação apaga o histórico dela. Se você precisa preservar a ev
 </Accordion>
 
 <Accordion title="A automação parou no meio" icon="circle-stop">
-  Três causas possíveis, e o log distingue as três:
+  Duas causas possíveis, e o log distingue as duas:
 
   - Uma condição com **bloquear o fluxo** deu falso.
-  - Um erro inesperado interrompeu a execução — o registro fica marcado com erro.
   - A cadeia de automações atingiu o limite de cinco níveis.
+
+  Um erro em um componente não para a automação: ele fica registrado naquele componente, a execução é marcada com erro e os componentes seguintes continuam rodando.
 </Accordion>
 
 <Accordion title="Tudo deu sucesso mas nada mudou" icon="circle-check">
   Praticamente sempre é uma opção de "não sobrescrever" ou um pré-requisito não atendido. Leia a **mensagem** de cada componente — ela explica o motivo em texto.
 
   Os campeões: status do funil que já existia sem a opção de substituir, data já preenchida sem a opção de sobrescrever, etiqueta de um funil ao qual o projeto não está vinculado.
+
+  Com [projetos alvo](/guides/automation/anatomy#em-quais-projetos-cada-componente-age) definidos, a mensagem `no_projects_in_scope` indica que a lista ficou vazia — os irmãos de um projeto sem pai, por exemplo — e a ação não tinha onde agir.
 </Accordion>
 
 <Accordion title="A automação rodou vezes demais" icon="repeat">

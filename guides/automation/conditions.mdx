@@ -53,6 +53,24 @@ Deixar o ramo **Se falso** vazio é o uso mais comum: a automação simplesmente
 Precisa de duas checagens em sequência? Coloque as duas no nível principal do fluxo, uma após a outra, com **bloquear o fluxo** na primeira. Condições aninhadas dentro de ramos são avaliadas, mas os componentes dentro delas não executam — veja [Como o fluxo é executado](/guides/automation/anatomy#mantenha-as-condições-no-nível-principal).
 </Tip>
 
+## Verificar em outros projetos
+
+Por padrão, a condição olha só o projeto que disparou a automação. No menu da condição, **Definir em quais projetos** permite verificar outros: descendentes, ancestrais, irmãos ou uma lista montada com sintaxe avançada. As opções estão em [Em quais projetos cada componente age](/guides/automation/anatomy#em-quais-projetos-cada-componente-age).
+
+Quando a condição verifica mais de um projeto, escolha em **Quando a condição passa** como os resultados viram um só:
+
+| Opção | A condição é verdadeira quando |
+| --- | --- |
+| **Em todos** | Passa em todos os projetos da lista |
+| **Em pelo menos um** | Passa em pelo menos um projeto da lista |
+| **Em nenhum** | Não passa em nenhum projeto da lista |
+
+O ramo escolhido executa **uma vez**, com o resultado combinado — não uma vez por projeto.
+
+<Note>
+Se a lista ficar vazia — os irmãos de um projeto que não tem pai, por exemplo —, só **Em nenhum** dá verdadeiro.
+</Note>
+
 ## Projeto contém etiqueta
 
 Verdadeira quando as etiquetas escolhidas estão vinculadas ao projeto no momento da checagem.
@@ -95,7 +113,7 @@ Exigir **todas** só funciona em funis que permitem o projeto estar em mais de u
 
 ## Decisor com filtro
 
-A condição mais poderosa das quatro: você monta um filtro de projetos — o mesmo tipo de filtro da listagem — e a condição é verdadeira quando o projeto do gatilho aparece no resultado.
+A condição mais poderosa das quatro: você monta um filtro de projetos — o mesmo tipo de filtro da listagem — e a condição é verdadeira quando o projeto verificado — o do gatilho, por padrão — aparece no resultado.
 
 | Opção | Obrigatória | O que faz |
 | --- | --- | --- |

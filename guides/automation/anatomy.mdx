@@ -103,6 +103,64 @@ Uma condição colocada **dentro de um ramo** de outra condição é avaliada, m
 Para encadear duas checagens, coloque as duas no nível principal do fluxo, uma após a outra, usando **bloquear o fluxo** na primeira.
 </Warning>
 
+## Em quais projetos cada componente age
+
+Por padrão, cada ação e cada condição age no projeto que disparou a automação. No menu do componente, **Definir projetos alvo** (nas ações) ou **Definir em quais projetos** (nas condições) permite escolher outros projetos, sempre a partir do projeto do gatilho.
+
+| Opção | Projetos que entram |
+| --- | --- |
+| **Projeto do gatilho** | Só o projeto que disparou a automação. É o padrão |
+| **Descendentes** | Os projetos abaixo dele. Em **Níveis da hierarquia**, marque filhos, netos ou bisnetos; sem nenhum marcado, entram os três níveis |
+| **Ancestrais** | Os projetos acima dele: pai, avôs e bisavôs, com a mesma escolha de níveis |
+| **Irmãos** | Os outros projetos com o mesmo pai, sem o projeto do gatilho |
+| **Irmãos (incluindo o projeto do gatilho)** | O projeto do gatilho e os irmãos dele |
+| **Sintaxe avançada** | Os projetos cujos identificadores a expressão devolver |
+| **Por filtro** | Os projetos da conta que atendem a um filtro. Só nas ações |
+
+### Nas ações
+
+A ação roda **uma vez em cada projeto** da lista, e o registro de execução mostra uma linha por projeto. Dentro da ação, as [variáveis](/guides/automation/variables) do projeto se referem ao projeto que está sendo processado naquele momento, não ao do gatilho.
+
+Com qualquer opção além do projeto do gatilho, **Limitar com filtro** cruza a lista com um filtro para reduzir quais projetos entram — por exemplo, só os filhos com impacto alto.
+
+### Nas condições
+
+A condição é verificada em cada projeto da lista, e os resultados viram um só conforme a opção **Quando a condição passa**: **Em todos**, **Em pelo menos um** ou **Em nenhum**. O ramo escolhido executa uma vez. Veja [Verificar em outros projetos](/guides/automation/conditions#verificar-em-outros-projetos).
+
+Condições não aceitam **Limitar com filtro** nem a opção **Por filtro**. Quando a regra depende de um filtro, use a condição [Decisor com filtro](/guides/automation/conditions#decisor-com-filtro).
+
+### Sintaxe avançada
+
+A expressão precisa devolver identificadores de projeto em um destes formatos:
+
+```text
+550e8400-e29b-41d4-a716-446655440000
+["7c9e6679-7425-40de-944b-e07fc1f90ae7"]
+[{"id":"7c9e6679-7425-40de-944b-e07fc1f90ae7"}]
+```
+
+Qualquer outro formato resulta em lista vazia. Como escrever expressões está em [Sintaxe avançada](/guides/advanced/advanced-syntax).
+
+### Limites e casos de borda
+
+<AccordionGroup>
+<Accordion title="No máximo 50 projetos" icon="layer-group">
+  A lista é cortada em **50 projetos**. Uma ação roda nesses 50 e a execução fica marcada com erro, para que o corte não passe despercebido. Numa condição, **Em todos** e **Em nenhum** dão falso — sem ver a lista inteira não dá para garantir o resultado —, e **Em pelo menos um** verifica os 50.
+</Accordion>
+
+<Accordion title="Lista vazia" icon="circle-minus">
+  Acontece, por exemplo, com os irmãos de um projeto que não tem pai, ou com **Por filtro** sem nenhuma regra — um filtro vazio não abre a lista para a conta inteira. A ação não faz nada e registra sucesso com a mensagem `no_projects_in_scope`. A condição só dá verdadeiro com **Em nenhum**.
+</Accordion>
+
+<Accordion title="Falha em um dos projetos" icon="triangle-exclamation">
+  Um erro em um projeto da lista fica registrado naquele projeto, e os demais continuam sendo processados. Se a própria lista não puder ser montada — uma expressão que falhou, um filtro que ficou inválido —, o componente registra `project_scope_resolution_failed` e o fluxo segue.
+</Accordion>
+
+<Accordion title="A automação não se aciona de novo" icon="repeat">
+  Enquanto uma automação está rodando, o que ela provoca não a dispara outra vez — nem no projeto do gatilho, nem nos outros projetos em que ela age. Automações diferentes continuam podendo se acionar, dentro do [limite de encadeamento](#automações-que-acionam-automações).
+</Accordion>
+</AccordionGroup>
+
 ## O que acontece quando algo falha
 
 Nem todo problema derruba a automação. O comportamento depende do tipo de falha:
@@ -119,7 +177,7 @@ Nem todo problema derruba a automação. O comportamento depende do tipo de falh
 </Accordion>
 
 <Accordion title="Erro inesperado" icon="triangle-exclamation">
-  Uma falha não prevista interrompe **toda a automação** naquele ponto. Os componentes seguintes não rodam e o registro de execução fica marcado com erro, incluindo a mensagem original.
+  Uma falha não prevista fica registrada no componente em que aconteceu, com a mensagem original, e **o fluxo continua** nos componentes seguintes. O registro de execução fica marcado com erro, para que a falha não passe despercebida.
 </Accordion>
 
 <Accordion title="A condição não conseguiu avaliar" icon="circle-question">
@@ -132,6 +190,8 @@ Nem todo problema derruba a automação. O comportamento depende do tipo de falh
 Uma ação pode provocar um evento que aciona outra automação. Mover um projeto de etapa, por exemplo, dispara o gatilho **Projeto movido de etapa** de qualquer outra automação configurada para aquela etapa.
 
 Isso é esperado e útil, mas existe um teto: **uma cadeia pode encadear até cinco automações**. Ao chegar na sexta, a execução é interrompida e o registro aponta o motivo (`automation_run_limit_reached`).
+
+Uma automação, porém, **não aciona a si mesma**: enquanto ela está rodando, o que ela provoca não a dispara outra vez, em nenhum projeto. O encadeamento acontece entre automações diferentes.
 
 <Tip>
 Se uma automação "não terminou" sem motivo aparente, confira se ela está no fim de uma cadeia longa. O sintoma clássico é a automação funcionar quando disparada manualmente e falhar quando disparada por outra.

@@ -47,11 +47,13 @@ O destino é a aba **Conteúdo** do projeto, não o [Caderno](/guides/notebook/o
   | Opção | Obrigatória | O que faz |
   | --- | --- | --- |
   | Integração | Sim | Qual integração de comunicação será usada |
-  | Destinatário | Sim | O endereço de destino; aceita variáveis |
+  | Destinatário | Não | O endereço de destino; aceita variáveis. Em branco, usa a conversa que o projeto já tem nessa integração |
   | Reabrir conversa ativa | Não | Encerra uma conversa ativa em outro projeto e abre uma nova aqui |
   | Motivo do encerramento | Não | Nota registrada na conversa encerrada |
 
-  O destinatário é mantido **exatamente como a expressão devolver** — a plataforma não normaliza o formato. Se a expressão não devolver nada, a ação registra erro e a mensagem não sai.
+  **Destinatário em branco:** a mensagem vai para a conversa que o projeto já tem nessa integração, inclusive retomando um atendimento encerrado com o mesmo contato. Isso só funciona quando o projeto conversa com **um único contato** naquela integração — várias conversas com a mesma pessoa, encerradas e reabertas, contam como uma. Se o projeto não tiver conversa nessa integração, ou tiver com mais de um contato, a mensagem não sai e a ação registra erro pedindo um destinatário.
+
+  **Destinatário preenchido:** o endereço é mantido **exatamente como a expressão devolver** — a plataforma não normaliza o formato. Se a expressão não devolver nada, a ação registra erro e a mensagem não sai; ela não recorre à conversa que o projeto já tem.
 
   <Note>
   Este destino só aparece quando existe alguma integração de comunicação ativa na conta.

@@ -48,7 +48,7 @@ O nome é cortado em 191 caracteres. Ao montar nomes com variáveis, considere e
 Quando você indica uma etapa de destino, o projeto criado é vinculado a ela **ignorando restrições e bloqueios**. Se por algum motivo ele já estiver naquela etapa, a ação segue sem erro.
 
 <Warning>
-Um gatilho de criação combinado a esta ação forma um laço: o projeto criado pode acionar a mesma automação. O [limite de encadeamento](/guides/automation/anatomy#automações-que-acionam-automações) interrompe a cadeia, mas cada volta gasta execuções do plano. Use condições para garantir que o projeto criado não se encaixe no gatilho.
+O projeto criado pode acionar outras automações — criado direto numa etapa, por exemplo, ele dispara as automações daquela etapa. A mesma automação não é acionada de novo enquanto ainda está rodando, mas duas automações diferentes podem formar um laço. O [limite de encadeamento](/guides/automation/anatomy#automações-que-acionam-automações) interrompe a cadeia, mas cada volta gasta execuções do plano. Use condições para garantir que o projeto criado não se encaixe no gatilho da outra automação.
 </Warning>
 
 ## Criar hierarquia de projetos
