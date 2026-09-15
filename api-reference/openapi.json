@@ -22592,6 +22592,12 @@
                           "answer": {
                             "type": "string"
                           },
+                          "answer_markdown": {
+                            "type": "string",
+                            "nullable": true,
+                            "description": "Presente apenas em campos `rich_text` e `matrix`. Para `rich_text`, Markdown derivado do documento TipTap em `answer` (null se sem resposta, documento vazio, JSON inválido ou árvore acima do limite de conversão). Para `matrix`, tabela Markdown com rótulos de linhas/colunas em vez das keys opacas de `answer` (null se sem resposta, inválida ou vazia). Campo só de leitura — a escrita continua em TipTap JSON / objeto matriz via set-form-answers.",
+                            "example": "**Hello**"
+                          },
                           "model": {
                             "type": "string"
                           },
@@ -22622,6 +22628,15 @@
                       "id": 2131,
                       "label": "Texto longo",
                       "answer": "Exemplo de resposta no formulário do objeto projeto: Quia perspiciatis voluptates maiores.",
+                      "model": "Project",
+                      "answered_by": "019aeaa3-2370-731c-9008-be759795f449",
+                      "updated_at": "2025-12-16T14:49:55.000000Z"
+                    },
+                    {
+                      "id": 2132,
+                      "label": "Notas",
+                      "answer": "{\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"marks\":[{\"type\":\"bold\"}],\"text\":\"Hello\"}]}]}",
+                      "answer_markdown": "**Hello**",
                       "model": "Project",
                       "answered_by": "019aeaa3-2370-731c-9008-be759795f449",
                       "updated_at": "2025-12-16T14:49:55.000000Z"
@@ -22868,7 +22883,7 @@
         "tags": [
           "dynamic-forms"
         ],
-        "description": "Responder um formulário dinâmico. Essa requisição recebe dois principais atributos:\n\n- Identificação do formulário (`target`): Aqui é usado um objeto com propriedades variáveis, são usados para identificar qual formulário será respondido.\n    \n- Respostas (`answers`): Um array com objetos, cada objeto contendo `id` e `answer`, sendo o ID do campo do formulário e answer sendo a resposta que este campo receberá.",
+        "description": "Responder um formulário dinâmico. Essa requisição recebe dois principais atributos:\n\n- Identificação do formulário (`target`): Aqui é usado um objeto com propriedades variáveis, são usados para identificar qual formulário será respondido.\n    \n- Respostas (`answers`): Um array com objetos, cada objeto contendo `id` e `answer`, sendo o ID do campo do formulário e answer sendo a resposta que este campo receberá.\n\nA resposta de sucesso devolve os edges no mesmo formato de get-form-answers: campos `rich_text` e `matrix` incluem `answer_markdown` (só leitura).",
         "requestBody": {
           "content": {
             "application/json": {
@@ -23053,6 +23068,12 @@
                             "type": "string",
                             "example": "exemplo de texto"
                           },
+                          "answer_markdown": {
+                            "type": "string",
+                            "nullable": true,
+                            "description": "Presente apenas em campos `rich_text` e `matrix`. Para `rich_text`, Markdown derivado do documento TipTap em `answer` (null se sem resposta, documento vazio, JSON inválido ou árvore acima do limite de conversão). Para `matrix`, tabela Markdown com rótulos de linhas/colunas em vez das keys opacas de `answer` (null se sem resposta, inválida ou vazia). Campo só de leitura — a escrita continua em TipTap JSON / objeto matriz via set-form-answers.",
+                            "example": "**Hello**"
+                          },
                           "model": {
                             "type": "string",
                             "example": "Project"
@@ -23081,20 +23102,30 @@
                   "response": "<boolean>",
                   "answers": [
                     {
-                      "id": "<integer>",
-                      "label": "<string>",
-                      "answer": "<string>",
-                      "model": "<string>",
-                      "answered_by": "<uuid>",
-                      "updated_at": "<dateTime>"
+                      "id": 179,
+                      "label": "Texto curto",
+                      "answer": "exemplo de texto",
+                      "model": "Project",
+                      "answered_by": "9e1392ce-36ff-4984-bb9f-d69fd018b819",
+                      "updated_at": "2025-05-15T13:25:01.000000Z"
                     },
                     {
-                      "id": "<integer>",
-                      "label": "<string>",
-                      "answer": "<string>",
-                      "model": "<string>",
-                      "answered_by": "<uuid>",
-                      "updated_at": "<dateTime>"
+                      "id": 180,
+                      "label": "Notas",
+                      "answer": "{\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"marks\":[{\"type\":\"bold\"}],\"text\":\"Hello\"}]}]}",
+                      "answer_markdown": "**Hello**",
+                      "model": "Project",
+                      "answered_by": "9e1392ce-36ff-4984-bb9f-d69fd018b819",
+                      "updated_at": "2025-05-15T13:25:01.000000Z"
+                    },
+                    {
+                      "id": 181,
+                      "label": "Satisfação",
+                      "answer": "{\"row_7a22c1\":{\"col_3692ab\":\"Bom\",\"col_e41d9f\":\"atendeu bem\"},\"row_b81f04\":{\"col_3692ab\":\"Ok\"}}",
+                      "answer_markdown": "|  | Nota | Comentário |\n| --- | --- | --- |\n| Atendimento | Bom | atendeu bem |\n| Preço | Ok |  |",
+                      "model": "Project",
+                      "answered_by": "9e1392ce-36ff-4984-bb9f-d69fd018b819",
+                      "updated_at": "2025-05-15T13:25:01.000000Z"
                     }
                   ],
                   "last_updated_at": "<dateTime>"
@@ -23173,7 +23204,7 @@
         "tags": [
           "dynamic-forms"
         ],
-        "description": "Recebe informações de vínculo entre um modelo e um formulário dinâmico, e retorna as respostas previamente salvas para esse formulário.",
+        "description": "Recebe informações de vínculo entre um modelo e um formulário dinâmico, e retorna as respostas previamente salvas para esse formulário.\n\nCampos `rich_text` e `matrix` incluem `answer_markdown` no mesmo item: Markdown legível derivado do valor em `answer` (TipTap JSON ou objeto matriz). Preferir `answer_markdown` para leitura/resumo; a escrita permanece via set-form-answers no formato nativo do campo.",
         "requestBody": {
           "content": {
             "application/json": {
