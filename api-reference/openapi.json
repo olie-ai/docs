@@ -25311,13 +25311,207 @@
           "available-models"
         ],
         "summary": "Listar modelos disponíveis",
-        "description": "Listar todos os modelos de IA disponíveis para uso.",
+        "description": "Lista os modelos de IA que podem ser escolhidos como padrão de um agente, reunindo os catálogos de todos os provedores. Os identificadores devolvidos em `id` e `internal_provider` são os valores aceitos em `default_model` e `default_provider` do agente. O catálogo do OpenRouter é consultado ao vivo e acompanha o preço convertido em créditos.",
         "operationId": "listarModelosDisponVeis",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "models": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "internal_provider": {
+                            "type": "string"
+                          },
+                          "context_length": {
+                            "type": "integer"
+                          },
+                          "input_modalities": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "output_modalities": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "supported_parameters": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "pricing_in_credits": {
+                            "nullable": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "models": [
+                    {
+                      "id": "openrouter/auto",
+                      "name": "Seleção automática de modelo",
+                      "internal_provider": "openrouter",
+                      "context_length": 100000,
+                      "input_modalities": [
+                        "text",
+                        "image",
+                        "file"
+                      ],
+                      "output_modalities": [
+                        "text"
+                      ],
+                      "supported_parameters": [
+                        "tools",
+                        "structured_output",
+                        "web_search",
+                        "reasoning"
+                      ],
+                      "pricing_in_credits": null
+                    },
+                    {
+                      "id": "openrouter/auto-cost-based",
+                      "name": "Seleção automática baseada em custo",
+                      "internal_provider": "openrouter",
+                      "context_length": 100000,
+                      "input_modalities": [
+                        "text",
+                        "image",
+                        "file"
+                      ],
+                      "output_modalities": [
+                        "text"
+                      ],
+                      "supported_parameters": [
+                        "tools",
+                        "structured_output",
+                        "web_search",
+                        "reasoning"
+                      ],
+                      "pricing_in_credits": null
+                    },
+                    {
+                      "id": "anthropic/claude-sonnet-4.5",
+                      "name": "Anthropic: Claude Sonnet 4.5",
+                      "internal_provider": "openrouter",
+                      "context_length": 1000000,
+                      "input_modalities": [
+                        "text",
+                        "image",
+                        "file"
+                      ],
+                      "output_modalities": [
+                        "text"
+                      ],
+                      "supported_parameters": [
+                        "tools",
+                        "tool_choice",
+                        "structured_outputs",
+                        "reasoning",
+                        "max_tokens",
+                        "temperature"
+                      ],
+                      "pricing_in_credits": {
+                        "prompt_per_1m": 3900,
+                        "completion_per_1m": 19500,
+                        "request": null,
+                        "image_per_unit": null,
+                        "web_search_per_unit": null,
+                        "internal_reasoning_per_1m": null,
+                        "input_cache_read_per_1m": 390,
+                        "input_cache_write_per_1m": 4875
+                      }
+                    },
+                    {
+                      "id": "gemini-2.5-pro",
+                      "name": "Gemini 2.5 Pro",
+                      "internal_provider": "google",
+                      "context_length": 100000,
+                      "input_modalities": [
+                        "text"
+                      ],
+                      "output_modalities": [
+                        "text"
+                      ],
+                      "supported_parameters": [],
+                      "pricing": null
+                    },
+                    {
+                      "id": "gpt-4-turbo",
+                      "name": "GPT-4 Turbo",
+                      "internal_provider": "openai",
+                      "context_length": 100000,
+                      "input_modalities": [
+                        "text"
+                      ],
+                      "output_modalities": [
+                        "text"
+                      ],
+                      "supported_parameters": [],
+                      "pricing": null
+                    },
+                    {
+                      "id": "claude-3-5-sonnet-20240620",
+                      "name": "Claude 3.5 Sonnet",
+                      "internal_provider": "anthropic",
+                      "context_length": 100000,
+                      "input_modalities": [
+                        "text"
+                      ],
+                      "output_modalities": [
+                        "text"
+                      ],
+                      "supported_parameters": [],
+                      "pricing": null
+                    }
+                  ]
+                }
+              }
+            }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Filtra os modelos cujo nome ou identificador contenha o termo informado.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "supportedParameters[]",
+            "in": "query",
+            "description": "Recurso que o modelo precisa suportar, por exemplo `tools`, `structured_output`, `web_search` ou `reasoning`. Repita o parâmetro para exigir mais de um. Aplica-se ao catálogo do OpenRouter.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       }
     },
     "/api/management/ai/available-tools": {
@@ -25327,11 +25521,154 @@
           "available-tools"
         ],
         "summary": "Listar ferramentas disponíveis",
-        "description": "Listar todas as ferramentas disponíveis para uso com agentes de IA.",
+        "description": "Lista as ferramentas que um agente pode usar. O `name` de cada item é exatamente o valor aceito no campo `tools` do agente, `inputSchema` descreve os argumentos que o modelo precisa preencher para chamá-la e `annotations` indica se ela apenas lê dados ou também escreve. O catálogo é o mesmo para todas as empresas e não tem paginação.",
         "operationId": "listarFerramentasDisponVeis",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "tools": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "inputSchema": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string"
+                              },
+                              "properties": {
+                                "type": "object",
+                                "properties": {
+                                  "project_identifier": {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "description": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "required": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "annotations": {
+                            "type": "object",
+                            "properties": {
+                              "readOnlyHint": {
+                                "type": "boolean"
+                              },
+                              "openWorldHint": {
+                                "type": "boolean"
+                              },
+                              "destructiveHint": {
+                                "type": "boolean"
+                              },
+                              "idempotentHint": {
+                                "type": "boolean"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "tools": [
+                    {
+                      "name": "get-project-details-tool",
+                      "title": "Get Project Details Tool",
+                      "description": "Get the details like name, status, funnels, steps, forms, tags, groups and many other details of the project by project identifier.",
+                      "inputSchema": {
+                        "type": "object",
+                        "properties": {
+                          "project_identifier": {
+                            "type": "string",
+                            "description": "The identifier of the project to get the details of. Can be CODE (^[A-Z0-9]+-\\d+$) or ID (uuid)"
+                          }
+                        },
+                        "required": [
+                          "project_identifier"
+                        ]
+                      },
+                      "annotations": {
+                        "readOnlyHint": true,
+                        "openWorldHint": false,
+                        "destructiveHint": false,
+                        "idempotentHint": true
+                      }
+                    },
+                    {
+                      "name": "get-user-tool",
+                      "title": "Get User Tool",
+                      "description": "Get the details like name, emails, and simple info about the user by user id.",
+                      "inputSchema": {
+                        "type": "object",
+                        "properties": {
+                          "user_id": {
+                            "type": "string",
+                            "description": "The id of the user to get the details of",
+                            "format": "uuid"
+                          }
+                        },
+                        "required": [
+                          "user_id"
+                        ]
+                      },
+                      "annotations": {
+                        "readOnlyHint": true,
+                        "openWorldHint": false,
+                        "destructiveHint": false,
+                        "idempotentHint": true
+                      }
+                    },
+                    {
+                      "name": "today-tool",
+                      "title": "Today Tool",
+                      "description": "Use this tool when you need to know what is the current date and time in the format ISO 8601.",
+                      "inputSchema": {
+                        "type": "object",
+                        "properties": {}
+                      },
+                      "annotations": {
+                        "readOnlyHint": true,
+                        "openWorldHint": false,
+                        "destructiveHint": false,
+                        "idempotentHint": true
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           }
         }
       }
