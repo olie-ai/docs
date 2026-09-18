@@ -22929,13 +22929,323 @@
           "executions"
         ],
         "summary": "Listar execuções de agentes",
-        "description": "Listar todas as execuções de agentes de IA.",
+        "description": "Lista as execuções de agentes de IA da empresa, da mais recente para a mais antiga. É um resumo: o texto gerado e os passos de cada execução só aparecem no detalhe. Aceita [paginação](https://docs.olie.ai/api-reference/general/pagination) e [filtros básicos](https://docs.olie.ai/api-reference/general/basic-filters).",
         "operationId": "listarExecuEsDeAgentes",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "agent_id": {
+                            "type": "string"
+                          },
+                          "agent": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "model": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "tokens_used": {
+                            "type": "integer"
+                          },
+                          "credits_debited": {
+                            "type": "string"
+                          },
+                          "latency": {
+                            "type": "integer"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "first": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "last": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "prev": {
+                          "nullable": true
+                        },
+                        "next": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer"
+                        },
+                        "from": {
+                          "type": "integer"
+                        },
+                        "last_page": {
+                          "type": "integer"
+                        },
+                        "links": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "nullable": true
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "page": {
+                                "nullable": true
+                              },
+                              "active": {
+                                "type": "boolean"
+                              }
+                            }
+                          }
+                        },
+                        "path": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "to": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "data": [
+                    {
+                      "id": "019b6b4d-2f18-7331-b60a-91c7d2e40a55",
+                      "agent_id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                      "agent": {
+                        "id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                        "name": "Triador de entrada",
+                        "description": "Classifica e resume os cards que chegam no funil de atendimento."
+                      },
+                      "model": "openrouter/auto-cost-based",
+                      "status": "completed",
+                      "tokens_used": 1284,
+                      "credits_debited": "1.300000000",
+                      "latency": 4210,
+                      "created_at": "2026-09-18T11:52:03.000000Z"
+                    },
+                    {
+                      "id": "019b6b3a-77c1-72a0-8f5d-1de0a4c9b6e7",
+                      "agent_id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                      "agent": {
+                        "id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                        "name": "Triador de entrada",
+                        "description": "Classifica e resume os cards que chegam no funil de atendimento."
+                      },
+                      "model": "openrouter/auto-cost-based",
+                      "status": "failed",
+                      "tokens_used": 0,
+                      "credits_debited": null,
+                      "latency": 812,
+                      "created_at": "2026-09-17T19:04:55.000000Z"
+                    }
+                  ],
+                  "links": {
+                    "first": "https://devframe.olie.ai/api/management/ai/agents/executions?page=1",
+                    "last": "https://devframe.olie.ai/api/management/ai/agents/executions?page=3",
+                    "prev": null,
+                    "next": "https://devframe.olie.ai/api/management/ai/agents/executions?page=2"
+                  },
+                  "meta": {
+                    "current_page": 1,
+                    "from": 1,
+                    "last_page": 3,
+                    "links": [
+                      {
+                        "url": null,
+                        "label": "&laquo; Previous",
+                        "page": null,
+                        "active": false
+                      },
+                      {
+                        "url": "https://devframe.olie.ai/api/management/ai/agents/executions?page=1",
+                        "label": "1",
+                        "page": 1,
+                        "active": true
+                      },
+                      {
+                        "url": "https://devframe.olie.ai/api/management/ai/agents/executions?page=2",
+                        "label": "2",
+                        "page": 2,
+                        "active": false
+                      },
+                      {
+                        "url": "https://devframe.olie.ai/api/management/ai/agents/executions?page=2",
+                        "label": "Next &raquo;",
+                        "page": 2,
+                        "active": false
+                      }
+                    ],
+                    "path": "https://devframe.olie.ai/api/management/ai/agents/executions",
+                    "per_page": 30,
+                    "to": 30,
+                    "total": 74
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ordenação não permitida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "allowed_sorts": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "unknown_sorts": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "invalid_sort_query",
+                  "error": "Requested sort(s) `cost` is not allowed. Allowed sort(s) are `credits_debited, tokens_used, latency, created_at`.",
+                  "allowed_sorts": [
+                    "credits_debited",
+                    "tokens_used",
+                    "latency",
+                    "created_at"
+                  ],
+                  "unknown_sorts": [
+                    "cost"
+                  ]
+                }
+              }
+            }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Página a retornar. Padrão 1; valores inválidos voltam para 1.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "Itens por página. Padrão 30, máximo 100.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Campo de ordenação: `created_at`, `credits_debited`, `tokens_used` ou `latency`. Prefixe com `-` para ordem decrescente. Padrão `-created_at`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[agent_id]",
+            "in": "query",
+            "description": "Filtra as execuções de um agente pelo ID (correspondência parcial).",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[status]",
+            "in": "query",
+            "description": "Filtra pelo status exato da execução: `pending`, `completed` ou `failed`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[model]",
+            "in": "query",
+            "description": "Filtra pelo modelo usado na execução (correspondência parcial).",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[error]",
+            "in": "query",
+            "description": "Filtra pelo texto da mensagem de erro registrada (correspondência parcial).",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       }
     },
     "/api/management/ai/agents/executions/{execution}": {
@@ -22946,11 +23256,284 @@
           "executions"
         ],
         "summary": "Obter execução de agente específica",
-        "description": "Obter detalhes de uma execução específica de agente de IA.",
+        "description": "Retorna o detalhe de uma execução de agente: o prompt enviado, a resposta gerada, o erro quando houve falha e o consumo em créditos. Traz também `steps`, o histórico de idas e voltas ao modelo, com as ferramentas chamadas, os tokens e o custo de cada passo.",
         "operationId": "obterExecuODeAgenteEspecFica",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "agent_id": {
+                          "type": "string"
+                        },
+                        "model": {
+                          "type": "string"
+                        },
+                        "provider": {
+                          "type": "string"
+                        },
+                        "response": {
+                          "type": "string"
+                        },
+                        "prompt": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "error": {
+                          "nullable": true
+                        },
+                        "latency": {
+                          "type": "integer"
+                        },
+                        "invoice_id": {
+                          "nullable": true
+                        },
+                        "bill_computed": {
+                          "type": "boolean"
+                        },
+                        "tokens_used": {
+                          "type": "integer"
+                        },
+                        "credits_debited": {
+                          "type": "string"
+                        },
+                        "credit_transaction_id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "steps": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "index": {
+                                "type": "integer"
+                              },
+                              "provider": {
+                                "type": "string"
+                              },
+                              "model": {
+                                "type": "string"
+                              },
+                              "text": {
+                                "nullable": true
+                              },
+                              "tool_calls": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "arguments": {
+                                      "type": "object",
+                                      "properties": {
+                                        "project_id": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "result_id": {
+                                      "nullable": true
+                                    },
+                                    "reasoning_id": {
+                                      "nullable": true
+                                    },
+                                    "reasoning_summary": {
+                                      "nullable": true
+                                    }
+                                  }
+                                }
+                              },
+                              "tool_results": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "arguments": {
+                                      "type": "object",
+                                      "properties": {
+                                        "project_id": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "result": {
+                                      "type": "string"
+                                    },
+                                    "result_id": {
+                                      "nullable": true
+                                    }
+                                  }
+                                }
+                              },
+                              "finish_reason": {
+                                "type": "string"
+                              },
+                              "prompt_tokens": {
+                                "type": "integer"
+                              },
+                              "completion_tokens": {
+                                "type": "integer"
+                              },
+                              "cached_tokens": {
+                                "type": "integer"
+                              },
+                              "cache_write_tokens": {
+                                "type": "integer"
+                              },
+                              "reasoning_tokens": {
+                                "type": "integer"
+                              },
+                              "cost": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "data": {
+                    "id": "019b6b4d-2f18-7331-b60a-91c7d2e40a55",
+                    "agent_id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                    "model": "openrouter/auto-cost-based",
+                    "provider": "openrouter",
+                    "response": "O card trata da renovação do contrato anual. Já foram acordados o escopo e o prazo; falta aprovar o valor final.",
+                    "prompt": "Resuma em até 3 linhas o que já foi combinado no card P-80.",
+                    "status": "completed",
+                    "error": null,
+                    "latency": 4210,
+                    "invoice_id": null,
+                    "bill_computed": false,
+                    "tokens_used": 1284,
+                    "credits_debited": "1.300000000",
+                    "credit_transaction_id": "019b6b4d-9a02-71ce-8b77-3c5f0e2a8d41",
+                    "created_at": "2026-09-18T11:52:03.000000Z",
+                    "updated_at": "2026-09-18T11:52:08.000000Z",
+                    "steps": [
+                      {
+                        "index": 0,
+                        "provider": "openrouter",
+                        "model": "openrouter/auto-cost-based",
+                        "text": null,
+                        "tool_calls": [
+                          {
+                            "id": "call_01",
+                            "name": "get-project-details-tool",
+                            "arguments": {
+                              "project_id": "019b140c-235d-73ee-96df-3d2afbf7d13d"
+                            },
+                            "result_id": null,
+                            "reasoning_id": null,
+                            "reasoning_summary": null
+                          }
+                        ],
+                        "tool_results": [
+                          {
+                            "id": "call_01",
+                            "name": "get-project-details-tool",
+                            "arguments": {
+                              "project_id": "019b140c-235d-73ee-96df-3d2afbf7d13d"
+                            },
+                            "result": "{\"project\":{\"code\":\"P-80\",\"name\":\"Renovação anual\"}}",
+                            "result_id": null
+                          }
+                        ],
+                        "finish_reason": "tool_calls",
+                        "prompt_tokens": 742,
+                        "completion_tokens": 48,
+                        "cached_tokens": 0,
+                        "cache_write_tokens": 0,
+                        "reasoning_tokens": 0,
+                        "cost": "0.000410000",
+                        "created_at": "2026-09-18T11:52:05.000000Z"
+                      },
+                      {
+                        "index": 1,
+                        "provider": "openrouter",
+                        "model": "openrouter/auto-cost-based",
+                        "text": "O card trata da renovação do contrato anual. Já foram acordados o escopo e o prazo; falta aprovar o valor final.",
+                        "tool_calls": [],
+                        "tool_results": [],
+                        "finish_reason": "stop",
+                        "prompt_tokens": 431,
+                        "completion_tokens": 63,
+                        "cached_tokens": 0,
+                        "cache_write_tokens": 0,
+                        "reasoning_tokens": 0,
+                        "cost": "0.000230000",
+                        "created_at": "2026-09-18T11:52:08.000000Z"
+                      }
+                    ]
+                  },
+                  "response": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Execução não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "agent_execution_model_not_found",
+                  "error": "No query results for model [App\\Models\\AgentExecution] 019b6b4d-2f18-7331-b60a-91c7d2e40a55"
+                }
+              }
+            }
           }
         }
       },
@@ -22959,10 +23542,11 @@
           "name": "execution",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) da execução do agente.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -23149,11 +23733,101 @@
           "reorder"
         ],
         "summary": "Reordenar contextos do agente",
-        "description": "Reordenar a sequência dos contextos de um agente de IA.",
+        "description": "Redefine a posição dos contextos do agente. Envie cada contexto com seu `id` e a nova `order`; todos os IDs precisam pertencer a este agente, e os contextos que não aparecerem na lista ficam com a posição que já tinham.",
         "operationId": "reordenarContextosDoAgente",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "contexts.0.id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The selected contexts.0.id is invalid.",
+                  "validation": {
+                    "contexts.0.id": [
+                      "The selected contexts.0.id is invalid."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contexts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "nullable": true
+                        },
+                        "order": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "contexts": [
+                  {
+                    "id": null,
+                    "order": 0
+                  }
+                ]
+              }
+            }
           }
         }
       },
@@ -23162,10 +23836,11 @@
           "name": "agentId",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do agente de IA dono dos contextos.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -23177,11 +23852,114 @@
           "contexts"
         ],
         "summary": "Listar contextos do agente",
-        "description": "Listar todos os contextos associados a um agente de IA específico.",
+        "description": "Lista os contextos do agente na ordem em que são aplicados ao prompt. Em contextos do tipo `file`, `content` vem como um endereço temporário para baixar o arquivo.",
         "operationId": "listarContextosDoAgente",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contexts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "ai_agent_id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "content": {
+                            "type": "string"
+                          },
+                          "mime_type": {
+                            "nullable": true
+                          },
+                          "order": {
+                            "type": "integer"
+                          },
+                          "is_active": {
+                            "type": "boolean"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "deleted_at": {
+                            "nullable": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "contexts": [
+                    {
+                      "id": "019b6b55-1ad4-7290-91cc-6e0b8fa21c37",
+                      "ai_agent_id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                      "type": "text",
+                      "content": "Responda sempre em português do Brasil e em no máximo 3 parágrafos.",
+                      "mime_type": null,
+                      "order": 0,
+                      "is_active": true,
+                      "created_at": "2026-08-14T13:02:11.000000Z",
+                      "updated_at": "2026-08-14T13:02:11.000000Z",
+                      "deleted_at": null
+                    },
+                    {
+                      "id": "019b6b55-8e4a-70b3-bb2e-7f10c92ad5e1",
+                      "ai_agent_id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                      "type": "file",
+                      "content": "https://olie-storage.s3.sa-east-1.amazonaws.com/ai_agent_context/019b6b55-8e4a-70b3-bb2e-7f10c92ad5e1.pdf?X-Amz-Expires=86400&X-Amz-Signature=REDACTED",
+                      "mime_type": "application/pdf",
+                      "order": 1,
+                      "is_active": true,
+                      "created_at": "2026-08-20T10:41:09.000000Z",
+                      "updated_at": "2026-08-20T10:41:09.000000Z",
+                      "deleted_at": null
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agente não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "ai_agent_model_not_found",
+                  "error": "No query results for model [App\\Models\\AiAgent] 019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04"
+                }
+              }
+            }
           }
         }
       },
@@ -23192,11 +23970,158 @@
           "contexts"
         ],
         "summary": "Criar contexto do agente",
-        "description": "Criar um novo contexto para um agente de IA específico.",
+        "description": "Cria um contexto do agente. Sem `order`, ele entra no fim da lista. Para `type: \"text\"` envie o texto em `content`; para `type: \"file\"` envie a requisição como `multipart/form-data` com o arquivo no campo `file` (imagem ou PDF, até 10 MB) — nesse caso o `content` passa a apontar para o arquivo armazenado.",
         "operationId": "criarContextoDoAgente",
         "responses": {
-          "200": {
-            "description": "200"
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "is_active": {
+                      "type": "boolean"
+                    },
+                    "order": {
+                      "type": "integer"
+                    },
+                    "ai_agent_id": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "type": "text",
+                  "content": "Responda sempre em português do Brasil e em no máximo 3 parágrafos.",
+                  "is_active": true,
+                  "order": 2,
+                  "ai_agent_id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                  "updated_at": "2026-09-18T12:05:44.000000Z",
+                  "created_at": "2026-09-18T12:05:44.000000Z",
+                  "id": "019b6b60-3c91-7018-86d4-0a2e9b7f5c33"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agente não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "ai_agent_model_not_found",
+                  "error": "No query results for model [App\\Models\\AiAgent] 019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "content": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The selected type is invalid. (and 1 more error)",
+                  "validation": {
+                    "type": [
+                      "The selected type is invalid."
+                    ],
+                    "content": [
+                      "The content field is required when file is not present."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "is_active": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "example": {
+                "type": "text",
+                "content": "Responda sempre em português do Brasil e em no máximo 3 parágrafos.",
+                "is_active": true
+              }
+            }
           }
         }
       },
@@ -23205,10 +24130,11 @@
           "name": "agentId",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do agente de IA dono do contexto.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -23220,11 +24146,153 @@
           "contexts"
         ],
         "summary": "Atualizar contexto do agente",
-        "description": "Atualizar dados de um contexto específico de um agente de IA.",
+        "description": "Atualiza um contexto do agente; o tipo não pode ser trocado. Em um contexto de texto, `content` é obrigatório. Em um contexto de arquivo, envie a requisição como `multipart/form-data` com um novo `file`, e o arquivo anterior é apagado.",
         "operationId": "atualizarContextoDoAgente",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "ai_agent_id": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "mime_type": {
+                      "nullable": true
+                    },
+                    "order": {
+                      "type": "integer"
+                    },
+                    "is_active": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "deleted_at": {
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "id": "019b6b55-1ad4-7290-91cc-6e0b8fa21c37",
+                  "ai_agent_id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                  "type": "text",
+                  "content": "Responda sempre em português do Brasil e em no máximo 3 parágrafos.",
+                  "mime_type": null,
+                  "order": 0,
+                  "is_active": true,
+                  "created_at": "2026-08-14T13:02:11.000000Z",
+                  "updated_at": "2026-09-18T12:09:31.000000Z",
+                  "deleted_at": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contexto não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "ai_agent_context_model_not_found",
+                  "error": "No query results for model [App\\Models\\AiAgentContext] 019b6b55-1ad4-7290-91cc-6e0b8fa21c37"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The content field is required.",
+                  "validation": {
+                    "content": [
+                      "The content field is required."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string"
+                  },
+                  "is_active": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "example": {
+                "content": "Responda sempre em português do Brasil e em no máximo 3 parágrafos.",
+                "is_active": true
+              }
+            }
           }
         }
       },
@@ -23234,12 +24302,45 @@
           "agents",
           "contexts"
         ],
-        "summary": "Deletar contexto do agente",
-        "description": "Deletar um contexto específico de um agente de IA.",
+        "summary": "Remover contexto do agente",
+        "description": "Remove um contexto do agente e, quando ele é do tipo `file`, apaga também o arquivo armazenado. Responde sem corpo; os demais contextos mantêm a posição que já tinham.",
         "operationId": "deletarContextoDoAgente",
         "responses": {
-          "200": {
-            "description": "200"
+          "204": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contexto não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "ai_agent_context_model_not_found",
+                  "error": "No query results for model [App\\Models\\AiAgentContext] 019b6b55-1ad4-7290-91cc-6e0b8fa21c37"
+                }
+              }
+            }
           }
         }
       },
@@ -23248,19 +24349,21 @@
           "name": "agentId",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do agente de IA dono do contexto.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         },
         {
           "name": "contextId",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do contexto do agente.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
