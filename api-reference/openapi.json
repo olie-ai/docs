@@ -23125,13 +23125,210 @@
           "agents"
         ],
         "summary": "Listar agentes de IA",
-        "description": "Listar todos os agentes de IA.",
+        "description": "Lista os agentes de IA da empresa, cada um já acompanhado da contagem e do custo somado de suas execuções e das etapas de funil em que atua como assistente. A lista vem inteira, sem paginação; use `search` para filtrar pelo nome.",
         "operationId": "listarAgentesDeIa",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "agents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "default_provider": {
+                            "type": "string"
+                          },
+                          "default_model": {
+                            "type": "string"
+                          },
+                          "base_prompt": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "tools": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "structured_output": {
+                            "nullable": true
+                          },
+                          "frame_id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "deleted_at": {
+                            "nullable": true
+                          },
+                          "created_by": {
+                            "type": "string"
+                          },
+                          "executions_count": {
+                            "type": "integer"
+                          },
+                          "executions_sum_cost": {
+                            "type": "string"
+                          },
+                          "step_assistants": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "funnel_step_id": {
+                                  "type": "integer"
+                                },
+                                "ai_agent_id": {
+                                  "type": "string"
+                                },
+                                "funnel_step": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "integer"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "creator": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "avatar_url": {
+                                "nullable": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "agents": [
+                    {
+                      "id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                      "name": "Triador de entrada",
+                      "description": "Classifica e resume os cards que chegam no funil de atendimento.",
+                      "default_provider": "openrouter",
+                      "default_model": "openrouter/auto-cost-based",
+                      "base_prompt": "Você é um assistente que lê o card recém-criado e escreve um resumo objetivo em até 3 linhas.",
+                      "status": "active",
+                      "tools": [
+                        "get-project-details-tool",
+                        "index-projects-tool",
+                        "today-tool"
+                      ],
+                      "structured_output": null,
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2026-08-14T13:02:11.000000Z",
+                      "updated_at": "2026-09-02T18:45:03.000000Z",
+                      "deleted_at": null,
+                      "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                      "executions_count": 128,
+                      "executions_sum_cost": "0.412800000",
+                      "step_assistants": [
+                        {
+                          "id": "019b6b1b-0a77-71f2-8c44-2f9d6ab15e30",
+                          "name": "Resumo automático na triagem",
+                          "funnel_step_id": 3808,
+                          "ai_agent_id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                          "funnel_step": {
+                            "id": 3808,
+                            "name": "Triagem"
+                          }
+                        }
+                      ],
+                      "creator": {
+                        "id": "019aeaa3-2370-731c-9008-be759795f449",
+                        "name": "Test User",
+                        "avatar_url": null
+                      }
+                    },
+                    {
+                      "id": "019b6b2c-9de0-7188-b3a1-0c6f47ab2211",
+                      "name": "Redator de propostas",
+                      "description": "Gera o rascunho da proposta comercial a partir dos dados do card.",
+                      "default_provider": "openrouter",
+                      "default_model": "openrouter/auto",
+                      "base_prompt": null,
+                      "status": "active",
+                      "tools": [],
+                      "structured_output": null,
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2026-09-01T09:18:40.000000Z",
+                      "updated_at": "2026-09-01T09:18:40.000000Z",
+                      "deleted_at": null,
+                      "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                      "executions_count": 0,
+                      "executions_sum_cost": null,
+                      "step_assistants": [],
+                      "creator": {
+                        "id": "019aeaa3-2370-731c-9008-be759795f449",
+                        "name": "Test User",
+                        "avatar_url": null
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Filtra os agentes cujo nome contenha o termo informado.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -23890,7 +24087,7 @@
           "results"
         ],
         "summary": "Listar resultados de uma meta",
-        "description": "Retorna todos os resultados de uma meta específica, ordenados por período (period).",
+        "description": "Retorna todos os resultados já apurados da meta, em ordem crescente de período e sem paginação. O campo `progress_change_percentage` compara o progresso de cada período com o do período anterior e é sempre 0 no primeiro resultado.",
         "operationId": "listarResultadosDeUmaMeta",
         "responses": {
           "200": {
@@ -23903,10 +24100,11 @@
           "name": "goal",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) da meta.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -23917,7 +24115,7 @@
           "results"
         ],
         "summary": "Deletar um resultado específico de uma meta",
-        "description": "Deletar resultado específico de uma meta",
+        "description": "Remove por soft delete um resultado já apurado da meta, sem alterar o progresso atual dela. Nas metas que conseguem recalcular períodos passados (todos os tipos exceto `manual` e `composite`), a rotina automática de atualização regenera o resultado removido. Responde 204 mesmo quando o resultado informado não existe ou pertence a outra meta.",
         "operationId": "deletarResultadoEspecFicoDeUmaMeta",
         "responses": {
           "200": {
@@ -23930,19 +24128,21 @@
           "name": "goal",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) da meta.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         },
         {
           "name": "result",
           "in": "path",
           "required": true,
+          "description": "ID (numérico) do resultado apurado da meta.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -23952,7 +24152,7 @@
           "goals"
         ],
         "summary": "Listar metas",
-        "description": "Retorna a lista paginada de metas, ordenada por status (ativas primeiro) e por data de criação decrescente. Cada meta inclui suas metas filhas, a contagem de resultados e a variação percentual de progresso em relação ao último resultado registrado.",
+        "description": "Retorna a lista paginada de metas, ordenada por status (ativas primeiro) e, dentro de cada status, da mais recente para a mais antiga. Cada meta traz suas metas filhas, a contagem de resultados já apurados e a variação percentual do progresso em relação ao último resultado. Aceita [paginação](https://docs.olie.ai/api-reference/general/pagination) e [filtros básicos](https://docs.olie.ai/api-reference/general/basic-filters).",
         "operationId": "listarMetas",
         "responses": {
           "200": {
@@ -24161,7 +24361,7 @@
           {
             "name": "filter[title]",
             "in": "query",
-            "description": "Filtra por título (correspondência parcial).",
+            "description": "Filtra pelo título da meta (correspondência parcial, sem diferenciar maiúsculas).",
             "schema": {
               "type": "string"
             },
@@ -24170,7 +24370,7 @@
           {
             "name": "filter[status]",
             "in": "query",
-            "description": "Filtra pelo status exato: active, inactive ou completed.",
+            "description": "Filtra pelo status exato. Valores aceitos: active, inactive, completed.",
             "schema": {
               "type": "string",
               "enum": [
@@ -24184,7 +24384,7 @@
           {
             "name": "filter[type]",
             "in": "query",
-            "description": "Filtra pelo tipo exato: manual, projects_created, projects_created_by_user, funnel_steps_links, funnel_steps_links_by_user ou composite.",
+            "description": "Filtra pelo tipo exato. Valores aceitos: manual, projects_created, projects_created_by_user, funnel_steps_links, funnel_steps_links_by_user, composite.",
             "schema": {
               "type": "string"
             },
@@ -24193,7 +24393,7 @@
           {
             "name": "filter[comparison_mode]",
             "in": "query",
-            "description": "Filtra pelo modo de comparação: target (atingir a meta) ou limit (não ultrapassar).",
+            "description": "Filtra pelo modo de comparação exato. Valores aceitos: target (atingir o alvo), limit (não ultrapassar o alvo).",
             "schema": {
               "type": "string"
             },
@@ -24202,7 +24402,7 @@
           {
             "name": "filter[periodicity]",
             "in": "query",
-            "description": "Filtra pela periodicidade exata, em dias.",
+            "description": "Filtra pela periodicidade exata, em dias. Use 0 para as metas que apuram o intervalo inteiro de uma vez.",
             "schema": {
               "type": "string"
             },
@@ -24211,7 +24411,7 @@
           {
             "name": "filter[user_id]",
             "in": "query",
-            "description": "Filtra metas cujo user_id corresponde ao ID do usuário informado.",
+            "description": "Filtra as metas restritas ao usuário informado (ID UUID). Só retorna metas dos tipos projects_created_by_user e funnel_steps_links_by_user.",
             "schema": {
               "type": "string"
             },
@@ -24220,7 +24420,7 @@
           {
             "name": "filter[funnel_step_id]",
             "in": "query",
-            "description": "Filtra metas cujo funnel_step_id corresponde ao ID da etapa de funil informada.",
+            "description": "Filtra as metas que apuram a etapa de funil informada (ID numérico). Só retorna metas dos tipos funnel_steps_links e funnel_steps_links_by_user.",
             "schema": {
               "type": "string"
             },
@@ -24229,7 +24429,7 @@
           {
             "name": "filter[start_date_gte]",
             "in": "query",
-            "description": "Retorna metas com data de início maior ou igual à data informada (YYYY-MM-DD).",
+            "description": "Retorna as metas com data de início maior ou igual à data informada (YYYY-MM-DD).",
             "schema": {
               "type": "string"
             },
@@ -24238,7 +24438,7 @@
           {
             "name": "filter[end_date_lte]",
             "in": "query",
-            "description": "Retorna metas com data de término menor ou igual à data informada (YYYY-MM-DD).",
+            "description": "Retorna as metas com data de término menor ou igual à data informada (YYYY-MM-DD).",
             "schema": {
               "type": "string"
             },
@@ -24247,7 +24447,7 @@
           {
             "name": "filter[trashed]",
             "in": "query",
-            "description": "Controla metas removidas (soft delete): with inclui removidas, only retorna apenas removidas, without (padrão) as ignora.",
+            "description": "Controla as metas removidas. Valores aceitos: with (inclui as removidas), only (apenas as removidas). Sem o parâmetro, as removidas ficam de fora.",
             "schema": {
               "type": "string"
             },
@@ -24256,7 +24456,7 @@
           {
             "name": "sort",
             "in": "query",
-            "description": "Ordenação. Nome do campo para ascendente ou prefixado com '-' para descendente; múltiplos separados por vírgula. Campos: title, status, created_at, updated_at, start_date, end_date, target, progress, periodicity. Padrão: status,-created_at.",
+            "description": "Ordenação: nome do campo para crescente ou prefixado com '-' para decrescente; vários campos separados por vírgula. Campos aceitos: title, status, created_at, updated_at, start_date, end_date, target, progress, periodicity. Padrão: status,-created_at.",
             "schema": {
               "type": "string"
             },
@@ -24274,7 +24474,7 @@
           {
             "name": "perPage",
             "in": "query",
-            "description": "Itens por página. Padrão 30, máximo 100.",
+            "description": "Quantidade de metas por página. Padrão 30, máximo 100.",
             "schema": {
               "type": "string"
             },
@@ -24287,7 +24487,7 @@
           "goals"
         ],
         "summary": "Criar uma meta",
-        "description": "Cria uma nova meta. Permite associar metas filhas (children) para metas compostas. Após a criação, executa o cálculo persistente do progresso.",
+        "description": "Cria uma meta e já calcula o progresso inicial dela. Os campos de recorte (`user_id`, `funnel_step_id`) e a lista de metas filhas (`children`) só são aceitos preenchidos nos tipos que os exigem; nos demais tipos eles devem ir nulos ou vazios. Metas do tipo `manual` informam o progresso no próprio corpo.",
         "operationId": "criarMeta",
         "requestBody": {
           "content": {
@@ -24359,24 +24559,24 @@
                       },
                       "start_date": {
                         "type": "string",
-                        "format": "date",
                         "example": "2026-05-27",
-                        "description": "Data de início da meta."
+                        "description": "Data de início da meta.",
+                        "format": "date"
                       },
                       "end_date": {
                         "type": "string",
-                        "format": "date",
                         "example": "2026-06-05",
-                        "description": "Data final da meta."
+                        "description": "Data final da meta.",
+                        "format": "date"
                       },
                       "children": {
                         "type": "array",
+                        "example": [],
                         "description": "Lista de metas filhas.",
                         "items": {
                           "type": "string",
                           "format": "uuid"
-                        },
-                        "example": []
+                        }
                       }
                     },
                     "required": [
@@ -24442,21 +24642,21 @@
                       },
                       "start_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-05-27"
+                        "example": "2026-05-27",
+                        "format": "date"
                       },
                       "end_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-06-05"
+                        "example": "2026-06-05",
+                        "format": "date"
                       },
                       "children": {
                         "type": "array",
+                        "example": [],
                         "items": {
                           "type": "string",
                           "format": "uuid"
-                        },
-                        "example": []
+                        }
                       }
                     },
                     "required": [
@@ -24521,27 +24721,27 @@
                       },
                       "start_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-05-27"
+                        "example": "2026-05-27",
+                        "format": "date"
                       },
                       "end_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-06-05"
+                        "example": "2026-06-05",
+                        "format": "date"
                       },
                       "user_id": {
                         "type": "string",
-                        "format": "uuid",
                         "example": "019c75de-5124-71d6-8698-271e32b743ce",
-                        "description": "ID do usuário associado à meta."
+                        "description": "ID do usuário associado à meta.",
+                        "format": "uuid"
                       },
                       "children": {
                         "type": "array",
+                        "example": [],
                         "items": {
                           "type": "string",
                           "format": "uuid"
-                        },
-                        "example": []
+                        }
                       }
                     },
                     "required": [
@@ -24607,13 +24807,13 @@
                       },
                       "start_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-05-27"
+                        "example": "2026-05-27",
+                        "format": "date"
                       },
                       "end_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-06-05"
+                        "example": "2026-06-05",
+                        "format": "date"
                       },
                       "funnel_step_id": {
                         "type": "integer",
@@ -24622,11 +24822,11 @@
                       },
                       "children": {
                         "type": "array",
+                        "example": [],
                         "items": {
                           "type": "string",
                           "format": "uuid"
-                        },
-                        "example": []
+                        }
                       }
                     },
                     "required": [
@@ -24692,13 +24892,13 @@
                       },
                       "start_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-05-27"
+                        "example": "2026-05-27",
+                        "format": "date"
                       },
                       "end_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-06-05"
+                        "example": "2026-06-05",
+                        "format": "date"
                       },
                       "funnel_step_id": {
                         "type": "integer",
@@ -24707,17 +24907,17 @@
                       },
                       "user_id": {
                         "type": "string",
-                        "format": "uuid",
                         "example": "019c75de-5124-71d6-8698-271e32b743ce",
-                        "description": "ID do usuário associado à meta."
+                        "description": "ID do usuário associado à meta.",
+                        "format": "uuid"
                       },
                       "children": {
                         "type": "array",
+                        "example": [],
                         "items": {
                           "type": "string",
                           "format": "uuid"
-                        },
-                        "example": []
+                        }
                       }
                     },
                     "required": [
@@ -24784,25 +24984,25 @@
                       },
                       "start_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-05-27"
+                        "example": "2026-05-27",
+                        "format": "date"
                       },
                       "end_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-06-05"
+                        "example": "2026-06-05",
+                        "format": "date"
                       },
                       "children": {
                         "type": "array",
+                        "example": [
+                          "019e69d4-a622-7284-853c-762316b97783",
+                          "019e69d2-a05d-71b8-8092-71ef4698c5ba"
+                        ],
                         "description": "Lista de UUIDs das metas filhas que compõem esta meta.",
                         "items": {
                           "type": "string",
                           "format": "uuid"
-                        },
-                        "example": [
-                          "019e69d4-a622-7284-853c-762316b97783",
-                          "019e69d2-a05d-71b8-8092-71ef4698c5ba"
-                        ]
+                        }
                       }
                     },
                     "required": [
@@ -24823,19 +25023,20 @@
               "examples": {
                 "Criar meta": {
                   "value": {
-                    "title": "Nova meta",
-                    "description": "Descrição da meta",
+                    "title": "Reuniões de alinhamento",
+                    "description": "Encontros semanais registrados manualmente.",
+                    "type": "manual",
                     "status": "active",
-                    "type": "funnel_steps_links_by_user",
-                    "periodicity": 1,
-                    "target": 10,
+                    "start_date": "2026-01-01",
+                    "end_date": "2026-12-31",
+                    "periodicity": 30,
+                    "target": 12,
                     "unit": "count",
                     "comparison_mode": "target",
-                    "start_date": "2026-05-27",
-                    "end_date": "2026-06-05",
-                    "children": [],
-                    "funnel_step_id": 197,
-                    "user_id": "019c75de-5124-71d6-8698-271e32b743ce"
+                    "progress": 0,
+                    "user_id": null,
+                    "funnel_step_id": null,
+                    "children": []
                   }
                 }
               }
@@ -24855,20 +25056,31 @@
           "goals"
         ],
         "summary": "Obter detalhes de uma meta",
-        "description": "Retorna os detalhes de uma meta específica, incluindo contagem de resultados e metas filhas. Aceita parâmetro de query \\`refresh\\` para recalcular o progresso.",
+        "description": "Retorna os dados de uma meta, com as metas filhas e a contagem de resultados já apurados. Enviar o parâmetro `refresh` recalcula e grava o progresso antes de responder.",
         "operationId": "obterDetalhesDeUmaMeta",
         "responses": {
           "200": {
             "description": "200"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "refresh",
+            "in": "query",
+            "description": "Basta estar presente na URL (com ou sem valor) para recalcular e gravar o progresso da meta antes de responder.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       },
       "put": {
         "tags": [
           "goals"
         ],
         "summary": "Atualizar informações de uma meta",
-        "description": "Atualiza as informações de uma meta existente, incluindo a sincronização de metas filhas (children). Após a atualização, executa o cálculo persistente do progresso.",
+        "description": "Atualiza uma meta e recalcula o progresso dela em seguida. Título, tipo, data de início e alvo precisam ser enviados sempre, mesmo quando não mudam; os demais campos omitidos permanecem como estão. A lista `children` é sincronizada: as metas filhas que não aparecerem nela são desvinculadas.",
         "operationId": "atualizarInformaEsDeUmaMeta",
         "requestBody": {
           "content": {
@@ -24940,24 +25152,24 @@
                       },
                       "start_date": {
                         "type": "string",
-                        "format": "date",
                         "example": "2026-05-27",
-                        "description": "Data de início da meta."
+                        "description": "Data de início da meta.",
+                        "format": "date"
                       },
                       "end_date": {
                         "type": "string",
-                        "format": "date",
                         "example": "2026-06-05",
-                        "description": "Data final da meta."
+                        "description": "Data final da meta.",
+                        "format": "date"
                       },
                       "children": {
                         "type": "array",
+                        "example": [],
                         "description": "Lista de metas filhas.",
                         "items": {
                           "type": "string",
                           "format": "uuid"
-                        },
-                        "example": []
+                        }
                       }
                     },
                     "required": [
@@ -25023,21 +25235,21 @@
                       },
                       "start_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-05-27"
+                        "example": "2026-05-27",
+                        "format": "date"
                       },
                       "end_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-06-05"
+                        "example": "2026-06-05",
+                        "format": "date"
                       },
                       "children": {
                         "type": "array",
+                        "example": [],
                         "items": {
                           "type": "string",
                           "format": "uuid"
-                        },
-                        "example": []
+                        }
                       }
                     },
                     "required": [
@@ -25102,27 +25314,27 @@
                       },
                       "start_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-05-27"
+                        "example": "2026-05-27",
+                        "format": "date"
                       },
                       "end_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-06-05"
+                        "example": "2026-06-05",
+                        "format": "date"
                       },
                       "user_id": {
                         "type": "string",
-                        "format": "uuid",
                         "example": "019c75de-5124-71d6-8698-271e32b743ce",
-                        "description": "ID do usuário associado à meta."
+                        "description": "ID do usuário associado à meta.",
+                        "format": "uuid"
                       },
                       "children": {
                         "type": "array",
+                        "example": [],
                         "items": {
                           "type": "string",
                           "format": "uuid"
-                        },
-                        "example": []
+                        }
                       }
                     },
                     "required": [
@@ -25188,13 +25400,13 @@
                       },
                       "start_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-05-27"
+                        "example": "2026-05-27",
+                        "format": "date"
                       },
                       "end_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-06-05"
+                        "example": "2026-06-05",
+                        "format": "date"
                       },
                       "funnel_step_id": {
                         "type": "integer",
@@ -25203,11 +25415,11 @@
                       },
                       "children": {
                         "type": "array",
+                        "example": [],
                         "items": {
                           "type": "string",
                           "format": "uuid"
-                        },
-                        "example": []
+                        }
                       }
                     },
                     "required": [
@@ -25273,13 +25485,13 @@
                       },
                       "start_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-05-27"
+                        "example": "2026-05-27",
+                        "format": "date"
                       },
                       "end_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-06-05"
+                        "example": "2026-06-05",
+                        "format": "date"
                       },
                       "funnel_step_id": {
                         "type": "integer",
@@ -25288,17 +25500,17 @@
                       },
                       "user_id": {
                         "type": "string",
-                        "format": "uuid",
                         "example": "019c75de-5124-71d6-8698-271e32b743ce",
-                        "description": "ID do usuário associado à meta."
+                        "description": "ID do usuário associado à meta.",
+                        "format": "uuid"
                       },
                       "children": {
                         "type": "array",
+                        "example": [],
                         "items": {
                           "type": "string",
                           "format": "uuid"
-                        },
-                        "example": []
+                        }
                       }
                     },
                     "required": [
@@ -25365,25 +25577,25 @@
                       },
                       "start_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-05-27"
+                        "example": "2026-05-27",
+                        "format": "date"
                       },
                       "end_date": {
                         "type": "string",
-                        "format": "date",
-                        "example": "2026-06-05"
+                        "example": "2026-06-05",
+                        "format": "date"
                       },
                       "children": {
                         "type": "array",
+                        "example": [
+                          "019e69d4-a622-7284-853c-762316b97783",
+                          "019e69d2-a05d-71b8-8092-71ef4698c5ba"
+                        ],
                         "description": "Lista de UUIDs das metas filhas que compõem esta meta.",
                         "items": {
                           "type": "string",
                           "format": "uuid"
-                        },
-                        "example": [
-                          "019e69d4-a622-7284-853c-762316b97783",
-                          "019e69d2-a05d-71b8-8092-71ef4698c5ba"
-                        ]
+                        }
                       }
                     },
                     "required": [
@@ -25404,26 +25616,20 @@
               "examples": {
                 "Atualizar informações de uma meta": {
                   "value": {
-                    "title": "Novo título",
-                    "description": "Descrição da meta",
+                    "title": "Reuniões de alinhamento",
+                    "description": "Encontros semanais registrados manualmente.",
+                    "type": "manual",
                     "status": "active",
-                    "start_date": "2026-05-27",
-                    "end_date": "2026-06-05",
-                    "periodicity": 1,
-                    "type": "funnel_steps_links_by_user",
-                    "funnel_step_id": 197,
-                    "user_id": "019c75de-50f0-7366-a948-b8cbdd1841be",
-                    "target": 10,
+                    "start_date": "2026-01-01",
+                    "end_date": "2026-12-31",
+                    "periodicity": 30,
+                    "target": 12,
                     "unit": "count",
                     "comparison_mode": "target",
-                    "children": [],
-                    "progress_change_percentage": 0,
-                    "percentage": 0,
-                    "results_count": 0,
-                    "is_past_calculable": true,
-                    "created_at": "2026-05-27T15:14:25.000000Z",
-                    "updated_at": "2026-05-27T15:14:25.000000Z",
-                    "deleted_at": null
+                    "progress": 0,
+                    "user_id": null,
+                    "funnel_step_id": null,
+                    "children": []
                   }
                 }
               }
@@ -25441,7 +25647,7 @@
           "goals"
         ],
         "summary": "Deletar uma meta",
-        "description": "Deletar uma meta",
+        "description": "Remove a meta por soft delete: ela sai das listagens e só reaparece com `filter[trashed]`, deixa de ser considerada nas metas compostas que a incluíam e seus resultados já apurados ficam inacessíveis, embora não sejam apagados. Não existe endpoint para restaurar uma meta removida.",
         "operationId": "deletarUmaMeta",
         "responses": {
           "200": {
@@ -25454,10 +25660,11 @@
           "name": "goal",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) da meta.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -26096,7 +26303,377 @@
         "operationId": "retornaUmaListaDeProjetosAssociadosAUmGrupo",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer"
+                        },
+                        "from": {
+                          "type": "integer"
+                        },
+                        "last_page": {
+                          "type": "integer"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "to": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "projects": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "old_id": {
+                            "nullable": true
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "impact": {
+                            "type": "integer"
+                          },
+                          "parent_id": {
+                            "nullable": true
+                          },
+                          "frame_id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "customer_id": {
+                            "type": "string"
+                          },
+                          "contact_id": {
+                            "type": "integer"
+                          },
+                          "share_token": {
+                            "nullable": true
+                          },
+                          "share_settings": {
+                            "nullable": true
+                          },
+                          "merged_id": {
+                            "nullable": true
+                          },
+                          "status": {
+                            "type": "integer"
+                          },
+                          "budget": {
+                            "type": "integer"
+                          },
+                          "is_template": {
+                            "type": "boolean"
+                          },
+                          "created_by": {
+                            "nullable": true
+                          },
+                          "deleted_at": {
+                            "nullable": true
+                          },
+                          "headquarter": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "parent_id": {
+                                "nullable": true
+                              },
+                              "parent": {
+                                "nullable": true
+                              }
+                            }
+                          },
+                          "form_answers": {
+                            "type": "array",
+                            "items": {}
+                          },
+                          "tasks": {
+                            "type": "array",
+                            "items": {}
+                          },
+                          "customer": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "parent_id": {
+                                "nullable": true
+                              },
+                              "parent": {
+                                "nullable": true
+                              }
+                            }
+                          },
+                          "contact": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "role": {
+                                "type": "string"
+                              },
+                              "email": {
+                                "type": "string",
+                                "format": "email"
+                              },
+                              "phone": {
+                                "type": "string",
+                                "format": "utc-millisec"
+                              },
+                              "description": {
+                                "nullable": true
+                              },
+                              "frame_id": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              },
+                              "customers": {
+                                "type": "array",
+                                "items": {}
+                              }
+                            }
+                          },
+                          "funnels": {
+                            "type": "array",
+                            "items": {}
+                          },
+                          "funnel_steps": {
+                            "type": "array",
+                            "items": {}
+                          },
+                          "tags": {
+                            "type": "array",
+                            "items": {}
+                          },
+                          "groups": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "users": {
+                            "type": "array",
+                            "items": {}
+                          },
+                          "frame": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "subdomain": {
+                                "type": "string"
+                              },
+                              "model_forms": {
+                                "nullable": true
+                              }
+                            }
+                          },
+                          "form": {
+                            "nullable": true
+                          },
+                          "executors": {
+                            "type": "array",
+                            "items": {}
+                          },
+                          "costs": {
+                            "nullable": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "meta": {
+                    "current_page": 1,
+                    "from": 1,
+                    "last_page": 1,
+                    "per_page": 30,
+                    "to": 2,
+                    "total": 2
+                  },
+                  "response": true,
+                  "projects": [
+                    {
+                      "id": "019aeaa3-b2d5-71f6-84c5-322f66c1a406",
+                      "old_id": null,
+                      "code": "P-1",
+                      "name": "Reforma da loja do centro",
+                      "description": "Troca de piso, vitrine e iluminação.",
+                      "impact": 3,
+                      "parent_id": null,
+                      "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                      "created_at": "2025-12-04T18:33:08.000000Z",
+                      "updated_at": "2025-12-04T18:33:08.000000Z",
+                      "customer_id": "019aeaa3-afaa-7294-b6f9-c9ab2653c84e",
+                      "contact_id": 12560,
+                      "share_token": null,
+                      "share_settings": null,
+                      "merged_id": null,
+                      "status": 1,
+                      "budget": 15000,
+                      "is_template": false,
+                      "created_by": null,
+                      "deleted_at": null,
+                      "headquarter": {
+                        "id": "019aeaa3-afaa-7294-b6f9-c9ab2653c84e",
+                        "name": "Customer Name Example",
+                        "parent_id": null,
+                        "parent": null
+                      },
+                      "form_answers": [],
+                      "tasks": [],
+                      "customer": {
+                        "id": "019aeaa3-afaa-7294-b6f9-c9ab2653c84e",
+                        "name": "Customer Name Example",
+                        "parent_id": null,
+                        "parent": null
+                      },
+                      "contact": {
+                        "id": 12560,
+                        "name": "Contact Name Example",
+                        "role": "Comprador",
+                        "email": "email@example.org",
+                        "phone": "+5511999998888",
+                        "description": null,
+                        "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "created_at": "2025-12-04T18:33:07.000000Z",
+                        "updated_at": "2025-12-04T18:33:07.000000Z",
+                        "deleted_at": null,
+                        "customers": []
+                      },
+                      "funnels": [],
+                      "funnel_steps": [],
+                      "tags": [],
+                      "groups": [
+                        {
+                          "id": "019aeaa3-c1f0-72a4-9d3b-6b8f0e5a1c77",
+                          "name": "Campanhas 2026"
+                        }
+                      ],
+                      "users": [],
+                      "frame": {
+                        "id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "name": "OlieDev Company",
+                        "subdomain": "devframe",
+                        "model_forms": null
+                      },
+                      "form": null,
+                      "executors": [],
+                      "costs": null
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Filtro inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "field": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo [campo_inexistente] selecionado é inválido. Campos disponíveis: id, code, name, description, impact, status, budget, funnel_status_at, funnel_forecast_date, funnel_status, funnel_tags, parent, children, customer, contact, assignee, creator, created_at, funnels, funnel_steps, funnel_step_linked_at, completed_percentage, channel_awaiting_reply_since, project_groups, answer_pool, project_step_form_answer_pool, project_funnel_assignments_answer_pool, project_loose_form_answer_pool, name_code.",
+                  "validation": {
+                    "field": [
+                      "O campo [campo_inexistente] selecionado é inválido. Campos disponíveis: id, code, name, description, impact, status, budget, funnel_status_at, funnel_forecast_date, funnel_status, funnel_tags, parent, children, customer, contact, assignee, creator, created_at, funnels, funnel_steps, funnel_step_linked_at, completed_percentage, channel_awaiting_reply_since, project_groups, answer_pool, project_step_form_answer_pool, project_funnel_assignments_answer_pool, project_loose_form_answer_pool, name_code."
+                    ]
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -26163,7 +26740,90 @@
         "operationId": "alteraAOrdemDeUmProjetoDentroDeUmGrupo",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Projeto não está no grupo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "project_model_not_found",
+                  "error": "No query results for model [App\\\\Models\\\\Project] 00000000-0000-0000-0000-000000000000"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "order": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo order é obrigatório.",
+                  "validation": {
+                    "order": [
+                      "O campo order é obrigatório."
+                    ]
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -26218,7 +26878,106 @@
         "operationId": "associaUmProjetoAUmGrupoDeProjetos",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Projeto não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "project_model_not_found",
+                  "error": "No query results for model [App\\\\Models\\\\Project] 00000000-0000-0000-0000-000000000000"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Projeto já vinculado ao grupo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "project": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Projeto já vinculado ao grupo": {
+                    "value": {
+                      "response": false,
+                      "message": "validation_errors",
+                      "error": "O projeto já está vinculado ao grupo",
+                      "validation": {
+                        "project": [
+                          "O projeto já está vinculado ao grupo"
+                        ]
+                      }
+                    }
+                  },
+                  "Erro de validação": {
+                    "value": {
+                      "response": false,
+                      "message": "validation_errors",
+                      "error": "O campo project id é obrigatório.",
+                      "validation": {
+                        "project_id": [
+                          "O campo project id é obrigatório."
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -26263,7 +27022,48 @@
         "operationId": "removeAAssociaODeUmProjetoDeUmGrupoDeProjetos",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Projeto não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "project_model_not_found",
+                  "error": "No query results for model [App\\\\Models\\\\Project] 00000000-0000-0000-0000-000000000000"
+                }
+              }
+            }
           }
         }
       },
@@ -26300,7 +27100,51 @@
         "operationId": "listarGruposDeProjetos",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "project_groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "projects_count": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "project_groups": [
+                    {
+                      "id": "019aeaa3-c1f0-72a4-9d3b-6b8f0e5a1c77",
+                      "name": "Campanhas 2026",
+                      "projects_count": 12
+                    },
+                    {
+                      "id": "019aeaa3-c1f0-7b62-8a41-2d9c4e7f3b08",
+                      "name": "Contratos recorrentes",
+                      "projects_count": 0
+                    }
+                  ]
+                }
+              }
+            }
           }
         },
         "parameters": [
@@ -26333,7 +27177,79 @@
         "operationId": "criarGrupoDeProjetos",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "project_group": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "project_group": {
+                    "id": "019aeaa3-c1f0-72a4-9d3b-6b8f0e5a1c77",
+                    "name": "Campanhas 2026"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo nome é obrigatório.",
+                  "validation": {
+                    "name": [
+                      "O campo nome é obrigatório."
+                    ]
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -26365,7 +27281,63 @@
         "operationId": "obterDetalhesDeUmGrupoDeProjetos",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "project_group": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "project_group": {
+                    "id": "019aeaa3-c1f0-72a4-9d3b-6b8f0e5a1c77",
+                    "name": "Campanhas 2026"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Grupo não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "project_group_model_not_found",
+                  "error": "No query results for model [App\\\\Models\\\\ProjectGroup] 00000000-0000-0000-0000-000000000000"
+                }
+              }
+            }
           }
         }
       },
@@ -26378,7 +27350,105 @@
         "operationId": "atualizarInformaEsDeUmGrupoDeProjetos",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "project_group": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "project_group": {
+                    "id": "019aeaa3-c1f0-72a4-9d3b-6b8f0e5a1c77",
+                    "name": "Campanhas 2026 (revisado)"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Grupo não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "project_group_model_not_found",
+                  "error": "No query results for model [App\\\\Models\\\\ProjectGroup] 00000000-0000-0000-0000-000000000000"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo nome é obrigatório.",
+                  "validation": {
+                    "name": [
+                      "O campo nome é obrigatório."
+                    ]
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -26408,7 +27478,22 @@
         "operationId": "deletarGrupoDeProjetos",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
           }
         }
       },
