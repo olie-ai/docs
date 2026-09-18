@@ -22974,11 +22974,156 @@
           "execute"
         ],
         "summary": "Executar agente",
-        "description": "Executar um agente de IA específico.",
+        "description": "Dispara uma execução do agente: o `prompt` passa pelo motor de templates e a execução entra na fila de processamento. A resposta devolve o registro recém-criado, ainda sem resultado — o texto gerado, os tokens, os créditos consumidos e os passos aparecem depois no detalhe da execução. `model` e `provider` são opcionais e, quando enviados, substituem os padrões do agente apenas nesta execução.",
         "operationId": "executarAgente",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "execution": {
+                      "type": "object",
+                      "properties": {
+                        "agent_id": {
+                          "type": "string"
+                        },
+                        "provider": {
+                          "type": "string"
+                        },
+                        "model": {
+                          "type": "string"
+                        },
+                        "prompt": {
+                          "type": "string"
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "id": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "execution": {
+                    "agent_id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                    "provider": "openrouter",
+                    "model": "openrouter/auto-cost-based",
+                    "prompt": "Resuma em até 3 linhas o que já foi combinado no card P-80.",
+                    "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                    "updated_at": "2026-09-18T11:52:03.000000Z",
+                    "created_at": "2026-09-18T11:52:03.000000Z",
+                    "id": "019b6b4d-2f18-7331-b60a-91c7d2e40a55"
+                  }
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Créditos de IA esgotados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "service": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "available_credits": {
+                      "type": "integer"
+                    },
+                    "auto_recharge_status": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "service": "App\\Exceptions\\Services\\AI\\InsufficientCreditsException",
+                  "message": "insufficient_credits",
+                  "error": "AI credits depleted and auto-recharge is disabled. Purchase a credit pack to continue.",
+                  "available_credits": 0,
+                  "auto_recharge_status": "disabled"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agente não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "ai_agent_model_not_found",
+                  "error": "No query results for model [App\\Models\\AiAgent] 019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "prompt": {
+                    "type": "string"
+                  },
+                  "model": {
+                    "nullable": true
+                  },
+                  "provider": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "prompt": "Resuma em até 3 linhas o que já foi combinado no card P-80.",
+                "model": null,
+                "provider": null
+              }
+            }
           }
         }
       },
@@ -22987,10 +23132,11 @@
           "name": "agentId",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do agente de IA a ser executado.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -23336,7 +23482,7 @@
           "agents"
         ],
         "summary": "Criar agente de IA",
-        "description": "Criar um novo agente de IA.",
+        "description": "Cria um agente de IA. No modo manual (padrão) informe `name`, `description`, `default_provider` e `default_model`; `tools` aceita apenas os nomes devolvidos pelo endpoint de ferramentas disponíveis. Com `auto_generate: true` basta enviar `description`: o sistema redige nome, prompt base, ferramentas e os contextos iniciais do agente, e nesse modo a criação respeita o limite de agentes contratado, respondendo 402 quando ele já foi atingido.",
         "operationId": "criarAgenteDeIa",
         "requestBody": {
           "content": {
@@ -23366,20 +23512,21 @@
                   },
                   "tools": {
                     "type": "array",
-                    "items": {},
-                    "example": []
+                    "example": [],
+                    "items": {}
                   }
                 }
               },
               "examples": {
                 "Criar agente de IA": {
                   "value": {
-                    "base_prompt": "sample_text",
-                    "default_model": "sample_text",
-                    "default_provider": "sample_text",
-                    "description": "sample_text",
-                    "name": "sample_text",
-                    "tools": []
+                    "name": "Triador de entrada",
+                    "description": "Classifica e resume os cards que chegam no funil de atendimento.",
+                    "default_provider": "openrouter",
+                    "default_model": "openrouter/auto-cost-based",
+                    "base_prompt": "Leia o card recém-criado e escreva um resumo objetivo em até 3 linhas.",
+                    "tools": [],
+                    "auto_generate": false
                   }
                 }
               }
@@ -23388,7 +23535,194 @@
         },
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "agent": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "default_model": {
+                          "type": "string"
+                        },
+                        "default_provider": {
+                          "type": "string"
+                        },
+                        "tools": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "base_prompt": {
+                          "type": "string"
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "created_by": {
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "id": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Sucesso": {
+                    "value": {
+                      "response": true,
+                      "agent": {
+                        "name": "Triador de entrada",
+                        "description": "Classifica e resume os cards que chegam no funil de atendimento.",
+                        "default_model": "openrouter/auto-cost-based",
+                        "default_provider": "openrouter",
+                        "tools": [
+                          "get-project-details-tool",
+                          "today-tool"
+                        ],
+                        "base_prompt": "Leia o card recém-criado e escreva um resumo objetivo em até 3 linhas.",
+                        "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                        "updated_at": "2026-09-18T11:24:07.000000Z",
+                        "created_at": "2026-09-18T11:24:07.000000Z",
+                        "id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04"
+                      }
+                    }
+                  },
+                  "Sucesso — geração automática": {
+                    "value": {
+                      "response": true,
+                      "agent": {
+                        "name": "Triador Cards",
+                        "description": "Assistente que lê cards novos e devolve um resumo curto com a classificação sugerida.",
+                        "base_prompt": "Você é um assistente de triagem. Ao receber um card, use a ferramenta get-project-details-tool para ler os dados e devolva um resumo de até 3 linhas com a classificação sugerida.",
+                        "tools": [
+                          "get-project-details-tool"
+                        ],
+                        "default_provider": "openrouter",
+                        "default_model": "openrouter/auto-cost-based",
+                        "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                        "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                        "updated_at": "2026-09-18T11:31:52.000000Z",
+                        "created_at": "2026-09-18T11:31:52.000000Z",
+                        "id": "019b6b3f-71a2-7404-9c2e-8b03d5e1af62"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Limite de agentes atingido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "object_type": {
+                      "type": "string"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    },
+                    "usage": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "ai_agent_max_limit_exceeded",
+                  "error": "frame_max_limit_exceeded",
+                  "object_type": "ai_agent",
+                  "limit": 5,
+                  "usage": 5
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "tools": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The name field is required. (and 1 more error)",
+                  "validation": {
+                    "name": [
+                      "The name field is required."
+                    ],
+                    "tools": [
+                      "The selected tools is invalid."
+                    ]
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -23400,11 +23734,185 @@
           "agents"
         ],
         "summary": "Obter agente de IA específico",
-        "description": "Obter detalhes de um agente de IA específico.",
+        "description": "Retorna um agente de IA com a contagem e o custo somado de suas execuções e as etapas de funil em que ele atua como assistente.",
         "operationId": "obterAgenteDeIaEspecFico",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "agent": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "default_provider": {
+                          "type": "string"
+                        },
+                        "default_model": {
+                          "type": "string"
+                        },
+                        "base_prompt": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "tools": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "structured_output": {
+                          "nullable": true
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        },
+                        "created_by": {
+                          "type": "string"
+                        },
+                        "executions_count": {
+                          "type": "integer"
+                        },
+                        "executions_sum_cost": {
+                          "type": "string"
+                        },
+                        "step_assistants": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "funnel_step_id": {
+                                "type": "integer"
+                              },
+                              "ai_agent_id": {
+                                "type": "string"
+                              },
+                              "funnel_step": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "integer"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "creator": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "avatar_url": {
+                              "nullable": true
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "agent": {
+                    "id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                    "name": "Triador de entrada",
+                    "description": "Classifica e resume os cards que chegam no funil de atendimento.",
+                    "default_provider": "openrouter",
+                    "default_model": "openrouter/auto-cost-based",
+                    "base_prompt": "Leia o card recém-criado e escreva um resumo objetivo em até 3 linhas.",
+                    "status": "active",
+                    "tools": [
+                      "get-project-details-tool",
+                      "today-tool"
+                    ],
+                    "structured_output": null,
+                    "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                    "created_at": "2026-08-14T13:02:11.000000Z",
+                    "updated_at": "2026-09-02T18:45:03.000000Z",
+                    "deleted_at": null,
+                    "created_by": "019aeaa3-2370-731c-9008-be759795f449",
+                    "executions_count": 128,
+                    "executions_sum_cost": "0.412800000",
+                    "step_assistants": [
+                      {
+                        "id": "019b6b1b-0a77-71f2-8c44-2f9d6ab15e30",
+                        "funnel_step_id": 3808,
+                        "ai_agent_id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                        "funnel_step": {
+                          "id": 3808
+                        }
+                      }
+                    ],
+                    "creator": {
+                      "id": "019aeaa3-2370-731c-9008-be759795f449",
+                      "name": "Test User",
+                      "avatar_url": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agente não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "ai_agent_model_not_found",
+                  "error": "No query results for model [App\\Models\\AiAgent] 019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04"
+                }
+              }
+            }
           }
         }
       },
@@ -23414,7 +23922,7 @@
           "agents"
         ],
         "summary": "Atualizar agente de IA",
-        "description": "Atualizar dados de um agente de IA específico.",
+        "description": "Atualiza os dados de um agente de IA. Apenas os campos enviados são alterados, e `tools` substitui por inteiro a lista de ferramentas habilitadas — enviar uma lista vazia desabilita todas.",
         "operationId": "atualizarAgenteDeIa",
         "requestBody": {
           "content": {
@@ -23444,19 +23952,19 @@
                   },
                   "tools": {
                     "type": "array",
-                    "items": {},
-                    "example": []
+                    "example": [],
+                    "items": {}
                   }
                 }
               },
               "examples": {
                 "Atualizar agente de IA": {
                   "value": {
-                    "base_prompt": "sample_text",
-                    "default_model": "sample_text",
-                    "default_provider": "sample_text",
-                    "description": "sample_text",
-                    "name": "sample_text",
+                    "name": "",
+                    "description": "",
+                    "default_provider": "openrouter",
+                    "default_model": "",
+                    "base_prompt": "",
                     "tools": []
                   }
                 }
@@ -23466,7 +23974,162 @@
         },
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "agent": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "default_provider": {
+                          "type": "string"
+                        },
+                        "default_model": {
+                          "type": "string"
+                        },
+                        "base_prompt": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "tools": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "structured_output": {
+                          "nullable": true
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        },
+                        "created_by": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "agent": {
+                    "id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                    "name": "Triador de entrada (revisado)",
+                    "description": "Classifica e resume os cards que chegam no funil de atendimento.",
+                    "default_provider": "openrouter",
+                    "default_model": "openrouter/auto-cost-based",
+                    "base_prompt": "Leia o card recém-criado e escreva um resumo objetivo em até 3 linhas.",
+                    "status": "active",
+                    "tools": [
+                      "get-project-details-tool",
+                      "index-projects-tool",
+                      "today-tool"
+                    ],
+                    "structured_output": null,
+                    "frame_id": "019aeaa3-2778-73ec-8f8d-59d06cc59dca",
+                    "created_at": "2026-08-14T13:02:11.000000Z",
+                    "updated_at": "2026-09-18T11:40:22.000000Z",
+                    "deleted_at": null,
+                    "created_by": "019aeaa3-2370-731c-9008-be759795f449"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agente não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "ai_agent_model_not_found",
+                  "error": "No query results for model [App\\Models\\AiAgent] 019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "tools": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The selected tools is invalid.",
+                  "validation": {
+                    "tools": [
+                      "The selected tools is invalid."
+                    ]
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -23475,12 +24138,53 @@
           "ai-agents",
           "agents"
         ],
-        "summary": "Deletar agente de IA",
-        "description": "Deletar um agente de IA específico do sistema.",
+        "summary": "Remover agente de IA",
+        "description": "Remove um agente de IA. A exclusão é lógica: o agente deixa de aparecer nas listagens, mas as execuções já registradas continuam disponíveis no histórico de execuções.",
         "operationId": "deletarAgenteDeIa",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agente não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "ai_agent_model_not_found",
+                  "error": "No query results for model [App\\Models\\AiAgent] 019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04"
+                }
+              }
+            }
           }
         }
       },
@@ -23489,10 +24193,11 @@
           "name": "agent",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do agente de IA.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -24091,7 +24796,115 @@
         "operationId": "listarResultadosDeUmaMeta",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "target": {
+                            "type": "integer"
+                          },
+                          "progress": {
+                            "type": "integer"
+                          },
+                          "progress_change_percentage": {
+                            "type": "integer"
+                          },
+                          "period": {
+                            "type": "integer"
+                          },
+                          "init_date": {
+                            "type": "string",
+                            "format": "date"
+                          },
+                          "end_date": {
+                            "type": "string",
+                            "format": "date"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "results": [
+                    {
+                      "id": 1841,
+                      "target": 50,
+                      "progress": 10,
+                      "progress_change_percentage": 0,
+                      "period": 0,
+                      "init_date": "2026-01-01",
+                      "end_date": "2026-01-30",
+                      "created_at": "2026-01-31T03:00:12.000000Z"
+                    },
+                    {
+                      "id": 1902,
+                      "target": 50,
+                      "progress": 30,
+                      "progress_change_percentage": 200,
+                      "period": 1,
+                      "init_date": "2026-01-31",
+                      "end_date": "2026-03-01",
+                      "created_at": "2026-03-02T03:00:09.000000Z"
+                    },
+                    {
+                      "id": 1977,
+                      "target": 50,
+                      "progress": 50,
+                      "progress_change_percentage": 66.67,
+                      "period": 2,
+                      "init_date": "2026-03-02",
+                      "end_date": "2026-03-31",
+                      "created_at": "2026-04-01T03:00:07.000000Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Meta não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "goal_model_not_found",
+                  "error": "No query results for model [App\\Models\\Goal] 9b2d1f4a-3c5e-4a7b-8d9f-1e2c3a4b5c6d"
+                }
+              }
+            }
           }
         }
       },
@@ -24118,8 +24931,15 @@
         "description": "Remove por soft delete um resultado já apurado da meta, sem alterar o progresso atual dela. Nas metas que conseguem recalcular períodos passados (todos os tipos exceto `manual` e `composite`), a rotina automática de atualização regenera o resultado removido. Responde 204 mesmo quando o resultado informado não existe ou pertence a outra meta.",
         "operationId": "deletarResultadoEspecFicoDeUmaMeta",
         "responses": {
-          "200": {
-            "description": "200"
+          "204": {
+            "description": "Resultado removido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         }
       },
@@ -24352,6 +25172,89 @@
                     "total": 2
                   },
                   "response": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Filtro não permitido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "allowed_filters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "unknown_filters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "invalid_filter_query",
+                  "error": "Requested filter(s) `owner` are not allowed. Allowed filter(s) are `title, status, type, comparison_mode, periodicity, user_id, funnel_step_id, start_date_gte, end_date_lte, trashed`.",
+                  "allowed_filters": [
+                    "title",
+                    "status",
+                    "type",
+                    "comparison_mode",
+                    "periodicity",
+                    "user_id",
+                    "funnel_step_id",
+                    "start_date_gte",
+                    "end_date_lte",
+                    "trashed"
+                  ],
+                  "unknown_filters": [
+                    "owner"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "permission": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "permission_required",
+                  "error": "An permission is required to that action",
+                  "permission": "goals.index"
                 }
               }
             }
@@ -25045,7 +25948,182 @@
         },
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "goal": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "start_date": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "end_date": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "periodicity": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "user_id": {
+                          "nullable": true
+                        },
+                        "funnel_step_id": {
+                          "nullable": true
+                        },
+                        "target": {
+                          "type": "integer"
+                        },
+                        "unit": {
+                          "type": "string"
+                        },
+                        "comparison_mode": {
+                          "type": "string"
+                        },
+                        "progress": {
+                          "type": "integer"
+                        },
+                        "progress_change_percentage": {
+                          "type": "integer"
+                        },
+                        "percentage": {
+                          "type": "integer"
+                        },
+                        "is_past_calculable": {
+                          "type": "boolean"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "goal": {
+                    "id": "9b2d1f4a-3c5e-4a7b-8d9f-1e2c3a4b5c6d",
+                    "title": "Reuniões de alinhamento",
+                    "description": "Encontros semanais registrados manualmente.",
+                    "status": "active",
+                    "start_date": "2026-01-01",
+                    "end_date": "2026-12-31",
+                    "periodicity": 30,
+                    "type": "manual",
+                    "user_id": null,
+                    "funnel_step_id": null,
+                    "target": 12,
+                    "unit": "count",
+                    "comparison_mode": "target",
+                    "progress": 0,
+                    "progress_change_percentage": 0,
+                    "percentage": 0,
+                    "is_past_calculable": false,
+                    "created_at": "2026-01-06T14:45:51.000000Z",
+                    "updated_at": "2026-01-06T14:45:51.000000Z",
+                    "deleted_at": null
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "type": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "start_date": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "target": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo título é obrigatório. (and 3 more errors)",
+                  "validation": {
+                    "title": [
+                      "O campo título é obrigatório."
+                    ],
+                    "type": [
+                      "O campo type é obrigatório."
+                    ],
+                    "start_date": [
+                      "O campo start date é obrigatório."
+                    ],
+                    "target": [
+                      "O campo target é obrigatório."
+                    ]
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -25060,7 +26138,148 @@
         "operationId": "obterDetalhesDeUmaMeta",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "goal": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "start_date": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "end_date": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "periodicity": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "user_id": {
+                          "nullable": true
+                        },
+                        "funnel_step_id": {
+                          "nullable": true
+                        },
+                        "target": {
+                          "type": "integer"
+                        },
+                        "unit": {
+                          "type": "string"
+                        },
+                        "comparison_mode": {
+                          "type": "string"
+                        },
+                        "progress": {
+                          "type": "integer"
+                        },
+                        "children": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "progress_change_percentage": {
+                          "type": "integer"
+                        },
+                        "percentage": {
+                          "type": "integer"
+                        },
+                        "results_count": {
+                          "type": "integer"
+                        },
+                        "is_past_calculable": {
+                          "type": "boolean"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "goal": {
+                    "id": "9b2d1f4a-3c5e-4a7b-8d9f-1e2c3a4b5c6d",
+                    "title": "Projetos criados no mês",
+                    "description": "Total de novos projetos abertos no período.",
+                    "status": "active",
+                    "start_date": "2026-01-01",
+                    "end_date": "2026-12-31",
+                    "periodicity": 30,
+                    "type": "projects_created",
+                    "user_id": null,
+                    "funnel_step_id": null,
+                    "target": 50,
+                    "unit": "count",
+                    "comparison_mode": "target",
+                    "progress": 32,
+                    "children": [],
+                    "progress_change_percentage": 0,
+                    "percentage": 64,
+                    "results_count": 4,
+                    "is_past_calculable": true,
+                    "created_at": "2026-01-06T14:45:51.000000Z",
+                    "updated_at": "2026-01-20T09:12:03.000000Z",
+                    "deleted_at": null
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Meta não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "goal_model_not_found",
+                  "error": "No query results for model [App\\Models\\Goal] 9b2d1f4a-3c5e-4a7b-8d9f-1e2c3a4b5c6d"
+                }
+              }
+            }
           }
         },
         "parameters": [
@@ -25638,7 +26857,155 @@
         },
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "goal": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "start_date": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "end_date": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "periodicity": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "user_id": {
+                          "nullable": true
+                        },
+                        "funnel_step_id": {
+                          "nullable": true
+                        },
+                        "target": {
+                          "type": "integer"
+                        },
+                        "unit": {
+                          "type": "string"
+                        },
+                        "comparison_mode": {
+                          "type": "string"
+                        },
+                        "progress": {
+                          "type": "integer"
+                        },
+                        "progress_change_percentage": {
+                          "type": "integer"
+                        },
+                        "percentage": {
+                          "type": "integer"
+                        },
+                        "is_past_calculable": {
+                          "type": "boolean"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "goal": {
+                    "id": "9b2d1f4a-3c5e-4a7b-8d9f-1e2c3a4b5c6d",
+                    "title": "Reuniões de alinhamento (revisado)",
+                    "description": "Encontros semanais registrados manualmente.",
+                    "status": "active",
+                    "start_date": "2026-01-01",
+                    "end_date": "2026-12-31",
+                    "periodicity": 30,
+                    "type": "manual",
+                    "user_id": null,
+                    "funnel_step_id": null,
+                    "target": 24,
+                    "unit": "count",
+                    "comparison_mode": "target",
+                    "progress": 6,
+                    "progress_change_percentage": 0,
+                    "percentage": 25,
+                    "is_past_calculable": false,
+                    "created_at": "2026-01-06T14:45:51.000000Z",
+                    "updated_at": "2026-02-11T10:03:27.000000Z",
+                    "deleted_at": null
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "end_date": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo end date deve ser uma data posterior a start date.",
+                  "validation": {
+                    "end_date": [
+                      "O campo end date deve ser uma data posterior a start date."
+                    ]
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -25650,8 +27017,41 @@
         "description": "Remove a meta por soft delete: ela sai das listagens e só reaparece com `filter[trashed]`, deixa de ser considerada nas metas compostas que a incluíam e seus resultados já apurados ficam inacessíveis, embora não sejam apagados. Não existe endpoint para restaurar uma meta removida.",
         "operationId": "deletarUmaMeta",
         "responses": {
-          "200": {
-            "description": "200"
+          "204": {
+            "description": "Meta removida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Meta não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "goal_model_not_found",
+                  "error": "No query results for model [App\\Models\\Goal] 9b2d1f4a-3c5e-4a7b-8d9f-1e2c3a4b5c6d"
+                }
+              }
+            }
           }
         }
       },
