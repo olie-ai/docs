@@ -23337,54 +23337,51 @@
           "business-areas",
           "restore"
         ],
-        "summary": "Restaurar área de negócio",
-        "description": "Restaurar uma área de negócio que foi arquivada anteriormente.",
+        "summary": "Restaurar uma área de negócio",
+        "description": "Restaura uma área de negócio arquivada, devolvendo-a ao uso normal. Só funciona para áreas que estejam arquivadas. Os funis de projeto que perderam o vínculo no arquivamento não são reatribuídos: é preciso vinculá-los novamente.",
         "operationId": "restaurarReaDeNegCio",
         "responses": {
           "200": {
-            "description": "Restaurar área de negócio",
-            "headers": {
-              "Access-Control-Allow-Origin": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
                 },
-                "example": "*"
-              },
-              "Access-Control-Expose-Headers": {
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrada ou não arquivada",
+            "content": {
+              "application/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
                 },
-                "example": "*"
-              },
-              "Cache-Control": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "no-cache, private"
-              },
-              "Date": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Thu, 15 Jan 2026 19:57:11 GMT"
-              },
-              "X-Ratelimit-Limit": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 160
-              },
-              "X-Ratelimit-Remaining": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 153
-              },
-              "Transfer-Encoding": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "chunked"
+                "example": {
+                  "response": false,
+                  "message": "business_area_model_not_found",
+                  "error": "No query results for model [App\\Models\\BusinessArea] 24"
+                }
               }
             }
           }
@@ -23395,10 +23392,11 @@
           "name": "id",
           "in": "path",
           "required": true,
+          "description": "ID da área de negócio arquivada que será restaurada.",
           "schema": {
             "type": "integer"
           },
-          "example": 1444
+          "example": 0
         }
       ]
     },
@@ -23409,53 +23407,66 @@
           "reorder"
         ],
         "summary": "Reordenar áreas de negócio",
-        "description": "Reordenar a sequência das áreas de negócio no sistema.",
+        "description": "Define a ordem em que as áreas de negócio aparecem na listagem. A posição de cada identificador dentro do array vira a posição da área na lista, começando em zero. Envie sempre a lista completa: áreas não citadas mantêm a posição anterior e podem acabar empatadas com as reposicionadas.",
         "operationId": "reordenarReasDeNegCio",
         "responses": {
           "200": {
             "description": "Sucesso",
-            "headers": {
-              "Access-Control-Allow-Origin": {
+            "content": {
+              "application/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
                 },
-                "example": "*"
-              },
-              "Access-Control-Expose-Headers": {
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "business_area_ids": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
                 },
-                "example": "*"
-              },
-              "Cache-Control": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "no-cache, private"
-              },
-              "Date": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Thu, 15 Jan 2026 19:58:55 GMT"
-              },
-              "X-Ratelimit-Limit": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 160
-              },
-              "X-Ratelimit-Remaining": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 150
-              },
-              "Transfer-Encoding": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "chunked"
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo business area ids deve ser uma matriz.",
+                  "validation": {
+                    "business_area_ids": [
+                      "O campo business area ids deve ser uma matriz."
+                    ]
+                  }
+                }
               }
             }
           }
@@ -23486,11 +23497,78 @@
           "business-areas"
         ],
         "summary": "Listar áreas de negócio",
-        "description": "Listar todas as áreas de negócio.",
+        "description": "Lista todas as áreas de negócio da empresa, na ordem definida pela reordenação, incluindo as arquivadas — nestas, `deleted_at` vem preenchido. Cada item traz a quantidade de funis de projeto vinculados àquela área. A listagem devolve tudo de uma vez: não há paginação, busca nem filtros.",
         "operationId": "listarReasDeNegCio",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "business_areas": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "order": {
+                            "type": "integer"
+                          },
+                          "frame_id": {
+                            "type": "integer"
+                          },
+                          "deleted_at": {
+                            "nullable": true
+                          },
+                          "project_funnels_count": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "business_areas": [
+                    {
+                      "id": 12,
+                      "name": "Comercial",
+                      "order": 0,
+                      "frame_id": 7,
+                      "deleted_at": null,
+                      "project_funnels_count": 3
+                    },
+                    {
+                      "id": 18,
+                      "name": "Marketing",
+                      "order": 1,
+                      "frame_id": 7,
+                      "deleted_at": null,
+                      "project_funnels_count": 1
+                    },
+                    {
+                      "id": 9,
+                      "name": "Pós-venda",
+                      "order": 2,
+                      "frame_id": 7,
+                      "deleted_at": "2026-08-14T13:22:05.000000Z",
+                      "project_funnels_count": 0
+                    }
+                  ]
+                }
+              }
+            }
           }
         }
       },
@@ -23499,11 +23577,100 @@
           "business-areas"
         ],
         "summary": "Criar uma área de negócio",
-        "description": "Criar uma nova área de negócio.",
+        "description": "Cria uma área de negócio, usada para agrupar funis de projeto. O nome precisa ser único na empresa e a verificação inclui as áreas arquivadas, então reaproveitar o nome de uma área arquivada é recusado. A área nasce na posição 0 da ordenação; use a reordenação para definir onde ela aparece na lista.",
         "operationId": "criarReaDeNegCio",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "business_area": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "frame_id": {
+                          "type": "integer"
+                        },
+                        "id": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "business_area": {
+                    "name": "Comercial",
+                    "frame_id": 7,
+                    "id": 24
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Nome já utilizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Nome já utilizado": {
+                    "value": {
+                      "response": false,
+                      "message": "business_area_already_exists"
+                    }
+                  },
+                  "Erro de validação": {
+                    "value": {
+                      "response": false,
+                      "message": "validation_errors",
+                      "error": "O campo nome é obrigatório.",
+                      "validation": {
+                        "name": [
+                          "O campo nome é obrigatório."
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "Comercial"
+              }
+            }
           }
         }
       }
@@ -23514,11 +23681,138 @@
           "business-areas"
         ],
         "summary": "Atualizar uma área de negócio",
-        "description": "Atualizar dados de uma área de negócio específica.",
+        "description": "Renomeia uma área de negócio. O identificador efetivamente usado é o `id` enviado no corpo — repita nele o mesmo valor colocado na URL. O novo nome precisa ser único na empresa, considerando também as áreas arquivadas.",
         "operationId": "atualizarReaDeNegCio",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "business_area": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "order": {
+                          "type": "integer"
+                        },
+                        "frame_id": {
+                          "type": "integer"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "business_area": {
+                    "id": 24,
+                    "name": "Comercial e Parcerias",
+                    "order": 0,
+                    "frame_id": 7,
+                    "deleted_at": null
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "business_area_model_not_found",
+                  "error": "No query results for model [App\\Models\\BusinessArea] 24"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Nome já utilizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Nome já utilizado": {
+                    "value": {
+                      "response": false,
+                      "message": "business_area_already_exists"
+                    }
+                  },
+                  "Erro de validação": {
+                    "value": {
+                      "response": false,
+                      "message": "validation_errors",
+                      "error": "O campo id é obrigatório.",
+                      "validation": {
+                        "id": [
+                          "O campo id é obrigatório."
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "nullable": true
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "id": null,
+                "name": "Comercial"
+              }
+            }
           }
         }
       },
@@ -23527,55 +23821,11 @@
           "business-areas"
         ],
         "summary": "Arquivar uma área de negócio",
-        "description": "Arquivar uma área de negócio específica do sistema.",
+        "description": "Arquiva uma área de negócio: a exclusão é reversível e a área continua aparecendo na listagem com `deleted_at` preenchido, podendo voltar pelo endpoint de restauração. Todos os funis de projeto que estavam nessa área ficam sem área de negócio, e esse vínculo não é refeito quando a área é restaurada.",
         "operationId": "arquivarReaDeNegCio",
         "responses": {
           "200": {
-            "description": "200",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Access-Control-Expose-Headers": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Cache-Control": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "no-cache, private"
-              },
-              "Date": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Thu, 15 Jan 2026 19:56:39 GMT"
-              },
-              "X-Ratelimit-Limit": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 160
-              },
-              "X-Ratelimit-Remaining": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 149
-              },
-              "Transfer-Encoding": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "chunked"
-              }
-            },
+            "description": "Sucesso",
             "content": {
               "application/json": {
                 "schema": {
@@ -23591,6 +23841,32 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "business_area_model_not_found",
+                  "error": "No query results for model [App\\Models\\BusinessArea] 24"
+                }
+              }
+            }
           }
         }
       },
@@ -23599,10 +23875,11 @@
           "name": "business_area",
           "in": "path",
           "required": true,
+          "description": "ID da área de negócio a ser arquivada.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -25814,12 +26091,50 @@
           "projects",
           "index"
         ],
-        "summary": "Retornar uma lista de projetos associados a um grupo",
-        "description": "Retorna uma lista paginada de projetos associados a um grupo específico, ordenados pela ordem definida no grupo. Inclui informações de porcentagem de conclusão e respostas de formulários dinâmicos. Suporta filtros e busca.",
+        "summary": "Listar projetos de um grupo",
+        "description": "Retorna, de forma paginada, os projetos associados ao grupo, sempre na ordem definida dentro do grupo — este endpoint não aceita ordenação personalizada. Cada projeto vem com as respostas dos formulários dinâmicos já preenchidas.\n\nOs filtros usam o mesmo formato da [busca avançada](https://docs.olie.ai/api-reference/general/advanced-search) e a resposta segue o padrão de [paginação](https://docs.olie.ai/api-reference/general/pagination).",
         "operationId": "retornaUmaListaDeProjetosAssociadosAUmGrupo",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "filters": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "page": {
+                    "type": "integer"
+                  },
+                  "perPage": {
+                    "type": "integer"
+                  },
+                  "trashed": {
+                    "type": "boolean"
+                  },
+                  "template": {
+                    "type": "boolean"
+                  },
+                  "withPercentage": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "example": {
+                "filters": [],
+                "page": 1,
+                "perPage": 30,
+                "trashed": false,
+                "template": false,
+                "withPercentage": false
+              }
+            }
           }
         }
       },
@@ -25828,10 +26143,11 @@
           "name": "project_group",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do grupo de projetos.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -25843,11 +26159,28 @@
           "reorder"
         ],
         "summary": "Alterar a ordem de um projeto dentro de um grupo",
-        "description": "Altera a ordem de um projeto dentro de um grupo específico, definindo uma nova posição para o projeto.",
+        "description": "Define a posição do projeto dentro do grupo; a listagem de projetos do grupo passa a usar esse valor. A posição é gravada apenas para o projeto informado — os demais não são renumerados, então repetir uma posição já ocupada deixa os dois projetos empatados e a ordem entre eles fica indefinida.",
         "operationId": "alteraAOrdemDeUmProjetoDentroDeUmGrupo",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "order": 0
+              }
+            }
           }
         }
       },
@@ -25856,19 +26189,21 @@
           "name": "project_group",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do grupo de projetos.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         },
         {
           "name": "project_id",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto que será reposicionado. Ele precisa já pertencer ao grupo.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": "{{project_id}}"
         }
       ]
     },
@@ -25879,11 +26214,28 @@
           "projects"
         ],
         "summary": "Associar um projeto a um grupo de projetos",
-        "description": "Associa um projeto existente a um grupo de projetos. O projeto é adicionado ao final da lista do grupo.",
+        "description": "Associa um projeto existente ao grupo, posicionando-o no fim da lista. O mesmo projeto não pode ser associado duas vezes ao mesmo grupo.",
         "operationId": "associaUmProjetoAUmGrupoDeProjetos",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "project_id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "project_id": null
+              }
+            }
           }
         }
       },
@@ -25892,10 +26244,11 @@
           "name": "project_group",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do grupo de projetos.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -25906,7 +26259,7 @@
           "projects"
         ],
         "summary": "Remover a associação de um projeto de um grupo de projetos",
-        "description": "Remove a associação de um projeto de um grupo de projetos",
+        "description": "Desfaz a associação entre o projeto e o grupo; o projeto em si não é excluído. Os projetos que continuam no grupo são renumerados para fechar a lacuna deixada. Se o projeto não estiver no grupo, a resposta ainda é de sucesso.",
         "operationId": "removeAAssociaODeUmProjetoDeUmGrupoDeProjetos",
         "responses": {
           "200": {
@@ -25919,19 +26272,21 @@
           "name": "project_group",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do grupo de projetos.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         },
         {
           "name": "project",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do projeto que deixará de pertencer ao grupo.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": "{{project_id}}"
         }
       ]
     },
@@ -25941,24 +26296,61 @@
           "project-groups"
         ],
         "summary": "Listar grupos de projetos",
-        "description": "Retorna uma lista de grupos de projetos. Inclui contagem de projetos em cada grupo. Suporta filtros por ID e busca por nome.",
+        "description": "Retorna todos os grupos de projetos, cada um com a quantidade de projetos associados. A lista não é paginada e não traz os projetos em si — para isso use a rota de projetos do grupo.\n\nInforme `id` para trazer um grupo específico ou `search` para filtrar pelo nome; quando `id` é enviado, `search` é ignorado.",
         "operationId": "listarGruposDeProjetos",
         "responses": {
           "200": {
             "description": "200"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID (UUID) de um grupo específico. Quando informado, `search` é ignorado.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Termo buscado no nome do grupo.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       },
       "post": {
         "tags": [
           "project-groups"
         ],
         "summary": "Criar um grupo de projetos",
-        "description": "Criar grupo de projetos",
+        "description": "Cria um grupo de projetos vazio. O nome é obrigatório e não pode conter HTML. Depois de criado, use a rota de associação para incluir projetos no grupo.",
         "operationId": "criarGrupoDeProjetos",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "Campanhas 2026"
+              }
+            }
           }
         }
       }
@@ -25969,7 +26361,7 @@
           "project-groups"
         ],
         "summary": "Obter detalhes de um grupo de projetos",
-        "description": "Obter detalhes de um grupo de projetos",
+        "description": "Retorna um grupo de projetos pelo ID. A resposta traz apenas os dados do grupo — sem a lista de projetos associados e sem a contagem deles.",
         "operationId": "obterDetalhesDeUmGrupoDeProjetos",
         "responses": {
           "200": {
@@ -25982,11 +26374,28 @@
           "project-groups"
         ],
         "summary": "Atualizar informações de um grupo de projetos",
-        "description": "Atualizar informações de um grupo de projetos",
+        "description": "Renomeia um grupo de projetos. O nome é obrigatório e não pode conter HTML; os projetos associados e a ordem deles permanecem como estavam.",
         "operationId": "atualizarInformaEsDeUmGrupoDeProjetos",
         "responses": {
           "200": {
             "description": "200"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "Campanhas 2026 (revisado)"
+              }
+            }
           }
         }
       },
@@ -25995,7 +26404,7 @@
           "project-groups"
         ],
         "summary": "Deletar um grupo de projetos",
-        "description": "Deletar grupo de projetos",
+        "description": "Exclui o grupo em definitivo, junto com as associações dele com os projetos. Os projetos que estavam no grupo não são afetados. A resposta é de sucesso mesmo quando o grupo informado não existe.",
         "operationId": "deletarGrupoDeProjetos",
         "responses": {
           "200": {
@@ -26008,10 +26417,11 @@
           "name": "project_group",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do grupo de projetos.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -27133,6 +27543,90 @@
                 }
               }
             }
+          },
+          "409": {
+            "description": "Outro lote em andamento",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "bulk_operation_in_progress",
+                  "error": "Another bulk operation is already in progress"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "ids": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Erro de validação": {
+                    "value": {
+                      "response": false,
+                      "message": "validation_errors",
+                      "error": "The ids field is required.",
+                      "validation": {
+                        "ids": [
+                          "The ids field is required."
+                        ]
+                      }
+                    }
+                  },
+                  "Modelo não suportado": {
+                    "value": {
+                      "response": false,
+                      "message": "validation_errors",
+                      "error": "messages.model_not_supported_yet",
+                      "validation": {
+                        "model": [
+                          "messages.model_not_supported_yet"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -27348,7 +27842,7 @@
           "schema": {
             "type": "string"
           },
-          "example": "project"
+          "example": "string"
         }
       ]
     },
