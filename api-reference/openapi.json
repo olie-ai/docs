@@ -33255,12 +33255,719 @@
           "automations",
           "logs"
         ],
-        "summary": "Obter registro de execuções da automação",
-        "description": "Obter registro de execução de uma automação específica.",
+        "summary": "Listar execuções da automação",
+        "description": "Retorna as 20 execuções mais recentes da automação, da mais nova para a mais antiga, com o evento que disparou, o resultado de cada componente e o contexto final. Como ler cada campo em [Logs e depuração](https://docs.olie.ai/guides/automation/logs).",
         "operationId": "obterRegistroDeExecuEsDaAutomaO",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "logs": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "automation_id": {
+                            "type": "integer"
+                          },
+                          "causer_id": {
+                            "type": "string"
+                          },
+                          "log": {
+                            "type": "object",
+                            "properties": {
+                              "run_id": {
+                                "type": "string"
+                              },
+                              "trigger_event": {
+                                "type": "string"
+                              },
+                              "flow_components": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "automation_id": {
+                                      "type": "integer"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "variant": {
+                                      "type": "string"
+                                    },
+                                    "parent_id": {
+                                      "nullable": true
+                                    },
+                                    "conditional_case": {
+                                      "nullable": true
+                                    },
+                                    "order": {
+                                      "type": "integer"
+                                    },
+                                    "project_scope": {
+                                      "nullable": true
+                                    },
+                                    "project_scope_saved_filter_id": {
+                                      "nullable": true
+                                    },
+                                    "created_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "updated_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "deleted_at": {
+                                      "nullable": true
+                                    },
+                                    "configs": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "automation_component_id": {
+                                            "type": "string"
+                                          },
+                                          "key": {
+                                            "type": "string"
+                                          },
+                                          "value": {
+                                            "nullable": true
+                                          },
+                                          "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                          },
+                                          "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                          },
+                                          "deleted_at": {
+                                            "nullable": true
+                                          },
+                                          "id": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "relations": {
+                                      "type": "array",
+                                      "items": {}
+                                    },
+                                    "children": {
+                                      "type": "array",
+                                      "items": {}
+                                    },
+                                    "id": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "date": {
+                                "type": "string"
+                              },
+                              "error": {
+                                "type": "object",
+                                "properties": {
+                                  "has_error": {
+                                    "type": "boolean"
+                                  },
+                                  "message": {
+                                    "nullable": true
+                                  },
+                                  "error_class": {
+                                    "nullable": true
+                                  }
+                                }
+                              },
+                              "data": {
+                                "type": "object",
+                                "properties": {
+                                  "trigger_variant": {
+                                    "type": "string"
+                                  },
+                                  "project_id": {
+                                    "type": "string"
+                                  },
+                                  "causer_type": {
+                                    "type": "string"
+                                  },
+                                  "causer_id": {
+                                    "type": "string"
+                                  },
+                                  "media_id": {
+                                    "type": "string"
+                                  },
+                                  "channel_id": {
+                                    "nullable": true
+                                  },
+                                  "integration_id": {
+                                    "nullable": true
+                                  },
+                                  "channel_scope": {
+                                    "type": "string"
+                                  },
+                                  "author": {
+                                    "type": "string"
+                                  },
+                                  "contents_text": {
+                                    "type": "string"
+                                  },
+                                  "contents": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "text": {
+                                          "type": "string"
+                                        },
+                                        "author": {
+                                          "type": "string"
+                                        },
+                                        "created_at": {
+                                          "type": "string",
+                                          "format": "date-time"
+                                        },
+                                        "id": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "causer_type": {
+                                "type": "string"
+                              },
+                              "causer_id": {
+                                "type": "string"
+                              },
+                              "flow_logs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "component_id": {
+                                      "type": "string"
+                                    },
+                                    "component_variant": {
+                                      "type": "string"
+                                    },
+                                    "component_type": {
+                                      "type": "string"
+                                    },
+                                    "component_result": {
+                                      "type": "object",
+                                      "properties": {
+                                        "result": {
+                                          "type": "boolean"
+                                        },
+                                        "error": {
+                                          "nullable": true
+                                        },
+                                        "message": {
+                                          "nullable": true
+                                        },
+                                        "execution_time": {
+                                          "type": "number"
+                                        },
+                                        "extra_data": {
+                                          "type": "object",
+                                          "properties": {
+                                            "medias": {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "universe_size": {
+                                              "type": "integer"
+                                            },
+                                            "truncated": {
+                                              "type": "boolean"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "project_id": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "final_context": {
+                                "type": "object",
+                                "properties": {
+                                  "user": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "nullable": true
+                                      },
+                                      "email": {
+                                        "nullable": true
+                                      },
+                                      "id": {
+                                        "nullable": true
+                                      }
+                                    }
+                                  },
+                                  "trigger": {
+                                    "type": "object",
+                                    "properties": {
+                                      "trigger_variant": {
+                                        "type": "string"
+                                      },
+                                      "project_id": {
+                                        "type": "string"
+                                      },
+                                      "causer_type": {
+                                        "type": "string"
+                                      },
+                                      "causer_id": {
+                                        "type": "string"
+                                      },
+                                      "media_id": {
+                                        "type": "string"
+                                      },
+                                      "channel_id": {
+                                        "nullable": true
+                                      },
+                                      "integration_id": {
+                                        "nullable": true
+                                      },
+                                      "channel_scope": {
+                                        "type": "string"
+                                      },
+                                      "author": {
+                                        "type": "string"
+                                      },
+                                      "contents_text": {
+                                        "type": "string"
+                                      },
+                                      "contents": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "text": {
+                                              "type": "string"
+                                            },
+                                            "author": {
+                                              "type": "string"
+                                            },
+                                            "created_at": {
+                                              "type": "string",
+                                              "format": "date-time"
+                                            },
+                                            "id": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "project": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string"
+                                      },
+                                      "code": {
+                                        "type": "string"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "description": {
+                                        "type": "string"
+                                      },
+                                      "impact": {
+                                        "type": "integer"
+                                      },
+                                      "status": {
+                                        "type": "integer"
+                                      },
+                                      "frame_id": {
+                                        "type": "string"
+                                      },
+                                      "created_at": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                      },
+                                      "updated_at": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                      }
+                                    }
+                                  },
+                                  "component_01a044cd-a6bd-7319-bee3-cdc21c6653ce": {
+                                    "type": "object",
+                                    "properties": {
+                                      "universe_metadata": {
+                                        "type": "object",
+                                        "properties": {
+                                          "universe_size": {
+                                            "type": "integer"
+                                          },
+                                          "truncated": {
+                                            "type": "boolean"
+                                          }
+                                        }
+                                      },
+                                      "results": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "project_id": {
+                                              "type": "string"
+                                            },
+                                            "result": {
+                                              "type": "boolean"
+                                            },
+                                            "error": {
+                                              "nullable": true
+                                            },
+                                            "message": {
+                                              "nullable": true
+                                            },
+                                            "execution_time": {
+                                              "type": "number"
+                                            },
+                                            "extra_data": {
+                                              "type": "object",
+                                              "properties": {
+                                                "medias": {
+                                                  "type": "array",
+                                                  "items": {
+                                                    "type": "string"
+                                                  }
+                                                },
+                                                "universe_size": {
+                                                  "type": "integer"
+                                                },
+                                                "truncated": {
+                                                  "type": "boolean"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "component_01a044cd-a6bd-7319-bee3-cdc21c6653ce_result": {
+                                    "type": "object",
+                                    "properties": {
+                                      "result": {
+                                        "type": "boolean"
+                                      },
+                                      "error": {
+                                        "nullable": true
+                                      },
+                                      "message": {
+                                        "nullable": true
+                                      },
+                                      "execution_time": {
+                                        "type": "number"
+                                      },
+                                      "extra_data": {
+                                        "type": "object",
+                                        "properties": {
+                                          "medias": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "universe_size": {
+                                            "type": "integer"
+                                          },
+                                          "truncated": {
+                                            "type": "boolean"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "total_time": {
+                                "type": "number"
+                              }
+                            }
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "id": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "logs": [
+                    {
+                      "automation_id": 1,
+                      "causer_id": "01a0252b-d7a0-7242-9420-bacbd51f678b",
+                      "log": {
+                        "run_id": "a2c1007d-84f5-4384-a9f3-691449f453de",
+                        "trigger_event": "project_content_added_trigger",
+                        "flow_components": [
+                          {
+                            "automation_id": 1,
+                            "type": "trigger",
+                            "variant": "project_content_added_trigger",
+                            "parent_id": null,
+                            "conditional_case": null,
+                            "order": 0,
+                            "project_scope": null,
+                            "project_scope_saved_filter_id": null,
+                            "created_at": "2026-08-27T19:58:43.000000Z",
+                            "updated_at": "2026-08-27T20:04:56.000000Z",
+                            "deleted_at": null,
+                            "configs": [
+                              {
+                                "automation_component_id": "01a044cd-a69a-7383-9638-06b317ca1fbf",
+                                "key": "author",
+                                "value": null,
+                                "created_at": "2026-08-27T19:58:43.000000Z",
+                                "updated_at": "2026-08-27T19:58:43.000000Z",
+                                "deleted_at": null,
+                                "id": "01a044cd-a6b5-72bb-8395-36ce4e4527a8"
+                              },
+                              {
+                                "automation_component_id": "01a044cd-a69a-7383-9638-06b317ca1fbf",
+                                "key": "channel_scope",
+                                "value": null,
+                                "created_at": "2026-08-27T19:58:43.000000Z",
+                                "updated_at": "2026-08-27T19:58:43.000000Z",
+                                "deleted_at": null,
+                                "id": "01a044cd-a6ac-7164-9822-71ebdafe9302"
+                              }
+                            ],
+                            "relations": [],
+                            "children": [],
+                            "id": "01a044cd-a69a-7383-9638-06b317ca1fbf"
+                          },
+                          {
+                            "automation_id": 1,
+                            "type": "action",
+                            "variant": "project_content_add_action",
+                            "parent_id": null,
+                            "conditional_case": null,
+                            "order": 1,
+                            "project_scope": null,
+                            "project_scope_saved_filter_id": null,
+                            "created_at": "2026-08-27T19:58:43.000000Z",
+                            "updated_at": "2026-08-27T20:04:56.000000Z",
+                            "deleted_at": null,
+                            "configs": [
+                              {
+                                "automation_component_id": "01a044cd-a6bd-7319-bee3-cdc21c6653ce",
+                                "key": "destination_mode",
+                                "value": "main",
+                                "created_at": "2026-08-27T19:58:43.000000Z",
+                                "updated_at": "2026-08-27T19:58:43.000000Z",
+                                "deleted_at": null,
+                                "id": "01a044cd-a6c0-733e-b287-b6f108b90c19"
+                              },
+                              {
+                                "automation_component_id": "01a044cd-a6bd-7319-bee3-cdc21c6653ce",
+                                "key": "message",
+                                "value": "Recebemos sua mensagem: {{trigger.contents_text}}",
+                                "created_at": "2026-08-27T19:58:43.000000Z",
+                                "updated_at": "2026-08-27T20:04:56.000000Z",
+                                "deleted_at": null,
+                                "id": "01a044cd-a6bf-709a-842c-90c583c22819"
+                              }
+                            ],
+                            "relations": [],
+                            "children": [],
+                            "id": "01a044cd-a6bd-7319-bee3-cdc21c6653ce"
+                          }
+                        ],
+                        "date": "2026-09-15 15:50:06",
+                        "error": {
+                          "has_error": false,
+                          "message": null,
+                          "error_class": null
+                        },
+                        "data": {
+                          "trigger_variant": "project_content_added_trigger",
+                          "project_id": "01a0a667-290b-7212-89fb-52351af09ce6",
+                          "causer_type": "user",
+                          "causer_id": "01a0252b-d7a0-7242-9420-bacbd51f678b",
+                          "media_id": "01a0a667-5b3e-724c-aeda-7ab3accade26",
+                          "channel_id": null,
+                          "integration_id": null,
+                          "channel_scope": "main",
+                          "author": "team",
+                          "contents_text": "Olá, gostaria de um orçamento.",
+                          "contents": [
+                            {
+                              "text": "Olá, gostaria de um orçamento.",
+                              "author": "team",
+                              "created_at": "2026-09-15T15:49:46-03:00",
+                              "id": "01a0a667-5b3e-724c-aeda-7ab3accade26"
+                            }
+                          ]
+                        },
+                        "causer_type": "user",
+                        "causer_id": "01a0252b-d7a0-7242-9420-bacbd51f678b",
+                        "flow_logs": [
+                          {
+                            "component_id": "01a044cd-a6bd-7319-bee3-cdc21c6653ce",
+                            "component_variant": "project_content_add_action",
+                            "component_type": "action",
+                            "component_result": {
+                              "result": true,
+                              "error": null,
+                              "message": null,
+                              "execution_time": 0.08676004409790039,
+                              "extra_data": {
+                                "medias": [
+                                  "01a0a667-a7f7-730d-85de-e366e60fcff9"
+                                ],
+                                "universe_size": 1,
+                                "truncated": false
+                              }
+                            },
+                            "project_id": "01a0a667-290b-7212-89fb-52351af09ce6"
+                          }
+                        ],
+                        "final_context": {
+                          "user": {
+                            "name": null,
+                            "email": null,
+                            "id": null
+                          },
+                          "trigger": {
+                            "trigger_variant": "project_content_added_trigger",
+                            "project_id": "01a0a667-290b-7212-89fb-52351af09ce6",
+                            "causer_type": "user",
+                            "causer_id": "01a0252b-d7a0-7242-9420-bacbd51f678b",
+                            "media_id": "01a0a667-5b3e-724c-aeda-7ab3accade26",
+                            "channel_id": null,
+                            "integration_id": null,
+                            "channel_scope": "main",
+                            "author": "team",
+                            "contents_text": "Olá, gostaria de um orçamento.",
+                            "contents": [
+                              {
+                                "text": "Olá, gostaria de um orçamento.",
+                                "author": "team",
+                                "created_at": "2026-09-15T15:49:46-03:00",
+                                "id": "01a0a667-5b3e-724c-aeda-7ab3accade26"
+                              }
+                            ]
+                          },
+                          "project": {
+                            "id": "01a0a667-290b-7212-89fb-52351af09ce6",
+                            "code": "CR-1",
+                            "name": "Atendimento - Loja Centro",
+                            "description": "Criação rápida",
+                            "impact": 10,
+                            "status": 1,
+                            "frame_id": "01a0252b-d865-71af-a0a2-d4e168d1ffe5",
+                            "created_at": "2026-09-15T18:49:33.000000Z",
+                            "updated_at": "2026-09-15T18:49:33.000000Z"
+                          },
+                          "component_01a044cd-a6bd-7319-bee3-cdc21c6653ce": {
+                            "universe_metadata": {
+                              "universe_size": 1,
+                              "truncated": false
+                            },
+                            "results": [
+                              {
+                                "project_id": "01a0a667-290b-7212-89fb-52351af09ce6",
+                                "result": true,
+                                "error": null,
+                                "message": null,
+                                "execution_time": 0.08676004409790039,
+                                "extra_data": {
+                                  "medias": [
+                                    "01a0a667-a7f7-730d-85de-e366e60fcff9"
+                                  ],
+                                  "universe_size": 1,
+                                  "truncated": false
+                                }
+                              }
+                            ]
+                          },
+                          "component_01a044cd-a6bd-7319-bee3-cdc21c6653ce_result": {
+                            "result": true,
+                            "error": null,
+                            "message": null,
+                            "execution_time": 0.08676004409790039,
+                            "extra_data": {
+                              "medias": [
+                                "01a0a667-a7f7-730d-85de-e366e60fcff9"
+                              ],
+                              "universe_size": 1,
+                              "truncated": false
+                            }
+                          }
+                        },
+                        "total_time": 0.10580110549926758
+                      },
+                      "updated_at": "2026-09-15T18:50:06.251000Z",
+                      "created_at": "2026-09-15T18:50:06.251000Z",
+                      "id": "a2c1007d-84f5-4384-a9f3-691449f453de"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "automation_model_not_found",
+                  "error": "No query results for model [App\\Models\\Automate\\Automation]."
+                }
+              }
+            }
           }
         }
       },
@@ -33269,10 +33976,11 @@
           "name": "automation",
           "in": "path",
           "required": true,
+          "description": "ID (número) da automação.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -33282,24 +33990,626 @@
           "automations"
         ],
         "summary": "Listar automações",
-        "description": "Listar todas as automações.",
+        "description": "Lista todas as automações da conta, sem paginação, com o gatilho de cada uma, a quantidade de componentes e o número de execuções. Aceita os filtros de [Filtros básicos](https://docs.olie.ai/api-reference/general/basic-filters); filtro desconhecido retorna 400. Conceito em [Automações](https://docs.olie.ai/guides/automation/overview).",
         "operationId": "listarAutomaEs",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "automations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "active": {
+                            "type": "boolean"
+                          },
+                          "trigger_event": {
+                            "type": "string"
+                          },
+                          "trigger_relations": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "project_funnel_id": {
+                                  "type": "integer"
+                                },
+                                "sensation_amount": {
+                                  "type": "integer"
+                                },
+                                "step_forward_id": {
+                                  "nullable": true
+                                },
+                                "step_backward_id": {
+                                  "nullable": true
+                                },
+                                "order": {
+                                  "type": "integer"
+                                },
+                                "help_text": {
+                                  "nullable": true
+                                },
+                                "form_id": {
+                                  "nullable": true
+                                },
+                                "sort_config": {
+                                  "nullable": true
+                                },
+                                "allow_execution": {
+                                  "type": "boolean"
+                                },
+                                "show_customer_form": {
+                                  "type": "boolean"
+                                },
+                                "show_contact_form": {
+                                  "type": "boolean"
+                                },
+                                "hide_customer_form_when_linked": {
+                                  "type": "boolean"
+                                },
+                                "hide_contact_form_when_linked": {
+                                  "type": "boolean"
+                                },
+                                "created_at": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                },
+                                "updated_at": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                },
+                                "deleted_at": {
+                                  "nullable": true
+                                },
+                                "__type": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "components_count": {
+                            "type": "integer"
+                          },
+                          "executions": {
+                            "type": "integer"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "deleted_at": {
+                            "nullable": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "automations": [
+                    {
+                      "id": 33,
+                      "title": "[Postman doc] Avisar equipe na manutenção corretiva",
+                      "active": false,
+                      "trigger_event": "project_step_moved_trigger",
+                      "trigger_relations": [
+                        {
+                          "id": 46,
+                          "name": "Manutenção Corretiva",
+                          "project_funnel_id": 7,
+                          "sensation_amount": 34,
+                          "step_forward_id": null,
+                          "step_backward_id": null,
+                          "order": 4,
+                          "help_text": null,
+                          "form_id": null,
+                          "sort_config": null,
+                          "allow_execution": true,
+                          "show_customer_form": false,
+                          "show_contact_form": false,
+                          "hide_customer_form_when_linked": false,
+                          "hide_contact_form_when_linked": false,
+                          "created_at": "2026-08-21T16:33:51.000000Z",
+                          "updated_at": "2026-09-14T19:12:44.000000Z",
+                          "deleted_at": null,
+                          "__type": "App\\Models\\FunnelStep"
+                        }
+                      ],
+                      "components_count": 3,
+                      "executions": 0,
+                      "created_at": "2026-09-22T22:02:08.000000Z",
+                      "updated_at": "2026-09-22T22:02:16.000000Z",
+                      "deleted_at": null
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Filtro inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "allowed_filters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "unknown_filters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "invalid_filter_query",
+                  "error": "Requested filter(s) `foo` are not allowed. Allowed filter(s) are `title, active, trigger_event`.",
+                  "allowed_filters": [
+                    "title",
+                    "active",
+                    "trigger_event"
+                  ],
+                  "unknown_filters": [
+                    "foo"
+                  ]
+                }
+              }
+            }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "filter[title]",
+            "in": "query",
+            "description": "Busca parcial no nome da automação.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[active]",
+            "in": "query",
+            "description": "Situação: 1 (ligadas) ou 0 (desligadas).",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[trigger_event]",
+            "in": "query",
+            "description": "Variante do gatilho (ex.: project_step_moved_trigger).",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       },
       "post": {
         "tags": [
           "automations"
         ],
-        "summary": "Criar uma automação",
-        "description": "Criar uma nova automação.",
+        "summary": "Criar automação",
+        "description": "Cria uma automação a partir da lista de componentes: um gatilho, condições opcionais e ao menos uma ação. A automação é criada ativa e passa a reagir aos eventos imediatamente. Componentes e opções em [Gatilhos](https://docs.olie.ai/guides/automation/triggers), [Condições](https://docs.olie.ai/guides/automation/conditions) e [Como o fluxo é executado](https://docs.olie.ai/guides/automation/anatomy).",
         "operationId": "criarAutomaO",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "automation": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "active": {
+                          "type": "boolean"
+                        },
+                        "executions": {
+                          "nullable": true
+                        },
+                        "components": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string"
+                              },
+                              "variant": {
+                                "type": "string"
+                              },
+                              "parent_id": {
+                                "nullable": true
+                              },
+                              "conditional_case": {
+                                "nullable": true
+                              },
+                              "order": {
+                                "type": "integer"
+                              },
+                              "project_scope": {
+                                "nullable": true
+                              },
+                              "project_scope_saved_filter_id": {
+                                "nullable": true
+                              },
+                              "config": {
+                                "type": "object"
+                              },
+                              "relations": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "model_type": {
+                                      "type": "string"
+                                    },
+                                    "model_id": {
+                                      "type": "string",
+                                      "format": "utc-millisec"
+                                    },
+                                    "discriminator": {
+                                      "nullable": true
+                                    }
+                                  }
+                                }
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              }
+                            }
+                          }
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "objects_above_limit": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "automation": {
+                    "id": 33,
+                    "title": "[Postman doc] Avisar equipe na manutenção corretiva",
+                    "active": true,
+                    "executions": null,
+                    "components": [
+                      {
+                        "id": "01a0cb23-fd4a-71aa-9174-55786e2af56d",
+                        "type": "trigger",
+                        "variant": "project_step_moved_trigger",
+                        "parent_id": null,
+                        "conditional_case": null,
+                        "order": 0,
+                        "project_scope": null,
+                        "project_scope_saved_filter_id": null,
+                        "config": {},
+                        "relations": [
+                          {
+                            "id": "01a0cb23-fd4d-730f-9846-5cb1df92495c",
+                            "model_type": "App\\Models\\FunnelStep",
+                            "model_id": "46",
+                            "discriminator": null
+                          }
+                        ],
+                        "created_at": "2026-09-22T22:02:08.000000Z",
+                        "updated_at": "2026-09-22T22:02:08.000000Z",
+                        "deleted_at": null
+                      },
+                      {
+                        "id": "01a0cb23-fd56-71cc-a75b-b28ff7970270",
+                        "type": "action",
+                        "variant": "project_content_add_action",
+                        "parent_id": "01a0cb23-fd4f-7197-9018-b10f48d439c7",
+                        "conditional_case": "when_true",
+                        "order": 0,
+                        "project_scope": {
+                          "scope": "trigger"
+                        },
+                        "project_scope_saved_filter_id": null,
+                        "config": {
+                          "channel_name": "Equipe",
+                          "destination_mode": "internal",
+                          "message": "O projeto {{project.name}} entrou em manutenção corretiva."
+                        },
+                        "relations": [],
+                        "created_at": "2026-09-22T22:02:08.000000Z",
+                        "updated_at": "2026-09-22T22:02:08.000000Z",
+                        "deleted_at": null
+                      },
+                      {
+                        "id": "01a0cb23-fd4f-7197-9018-b10f48d439c7",
+                        "type": "condition",
+                        "variant": "project_contains_tag_condition",
+                        "parent_id": null,
+                        "conditional_case": null,
+                        "order": 1,
+                        "project_scope": {
+                          "scope": "trigger"
+                        },
+                        "project_scope_saved_filter_id": null,
+                        "config": {
+                          "block_flow": true,
+                          "only_one_checks": true
+                        },
+                        "relations": [
+                          {
+                            "id": "01a0cb23-fd54-7002-a076-d16dde248be5",
+                            "model_type": "App\\Models\\FunnelTag",
+                            "model_id": "53",
+                            "discriminator": null
+                          }
+                        ],
+                        "created_at": "2026-09-22T22:02:08.000000Z",
+                        "updated_at": "2026-09-22T22:02:08.000000Z",
+                        "deleted_at": null
+                      }
+                    ],
+                    "created_at": "2026-09-22T22:02:08.000000Z",
+                    "updated_at": "2026-09-22T22:02:08.000000Z",
+                    "deleted_at": null
+                  },
+                  "objects_above_limit": []
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sem ação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Sem ação": {
+                    "value": {
+                      "response": false,
+                      "message": "action_component_required",
+                      "error": "At least one action component is required"
+                    }
+                  },
+                  "Componente inválido": {
+                    "value": {
+                      "response": false,
+                      "message": "component_validation_errors",
+                      "error": "The selected 0.model_id is invalid.",
+                      "component_key": "TRIGGER1",
+                      "component_position": 0,
+                      "validation": {
+                        "0.model_id": [
+                          "The selected 0.model_id is invalid."
+                        ]
+                      }
+                    }
+                  },
+                  "Validação falhou": {
+                    "value": {
+                      "response": false,
+                      "message": "validation_errors",
+                      "error": "The título field is required.",
+                      "validation": {
+                        "title": [
+                          "The título field is required."
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "variant": {
+                          "type": "string"
+                        },
+                        "order": {
+                          "type": "integer"
+                        },
+                        "parent_id": {
+                          "nullable": true
+                        },
+                        "conditional_case": {
+                          "nullable": true
+                        },
+                        "config": {
+                          "type": "object"
+                        },
+                        "relations": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "model_type": {
+                                "type": "string"
+                              },
+                              "model_id": {
+                                "nullable": true
+                              },
+                              "discriminator": {
+                                "nullable": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "title": "Avisar equipe na manutenção corretiva",
+                "components": [
+                  {
+                    "id": "TRIGGER1",
+                    "type": "trigger",
+                    "variant": "project_step_moved_trigger",
+                    "order": 0,
+                    "parent_id": null,
+                    "conditional_case": null,
+                    "config": {},
+                    "relations": [
+                      {
+                        "model_type": "App\\Models\\FunnelStep",
+                        "model_id": null,
+                        "discriminator": null
+                      }
+                    ]
+                  },
+                  {
+                    "id": "CONDITION1",
+                    "type": "condition",
+                    "variant": "project_contains_tag_condition",
+                    "order": 1,
+                    "parent_id": null,
+                    "conditional_case": null,
+                    "config": {
+                      "block_flow": true,
+                      "only_one_checks": true
+                    },
+                    "project_scope": {
+                      "scope": "trigger"
+                    },
+                    "relations": [
+                      {
+                        "model_type": "App\\Models\\FunnelTag",
+                        "model_id": null,
+                        "discriminator": null
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ACTION1",
+                    "type": "action",
+                    "variant": "project_content_add_action",
+                    "order": 0,
+                    "parent_id": "CONDITION1",
+                    "conditional_case": "when_true",
+                    "config": {
+                      "message": "O projeto {{project.name}} entrou em manutenção corretiva.",
+                      "destination_mode": "internal",
+                      "channel_name": "Equipe"
+                    },
+                    "project_scope": {
+                      "scope": "trigger"
+                    },
+                    "relations": []
+                  }
+                ]
+              }
+            }
           }
         }
       }
@@ -33309,12 +34619,235 @@
         "tags": [
           "automations"
         ],
-        "summary": "Obter automação específica",
-        "description": "Obter detalhes de uma automação específica.",
+        "summary": "Obter automação",
+        "description": "Retorna a automação com todos os componentes, cada um com suas opções, vínculos e escopo de projetos. A árvore do fluxo é montada por `parent_id` e `conditional_case`; ver [Como o fluxo é executado](https://docs.olie.ai/guides/automation/anatomy).",
         "operationId": "obterAutomaOEspecFica",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "automation": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "active": {
+                          "type": "boolean"
+                        },
+                        "executions": {
+                          "type": "integer"
+                        },
+                        "components": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string"
+                              },
+                              "variant": {
+                                "type": "string"
+                              },
+                              "parent_id": {
+                                "nullable": true
+                              },
+                              "conditional_case": {
+                                "nullable": true
+                              },
+                              "order": {
+                                "type": "integer"
+                              },
+                              "project_scope": {
+                                "nullable": true
+                              },
+                              "project_scope_saved_filter_id": {
+                                "nullable": true
+                              },
+                              "project_scope_saved_filter_items": {
+                                "nullable": true
+                              },
+                              "config": {
+                                "type": "object"
+                              },
+                              "relations": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "model_type": {
+                                      "type": "string"
+                                    },
+                                    "model_id": {
+                                      "type": "string",
+                                      "format": "utc-millisec"
+                                    },
+                                    "discriminator": {
+                                      "nullable": true
+                                    }
+                                  }
+                                }
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              }
+                            }
+                          }
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "automation": {
+                    "id": 33,
+                    "title": "[Postman doc] Avisar equipe na manutenção corretiva",
+                    "active": false,
+                    "executions": 0,
+                    "components": [
+                      {
+                        "id": "01a0cb23-fd4a-71aa-9174-55786e2af56d",
+                        "type": "trigger",
+                        "variant": "project_step_moved_trigger",
+                        "parent_id": null,
+                        "conditional_case": null,
+                        "order": 0,
+                        "project_scope": null,
+                        "project_scope_saved_filter_id": null,
+                        "project_scope_saved_filter_items": null,
+                        "config": {},
+                        "relations": [
+                          {
+                            "id": "01a0cb23-fd4d-730f-9846-5cb1df92495c",
+                            "model_type": "App\\Models\\FunnelStep",
+                            "model_id": "46",
+                            "discriminator": null
+                          }
+                        ],
+                        "created_at": "2026-09-22T22:02:08.000000Z",
+                        "updated_at": "2026-09-22T22:02:16.000000Z",
+                        "deleted_at": null
+                      },
+                      {
+                        "id": "01a0cb23-fd56-71cc-a75b-b28ff7970270",
+                        "type": "action",
+                        "variant": "project_content_add_action",
+                        "parent_id": "01a0cb23-fd4f-7197-9018-b10f48d439c7",
+                        "conditional_case": "when_true",
+                        "order": 0,
+                        "project_scope": {
+                          "scope": "trigger"
+                        },
+                        "project_scope_saved_filter_id": null,
+                        "project_scope_saved_filter_items": null,
+                        "config": {
+                          "channel_name": "Equipe",
+                          "destination_mode": "internal",
+                          "message": "Manutenção corretiva iniciada em {{project.name}}."
+                        },
+                        "relations": [],
+                        "created_at": "2026-09-22T22:02:08.000000Z",
+                        "updated_at": "2026-09-22T22:02:16.000000Z",
+                        "deleted_at": null
+                      },
+                      {
+                        "id": "01a0cb23-fd4f-7197-9018-b10f48d439c7",
+                        "type": "condition",
+                        "variant": "project_contains_tag_condition",
+                        "parent_id": null,
+                        "conditional_case": null,
+                        "order": 1,
+                        "project_scope": {
+                          "scope": "trigger"
+                        },
+                        "project_scope_saved_filter_id": null,
+                        "project_scope_saved_filter_items": null,
+                        "config": {
+                          "block_flow": true,
+                          "only_one_checks": true
+                        },
+                        "relations": [
+                          {
+                            "id": "01a0cb23-fd54-7002-a076-d16dde248be5",
+                            "model_type": "App\\Models\\FunnelTag",
+                            "model_id": "53",
+                            "discriminator": null
+                          }
+                        ],
+                        "created_at": "2026-09-22T22:02:08.000000Z",
+                        "updated_at": "2026-09-22T22:02:16.000000Z",
+                        "deleted_at": null
+                      }
+                    ],
+                    "created_at": "2026-09-22T22:02:08.000000Z",
+                    "updated_at": "2026-09-22T22:02:16.000000Z",
+                    "deleted_at": null
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "automation_model_not_found",
+                  "error": "No query results for model [App\\Models\\Automate\\Automation]."
+                }
+              }
+            }
           }
         }
       },
@@ -33323,11 +34856,394 @@
           "automations"
         ],
         "summary": "Atualizar automação",
-        "description": "Atualizar dados de uma automação específica.",
+        "description": "Substitui a definição da automação: componentes enviados com o ID de um existente são atualizados, os com ID temporário são criados e os que ficarem de fora são removidos. `active` é obrigatório e liga ou desliga a automação. Componentes e opções em [Gatilhos](https://docs.olie.ai/guides/automation/triggers) e [Condições](https://docs.olie.ai/guides/automation/conditions).",
         "operationId": "atualizarAutomaO",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "automation": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "active": {
+                          "type": "boolean"
+                        },
+                        "executions": {
+                          "type": "integer"
+                        },
+                        "components": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string"
+                              },
+                              "variant": {
+                                "type": "string"
+                              },
+                              "parent_id": {
+                                "nullable": true
+                              },
+                              "conditional_case": {
+                                "nullable": true
+                              },
+                              "order": {
+                                "type": "integer"
+                              },
+                              "project_scope": {
+                                "nullable": true
+                              },
+                              "project_scope_saved_filter_id": {
+                                "nullable": true
+                              },
+                              "config": {
+                                "type": "object"
+                              },
+                              "relations": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "model_type": {
+                                      "type": "string"
+                                    },
+                                    "model_id": {
+                                      "type": "string",
+                                      "format": "utc-millisec"
+                                    },
+                                    "discriminator": {
+                                      "nullable": true
+                                    }
+                                  }
+                                }
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              }
+                            }
+                          }
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "automation": {
+                    "id": 33,
+                    "title": "[Postman doc] Avisar equipe na manutenção corretiva",
+                    "active": false,
+                    "executions": 0,
+                    "components": [
+                      {
+                        "id": "01a0cb23-fd4a-71aa-9174-55786e2af56d",
+                        "type": "trigger",
+                        "variant": "project_step_moved_trigger",
+                        "parent_id": null,
+                        "conditional_case": null,
+                        "order": 0,
+                        "project_scope": null,
+                        "project_scope_saved_filter_id": null,
+                        "config": {},
+                        "relations": [
+                          {
+                            "id": "01a0cb23-fd4d-730f-9846-5cb1df92495c",
+                            "model_type": "App\\Models\\FunnelStep",
+                            "model_id": "46",
+                            "discriminator": null
+                          }
+                        ],
+                        "created_at": "2026-09-22T22:02:08.000000Z",
+                        "updated_at": "2026-09-22T22:02:16.000000Z",
+                        "deleted_at": null
+                      },
+                      {
+                        "id": "01a0cb23-fd56-71cc-a75b-b28ff7970270",
+                        "type": "action",
+                        "variant": "project_content_add_action",
+                        "parent_id": "01a0cb23-fd4f-7197-9018-b10f48d439c7",
+                        "conditional_case": "when_true",
+                        "order": 0,
+                        "project_scope": {
+                          "scope": "trigger"
+                        },
+                        "project_scope_saved_filter_id": null,
+                        "config": {
+                          "channel_name": "Equipe",
+                          "destination_mode": "internal",
+                          "message": "Manutenção corretiva iniciada em {{project.name}}."
+                        },
+                        "relations": [],
+                        "created_at": "2026-09-22T22:02:08.000000Z",
+                        "updated_at": "2026-09-22T22:02:16.000000Z",
+                        "deleted_at": null
+                      },
+                      {
+                        "id": "01a0cb23-fd4f-7197-9018-b10f48d439c7",
+                        "type": "condition",
+                        "variant": "project_contains_tag_condition",
+                        "parent_id": null,
+                        "conditional_case": null,
+                        "order": 1,
+                        "project_scope": {
+                          "scope": "trigger"
+                        },
+                        "project_scope_saved_filter_id": null,
+                        "config": {
+                          "block_flow": true,
+                          "only_one_checks": true
+                        },
+                        "relations": [
+                          {
+                            "id": "01a0cb23-fd54-7002-a076-d16dde248be5",
+                            "model_type": "App\\Models\\FunnelTag",
+                            "model_id": "53",
+                            "discriminator": null
+                          }
+                        ],
+                        "created_at": "2026-09-22T22:02:08.000000Z",
+                        "updated_at": "2026-09-22T22:02:16.000000Z",
+                        "deleted_at": null
+                      }
+                    ],
+                    "created_at": "2026-09-22T22:02:08.000000Z",
+                    "updated_at": "2026-09-22T22:02:16.000000Z",
+                    "deleted_at": null
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "automation_model_not_found",
+                  "error": "No query results for model [App\\Models\\Automate\\Automation]."
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "active": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The active field is required.",
+                  "validation": {
+                    "active": [
+                      "The active field is required."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "variant": {
+                          "type": "string"
+                        },
+                        "order": {
+                          "type": "integer"
+                        },
+                        "parent_id": {
+                          "nullable": true
+                        },
+                        "conditional_case": {
+                          "nullable": true
+                        },
+                        "config": {
+                          "type": "object"
+                        },
+                        "relations": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "model_type": {
+                                "type": "string"
+                              },
+                              "model_id": {
+                                "nullable": true
+                              },
+                              "discriminator": {
+                                "nullable": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "active": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "example": {
+                "title": "Avisar equipe na manutenção corretiva",
+                "components": [
+                  {
+                    "id": "TRIGGER1",
+                    "type": "trigger",
+                    "variant": "project_step_moved_trigger",
+                    "order": 0,
+                    "parent_id": null,
+                    "conditional_case": null,
+                    "config": {},
+                    "relations": [
+                      {
+                        "model_type": "App\\Models\\FunnelStep",
+                        "model_id": null,
+                        "discriminator": null
+                      }
+                    ]
+                  },
+                  {
+                    "id": "CONDITION1",
+                    "type": "condition",
+                    "variant": "project_contains_tag_condition",
+                    "order": 1,
+                    "parent_id": null,
+                    "conditional_case": null,
+                    "config": {
+                      "block_flow": true,
+                      "only_one_checks": true
+                    },
+                    "project_scope": {
+                      "scope": "trigger"
+                    },
+                    "relations": [
+                      {
+                        "model_type": "App\\Models\\FunnelTag",
+                        "model_id": null,
+                        "discriminator": null
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ACTION1",
+                    "type": "action",
+                    "variant": "project_content_add_action",
+                    "order": 0,
+                    "parent_id": "CONDITION1",
+                    "conditional_case": "when_true",
+                    "config": {
+                      "message": "O projeto {{project.name}} entrou em manutenção corretiva.",
+                      "destination_mode": "internal",
+                      "channel_name": "Equipe"
+                    },
+                    "project_scope": {
+                      "scope": "trigger"
+                    },
+                    "relations": []
+                  }
+                ],
+                "active": false
+              }
+            }
           }
         }
       },
@@ -33335,12 +35251,53 @@
         "tags": [
           "automations"
         ],
-        "summary": "Deletar automação",
-        "description": "Deletar uma automação específica.",
+        "summary": "Excluir automação",
+        "description": "Exclui a automação, que deixa de reagir aos eventos; o registro de execuções dela deixa de ficar acessível. Para apenas pausar, atualize com `active` false — ver [Logs e depuração](https://docs.olie.ai/guides/automation/logs).",
         "operationId": "deletarAutomaO",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "automation_model_not_found",
+                  "error": "No query results for model [App\\Models\\Automate\\Automation]."
+                }
+              }
+            }
           }
         }
       },
@@ -33349,10 +35306,11 @@
           "name": "automation",
           "in": "path",
           "required": true,
+          "description": "ID (número) da automação.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
