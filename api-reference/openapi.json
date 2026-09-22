@@ -4558,7 +4558,7 @@
             }
           },
           "422": {
-            "description": "Erro de validação",
+            "description": "Erro de validação ou hierarquia inválida",
             "headers": {
               "Date": {
                 "schema": {
@@ -4647,21 +4647,33 @@
                   "required": [
                     "response",
                     "message",
-                    "error",
-                    "validation"
+                    "error"
                   ]
                 },
-                "example": {
-                  "response": false,
-                  "message": "validation_errors",
-                  "error": "The descrição must be a string. (and 1 more error)",
-                  "validation": {
-                    "description": [
-                      "The descrição must be a string."
-                    ],
-                    "impact": [
-                      "The impact must not be greater than 10."
-                    ]
+                "examples": {
+                  "Erro de validação": {
+                    "value": {
+                      "response": false,
+                      "message": "validation_errors",
+                      "error": "The descrição must be a string. (and 1 more error)",
+                      "validation": {
+                        "description": [
+                          "The descrição must be a string."
+                        ],
+                        "impact": [
+                          "The impact must not be greater than 10."
+                        ]
+                      }
+                    }
+                  },
+                  "Relação pai-filho inválida": {
+                    "summary": "invalid_parent_child_relationship",
+                    "description": "Retornado quando o parent_id informado criaria ciclo, auto-referência ou ultrapassaria o limite de profundidade da hierarquia. Mesmo slug usado pelos endpoints de hierarquia (attach-child / move-to-parent).",
+                    "value": {
+                      "response": false,
+                      "message": "invalid_parent_child_relationship",
+                      "error": "Cannot save project: would create an invalid hierarchy (loop, depth limit, or self-reference)"
+                    }
                   }
                 }
               }
