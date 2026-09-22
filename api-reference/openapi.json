@@ -251,34 +251,28 @@
                           "channel_id": {
                             "type": "string",
                             "description": "ID (UUID) do canal, quando o conteúdo veio de uma conversa.",
-                            "format": "uuid",
-                            "nullable": true
+                            "format": "uuid"
                           },
                           "direction": {
                             "type": "string",
-                            "description": "Direção do conteúdo no canal (entrada ou saída), quando aplicável.",
-                            "nullable": true
+                            "description": "Direção do conteúdo no canal (entrada ou saída), quando aplicável."
                           },
                           "origin": {
                             "type": "string",
-                            "description": "Origem do conteúdo (ex.: integração ou compositor interno).",
-                            "nullable": true
+                            "description": "Origem do conteúdo (ex.: integração ou compositor interno)."
                           },
                           "external_message_id": {
                             "type": "string",
-                            "description": "ID da mensagem na integração externa, quando houver.",
-                            "nullable": true
+                            "description": "ID da mensagem na integração externa, quando houver."
                           },
                           "task_id": {
                             "type": "string",
                             "description": "ID (UUID) da tarefa vinculada, quando o conteúdo pertence a uma tarefa.",
-                            "format": "uuid",
-                            "nullable": true
+                            "format": "uuid"
                           },
                           "delivery_error": {
                             "type": "string",
-                            "description": "Erro de entrega na integração, quando o envio falhou.",
-                            "nullable": true
+                            "description": "Erro de entrega na integração, quando o envio falhou."
                           },
                           "created_at": {
                             "type": "string",
@@ -568,34 +562,28 @@
                           "channel_id": {
                             "type": "string",
                             "description": "ID (UUID) do canal, quando o conteúdo veio de uma conversa.",
-                            "format": "uuid",
-                            "nullable": true
+                            "format": "uuid"
                           },
                           "direction": {
                             "type": "string",
-                            "description": "Direção do conteúdo no canal (entrada ou saída), quando aplicável.",
-                            "nullable": true
+                            "description": "Direção do conteúdo no canal (entrada ou saída), quando aplicável."
                           },
                           "origin": {
                             "type": "string",
-                            "description": "Origem do conteúdo (ex.: integração ou compositor interno).",
-                            "nullable": true
+                            "description": "Origem do conteúdo (ex.: integração ou compositor interno)."
                           },
                           "external_message_id": {
                             "type": "string",
-                            "description": "ID da mensagem na integração externa, quando houver.",
-                            "nullable": true
+                            "description": "ID da mensagem na integração externa, quando houver."
                           },
                           "task_id": {
                             "type": "string",
                             "description": "ID (UUID) da tarefa vinculada, quando o conteúdo pertence a uma tarefa.",
-                            "format": "uuid",
-                            "nullable": true
+                            "format": "uuid"
                           },
                           "delivery_error": {
                             "type": "string",
-                            "description": "Erro de entrega na integração, quando o envio falhou.",
-                            "nullable": true
+                            "description": "Erro de entrega na integração, quando o envio falhou."
                           },
                           "created_at": {
                             "type": "string",
@@ -6566,7 +6554,6 @@
                           },
                           "merged_project": {
                             "type": "object",
-                            "nullable": true,
                             "description": "Projeto resultante de um merge, quando carregado."
                           }
                         }
@@ -9304,7 +9291,6 @@
                           },
                           "merged_project": {
                             "type": "object",
-                            "nullable": true,
                             "description": "Projeto resultante de um merge, quando carregado."
                           }
                         }
@@ -19286,7 +19272,8 @@
               "application/json": {
                 "schema": {
                   "type": "object"
-                }
+                },
+                "example": {}
               }
             }
           }
@@ -19816,208 +19803,7 @@
         "operationId": "listarConteDosDeProjetosAssociadosAoCliente",
         "responses": {
           "200": {
-            "description": "Lista paginada de conteúdos dos projetos do cliente.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "description": "Lista paginada de conteúdos.",
-                  "properties": {
-                    "response": {
-                      "type": "boolean",
-                      "description": "Sempre true quando a operação é concluída."
-                    },
-                    "meta": {
-                      "type": "object",
-                      "description": "Dados da paginação.",
-                      "properties": {
-                        "current_page": {
-                          "type": "integer",
-                          "description": "Página retornada."
-                        },
-                        "from": {
-                          "type": "integer",
-                          "description": "Posição do primeiro item da página no total."
-                        },
-                        "to": {
-                          "type": "integer",
-                          "description": "Posição do último item da página no total."
-                        },
-                        "last_page": {
-                          "type": "integer",
-                          "description": "Número da última página."
-                        },
-                        "per_page": {
-                          "type": "integer",
-                          "description": "Itens por página."
-                        },
-                        "total": {
-                          "type": "integer",
-                          "description": "Total de itens encontrados."
-                        }
-                      }
-                    },
-                    "medias": {
-                      "type": "array",
-                      "description": "Conteúdos da página.",
-                      "items": {
-                        "type": "object",
-                        "description": "Conteúdo do projeto (MediaResource).",
-                        "properties": {
-                          "id": {
-                            "type": "string",
-                            "format": "uuid",
-                            "description": "ID (UUID) do conteúdo."
-                          },
-                          "name": {
-                            "type": "string",
-                            "description": "Nome do conteúdo ou do arquivo."
-                          },
-                          "technical_name": {
-                            "type": "string",
-                            "description": "Nome interno usado no armazenamento."
-                          },
-                          "type": {
-                            "type": "integer",
-                            "description": "Tipo do conteúdo: 1 texto, 2 arquivo, 3 áudio."
-                          },
-                          "extension": {
-                            "type": "string",
-                            "description": "Extensão do arquivo, quando houver."
-                          },
-                          "text": {
-                            "type": "string",
-                            "description": "Texto enviado, quando houver."
-                          },
-                          "file_url": {
-                            "type": "string",
-                            "description": "Endereço para baixar o arquivo, quando houver."
-                          },
-                          "log": {
-                            "type": "string",
-                            "description": "Conteúdo do registro de atividade, quando a entrada for um log."
-                          },
-                          "user_id": {
-                            "type": "string",
-                            "format": "uuid",
-                            "description": "Usuário que enviou o conteúdo."
-                          },
-                          "frame_id": {
-                            "type": "string",
-                            "format": "uuid",
-                            "description": "ID (UUID) do frame."
-                          },
-                          "project_id": {
-                            "type": "string",
-                            "format": "uuid",
-                            "description": "Projeto que recebeu o conteúdo."
-                          },
-                          "channel_id": {
-                            "type": "string",
-                            "description": "ID (UUID) do canal, quando o conteúdo veio de uma conversa.",
-                            "format": "uuid",
-                            "nullable": true
-                          },
-                          "direction": {
-                            "type": "string",
-                            "description": "Direção do conteúdo no canal (entrada ou saída), quando aplicável.",
-                            "nullable": true
-                          },
-                          "origin": {
-                            "type": "string",
-                            "description": "Origem do conteúdo (ex.: integração ou compositor interno).",
-                            "nullable": true
-                          },
-                          "external_message_id": {
-                            "type": "string",
-                            "description": "ID da mensagem na integração externa, quando houver.",
-                            "nullable": true
-                          },
-                          "task_id": {
-                            "type": "string",
-                            "description": "ID (UUID) da atividade vinculada, quando o conteúdo pertence a uma atividade.",
-                            "format": "uuid",
-                            "nullable": true
-                          },
-                          "delivery_error": {
-                            "type": "string",
-                            "description": "Erro de entrega na integração, quando o envio falhou.",
-                            "nullable": true
-                          },
-                          "created_at": {
-                            "type": "string",
-                            "format": "date-time",
-                            "description": "Data do envio."
-                          },
-                          "updated_at": {
-                            "type": "string",
-                            "format": "date-time",
-                            "description": "Data da última alteração."
-                          },
-                          "deleted_at": {
-                            "type": "string",
-                            "format": "date-time",
-                            "description": "Data em que o conteúdo foi removido."
-                          },
-                          "user": {
-                            "type": "object",
-                            "description": "Quem enviou o conteúdo."
-                          },
-                          "project": {
-                            "type": "object",
-                            "description": "Projeto relacionado, quando carregado."
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "required": [
-                    "response",
-                    "medias"
-                  ]
-                },
-                "example": {
-                  "response": true,
-                  "meta": {
-                    "current_page": 1,
-                    "from": 1,
-                    "to": 1,
-                    "last_page": 1,
-                    "per_page": 30,
-                    "total": 1
-                  },
-                  "medias": [
-                    {
-                      "id": "019e1a44-2f6d-70bb-9d21-64c0a3e91f77",
-                      "name": "proposta-comercial",
-                      "technical_name": "proposta-comercial.019e1a44",
-                      "type": 2,
-                      "extension": "pdf",
-                      "text": null,
-                      "file_url": "https://cdn.olie.ai/frames/projects/proposta-comercial.pdf",
-                      "log": null,
-                      "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                      "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
-                      "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
-                      "channel_id": null,
-                      "direction": null,
-                      "origin": null,
-                      "external_message_id": null,
-                      "task_id": null,
-                      "delivery_error": null,
-                      "created_at": "2026-08-18T14:02:11.000000Z",
-                      "updated_at": "2026-08-18T14:02:11.000000Z",
-                      "deleted_at": null,
-                      "user": {
-                        "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                        "name": "Ana Souza",
-                        "avatar_url": null
-                      }
-                    }
-                  ]
-                }
-              }
-            }
+            "description": "Lista paginada de conteúdos dos projetos do cliente."
           }
         }
       },
@@ -22077,12 +21863,354 @@
         "tags": [
           "forms"
         ],
-        "summary": "Salvar um formulário",
-        "description": "Salvar um novo formulário ou atualizar um formulário existente.",
+        "summary": "Salvar formulário",
+        "description": "Cria um formulário ou, quando `id` é enviado, atualiza o título e os campos de um existente. A lista `edges` é sempre a definição completa: campo existente que não vier no payload é removido definitivamente. Tipos de campo e lógica condicional estão em [Criar um formulário](https://docs.olie.ai/guides/forms/creating-forms).",
         "operationId": "salvarFormulRio",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "form": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string"
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "id": {
+                          "type": "integer"
+                        },
+                        "edges": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "type": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "index": {
+                                "type": "integer"
+                              },
+                              "help_text": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "nullable": true
+                              },
+                              "options": {
+                                "type": "array",
+                                "items": {}
+                              },
+                              "initial_value": {
+                                "nullable": true
+                              },
+                              "required": {
+                                "type": "boolean"
+                              },
+                              "custom_validation": {
+                                "nullable": true
+                              },
+                              "conditional": {
+                                "nullable": true
+                              },
+                              "form_id": {
+                                "type": "integer"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              },
+                              "is_multiple": {
+                                "type": "boolean"
+                              },
+                              "logical_operator": {
+                                "type": "string"
+                              },
+                              "is_migrated": {
+                                "type": "boolean"
+                              },
+                              "conditional_action": {
+                                "nullable": true
+                              },
+                              "conditionals": {
+                                "type": "array",
+                                "items": {}
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "form": {
+                    "title": "Briefing de projeto",
+                    "frame_id": "01a0252b-d865-71af-a0a2-d4e168d1ffe5",
+                    "updated_at": "2026-09-22T21:40:47.000000Z",
+                    "created_at": "2026-09-22T21:40:47.000000Z",
+                    "id": 69,
+                    "edges": [
+                      {
+                        "id": 112,
+                        "type": "short_text",
+                        "label": "Objetivo do projeto",
+                        "index": 0,
+                        "help_text": "Descreva em uma frase.",
+                        "description": null,
+                        "options": [],
+                        "initial_value": null,
+                        "required": true,
+                        "custom_validation": null,
+                        "conditional": null,
+                        "form_id": 69,
+                        "created_at": "2026-09-22T21:40:47.000000Z",
+                        "updated_at": "2026-09-22T21:40:47.000000Z",
+                        "deleted_at": null,
+                        "is_multiple": false,
+                        "logical_operator": "and",
+                        "is_migrated": false,
+                        "conditional_action": null,
+                        "conditionals": []
+                      },
+                      {
+                        "id": 113,
+                        "type": "select",
+                        "label": "Canal de venda",
+                        "index": 1,
+                        "help_text": null,
+                        "description": null,
+                        "options": [
+                          "Loja física",
+                          "E-commerce",
+                          "Marketplace"
+                        ],
+                        "initial_value": null,
+                        "required": false,
+                        "custom_validation": null,
+                        "conditional": null,
+                        "form_id": 69,
+                        "created_at": "2026-09-22T21:40:47.000000Z",
+                        "updated_at": "2026-09-22T21:40:47.000000Z",
+                        "deleted_at": null,
+                        "is_multiple": false,
+                        "logical_operator": "and",
+                        "is_migrated": false,
+                        "conditional_action": null,
+                        "conditionals": []
+                      },
+                      {
+                        "id": 114,
+                        "type": "link",
+                        "label": "URL da loja",
+                        "index": 2,
+                        "help_text": null,
+                        "description": null,
+                        "options": [],
+                        "initial_value": null,
+                        "required": false,
+                        "custom_validation": null,
+                        "conditional": null,
+                        "form_id": 69,
+                        "created_at": "2026-09-22T21:40:47.000000Z",
+                        "updated_at": "2026-09-22T21:40:47.000000Z",
+                        "deleted_at": null,
+                        "is_multiple": false,
+                        "logical_operator": "and",
+                        "is_migrated": false,
+                        "conditional_action": "show",
+                        "conditionals": [
+                          {
+                            "id": 1,
+                            "form_edge_id": 114,
+                            "target_id": 113,
+                            "operator": "equals",
+                            "value": "E-commerce",
+                            "created_at": "2026-09-22T21:40:47.000000Z",
+                            "updated_at": "2026-09-22T21:40:47.000000Z"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "edges": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The título must be at least 3 characters. (and 1 more error)",
+                  "validation": {
+                    "title": [
+                      "The título must be at least 3 characters."
+                    ],
+                    "edges": [
+                      "The edges must have at least 1 items."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "nullable": true
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "edges": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "index": {
+                          "type": "integer"
+                        },
+                        "required": {
+                          "type": "boolean"
+                        },
+                        "help_text": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "nullable": true
+                        },
+                        "custom_validation": {
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": null,
+                "title": "Briefing de projeto",
+                "edges": [
+                  {
+                    "id": "CREATE1",
+                    "label": "Objetivo do projeto",
+                    "type": "short_text",
+                    "index": 0,
+                    "required": true,
+                    "help_text": "Descreva em uma frase.",
+                    "description": null,
+                    "custom_validation": null
+                  },
+                  {
+                    "id": "CREATE2",
+                    "label": "Canal de venda",
+                    "type": "select",
+                    "index": 1,
+                    "required": false,
+                    "options": [
+                      "Loja física",
+                      "E-commerce",
+                      "Marketplace"
+                    ]
+                  },
+                  {
+                    "id": "CREATE3",
+                    "label": "URL da loja",
+                    "type": "link",
+                    "index": 2,
+                    "required": false,
+                    "conditional_action": "show",
+                    "logical_operator": "and",
+                    "conditionals": [
+                      {
+                        "target_id": "CREATE2",
+                        "operator": "equals",
+                        "value": "E-commerce"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
           }
         }
       }
@@ -22093,22 +22221,253 @@
           "forms"
         ],
         "summary": "Listar formulários",
-        "description": "Lista os formulários do frame. Por padrão retorna apenas formulários ativos.\n\n**Filtro de formulários deletados (soft delete):**\n\nUtilize o parâmetro `filter[trashed]` para controlar a exibição:\n\n| Valor | Comportamento |\n| --- | --- |\n| _(omitido)_ | Retorna apenas formulários ativos (padrão) |\n| `with` | Retorna ativos + deletados |\n| `only` | Retorna apenas os deletados |\n\n**Exemplo:** `GET /api/management/get-forms?filter[trashed]=with`",
+        "description": "Lista todos os formulários da conta, sem paginação, com seus campos e as contagens de campos e de respostas. Por padrão traz só os ativos. Conceito de formulário: [Formulários dinâmicos](https://docs.olie.ai/guides/forms/overview).",
         "operationId": "listarFormulRios",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "forms": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "frame_id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "deleted_at": {
+                            "nullable": true
+                          },
+                          "edges_count": {
+                            "type": "integer"
+                          },
+                          "answers_count": {
+                            "type": "integer"
+                          },
+                          "edges": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "type": {
+                                  "type": "string"
+                                },
+                                "label": {
+                                  "type": "string"
+                                },
+                                "index": {
+                                  "type": "integer"
+                                },
+                                "help_text": {
+                                  "type": "string"
+                                },
+                                "description": {
+                                  "nullable": true
+                                },
+                                "options": {
+                                  "type": "array",
+                                  "items": {}
+                                },
+                                "initial_value": {
+                                  "nullable": true
+                                },
+                                "required": {
+                                  "type": "boolean"
+                                },
+                                "custom_validation": {
+                                  "nullable": true
+                                },
+                                "conditional": {
+                                  "nullable": true
+                                },
+                                "form_id": {
+                                  "type": "integer"
+                                },
+                                "created_at": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                },
+                                "updated_at": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                },
+                                "deleted_at": {
+                                  "nullable": true
+                                },
+                                "is_multiple": {
+                                  "type": "boolean"
+                                },
+                                "logical_operator": {
+                                  "type": "string"
+                                },
+                                "is_migrated": {
+                                  "type": "boolean"
+                                },
+                                "conditional_action": {
+                                  "nullable": true
+                                },
+                                "conditionals": {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "forms": [
+                    {
+                      "id": 69,
+                      "title": "Briefing de projeto",
+                      "frame_id": "01a0252b-d865-71af-a0a2-d4e168d1ffe5",
+                      "created_at": "2026-09-22T21:40:47.000000Z",
+                      "updated_at": "2026-09-22T21:40:56.000000Z",
+                      "deleted_at": null,
+                      "edges_count": 3,
+                      "answers_count": 0,
+                      "edges": [
+                        {
+                          "id": 112,
+                          "type": "short_text",
+                          "label": "Objetivo do projeto",
+                          "index": 0,
+                          "help_text": "Descreva em uma frase.",
+                          "description": null,
+                          "options": [],
+                          "initial_value": null,
+                          "required": true,
+                          "custom_validation": null,
+                          "conditional": null,
+                          "form_id": 69,
+                          "created_at": "2026-09-22T21:40:47.000000Z",
+                          "updated_at": "2026-09-22T21:40:47.000000Z",
+                          "deleted_at": null,
+                          "is_multiple": false,
+                          "logical_operator": "and",
+                          "is_migrated": false,
+                          "conditional_action": null,
+                          "conditionals": []
+                        },
+                        {
+                          "id": 113,
+                          "type": "select",
+                          "label": "Canal de venda",
+                          "index": 1,
+                          "help_text": null,
+                          "description": null,
+                          "options": [
+                            "Loja física",
+                            "E-commerce",
+                            "Marketplace"
+                          ],
+                          "initial_value": null,
+                          "required": false,
+                          "custom_validation": null,
+                          "conditional": null,
+                          "form_id": 69,
+                          "created_at": "2026-09-22T21:40:47.000000Z",
+                          "updated_at": "2026-09-22T21:40:47.000000Z",
+                          "deleted_at": null,
+                          "is_multiple": false,
+                          "logical_operator": "and",
+                          "is_migrated": false,
+                          "conditional_action": null,
+                          "conditionals": []
+                        },
+                        {
+                          "id": 114,
+                          "type": "link",
+                          "label": "URL da loja",
+                          "index": 2,
+                          "help_text": null,
+                          "description": null,
+                          "options": [],
+                          "initial_value": null,
+                          "required": false,
+                          "custom_validation": null,
+                          "conditional": null,
+                          "form_id": 69,
+                          "created_at": "2026-09-22T21:40:47.000000Z",
+                          "updated_at": "2026-09-22T21:40:47.000000Z",
+                          "deleted_at": null,
+                          "is_multiple": false,
+                          "logical_operator": "and",
+                          "is_migrated": false,
+                          "conditional_action": "show",
+                          "conditionals": [
+                            {
+                              "id": 1,
+                              "form_edge_id": 114,
+                              "operator": "equals",
+                              "value": "E-commerce",
+                              "target_id": 113
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
           }
         },
         "parameters": [
           {
-            "name": "filter[trashed]",
+            "name": "search",
             "in": "query",
-            "description": "Filtra formulários deletados (soft delete). Valores aceitos: `with` (ativos + deletados), `only` (somente deletados). Omita para retornar apenas ativos (padrão).",
+            "description": "Busca parcial no título do formulário ou no rótulo dos campos. Com busca, `edges` traz apenas os campos cujo rótulo casou.",
             "schema": {
               "type": "string"
             },
-            "example": "with"
+            "example": ""
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID de um formulário ou de um campo. Tem prioridade sobre `search`; `edges` traz apenas o campo com esse ID.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[trashed]",
+            "in": "query",
+            "description": "Formulários excluídos: `with` (ativos e excluídos) ou `only` (só excluídos). Omita para trazer só os ativos.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
           }
         ]
       }
@@ -22119,11 +22478,254 @@
           "forms"
         ],
         "summary": "Obter formulário",
-        "description": "Obter detalhes de um formulário específico.",
+        "description": "Retorna um formulário com todos os seus campos, inclusive os arquivados (com `deleted_at` preenchido), e as regras condicionais de cada campo.",
         "operationId": "obterFormulRio",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "form": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        },
+                        "edges": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "type": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "index": {
+                                "type": "integer"
+                              },
+                              "help_text": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "nullable": true
+                              },
+                              "options": {
+                                "type": "array",
+                                "items": {}
+                              },
+                              "initial_value": {
+                                "nullable": true
+                              },
+                              "required": {
+                                "type": "boolean"
+                              },
+                              "custom_validation": {
+                                "nullable": true
+                              },
+                              "conditional": {
+                                "nullable": true
+                              },
+                              "form_id": {
+                                "type": "integer"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              },
+                              "is_multiple": {
+                                "type": "boolean"
+                              },
+                              "logical_operator": {
+                                "type": "string"
+                              },
+                              "is_migrated": {
+                                "type": "boolean"
+                              },
+                              "conditional_action": {
+                                "nullable": true
+                              },
+                              "conditionals": {
+                                "type": "array",
+                                "items": {}
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "form": {
+                    "id": 69,
+                    "title": "Briefing de projeto",
+                    "frame_id": "01a0252b-d865-71af-a0a2-d4e168d1ffe5",
+                    "created_at": "2026-09-22T21:40:47.000000Z",
+                    "updated_at": "2026-09-22T21:40:47.000000Z",
+                    "deleted_at": null,
+                    "edges": [
+                      {
+                        "id": 112,
+                        "type": "short_text",
+                        "label": "Objetivo do projeto",
+                        "index": 0,
+                        "help_text": "Descreva em uma frase.",
+                        "description": null,
+                        "options": [],
+                        "initial_value": null,
+                        "required": true,
+                        "custom_validation": null,
+                        "conditional": null,
+                        "form_id": 69,
+                        "created_at": "2026-09-22T21:40:47.000000Z",
+                        "updated_at": "2026-09-22T21:40:47.000000Z",
+                        "deleted_at": null,
+                        "is_multiple": false,
+                        "logical_operator": "and",
+                        "is_migrated": false,
+                        "conditional_action": null,
+                        "conditionals": []
+                      },
+                      {
+                        "id": 113,
+                        "type": "select",
+                        "label": "Canal de venda",
+                        "index": 1,
+                        "help_text": null,
+                        "description": null,
+                        "options": [
+                          "Loja física",
+                          "E-commerce",
+                          "Marketplace"
+                        ],
+                        "initial_value": null,
+                        "required": false,
+                        "custom_validation": null,
+                        "conditional": null,
+                        "form_id": 69,
+                        "created_at": "2026-09-22T21:40:47.000000Z",
+                        "updated_at": "2026-09-22T21:40:47.000000Z",
+                        "deleted_at": null,
+                        "is_multiple": false,
+                        "logical_operator": "and",
+                        "is_migrated": false,
+                        "conditional_action": null,
+                        "conditionals": []
+                      },
+                      {
+                        "id": 114,
+                        "type": "link",
+                        "label": "URL da loja",
+                        "index": 2,
+                        "help_text": null,
+                        "description": null,
+                        "options": [],
+                        "initial_value": null,
+                        "required": false,
+                        "custom_validation": null,
+                        "conditional": null,
+                        "form_id": 69,
+                        "created_at": "2026-09-22T21:40:47.000000Z",
+                        "updated_at": "2026-09-22T21:40:47.000000Z",
+                        "deleted_at": null,
+                        "is_multiple": false,
+                        "logical_operator": "and",
+                        "is_migrated": false,
+                        "conditional_action": "show",
+                        "conditionals": [
+                          {
+                            "id": 1,
+                            "form_edge_id": 114,
+                            "operator": "equals",
+                            "value": "E-commerce",
+                            "target_id": 113
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "form_model_not_found",
+                  "error": "No query results for model [App\\Models\\Form] 999999"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "form_id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "form_id": null
+              }
+            }
           }
         }
       }
@@ -22133,12 +22735,54 @@
         "tags": [
           "forms"
         ],
-        "summary": "Deletar formulário",
-        "description": "Deletar formulário",
+        "summary": "Excluir formulário",
+        "description": "Exclui o formulário (é possível restaurá-lo depois) e o retira dos projetos em que estava como formulário avulso e do vínculo de formulário padrão de objeto. Formulário usado por um formulário público ou por uma solicitação não é excluído: a resposta vem com status 200 e `response: false` — ver [Formulários públicos](https://docs.olie.ai/guides/forms/public-forms).",
         "operationId": "deletarFormulRio",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "examples": {
+                  "Sucesso": {
+                    "value": {
+                      "response": true
+                    }
+                  },
+                  "Vinculado a publicação": {
+                    "value": {
+                      "response": false,
+                      "message": "the_form_is_linked_to_a_publication"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "form_id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "form_id": null
+              }
+            }
           }
         }
       }
@@ -22148,12 +22792,60 @@
         "tags": [
           "forms"
         ],
-        "summary": "Definir formulários do objeto",
-        "description": "Definir quais formulários estão associados a um objeto específico.",
+        "summary": "Definir formulários dos objetos",
+        "description": "Define o formulário padrão de cada tipo de objeto da conta (projeto, cliente, contato e usuário). A lista substitui a configuração atual inteira: objeto que não vier fica sem formulário. Ver [Onde um formulário pode ser anexado](https://docs.olie.ai/guides/forms/overview).",
         "operationId": "definirFormulRiosDoObjeto",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "forms": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "nullable": true
+                        },
+                        "class": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "forms": [
+                  {
+                    "id": null,
+                    "class": "App\\Models\\Project"
+                  }
+                ]
+              }
+            }
           }
         }
       }
@@ -23401,9 +24093,6 @@
                           "type": "string",
                           "format": "uri"
                         },
-                        "prev": {
-                          "nullable": true
-                        },
                         "next": {
                           "type": "string",
                           "format": "uri"
@@ -23427,14 +24116,8 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "url": {
-                                "nullable": true
-                              },
                               "label": {
                                 "type": "string"
-                              },
-                              "page": {
-                                "nullable": true
                               },
                               "active": {
                                 "type": "boolean"
@@ -23694,14 +24377,8 @@
                         "status": {
                           "type": "string"
                         },
-                        "error": {
-                          "nullable": true
-                        },
                         "latency": {
                           "type": "integer"
-                        },
-                        "invoice_id": {
-                          "nullable": true
                         },
                         "bill_computed": {
                           "type": "boolean"
@@ -23737,9 +24414,6 @@
                               "model": {
                                 "type": "string"
                               },
-                              "text": {
-                                "nullable": true
-                              },
                               "tool_calls": {
                                 "type": "array",
                                 "items": {
@@ -23758,15 +24432,6 @@
                                           "type": "string"
                                         }
                                       }
-                                    },
-                                    "result_id": {
-                                      "nullable": true
-                                    },
-                                    "reasoning_id": {
-                                      "nullable": true
-                                    },
-                                    "reasoning_summary": {
-                                      "nullable": true
                                     }
                                   }
                                 }
@@ -23792,9 +24457,6 @@
                                     },
                                     "result": {
                                       "type": "string"
-                                    },
-                                    "result_id": {
-                                      "nullable": true
                                     }
                                   }
                                 }
@@ -24097,12 +24759,6 @@
                 "properties": {
                   "prompt": {
                     "type": "string"
-                  },
-                  "model": {
-                    "nullable": true
-                  },
-                  "provider": {
-                    "nullable": true
                   }
                 }
               },
@@ -24212,9 +24868,6 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "id": {
-                          "nullable": true
-                        },
                         "order": {
                           "type": "integer"
                         }
@@ -24283,9 +24936,6 @@
                           "content": {
                             "type": "string"
                           },
-                          "mime_type": {
-                            "nullable": true
-                          },
                           "order": {
                             "type": "integer"
                           },
@@ -24299,9 +24949,6 @@
                           "updated_at": {
                             "type": "string",
                             "format": "date-time"
-                          },
-                          "deleted_at": {
-                            "nullable": true
                           }
                         }
                       }
@@ -24572,9 +25219,6 @@
                     "content": {
                       "type": "string"
                     },
-                    "mime_type": {
-                      "nullable": true
-                    },
                     "order": {
                       "type": "integer"
                     },
@@ -24588,9 +25232,6 @@
                     "updated_at": {
                       "type": "string",
                       "format": "date-time"
-                    },
-                    "deleted_at": {
-                      "nullable": true
                     }
                   }
                 },
@@ -24716,7 +25357,8 @@
               "application/json": {
                 "schema": {
                   "type": "object"
-                }
+                },
+                "example": {}
               }
             }
           },
@@ -24823,9 +25465,6 @@
                               "type": "string"
                             }
                           },
-                          "structured_output": {
-                            "nullable": true
-                          },
                           "frame_id": {
                             "type": "string"
                           },
@@ -24836,9 +25475,6 @@
                           "updated_at": {
                             "type": "string",
                             "format": "date-time"
-                          },
-                          "deleted_at": {
-                            "nullable": true
                           },
                           "created_by": {
                             "type": "string"
@@ -24888,9 +25524,6 @@
                               },
                               "name": {
                                 "type": "string"
-                              },
-                              "avatar_url": {
-                                "nullable": true
                               }
                             }
                           }
@@ -25284,9 +25917,6 @@
                             "type": "string"
                           }
                         },
-                        "structured_output": {
-                          "nullable": true
-                        },
                         "frame_id": {
                           "type": "string"
                         },
@@ -25297,9 +25927,6 @@
                         "updated_at": {
                           "type": "string",
                           "format": "date-time"
-                        },
-                        "deleted_at": {
-                          "nullable": true
                         },
                         "created_by": {
                           "type": "string"
@@ -25343,9 +25970,6 @@
                             },
                             "name": {
                               "type": "string"
-                            },
-                            "avatar_url": {
-                              "nullable": true
                             }
                           }
                         }
@@ -25520,9 +26144,6 @@
                             "type": "string"
                           }
                         },
-                        "structured_output": {
-                          "nullable": true
-                        },
                         "frame_id": {
                           "type": "string"
                         },
@@ -25533,9 +26154,6 @@
                         "updated_at": {
                           "type": "string",
                           "format": "date-time"
-                        },
-                        "deleted_at": {
-                          "nullable": true
                         },
                         "created_by": {
                           "type": "string"
@@ -25762,9 +26380,6 @@
                             "items": {
                               "type": "string"
                             }
-                          },
-                          "pricing_in_credits": {
-                            "nullable": true
                           }
                         }
                       }
@@ -26273,9 +26888,6 @@
                           "frame_id": {
                             "type": "integer"
                           },
-                          "deleted_at": {
-                            "nullable": true
-                          },
                           "project_funnels_count": {
                             "type": "integer"
                           }
@@ -26454,9 +27066,6 @@
                         },
                         "frame_id": {
                           "type": "integer"
-                        },
-                        "deleted_at": {
-                          "nullable": true
                         }
                       }
                     }
@@ -26546,9 +27155,6 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "id": {
-                    "nullable": true
-                  },
                   "name": {
                     "type": "string"
                   }
@@ -26781,7 +27387,8 @@
               "application/json": {
                 "schema": {
                   "type": "object"
-                }
+                },
+                "example": {}
               }
             }
           }
@@ -27830,12 +28437,6 @@
                         "type": {
                           "type": "string"
                         },
-                        "user_id": {
-                          "nullable": true
-                        },
-                        "funnel_step_id": {
-                          "nullable": true
-                        },
                         "target": {
                           "type": "integer"
                         },
@@ -27864,9 +28465,6 @@
                         "updated_at": {
                           "type": "string",
                           "format": "date-time"
-                        },
-                        "deleted_at": {
-                          "nullable": true
                         }
                       }
                     }
@@ -28020,12 +28618,6 @@
                         "type": {
                           "type": "string"
                         },
-                        "user_id": {
-                          "nullable": true
-                        },
-                        "funnel_step_id": {
-                          "nullable": true
-                        },
                         "target": {
                           "type": "integer"
                         },
@@ -28061,9 +28653,6 @@
                         "updated_at": {
                           "type": "string",
                           "format": "date-time"
-                        },
-                        "deleted_at": {
-                          "nullable": true
                         }
                       }
                     }
@@ -28739,12 +29328,6 @@
                         "type": {
                           "type": "string"
                         },
-                        "user_id": {
-                          "nullable": true
-                        },
-                        "funnel_step_id": {
-                          "nullable": true
-                        },
                         "target": {
                           "type": "integer"
                         },
@@ -28773,9 +29356,6 @@
                         "updated_at": {
                           "type": "string",
                           "format": "date-time"
-                        },
-                        "deleted_at": {
-                          "nullable": true
                         }
                       }
                     }
@@ -28867,7 +29447,8 @@
               "application/json": {
                 "schema": {
                   "type": "object"
-                }
+                },
+                "example": {}
               }
             }
           },
@@ -29587,9 +30168,6 @@
                           "id": {
                             "type": "string"
                           },
-                          "old_id": {
-                            "nullable": true
-                          },
                           "code": {
                             "type": "string"
                           },
@@ -29601,9 +30179,6 @@
                           },
                           "impact": {
                             "type": "integer"
-                          },
-                          "parent_id": {
-                            "nullable": true
                           },
                           "frame_id": {
                             "type": "string"
@@ -29622,18 +30197,8 @@
                           "contact_id": {
                             "type": "integer"
                           },
-                          "share_token": {
-                            "nullable": true
-                          },
-                          "share_settings": {
-                            "nullable": true
-                          },
-                          "merged_id": {
-                            "nullable": true
-                          },
                           "merged_project": {
                             "type": "object",
-                            "nullable": true,
                             "description": "Projeto resultante de um merge, quando carregado."
                           },
                           "status": {
@@ -29645,12 +30210,6 @@
                           "is_template": {
                             "type": "boolean"
                           },
-                          "created_by": {
-                            "nullable": true
-                          },
-                          "deleted_at": {
-                            "nullable": true
-                          },
                           "headquarter": {
                             "type": "object",
                             "properties": {
@@ -29659,12 +30218,6 @@
                               },
                               "name": {
                                 "type": "string"
-                              },
-                              "parent_id": {
-                                "nullable": true
-                              },
-                              "parent": {
-                                "nullable": true
                               }
                             }
                           },
@@ -29684,12 +30237,6 @@
                               },
                               "name": {
                                 "type": "string"
-                              },
-                              "parent_id": {
-                                "nullable": true
-                              },
-                              "parent": {
-                                "nullable": true
                               }
                             }
                           },
@@ -29710,11 +30257,7 @@
                                 "format": "email"
                               },
                               "phone": {
-                                "type": "string",
-                                "format": "utc-millisec"
-                              },
-                              "description": {
-                                "nullable": true
+                                "type": "string"
                               },
                               "frame_id": {
                                 "type": "string"
@@ -29726,9 +30269,6 @@
                               "updated_at": {
                                 "type": "string",
                                 "format": "date-time"
-                              },
-                              "deleted_at": {
-                                "nullable": true
                               },
                               "customers": {
                                 "type": "array",
@@ -29777,21 +30317,12 @@
                               },
                               "subdomain": {
                                 "type": "string"
-                              },
-                              "model_forms": {
-                                "nullable": true
                               }
                             }
-                          },
-                          "form": {
-                            "nullable": true
                           },
                           "executors": {
                             "type": "array",
                             "items": {}
-                          },
-                          "costs": {
-                            "nullable": true
                           }
                         }
                       }
@@ -30235,11 +30766,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "properties": {
-                  "project_id": {
-                    "nullable": true
-                  }
-                }
+                "properties": {}
               },
               "example": {
                 "project_id": null
@@ -31992,15 +32519,6 @@
                   "is_template": {
                     "type": "boolean"
                   },
-                  "contact_id": {
-                    "nullable": true
-                  },
-                  "customer_id": {
-                    "nullable": true
-                  },
-                  "parent_id": {
-                    "nullable": true
-                  },
                   "funnels": {
                     "type": "object",
                     "properties": {
@@ -32058,15 +32576,11 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "user_id": {
-                          "nullable": true
-                        },
                         "role": {
                           "type": "string"
                         },
                         "action": {
-                          "type": "string",
-                          "format": "color"
+                          "type": "string"
                         }
                       }
                     }
@@ -32079,32 +32593,19 @@
                         "date": {
                           "type": "string",
                           "format": "date"
-                        },
-                        "project_funnel_id": {
-                          "nullable": true
                         }
                       }
                     }
                   },
                   "funnel_status": {
                     "type": "object",
-                    "properties": {
-                      "project_funnel_id": {
-                        "nullable": true
-                      },
-                      "funnel_status_id": {
-                        "nullable": true
-                      }
-                    }
+                    "properties": {}
                   },
                   "form_answers": {
                     "type": "array",
                     "items": {
                       "type": "object",
                       "properties": {
-                        "id": {
-                          "nullable": true
-                        },
                         "answer": {
                           "type": "string"
                         }
@@ -34542,7 +35043,8 @@
               "application/json": {
                 "schema": {
                   "type": "object"
-                }
+                },
+                "example": {}
               }
             }
           }
@@ -35178,23 +35680,65 @@
         "summary": "Restaurar formulário",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "form_model_not_found",
+                  "error": "No query results for model [App\\Models\\Form] 69"
+                }
+              }
+            }
           }
         },
         "tags": [
           "forms"
         ],
-        "description": "Restaura um formulário que foi deletado via soft delete.\n\n**Permissão necessária:** `dynamic_forms.edit`\n\n**Parâmetros de rota:**\n\n- `form_id` — UUID do formulário a ser restaurado\n    \n\n**Respostas:**\n\n- `200 OK` — Formulário restaurado com sucesso\n    \n- `403 Forbidden` — Usuário sem permissão `dynamic_forms.edit`\n    \n- `404 Not Found` — Formulário não encontrado ou não está deletado"
+        "description": "Restaura um formulário excluído. Vínculos desfeitos na exclusão (formulário avulso de projeto e formulário padrão de objeto) não voltam automaticamente."
       },
       "parameters": [
         {
           "name": "form_id",
           "in": "path",
           "required": true,
+          "description": "ID do formulário excluído.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
