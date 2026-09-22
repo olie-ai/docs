@@ -1,7 +1,7 @@
 ---
 title: "Agentes de IA"
 description: "A base de conhecimento e as ferramentas que os assistentes usam — e a auditoria de cada execução, com tokens, latência e custo"
-keywords: ["agente de IA", "agente", "modelo", "ferramentas", "contexto", "prompt", "execução", "auditoria", "IA"]
+keywords: ["agente de IA", "agente", "modelo", "ferramentas", "contexto", "prompt", "execução", "auditoria", "IA", "permissões", "openrouter", "provedor", "créditos", "assíncrono"]
 ---
 
 Um **agente de IA** é a base: o modelo que será usado, as ferramentas que ele pode acionar, as instruções que definem o papel dele e os documentos que servem de referência.
@@ -49,6 +49,18 @@ Cada modelo mostra o **preço em créditos por milhão de tokens**, o que permit
 Alguns modelos aparecem com **Preço variável**. São modelos de seleção automática: o modelo real é escolhido em tempo de execução e o preço acompanha essa escolha. Ver [perfis de seleção automática](/guides/billing/ai-credits).
 </Note>
 
+### De onde vem a lista
+
+A lista **não é fixa**. Ela é lida do catálogo do [agregador de modelos que a Olie usa](#por-onde-passam-os-dados) — o mesmo que devolve nome, capacidades e preço de cada modelo — e se atualiza sozinha conforme os provedores lançam, renomeiam ou aposentam modelos. Não há publicação de versão da Olie no meio.
+
+| Consequência | O que significa na prática |
+| --- | --- |
+| Modelos novos aparecem sozinhos | Um lançamento do provedor entra na lista sem depender de atualização da plataforma |
+| Modelos podem sair da lista | Um modelo aposentado pelo provedor deixa de ser oferecido; um agente que apontava para ele precisa de um novo modelo padrão |
+| A lista pode demorar alguns minutos para refletir uma mudança | O catálogo é guardado em cache curto |
+
+Acima do catálogo ficam os **perfis de seleção automática** — automático, por custo e por desempenho —, que não são um modelo específico: a escolha acontece a cada execução. Ver [Seleção automática de modelos](/guides/billing/ai-credits#seleção-automática-de-modelos).
+
 <Warning>
 Nem todo modelo aceita todas as ferramentas. Se o agente precisa de busca na internet ou de chamada de ferramenta, filtre a lista por essa capacidade antes de escolher — caso contrário a ferramenta configurada simplesmente não será usada.
 </Warning>
@@ -60,6 +72,28 @@ Ferramentas são o que permite ao agente **consultar e agir** na plataforma, em 
 <Warning>
 Cada ferramenta acionada é uma ida a mais ao modelo. Isso **aumenta o tempo e o custo** da execução. Habilite apenas o que o agente precisa para a tarefa dele.
 </Warning>
+
+### Com quais permissões o agente age
+
+<Warning>
+**O agente executa as ferramentas com acesso total dentro da empresa** — não com as permissões de quem o acionou. Quem dispara um assistente sem poder ver um projeto continua sem vê-lo na interface, mas o agente que ele acionou pode consultar e alterar esse projeto, se tiver a ferramenta habilitada.
+
+A **única fronteira é a empresa**: um agente nunca alcança dados de outra empresa. Dentro dela, não existe restrição por funil, por etapa nem por projeto.
+</Warning>
+
+Isso é diferente do [MCP](/guides/mcp/overview), que age com as permissões da pessoa conectada, e igual ao [token de aplicação](/guides/integrations/overview#aplicações-e-tokens-de-api), que também é de nível proprietário.
+
+A governança disponível hoje é **uma só: quais ferramentas o agente pode usar**.
+
+| Existe | Não existe |
+| --- | --- |
+| Escolher as ferramentas habilitadas por agente | Restringir o agente a um funil, a uma etapa ou a um conjunto de projetos |
+| Ver, em cada execução, toda ferramenta que foi acionada e com quais argumentos | Etapa de aprovação humana antes de uma ferramenta que escreve |
+| Desabilitar uma ferramenta e deixar só as de leitura | Herdar as permissões de quem acionou o agente |
+
+<Tip>
+A consequência prática: trate a lista de ferramentas como uma concessão de acesso. Um agente que só precisa ler não deve ter ferramenta que move projeto, cria projeto ou responde formulário — deixe as de escrita para agentes com escopo estreito e instrução curta.
+</Tip>
 
 ## Contextos
 
@@ -112,6 +146,60 @@ Uma execução que termina sem resposta, ou que acaba com o agente ainda pedindo
 
 <Info>
 Essa é a diferença de governança que vale registrar: quem opera o funil vê apenas a saída no formulário ou no conteúdo. Não vê o prompt, não vê o modelo e não consegue alterar a instrução de entrada — porque ela é montada por [sintaxe avançada](/guides/advanced/advanced-syntax) a partir dos dados do projeto.
+</Info>
+
+## Executar pela API
+
+Um agente também pode ser acionado de fora, por `POST /api/management/ai/agents/{id}/execute`.
+
+<Warning>
+**A execução é assíncrona.** A chamada responde **na hora**, com a execução ainda **pendente**, e o processamento acontece em fila. O corpo da resposta traz o registro da execução, não o texto gerado pelo agente.
+</Warning>
+
+<Steps>
+<Step title="Dispare a execução" icon="paper-plane">
+  `POST /api/management/ai/agents/{id}/execute` devolve a execução criada, com status pendente.
+</Step>
+
+<Step title="Consulte o resultado depois" icon="magnifying-glass">
+  A execução é lida pelo identificador devolvido. Enquanto a fila não processa, ela continua pendente; ao terminar, carrega a resposta, os tokens, a latência e os créditos debitados.
+</Step>
+</Steps>
+
+<Note>
+A mesma execução que aparece na lista de **Execuções** da interface é a que a API devolve. Não há canal separado: quem integra e quem audita olham o mesmo registro.
+</Note>
+
+### Sem saldo, a execução é recusada
+
+<Warning>
+Com o saldo de créditos zerado ou negativo, a execução **não chega a começar**: a chamada é recusada com **HTTP 402** e nenhum registro de execução é criado. Quando a [recarga automática](/guides/billing/ai-credits#recarga-automática) está ligada, ela é tentada antes da recusa — a chamada só falha se a recarga também falhar.
+</Warning>
+
+Crédito de IA é uma **carteira à parte**: o consumo de IA não sai do limite de requisições da API. O que o plano limita é a **quantidade** de agentes e de assistentes configurados — o quanto eles executam é saldo, não plano. Uma conta sem créditos continua usando o resto da plataforma normalmente; só a IA para. Ver [Créditos de IA](/guides/billing/ai-credits) e [Limites e tetos](/guides/fundamentals/limits).
+
+<Note>
+Uma execução que já começou nunca é interrompida no meio por falta de saldo — o débito acontece no fim e pode deixar o saldo negativo. O bloqueio vale para a **próxima** execução.
+</Note>
+
+## Por onde passam os dados
+
+Vale registrar para quem avalia a plataforma ou precisa responder a uma diligência interna.
+
+A Olie **não hospeda os modelos**. Cada execução sai da plataforma por um **agregador de modelos — o OpenRouter**, que encaminha a requisição para o provedor do modelo escolhido: OpenAI, Anthropic, Google, DeepSeek e os demais do catálogo. O que trafega é o que a execução carrega: as instruções do agente, os contextos, o prompt montado e o retorno das ferramentas acionadas.
+
+| Camada | Papel |
+| --- | --- |
+| Olie | Monta o prompt, executa as ferramentas, registra a execução e debita os créditos |
+| Agregador (OpenRouter) | Roteia a requisição para o provedor do modelo escolhido e devolve a resposta e o custo |
+| Provedor do modelo | Processa a requisição e gera a resposta |
+
+<Note>
+O modelo escolhido define o provedor de destino. Em um perfil de **seleção automática**, esse destino é decidido a cada execução — a execução registra qual modelo acabou sendo usado.
+</Note>
+
+<Info>
+As condições de tratamento de dados da plataforma estão nos [Termos de Serviço](https://olie.ai/terms-of-service). Para exigências específicas sobre retenção, região de processamento ou uso dos dados por terceiros, leia os Termos e fale com o time da Olie antes de habilitar a IA.
 </Info>
 
 ## Custo

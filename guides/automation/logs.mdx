@@ -50,8 +50,12 @@ Excluir uma automação apaga o histórico dela. Se você precisa preservar a ev
   | Erro | O código do problema, quando houve |
   | Mensagem | Uma explicação em texto |
   | Tempo de execução | Quanto o componente levou |
-  | Dados extras | O que a ação produziu — identificadores criados, valores calculados, resposta de webhook |
+  | Dados extras | O que a ação produziu — identificadores criados, valores calculados |
   | Condição | Nas condições, se o resultado foi verdadeiro ou falso |
+
+  <Note>
+  Na ação **Disparar webhook**, o que o endpoint devolve **não volta para a automação**: o corpo da resposta não vira variável e não entra em uma condição dos passos seguintes. Do retorno, o fluxo aproveita apenas se a chamada respondeu 200 — e é isso que aparece como sucesso ou erro do componente. Ver [Disparar webhook](/guides/automation/actions-integrations#disparar-webhook).
+  </Note>
 </Accordion>
 
 <Accordion title="Contexto final" icon="brackets-curly">

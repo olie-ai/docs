@@ -38,11 +38,19 @@ Uma integração de comunicação conecta um número ou uma conta externa à pla
 
 ### Conectores disponíveis
 
-| Conector | Como conecta |
-| --- | --- |
-| **WhatsApp Cloud (Meta)** | Credenciais da API oficial: Phone Number ID, Access Token, App Secret e Verify Token |
-| **Evolution** | Servidor próprio: API Key, instância e endereço do servidor |
-| **WhatsApp hospedado pela Olie** | Leitura de QR Code, sem infraestrutura própria |
+| Conector | Como conecta | Valor em `type` na API |
+| --- | --- | --- |
+| **WhatsApp Cloud (Meta)** | Credenciais da API oficial: Phone Number ID, Access Token, App Secret e Verify Token | `whatsapp_cloud` |
+| **Evolution** | Servidor próprio: API Key, instância e endereço do servidor | `whatsapp_evolution` |
+| **WhatsApp hospedado pela Olie** | Leitura de QR Code, sem infraestrutura própria | `whatsapp_evolution_managed` |
+
+<Note>
+O **WhatsApp hospedado pela Olie** não pode ser criado pela API: ele nasce exclusivamente pelo fluxo de conexão da plataforma, que é quem aloca o servidor e gera as credenciais da instância. Uma criação com `type: whatsapp_evolution_managed` é recusada.
+</Note>
+
+<Warning>
+**O tipo não muda depois de criada a integração.** Credenciais e configurações são específicas de cada conector, e trocar o tipo invalidaria o que já está gravado — uma atualização com um `type` diferente do atual é recusada. Para mudar de conector, crie uma nova integração.
+</Warning>
 
 ### Criação automática de projeto
 

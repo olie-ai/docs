@@ -1,7 +1,7 @@
 ---
 title: "Limites e tetos"
 description: "Todos os limites que a plataforma impõe, reunidos em um lugar — vários deles só aparecem quando você esbarra neles"
-keywords: ["limite", "limites", "teto", "máximo", "restrição técnica", "quota", "plano"]
+keywords: ["limite", "limites", "teto", "máximo", "restrição técnica", "quota", "plano", "rate limit", "429", "anexo", "upload"]
 ---
 
 Esta página reúne os números que a plataforma impõe. Cada linha aponta para a página que explica o comportamento em detalhe.
@@ -58,7 +58,7 @@ Uma consulta `query` dentro de um `for` conta **uma vez por iteração**. Um la�
 
 | Limite | Valor |
 | --- | --- |
-| Rate limit padrão | **160 requisições por minuto por empresa** |
+| Rate limit padrão | **160 requisições por minuto**, contadas **por usuário ou por aplicação** |
 | Itens por página, padrão | **30** |
 | Itens por página, máximo | **100** — valores acima são reduzidos automaticamente |
 | Página inicial | **1** — valores inválidos são ajustados |
@@ -66,7 +66,38 @@ Uma consulta `query` dentro de um `for` conta **uma vez por iteração**. Um la�
 
 O limite real vem no header `X-RateLimit-Limit`, e o restante em `X-RateLimit-Remaining`. Ao estourar, a resposta é **429** com `Retry-After` em segundos.
 
+<Warning>
+O balde é **por identidade, não por empresa**: cada usuário e cada [aplicação](/guides/integrations/overview#aplicações-e-tokens-de-api) tem os seus próprios 160 por minuto. Duas aplicações da mesma empresa não dividem o mesmo teto, e o consumo de uma pessoa não reduz o da outra. Em chamada sem autenticação, a contagem é por endereço IP.
+</Warning>
+
+<Note>
+O teto de 160 pode ser **elevado por empresa**, sob combinação com a Olie. O valor elevado só vale para as chamadas que chegam **pelo subdomínio da empresa** — é por ele que a plataforma reconhece de qual empresa a requisição veio. Uma chamada que não identifica a origem cai no padrão de 160, mesmo que a empresa tenha um teto maior.
+</Note>
+
+### Outros limitadores
+
+Nem tudo passa pelo limitador da API. Estes caminhos têm balde próprio, contado à parte:
+
+| Caminho | Limite | Contado por |
+| --- | --- | --- |
+| [MCP](/guides/mcp/overview) | **160 por minuto** | Usuário conectado, ou IP nas rotas públicas de descoberta |
+| Webhook de entrada de canal | **120 por minuto** | Token do endereço de entrada da [integração](/guides/integrations/overview) |
+| [Formulário público](/guides/forms/public-forms) | **60 por minuto** | Usuário ou endereço IP |
+| Login | **8 por minuto** | Usuário ou endereço IP |
+
+<Warning>
+O limitador do MCP é separado do limitador da API: um teto elevado combinado para a empresa **não vale para o MCP**, que segue em 160 por minuto.
+</Warning>
+
 Ver [Detalhes da API](/api-reference/introduction/details) e [Paginação](/api-reference/general/pagination).
+
+## Arquivos
+
+| Limite | Valor | Onde |
+| --- | --- | --- |
+| Anexo de resposta de formulário | **97.650 KB** (cerca de 95 MB) | [Anexos em formulários](/guides/forms/attachments) |
+| Extensões aceitas no anexo | Lista fechada — qualquer outra é recusada com `422` | [Anexos em formulários](/guides/forms/attachments) |
+| Planilha de importação | **50 MB**, e apenas `.xlsx` | — |
 
 ## Métricas e metas
 
@@ -91,6 +122,7 @@ As métricas de tempo por etapa consideram **apenas passagens concluídas** — 
 | Funis, restrições de etapa e assistentes | Contam contra o teto do plano | [Assinatura e licenças](/guides/billing/subscription-and-licenses) |
 | Funil criado acima do limite do plano | Nasce **inativo** | [Criar e configurar um funil](/guides/funnels/creating-funnels) |
 | Saldo de créditos de IA | Pode ficar **negativo** — uma execução iniciada nunca é interrompida no meio | [Créditos de IA](/guides/billing/ai-credits) |
+| Execução de IA sem saldo | Recusada com **HTTP 402**; não chega a criar registro de execução | [Agentes de IA](/guides/ai/agents) |
 | Usuários inativos | **Não** ocupam licença | [Tipos de papéis](/guides/users/role-types) |
 
 <Tip>

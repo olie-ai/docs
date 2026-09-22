@@ -98,13 +98,78 @@ Notifica um sistema externo sobre o que aconteceu.
 | Endpoint | Sim | A URL que vai receber a requisição |
 | Corpo customizado | Não | Conteúdo extra enviado junto; aceita variáveis |
 
-A requisição leva o tipo do gatilho que acionou a automação e os dados do disparo. Preenchendo o corpo customizado, o conteúdo calculado vai em um campo exclusivo da requisição.
+### O que é enviado
+
+A requisição é sempre **`POST`**, com o corpo em JSON:
+
+| Campo | O que traz |
+| --- | --- |
+| `event` | O tipo do gatilho que acionou a automação |
+| `created_at` | O momento do disparo |
+| `data` | Os dados do gatilho |
+| `custom_body` | O corpo customizado já calculado — como objeto, se o texto resultante for um JSON válido; como texto, caso contrário |
+
+<Warning>
+**Não é possível escolher o método nem enviar cabeçalhos.** A chamada sai sempre como `POST`, sem cabeçalhos customizados — não há campo de `Authorization`, de chave de API ou de assinatura.
+
+Na prática, isso significa que a ação **não serve para chamar uma API que exija autenticação por cabeçalho** — inclusive a [API da própria Olie](/api-reference/introduction/authentication). O destino precisa aceitar uma chamada sem credencial no cabeçalho.
+</Warning>
 
 <Tip>
-O editor tem um botão **Testar webhook**. Use antes de salvar para confirmar que o endpoint responde.
+Quando o destino exige credencial, aponte o webhook para um endereço intermediário seu — uma função, um endpoint próprio ou uma ferramenta de automação externa. Ele recebe a chamada aberta, confere o que precisar pelo corpo e só então chama a API autenticada.
 </Tip>
 
-Uma falha na chamada — endpoint fora do ar, resposta de erro — é registrada no componente e **o fluxo continua** nas ações seguintes.
+### Como a chamada é feita
+
+A chamada é **síncrona**: a automação espera a resposta antes de seguir para a próxima ação. O tempo máximo de espera é de **10 segundos**.
+
+| Resposta do endpoint | O que acontece |
+| --- | --- |
+| **200** | O componente é marcado como sucesso |
+| Qualquer outro código | O componente é marcado como erro |
+| Nenhuma resposta em 10 segundos | O componente é marcado como erro |
+
+Redirecionamentos não são seguidos — um `301` ou `302` conta como erro, e não como a resposta do endereço de destino.
+
+O erro fica registrado naquele componente e **o fluxo continua** nas ações seguintes.
+
+<Note>
+O endpoint precisa ser **público**. Endereços que apontam para a rede interna — `localhost`, faixas privadas, endereços reservados — são recusados antes do envio. Um webhook para um sistema que roda dentro da sua rede não funciona sem um endereço acessível pela internet.
+</Note>
+
+<Tip>
+O editor tem um botão **Testar webhook**. Use antes de salvar para confirmar que o endpoint responde. O teste envia um corpo com `event` igual a `test` e dados de exemplo — não os dados de um projeto real.
+</Tip>
+
+### A resposta não volta para o fluxo
+
+<Warning>
+**O corpo da resposta não volta para a automação.** O que o endpoint devolve não vira variável e não pode ser usado em uma condição nos passos seguintes. Do retorno, o fluxo aproveita uma única informação: se a chamada respondeu 200 ou não.
+</Warning>
+
+Ou seja: não dá para consultar um sistema externo no meio da automação e continuar com o dado consultado. Para reagir a uma informação de fora, inverta a direção — quem escreve na Olie é o serviço externo:
+
+<Steps>
+<Step title="A automação dispara o webhook" icon="paper-plane">
+  Com o corpo customizado levando o que o serviço externo precisa saber — o identificador do projeto, por exemplo.
+</Step>
+
+<Step title="O serviço externo processa" icon="gears">
+  No tempo dele, sem prender a automação.
+</Step>
+
+<Step title="O serviço escreve de volta na Olie" icon="arrow-rotate-left">
+  Pela [API](/api-reference/introduction): preencher um campo de formulário, aplicar uma etiqueta, mover o projeto de etapa.
+</Step>
+
+<Step title="Essa escrita dispara outra automação" icon="bolt">
+  O gatilho correspondente — formulário editado, etiqueta vinculada, projeto movido — retoma o processo já com o dado em mãos.
+</Step>
+</Steps>
+
+<Note>
+Uma automação acionada por outra conta no [limite de encadeamento](/guides/automation/anatomy#automações-que-acionam-automações). A escrita feita por um serviço externo, não: para a plataforma, é uma escrita como qualquer outra.
+</Note>
 
 ## Executar assistente de etapa
 
@@ -188,7 +253,7 @@ O par mais útil: gatilho [Execução de projeto](/guides/automation/triggers#ex
 </Card>
 
 <Card title="Logs e depuração" icon="list-check" href="/guides/automation/logs">
-  Conferir se a mensagem saiu e o que o webhook respondeu.
+  Conferir se a mensagem saiu e por que um componente falhou.
 </Card>
 
 <Card title="Receitas prontas" icon="book-open" href="/guides/automation/recipes">

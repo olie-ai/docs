@@ -47,7 +47,8 @@
                   "guides/fundamentals/mental-model",
                   "guides/fundamentals/data-model",
                   "guides/fundamentals/glossary",
-                  "guides/fundamentals/limits"
+                  "guides/fundamentals/limits",
+                  "guides/fundamentals/security"
                 ]
               },
               {
@@ -96,6 +97,8 @@
                 "pages": [
                   "guides/forms/overview",
                   "guides/forms/creating-forms",
+                  "guides/forms/forms-api",
+                  "guides/forms/attachments",
                   "guides/forms/public-forms",
                   "guides/forms/requests",
                   "guides/forms/loose-forms"
@@ -237,7 +240,10 @@
                       "api-reference/general/advanced-search"
                     ]
                   },
-                  "api-reference/general/form-answer-pivot"
+                  "api-reference/general/form-answer-pivot",
+                  "api-reference/general/idempotency",
+                  "api-reference/general/bulk-operations",
+                  "api-reference/general/audit-log"
                 ]
               },
               {

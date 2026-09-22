@@ -1,0 +1,139 @@
+---
+title: "Segurança e privacidade"
+description: "Onde os dados ficam, o que sai do país, como o acesso é controlado e onde consultar os documentos legais"
+keywords: ["segurança", "privacidade", "LGPD", "dados", "hospedagem", "AWS", "autenticação", "2FA", "auditoria", "DPO"]
+---
+
+Esta página reúne o que costuma ser perguntado em avaliação de fornecedor e em questionário de segurança. Ela descreve **o que existe hoje** — sem promessas de roadmap — e aponta, para cada assunto com efeito contratual, o documento que vale.
+
+<Info>
+Para dúvidas que esta página não cobrir, o canal é o encarregado de dados: **dpo@olie.ai**.
+</Info>
+
+## Onde os dados ficam
+
+A plataforma roda em infraestrutura da **Amazon Web Services (AWS)**, na **região de São Paulo (`sa-east-1`)**.
+
+| Componente | Onde fica |
+| --- | --- |
+| Aplicação | AWS, São Paulo |
+| Banco de dados | AWS, São Paulo |
+| Arquivos e anexos | AWS, São Paulo |
+| Interface web | AWS, São Paulo |
+
+Ou seja: em operação normal, os dados da sua empresa permanecem no Brasil.
+
+## O que trafega para fora do país
+
+Duas funcionalidades dependem de terceiros fora do Brasil. Ambas são acionadas pelo uso — se você não usa a funcionalidade, não há esse tráfego.
+
+<CardGroup cols={2}>
+<Card title="Inteligência artificial" icon="robot">
+  As execuções de IA — [agentes](/guides/ai/agents), [assistentes de etapa](/guides/funnels/step-assistants) e recursos equivalentes — são processadas por um agregador de modelos e pelos provedores de modelo, **nos Estados Unidos**.
+
+  O que é enviado é o conteúdo necessário para a execução: a instrução configurada e os dados do projeto que ela referencia.
+</Card>
+
+<Card title="WhatsApp" icon="comments">
+  Depende do conector escolhido em [Integrações](/guides/integrations/overview):
+
+  **WhatsApp Cloud (Meta)** — as mensagens passam pela infraestrutura da Meta.
+
+  **WhatsApp hospedado pela Olie** — a conexão roda em servidores operados pela Olie **na Europa**.
+
+  **Evolution próprio** — a infraestrutura é sua, e o trajeto é o que você definir.
+</Card>
+</CardGroup>
+
+<Note>
+As condições de tratamento desses dados por terceiros estão na [Política de Privacidade](https://olie.ai/privacy-policy) e nos [Termos de Uso](https://olie.ai/terms-of-service).
+</Note>
+
+## Separação entre empresas
+
+Cada registro da plataforma pertence a **uma** empresa, e toda consulta é escopada pela empresa da credencial autenticada. Um projeto, um cliente, um formulário ou um arquivo só é alcançável por quem está autenticado na empresa que o contém.
+
+Uma tentativa de acessar um registro de outra empresa **é respondida como se o registro não existisse** — a plataforma responde `404`, e não uma negativa de permissão. A diferença importa: a resposta não confirma a existência do registro.
+
+<Note>
+A separação entre empresas é independente das [permissões](/guides/users/roles-permissions). As permissões definem o que cada pessoa enxerga **dentro** da empresa; a separação define o limite da empresa, e vale mesmo para credenciais com permissão total.
+</Note>
+
+## Acesso à plataforma
+
+| Forma de acesso | Como funciona |
+| --- | --- |
+| **Usuário** | E-mail e senha, com **segundo fator (TOTP) opcional**, habilitado por cada usuário no próprio perfil |
+| **Integração** | [Token de aplicação](/api-reference/introduction/authentication), criado nos ajustes da empresa |
+| **Assistentes de IA (MCP)** | Autorização por **OAuth**, feita pelo próprio usuário — veja [MCP](/guides/mcp/overview) |
+
+<Warning>
+O **token de aplicação** é de nível proprietário: ele passa por qualquer verificação de permissão da plataforma e não pode ser restringido hoje. Trate-o como uma credencial de banco de dados. Para acesso com as permissões de uma pessoa, o caminho é o [MCP](/guides/mcp/overview), que herda exatamente o que aquele usuário enxerga.
+</Warning>
+
+<Note>
+**Não há login corporativo (SSO) hoje** — nem SAML, nem Entra ID, nem provedor equivalente. O controle de quem entra é feito pela [gestão de usuários](/guides/users/user-management) da empresa: o acesso depende de convite, e desabilitar um usuário encerra o acesso dele àquela empresa.
+</Note>
+
+## Rastreabilidade
+
+Criação, alteração e exclusão dos objetos principais ficam gravadas com autor e data, em um registro consultável pela API — inclusive as ações feitas por integração.
+
+<Card title="Registro de alterações" icon="clock-rotate-left" href="/api-reference/general/audit-log">
+  O que é registrado, o que fica de fora e como consultar o histórico pela API.
+</Card>
+
+## Disponibilidade
+
+O estado dos serviços é publicado em **[status.olie.ai](https://status.olie.ai)**, com histórico de incidentes.
+
+<Note>
+Compromissos de disponibilidade, quando existirem, constam dos [Termos de Uso](https://olie.ai/terms-of-service) ou do contrato assinado — não desta página.
+</Note>
+
+## Privacidade e LGPD
+
+<CardGroup cols={3}>
+<Card title="Política de Privacidade" icon="shield" href="https://olie.ai/privacy-policy">
+  Quais dados são tratados, com que finalidade e por quanto tempo.
+</Card>
+
+<Card title="Termos de Uso" icon="file-contract" href="https://olie.ai/terms-of-service">
+  As condições do serviço e as responsabilidades de cada parte.
+</Card>
+
+<Card title="Encarregado (DPO)" icon="envelope" href="mailto:dpo@olie.ai">
+  Canal para pedidos de titular e para questões de proteção de dados: **dpo@olie.ai**.
+</Card>
+</CardGroup>
+
+## O que esta página não responde
+
+Para manter o que está aqui verificável, alguns assuntos ficam deliberadamente de fora. Eles não são respondidos por documentação técnica:
+
+- Certificações (ISO, SOC 2) e auditorias externas
+- Níveis de serviço numéricos, prazos de recuperação e metas de perda de dados
+- Detalhes de criptografia, chaves e configuração de infraestrutura
+- Uso de dados para treinamento de modelos de IA
+
+Consulte a [Política de Privacidade](https://olie.ai/privacy-policy), os [Termos de Uso](https://olie.ai/terms-of-service) ou escreva para **dpo@olie.ai**. Para questionário de segurança de fornecedor, o mesmo canal encaminha ao time responsável.
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Papéis e permissões" icon="user-shield" href="/guides/users/roles-permissions">
+  Como o acesso é recortado dentro da empresa.
+</Card>
+
+<Card title="Gestão de usuários" icon="users" href="/guides/users/user-management">
+  Convidar, revisar e remover quem tem acesso.
+</Card>
+
+<Card title="Registro de alterações" icon="clock-rotate-left" href="/api-reference/general/audit-log">
+  A trilha de auditoria e como consultá-la.
+</Card>
+
+<Card title="Integrações" icon="puzzle-piece" href="/guides/integrations/overview">
+  Por onde a informação entra e sai da plataforma.
+</Card>
+</CardGroup>
