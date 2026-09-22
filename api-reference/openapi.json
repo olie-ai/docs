@@ -248,6 +248,38 @@
                             "type": "string",
                             "format": "uuid"
                           },
+                          "channel_id": {
+                            "type": "string",
+                            "description": "ID (UUID) do canal, quando o conteúdo veio de uma conversa.",
+                            "format": "uuid",
+                            "nullable": true
+                          },
+                          "direction": {
+                            "type": "string",
+                            "description": "Direção do conteúdo no canal (entrada ou saída), quando aplicável.",
+                            "nullable": true
+                          },
+                          "origin": {
+                            "type": "string",
+                            "description": "Origem do conteúdo (ex.: integração ou compositor interno).",
+                            "nullable": true
+                          },
+                          "external_message_id": {
+                            "type": "string",
+                            "description": "ID da mensagem na integração externa, quando houver.",
+                            "nullable": true
+                          },
+                          "task_id": {
+                            "type": "string",
+                            "description": "ID (UUID) da tarefa vinculada, quando o conteúdo pertence a uma tarefa.",
+                            "format": "uuid",
+                            "nullable": true
+                          },
+                          "delivery_error": {
+                            "type": "string",
+                            "description": "Erro de entrega na integração, quando o envio falhou.",
+                            "nullable": true
+                          },
                           "created_at": {
                             "type": "string",
                             "format": "date-time"
@@ -262,6 +294,10 @@
                           },
                           "user": {
                             "type": "object"
+                          },
+                          "project": {
+                            "type": "object",
+                            "description": "Projeto relacionado, quando carregado."
                           }
                         }
                       }
@@ -291,6 +327,12 @@
                       "user_id": "<uuid>",
                       "frame_id": "<uuid>",
                       "project_id": "<uuid>",
+                      "channel_id": null,
+                      "direction": null,
+                      "origin": null,
+                      "external_message_id": null,
+                      "task_id": null,
+                      "delivery_error": null,
                       "created_at": "<dateTime>",
                       "updated_at": "<dateTime>",
                       "deleted_at": "<dateTime>",
@@ -308,6 +350,12 @@
                       "user_id": "<uuid>",
                       "frame_id": "<uuid>",
                       "project_id": "<uuid>",
+                      "channel_id": null,
+                      "direction": null,
+                      "origin": null,
+                      "external_message_id": null,
+                      "task_id": null,
+                      "delivery_error": null,
                       "created_at": "<dateTime>",
                       "updated_at": "<dateTime>",
                       "deleted_at": "<dateTime>",
@@ -517,6 +565,38 @@
                             "description": "Projeto que recebeu o conteúdo.",
                             "format": "uuid"
                           },
+                          "channel_id": {
+                            "type": "string",
+                            "description": "ID (UUID) do canal, quando o conteúdo veio de uma conversa.",
+                            "format": "uuid",
+                            "nullable": true
+                          },
+                          "direction": {
+                            "type": "string",
+                            "description": "Direção do conteúdo no canal (entrada ou saída), quando aplicável.",
+                            "nullable": true
+                          },
+                          "origin": {
+                            "type": "string",
+                            "description": "Origem do conteúdo (ex.: integração ou compositor interno).",
+                            "nullable": true
+                          },
+                          "external_message_id": {
+                            "type": "string",
+                            "description": "ID da mensagem na integração externa, quando houver.",
+                            "nullable": true
+                          },
+                          "task_id": {
+                            "type": "string",
+                            "description": "ID (UUID) da tarefa vinculada, quando o conteúdo pertence a uma tarefa.",
+                            "format": "uuid",
+                            "nullable": true
+                          },
+                          "delivery_error": {
+                            "type": "string",
+                            "description": "Erro de entrega na integração, quando o envio falhou.",
+                            "nullable": true
+                          },
                           "created_at": {
                             "type": "string",
                             "description": "Data do envio.",
@@ -535,6 +615,10 @@
                           "user": {
                             "type": "object",
                             "description": "Quem enviou o conteúdo."
+                          },
+                          "project": {
+                            "type": "object",
+                            "description": "Projeto relacionado, quando carregado."
                           }
                         }
                       }
@@ -568,6 +652,12 @@
                       "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
                       "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
                       "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "channel_id": null,
+                      "direction": null,
+                      "origin": null,
+                      "external_message_id": null,
+                      "task_id": null,
+                      "delivery_error": null,
                       "created_at": "2026-08-18T14:02:11.000000Z",
                       "updated_at": "2026-08-18T14:02:11.000000Z",
                       "deleted_at": null,
@@ -589,6 +679,12 @@
                       "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
                       "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
                       "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "channel_id": null,
+                      "direction": null,
+                      "origin": null,
+                      "external_message_id": null,
+                      "task_id": null,
+                      "delivery_error": null,
                       "created_at": "2026-08-18T13:47:35.000000Z",
                       "updated_at": "2026-08-18T13:47:35.000000Z",
                       "deleted_at": null,
@@ -6467,6 +6563,11 @@
                             "type": "string",
                             "description": "Data em que foi enviado para a lixeira.",
                             "format": "date-time"
+                          },
+                          "merged_project": {
+                            "type": "object",
+                            "nullable": true,
+                            "description": "Projeto resultante de um merge, quando carregado."
                           }
                         }
                       }
@@ -6495,6 +6596,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 0,
                       "is_template": false,
@@ -6589,6 +6691,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 0,
                       "is_template": false,
@@ -6642,6 +6745,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 0,
                       "is_template": false,
@@ -6695,6 +6799,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 0,
                       "is_template": false,
@@ -6748,6 +6853,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 0,
                       "is_template": false,
@@ -6801,6 +6907,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 0,
                       "is_template": false,
@@ -6854,6 +6961,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 0,
                       "is_template": false,
@@ -6907,6 +7015,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 0,
                       "is_template": false,
@@ -7005,6 +7114,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 0,
                       "is_template": false,
@@ -7115,6 +7225,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 3,
                       "budget": 743419.28,
                       "is_template": false,
@@ -7200,6 +7311,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 124176.36,
                       "is_template": false,
@@ -7281,6 +7393,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 4,
                       "budget": 151973.02,
                       "is_template": false,
@@ -7362,6 +7475,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 4,
                       "budget": 972764.55,
                       "is_template": false,
@@ -7443,6 +7557,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 2,
                       "budget": 785931.65,
                       "is_template": false,
@@ -7483,6 +7598,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 4,
                       "budget": 538057.72,
                       "is_template": false,
@@ -7523,6 +7639,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 392328.69,
                       "is_template": false,
@@ -7563,6 +7680,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 3,
                       "budget": 376134.95,
                       "is_template": false,
@@ -7603,6 +7721,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 4,
                       "budget": 586101.4,
                       "is_template": false,
@@ -7643,6 +7762,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 3,
                       "budget": 844116.34,
                       "is_template": false,
@@ -7683,6 +7803,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 2,
                       "budget": 414516.2,
                       "is_template": false,
@@ -7723,6 +7844,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 735533.87,
                       "is_template": false,
@@ -7763,6 +7885,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 2,
                       "budget": 806353.5,
                       "is_template": false,
@@ -7844,6 +7967,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 3,
                       "budget": 45691.3,
                       "is_template": false,
@@ -7925,6 +8049,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 874936.31,
                       "is_template": false,
@@ -7965,6 +8090,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 2,
                       "budget": 626667.46,
                       "is_template": false,
@@ -8005,6 +8131,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 4,
                       "budget": 178639.31,
                       "is_template": false,
@@ -8045,6 +8172,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 925757.89,
                       "is_template": false,
@@ -8085,6 +8213,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 2,
                       "budget": 656502.58,
                       "is_template": false,
@@ -8170,6 +8299,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 3,
                       "budget": 842332.7,
                       "is_template": false,
@@ -8210,6 +8340,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 324996.46,
                       "is_template": false,
@@ -9170,6 +9301,11 @@
                             "type": "string",
                             "description": "Data em que foi enviado para a lixeira.",
                             "format": "date-time"
+                          },
+                          "merged_project": {
+                            "type": "object",
+                            "nullable": true,
+                            "description": "Projeto resultante de um merge, quando carregado."
                           }
                         }
                       }
@@ -9198,6 +9334,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 990014.63,
                       "is_template": false,
@@ -9255,6 +9392,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 4,
                       "budget": 336598.07,
                       "is_template": false,
@@ -9337,6 +9475,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 4,
                       "budget": 970388.83,
                       "is_template": false,
@@ -9423,6 +9562,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 4,
                       "budget": 707596.04,
                       "is_template": false,
@@ -9463,6 +9603,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 657683.24,
                       "is_template": false,
@@ -9544,6 +9685,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 3,
                       "budget": 942876.45,
                       "is_template": false,
@@ -9584,6 +9726,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 402351.89,
                       "is_template": false,
@@ -9636,6 +9779,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 4,
                       "budget": 505013.5,
                       "is_template": false,
@@ -9681,6 +9825,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 2,
                       "budget": 846712.4,
                       "is_template": false,
@@ -9767,6 +9912,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 4,
                       "budget": 673359.37,
                       "is_template": false,
@@ -9874,6 +10020,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 3,
                       "budget": 551319,
                       "is_template": false,
@@ -9955,6 +10102,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 2.5,
                       "is_template": false,
@@ -10073,6 +10221,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 276114.81,
                       "is_template": false,
@@ -10125,6 +10274,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 419390.97,
                       "is_template": false,
@@ -10177,6 +10327,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 2,
                       "budget": 971235.1,
                       "is_template": false,
@@ -10222,6 +10373,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 3,
                       "budget": 563563.1,
                       "is_template": false,
@@ -10304,6 +10456,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 3,
                       "budget": 207289.81,
                       "is_template": false,
@@ -10381,6 +10534,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 2,
                       "budget": 128993.22,
                       "is_template": false,
@@ -10466,6 +10620,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 389478.16,
                       "is_template": false,
@@ -10506,6 +10661,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 3,
                       "budget": 923726.28,
                       "is_template": false,
@@ -10546,6 +10702,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 4,
                       "budget": 118440.4,
                       "is_template": false,
@@ -10586,6 +10743,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 394028.34,
                       "is_template": false,
@@ -10626,6 +10784,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 2,
                       "budget": 70737.15,
                       "is_template": false,
@@ -10666,6 +10825,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 4,
                       "budget": 857204.35,
                       "is_template": false,
@@ -10751,6 +10911,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 2,
                       "budget": 151571.28,
                       "is_template": false,
@@ -10875,6 +11036,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 4,
                       "budget": 873077.55,
                       "is_template": false,
@@ -10960,6 +11122,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 4,
                       "budget": 633662.3,
                       "is_template": false,
@@ -11000,6 +11163,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 997619.02,
                       "is_template": false,
@@ -11040,6 +11204,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 2,
                       "budget": 93584.8,
                       "is_template": false,
@@ -11125,6 +11290,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 3,
                       "budget": 947843.18,
                       "is_template": false,
@@ -12569,6 +12735,11 @@
                             "type": "string",
                             "description": "Prefixo usado no código dos projetos do funil."
                           },
+                          "frame_id": {
+                            "type": "string",
+                            "description": "ID (UUID) do frame.",
+                            "format": "uuid"
+                          },
                           "condition": {
                             "type": "string",
                             "enum": [
@@ -12666,7 +12837,12 @@
                       "id": 74,
                       "name": "Desenvolvimento",
                       "prefix": "DL19",
+                      "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
                       "condition": "active",
+                      "allow_multi_step": false,
+                      "project_term": null,
+                      "show_cost_info": true,
+                      "allow_execution": true,
                       "business_area": {
                         "id": 83,
                         "name": "Desenvolvimento de software-1-2-3-4"
@@ -12686,7 +12862,12 @@
                       "id": 23,
                       "name": "Captação de Recursos",
                       "prefix": "CR",
+                      "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
                       "condition": "active",
+                      "allow_multi_step": false,
+                      "project_term": null,
+                      "show_cost_info": true,
+                      "allow_execution": true,
                       "business_area": {
                         "id": 10,
                         "name": "Serviços Financeiros 69444026ba810"
@@ -12706,7 +12887,12 @@
                       "id": 53,
                       "name": "Auditoria",
                       "prefix": "JIHJ10",
+                      "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
                       "condition": "active",
+                      "allow_multi_step": false,
+                      "project_term": null,
+                      "show_cost_info": true,
+                      "allow_execution": true,
                       "business_area": null,
                       "business_area_id": null,
                       "form_id": null,
@@ -12723,7 +12909,12 @@
                       "id": 71,
                       "name": "Vendas",
                       "prefix": "VDS",
+                      "frame_id": "019b329a-4346-7064-bba3-e7c19057cda4",
                       "condition": "active",
+                      "allow_multi_step": false,
+                      "project_term": null,
+                      "show_cost_info": true,
+                      "allow_execution": true,
                       "business_area": null,
                       "business_area_id": null,
                       "form_id": null,
@@ -19625,7 +19816,208 @@
         "operationId": "listarConteDosDeProjetosAssociadosAoCliente",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Lista paginada de conteúdos dos projetos do cliente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Lista paginada de conteúdos.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre true quando a operação é concluída."
+                    },
+                    "meta": {
+                      "type": "object",
+                      "description": "Dados da paginação.",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer",
+                          "description": "Página retornada."
+                        },
+                        "from": {
+                          "type": "integer",
+                          "description": "Posição do primeiro item da página no total."
+                        },
+                        "to": {
+                          "type": "integer",
+                          "description": "Posição do último item da página no total."
+                        },
+                        "last_page": {
+                          "type": "integer",
+                          "description": "Número da última página."
+                        },
+                        "per_page": {
+                          "type": "integer",
+                          "description": "Itens por página."
+                        },
+                        "total": {
+                          "type": "integer",
+                          "description": "Total de itens encontrados."
+                        }
+                      }
+                    },
+                    "medias": {
+                      "type": "array",
+                      "description": "Conteúdos da página.",
+                      "items": {
+                        "type": "object",
+                        "description": "Conteúdo do projeto (MediaResource).",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "ID (UUID) do conteúdo."
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Nome do conteúdo ou do arquivo."
+                          },
+                          "technical_name": {
+                            "type": "string",
+                            "description": "Nome interno usado no armazenamento."
+                          },
+                          "type": {
+                            "type": "integer",
+                            "description": "Tipo do conteúdo: 1 texto, 2 arquivo, 3 áudio."
+                          },
+                          "extension": {
+                            "type": "string",
+                            "description": "Extensão do arquivo, quando houver."
+                          },
+                          "text": {
+                            "type": "string",
+                            "description": "Texto enviado, quando houver."
+                          },
+                          "file_url": {
+                            "type": "string",
+                            "description": "Endereço para baixar o arquivo, quando houver."
+                          },
+                          "log": {
+                            "type": "string",
+                            "description": "Conteúdo do registro de atividade, quando a entrada for um log."
+                          },
+                          "user_id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "Usuário que enviou o conteúdo."
+                          },
+                          "frame_id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "ID (UUID) do frame."
+                          },
+                          "project_id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "Projeto que recebeu o conteúdo."
+                          },
+                          "channel_id": {
+                            "type": "string",
+                            "description": "ID (UUID) do canal, quando o conteúdo veio de uma conversa.",
+                            "format": "uuid",
+                            "nullable": true
+                          },
+                          "direction": {
+                            "type": "string",
+                            "description": "Direção do conteúdo no canal (entrada ou saída), quando aplicável.",
+                            "nullable": true
+                          },
+                          "origin": {
+                            "type": "string",
+                            "description": "Origem do conteúdo (ex.: integração ou compositor interno).",
+                            "nullable": true
+                          },
+                          "external_message_id": {
+                            "type": "string",
+                            "description": "ID da mensagem na integração externa, quando houver.",
+                            "nullable": true
+                          },
+                          "task_id": {
+                            "type": "string",
+                            "description": "ID (UUID) da atividade vinculada, quando o conteúdo pertence a uma atividade.",
+                            "format": "uuid",
+                            "nullable": true
+                          },
+                          "delivery_error": {
+                            "type": "string",
+                            "description": "Erro de entrega na integração, quando o envio falhou.",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Data do envio."
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Data da última alteração."
+                          },
+                          "deleted_at": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Data em que o conteúdo foi removido."
+                          },
+                          "user": {
+                            "type": "object",
+                            "description": "Quem enviou o conteúdo."
+                          },
+                          "project": {
+                            "type": "object",
+                            "description": "Projeto relacionado, quando carregado."
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "response",
+                    "medias"
+                  ]
+                },
+                "example": {
+                  "response": true,
+                  "meta": {
+                    "current_page": 1,
+                    "from": 1,
+                    "to": 1,
+                    "last_page": 1,
+                    "per_page": 30,
+                    "total": 1
+                  },
+                  "medias": [
+                    {
+                      "id": "019e1a44-2f6d-70bb-9d21-64c0a3e91f77",
+                      "name": "proposta-comercial",
+                      "technical_name": "proposta-comercial.019e1a44",
+                      "type": 2,
+                      "extension": "pdf",
+                      "text": null,
+                      "file_url": "https://cdn.olie.ai/frames/projects/proposta-comercial.pdf",
+                      "log": null,
+                      "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                      "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                      "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "channel_id": null,
+                      "direction": null,
+                      "origin": null,
+                      "external_message_id": null,
+                      "task_id": null,
+                      "delivery_error": null,
+                      "created_at": "2026-08-18T14:02:11.000000Z",
+                      "updated_at": "2026-08-18T14:02:11.000000Z",
+                      "deleted_at": null,
+                      "user": {
+                        "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                        "name": "Ana Souza",
+                        "avatar_url": null
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           }
         }
       },
@@ -29239,6 +29631,11 @@
                           "merged_id": {
                             "nullable": true
                           },
+                          "merged_project": {
+                            "type": "object",
+                            "nullable": true,
+                            "description": "Projeto resultante de um merge, quando carregado."
+                          },
                           "status": {
                             "type": "integer"
                           },
@@ -29428,6 +29825,7 @@
                       "share_token": null,
                       "share_settings": null,
                       "merged_id": null,
+                      "merged_project": null,
                       "status": 1,
                       "budget": 15000,
                       "is_template": false,
