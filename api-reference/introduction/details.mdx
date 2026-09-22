@@ -21,18 +21,54 @@ Todas as requisições devem ser feitas utilizando essa URL base. Todos os endpo
 A API retorna todas as respostas no formato **JSON** com codificação **UTF-8**. Certifique-se de que sua aplicação esteja configurada para processar corretamente esse formato.
 
 <Info>
-As respostas seguem uma estrutura padronizada para facilitar o tratamento dos dados. Para mais detalhes sobre como interpretar as respostas, consulte a [documentação de estrutura de respostas](/api-reference/response-structure).
+As respostas seguem uma estrutura padronizada para facilitar o tratamento dos dados. Para mais detalhes sobre como interpretar as respostas, consulte a [documentação de estrutura de respostas](/api-reference/general/response-structure).
 </Info>
 
 # Rate limit
 
-A API possui um limite de taxa de requisições de o padrão costuma ser **160 requisições por minuto** por empresa. Se você tiver um valor diferente, poderá consultar no header `X-RateLimit-Limit` da resposta.
+O limite padrão é de **160 requisições por minuto**.
+
+A contagem é feita **por identidade autenticada**: cada usuário tem o seu contador e cada aplicação tem o seu. Requisições sem autenticação são contadas por **endereço IP**.
+
+<Warning>
+O limite **não** é por empresa. Duas aplicações da mesma empresa têm 160 requisições por minuto cada uma, independentes entre si. Consumir o limite de uma não afeta a outra.
+</Warning>
+
+## Teto elevado por empresa
+
+O teto de 160 req/min pode ser elevado para uma empresa específica. Esse ajuste só é reconhecido quando a requisição chega com o header `Origin` apontando para o subdomínio da empresa.
+
+Integrações servidor-a-servidor normalmente não enviam `Origin`. Nesse caso a requisição **fica no teto padrão de 160 req/min**, mesmo que a empresa tenha um teto maior configurado.
+
+<Info>
+O valor efetivamente aplicado à requisição sempre aparece no header `X-RateLimit-Limit` da resposta. Use esse header como fonte da verdade, em vez de assumir 160.
+</Info>
+
+<Tip>
+Uma alteração no teto de uma empresa fica em cache por até 5 minutos antes de passar a valer.
+</Tip>
+
+## Limites por tipo de rota
+
+Nem toda rota usa o mesmo balde de contagem:
+
+| Contexto | Limite | Contado por |
+| --- | --- | --- |
+| API (`https://api.olie.ai/api/...`) | 160/min (padrão) | usuário ou aplicação; IP quando não autenticado |
+| MCP (`/mcp/...`) | 160/min | usuário; IP nas rotas públicas de descoberta |
+| Webhook de entrada de canal | 120/min | token do webhook |
+| Formulário público | 60/min | usuário ou IP |
+| Login | 8/min | usuário ou IP |
+
+<Info>
+O MCP tem um limitador próprio. Ele **não divide balde** com a API: consumir o limite do MCP não reduz as requisições disponíveis na API, e vice-versa. Veja [MCP](/guides/mcp/overview).
+</Info>
 
 ## Headers de rate limit
 
 Todas as respostas bem sucedidas da API incluem headers informativos sobre o rate limit:
 
-- `X-RateLimit-Limit`: Indica o número máximo de requisições permitidas por minuto (160)
+- `X-RateLimit-Limit`: Indica o número máximo de requisições permitidas por minuto para aquela requisição
 - `X-RateLimit-Remaining`: Indica quantas requisições ainda estão disponíveis no período atual
 - `Retry-After`: Quando o limite é excedido, este header indica quantos segundos você deve aguardar antes de fazer uma nova requisição
 

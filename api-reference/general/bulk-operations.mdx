@@ -1,0 +1,272 @@
+---
+title: 'Operações em lote'
+icon: 'layer-group'
+description: 'Atualizar vários registros ou mover vários projetos de etapa em uma única requisição.'
+---
+
+Existem dois endpoints de lote, e eles se comportam de formas **opostas** diante de um erro:
+
+| Endpoint | Em caso de erro |
+| --- | --- |
+| `POST /api/management/system/bulk-update/{model_name}` | **Parcial.** O que dá certo fica gravado; o que falha é pulado. |
+| `POST /api/management/project-bulk-step-move` | **Tudo ou nada.** Para no primeiro erro e nenhuma movimentação é confirmada. |
+
+<Warning>
+Escolher o endpoint errado muda o que acontece com os dados. Leia as duas seções antes de decidir.
+</Warning>
+
+# Atualização em lote
+
+```http
+POST /api/management/system/bulk-update/{model_name}
+```
+
+## Modelos aceitos
+
+Apenas dois:
+
+| `model_name` | O que atualiza |
+| --- | --- |
+| `project` | Projetos. |
+| `answer_pool` | Respostas de formulários dinâmicos. |
+
+Qualquer outro valor devolve **422**, com `message: "validation_errors"` e o detalhe dentro de `validation.model`:
+
+- Nome de modelo que existe mas ainda não é suportado (por exemplo `contact`): `messages.model_not_supported_yet`.
+- Nome de modelo que não existe: `Model was not found`.
+
+## Corpo da requisição
+
+O corpo é um objeto com a lista de `ids` e, no mesmo nível, os campos a aplicar em todos eles.
+
+```json
+{
+  "ids": ["uuid-1", "uuid-2", "uuid-3"],
+  "status": 1,
+  "impact": 8,
+  "tags": { "to_add": [12], "to_rem": [7] }
+}
+```
+
+<ParamField body="ids" type="array" required>
+Lista dos identificadores a atualizar. Não pode estar vazia e não aceita valores repetidos. **Não há teto de quantidade.**
+</ParamField>
+
+<Warning>
+Como não há teto, um lote muito grande pode estourar o tempo limite da requisição. Prefira lotes moderados e acompanhe o resultado.
+</Warning>
+
+### Campos de `project`
+
+Campos simples, aplicados diretamente no projeto:
+
+| Campo | Tipo |
+| --- | --- |
+| `name` | string |
+| `description` | string |
+| `impact` | integer (1 a 10) |
+| `contact_id` | integer |
+| `customer_id` | uuid |
+| `status` | integer (`1` em andamento, `2` concluído, `3` arquivado, `4` parado) |
+| `budget` | numeric |
+| `is_template` | boolean |
+| `parent_id` | uuid ou `null` |
+
+Relações que usam o formato `{ "to_add": [...], "to_rem": [...] }` — **ambas as chaves devem estar presentes**, mesmo que vazias:
+
+| Campo | Conteúdo |
+| --- | --- |
+| `funnels` | ids de funis a vincular / desvincular |
+| `groups` | ids de grupos de projeto |
+| `tags` | ids de tags |
+| `childrens` | ids de projetos filhos |
+
+Demais relações, com formato próprio:
+
+| Campo | Formato |
+| --- | --- |
+| `funnel_status` | `{ "project_funnel_id": 10, "funnel_status_id": 3 }` |
+| `forecast_dates` | lista de `{ "project_funnel_id": 10, "date": "2026-10-01" }` |
+| `users` | lista de `{ "user_id": "uuid", "role": "...", "action": "..." }` |
+| `form_answers` | respostas de formulário do projeto |
+
+<Warning>
+**Campos desconhecidos são ignorados sem aviso.** Um erro de digitação (`statsu` em vez de `status`) não gera erro: a requisição responde 200 com todos os itens em `successCount` e nada é alterado. Confira o resultado relendo um dos registros.
+</Warning>
+
+### Campos de `answer_pool`
+
+```json
+{
+  "ids": ["uuid-do-projeto-1", "uuid-do-projeto-2"],
+  "form_answers": [ /* respostas */ ],
+  "target": {
+    "pivot_class": "App\\Models\\ProjectStepForm",
+    "form_id": 20,
+    "father_class": "App\\Models\\Project"
+  }
+}
+```
+
+<ParamField body="form_answers" type="array" required>
+As respostas a gravar, no mesmo formato usado na gravação individual.
+</ParamField>
+
+<ParamField body="target" type="object" required>
+Endereço do formulário. Exige `pivot_class`, `form_id` e `father_class`. O identificador de cada item de `ids` é usado como o registro alvo — você não envia `father_id`.
+</ParamField>
+
+<Info>
+O conceito de `target` (pivot) está detalhado em [Formulários dinâmicos e o pivot](/api-reference/general/form-answer-pivot).
+</Info>
+
+## Resposta
+
+A resposta é sempre **200**, mesmo quando itens falham. O que importa está em `result`:
+
+```json
+{
+  "response": true,
+  "result": {
+    "successCount": 2,
+    "failedCount": 1,
+    "fails": [
+      { "id": "uuid-3", "error": "The step has requirements not filled" }
+    ]
+  }
+}
+```
+
+<ResponseField name="result.successCount" type="integer">
+Quantos itens foram atualizados com sucesso.
+</ResponseField>
+
+<ResponseField name="result.failedCount" type="integer">
+Quantos itens falharam.
+</ResponseField>
+
+<ResponseField name="result.fails" type="array">
+Um objeto por falha, com `id` e `error`. Quando a falha é de permissão, o objeto também traz `permission`, com a permissão que faltou.
+</ResponseField>
+
+<Warning>
+**A resposta não lista os itens que deram certo.** Os que passaram são obtidos por diferença: tudo que está em `ids` e não aparece em `fails`.
+</Warning>
+
+## Falha no meio do item
+
+O processamento é item a item, mas **não há desfazer por item**. Se um projeto falhar depois de já ter aplicado parte das alterações — por exemplo, o campo simples foi gravado e a relação seguinte estourou — a parte já aplicada permanece.
+
+<Warning>
+Um `id` em `fails` não significa "nada mudou nesse registro". Significa "a operação não terminou". Releia o registro antes de reprocessá-lo.
+</Warning>
+
+## Concorrência
+
+Só um lote por usuário de cada vez. Se outro lote do mesmo usuário estiver em andamento, a requisição responde **409**:
+
+```json
+{
+  "response": false,
+  "message": "bulk_operation_in_progress",
+  "error": "Another bulk operation is already in progress"
+}
+```
+
+<Info>
+A trava vale por usuário e por empresa, e só é aplicada quando o lote tem mais de um item. Um lote de um item único passa direto.
+</Info>
+
+<Tip>
+Ao receber 409, aguarde e repita a requisição. Não rode dois lotes em paralelo com o mesmo token — eles vão se atrapalhar.
+</Tip>
+
+# Movimentação em lote entre etapas
+
+```http
+POST /api/management/project-bulk-step-move
+```
+
+Move vários projetos para a mesma etapa de funil.
+
+## Corpo da requisição
+
+```json
+{
+  "project_ids": ["uuid-1", "uuid-2"],
+  "step_id": 42,
+  "unlink_others": true,
+  "force_funnel_link": false
+}
+```
+
+<ParamField body="project_ids" type="array" required>
+Lista de uuids de projetos.
+</ParamField>
+
+<ParamField body="step_id" type="integer" required>
+Etapa de destino.
+</ParamField>
+
+<ParamField body="unlink_others" type="boolean">
+Quando `true`, desvincula o projeto das outras etapas do mesmo funil.
+</ParamField>
+
+<ParamField body="force_funnel_link" type="boolean">
+Quando `true`, vincula o projeto ao funil da etapa caso ele ainda não esteja vinculado.
+</ParamField>
+
+<Info>
+Projetos que já estão na etapa de destino são ignorados, sem erro.
+</Info>
+
+## Tudo ou nada
+
+Este endpoint **para no primeiro erro** e nenhuma das movimentações do lote é confirmada — inclusive as dos projetos processados antes da falha.
+
+A resposta de erro segue o [formato padrão](/api-reference/general/response-structure) e informa **o motivo**, com o detalhe da restrição ou do requisito que barrou a movimentação:
+
+| `message` | Motivo |
+| --- | --- |
+| `step_requirements_not_filled` | A etapa tem requisitos não preenchidos. Acompanha `requirements`. |
+| `incoming_restrictions` | A etapa de destino restringe de onde o projeto pode vir. Acompanha `restrictions`. |
+| `outgoing_restrictions` | A etapa de origem restringe para onde o projeto pode ir. Acompanha `restrictions`. |
+| `blocked_by_existing_step_blocking` | O projeto tem tag ou status que a etapa bloqueia. Acompanha `step_blockings`. |
+| `project_funnel_not_linked_with_project` | O projeto não está vinculado ao funil da etapa. Use `force_funnel_link`. |
+| `project_funnel_not_active` | O funil da etapa está inativo. |
+
+<Warning>
+**O erro não diz qual projeto falhou.** Ele descreve o motivo, não o culpado.
+</Warning>
+
+<Tip>
+Para descobrir qual projeto barrou o lote, mova um a um com `POST /api/management/funnel-steps/{funnel_step}/projects`. O projeto que reproduzir o erro é o responsável.
+</Tip>
+
+<Info>
+As regras que provocam esses erros estão em [Restrições de etapa](/guides/funnels/restrictions) e [Requisitos de etapa](/guides/funnels/requirements).
+</Info>
+
+## Concorrência
+
+Vale a mesma trava da atualização em lote: um lote por usuário de cada vez, com **409** e `bulk_operation_in_progress` quando já existe outro em andamento. As duas operações compartilham a mesma trava — um lote de atualização em curso bloqueia um lote de movimentação do mesmo usuário.
+
+# Resumo prático
+
+<Steps>
+<Step title="Escolha pelo comportamento de erro">
+Precisa que o lote inteiro seja atômico? Use a movimentação entre etapas. Precisa aplicar o que for possível e tratar o resto depois? Use a atualização em lote.
+</Step>
+
+<Step title="Confira o nome dos campos">
+Na atualização em lote, um campo escrito errado é ignorado sem aviso. Valide o payload antes de rodar sobre muitos registros.
+</Step>
+
+<Step title="Sempre leia o result">
+`successCount` igual ao total não garante que os campos certos foram aplicados — garante apenas que nenhum item lançou erro.
+</Step>
+
+<Step title="Não rode lotes em paralelo">
+Com o mesmo usuário, o segundo lote recebe 409. Enfileire do seu lado.
+</Step>
+</Steps>

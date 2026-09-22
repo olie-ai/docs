@@ -1,0 +1,263 @@
+---
+title: 'Registro de alterações'
+icon: 'clock-rotate-left'
+description: 'Quem alterou o quê e quando — a trilha de auditoria da plataforma e como consultá-la pela API.'
+---
+
+# O que é
+
+Toda criação, alteração e exclusão dos objetos principais da plataforma é gravada em um registro permanente, com o autor da ação e o momento em que ela aconteceu. **É a fonte de auditoria da Olie**: é aqui que se responde quem mudou determinado dado, e quando.
+
+É o mesmo registro que alimenta o **histórico do projeto** na interface. O endpoint abaixo dá acesso a ele para qualquer objeto auditado.
+
+<Note>
+Não confunda com o [registro de execuções de automação](/guides/automation/logs). Aquele mostra o que uma automação fez em cada disparo, guarda cerca de 100 execuções por automação e descarta as antigas — serve para depurar, não para auditar. O registro de alterações desta página é outra coisa: é a trilha de auditoria, e é permanente.
+</Note>
+
+# O endpoint
+
+```bash
+POST https://api.olie.ai/api/management/search-activities
+```
+
+A requisição é autenticada como qualquer outra da API — veja [Autenticação e segurança](/api-reference/introduction/authentication). A consulta é feita no contexto da empresa autenticada.
+
+## Parâmetros
+
+Todos são enviados no corpo da requisição.
+
+<ParamField body="subject_type" type="string" required>
+Nome completo da classe do objeto auditado, no formato usado internamente pela plataforma (por exemplo, `App\Models\Project`). É o único parâmetro obrigatório: a busca é sempre por um tipo de objeto de cada vez. Os valores aceitos estão na seção **O que é registrado**, mais abaixo.
+</ParamField>
+
+<ParamField body="subject_id" type="string | integer">
+Identificador do objeto. Restringe a busca ao histórico daquele registro específico. Sem ele, a resposta traz as alterações de todos os objetos daquele tipo.
+</ParamField>
+
+<ParamField body="event" type="string">
+Tipo de ação. Em alterações de modelo, os valores são `created`, `updated` e `deleted`. Alguns eventos próprios usam nomes compostos — por exemplo `funnel_step.moved` para o movimento de um projeto entre etapas.
+</ParamField>
+
+<ParamField body="causer_id" type="string">
+Identificador de quem executou a ação — um usuário ou uma aplicação. Restringe a busca ao que aquele autor fez.
+</ParamField>
+
+<ParamField body="log_batch_id" type="string">
+Identificador do lote. Uma única operação que altera vários objetos grava todos os registros sob o mesmo lote; este filtro recupera o lote inteiro.
+</ParamField>
+
+<ParamField body="offset" type="integer" default="0">
+Página da listagem, começando em `0`. Cada incremento avança 10 registros.
+</ParamField>
+
+<Warning>
+**Não existe filtro por data.** Para recortar um período, percorra as páginas a partir do registro mais recente e pare quando `created_at` sair da janela desejada.
+</Warning>
+
+## Paginação
+
+Este endpoint não segue o formato descrito em [Paginação](/api-reference/general/pagination). A resposta traz **10 registros por página**, sempre **da alteração mais recente para a mais antiga**, e não inclui o bloco `meta` nem o total de registros. A navegação é feita só pelo `offset`.
+
+<Info>
+Como não há total, a última página é aquela em que a resposta vem com menos de 10 registros — ou vazia.
+</Info>
+
+## Resposta
+
+```json
+{
+  "response": true,
+  "activities": [
+    {
+      "log_name": "default",
+      "description": "project.updated",
+      "event": "updated",
+      "subject_type": "App\\Models\\Project",
+      "subject_id": "0f8c1a2b-...",
+      "subject": { "...": "o objeto alterado, quando ainda existe" },
+      "causer_type": "App\\Models\\User",
+      "causer_id": "7c1d4e3a-...",
+      "causer": { "...": "quem executou a ação" },
+      "properties": { "attributes": { "name": "Novo nome" }, "old": { "name": "Nome anterior" } },
+      "batch_uuid": null,
+      "created_at": "2026-09-22T13:45:10.000000Z"
+    }
+  ]
+}
+```
+
+<ResponseField name="description" type="string">
+Nome interno da ação registrada, no formato `objeto.evento` — por exemplo `project.updated`.
+</ResponseField>
+
+<ResponseField name="event" type="string">
+Tipo da ação. O mesmo valor aceito no filtro `event`.
+</ResponseField>
+
+<ResponseField name="subject_type" type="string">
+Classe do objeto alterado.
+</ResponseField>
+
+<ResponseField name="subject_id" type="string | integer">
+Identificador do objeto alterado.
+</ResponseField>
+
+<ResponseField name="subject" type="object">
+O objeto em si, buscado no momento da consulta. Vem `null` quando o registro foi excluído definitivamente — o histórico permanece, o objeto não.
+</ResponseField>
+
+<ResponseField name="causer_type" type="string">
+Classe do autor: `App\Models\User` quando a ação partiu de uma pessoa, `App\Models\Application` quando partiu de um token de integração.
+</ResponseField>
+
+<ResponseField name="causer_id" type="string">
+Identificador do autor.
+</ResponseField>
+
+<ResponseField name="causer" type="object">
+O autor da ação. Vem `null` quando não há autor identificado — veja [Autoria](#autoria).
+</ResponseField>
+
+<ResponseField name="properties" type="object">
+O conteúdo da alteração. Nas alterações de modelo, traz `attributes` com os valores gravados e `old` com os anteriores, campo a campo. Nos eventos próprios, o formato varia: costuma trazer `value` com o objeto envolvido na ação.
+</ResponseField>
+
+<ResponseField name="batch_uuid" type="string">
+Identificador do lote, quando a ação fez parte de uma operação que alterou vários objetos. O mesmo valor aceito no filtro `log_batch_id`.
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+Data e hora da alteração.
+</ResponseField>
+
+# O que é registrado
+
+Cada linha abaixo é um valor aceito em `subject_type`. Para todos eles, ficam registradas a criação, a alteração e a exclusão.
+
+| Objeto | Valor em `subject_type` |
+| --- | --- |
+| Projeto | `App\Models\Project` |
+| Cliente | `App\Models\Customer` |
+| Contato | `App\Models\Contact` |
+| Funil | `App\Models\ProjectFunnel` |
+| Etapa | `App\Models\FunnelStep` |
+| Restrição de etapa | `App\Models\StepRestriction` |
+| Status do funil | `App\Models\FunnelStatus` |
+| Etiqueta do funil | `App\Models\FunnelTag` |
+| Etiqueta de cliente e contato | `App\Models\Tag` |
+| Checklist de etapa | `App\Models\StepChecklist` |
+| Formulário | `App\Models\Form` |
+| Campo de formulário | `App\Models\FormEdge` |
+| Automação | `App\Models\Automate\Automation` |
+| Assistente de etapa | `App\Models\StepAssistant` |
+| Agente de IA | `App\Models\AiAgent` |
+| Grupo de projeto | `App\Models\ProjectGroup` |
+| Meta | `App\Models\Goal` |
+| Usuário | `App\Models\User` |
+| Vínculo do usuário com a empresa | `App\Models\FrameRelationship` |
+| Papel | `Spatie\Permission\Models\Role` |
+
+<Note>
+O **papel** é a exceção da tabela: nele o registro cobre a criação, a edição e a alteração das permissões do papel — papéis não são excluídos na plataforma.
+</Note>
+
+Além das operações de criação, alteração e exclusão, **os movimentos do projeto entre etapas** também são registrados — com `subject_type` igual a `App\Models\Project` e `event` começando por `funnel_step.`. O registro guarda a etapa de destino e a de origem.
+
+<Note>
+Outros objetos também gravam histórico e podem ser consultados da mesma forma — área de negócio, anexos de funil e de etapa, convites, menções e páginas do Caderno, entre outros. A tabela acima cobre o que costuma ser pedido em auditoria.
+</Note>
+
+# Autoria
+
+Cada registro guarda quem executou a ação, em `causer_type` e `causer_id`: um **usuário**, quando a ação veio da interface ou de uma conexão [MCP](/guides/mcp/overview), ou uma **aplicação**, quando veio de um token de API.
+
+<Warning>
+Uma ação executada por uma **automação** roda em segundo plano, fora da sessão de quem a disparou, e por isso é gravada **sem autor**: `causer` vem `null`. Ao montar um relatório de auditoria, trate a ausência de autor como "executado pela plataforma", e não como falha do registro.
+</Warning>
+
+# Limites do registro
+
+Vale conhecer antes de desenhar qualquer relatório em cima destes dados.
+
+<AccordionGroup>
+<Accordion title="Automação: só nome e estado" icon="bolt">
+  Na automação, o registro guarda apenas o **título** e se ela está **ativa ou inativa**.
+
+  **Gatilho, condições e ações não entram no histórico.** Uma automação que passou a fazer outra coisa não deixa rastro do que mudou — o registro mostra que alguém a editou, não o que foi editado.
+</Accordion>
+
+<Accordion title="Papéis do usuário: registrados, mas fora desta busca" icon="user-shield">
+  Atribuir ou remover um papel de um usuário **é registrado** (eventos `role.attach` e `role.detach`, sobre `App\Models\FrameRelationship`), mas esse registro é gravado **sem a empresa**.
+
+  Como a busca é sempre escopada pela empresa autenticada, esses registros **não aparecem no resultado**. A alteração existe no histórico; ela apenas não é recuperável por este endpoint.
+</Accordion>
+
+<Accordion title="Permissões concedidas diretamente" icon="key">
+  Alterar as permissões de um **papel** é registrado (evento `permissions.updated`, sobre `Spatie\Permission\Models\Role`).
+
+  Já as permissões concedidas **diretamente a um usuário**, sem passar por um papel, **não são registradas**. Auditorias de acesso devem considerar essa lacuna.
+</Accordion>
+
+<Accordion title="Arquivos e mídias" icon="paperclip">
+  O envio e a remoção de mídias gravam histórico, mas sem a empresa — e, pelo mesmo motivo do item dos papéis, **não são retornados por esta busca**.
+</Accordion>
+</AccordionGroup>
+
+# Retenção
+
+Os registros de alteração **não são expurgados**: o histórico permanece disponível desde a primeira gravação, sem prazo de descarte.
+
+<Info>
+Isso vale só para o registro de alterações. O [registro de execuções de automação](/guides/automation/logs) é rotativo e não serve como evidência de auditoria.
+</Info>
+
+# Exemplos
+
+## Histórico de um projeto
+
+```json
+{
+  "subject_type": "App\\Models\\Project",
+  "subject_id": "0f8c1a2b-4d5e-6f70-8192-a3b4c5d6e7f8"
+}
+```
+
+## Só os movimentos entre etapas de um projeto
+
+```json
+{
+  "subject_type": "App\\Models\\Project",
+  "subject_id": "0f8c1a2b-4d5e-6f70-8192-a3b4c5d6e7f8",
+  "event": "funnel_step.moved"
+}
+```
+
+## O que uma pessoa alterou nos clientes, segunda página
+
+```json
+{
+  "subject_type": "App\\Models\\Customer",
+  "causer_id": "7c1d4e3a-9b8c-4d2e-8f10-2a3b4c5d6e7f",
+  "offset": 1
+}
+```
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Estrutura de respostas" icon="file-text" href="/api-reference/general/response-structure">
+  O envelope comum a todas as respostas da API.
+</Card>
+
+<Card title="Autenticação e segurança" icon="key" href="/api-reference/introduction/authentication">
+  Como autenticar a requisição e o que o token pode fazer.
+</Card>
+
+<Card title="Segurança e privacidade" icon="shield" href="/guides/fundamentals/security">
+  Onde os dados ficam, como o acesso é controlado e o que consta nos documentos legais.
+</Card>
+
+<Card title="Logs de automação" icon="bolt" href="/guides/automation/logs">
+  O registro de execuções — diagnóstico, não auditoria.
+</Card>
+</CardGroup>

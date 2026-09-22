@@ -11,8 +11,12 @@ Para fazer requisições, é necessário autenticar cada pedido com as credencia
 As solicitações são autenticadas com um token de acesso da aplicação. O token deve ser passado como um `Bearer token`, no cabeçalho da requisição:
 
 ```bash cURL
-curl -H "Authorization: {{token_de_acesso}}" https://api.olie.ai/...
+curl -H "Authorization: Bearer {{token_de_acesso}}" https://api.olie.ai/...
 ```
+
+<Warning>
+O prefixo `Bearer ` é obrigatório. Sem ele a requisição é tratada como não autenticada e retorna 401.
+</Warning>
 
 <Warning>
   Mantenha seu token de acesso em segurança. Nunca compartilhe ou exponha seu token em repositórios públicos.
@@ -54,29 +58,86 @@ curl -H "Authorization: {{token_de_acesso}}" https://api.olie.ai/...
   </Step>
 </Steps>
 
-# Segurança e permissões
+# Ciclo de vida do token
 
-As permissões atribuidas a uma aplicação são de mesmo nível proprietário, ou seja, é um **acesso privilegiado** as funcionalidades da plataforma.
+O token nasce junto com a aplicação e não muda mais. Vale a pena planejar a integração sabendo disso.
+
+| Característica | Comportamento |
+| --- | --- |
+| Tokens por aplicação | Um. O token é gerado no momento em que a aplicação é criada. |
+| Exibição | Uma única vez, na resposta da criação. Depois disso a plataforma não mostra mais o valor. |
+| Validade | 1 ano a partir da criação. |
+| Renovação | Não existe. Não há endpoint para renovar, rotacionar ou gerar um segundo token. |
+| Revogação | Excluir a aplicação revoga o token dela — e só o dela. |
+| Quantidade de aplicações | Sem limite. |
+| Empresa | O token é fixo na empresa em que a aplicação foi criada. |
 
 <Warning>
-  Em breve será possível atribuir permissões específicas para uma aplicação. Até lá, se atente a isso, a API é um **acesso privilegiado** as funcionalidades da plataforma.
+  O token não é exibido novamente. Se ele for perdido, não há como recuperá-lo: é preciso criar outra aplicação.
 </Warning>
+
+## Como trocar um token
+
+Como não há rotação, a troca é feita substituindo a aplicação:
+
+<Steps>
+  <Step title="Crie uma nova aplicação">
+    Guarde o novo token com segurança.
+  </Step>
+  <Step title="Aponte a integração para o novo token">
+    Faça a virada no seu lado e confirme que as chamadas continuam funcionando.
+  </Step>
+  <Step title="Exclua a aplicação antiga">
+    `DELETE /api/management/applications/{id}` revoga apenas o token daquela aplicação. As demais aplicações da empresa seguem funcionando normalmente.
+  </Step>
+</Steps>
+
+<Tip>
+  Como não há limite de aplicações, dá para manter a antiga e a nova ativas durante a virada e só excluir a antiga depois de confirmar que ninguém mais a usa.
+</Tip>
+
+## Expiração
+
+O token expira 1 ano depois de criado. A expiração não gera aviso prévio: a partir dela as requisições passam a responder 401. Registre a data de criação do lado da integração e planeje a substituição antes do vencimento.
+
+# Segurança e permissões
+
+Uma aplicação tem **acesso total** dentro da empresa a que pertence. Não existe escopo por permissão: não é possível criar uma aplicação que só leia projetos, ou que não enxergue clientes.
+
+<Warning>
+  O token de uma aplicação equivale a um acesso privilegiado à empresa inteira. Trate-o como uma credencial de administrador: nunca o exponha em repositórios, front-ends ou logs.
+</Warning>
+
+O que o token **não** faz:
+
+- Não atravessa empresas. Ele só enxerga os dados da empresa em que a aplicação foi criada.
+- Não alcança todos os endpoints. Alguns são reservados a pessoas e recusam aplicações com HTTP 403 e `message: "access_denied_for_applications"`.
+
+## Autoria no histórico
+
+Tudo que a aplicação altera é registrado no histórico com a **própria aplicação** como autora — e não com o usuário que criou a aplicação. Se você precisa distinguir "quem fez o quê" entre várias integrações, crie uma aplicação por integração.
+
+## Quando usar o MCP
+
+O servidor MCP é outro caminho de acesso e se comporta de forma diferente: a autenticação é via **OAuth** e acontece **como usuário**, não como aplicação. As chamadas passam pelas permissões desse usuário e o histórico registra o nome dele. O MCP também tem limitador de requisições próprio, que não divide balde com a API.
+
+Use o MCP quando o acesso deve refletir o que uma pessoa pode fazer, e a API com token de aplicação quando a integração é servidor-a-servidor. Veja [MCP](/guides/mcp/overview).
 
 ## Próximos passos
 
 Explore os tópicos abaixo para aprender mais sobre como utilizar a API da Olie:
 
 <CardGroup cols={2}>
-  <Card title="Filtros" icon="filter" href="/api-reference/filters">
+  <Card title="Filtros" icon="filter" href="/api-reference/general/basic-filters">
     Aprenda a usar filtros dinâmicos para refinar suas consultas.
   </Card>
-  <Card title="Paginação" icon="list" href="/api-reference/pagination">
+  <Card title="Paginação" icon="list" href="/api-reference/general/pagination">
     Entenda como navegar através de grandes conjuntos de dados.
   </Card>
-  <Card title="Explorar Endpoints" icon="code" href="#">
-    Confira a referência completa de todos os endpoints disponíveis.
+  <Card title="Reenvio e duplicidade" icon="rotate-right" href="/api-reference/general/idempotency">
+    O que acontece quando uma chamada dá timeout e você reenvia.
   </Card>
-  <Card title="Exemplos de código" icon="terminal" href="#">
-    Veja exemplos práticos de integração em diferentes linguagens.
+  <Card title="Operações em lote" icon="layer-group" href="/api-reference/general/bulk-operations">
+    Atualize ou mova vários registros em uma única requisição.
   </Card>
 </CardGroup>

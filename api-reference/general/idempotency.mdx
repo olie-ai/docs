@@ -1,0 +1,144 @@
+---
+title: 'Reenvio, timeout e duplicidade'
+icon: 'rotate-right'
+description: 'O que acontece quando uma chamada não responde e você tenta de novo.'
+---
+
+# O que a API garante
+
+A API **não tem idempotência**. Não existe nenhum mecanismo que reconheça uma requisição repetida e devolva o resultado da primeira.
+
+Na prática:
+
+- Não existe header `Idempotency-Key`. Se você enviar, ele é ignorado.
+- Não existe campo de correlação (`external_id`, `reference`, `client_id` ou equivalente) nos endpoints de criação.
+- Reenviar um `POST` de criação **cria outro registro**, mesmo que o corpo seja idêntico ao anterior.
+
+<Warning>
+Se uma criação der timeout, reenviar a mesma requisição é a forma mais comum de gerar registros duplicados. Consulte antes de recriar.
+</Warning>
+
+# O que é seguro reenviar
+
+| Operação | Seguro reenviar? | Por quê |
+| --- | --- | --- |
+| `GET` (leitura, listagem, busca) | Sim | Não altera nada. |
+| `PUT` / `PATCH` por `id` | Sim | O alvo é fixo e o resultado final é o mesmo. |
+| `DELETE` por `id` | Sim | Repetir sobre um registro já removido não cria nada novo. |
+| `POST` de criação | **Não** | Cada chamada cria um registro novo. |
+| `POST` de lote | **Depende** | Veja [Operações em lote](/api-reference/general/bulk-operations). |
+
+<Info>
+Atualização e remoção por `id` são idempotentes por natureza: o `id` já é a chave que identifica o alvo. O problema está na criação, onde a chave só existe depois que o servidor responde.
+</Info>
+
+# Por que a deduplicação não acontece sozinha
+
+## Cliente e contato não têm chave natural
+
+Clientes e contatos **não têm unicidade** por documento (CPF/CNPJ), e-mail ou telefone. Dois clientes com o mesmo CNPJ podem coexistir; dois contatos com o mesmo telefone também. A validação checa o formato do dado, não a duplicidade.
+
+Ou seja: reenviar a criação de um cliente não resulta em "já existe" — resulta em dois clientes.
+
+## O código do projeto é único, mas não serve de chave
+
+O `code` de um projeto (`P-1`, `P-2`, ...) é único dentro da empresa, mas é **gerado pelo servidor** no momento da criação. Você não escolhe o valor e não pode enviá-lo para dizer "crie só se este código ainda não existir".
+
+## Criação rápida de projeto aceita poucos campos
+
+`POST /api/management/projects/quick-store` aceita exatamente estes campos:
+
+<ParamField body="name" type="string" required>
+Nome do projeto.
+</ParamField>
+
+<ParamField body="prefix" type="string">
+Prefixo do código do projeto.
+</ParamField>
+
+<ParamField body="customer_id" type="uuid">
+Cliente a ser vinculado.
+</ParamField>
+
+<ParamField body="contact_id" type="integer">
+Contato a ser vinculado.
+</ParamField>
+
+<ParamField body="funnel_step_id" type="integer">
+Etapa de funil em que o projeto será criado.
+</ParamField>
+
+<ParamField body="from_project_template_id" type="uuid">
+Modelo de projeto a ser clonado. Quando informado, o projeto nasce como cópia do modelo.
+</ParamField>
+
+Qualquer outro campo enviado no corpo é descartado silenciosamente — inclusive um campo que você usaria para correlacionar a criação com o seu sistema.
+
+<Warning>
+Não há como "carimbar" um identificador seu no projeto durante a criação rápida. A correlação precisa ser mantida do seu lado.
+</Warning>
+
+# Prática recomendada
+
+O controle de duplicidade é responsabilidade da integração. O padrão abaixo resolve o caso do timeout sem depender de nada que a API ainda não oferece.
+
+<Steps>
+<Step title="Mantenha uma tabela de correlação">
+Antes de chamar a API, grave no seu banco uma linha com a chave do seu sistema, o corpo que será enviado e o estado `pendente`. Você precisa saber que tentou, mesmo que a resposta nunca chegue.
+</Step>
+
+<Step title="Chame a API">
+Ao receber a resposta, grave o `id` (e o `code`, quando houver) devolvido pela Olie na mesma linha e marque como `concluído`.
+</Step>
+
+<Step title="Em caso de timeout, consulte antes de recriar">
+Um timeout não significa que a criação falhou — significa que você não sabe. Antes de reenviar, faça uma busca pelos dados que você acabou de enviar. Se o registro estiver lá, guarde o `id` e encerre. Se não estiver, aí sim reenvie.
+</Step>
+
+<Step title="Reconcilie periodicamente">
+Rode uma rotina que procure linhas `pendentes` antigas e as resolva pela consulta. Isso cobre o caso em que o próprio processo caiu antes de gravar a resposta.
+</Step>
+</Steps>
+
+## Endpoints de consulta para a verificação
+
+Use a busca avançada para procurar o registro antes de recriar:
+
+| Recurso | Endpoint |
+| --- | --- |
+| Projetos | `POST /api/management/projects/search` |
+| Clientes | `POST /api/management/customers/search` |
+| Contatos | `POST /api/management/contacts/search` |
+
+Exemplo de verificação por nome antes de recriar um projeto:
+
+```http
+POST /api/management/projects/search
+{
+  "filters": [
+    { "field": "name", "operator": "equals", "value": "Implantação ACME" }
+  ],
+  "perPage": 5
+}
+```
+
+Se `meta.total` for maior que zero, o projeto já existe e não deve ser recriado.
+
+<Info>
+O formato dos filtros e operadores está em [Busca avançada](/api-reference/general/advanced-search).
+</Info>
+
+<Tip>
+Quando puder, escolha um campo que você controla e que seja estável — por exemplo o nome do projeto derivado da sua chave interna — para que a consulta de verificação seja confiável.
+</Tip>
+
+# Se a duplicidade acontecer
+
+Não existe desfazer automático. O registro criado a mais precisa ser tratado manualmente ou pela própria integração:
+
+- Projetos duplicados podem ser mesclados ou excluídos pela plataforma.
+- Clientes e contatos duplicados precisam ser removidos ou consolidados.
+
+<Warning>
+Antes de excluir, confira o que já foi vinculado ao registro duplicado. Projetos, anexos e respostas de formulário ligados a ele acompanham a exclusão.
+</Warning>
