@@ -38,6 +38,24 @@ A escolha entre **Seleção de lista** e **Seleção de única** é de interface
 </Tip>
 </Accordion>
 
+<Accordion title="Grade" icon="table-cells">
+| Tipo | Para que serve |
+| --- | --- |
+| **Matriz** | Uma grade em que cada **linha** é uma pergunta e cada **coluna** é um dado a preencher |
+
+É o formato de pergunta em grade: avaliar vários itens pelos mesmos critérios, ou uma escala Likert — as linhas são as afirmações, e uma coluna do tipo **Seleção de única** traz a escala.
+
+Cada coluna tem o seu próprio tipo, entre os de texto, número, moeda, data, hora, e-mail, telefone, link e os três de escolha. Uma coluna pode ser obrigatória por conta própria, independentemente das outras.
+
+<Note>
+Um campo de matriz **não pode ser o campo que decide** em uma condicional — a resposta dele é uma grade inteira, não um valor comparável. Ele pode, sim, ser mostrado ou escondido por condicional de outro campo.
+</Note>
+
+<Warning>
+O tipo de uma coluna que já existe não pode ser trocado depois. Para mudar, remova a coluna e crie outra — lembrando que remover descarta o que já foi respondido nela.
+</Warning>
+</Accordion>
+
 <Accordion title="Datas e horas" icon="calendar">
 | Tipo | Para que serve |
 | --- | --- |
@@ -186,5 +204,9 @@ A tela **Formulário dos objetos** lista cinco objetos, mas apenas **Projeto**, 
 
 <Card title="Formulário avulso, versões e contador" icon="clock-rotate-left" href="/guides/forms/loose-forms">
   Exceções, ciclos recorrentes e medição de retrabalho.
+</Card>
+
+<Card title="Criar e editar formulários pela API" icon="code" href="/guides/forms/forms-api">
+  A mesma estrutura em JSON, com os nomes literais de cada tipo.
 </Card>
 </CardGroup>

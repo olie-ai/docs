@@ -1,0 +1,516 @@
+---
+title: "Criar e editar formulários pela API"
+description: "Como montar a definição de um formulário — campos, tipos, ordem e condicionais — em uma única chamada que substitui o formulário inteiro"
+keywords: ["save-form", "criar formulário API", "campo", "edge", "tipos de campo", "condicional", "matriz", "arquivar campo", "dynamic_forms.edit"]
+---
+
+Tudo o que a tela **Ajustes → Formulários** faz cabe em um endpoint só. Ele cria e edita a **definição** do formulário: os campos, os tipos, a ordem e as condicionais.
+
+```bash
+POST /api/management/save-form
+```
+
+Exige a permissão `dynamic_forms.edit`. Sem ela, a resposta é `403` com `message: "permission_required"`.
+
+<Info>
+Este endpoint não grava **respostas**. Responder um formulário é outro endereço, e depende de saber **onde** o formulário está anexado — ver [Formulários dinâmicos e o pivot](/api-reference/general/form-answer-pivot).
+</Info>
+
+<Warning>
+**O salvamento substitui o formulário inteiro.** Não existe "adicionar um campo": cada chamada descreve o formulário completo, e todo campo ativo que ficar de fora do payload é **apagado em definitivo** — junto com as respostas que já tinham sido dadas nele.
+
+Quem edita pela API precisa sempre **ler o formulário atual, alterar e reenviar tudo**. Ver [O que o salvamento apaga](#o-que-o-salvamento-apaga).
+</Warning>
+
+## O corpo da requisição
+
+| Campo | O que faz |
+| --- | --- |
+| `id` | Ausente ou `null` **cria** um formulário novo. Um número **edita** o formulário existente |
+| `title` | Obrigatório, de 3 a 255 caracteres. **Também na edição** — omitir devolve `422` |
+| `edges` | A lista de campos. No mínimo **1** |
+
+```json
+{
+  "id": null,
+  "title": "Qualificação do lead",
+  "edges": [ /* ... */ ]
+}
+```
+
+## O campo
+
+Cada item de `edges` é um campo do formulário.
+
+| Atributo | O que faz |
+| --- | --- |
+| `id` | Número = campo existente. Texto = campo novo. Ver [Campo novo ou campo existente](#campo-novo-ou-campo-existente) |
+| `label` | **Obrigatório.** O rótulo, até 255 caracteres. HTML é rejeitado |
+| `type` | **Obrigatório.** Um dos [21 tipos](#os-tipos-de-campo) |
+| `index` | A posição do campo na ordem de exibição. Ver o aviso abaixo |
+| `required` | `true` torna o preenchimento obrigatório |
+| `help_text` | Texto do ícone de ajuda, até 255 caracteres |
+| `description` | Subtexto sempre visível, até 255 caracteres |
+| `custom_validation` | Regex de validação, até 255 caracteres |
+| `is_multiple` | `true` permite mais de um valor no mesmo campo |
+| `initial_value` | O valor com que o campo já vem preenchido |
+| `options` | As opções do campo. Depende do tipo — ver [As opções](#as-opções) |
+| `action` | `archive` ou `restore`. Ver [Arquivar em vez de apagar](#arquivar-em-vez-de-apagar) |
+| `conditional_action` | `show` ou `hide` |
+| `logical_operator` | `and` ou `or` |
+| `conditionals` | As regras que decidem se o campo aparece. Ver [Condicionais](#condicionais) |
+
+<Warning>
+**Envie `index` em todos os campos, sempre.** A coluna tem `0` como padrão e o servidor não atribui posição sozinho. Um payload sem `index` grava o formulário inteiro na posição 0, e a ordem que aparece para quem preenche passa a ser arbitrária.
+</Warning>
+
+<Note>
+`custom_validation` é o padrão **sem delimitadores** — escreva `^[0-9]{5}-[0-9]{3}$`, não `/^[0-9]{5}-[0-9]{3}$/`. Uma expressão inválida devolve `422`.
+</Note>
+
+### Campo novo ou campo existente
+
+É o `id` que decide, e ele tem três formas:
+
+| `id` | O que acontece |
+| --- | --- |
+| Um número (`42`) | Edita o campo `42`, que precisa pertencer a esse formulário |
+| Um texto (`"create_1"`) | Cria um campo novo. O texto vira a **referência** usada em `target_id` das condicionais |
+| Ausente | Cria um campo novo, **sem referência** |
+
+O texto é descartado depois de salvar — ele só existe durante a requisição, para ligar uma condicional a um campo que ainda não tem número.
+
+<Warning>
+**Dê a cada campo novo um `id` de texto único.** Dois campos novos sem `id` colidem na tabela de referências, e as condicionais de um deles se perdem sem erro nenhum. O mesmo vale para dois campos novos com o mesmo texto.
+</Warning>
+
+## Os tipos de campo
+
+São 21. O nome na tabela é o valor literal de `type`.
+
+<AccordionGroup>
+<Accordion title="Texto e números" icon="font">
+| `type` | Campo |
+| --- | --- |
+| `short_text` | Texto curto |
+| `long_text` | Texto longo |
+| `rich_text` | Texto com formatação |
+| `number` | Numérico |
+| `currency` | Moeda |
+| `counter` | Contador — somente leitura, alterado apenas por automações |
+</Accordion>
+
+<Accordion title="Escolha entre opções" icon="list-check">
+| `type` | Campo |
+| --- | --- |
+| `select` | Seleção de lista |
+| `radio` | Seleção de única |
+| `checkbox` | Checkbox |
+| `matrix` | Matriz — perguntas em grade, ver [Campo matriz](#campo-matriz) |
+
+Os três primeiros exigem `options`. `matrix` exige `options` em outro formato.
+</Accordion>
+
+<Accordion title="Datas e horas" icon="calendar">
+| `type` | Campo |
+| --- | --- |
+| `date` | Data |
+| `date_and_time` | Data e hora |
+| `time` | Hora |
+</Accordion>
+
+<Accordion title="Contato e identificação" icon="address-book">
+| `type` | Campo |
+| --- | --- |
+| `email` | E-mail |
+| `phone` | Telefone |
+| `link` | URL |
+</Accordion>
+
+<Accordion title="Registros da plataforma" icon="database">
+| `type` | Campo |
+| --- | --- |
+| `user` | Usuário |
+| `contact` | Contato |
+| `customer` | Cliente |
+| `project` | Projeto |
+
+<Note>
+Estes quatro, mais `counter`, **não funcionam em publicação de formulário** — quem responde de fora não tem acesso aos registros da conta.
+</Note>
+</Accordion>
+
+<Accordion title="Arquivos" icon="paperclip">
+| `type` | Campo |
+| --- | --- |
+| `attachment` | Anexo(s) |
+
+O arquivo em si sobe por outro endpoint, antes da resposta. Ver [Anexos em resposta de formulário](/guides/forms/attachments).
+</Accordion>
+</AccordionGroup>
+
+## As opções
+
+`options` muda de formato conforme o tipo.
+
+<Tabs>
+<Tab title="select, radio e checkbox">
+Uma lista simples de textos:
+
+```json
+{
+  "id": "create_1",
+  "label": "Origem do lead",
+  "type": "select",
+  "index": 0,
+  "options": ["Indicação", "Anúncio", "Evento", "Outro"]
+}
+```
+</Tab>
+
+<Tab title="matrix">
+Um objeto com `rows` e `columns` — ver [Campo matriz](#campo-matriz).
+</Tab>
+
+<Tab title="Os demais tipos">
+Envie `"options": []`. Os campos que não são de escolha não usam o atributo, mas deixá-lo de fora em um campo existente tem consequência — ver o aviso abaixo.
+</Tab>
+</Tabs>
+
+<Warning>
+**Omitir `options` em um campo de escolha já existente apaga as respostas dele.** O servidor limpa toda resposta que não esteja na lista recebida, e uma lista ausente é tratada como lista vazia. O campo continua com as opções antigas, mas as respostas somem.
+
+O mesmo mecanismo age quando você **remove uma opção** de propósito: quem tinha respondido aquele valor fica sem resposta.
+</Warning>
+
+### Campo matriz
+
+O tipo `matrix` monta uma grade: cada linha é uma pergunta, cada coluna é um dado a preencher. É o formato de escala Likert e de avaliações item a item.
+
+```json
+{
+  "id": "create_1",
+  "label": "Avaliação do atendimento",
+  "type": "matrix",
+  "index": 0,
+  "options": {
+    "rows": [
+      { "key": "atend", "label": "Atendimento" },
+      { "key": "preco", "label": "Preço" }
+    ],
+    "columns": [
+      {
+        "key": "nota",
+        "label": "Avaliação",
+        "type": "radio",
+        "options": ["Ruim", "Ok", "Bom"],
+        "required": true
+      },
+      { "key": "obs", "label": "Comentário", "type": "short_text" }
+    ]
+  }
+}
+```
+
+| Regra | Limite |
+| --- | --- |
+| `rows` | De 1 a 100 itens, cada um com `key` (até 64 caracteres) e `label` (até 255) |
+| `columns` | De 1 a 20 itens, com `key`, `label` e `type` |
+| `key` | Único dentro da própria lista |
+| `type` da coluna | `short_text`, `long_text`, `number`, `currency`, `date`, `date_and_time`, `time`, `email`, `phone`, `link`, `select`, `radio` ou `checkbox` |
+| `options` da coluna | Obrigatório em `select`, `radio` e `checkbox` (1 a 50 itens); proibido nos demais |
+| `is_multiple` da coluna | Só em coluna do tipo `link` |
+| `custom_validation` da coluna | Só em `short_text`, `long_text`, `email`, `phone`, `currency` e `number` |
+
+Colunas também aceitam `required`, `description` e `help_text`.
+
+<Warning>
+**O `type` de uma coluna que já existe não pode ser trocado.** A troca devolve `422`. Para mudar o tipo, remova a coluna e crie outra com `key` diferente — lembrando que remover a coluna descarta o que já foi respondido nela.
+</Warning>
+
+<Note>
+A resposta de uma matriz é um objeto aninhado por chave: `{"atend": {"nota": "Bom", "obs": "..."}}`.
+</Note>
+
+## Condicionais
+
+A condicional fica **no campo afetado** — o que aparece ou some —, e não no campo que decide.
+
+| Atributo | O que faz |
+| --- | --- |
+| `conditional_action` | `show` mostra o campo quando as regras batem; `hide` esconde. Padrão: `show` |
+| `logical_operator` | `and` exige todas as regras; `or` basta uma. Padrão: `and` |
+| `conditionals` | A lista de regras |
+
+Cada regra tem três partes:
+
+| Atributo | O que é |
+| --- | --- |
+| `target_id` | O campo **que decide** — o número dele, ou o texto de referência se for um campo novo na mesma requisição |
+| `operator` | A comparação. Padrão: `equals` |
+| `value` | O valor comparado |
+
+Os operadores disponíveis:
+
+| `operator` | Comparação |
+| --- | --- |
+| `equals` | Igual a |
+| `not_equals` | Diferente de |
+| `contains` | Contém |
+| `not_contains` | Não contém |
+| `starts_with` | Começa com |
+| `ends_with` | Termina com |
+| `greater_than` | Maior que |
+| `greater_than_or_equals` | Maior ou igual a |
+| `less_than` | Menor que |
+| `less_than_or_equals` | Menor ou igual a |
+| `is_empty` | Está vazio |
+| `is_not_empty` | Não está vazio |
+
+<Warning>
+**Envie `value` em todas as regras.** Em `is_empty` e `is_not_empty` o valor é ignorado, mas o atributo precisa estar presente — mande `""`. Uma regra sem `value` derruba a requisição com erro de servidor, não com `422`.
+</Warning>
+
+<Note>
+As condicionais são **substituídas inteiras** a cada salvamento, campo a campo. Omitir `conditionals` em um campo que tinha regras remove todas elas.
+</Note>
+
+<Warning>
+Um campo `matrix` **não pode ser o `target_id`** de uma condicional — a resposta dele é uma grade, não um valor comparável. A tentativa devolve `422` com `form_edge_conditional_target`. A matriz pode, sim, ser o campo afetado.
+</Warning>
+
+<Info>
+Obrigatoriedade e regex **não são verificadas no servidor em campos que têm condicional** — a checagem fica só na interface. Ver [Criar um formulário](/guides/forms/creating-forms#validação-regex).
+</Info>
+
+## O que o salvamento apaga
+
+Este é o ponto que separa uma integração segura de uma que destrói dados.
+
+<Warning>
+Campo ativo que não aparece no payload é **apagado em definitivo** — não vai para a lixeira. As respostas dele são apagadas junto, por cascata no banco, em todos os lugares onde o formulário está anexado. Não há como desfazer.
+</Warning>
+
+O fluxo correto para qualquer edição pela API é sempre o mesmo:
+
+<Steps>
+<Step title="Leia o formulário atual">
+  ```bash
+  POST /api/management/get-form
+  ```
+  com `{ "form_id": 19 }`. A resposta traz o formulário com todos os campos, inclusive os arquivados, e as condicionais de cada um.
+</Step>
+
+<Step title="Altere o que precisa">
+  Mexa na cópia que você recebeu. Campos novos entram com `id` em texto; campos existentes mantêm o `id` numérico.
+</Step>
+
+<Step title="Reenvie tudo">
+  ```bash
+  POST /api/management/save-form
+  ```
+  com o formulário completo — `title` incluído, `index` em cada campo, e os campos que você não quis mexer exatamente como vieram.
+</Step>
+</Steps>
+
+<Tip>
+O objeto devolvido por `get-form` já tem a forma que `save-form` espera. Ler, alterar a cópia e devolver é o caminho mais curto e o mais seguro.
+</Tip>
+
+### Arquivar em vez de apagar
+
+Quando um campo sai do formulário mas as respostas antigas precisam continuar existindo, use `action`:
+
+| `action` | O que faz |
+| --- | --- |
+| `archive` | Tira o campo do formulário e **preserva** as respostas já dadas |
+| `restore` | Traz um campo arquivado de volta |
+
+```json
+{ "id": 42, "label": "Motivo da recusa", "type": "short_text", "index": 3, "action": "archive" }
+```
+
+<Warning>
+**Um campo arquivado precisa continuar no payload de todo salvamento seguinte.** Ele não some do formulário — some da tela de quem preenche. Se você parar de enviá-lo, ele é tratado como campo removido e é apagado junto com as respostas que você queria preservar.
+
+Como `get-form` devolve os arquivados, o fluxo de ler-alterar-reenviar já cuida disso sozinho.
+</Warning>
+
+<Note>
+Em um campo com `action`, os outros atributos são ignorados: arquivar e restaurar não alteram rótulo, tipo nem opções.
+</Note>
+
+## Exemplos
+
+<Tabs>
+<Tab title="Payload mínimo">
+Um formulário novo, com um campo só:
+
+```json
+{
+  "id": null,
+  "title": "Registro de contato",
+  "edges": [
+    {
+      "id": "create_1",
+      "label": "Telefone de retorno",
+      "type": "phone",
+      "index": 0,
+      "required": true,
+      "options": []
+    }
+  ]
+}
+```
+</Tab>
+
+<Tab title="Com condicional">
+Três campos: o segundo só aparece quando a origem for "Indicação", e o terceiro é uma matriz — campo afetado por condicional, mas nunca o campo que decide.
+
+```json
+{
+  "id": null,
+  "title": "Qualificação do lead",
+  "edges": [
+    {
+      "id": "create_origem",
+      "label": "Origem do lead",
+      "type": "select",
+      "index": 0,
+      "required": true,
+      "options": ["Indicação", "Anúncio", "Evento"]
+    },
+    {
+      "id": "create_quem",
+      "label": "Quem indicou",
+      "type": "short_text",
+      "index": 1,
+      "options": [],
+      "conditional_action": "show",
+      "logical_operator": "and",
+      "conditionals": [
+        {
+          "target_id": "create_origem",
+          "operator": "equals",
+          "value": "Indicação"
+        }
+      ]
+    },
+    {
+      "id": "create_nota",
+      "label": "Avaliação do primeiro contato",
+      "type": "matrix",
+      "index": 2,
+      "options": {
+        "rows": [
+          { "key": "clareza", "label": "Clareza da necessidade" },
+          { "key": "urgencia", "label": "Urgência" }
+        ],
+        "columns": [
+          {
+            "key": "nota",
+            "label": "Nota",
+            "type": "radio",
+            "options": ["Baixa", "Média", "Alta"],
+            "required": true
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+</Tab>
+
+<Tab title="Resposta">
+```json
+{
+  "response": true,
+  "form": {
+    "id": 19,
+    "title": "Qualificação do lead",
+    "edges": [
+      {
+        "id": 61,
+        "label": "Origem do lead",
+        "type": "select",
+        "index": 0,
+        "required": true,
+        "options": ["Indicação", "Anúncio", "Evento"],
+        "conditionals": []
+      },
+      {
+        "id": 62,
+        "label": "Quem indicou",
+        "type": "short_text",
+        "index": 1,
+        "conditional_action": "show",
+        "logical_operator": "and",
+        "conditionals": [
+          {
+            "id": 8,
+            "form_edge_id": 62,
+            "target_id": 61,
+            "operator": "equals",
+            "value": "Indicação"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+O `id` numérico de cada campo é o que você usa depois para **gravar respostas** — ver [Formulários dinâmicos e o pivot](/api-reference/general/form-answer-pivot#gravar-respostas).
+</Tab>
+</Tabs>
+
+## Erros comuns
+
+<AccordionGroup>
+<Accordion title="validation_errors — title ausente na edição" icon="triangle-exclamation">
+  `title` é obrigatório em toda chamada, inclusive quando você só quer mexer nos campos. Reenvie o título atual.
+</Accordion>
+
+<Accordion title="form_edge_not_found_in_conditionals" icon="link-slash">
+  O `target_id` de uma condicional não bate com nada: nem com um campo existente do formulário, nem com o texto de referência de um campo novo da mesma requisição.
+
+  Confira se o texto está idêntico nos dois lugares — ele diferencia maiúsculas e minúsculas.
+</Accordion>
+
+<Accordion title="form_edge_conditional_target" icon="table-cells">
+  Uma condicional aponta para um campo `matrix`. Escolha outro campo como critério.
+</Accordion>
+
+<Accordion title="form_edge_conditional_value" icon="quote-left">
+  `value` veio com um tipo que não dá para comparar. Aceita texto, número, `null` ou uma lista de textos e números.
+</Accordion>
+
+<Accordion title="permission_required" icon="lock">
+  O token não tem `dynamic_forms.edit`. Anexar formulário a um objeto é outra permissão: `frame_settings.edit.model_forms`.
+</Accordion>
+
+<Accordion title="Os campos aparecem fora de ordem" icon="arrow-down-a-z">
+  Faltou `index`. Sem ele todos os campos ficam na posição 0. Reenvie o formulário com a ordem explícita.
+</Accordion>
+</AccordionGroup>
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Anexos em resposta de formulário" icon="paperclip" href="/guides/forms/attachments">
+  O upload que precede a resposta de um campo `attachment`.
+</Card>
+
+<Card title="Formulários dinâmicos e o pivot" icon="code" href="/api-reference/general/form-answer-pivot">
+  Onde o formulário está anexado — e como gravar as respostas.
+</Card>
+
+<Card title="Criar um formulário" icon="table-list" href="/guides/forms/creating-forms">
+  Os mesmos campos pela interface, com o que cada configuração faz.
+</Card>
+
+<Card title="Formulários dinâmicos" icon="sitemap" href="/guides/forms/overview">
+  O conceito: um formulário sem dono, anexado a vários lugares.
+</Card>
+</CardGroup>

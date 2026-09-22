@@ -15,6 +15,10 @@ Por isso o `form_id` sozinho não identifica respostas. A pergunta *"quais são 
 
 O **pivot** — também chamado de `target` nos endpoints de escrita — é o objeto que responde à pergunta que falta: **onde está esse formulário?** É ele que endereça a leitura e a gravação.
 
+<Note>
+Esta página trata de **respostas**. Criar ou alterar a definição do formulário — os campos, os tipos, as condicionais — é outro endpoint: ver [Criar e editar formulários pela API](/guides/forms/forms-api).
+</Note>
+
 ## Onde um formulário pode estar
 
 O `pivot_class` diz qual é o tipo de vínculo. Cada tipo exige atributos diferentes para completar o endereço.
@@ -29,8 +33,27 @@ O `pivot_class` diz qual é o tipo de vínculo. Cada tipo exige atributos difere
 | Na **etapa** — relação projeto ↔ etapa | `App\Models\ProjectStepForm` | `project_id`, `funnel_step_id` |
 | **Avulso** no projeto | `App\Models\ProjectLooseForm` | `project_id`, `id` (do avulso), `form_id` |
 
+### Quais objetos aceitam formulário
+
+Só **quatro** objetos aceitam formulário de objeto — aquele que é configurado uma vez, por conta, e passa a valer para todos os registros daquele tipo:
+
+| Objeto | `class` em `set-model-forms` |
+| --- | --- |
+| **Projeto** | `App\Models\Project` |
+| **Cliente** | `App\Models\Customer` |
+| **Contato** | `App\Models\Contact` |
+| **Vínculo** — o usuário dentro da conta | `App\Models\FrameRelationship` |
+
+Cada um aceita **um** formulário. A configuração é feita em `POST /api/management/set-model-forms`, que exige a permissão `frame_settings.edit.model_forms`.
+
+<Warning>
+**Squad não aceita formulário.** O objeto aparece na tela **Formulário dos objetos**, mas não tem suporte por trás: enviar `App\Models\Squad` em `set-model-forms` devolve erro `class_unable_for_forms`.
+</Warning>
+
 <Info>
-Os formulários **de objeto** (projeto, cliente, contato e usuário) são configurados por conta: cada tipo de objeto tem no máximo um formulário anexado, e ele vale para todos os registros daquele tipo. Já funil, etapa e avulso são vínculos individuais.
+Os outros `pivot_class` da tabela acima — funil, etapa e formulário avulso — não são configuração de objeto. São **vínculos internos** que a plataforma cria sozinha quando o projeto entra no funil, quando chega à etapa, ou quando alguém anexa um avulso. Você não os cria pela API: apenas os endereça para ler e gravar respostas.
+
+O mesmo vale para `App\Models\FormPublicationResponse`, que endereça a resposta de uma [publicação de formulário](/guides/forms/public-forms) e pode aparecer no campo `model` de uma leitura.
 </Info>
 
 <Tip>
@@ -284,6 +307,10 @@ Na escrita o pivot vai **dentro de `target`**, e `father_class` / `father_id` pa
 <ParamField body="form_answers" type="array" required>
 Cada item precisa de `id` — o identificador do campo, obtido na leitura — e `answer`. Campos não enviados permanecem como estavam.
 </ParamField>
+
+<Note>
+Campo do tipo **anexo** tem um passo a mais: o arquivo sobe antes, em outro endpoint, e o objeto devolvido é que vira o `answer`. Ver [Anexos em resposta de formulário](/guides/forms/attachments).
+</Note>
 
 A resposta devolve o formulário inteiro já com os valores gravados, no mesmo formato de `answers`.
 

@@ -1,0 +1,154 @@
+---
+title: "Anexos em resposta de formulário"
+description: "O upload é um passo separado: primeiro o arquivo vira um objeto, depois esse objeto é gravado como resposta de um campo de anexo"
+keywords: ["anexo", "upload", "arquivo", "attachment", "dynamic-forms-answers-file", "formulário", "multipart"]
+---
+
+Responder um campo do tipo **Anexo(s)** são dois passos, nunca um. O arquivo sobe primeiro, em uma chamada própria, e devolve um objeto. É esse objeto — não o arquivo — que vira a resposta do campo.
+
+<Steps>
+<Step title="Suba o arquivo">
+  Uma requisição `multipart/form-data` com o arquivo. A resposta traz o objeto que representa esse arquivo.
+</Step>
+
+<Step title="Grave o objeto como resposta">
+  Uma chamada de [gravação de respostas](/api-reference/general/form-answer-pivot#gravar-respostas), passando o objeto recebido como `answer` do campo de anexo.
+</Step>
+</Steps>
+
+<Warning>
+Não existe upload junto com a resposta. Mandar um caminho de arquivo, uma URL externa ou o conteúdo em base64 como `answer` não anexa nada.
+</Warning>
+
+## O upload
+
+```bash
+POST /api/management/dynamic-forms-answers-file
+```
+
+O corpo é `multipart/form-data` com **um único campo, chamado `file`**. Exige estar autenticado.
+
+| Limite | Valor |
+| --- | --- |
+| Tamanho máximo | **97.650 KB** (cerca de 95 MB) |
+| Imagens | `png`, `jpg`, `jpeg`, `gif`, `webp`, `heic` |
+| Documentos | `pdf`, `doc`, `docx`, `xls`, `xlsx`, `ppt`, `pptx`, `txt`, `csv` |
+| Mídia | `mp3`, `mp4`, `webm`, `mov` |
+
+Qualquer outra extensão é recusada com `422`. A lista é restrita de propósito: o mesmo serviço atende links públicos e links assinados, então não aceita arquivo executável nem marcação.
+
+```json Resposta
+{
+  "response": true,
+  "file": {
+    "id": "qWt3nFh9Jk1LpR8sXc2VbN5mZa7dYe0T",
+    "name": "contrato-assinado.pdf",
+    "url": "https://...?X-Amz-Expires=86400&X-Amz-Signature=...",
+    "size": 284719,
+    "extension": "pdf",
+    "file_id": "qWt3nFh9Jk1LpR8sXc2VbN5mZa7dYe0T",
+    "created_at": "2026-09-22T14:02:11.000000Z"
+  }
+}
+```
+
+| Atributo | O que é |
+| --- | --- |
+| `id` e `file_id` | O identificador do arquivo no armazenamento. Vêm com o mesmo valor |
+| `name` | O nome original enviado |
+| `url` | Endereço de download **temporário**, válido por **24 horas** |
+| `size` | Tamanho em bytes |
+| `extension` | A extensão do arquivo original |
+| `created_at` | Quando o upload aconteceu |
+
+<Note>
+O upload por si só não anexa o arquivo a lugar nenhum. Enquanto o objeto não for gravado como resposta, ele fica solto — só o registro do upload existe no histórico da conta.
+</Note>
+
+## Gravar como resposta
+
+A resposta de um campo `attachment` é sempre uma **lista** de objetos de arquivo, mesmo quando é um só. Copie o objeto inteiro que veio do upload:
+
+```json
+{
+  "target": {
+    "pivot_class": "App\\Models\\ProjectStepForm",
+    "form_id": 20,
+    "project_id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+    "funnel_step_id": 73,
+    "father_class": "App\\Models\\Project",
+    "father_id": "01a05e04-a29c-73e3-9e5b-a9df981974df"
+  },
+  "form_answers": [
+    {
+      "id": 31,
+      "answer": [
+        {
+          "id": "qWt3nFh9Jk1LpR8sXc2VbN5mZa7dYe0T",
+          "name": "contrato-assinado.pdf",
+          "url": "https://...",
+          "size": 284719,
+          "extension": "pdf",
+          "file_id": "qWt3nFh9Jk1LpR8sXc2VbN5mZa7dYe0T",
+          "created_at": "2026-09-22T14:02:11.000000Z"
+        }
+      ]
+    }
+  ]
+}
+```
+
+<Info>
+Ao gravar, a plataforma **descarta os parâmetros da URL** e guarda só o endereço permanente. Na leitura, ela devolve uma URL temporária nova, também de 24 horas. Por isso a `url` que você guardar em outro sistema para de funcionar no dia seguinte — leia de novo em vez de armazenar.
+</Info>
+
+<Tip>
+Mais de um arquivo no mesmo campo exige `is_multiple: true` na definição dele. Ver [Criar e editar formulários pela API](/guides/forms/forms-api#o-campo).
+</Tip>
+
+Arquivos anexados por campo de formulário aparecem também no botão **Arquivos** do cartão. Ver [Conteúdo do projeto](/guides/content/overview).
+
+## Quem responde de fora
+
+Quem preenche o formulário sem estar logado não alcança o endpoint acima. Existem dois caminhos, com os **mesmos limites de tamanho e extensão** e o mesmo campo `file`:
+
+| Contexto | Endpoint | Como autentica |
+| --- | --- | --- |
+| [Publicação de formulário](/guides/forms/public-forms) | `POST /api/management/form-publications/{token}/upload-file` | O token da publicação, no caminho. Limitado a **60 requisições por minuto** |
+| [Link assinado de pivot](/api-reference/general/form-answer-pivot#o-pivot-como-link-de-resposta) | `POST /api/management/dynamic-forms/pivot-accessor/upload-file` | A assinatura do link, nos parâmetros da URL |
+
+<Warning>
+Na publicação, o upload só funciona enquanto a publicação está no ar e dentro da janela de datas. Fora disso a resposta é `403` com `message: "form_is_not_available"`.
+</Warning>
+
+## Erros comuns
+
+<AccordionGroup>
+<Accordion title="validation_errors — the file field is required" icon="triangle-exclamation">
+  O campo do `multipart` não se chama `file`, ou a requisição foi enviada como JSON. Precisa ser `multipart/form-data`.
+</Accordion>
+
+<Accordion title="validation_errors — extensão recusada" icon="file-circle-xmark">
+  A extensão não está na lista. Converta o arquivo antes de subir — um `.zip` ou um `.svg`, por exemplo, não passam.
+</Accordion>
+
+<Accordion title="validation_errors — arquivo grande demais" icon="weight-hanging">
+  Acima de 97.650 KB. Vale conferir também o limite do seu próprio proxy ou gateway, que costuma ser mais baixo que o da plataforma.
+</Accordion>
+
+<Accordion title="O anexo some depois de um tempo" icon="link-slash">
+  A `url` é temporária, de 24 horas. Ela não é um endereço fixo: leia as respostas de novo para obter um link válido.
+</Accordion>
+</AccordionGroup>
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Criar e editar formulários pela API" icon="code" href="/guides/forms/forms-api">
+  Como declarar o campo de anexo e o resto da estrutura.
+</Card>
+
+<Card title="Formulários dinâmicos e o pivot" icon="location-dot" href="/api-reference/general/form-answer-pivot">
+  Onde a resposta é gravada.
+</Card>
+</CardGroup>
