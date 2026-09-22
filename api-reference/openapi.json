@@ -22484,7 +22484,7 @@
                     {
                       "id": 181,
                       "label": "Satisfação",
-                      "answer": "{\"row_7a22c1\":{\"col_3692ab\":\"Bom\",\"col_e41d9f\":\"atendeu bem\"},\"row_b81f04\":{\"col_3692ab\":\"Ok\"}}",
+                      "answer": "{\"key_atendimento\":{\"key_nota\":\"Bom\",\"key_comentario\":\"atendeu bem\"},\"key_preco\":{\"key_nota\":\"Ok\"}}",
                       "answer_markdown": "|  | Nota | Comentário |\n| --- | --- | --- |\n| Atendimento | Bom | atendeu bem |\n| Preço | Ok |  |",
                       "model": "Project",
                       "answered_by": "9e1392ce-36ff-4984-bb9f-d69fd018b819",
