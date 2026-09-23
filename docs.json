@@ -52,6 +52,15 @@
                 ]
               },
               {
+                "group": "Implantação",
+                "icon": "map",
+                "pages": [
+                  "guides/implementation/order",
+                  "guides/implementation/discovery",
+                  "guides/implementation/design-patterns"
+                ]
+              },
+              {
                 "group": "Funis e etapas",
                 "icon": "diagram-project",
                 "pages": [
@@ -200,15 +209,6 @@
                       "guides/billing/ai-credits"
                     ]
                   }
-                ]
-              },
-              {
-                "group": "Implantação",
-                "icon": "map",
-                "pages": [
-                  "guides/implementation/order",
-                  "guides/implementation/discovery",
-                  "guides/implementation/design-patterns"
                 ]
               }
             ]
