@@ -1,0 +1,280 @@
+---
+title: "Formato da resposta de cada campo"
+description: "O valor de answer de cada tipo de campo, no corpo de gravar respostas"
+keywords: ["answer", "form_answers", "set-form-answers", "resposta", "tipo de campo", "payload", "short_text", "matriz"]
+---
+
+Cada item de `form_answers` leva o `id` do campo e o `answer`. O `id` vem da [leitura](/api-reference/general/form-answer-pivot#ler-respostas). Esta página é o formato de `answer` para os 21 tipos.
+
+O endereço do formulário (o pivot) fica em [Formulários dinâmicos e o pivot](/api-reference/general/form-answer-pivot). A definição do campo (`type`, `options`, `is_multiple`) fica em [Criar e editar formulários pela API](/guides/forms/forms-api#os-tipos-de-campo).
+
+Os exemplos abaixo são só o valor de `answer` no corpo da gravação.
+
+Checkbox, link, anexo, usuário, contato, cliente e projeto usam sempre um array, mesmo com um único item. Com `is_multiple` desligado, envie um array de um elemento. No checkbox, `is_multiple` não limita: o array pode trazer várias opções.
+
+## Texto e números
+
+### Texto curto {#short_text}
+
+`short_text`. Uma string.
+
+```json
+"Rua das Flores, 100"
+```
+
+### Texto longo {#long_text}
+
+`long_text`. Uma string. Quebras de linha entram no texto.
+
+```json
+"Primeira linha\nSegunda linha"
+```
+
+### Texto com formatação {#rich_text}
+
+`rich_text`. Markdown ou o documento do editor, no formato TipTap.
+
+```json
+"**Texto** com negrito"
+```
+
+```json
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "Texto com " },
+        {
+          "type": "text",
+          "text": "negrito",
+          "marks": [{ "type": "bold" }]
+        }
+      ]
+    }
+  ]
+}
+```
+
+Na leitura, o mesmo campo também devolve `answer_markdown`.
+
+### Numérico {#number}
+
+`number`. Um número JSON ou uma string numérica. Texto que não é número é recusado.
+
+```json
+1500
+```
+
+### Moeda {#currency}
+
+`currency`. O formulário grava um número JSON em real (BRL), com duas casas, de `0` a `999999999999.99`. `1500.5` é R$ 1.500,50. O input não aceita valor negativo.
+
+```json
+1500.5
+```
+
+### Contador {#counter}
+
+`counter`. Um número JSON, no mesmo formato de [Numérico](#number).
+
+```json
+3
+```
+
+Só é possível responder este campo na ação de automação **Atualizar contador**.
+
+## Escolha entre opções
+
+O texto do `answer` é o texto da opção, exatamente como está em `options`. Não é um id. Opção que não existe na lista do campo é recusada.
+
+### Seleção de lista {#select}
+
+`select`. Uma string, uma das opções.
+
+```json
+"Indicação"
+```
+
+### Seleção de única {#radio}
+
+`radio`. Uma string, uma das opções.
+
+```json
+"Bom"
+```
+
+### Checkbox {#checkbox}
+
+`checkbox`. Array com as opções marcadas. Uma string JSON desse array também é aceita. Uma opção solta, fora do array, é recusada.
+
+```json
+["Indicação", "Evento"]
+```
+
+### Matriz {#matrix}
+
+`matrix`. Objeto em que cada chave de linha aponta para um objeto de colunas. As chaves são os `key` de `rows` e `columns`, não os rótulos. Uma string JSON desse objeto também é aceita. Ver [Campo matriz](/guides/forms/forms-api#campo-matriz).
+
+```json
+{
+  "atend": { "nota": "Bom", "obs": "Rápido" },
+  "preco": { "nota": "Ok" }
+}
+```
+
+Célula vazia (`null`, `""` ou `[]`) sai do objeto antes de gravar. Linha que fica sem células também sai. Matriz inteira vazia vira `null`.
+
+O valor de cada célula segue o `type` da coluna:
+
+| `type` da coluna | `answer` da célula |
+| --- | --- |
+| `short_text`, `long_text`, `email` | String |
+| `number` | Número |
+| `currency` | Número |
+| `date` | `AAAA-MM-DD` |
+| `date_and_time` | `AAAA-MM-DDTHH:mm` |
+| `time` | `HH:mm` |
+| `phone` | E.164, como `+5511987654321` |
+| `select`, `radio` | Texto de uma opção |
+| `checkbox` | Array de opções |
+| `link` | Array de URLs. Sem `is_multiple`, um array com um item |
+
+Chave de linha ou de coluna que não existe no campo é recusada.
+
+Na leitura, o mesmo campo também devolve `answer_markdown`: uma tabela com os rótulos das linhas e das colunas.
+
+## Datas e horas
+
+O formulário usa o valor nativo do input. Não há máscara brasileira na gravação.
+
+### Data {#date}
+
+`date`. `AAAA-MM-DD`.
+
+```json
+"2026-09-23"
+```
+
+### Data e hora {#date_and_time}
+
+`date_and_time`. `AAAA-MM-DDTHH:mm`.
+
+```json
+"2026-09-23T14:30"
+```
+
+### Hora {#time}
+
+`time`. `HH:mm`.
+
+```json
+"14:30"
+```
+
+## Contato e identificação
+
+### E-mail {#email}
+
+`email`. String com formato de e-mail.
+
+```json
+"ana@exemplo.com"
+```
+
+### Telefone {#phone}
+
+`phone`. O formulário grava E.164, com `+` e código do país. A API aceita qualquer número interpretável — com `+`, ou nacional do Brasil sem `+` — e converte para E.164 antes de gravar.
+
+```json
+"+5511987654321"
+```
+
+Texto preenchido que não é um telefone é recusado.
+
+### URL {#link}
+
+`link`. Array de URLs absolutas. Uma string JSON desse array também é aceita. Uma URL sozinha, fora do array, é recusada — no campo e na célula de uma coluna `link`.
+
+```json
+["https://olie.ai"]
+```
+
+```json
+["https://olie.ai", "https://docs.olie.ai"]
+```
+
+Com `is_multiple` desligado, envie um array com um item. Com `is_multiple: true`, o array pode ter vários.
+
+## Registros da plataforma
+
+O `id` é o identificador do registro na API. `name` é o nome exibido. A resposta é sempre uma lista de objetos.
+
+Estes quatro tipos não funcionam em publicação de formulário. Ver [Os tipos de campo](/guides/forms/forms-api#os-tipos-de-campo).
+
+### Usuário {#user}
+
+`user`.
+
+```json
+[
+  { "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d", "name": "Ana Souza" }
+]
+```
+
+### Contato {#contact}
+
+`contact`.
+
+```json
+[
+  { "id": 42, "name": "Carlos Lima" }
+]
+```
+
+### Cliente {#customer}
+
+`customer`.
+
+```json
+[
+  { "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d", "name": "Oficina Norte" }
+]
+```
+
+### Projeto {#project}
+
+`project`.
+
+```json
+[
+  {
+    "id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+    "name": "Implantação",
+    "code": "IMP-14"
+  }
+]
+```
+
+## Arquivos
+
+### Anexo(s) {#attachment}
+
+`attachment`. Array de objetos de arquivo. O arquivo sobe antes, em outro endpoint; o objeto devolvido é o item da lista. O passo a passo está em [Anexos em resposta de formulário](/guides/forms/attachments).
+
+```json
+[
+  {
+    "id": "qWt3nFh9Jk1LpR8sXc2VbN5mZa7dYe0T",
+    "name": "contrato-assinado.pdf",
+    "url": "https://...",
+    "size": 284719,
+    "extension": "pdf",
+    "file_id": "qWt3nFh9Jk1LpR8sXc2VbN5mZa7dYe0T",
+    "created_at": "2026-09-22T14:02:11.000000Z"
+  }
+]
+```
+
+Mais de um arquivo no mesmo campo exige `is_multiple: true` na definição dele.

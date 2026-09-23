@@ -107,6 +107,7 @@
                   "guides/forms/overview",
                   "guides/forms/creating-forms",
                   "guides/forms/forms-api",
+                  "guides/forms/answers-format",
                   "guides/forms/attachments",
                   "guides/forms/public-forms",
                   "guides/forms/requests",
@@ -296,6 +297,10 @@
     {
       "source": "/guides/ai/pricing",
       "destination": "/guides/billing/ai-credits"
+    },
+    {
+      "source": "/guides/forms/answer-format",
+      "destination": "/guides/forms/answers-format"
     }
   ],
   "logo": {
