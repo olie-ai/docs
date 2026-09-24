@@ -651,7 +651,7 @@
                       "deleted_at": null,
                       "user": {
                         "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                        "name": "Ana Souza",
+                        "name": "Usuário",
                         "avatar_url": null
                       }
                     },
@@ -678,7 +678,7 @@
                       "deleted_at": null,
                       "user": {
                         "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                        "name": "Ana Souza",
+                        "name": "Usuário",
                         "avatar_url": null
                       }
                     }
@@ -969,7 +969,7 @@
                       "deleted_at": null,
                       "user": {
                         "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                        "name": "Ana Souza",
+                        "name": "Usuário",
                         "avatar_url": null
                       }
                     }
@@ -25408,7 +25408,7 @@
                         {
                           "id": 115,
                           "label": "Nome completo",
-                          "answer": "Ana Souza",
+                          "answer": "Nome da pessoa",
                           "model": "FormPublicationResponse",
                           "answered_by": null,
                           "updated_at": "2026-09-22T22:01:09.000000Z"
@@ -27764,7 +27764,7 @@
                         "logical_operator": "and",
                         "is_migrated": false,
                         "conditional_action": null,
-                        "answer": "Ana Souza",
+                        "answer": "Nome da pessoa",
                         "answered_by": "01a0252b-d7a0-7242-9420-bacbd51f678b"
                       },
                       {
@@ -44127,7 +44127,7 @@
                       "response": true,
                       "user": {
                         "id": "9c2f1a54-0f3b-4d2e-8a1c-6e7b2d4f9a01",
-                        "name": "Ana Souza",
+                        "name": "Nome do usuário",
                         "email": "ana.souza@empresa.com",
                         "lang": "pt-BR",
                         "description": "Designer de produto",
@@ -49568,7 +49568,7 @@
                       },
                       "user": {
                         "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                        "name": "Ana Souza",
+                        "name": "Nome do usuário",
                         "avatar_url": null
                       },
                       "funnel_step": {
@@ -49601,7 +49601,7 @@
                       },
                       "user": {
                         "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                        "name": "Ana Souza",
+                        "name": "Nome do usuário",
                         "avatar_url": null
                       },
                       "funnel_step": {
@@ -49822,7 +49822,7 @@
                     },
                     "user": {
                       "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                      "name": "Ana Souza",
+                      "name": "Nome do usuário",
                       "avatar_url": null
                     },
                     "funnel_step": {
@@ -50025,7 +50025,7 @@
                         },
                         "user": {
                           "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                          "name": "Ana Souza",
+                          "name": "Nome do usuário",
                           "avatar_url": null
                         },
                         "funnel_step": {
@@ -50063,7 +50063,7 @@
                         },
                         "user": {
                           "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                          "name": "Ana Souza",
+                          "name": "Nome do usuário",
                           "avatar_url": null
                         },
                         "funnel_step": {
@@ -50719,7 +50719,7 @@
                     "top_users_by_time": [
                       {
                         "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                        "user_name": "Ana Souza",
+                        "user_name": "Nome do usuário",
                         "time": 9840,
                         "percentage": 68.56,
                         "is_currently_executing": true,
@@ -51011,7 +51011,7 @@
                     },
                     "user": {
                       "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
-                      "name": "Ana Souza",
+                      "name": "Nome do usuário",
                       "avatar_url": null
                     },
                     "funnel_step": {
