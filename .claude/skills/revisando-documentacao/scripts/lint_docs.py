@@ -13,6 +13,7 @@ Uso:
   python3 lint_docs.py --resumo             # contagem por regra
 """
 import argparse
+import json
 import pathlib
 import re
 import subprocess
@@ -31,7 +32,7 @@ PADROES = [
      r"\b(Trello|Pipefy|ClickUp|Jira|Pipedrive|Notion|Asana|Monday(?:\.com)?|HubSpot|Salesforce|Bitrix24?|Kommo|RD Station|Agendor|Runrun\.it|Zoho)\b",
      "Não cite nem compare com outras ferramentas. Descreva como a Olie funciona."),
     ("tom-dificuldade", "aviso",
-     r"\b(difícil|difíceis|dificuldades?|complicad[oa]s?|confus[oa]s?|confusão|desconfortável|desaprender|se perdem?)\b",
+     r"\b(difícil|difíceis|dificuldades?|complicad[oa]s?|confus[oa]s?|confusão|desconfortável|desaprender|(?<!que )se perdem?|se perder)\b",
      "Não sugira que a plataforma é difícil. Prefira 'vale um minuto de atenção' ou 'uma distinção importante'."),
     ("tom-minimizador", "aviso",
      r"\b(simplesmente|(?<!não )basta|obviamente|óbvio|é fácil|facilmente|trivial|claro que)\b",
@@ -46,7 +47,7 @@ PADROES = [
      r"\b(deve|devem|pode|podem|recomenda|sugere|utiliza|usa|faz|nota|observa|verifica|clica|seleciona|configura|cria|define|preenche)-se\b",
      "Passiva com 'se' esconde quem age. Use o imperativo ou diga quem faz a ação."),
     ("dupla-negacao", "aviso",
-     r"\bnão\s+(é|são|está|estão|parece)\s+(in|im|des)\w+|\bnão\s+deixa[m]?\s+de\b",
+     r"\bnão\s+(é|são|está|estão|parece)\s+(incomu\w+|impossíve\w+|inválid\w+|incorret\w+|indisponíve\w+|desnecessári\w+|improváve\w+|incompatíve\w+|inadequad\w+|desconhecid\w+|inativ\w+|ilimitad\w+|irrelevante\w*)\b|\bnão\s+deixa[m]?\s+de\b",
      "Dupla negação. Reescreva na forma afirmativa."),
     ("tom-propaganda", "aviso",
      r"\b(poderos[oa]s?|incríve(l|is)|revolucionári[oa]s?|perfeit[oa]s?|mágic[oa]s?|sem esforço|intuitiv[oa]s?|robust[oa]s?)\b",
@@ -55,7 +56,7 @@ PADROES = [
      r"\[(aqui|clique aqui|este link|neste link|link|saiba mais)\]\(",
      "O texto do link deve dizer para onde ele leva."),
     ("ui-sem-negrito", "sugestao",
-     r"\b[Cc]lique\s+(em|no|na|nos|nas)\s+(?!\*\*|o botão \*\*|a opção \*\*|a aba \*\*|o menu \*\*|\[)",
+     r"\b[Cc]lique\s+(em|no|na|nos|nas)\s+(o botão |a opção |a aba |o menu )?(?=[A-ZÁÉÍÓÚÂÊÔÃÕÇ])",
      "Elemento da interface em **negrito**, com o texto exato da tela."),
 ]
 
@@ -95,12 +96,17 @@ CRM OAuth SSO SMS HTML CSS JS XML UTC GMT PNG JPG JPEG GIF SVG MB GB KB TB OK
 REST CEP RG UF SDK CLI JWT GET POST PUT PATCH DELETE LGPD CNAE NF NFe DOCX XLSX
 FAQ AI LLM IP TLS SSL DNS PT BR US EUA TI RH ERP BI KPI KPIs OKR OKRs QR ZIP
 OU E UTF ISO AND OR NOT NULL TRUE FALSE
+SAML SOC TOTP PCI DSS H1 H2 H3 H4 H5 H6 TODO UI
 """.split())
 
 CALLOUT_ABRE = re.compile(r"^\s*<(Note|Tip|Warning|Info|Check)\b")
 CALLOUT_FECHA = re.compile(r"</(Note|Tip|Warning|Info|Check)>\s*$")
 LINK = re.compile(r"!?\[([^\]]*)\]\([^)]*\)")
 CODIGO_INLINE = re.compile(r"`[^`]*`")
+COMENTARIO = re.compile(r"\{/\*.*?\*/\}")
+CITACAO = re.compile(r"[\"“][^\"”]{15,}[\"”]")
+ABRE_BLOCO = re.compile(r"^\s*<(CardGroup|AccordionGroup|Tabs|Steps|Columns)\b")
+SECAO_DE_LINKS = re.compile(r"^(próximos passos|páginas relacionadas|por onde continuar|veja também|leia também)", re.I)
 TAG_JSX = re.compile(r"</?[A-Za-z][^>]*>")
 FIM_FRASE = re.compile(r"(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÂÊÔÃÕÇ\"“(*])")
 
@@ -112,7 +118,8 @@ class Achado:
 
 
 def limpar(texto):
-    """Remove código inline, tags JSX e marcação, mantendo o texto dos links."""
+    """Remove comentários, código inline, tags JSX e marcação, mantendo o texto dos links."""
+    texto = COMENTARIO.sub("", texto)
     texto = CODIGO_INLINE.sub("CODIGO", texto)
     texto = LINK.sub(r"\1", texto)
     texto = TAG_JSX.sub("", texto)
@@ -122,7 +129,7 @@ def limpar(texto):
 
 def classificar(linhas):
     """Devolve (nº da linha, tipo, texto) para cada linha do corpo."""
-    saida, em_codigo, cerca = [], False, ""
+    saida, em_codigo, cerca, em_comentario = [], False, "", False
     inicio = 0
     if linhas and linhas[0].strip() == "---":
         for i in range(1, len(linhas)):
@@ -136,6 +143,13 @@ def classificar(linhas):
             if s.startswith(cerca):
                 em_codigo = False
             saida.append((i + 1, "codigo", bruta))
+            continue
+        if em_comentario or (s.startswith("{/*") and "*/}" not in s):
+            em_comentario = "*/}" not in s
+            saida.append((i + 1, "comentario", bruta))
+            continue
+        if s.startswith("{/*") and s.endswith("*/}"):
+            saida.append((i + 1, "comentario", bruta))
             continue
         m = re.match(r"^(```+|~~~+)(.*)$", s)
         if m:
@@ -216,7 +230,7 @@ def analisar(caminho, max_palavras):
             add(1, "sugestao", "frontmatter", "Sem 'keywords'. Inclua os termos que o leitor buscaria.")
 
     # Estrutura: primeiro conteúdo, títulos, seções
-    corpo = [c for c in classes if c[1] not in ("vazia", "import")]
+    corpo = [c for c in classes if c[1] not in ("vazia", "import", "comentario")]
     if corpo and corpo[0][1] == "titulo":
         add(corpo[0][0], "aviso", "abertura",
             "A página começa com título. Abra com um parágrafo que diga o que a página entrega.")
@@ -244,9 +258,10 @@ def analisar(caminho, max_palavras):
             nivel_prox = len(re.match(r"^(#+)", prox[2].strip()).group(1))
             if nivel_prox <= nivel:
                 add(n, "aviso", "secao-vazia", "Seção sem conteúdo.", texto)
-        elif prox and (prox[1] in ("lista", "tabela") or CALLOUT_ABRE.match(prox[2])):
+        elif prox and not SECAO_DE_LINKS.match(limpar(texto)) and (
+                prox[1] in ("lista", "tabela") or CALLOUT_ABRE.match(prox[2]) or ABRE_BLOCO.match(prox[2])):
             add(n, "sugestao", "secao-sem-contexto",
-                "Seção abre direto com lista, tabela ou callout. Introduza com uma frase.", texto)
+                "Seção abre direto com lista, tabela, callout ou grupo de componentes. Introduza com uma frase.", texto)
 
     if h1s:
         add(h1s[0], "aviso", "titulo",
@@ -260,7 +275,7 @@ def analisar(caminho, max_palavras):
             add(n, "sugestao", "paragrafo-longo",
                 f"Parágrafo com {contar_palavras(texto)} palavras. Um assunto por parágrafo; divida ou use lista.", texto)
         for frase in FIM_FRASE.split(texto):
-            qtd = contar_palavras(frase)
+            qtd = contar_palavras(CITACAO.sub("CITACAO", frase))
             if qtd > max_palavras:
                 add(n, "aviso", "frase-longa",
                     f"Frase com {qtd} palavras (máx. {max_palavras}). Uma ideia por frase.", frase)
@@ -269,7 +284,7 @@ def analisar(caminho, max_palavras):
     ignora_termos = rel in IGNORAR_TERMOS
     siglas_vistas = set()
     for n, tipo, bruta in classes:
-        if tipo in ("codigo", "cerca", "import", "vazia"):
+        if tipo in ("codigo", "cerca", "import", "vazia", "comentario"):
             continue
         original = CODIGO_INLINE.sub("CODIGO", bruta)
         texto = limpar(bruta) if tipo != "componente" else limpar(re.sub(r'\w+="[^"]*"', "", bruta))
@@ -294,9 +309,27 @@ def analisar(caminho, max_palavras):
                 continue
             siglas_vistas.add(sigla)
             vizinho = texto[max(0, m.start() - 2):m.end() + 2]
-            if "(" not in vizinho:
+            entre_parenteses = any(a.start() < m.start() < a.end() for a in re.finditer(r"\([^)]*\)", texto))
+            if "(" not in vizinho and not entre_parenteses:
                 add(n, "sugestao", "sigla",
                     f"Sigla '{sigla}' sem definição na primeira ocorrência. Escreva por extenso e a sigla entre parênteses.")
+
+    # Blocos JSON precisam ser JSON válido (sem comentários nem reticências)
+    bloco, inicio_bloco, linguagem = None, 0, ""
+    for n, tipo, bruta in classes:
+        if tipo == "cerca":
+            bloco, inicio_bloco, linguagem = [], n, bruta.split()[0].lower() if bruta else ""
+        elif tipo == "codigo" and bloco is not None and re.match(r"^\s*(```|~~~)", bruta):
+            if linguagem == "json":
+                try:
+                    json.loads("\n".join(bloco))
+                except ValueError as e:
+                    add(inicio_bloco, "aviso", "json-invalido",
+                        f"Bloco ```json inválido ({e.msg}, linha {e.lineno} do bloco). "
+                        "Exemplo precisa ser copiável: sem comentários nem '...'.")
+            bloco = None
+        elif tipo == "codigo" and bloco is not None:
+            bloco.append(bruta)
 
     # Imagens e blocos de código
     for n, tipo, bruta in classes:
@@ -311,13 +344,17 @@ def analisar(caminho, max_palavras):
 
     # Callouts empilhados e densidade
     total_palavras = sum(contar_palavras(limpar(b)) for _, t, b in classes if t in ("texto", "lista"))
-    callouts, ultimo_fim = 0, None
+    callouts, ultimo_fim, ultimo_tipo = 0, None, None
     for n, tipo, bruta in classes:
-        if tipo in ("codigo", "cerca"):
+        if tipo in ("codigo", "cerca", "comentario"):
             continue
-        if CALLOUT_ABRE.match(bruta):
+        m_callout = CALLOUT_ABRE.match(bruta)
+        if m_callout:
             callouts += 1
-            if ultimo_fim is not None and all(
+            atual = m_callout.group(1)
+            dois_riscos = atual == "Warning" and ultimo_tipo == "Warning"
+            ultimo_tipo = atual
+            if ultimo_fim is not None and not dois_riscos and all(
                     t == "vazia" for ln, t, _ in classes if ultimo_fim < ln < n):
                 add(n, "sugestao", "callouts-empilhados",
                     "Callouts em sequência. Funda em um ou leve parte para o texto.")
@@ -344,6 +381,7 @@ def arquivos_alterados():
 
 def coletar(alvos):
     saida = []
+    alvos = [x for alvo in alvos for x in (alvo.split() if not (ROOT / alvo).exists() else [alvo])]
     for alvo in alvos:
         p = (ROOT / alvo) if not pathlib.Path(alvo).is_absolute() else pathlib.Path(alvo)
         if p.is_dir():

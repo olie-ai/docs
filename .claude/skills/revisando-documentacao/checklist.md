@@ -28,7 +28,7 @@ Cada tipo tem regras próprias:
 
 - **Tutorial:** diga no início o que a pessoa vai ter no final. Use um único exemplo completo, do começo ao fim. Evite escolhas: se há dois caminhos, escolha um e diga isso. Marque o progresso nos marcos ("Pronto, a automação já está ativa").
 - **Guia de tarefa:** ponha a tarefa no título ("Mover um projeto para outro funil"). Parta do princípio de que a pessoa conhece o básico, dê os passos sem rodeios e coloque um link para a explicação.
-- **Referência:** siga a estrutura do que está sendo documentado, não a jornada do usuário. Todo parâmetro, campo ou opção tem **tipo, valor padrão, descrição de uma linha e exemplo**. Documente limites e casos de borda: se a pessoa só descobre um limite por tentativa e erro, a falha é da documentação. Deixe as explicações para outra página.
+- **Referência:** siga a estrutura do que está sendo documentado, não a jornada do usuário. Na referência de API ou de configuração, todo parâmetro ou campo tem **tipo, valor padrão, descrição de uma linha e exemplo**. Na referência de interface (as opções de uma ação, por exemplo), o formato "Opção | Obrigatória | O que faz" é suficiente; inclua o valor padrão quando ele existir e estiver confirmado. Documente limites e casos de borda: se a pessoa só descobre um limite por tentativa e erro, a falha é da documentação. Deixe as explicações para outra página.
 - **Explicação:** comece pela pergunta que a página responde ("Qual a diferença entre status do funil e status do projeto?"). Explique por que a Olie funciona assim e conecte com o resto da plataforma. Não dê instruções: coloque um link para os guias de tarefa.
 - **Solução de problemas** é um guia de tarefa organizado por sintoma. Veja a seção 12.
 
@@ -49,6 +49,7 @@ Uma página que explica um conceito, ensina um passo a passo e lista opções ao
 - [ ] **Do simples ao avançado.** Primeiro o caso mais comum, depois as variações. Casos avançados ficam no fim ou em outra página.
 - [ ] **Feche indicando o próximo passo** ou as páginas relacionadas.
 - [ ] **Corte o que não serve ao objetivo** definido no item 0, mesmo que seja verdade e interessante.
+- [ ] **Documente o que existe.** Não descreva funcionalidade futura nem roteiro. Se encontrar uma, mantenha e registre como pendência para o time decidir.
 
 ## 2. Títulos e seções
 
@@ -56,7 +57,8 @@ Uma página que explica um conceito, ensina um passo a passo e lista opções ao
 - [ ] 🤖 **Só a primeira letra maiúscula** (além de nomes próprios), sem ponto final ou dois-pontos e com até cerca de 60 caracteres.
 - [ ] 🤖 **Não pule níveis** (de `##` para `####`) e não use `#` no corpo, porque o título da página vem do frontmatter.
 - [ ] **Títulos do mesmo nível são paralelos**: todos com verbo ou todos com substantivo.
-- [ ] 🤖 **Toda seção abre com uma frase de contexto**, não direto com lista, tabela ou callout. Não é preciso fazer isso em abas (`<Tab>`) de variações de um mesmo exemplo.
+- [ ] 🤖 **Toda seção abre com uma frase de contexto**, não direto com lista, tabela, callout ou grupo de componentes (`<CardGroup>`, `<AccordionGroup>`, `<Tabs>`, `<Steps>`). Duas exceções: abas (`<Tab>`) de variações de um mesmo exemplo, e as seções de links no fim da página ("Próximos passos", "Páginas relacionadas"). A frase precisa dizer algo útil; se só repetir o título, prefira reorganizar.
+- [ ] **Sem pseudotítulos em negrito.** Um parágrafo que é só `**Texto em negrito**` e funciona como título vira `###`. Negrito no começo de um parágrafo com texto continua valendo.
 
 ## 3. Parágrafos
 
@@ -113,7 +115,7 @@ Uma página que explica um conceito, ensina um passo a passo e lista opções ao
 
 ## 6. Tom da Olie
 
-- [ ] 🤖 **Afirmativo e sem concorrentes.** Descreva como a Olie funciona. Nunca cite nem compare com outras ferramentas, como em "ao contrário de X…" ou "na maioria das ferramentas…". Isso inclui comparação com alternativas genéricas ("é aqui que a plataforma se diferencia de colar uma chave de API em um script"). Termos genéricos como kanban, quadro, board e pipeline são permitidos.
+- [ ] 🤖 **Afirmativo e sem concorrentes.** Descreva como a Olie funciona. Nunca cite nem compare com outras ferramentas, como em "ao contrário de X…" ou "na maioria das ferramentas…". Isso inclui afirmar superioridade sobre alternativas genéricas ("é aqui que a plataforma se diferencia de colar uma chave de API em um script"). Dizer o que a Olie é ou não é para delimitar o escopo ("a Olie não substitui um ERP") é permitido, desde que não desmereça a alternativa. Termos genéricos como kanban, quadro, board e pipeline são permitidos.
 - [ ] 🤖 **Nada que faça a plataforma parecer difícil.** Evite "difícil", "confuso", "complicado", "se perder" e "desaprender". Prefira "vale um minuto de atenção", "uma distinção importante" ou "uma ideia central".
 - [ ] 🤖 **Nada que faça o leitor se sentir lento.** Evite "simplesmente", "basta", "é fácil" e "obviamente". Se fosse óbvio para a pessoa, ela não estaria lendo.
 - [ ] 🤖 **Fale com o leitor**: "você", não "nós" ou "vamos".
@@ -126,7 +128,7 @@ Uma página que explica um conceito, ensina um passo a passo e lista opções ao
 
 ## 7. Listas e tabelas
 
-- [ ] **Lista numerada para sequência**, com marcadores para o resto. Procedimentos com mais de 3 passos usam `<Steps>`. **Nunca use `<Steps>` nem lista numerada para itens sem ordem**, como boas práticas ou dicas.
+- [ ] **Lista numerada para sequência**, com marcadores para o resto. Procedimentos com mais de 3 passos usam `<Steps>`. **Nunca use `<Steps>` nem lista numerada para itens sem ordem**, como boas práticas ou dicas. Campos de um formulário preenchidos na ordem da tela podem ficar em `<Steps>`; uma lista de campos sem ordem vira tabela.
 - [ ] **Itens paralelos**: todos começam com verbo ou todos com substantivo, com a mesma pontuação.
 - [ ] **Uma frase apresenta a lista ou a tabela.**
 - [ ] **Use tabela quando comparar vários itens** em dois ou mais atributos, como em `limits.mdx`. Mantenha as células curtas.
@@ -136,7 +138,7 @@ Uma página que explica um conceito, ensina um passo a passo e lista opções ao
 
 - [ ] **Uma ação por passo.** Se o passo tem "e depois", divida.
 - [ ] **Primeiro onde, depois o quê.** Exemplo: "Em **Automações**, clique em **Nova automação**."
-- [ ] 🤖 **Elementos da interface em negrito**, com o texto exato da tela.
+- [ ] 🤖 **Elementos da interface em negrito**, com o texto exato da tela. Se o rótulo é de uma tela de terceiro (ChatGPT, Claude, Cursor) e você não consegue confirmá-lo, descreva sem negrito ("o botão de conectar") e registre como pendência.
 - [ ] **Diga o resultado esperado** nos passos importantes e como confirmar que deu certo, usando `<Check>`.
 - [ ] **Use exemplos concretos e realistas**, como a etapa "Proposta enviada" e a etiqueta "Aguardando retorno", e não "X", "teste" ou "foo".
 - [ ] **Termine com um teste**: como a pessoa verifica que tudo funciona.
@@ -152,7 +154,8 @@ Uma página que explica um conceito, ensina um passo a passo e lista opções ao
 | `<Check>` | Confirmação de que o passo deu certo |
 
 - [ ] **Informação necessária para concluir a tarefa vai no texto**, não em callout. Muita gente pula callouts. A única exceção é o risco real: ele pode ficar em `<Warning>`, desde que o texto antes dele introduza o assunto numa frase.
-- [ ] 🤖 **Não empilhe callouts.** Quando tudo está em destaque, nada se destaca.
+- [ ] 🤖 **Não empilhe callouts.** Quando tudo está em destaque, nada se destaca. Dois callouts são empilhados quando não há texto entre eles, mesmo com assuntos diferentes. Dois `<Warning>` seguidos com riscos reais e distintos são a exceção.
+- [ ] 🤖 **Poucos callouts por página.** O script sugere revisar a página quando ela tem mais de 4 callouts e mais de um a cada 100 palavras.
 - [ ] **Não repita no callout o que o texto acabou de dizer.**
 
 ## 10. Imagens e diagramas
@@ -174,7 +177,8 @@ Vale para API, variáveis Twig e sintaxe avançada.
 - [ ] **Mostre a saída ou a resposta esperada.**
 - [ ] **Comentários explicam o que não é óbvio**, de preferência o porquê.
 - [ ] **Do básico ao avançado**: primeiro o exemplo mínimo, depois as variações.
-- [ ] 🤖 **Todo bloco de código indica a linguagem**, como ` ```json ` ou ` ```twig `.
+- [ ] 🤖 **Todo bloco de código indica a linguagem**, como ` ```json ` ou ` ```twig `. Um bloco que mostra só a linha da requisição (`POST /api/...`) usa ` ```http `.
+- [ ] 🤖 **Bloco ` ```json ` é JSON válido**: sem comentários (`/* */`, `//`) e sem `...`. Se o exemplo estiver resumido, diga isso no texto antes do bloco.
 
 ## 12. Erros e solução de problemas
 

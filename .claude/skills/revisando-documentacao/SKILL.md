@@ -37,9 +37,11 @@ O critério é um só: **o leitor entende e consegue agir na primeira leitura.**
    - callout com informação necessária para concluir a tarefa;
    - exemplo irreal ou que não funciona;
    - erro descrito sem as três respostas (o que aconteceu, por quê, como resolver);
-   - termo novo usado sem definição no próprio lugar.
+   - termo novo usado sem definição no próprio lugar;
+   - `<Steps>` ou lista numerada em itens sem ordem;
+   - título em negrito no lugar de `###`.
 
-5. **Filtre os falsos positivos do script.** Uma frase longa dentro de uma lista enumerativa às vezes é a melhor opção. "Tag" pode ser o nome de um campo da API. Não repasse um achado que você não confirmou lendo o trecho.
+5. **Filtre os falsos positivos do script.** Uma frase longa dentro de uma lista enumerativa às vezes é a melhor opção. "Tag" pode ser o nome de um campo da API, e "fase" pode falar do ciclo de vida de uma meta e não de uma etapa. Não repasse um achado que você não confirmou lendo o trecho.
 
 6. **Faça o relatório** por página, ordenado pelo **impacto na compreensão**, não pela quantidade:
    - uma linha de veredito: tipo, público e se a página cumpre o objetivo;
@@ -55,7 +57,8 @@ O critério é um só: **o leitor entende e consegue agir na primeira leitura.**
    Ao corrigir:
    - mantenha o sentido e **nunca invente comportamento do produto**. Se a reescrita depende de um fato que você não confirmou, pergunte ou marque como pendência;
    - use os termos do [glossário](../../../guides/fundamentals/glossary.mdx) e o texto exato da interface;
-   - rode o script de novo e, se mexer em links, rode `mint broken-links --files <arquivo>`. Se o `mint` não estiver instalado, confira as âncoras à mão;
+   - rode o script de novo e, se mexer em links, rode `mint broken-links --files <arquivo>`. Se o `mint` não estiver instalado, confira as âncoras à mão. O Mintlify mantém os acentos nas âncoras (`#ciclo-de-resubmissão`), e renomear um título quebra os links que apontam para ele: procure a âncora antiga nas outras páginas antes de renomear;
+   - ao salvar a saída do script em arquivo, use um nome próprio (por exemplo, `lint-antes-<grupo>.txt`). Vários revisores podem rodar em paralelo no mesmo scratchpad.
    - edite só as páginas que pediram. Não divida páginas nem crie páginas novas; se achar que uma página deveria ser dividida, proponha no relatório.
 
 ## Fontes de verdade e pendências
@@ -63,6 +66,8 @@ O critério é um só: **o leitor entende e consegue agir na primeira leitura.**
 - **Fontes de verdade:** para a API, o `api-reference/openapi.json`; para o produto, as outras páginas da doc. Confira nelas antes de acrescentar qualquer fato.
 - **Pendência** é um fato que você não consegue confirmar, ou um conflito entre duas fontes (por exemplo, duas páginas com nomes diferentes para a mesma opção). Nunca resolva um conflito escolhendo um lado: mantenha o texto e registre.
 - Um rótulo de interface que já está na página e não conflita com nada **não** é pendência. Só vira pendência o rótulo que você acrescentou ou mudou sem confirmação.
+- **Não apague um fato só porque não achou a fonte.** Uma afirmação concreta que já estava na página (um comportamento, um número, uma regra) fica no texto e vira pendência. Só saia do texto o que uma fonte contradiz, ou o que é opinião e propaganda, que não é fato.
+- **Nunca acrescente um exemplo novo** que dependa de um comportamento não confirmado (por exemplo, comparar um campo como número). Se o exemplo seria útil, descreva-o na pendência.
 - **Callouts, para o script**, são só `<Note>`, `<Tip>`, `<Warning>`, `<Info>` e `<Check>`. `<Card>`, `<Accordion>` e `<Tab>` não contam.
 
 ## Regras que não se negociam
