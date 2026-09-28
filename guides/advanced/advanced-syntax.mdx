@@ -322,7 +322,6 @@ Um filtro transforma um valor antes de exibi-lo. Ele vem depois de uma barra ver
   
   {{ valor|round }}             {# Arredonda #}
   {{ valor|round(2) }}          {# 2 decimais #}
-  {{ valor|abs }}               {# Valor absoluto #}
   ```
 </Tab>
 
@@ -330,9 +329,11 @@ Um filtro transforma um valor antes de exibi-lo. Ele vem depois de uma barra ver
   ```twig
   {{ data|date("d/m/Y") }}      {# 21/01/2026 #}
   {{ data|date("d/m/Y H:i") }}  {# 21/01/2026 14:30 #}
-  {{ data|date("F Y") }}        {# Janeiro 2026 #}
+  {{ data|date("F Y") }}        {# January 2026 #}
   {{ project.created_at|date_modify("+15 days")|date("Y-m-d") }}  {# Soma 15 dias #}
   ```
+
+  Nomes de mês e de dia da semana saem em inglês: `F` vira "January", e `l` vira "Friday". Para um texto em português, use formatos numéricos, como `d/m/Y`.
 </Tab>
 
 <Tab title="Arrays">
@@ -342,8 +343,6 @@ Um filtro transforma um valor antes de exibi-lo. Ele vem depois de uma barra ver
   {{ lista|last }}              {# Último item #}
   {{ lista|join(', ') }}        {# Une com vírgula #}
   {{ lista|reverse }}           {# Inverte ordem #}
-  {{ lista|sort }}              {# Ordena #}
-  {{ lista|unique }}            {# Remove duplicatas #}
   {{ lista|json }}              {# Converte para JSON #}
   {{ lista|json(true) }}        {# Converte para JSON com indentação #}
   ```
@@ -386,7 +385,6 @@ Estes filtros completam a lista:
   
   ```twig
   {{ texto|escape }}
-  {{ texto|e }}  {# Atalho #}
   ```
 </Accordion>
 

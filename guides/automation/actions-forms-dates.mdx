@@ -13,9 +13,7 @@ Esta página reúne as ações que mexem em formulários dinâmicos e em campos 
 | [Atualizar contador](#atualizar-contador) | Incrementa ou decrementa um campo contador |
 | [Alterar campo de data](#alterar-campo-de-data) | Define uma data no projeto ou em um formulário |
 
-<Info>
-Três destas ações procuram o formulário em **todos os lugares onde ele pode estar no projeto**: no corpo do projeto, no funil, na etapa ou como formulário avulso. Se o mesmo formulário aparecer em mais de um lugar, todos são afetados.
-</Info>
+As ações **Salvar versão do formulário** e **Atualizar contador** procuram o formulário em **todos os lugares do projeto**. Esses lugares são o corpo do projeto, o funil, a etapa e os formulários avulsos. Se o mesmo formulário aparecer em mais de um lugar, todos são afetados. Já **Alterar campo de data** age só na localização que você configura.
 
 ## Adicionar formulário avulso
 
@@ -90,6 +88,8 @@ Ao escolher **campo de formulário**, indique também a localização:
 Um projeto pode ter o mesmo formulário avulso anexado várias vezes. Nesse caso a ação usa o **primeiro**, por ordem de criação.
 </Note>
 
+A ação não procura o formulário em outras localizações. Se o formulário não estiver na localização indicada, a data não é alterada e a ação registra `expected_pivot_not_found`. Confira em que parte do projeto o formulário está e ajuste a localização.
+
 ### 2. De onde vem a data
 
 <Tabs>
@@ -160,7 +160,7 @@ Alterar a previsão do funil também tem efeito em outras automações: dispara 
 </Card>
 
 <Card title="Tempo relativo customizado" icon="clock" href="/guides/automation/relative-time">
-  Expressões para agendar em dias da semana e viradas de período.
+  Expressões do gatilho Data de projeto atingida para disparar em dias da semana e viradas de período. Esta ação não usa essas expressões.
 </Card>
 
 <Card title="Variáveis" icon="brackets-curly" href="/guides/automation/variables">

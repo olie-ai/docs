@@ -384,7 +384,7 @@ Atenção ao nome: neste endpoint, `pivot_class` é o **objeto pivot inteiro**, 
 </Warning>
 
 <ParamField body="expires_at" type="date">
-Quando o link deixa de valer. Sem ele, o padrão é 24 horas.
+Quando o link deixa de valer. Precisa ser uma data futura: uma data no passado é recusada com `422`. Sem ele, o padrão é 24 horas a partir da geração.
 </ParamField>
 
 <ParamField body="expire_after_answer" type="boolean" default="false">

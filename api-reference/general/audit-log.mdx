@@ -104,7 +104,7 @@ Identificador do objeto alterado.
 </ResponseField>
 
 <ResponseField name="subject" type="object">
-O objeto em si, buscado no momento da consulta. Vem `null` quando o objeto foi excluído definitivamente: o histórico permanece, o objeto não.
+O objeto em si, buscado no momento da consulta. Um objeto excluído que ainda pode ser restaurado continua vindo preenchido. Vem `null` quando o objeto foi excluído definitivamente: o histórico permanece, o objeto não.
 </ResponseField>
 
 <ResponseField name="causer_type" type="string">

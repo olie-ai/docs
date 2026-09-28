@@ -87,7 +87,9 @@ Como não há rotação, você troca o token substituindo a aplicação:
     Faça a virada no seu lado e confirme que as chamadas continuam funcionando.
   </Step>
   <Step title="Exclua a aplicação antiga">
-    `DELETE /api/management/applications/{id}` revoga apenas o token daquela aplicação. As demais aplicações da empresa seguem funcionando normalmente.
+    Exclua a aplicação em **Ajustes** > **Aplicações**, com um usuário que tenha a permissão `applications.create`. A exclusão revoga apenas o token daquela aplicação. As demais aplicações da empresa seguem funcionando normalmente.
+
+    O endpoint `DELETE /api/management/applications/{id}` é reservado a pessoas. Uma chamada feita com token de aplicação recebe HTTP 403 com `message: "access_denied_for_applications"`.
   </Step>
 </Steps>
 

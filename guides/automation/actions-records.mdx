@@ -31,9 +31,16 @@ Cria um projeto novo. O projeto criado é independente do que disparou a automa�
 
 <Tabs>
 <Tab title="A partir de um modelo">
-  Selecione um projeto marcado como modelo. O novo projeto sai com uma cópia completa do modelo: cliente, funis, etiquetas, checklists, respostas de formulário, conteúdo, Caderno, grupos e responsáveis. Veja [o que vai junto](/guides/projects/project-templates#o-que-vai-junto) em Modelos de projeto.
+  Selecione um projeto marcado como modelo. O novo projeto sai com uma cópia completa do modelo:
 
-  Você informa apenas o nome. Os outros campos vêm do modelo.
+  - descrição, impacto, status e orçamento;
+  - cliente e contato;
+  - funis, com o status do funil, a previsão e as etapas vinculadas;
+  - etiquetas e checklists;
+  - respostas de formulário;
+  - conteúdo, Caderno, grupos e responsáveis.
+
+  Você informa apenas o nome. O código do projeto é gerado de novo, e o projeto criado não fica marcado como modelo. Veja [o que vai junto](/guides/projects/project-templates#o-que-vai-junto) em Modelos de projeto.
 </Tab>
 
 <Tab title="Do zero">
@@ -60,7 +67,7 @@ Cria ou vincula projetos filhos abaixo do projeto que disparou a automação, mo
 | Projeto modelo | Não | Base para os projetos filhos criados |
 | Etapa de destino | Não | Etapa que recebe os filhos marcados |
 
-A estrutura é escrita em texto, com `-` indicando o nível:
+A estrutura é escrita em texto, com `-` indicando o nível. Os hífens de um mesmo nível ficam colados (`--`), e o espaço depois deles é opcional:
 
 ```text
 Filho número 1

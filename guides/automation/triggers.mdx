@@ -21,7 +21,7 @@ A tabela resume o evento que aciona cada gatilho e de onde o disparo costuma vir
 | [Formulário editado](#formulário-editado) | Um formulário dinâmico é respondido | Usuário ou automação |
 | [Data de projeto atingida](#data-de-projeto-atingida) | Uma data configurada chega | Agendamento |
 | [Execução de projeto](#execução-de-projeto) | Uma execução de tempo inicia ou finaliza | Usuário |
-| [Conteúdo enviado no projeto](#conteúdo-enviado-no-projeto) | Alguém publica conteúdo no projeto | Usuário, integração ou automação |
+| [Conteúdo enviado no projeto](#conteúdo-enviado-no-projeto) | Alguém publica conteúdo no projeto | Usuário ou integração |
 
 ## Projeto movido de etapa
 
@@ -161,9 +161,7 @@ Aciona quando uma execução de tempo — o play/pause que registra quanto tempo
 | Etapa relacionada | Sim, sem **Qualquer etapa** | A etapa em que a execução acontece; aceita mais de uma |
 | Qualquer etapa | Não | Aciona independentemente da etapa e desabilita a seleção acima |
 
-<Tip>
-Combine com a ação [Controlar execução de projeto](/guides/automation/actions-integrations#controlar-execução-de-projeto) para montar regras como "quando alguém iniciar a execução aqui, pause a execução dessa pessoa em qualquer outro projeto".
-</Tip>
+Uma pessoa só tem uma execução aberta por vez. Quando ela inicia uma execução, a plataforma encerra sozinha as outras execuções abertas dela, em qualquer projeto ou etapa. Você não precisa de automação para isso.
 
 ## Conteúdo enviado no projeto
 

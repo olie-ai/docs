@@ -10,7 +10,7 @@ Esta página mostra como você pode pagar a assinatura da Olie, o que acontece c
 
 A forma principal de pagamento da assinatura da Olie é o **cartão de crédito**, mas também é possível pagar com Pix. Dependendo do seu acordo comercial, outras opções podem estar disponíveis.
 
-Você pode cadastrar mais de um cartão e definir qual é o padrão para as cobranças automáticas. Assim, você tem um cartão reserva caso o principal expire ou seja recusado.
+Você pode cadastrar mais de um cartão e definir qual é o padrão. As cobranças automáticas usam só o cartão padrão: se ele expirar ou for recusado, a Olie não tenta os outros cartões cadastrados. Para cobrar em outro cartão, defina-o como padrão.
 
 ## Como os dados do cartão são protegidos
 
@@ -18,12 +18,15 @@ Quando você cadastra um cartão, **a Olie não recebe nem armazena o número co
 
 ## Quando a cobrança acontece
 
-A cobrança da renovação é feita automaticamente no início de cada novo ciclo da assinatura, no cartão padrão cadastrado.
+A cobrança da renovação é gerada no início de cada novo ciclo da assinatura. O que acontece depois depende da forma de pagamento:
+
+- **Cartão de crédito:** a Olie cobra automaticamente o cartão padrão.
+- **Pix:** a Olie gera uma cobrança Pix, que você precisa pagar.
 
 Se você ajustar as licenças durante o ciclo, por exemplo adicionando licenças novas, uma cobrança adicional pode ser gerada. Veja como isso funciona em [Trial e fluxo de assinatura](/guides/billing/trial-and-subscription-flow#ajustar-suas-licenças).
 
 Uma cobrança recusada pode afetar o acesso à conta.
 
 <Warning>
-  Se uma cobrança falhar (cartão expirado, limite excedido ou recusado), a fatura fica pendente. Mantenha um cartão válido cadastrado para evitar que sua conta entre em [modo somente leitura](/guides/billing/read-only-mode).
+  Se uma cobrança falhar (cartão expirado, limite excedido ou recusado), a fatura fica pendente. Mantenha um cartão válido definido como padrão para evitar que sua conta entre em [modo somente leitura](/guides/billing/read-only-mode).
 </Warning>

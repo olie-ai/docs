@@ -48,12 +48,16 @@ O destino é a aba **Conteúdo** do projeto, não o [Caderno](/guides/notebook/o
   | --- | --- | --- |
   | Integração | Sim | Qual integração de comunicação será usada |
   | Destinatário | Não | O endereço de destino; aceita variáveis. Em branco, usa a conversa que o projeto já tem nessa integração |
-  | Reabrir conversa ativa | Não | Encerra uma conversa ativa em outro projeto e abre uma nova aqui |
+  | Reabrir conversa ativa | Não | Encerra a conversa ativa com o destinatário nessa integração, em qualquer projeto, e abre uma nova aqui |
   | Motivo do encerramento | Não | Nota registrada na conversa encerrada |
 
   **Destinatário em branco:** a mensagem vai para a conversa que o projeto já tem nessa integração, inclusive retomando um atendimento encerrado com o mesmo contato. Isso só funciona quando o projeto conversa com **um único contato** naquela integração — várias conversas com a mesma pessoa, encerradas e reabertas, contam como uma. Se o projeto não tiver conversa nessa integração, ou tiver com mais de um contato, a mensagem não sai e a ação registra erro pedindo um destinatário.
 
   **Destinatário preenchido:** o endereço é mantido **exatamente como a expressão devolver** — a plataforma não normaliza o formato. Se a expressão não devolver nada, a ação registra erro e a mensagem não sai; ela não recorre à conversa que o projeto já tem.
+
+  **Reabrir conversa ativa desligado:** se o destinatário já tem uma conversa ativa neste projeto, a mensagem entra nela. Se a conversa ativa estiver em outro projeto, a mensagem não sai e a ação registra `active_channel_elsewhere`. Para mover a conversa para este projeto, ligue **Reabrir conversa ativa**.
+
+  **Reabrir conversa ativa ligado:** a plataforma encerra a conversa ativa com o destinatário, onde quer que ela esteja. Na conversa encerrada, fica a nota "Canal encerrado", com o **Motivo do encerramento** quando você preenche. Depois, a plataforma abre uma conversa nova neste projeto.
 
   <Note>
   Este destino só aparece quando existe alguma integração de comunicação ativa na conta.
@@ -226,11 +230,9 @@ Ao iniciar, a execução é vinculada à etapa escolhida. Sem etapa selecionada,
 
 ### Pausar
 
-Ao pausar, todas as execuções em andamento daqueles usuários **naquele projeto** são encerradas, registradas como parada programada.
+Ao pausar, todas as execuções em andamento daqueles usuários **naquele projeto**, em qualquer etapa, são encerradas e registradas como parada programada.
 
-<Tip>
-O par mais útil: gatilho [Execução de projeto](/guides/automation/triggers#execução-de-projeto) no evento **Iniciar**, com esta ação em **Pausar** — garantindo que ninguém fique com duas execuções abertas ao mesmo tempo.
-</Tip>
+Você não precisa desta ação para impedir duas execuções abertas ao mesmo tempo. Quando uma pessoa inicia uma execução, a plataforma já encerra as outras execuções abertas dela, em qualquer projeto ou etapa.
 
 ## Por onde continuar
 

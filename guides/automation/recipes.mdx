@@ -92,17 +92,13 @@ Aviso preventivo dois dias antes da data prevista — e só para quem ainda não
 </Step>
 </Steps>
 
-<Tip>
-Precisa avisar em dias úteis, e não em intervalo fixo? Use **Tempo relativo customizado** com expressões como `previous friday`. Veja [Tempo relativo customizado](/guides/automation/relative-time).
-</Tip>
-
 ## Criar cliente a partir de um formulário
 
 O formulário de captação é preenchido e o cadastro nasce sozinho, sem duplicar quem já existe.
 
 <Steps>
 <Step title="Gatilho — Formulário editado" icon="bolt">
-  Formulário: "Dados do cliente". **Restringir aos campos**: nome, e-mail e documento, com **Apenas um campo respondido é suficiente** desligado — todos precisam estar preenchidos.
+  Formulário: "Dados do cliente". **Restringir aos campos**: nome, e-mail e documento, com **Apenas um campo respondido é suficiente** desligado. Assim, a automação só aciona quando os três campos mudam de valor na mesma submissão; um campo preenchido antes e que não mudou agora não conta.
 </Step>
 
 <Step title="Ação — Criar cliente" icon="building">
@@ -209,24 +205,6 @@ Notificar um ERP, um canal de mensagens ou uma automação externa quando algo r
 </Step>
 </Steps>
 
-## Garantir uma execução por vez
-
-Impede que a mesma pessoa fique com a contagem de tempo aberta em vários projetos.
-
-<Steps>
-<Step title="Gatilho — Execução de projeto" icon="bolt">
-  Evento: iniciar. **Qualquer etapa** ligado.
-</Step>
-
-<Step title="Ação — Controlar execução de projeto" icon="pause">
-  Tipo: pausar. Usuários alvo: usuário que disparou o gatilho.
-</Step>
-</Steps>
-
-<Warning>
-Esta receita pausa as execuções do usuário **naquele projeto**. Nenhuma ação pausa, sozinha, as execuções em todos os projetos de uma vez. Para o efeito valer em toda a operação, combine a receita com o desenho do processo.
-</Warning>
-
 ## Antes de ativar qualquer uma
 
 Estes cuidados valem para todas as receitas.
@@ -244,8 +222,8 @@ Estes cuidados valem para todas as receitas.
   "Cobrar projeto parado em análise" é muito mais útil do que "Automação 4" quando alguém abrir a lista daqui a seis meses.
 </Accordion>
 
-<Accordion title="Confira o teto do plano" icon="list-check">
-  Cada conta tem um limite de automações ativas. Ao atingir o limite, a automação é criada mas fica inativa até você liberar espaço.
+<Accordion title="Confira o limite de automações" icon="list-check">
+  Cada conta tem um limite de automações. Quando a conta já está no limite, a automação nova é salva inativa até você liberar espaço.
 </Accordion>
 </AccordionGroup>
 

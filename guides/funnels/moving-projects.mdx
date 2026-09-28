@@ -62,7 +62,7 @@ A ordem importa: a primeira verificação que falhar interrompe a movimentação
 </Step>
 
 <Step title="Você tem permissão para alterar etapas neste funil?">
-  Sem a permissão de alteração de etapa, a movimentação é recusada mesmo que todo o resto esteja correto.
+  A permissão de alteração de etapa é concedida funil a funil. Sem ela no funil do projeto, a movimentação é recusada mesmo que todo o resto esteja correto.
 </Step>
 
 <Step title="O projeto já está nesta etapa?">
@@ -96,7 +96,7 @@ Quando uma verificação falha, a movimentação é recusada com uma das mensage
 
 | Mensagem | Causa | O que fazer |
 | --- | --- | --- |
-| O funil não está ativo | O funil está inativo | Reative o funil ou verifique o limite do plano |
+| O funil não está ativo | O funil está inativo | Reative o funil ou confira o limite de funis ativos da conta |
 | O projeto já está vinculado com essa etapa | Destino igual à origem | Nada a fazer |
 | Este projeto não está vinculado a este funil | Falta o vínculo com o funil | Vincule ao funil antes de posicionar |
 | Restrições de entrada | Uma regra da etapa de destino não foi cumprida | Ajuste o projeto para atender ao critério exibido |
@@ -146,7 +146,7 @@ Toda entrada e saída de etapa é gravada com data, hora e o usuário responsáv
 
 ## Ignorar as regras para testar fluxos
 
-Existe um modo de administração que ignora restrições, bloqueios, validações de transição e a confirmação de vínculo ao funil. Ele existe para testar fluxos recém-configurados sem precisar montar um caso real.
+Existe um modo de administração que ignora restrições, bloqueios, validações de transição e a confirmação de vínculo ao funil. Ele existe para testar fluxos recém-configurados sem precisar montar um caso real. Só quem tem a permissão específica desse modo consegue usá-lo.
 
 <Warning>
 Use apenas para teste. Movimentações feitas nesse modo pulam regras que existem por um motivo e podem deixar projetos em um estado que o processo normal não produziria.

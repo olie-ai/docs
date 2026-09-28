@@ -84,12 +84,16 @@ O valor aplicado pode ser de duas formas:
   Por exemplo, "Projetos concluídos no mês", do tipo Manual e ativa.
 </Step>
 
-<Step title="Monte a automação">
-  Crie uma automação com o [gatilho](/guides/automation/triggers) do evento que você quer contar, como a conclusão de um projeto.
+<Step title="Escolha o gatilho">
+  Não existe gatilho próprio para a conclusão de um projeto. Use o gatilho [Campo do projeto alterado](/guides/automation/triggers#campo-do-projeto-alterado) com o campo **Status**. Ele dispara em qualquer mudança de status.
+</Step>
+
+<Step title="Filtre os projetos concluídos">
+  Adicione a condição [Decisor com filtro](/guides/automation/conditions#decisor-com-filtro) com um filtro de status igual a **Concluído**. Assim, só a conclusão conta para a meta, e as outras mudanças de status ficam de fora.
 </Step>
 
 <Step title="Adicione a ação de progresso">
-  Selecione a meta, escolha a operação **Somar** e o valor `1`.
+  No ramo **Se verdadeiro** da condição, adicione a ação **Atualizar progresso de meta manual**. Selecione a meta, escolha a operação **Somar** e o valor `1`.
 
   <Check>
   Toda vez que o evento acontecer, a meta avança automaticamente — sem nenhum lançamento manual.

@@ -51,6 +51,22 @@ Olá <u@{{ user.id }}:{{ user.name }}>, você foi designado para esta tarefa.
 
 O filtro `mention` gera esse mesmo formato e evita erros de digitação na montagem. Prefira o filtro sempre que tiver o objeto do usuário.
 
+## O que a menção faz em cada destino
+
+O efeito da menção depende de onde a automação publica a mensagem.
+
+| Destino | O que acontece |
+| --- | --- |
+| Conteúdo do projeto | A menção notifica a pessoa como uma menção feita à mão: aviso na plataforma e e-mail, conforme as preferências dela. Só usuários ativos na conta recebem |
+| Linha externa (via integração) | A menção chega ao destinatário como texto, no formato "@Nome" |
+| E-mail | A menção não notifica ninguém e não é convertida: o e-mail mostra o formato `<u@…:Nome>` |
+
+Para citar uma pessoa em um e-mail, use o nome dela em vez do filtro:
+
+```twig
+Olá {{ user.name }}, você tem uma nova tarefa.
+```
+
 ## Por onde continuar
 
 <CardGroup cols={2}>

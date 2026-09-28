@@ -71,7 +71,7 @@ A execução aparece nos dois lados de uma automação: como gatilho e como aç�
 </Tab>
 </Tabs>
 
-Para **garantir uma execução por vez**, combine o gatilho de execução iniciada com a ação de pausar a execução para o usuário que disparou. Quando a pessoa começa a trabalhar em um item, o cronômetro do anterior é encerrado automaticamente.
+Cada pessoa tem **uma execução aberta por vez**. Quando ela inicia uma execução, a plataforma encerra as outras execuções abertas dela, em qualquer projeto ou etapa. Não é preciso montar uma automação para isso.
 
 <Warning>
 A opção **Usuário que disparou o gatilho** exige que o disparo tenha vindo de uma pessoa. Em automações por agendamento, como projeto ocioso ou data atingida, não existe usuário causador, e a ação registra `invalid_causer_type`. Nesse caso, troque a origem dos usuários alvo. Veja [o que cada erro significa](/guides/automation/logs#o-que-cada-erro-significa).

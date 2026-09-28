@@ -59,7 +59,7 @@ A lista **não é fixa**. Ela vem do catálogo do [agregador de modelos que a Ol
 | Modelos podem sair da lista | Um modelo aposentado pelo provedor deixa de ser oferecido; um agente que apontava para ele precisa de um novo modelo padrão |
 | A lista pode demorar alguns minutos para refletir uma mudança | O catálogo é guardado em cache curto |
 
-Acima do catálogo ficam os **perfis de seleção automática** — automático, por custo e por desempenho —, que não são um modelo específico: a escolha acontece a cada execução. Ver [Seleção automática de modelos](/guides/billing/ai-credits#seleção-automática-de-modelos).
+Acima do catálogo ficam os três **perfis de seleção automática**: automática, baseada em custo e baseada em performance. Eles não são um modelo específico, porque a escolha acontece a cada execução. Ver [Seleção automática de modelos](/guides/billing/ai-credits#seleção-automática-de-modelos).
 
 ## Ferramentas
 
@@ -120,11 +120,13 @@ Um exemplo do formato de saída esperado, anexado como contexto, costuma render 
 
 Você pode executar o agente avulso para ajustar as instruções sem precisar mover um projeto no funil. No teste, você pode usar o **modelo padrão do agente** ou **escolher um modelo para testar** e comparar os resultados antes de trocar o padrão.
 
+O teste é uma execução como qualquer outra: ele consome [créditos de IA](/guides/billing/ai-credits) e aparece na lista de execuções.
+
 ## Execuções e auditoria
 
 A Olie registra toda execução, com o que entrou, o que saiu e quanto custou.
 
-A lista de execuções mostra, por linha: **data, agente, modelo, latência, tokens, créditos, status e fatura**.
+A lista de execuções mostra, por linha: **data, agente, modelo, latência, tokens, créditos e status**. O custo de cada execução é debitado do saldo de créditos e aparece no [extrato de créditos](/guides/billing/ai-credits#acompanhando-saldo-e-extrato).
 
 O detalhe de cada execução traz ainda:
 
@@ -138,7 +140,7 @@ O detalhe de cada execução traz ainda:
 </Card>
 
 <Card title="Quanto custou" icon="coins">
-  Latência, tokens consumidos e créditos debitados, com link para a fatura.
+  Latência, tokens consumidos e créditos debitados do saldo.
 </Card>
 
 <Card title="Chamadas de ferramenta" icon="wrench">
@@ -220,7 +222,7 @@ A resposta de erro traz três campos para diagnóstico:
 
 Para voltar a executar, [compre créditos](/guides/billing/ai-credits#comprando-créditos) ou ligue a [recarga automática](/guides/billing/ai-credits#recarga-automática).
 
-Crédito de IA é uma **carteira à parte**: o consumo de IA não sai do limite de requisições da API. O que o plano limita é a **quantidade** de agentes e de assistentes configurados — o quanto eles executam é saldo, não plano. Uma conta sem créditos continua usando o resto da plataforma normalmente; só a IA para. Ver [Créditos de IA](/guides/billing/ai-credits) e [Limites e tetos](/guides/fundamentals/limits).
+Crédito de IA é uma **carteira à parte**: o consumo de IA não sai do limite de requisições da API. O que tem limite é a **quantidade** de agentes e de assistentes configurados na empresa. O quanto eles executam depende só do saldo. Uma conta sem créditos continua usando o resto da plataforma normalmente; só a IA para. Ver [Créditos de IA](/guides/billing/ai-credits) e [Limites e tetos](/guides/fundamentals/limits).
 
 <Note>
 Uma execução que já começou nunca é interrompida no meio por falta de saldo — o débito acontece no fim e pode deixar o saldo negativo. O bloqueio vale para a **próxima** execução.
@@ -273,7 +275,7 @@ Um assistente com gatilho automático roda a cada movimentação, então o custo
 </Accordion>
 
 <Accordion title="Peça o formato da saída dentro do prompt" icon="align-left">
-  "Responda apenas com uma das opções: baixo, médio, alto" cabe em um campo de seleção. "Analise o caso" não cabe em campo nenhum — e o resultado é descartado silenciosamente.
+  "Responda apenas com uma das opções: baixo, médio, alto" cabe em um campo de seleção. "Analise o caso" não cabe em campo nenhum. Uma resposta fora das opções do campo não é gravada, mesmo com a execução marcada como concluída. O motivo fica no registro da execução do assistente.
 </Accordion>
 </AccordionGroup>
 

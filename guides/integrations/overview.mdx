@@ -48,6 +48,8 @@ A plataforma oferece três conectores de WhatsApp. A última coluna mostra o val
 
 O **WhatsApp hospedado pela Olie** não pode ser criado pela API. Ele nasce só pelo fluxo de conexão da plataforma, que aloca o servidor e gera as credenciais da instância. Uma criação com `type: whatsapp_evolution_managed` é recusada.
 
+O token de uma [aplicação](/api-reference/introduction/authentication) só lista as integrações e consulta os registros delas. Criar, editar e excluir uma integração é reservado a pessoas: com token de aplicação, essas chamadas respondem HTTP 403 com `message: "access_denied_for_applications"`.
+
 <Warning>
 **O tipo não muda depois de criada a integração.** Credenciais e configurações são específicas de cada conector, e trocar o tipo invalidaria o que já está gravado — uma atualização com um `type` diferente do atual é recusada. Para mudar de conector, crie uma nova integração.
 </Warning>

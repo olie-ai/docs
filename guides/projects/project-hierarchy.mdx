@@ -100,7 +100,11 @@ A estrutura pode ser reorganizada a qualquer momento. Estas são as operações 
 
 Ao mover um projeto, a plataforma considera a descendência inteira dele. Se algum descendente passaria do nível 3, a movimentação é recusada. Nesse caso, escolha um pai em um nível mais alto ou reduza a profundidade do ramo antes de mover.
 
-Reorganizar a hierarquia não altera o conteúdo dos projetos.
+Reorganizar a hierarquia não altera o conteúdo dos projetos. O filho também não herda dados do pai: vincular, mover ou promover muda só a posição do projeto na árvore.
+
+Para mudar a estrutura, você precisa de permissão para editar o projeto que muda de lugar e, quando houver, o pai envolvido na operação.
+
+Ao excluir um projeto pai, os filhos dele viram raiz e mantêm os próprios filhos.
 
 ## Exemplos por área
 

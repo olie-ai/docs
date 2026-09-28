@@ -2,7 +2,7 @@
 title: 'Detalhes'
 icon: 'info-circle'
 description: 'URL base, formato das respostas e limite de requisições por minuto da API da Olie.'
-keywords: ['url base', 'base url', 'rate limit', 'limite de requisições', '429', 'X-RateLimit-Limit', 'X-RateLimit-Remaining', 'Retry-After', 'json', 'utf-8']
+keywords: ['url base', 'base url', 'rate limit', 'limite de requisições', '429', 'X-RateLimit-Limit', 'X-RateLimit-Remaining', 'Retry-After', 'wait_seconds', 'json', 'utf-8']
 ---
 
 Esta página reúne as regras que valem para todas as requisições à API: a URL base, o formato das respostas e o limite de requisições por minuto.
@@ -64,7 +64,17 @@ Acompanhe o `X-RateLimit-Remaining` para reduzir o ritmo antes de chegar a zero.
 
 ### Quando o limite é excedido
 
-Se a integração passar do limite, a API responde com HTTP **429** (Too Many Requests). A resposta traz o cabeçalho `Retry-After`, com quantos segundos esperar antes de uma nova requisição. Aguarde esse tempo e repita a requisição.
+Se a integração passar do limite, a API responde com HTTP **429** (Too Many Requests). O corpo da resposta traz, no campo `wait_seconds`, quantos segundos esperar antes de uma nova requisição:
+
+```json
+{
+  "response": false,
+  "message": "too_many_requests",
+  "wait_seconds": 42
+}
+```
+
+Aguarde o tempo de `wait_seconds` e repita a requisição. A resposta 429 não traz o cabeçalho `Retry-After`: leia a espera no corpo.
 
 <Warning>
 Exceder o limite de forma abusiva ou repetida pode levar ao bloqueio temporário ou à suspensão permanente do token.

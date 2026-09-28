@@ -16,7 +16,7 @@ Com **papéis** e **permissões**, você define o acesso e as ações de cada us
 </Card>
 
 <Card title="Permissões" icon="key">
-  Ações que podem ser realizadas no sistema, como "Criar Projeto", "Editar Usuários" ou "Visualizar Relatórios". São pré-definidas e atribuídas aos papéis.
+  Ações que podem ser realizadas no sistema, como criar projetos, editar usuários ou exportar projetos. São pré-definidas e atribuídas aos papéis.
 </Card>
 </CardGroup>
 
@@ -26,7 +26,7 @@ O sistema tem quatro partes, descritas a seguir.
 
 ### Papéis personalizáveis
 
-O proprietário da empresa pode criar papéis personalizados de acordo com a estrutura e as necessidades da organização. Um papel pode representar um nível de responsabilidade (como "Gerente") ou uma função específica (como "Analista de Dados").
+Quem tem a permissão de gerenciar papéis e permissões pode criar papéis personalizados de acordo com a estrutura e as necessidades da organização. O papel **Property**, do proprietário da empresa, tem essa permissão por padrão, mas você pode dá-la a outros papéis. Um papel pode representar um nível de responsabilidade (como "Gerente") ou uma função específica (como "Analista de Dados").
 
 <Steps>
 <Step title="Identifique as necessidades">
@@ -48,12 +48,14 @@ A Olie fornece uma lista fixa de permissões, que cobre as operações da plataf
 
 <AccordionGroup>
 <Accordion title="Exemplos de permissões" icon="list-check">
-  - **Visualizar Relatórios**: Permite acesso aos relatórios do sistema
-  - **Criar Projetos**: Permite criar novos projetos
-  - **Editar Usuários**: Permite modificar informações de usuários
-  - **Criar Convites**: Permite convidar novos usuários
-  - **Gerenciar Permissões**: Permite configurar papéis e permissões
-  - **Executar Automações**: Permite criar e executar automações
+  Alguns exemplos, descritos pelo que cada permissão libera:
+
+  - Criar projetos: permite criar novos projetos.
+  - Editar usuários: permite alterar as informações dos usuários.
+  - Criar convites: permite convidar novas pessoas para a empresa.
+  - Gerenciar papéis e permissões: permite criar papéis e escolher as permissões de cada um.
+  - Criar automações: permite criar novas automações.
+  - Exportar projetos: permite exportar a lista de projetos em planilha.
 </Accordion>
 
 <Accordion title="Categorias de permissões" icon="layer-group">
@@ -78,13 +80,13 @@ Cada papel pode ter uma ou mais permissões atribuídas.
 
 ```mermaid
 graph LR
-    A[Papel: Gerente] --> B[Criar Projetos]
-    A --> C[Editar Projetos]
-    A --> D[Visualizar Relatórios]
-    A --> E[Gerenciar Equipe]
+    A[Papel: Gerente] --> B[Criar projetos]
+    A --> C[Editar projetos]
+    A --> D[Exportar projetos]
+    A --> E[Criar convites]
     
-    F[Papel: Colaborador] --> G[Visualizar Projetos]
-    F --> H[Executar Tarefas]
+    F[Papel: Colaborador] --> G[Visualizar projetos]
+    F --> H[Criar tarefas]
 ```
 
 Um único papel pode reunir permissões de diferentes áreas da plataforma, conforme o que a função exige.
@@ -98,9 +100,9 @@ Um usuário pode ter múltiplos papéis atribuídos, acumulando as permissões d
   Quando um usuário possui múltiplos papéis, ele recebe **todas as permissões** de cada um deles.
   
   **Exemplo:**
-  - Papel "Gerente" tem: Criar Projetos, Editar Projetos
-  - Papel "Editor" tem: Editar Conteúdo, Revisar Textos
-  - Usuário com ambos os papéis tem: Todas as 4 permissões
+  - Papel "Gerente" tem: criar projetos e editar projetos.
+  - Papel "Atendimento" tem: visualizar canais e editar canais.
+  - Usuário com ambos os papéis tem as 4 permissões.
 </Tab>
 
 <Tab title="Casos de uso">
@@ -116,17 +118,17 @@ Um usuário pode ter múltiplos papéis atribuídos, acumulando as permissões d
 </Tab>
 
 <Tab title="Exemplo prático">
-  **Cenário:** Maria é Gerente de Projetos e também responsável por revisar conteúdo.
+  **Cenário:** Maria é Gerente de Projetos e também responsável pelo atendimento aos clientes.
   
   - Papel 1: "Gerente de Projetos"
-    - Criar/Editar Projetos
-    - Gerenciar Equipe
-    - Visualizar Relatórios
+    - Criar projetos
+    - Editar projetos
+    - Criar convites
   
-  - Papel 2: "Editor de Conteúdo"
-    - Editar Conteúdo
-    - Revisar Textos
-    - Publicar Artigos
+  - Papel 2: "Atendimento"
+    - Visualizar canais
+    - Editar canais
+    - Visualizar contatos
   
   **Resultado:** Maria tem todas as 6 permissões combinadas.
 </Tab>

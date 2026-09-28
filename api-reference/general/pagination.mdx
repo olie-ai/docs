@@ -9,6 +9,12 @@ Os endpoints que retornam listas entregam os resultados em páginas. Esta págin
 
 Os filtros que você pode combinar com a paginação estão em [Filtros básicos](/api-reference/general/basic-filters) e [Busca avançada](/api-reference/general/advanced-search).
 
+As regras desta página valem para as listagens que devolvem o objeto `meta`. Alguns endpoints paginam de outro jeito:
+
+- `POST /api/management/search-activities`, do [registro de alterações](/api-reference/general/audit-log), usa `offset` e devolve 10 registros por vez.
+- `GET /api/management/marketplace/templates` usa `per_page`, com padrão de 15 itens, e devolve os dados da paginação em `pagination`.
+- Os assistentes de etapa trazem os campos de paginação na raiz da resposta, como mostra a [estrutura da resposta paginada](#estrutura-da-resposta-paginada).
+
 ## Parâmetros de paginação
 
 Dois parâmetros controlam a paginação. Nas listagens `GET`, envie os parâmetros na URL. Nas buscas `POST`, como a busca avançada, você também pode enviá-los no corpo da requisição.

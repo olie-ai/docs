@@ -29,6 +29,8 @@ A opção **Criar ou vincular projetos?** define o que acontece com cada linha d
 | Criar projetos | Cria projetos filhos novos, do zero ou a partir de um modelo de projeto |
 | Vincular projetos existentes | Conecta projetos já criados ao projeto pai, sem criar projetos novos. Serve para reorganizar |
 
+Para vincular projetos existentes, escreva em cada linha da estrutura o código do projeto, como `PRJ-42`. A ação também aceita o ID do projeto, mas não procura pelo nome. Todos os projetos da lista viram filhos diretos do projeto pai: nesse modo, os hífens não criam netos. Se algum código não corresponder a um projeto da empresa, a ação para e registra `project_not_found_for_attach`.
+
 ### 2. Projeto modelo (opcional)
 
 Com um [modelo de projeto](/guides/projects/project-templates) selecionado, cada filho criado é uma cópia do modelo. Veja [o que vai junto](/guides/projects/project-templates#o-que-vai-junto) na cópia.
@@ -41,7 +43,7 @@ A etapa de destino recebe só os projetos marcados com o prefixo `>` na estrutur
 
 ## Escrever a estrutura
 
-A estrutura é um texto com um projeto por linha. O prefixo no começo da linha indica o nível do projeto:
+A estrutura é um texto com um projeto por linha. O prefixo no começo da linha indica o nível do projeto. Linhas em branco são ignoradas:
 
 ```text
 Contrato
@@ -64,6 +66,11 @@ A tabela mostra os prefixos aceitos:
 | `-` | Neto: filho do último filho acima | `-Configuração` |
 | `--` | Bisneto: filho do último neto acima | `--Turma da manhã` |
 | `>` | Vincula o projeto à etapa de destino. Combina com os níveis | `>Contrato`, `->Configuração`, `-->Turma da manhã` |
+
+O espaço entre o prefixo e o nome é opcional: `--Turma da manhã` e `-- Turma da manhã` dão o mesmo resultado. Duas regras de escrita importam:
+
+- os hífens de um nível ficam colados. Em `- - Turma da manhã`, só o primeiro hífen conta como nível, e o projeto se chama "- Turma da manhã";
+- o `>` vem depois dos hífens, como em `->Configuração` ou `- > Configuração`.
 
 ## Exemplos
 
@@ -338,12 +345,18 @@ Esta estrutura cria 24 projetos:
 
 ## Limites e regras
 
-A estrutura passa por estas validações antes de a automação ser salva:
+Ao salvar a automação, a plataforma só confere se a estrutura foi preenchida. As outras regras são verificadas quando a ação executa, e uma falha aparece no [registro de execução](/guides/automation/logs):
 
-- a estrutura não pode estar vazia;
-- nenhum nome de projeto pode estar vazio;
-- a sintaxe avançada precisa ser válida;
-- a árvore tem no máximo 3 níveis abaixo do projeto pai: filhos, netos e bisnetos. Uma linha com mais de dois hífens gera erro de validação.
+- a sintaxe avançada precisa ser válida. Se não for, a ação registra `template_error_on_structure_parsing`;
+- a hierarquia inteira vai até o nível 3, contado a partir do projeto raiz, como explica [Os quatro níveis](/guides/projects/project-hierarchy#os-quatro-níveis). Se a estrutura passar desse limite, a ação registra `hierarchy_depth_exceeds_maximum`.
+
+O espaço disponível depende do nível do projeto pai:
+
+| Nível do projeto pai | O que a estrutura pode ter |
+| --- | --- |
+| 0 (raiz) | Filhos, netos e bisnetos |
+| 1 | Filhos e netos |
+| 2 | Só filhos |
 
 Ao executar, a ação segue estas regras:
 
@@ -357,14 +370,15 @@ Os problemas abaixo estão organizados pelo que você vê na tela.
 
 <AccordionGroup>
 <Accordion title="A automação não salva">
-  A estrutura não passou em uma das validações. As causas mais comuns são:
+  O campo de estrutura está vazio. Escreva ao menos uma linha com o nome de um projeto e salve de novo.
+</Accordion>
 
-  - sintaxe avançada inválida;
-  - uma linha com nome vazio;
-  - mais de 3 níveis de profundidade;
-  - estrutura vazia.
+<Accordion title="A ação falhou no registro de execução">
+  A estrutura não passou em uma das regras verificadas na execução. Confira o código do erro no [registro de execução](/guides/automation/logs):
 
-  Revise a estrutura linha por linha e corrija a linha com problema.
+  - `template_error_on_structure_parsing`: a sintaxe avançada tem um erro. Corrija o trecho entre `{{ }}` ou `{% %}`;
+  - `hierarchy_depth_exceeds_maximum`: a estrutura passa do nível 3 da hierarquia. Tire da estrutura o nível que passa do limite;
+  - `project_not_found_for_attach`: no modo de vincular, uma linha não corresponde ao código de um projeto da empresa. Confira o código.
 </Accordion>
 
 <Accordion title="Os projetos não aparecem na etapa">

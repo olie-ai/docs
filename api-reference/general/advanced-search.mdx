@@ -128,6 +128,35 @@ Alguns campos só funcionam com um contexto a mais. Por exemplo, para filtrar pr
 
 Os argumentos de cada campo aparecem na resposta do endpoint de metadados, descrita em [Descobrindo campos disponíveis](#descobrindo-campos-disponíveis).
 
+`arguments` é uma lista de objetos, e cada objeto tem três chaves obrigatórias:
+
+| Chave | O que enviar |
+| --- | --- |
+| `argument_key` | O `id` do argumento no endpoint de metadados, como `answer_pool_edge` |
+| `argument_value_id` | O valor do argumento, como o id do campo do formulário |
+| `argument_value_type` | O `modelClass` do argumento no endpoint de metadados, como `App\Models\FormEdge` |
+
+A API lê os argumentos pela posição na lista: o primeiro objeto é o primeiro argumento do campo, e assim por diante. Este filtro busca os projetos cuja resposta ao campo 30 do formulário é "Indicação":
+
+```json
+{
+  "filters": [
+    {
+      "field": "answer_pool",
+      "operator": "equals",
+      "value": "Indicação",
+      "arguments": [
+        {
+          "argument_key": "answer_pool_edge",
+          "argument_value_id": 30,
+          "argument_value_type": "App\\Models\\FormEdge"
+        }
+      ]
+    }
+  ]
+}
+```
+
 ## Exemplos
 
 Os exemplos usam a busca de projetos. Na busca de clientes e de contatos, a estrutura é a mesma e só mudam os campos.
@@ -282,15 +311,15 @@ Quando um filtro não é válido, a API responde com HTTP 422, `message: "valida
 
 ### Campo inválido
 
-A API recusa o filtro quando `field` não está na lista de campos do endpoint. A mensagem cita o nome enviado:
+A API recusa o filtro quando `field` não está na lista de campos do endpoint. A mensagem cita o nome enviado e lista os campos disponíveis. No exemplo, a lista de campos está encurtada:
 
 ```json
 {
   "response": false,
   "message": "validation_errors",
-  "error": "O campo nonExistsFilterField selecionado é inválido.",
+  "error": "O campo [nonExistsFilterField] selecionado é inválido. Campos disponíveis: id, code, name, description, impact, status, budget.",
   "validation": {
-    "field": ["O campo nonExistsFilterField selecionado é inválido."]
+    "field": ["O campo [nonExistsFilterField] selecionado é inválido. Campos disponíveis: id, code, name, description, impact, status, budget."]
   }
 }
 ```
@@ -299,15 +328,15 @@ Para resolver, use em `field` um dos valores de `name` em `params.filters`.
 
 ### Operador inválido
 
-A API recusa o filtro quando `operator` não está na lista `operators` daquele campo:
+A API recusa o filtro quando `operator` não é um dos [operadores de comparação](#operadores-de-comparação). A chave em `validation` começa pela posição do filtro na lista `filters`, contando a partir de 0. No exemplo, o erro está no primeiro filtro:
 
 ```json
 {
   "response": false,
   "message": "validation_errors",
-  "error": "The selected operator is invalid.",
+  "error": "O campo 0.operator selecionado é inválido.",
   "validation": {
-    "operator": ["The selected operator is invalid."]
+    "0.operator": ["O campo 0.operator selecionado é inválido."]
   }
 }
 ```

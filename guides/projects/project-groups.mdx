@@ -45,7 +45,7 @@ O grupo pode ser exibido no cartão pela [configuração do quadro](/guides/funn
 Em automações, a ação [**Vincular ou desvincular grupo**](/guides/automation/actions-projects#vincular-ou-desvincular-grupo) cuida do vínculo. Essa ação alterna o vínculo: vincula o projeto que está fora do grupo e desvincula o que já está dentro.
 
 <Warning>
-A ação é uma **alternância**, não uma garantia. Se o projeto já estiver no grupo, ela o **tira**. Para garantir que o projeto fique no grupo, monte a automação de modo que ela não rode duas vezes sobre o mesmo projeto, ou use uma condição para verificar antes.
+A ação é uma **alternância**, não uma garantia. Se o projeto já estiver no grupo, ela o **tira**. Para garantir que o projeto fique no grupo, monte a automação de modo que ela não rode duas vezes sobre o mesmo projeto. Outra saída é colocar antes da ação a condição [Decisor com filtro](/guides/automation/conditions#decisor-com-filtro), filtrando pelos projetos que ainda não estão no grupo.
 </Warning>
 
 ## Próximos passos

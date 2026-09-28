@@ -132,6 +132,14 @@ As respostas a gravar, no mesmo formato usado na [gravação individual](/api-re
 Endereço do formulário, o [pivot](/api-reference/general/form-answer-pivot). Exige `pivot_class`, `form_id` e `father_class`. A API usa cada item de `ids` como o registro alvo, então você não envia `father_id`.
 </ParamField>
 
+O lote também grava formulários de etapa e de funil. Nesses casos, os `ids` continuam sendo ids de projeto, e o `target` leva o id da etapa ou do funil:
+
+| `pivot_class` | Formulário | Campo extra em `target` |
+| --- | --- | --- |
+| `App\Models\Project` | Do objeto projeto | nenhum |
+| `App\Models\ProjectStepForm` | De uma etapa | `funnel_step_id` |
+| `App\Models\ProjectFunnelAssignment` | De um funil | `project_funnel_id` |
+
 ### Resposta
 
 A resposta tem HTTP **200** mesmo quando alguns itens falham. O resultado do lote está em `result`:

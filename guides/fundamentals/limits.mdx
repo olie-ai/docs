@@ -6,7 +6,7 @@ keywords: ["limite", "limites", "teto", "máximo", "restrição técnica", "quot
 
 Esta página reúne os números que a plataforma impõe. Cada linha aponta para a página que explica o comportamento em detalhe.
 
-Os limites que dependem do plano contratado não têm valor fixo aqui: quantidade de funis, restrições de etapa, assistentes, automações ativas e volume de execuções. Consulte esses valores em **Usos e limites**, na sua conta.
+Alguns limites valem para a conta inteira e não têm valor fixo aqui: quantidade de funis, restrições de etapa, assistentes, automações ativas e volume de execuções. Cada conta começa com um limite padrão, que pode ser ampliado. Consulte os valores da sua conta em **Usos e limites**.
 
 ## Estrutura
 
@@ -34,7 +34,7 @@ Os limites de montagem, de encadeamento e de registro das automações.
 | Ramificação de condição | **1 nível** — condição dentro de ramo é avaliada, mas seus componentes não executam | [Como o fluxo é executado](/guides/automation/anatomy) |
 | Registros de execução guardados | Cerca de **100** por automação; a lista mostra os **20 mais recentes** | [Logs e depuração](/guides/automation/logs) |
 | Nome de projeto criado por automação | Cortado em **191 caracteres** | [Ações: cadastros e pessoas](/guides/automation/actions-records) |
-| Automações ativas e volume de execuções | Teto por plano | — |
+| Automações ativas e volume de execuções | Limite da conta (padrão, ampliável) | — |
 
 <Warning>
 O sintoma clássico do limite de encadeamento é uma automação que **funciona quando disparada manualmente e falha quando disparada por outra**. Procure `automation_run_limit_reached` no registro de execução.
@@ -70,7 +70,7 @@ O limite de requisições e as regras de paginação da API.
 | Página inicial | **1** — valores inválidos são ajustados |
 | Validade padrão do link assinado de formulário | **24 horas**, se `expires_at` for omitido |
 
-O limite real vem no header `X-RateLimit-Limit`, e o restante em `X-RateLimit-Remaining`. Ao estourar, a resposta é **429** com `Retry-After` em segundos.
+O limite real vem no header `X-RateLimit-Limit`, e o restante em `X-RateLimit-Remaining`. Ao passar do limite, a resposta é **429**, e o campo `wait_seconds` do corpo diz quantos segundos esperar. Veja [Detalhes da API](/api-reference/introduction/details).
 
 O balde é **por identidade, não por empresa**: cada usuário e cada [aplicação](/guides/integrations/overview#aplicações-e-tokens-de-api) tem os seus próprios 160 por minuto. Duas aplicações da mesma empresa não dividem o mesmo teto, e o consumo de uma pessoa não reduz o da outra. Em chamada sem autenticação, a contagem é por endereço IP.
 
@@ -122,19 +122,19 @@ As métricas de tempo por etapa consideram **apenas passagens concluídas** — 
 
 ## Cobrança e créditos
 
-Como o plano, as licenças e os créditos de IA limitam o uso da conta.
+Como os limites da conta, as licenças e os créditos de IA restringem o uso.
 
 | Limite | Valor | Onde |
 | --- | --- | --- |
 | Janela para regularizar em modo somente leitura | Cerca de **30 dias** | [Modo somente leitura](/guides/billing/read-only-mode) |
-| Funis, restrições de etapa e assistentes | Contam contra o teto do plano | [Assinatura e licenças](/guides/billing/subscription-and-licenses) |
-| Funil criado acima do limite do plano | Nasce **inativo** | [Criar e configurar um funil](/guides/funnels/creating-funnels) |
+| Funis, restrições de etapa e assistentes | Contam contra o limite da conta (padrão, ampliável) | [Assinatura e licenças](/guides/billing/subscription-and-licenses) |
+| Funil criado acima do limite da conta | Nasce **inativo** | [Criar e configurar um funil](/guides/funnels/creating-funnels) |
 | Saldo de créditos de IA | Pode ficar **negativo** — uma execução iniciada nunca é interrompida no meio | [Créditos de IA](/guides/billing/ai-credits) |
 | Execução de IA sem saldo | Recusada com **HTTP 402**; não chega a criar registro de execução | [Agentes de IA](/guides/ai/agents) |
 | Usuários inativos | **Não** ocupam licença | [Tipos de papéis](/guides/users/role-types) |
 
 <Tip>
-Se um funil recém-criado aparecer inativo sem explicação, o primeiro lugar a olhar é o limite de funis do plano.
+Se um funil recém-criado aparecer inativo sem explicação, o primeiro lugar a olhar é o limite de funis da conta, em **Usos e limites**.
 </Tip>
 
 ## Marketplace
@@ -146,6 +146,5 @@ As regras de implantação e de publicação de templates.
 | Implantações do mesmo template por empresa | **1** |
 | Snapshot | Imutável depois de gerado |
 | Template rejeitado | A rejeição é **definitiva** — não há resubmissão |
-| Empresa construtora | Tem tempo de vida limitado |
 
 Ver [Marketplace](/guides/marketplace/overview).
