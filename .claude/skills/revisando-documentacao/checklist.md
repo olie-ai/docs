@@ -44,7 +44,7 @@ Uma página que explica um conceito, ensina um passo a passo e lista opções ao
   - `keywords`: termos que a pessoa digitaria na busca, incluindo os sinônimos do [glossário](../../../guides/fundamentals/glossary.mdx).
 - [ ] 🤖 **Comece com um parágrafo, não com um título.** A primeira frase diz o que é ou o que a pessoa vai conseguir. Muita gente lê só esse parágrafo.
 - [ ] **Delimite o escopo.** Diga o que a página cobre. Quando houver risco de confusão, diga também o que ela não cobre e onde encontrar isso.
-- [ ] **Pré-requisitos antes dos passos**: permissão, plano e objetos que já precisam existir. Veja o bloco "Antes de começar" em `first-automation.mdx`.
+- [ ] **Pré-requisitos antes dos passos, no texto**: permissão, plano e objetos que já precisam existir. Use uma seção "Antes de começar" com frases ou lista, não um callout, porque o pré-requisito é necessário para concluir a tarefa.
 - [ ] **O porquê antes do como.** Uma frase de motivo antes da instrução faz o passo fazer sentido.
 - [ ] **Do simples ao avançado.** Primeiro o caso mais comum, depois as variações. Casos avançados ficam no fim ou em outra página.
 - [ ] **Feche indicando o próximo passo** ou as páginas relacionadas.
@@ -56,7 +56,7 @@ Uma página que explica um conceito, ensina um passo a passo e lista opções ao
 - [ ] 🤖 **Só a primeira letra maiúscula** (além de nomes próprios), sem ponto final ou dois-pontos e com até cerca de 60 caracteres.
 - [ ] 🤖 **Não pule níveis** (de `##` para `####`) e não use `#` no corpo, porque o título da página vem do frontmatter.
 - [ ] **Títulos do mesmo nível são paralelos**: todos com verbo ou todos com substantivo.
-- [ ] 🤖 **Toda seção abre com uma frase de contexto**, não direto com lista, tabela ou callout.
+- [ ] 🤖 **Toda seção abre com uma frase de contexto**, não direto com lista, tabela ou callout. Não é preciso fazer isso em abas (`<Tab>`) de variações de um mesmo exemplo.
 
 ## 3. Parágrafos
 
@@ -70,7 +70,7 @@ Uma página que explica um conceito, ensina um passo a passo e lista opções ao
 - [ ] **Condição antes da instrução.** A pessoa precisa saber se o passo vale para ela antes de executar.
   - ❌ Fale com o administrador se o botão não aparecer.
   - ✅ Se o botão não aparecer, fale com quem administra a conta.
-- [ ] 🤖 **Deixe claro quem faz a ação.** Evite a passiva com "se" ("deve-se", "recomenda-se"). A passiva com "ser" só vale quando quem faz a ação não importa.
+- [ ] **Deixe claro quem faz a ação.** 🤖 Evite a passiva com "se" ("deve-se", "recomenda-se"). A passiva com "ser" pode ficar quando quem faz a ação não importa ("a chamada é recusada com HTTP 402"). O problema é a passiva esconder uma ação que **o leitor** precisa fazer. Isso a leitura avalia; o script não checa.
   - ❌ A etiqueta é aplicada quando o projeto é movido.
   - ✅ A automação aplica a etiqueta quando você move o projeto.
 - [ ] **Instruções no imperativo, falando com "você".**
@@ -101,7 +101,7 @@ Uma página que explica um conceito, ensina um passo a passo e lista opções ao
 
 ## 5. Palavras e termos
 
-- [ ] 🤖 **Um nome para cada coisa: o do [glossário](../../../guides/fundamentals/glossary.mdx).** Se o texto diz "etiqueta", não alterne com "tag". Se diz "etapa", não alterne com "fase".
+- [ ] 🤖 **Um nome para cada coisa: o do [glossário](../../../guides/fundamentals/glossary.mdx).** Se o texto diz "etiqueta", não alterne com "tag". Se diz "etapa", não alterne com "fase". **Projeto** é o objeto. **Cartão** só serve para falar do elemento visual no quadro ("o status pinta o cartão"). Se o glossário e as páginas divergirem, não escolha por conta própria: registre como pendência.
 - [ ] **O mesmo texto que a interface mostra**, em **negrito**, para a pessoa achar o botão na tela.
 - [ ] **Termo novo é definido ali mesmo, na primeira vez que aparece.** Uma oração curta resolve, e o link para o glossário ou para a página do conceito vem junto. Só o link obriga o leitor a sair da página.
   - ✅ Cada resposta tem um *pivot*, o objeto que diz onde o formulário está anexado ([ver o pivot](../../../api-reference/general/form-answer-pivot.mdx)).
@@ -113,7 +113,7 @@ Uma página que explica um conceito, ensina um passo a passo e lista opções ao
 
 ## 6. Tom da Olie
 
-- [ ] 🤖 **Afirmativo e sem concorrentes.** Descreva como a Olie funciona. Nunca cite nem compare com outras ferramentas, como em "ao contrário de X…" ou "na maioria das ferramentas…". Termos genéricos como kanban, quadro, board e pipeline são permitidos.
+- [ ] 🤖 **Afirmativo e sem concorrentes.** Descreva como a Olie funciona. Nunca cite nem compare com outras ferramentas, como em "ao contrário de X…" ou "na maioria das ferramentas…". Isso inclui comparação com alternativas genéricas ("é aqui que a plataforma se diferencia de colar uma chave de API em um script"). Termos genéricos como kanban, quadro, board e pipeline são permitidos.
 - [ ] 🤖 **Nada que faça a plataforma parecer difícil.** Evite "difícil", "confuso", "complicado", "se perder" e "desaprender". Prefira "vale um minuto de atenção", "uma distinção importante" ou "uma ideia central".
 - [ ] 🤖 **Nada que faça o leitor se sentir lento.** Evite "simplesmente", "basta", "é fácil" e "obviamente". Se fosse óbvio para a pessoa, ela não estaria lendo.
 - [ ] 🤖 **Fale com o leitor**: "você", não "nós" ou "vamos".
@@ -126,7 +126,7 @@ Uma página que explica um conceito, ensina um passo a passo e lista opções ao
 
 ## 7. Listas e tabelas
 
-- [ ] **Lista numerada para sequência**, com marcadores para o resto. Procedimentos com mais de 3 passos usam `<Steps>`.
+- [ ] **Lista numerada para sequência**, com marcadores para o resto. Procedimentos com mais de 3 passos usam `<Steps>`. **Nunca use `<Steps>` nem lista numerada para itens sem ordem**, como boas práticas ou dicas.
 - [ ] **Itens paralelos**: todos começam com verbo ou todos com substantivo, com a mesma pontuação.
 - [ ] **Uma frase apresenta a lista ou a tabela.**
 - [ ] **Use tabela quando comparar vários itens** em dois ou mais atributos, como em `limits.mdx`. Mantenha as células curtas.
@@ -145,13 +145,13 @@ Uma página que explica um conceito, ensina um passo a passo e lista opções ao
 
 | Componente | Quando usar |
 | --- | --- |
-| `<Warning>` | Risco real: perda de dados, ação irreversível, cobrança ou limite que quebra algo |
-| `<Info>` | Pré-requisito ou contexto necessário antes de começar |
+| `<Warning>` | Risco real: perda de dados, ação irreversível, acesso amplo, cobrança ou limite que quebra algo |
+| `<Info>` | Contexto útil que não é necessário para concluir a tarefa |
 | `<Note>` | Detalhe útil que interromperia o fluxo do texto |
 | `<Tip>` | Atalho ou boa prática opcional |
 | `<Check>` | Confirmação de que o passo deu certo |
 
-- [ ] **Informação necessária para concluir a tarefa vai no texto**, não em callout. Muita gente pula callouts.
+- [ ] **Informação necessária para concluir a tarefa vai no texto**, não em callout. Muita gente pula callouts. A única exceção é o risco real: ele pode ficar em `<Warning>`, desde que o texto antes dele introduza o assunto numa frase.
 - [ ] 🤖 **Não empilhe callouts.** Quando tudo está em destaque, nada se destaca.
 - [ ] **Não repita no callout o que o texto acabou de dizer.**
 
@@ -168,8 +168,8 @@ Uma página que explica um conceito, ensina um passo a passo e lista opções ao
 
 Vale para API, variáveis Twig e sintaxe avançada.
 
-- [ ] **Todo exemplo funciona.** Teste contra a API ou o editor atual antes de publicar.
-- [ ] **Exemplo mínimo e completo para copiar**, com cabeçalhos, autenticação e campos obrigatórios.
+- [ ] **Todo exemplo funciona.** Teste contra a API ou o editor atual antes de publicar. Sem acesso à API, a fonte de verdade é o `api-reference/openapi.json`: nomes de campos, paths, tipos e enums dos exemplos precisam bater com ele.
+- [ ] **Exemplo mínimo e completo para copiar**, com cabeçalhos, autenticação e campos obrigatórios. Numa série de variações, faça um exemplo completo (por exemplo, `curl` com `Authorization`) e deixe as variações curtas, mostrando só o que muda.
 - [ ] **Dados da Olie nos exemplos**: projeto, etapa, cliente. Nada de `foo` e `bar`.
 - [ ] **Mostre a saída ou a resposta esperada.**
 - [ ] **Comentários explicam o que não é óbvio**, de preferência o porquê.

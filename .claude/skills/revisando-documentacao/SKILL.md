@@ -39,17 +39,31 @@ O critério é um só: **o leitor entende e consegue agir na primeira leitura.**
    - erro descrito sem as três respostas (o que aconteceu, por quê, como resolver);
    - termo novo usado sem definição no próprio lugar.
 
-5. **Filtre os falsos positivos do script.** A passiva com "ser" é aceitável quando quem faz a ação não importa. Uma frase longa dentro de uma lista enumerativa às vezes é a melhor opção. "Tag" pode ser o nome de um campo da API. Não repasse um achado que você não confirmou lendo o trecho.
+5. **Filtre os falsos positivos do script.** Uma frase longa dentro de uma lista enumerativa às vezes é a melhor opção. "Tag" pode ser o nome de um campo da API. Não repasse um achado que você não confirmou lendo o trecho.
 
 6. **Faça o relatório** por página, ordenado pelo **impacto na compreensão**, não pela quantidade:
    - uma linha de veredito: tipo, público e se a página cumpre o objetivo;
    - no máximo 10 problemas, cada um com `arquivo:linha`, o trecho, o motivo em uma frase e uma **reescrita sugerida**;
    - deixe de fora os detalhes que não afetam o entendimento.
 
-7. **Só corrija quando pedirem.** Ao corrigir:
+7. **Só corrija quando pedirem.** Nesse caso, o limite de 10 problemas não vale: aplique tudo o que melhora a compreensão. O relatório passa a ser:
+   - o veredito da página antes da correção;
+   - as mudanças feitas, cada uma com a seção do checklist que a motivou;
+   - as pendências, com a linha;
+   - o resultado do script antes e depois.
+
+   Ao corrigir:
    - mantenha o sentido e **nunca invente comportamento do produto**. Se a reescrita depende de um fato que você não confirmou, pergunte ou marque como pendência;
    - use os termos do [glossário](../../../guides/fundamentals/glossary.mdx) e o texto exato da interface;
-   - rode o script de novo e, se mexer em links, rode `mint broken-links --files <arquivo>`.
+   - rode o script de novo e, se mexer em links, rode `mint broken-links --files <arquivo>`. Se o `mint` não estiver instalado, confira as âncoras à mão;
+   - edite só as páginas que pediram. Não divida páginas nem crie páginas novas; se achar que uma página deveria ser dividida, proponha no relatório.
+
+## Fontes de verdade e pendências
+
+- **Fontes de verdade:** para a API, o `api-reference/openapi.json`; para o produto, as outras páginas da doc. Confira nelas antes de acrescentar qualquer fato.
+- **Pendência** é um fato que você não consegue confirmar, ou um conflito entre duas fontes (por exemplo, duas páginas com nomes diferentes para a mesma opção). Nunca resolva um conflito escolhendo um lado: mantenha o texto e registre.
+- Um rótulo de interface que já está na página e não conflita com nada **não** é pendência. Só vira pendência o rótulo que você acrescentou ou mudou sem confirmação.
+- **Callouts, para o script**, são só `<Note>`, `<Tip>`, `<Warning>`, `<Info>` e `<Check>`. `<Card>`, `<Accordion>` e `<Tab>` não contam.
 
 ## Regras que não se negociam
 

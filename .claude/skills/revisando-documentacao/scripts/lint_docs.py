@@ -45,9 +45,6 @@ PADROES = [
     ("passiva-se", "aviso",
      r"\b(deve|devem|pode|podem|recomenda|sugere|utiliza|usa|faz|nota|observa|verifica|clica|seleciona|configura|cria|define|preenche)-se\b",
      "Passiva com 'se' esconde quem age. Use o imperativo ou diga quem faz a ação."),
-    ("passiva-ser", "sugestao",
-     r"\b(é|são|foi|foram|será|serão|seja|sejam)\s+(?!mais\b)\w+(ado|ada|ados|adas|ido|ida|idos|idas)\b",
-     "Voz passiva. Se quem faz a ação importa, diga quem é (voz ativa)."),
     ("dupla-negacao", "aviso",
      r"\bnão\s+(é|são|está|estão|parece)\s+(in|im|des)\w+|\bnão\s+deixa[m]?\s+de\b",
      "Dupla negação. Reescreva na forma afirmativa."),
@@ -75,7 +72,7 @@ VERBOSIDADE = [
     (r"\blevar\s+em\s+considera[çc][ãa]o\b", "'considerar'"),
     (r"\bdevido\s+ao\s+fato\s+de\b", "'porque'"),
     (r"\bde\s+forma\s+a\b", "'para'"),
-    (r"\b(vale|cabe)\s+(notar|ressaltar|destacar|lembrar|mencionar)\s+que\b", "corte e diga direto"),
+    (r"\b(vale|cabe)\s+(notar|ressaltar|destacar|lembrar|mencionar|registrar)(\s+que)?\b", "corte e diga direto"),
     (r"\bé\s+importante\s+(notar|ressaltar|destacar|lembrar)\s+que\b", "corte e diga direto"),
     (r"\bnote\s+que\b", "corte e diga direto"),
 ]
@@ -191,7 +188,8 @@ def paragrafos(classes):
 
 
 def contar_palavras(texto):
-    return len(re.findall(r"[\wÀ-ÿ'-]+", texto))
+    """Conta palavras de prosa; trechos de código inline não entram na conta."""
+    return len(re.findall(r"[\wÀ-ÿ'-]+", texto.replace("CODIGO", "")))
 
 
 def analisar(caminho, max_palavras):
@@ -214,7 +212,7 @@ def analisar(caminho, max_palavras):
         if len(fm.get("description", "")) > 160:
             add(1, "aviso", "frontmatter",
                 f"'description' com {len(fm['description'])} caracteres (máx. 160). Uma frase dizendo o que a página entrega.")
-        if "keywords" not in fm and not rel.startswith("api-reference/"):
+        if "keywords" not in fm:
             add(1, "sugestao", "frontmatter", "Sem 'keywords'. Inclua os termos que o leitor buscaria.")
 
     # Estrutura: primeiro conteúdo, títulos, seções
