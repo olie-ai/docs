@@ -1,48 +1,83 @@
 ---
 title: 'Estrutura de respostas'
 icon: 'file-text'
-description: 'Como interpretar as respostas.'
+description: 'O formato comum das respostas de sucesso e de erro da API e os campos que indicam o resultado.'
+keywords: ['resposta', 'estrutura da resposta', 'response', 'message', 'error', 'validation', 'validation_errors', 'erro', 'json', 'envelope']
 ---
 
+As respostas da API seguem um formato comum, em [JSON](/api-reference/introduction/details#formato-de-resposta). Esta página mostra os campos que indicam se a requisição deu certo e, quando dá errado, os campos que dizem qual foi o erro.
 
-# Formato das respostas
+## Resposta de sucesso
 
-As respostas costumam a seguir um formato padronizado de resposta para facilitar o tratamento dos dados. Normalmente, todas as [respostas são retornadas em JSON](/api-reference/introduction/details#formato-de-resposta).
-
-## Exemplo de sucesso
+Uma resposta de sucesso traz `response` com o valor `true`, ao lado dos dados pedidos:
 
 ```json
 {
   "response": true,
-  ...
+  "projects": [
+    { "id": "019b140c-235d-73ee-96df-3d2afbf7d13d", "code": "P-80", "name": "Implantação do CRM" }
+  ]
 }
 ```
+
 <ResponseField name="response" type="boolean" required>
-  Indica se a requisição foi bem-sucedida. Onde quando o `response` for `true`, indica que a requisição executou o que se espera.
+  `true` quando a requisição fez o que foi pedido.
 </ResponseField>
 
-<Info>
-Campos adicionais (representados por `...`) representam todos os outros dados retornados pelas requisições.
-</Info>
+Os demais campos dependem do endpoint. No exemplo, a listagem de projetos devolve a lista em `projects`. A referência de cada endpoint mostra os campos da resposta.
 
-## Exemplo de erro
+## Resposta de erro
+
+Uma resposta de erro traz `response` com o valor `false` e o identificador do erro em `message`:
 
 ```json
 {
   "response": false,
-  "message": "nome_ou_tipo_do_erro",
-  "error": "mensagem_detalhada_do_erro"
+  "message": "unauthorized",
+  "error": "Unauthenticated."
 }
 ```
 
 <ResponseField name="response" type="boolean" required>
-  Indica se a requisição foi bem-sucedida. Onde quando o `response` for `false`, indica que houve um erro na requisição.
+  `false` quando a requisição não foi concluída.
 </ResponseField>
 
 <ResponseField name="message" type="string" required>
-  Descrição do tipo de erro. Retorna o nome do erro, exemplo: `invalid_request`, `unauthorized`, `not_found`, etc.
+  Identificador do erro, em inglês, que a sua integração usa para tratar cada caso. Exemplos: `unauthorized`, `validation_errors`, `project_model_not_found`.
 </ResponseField>
 
-<ResponseField name="error" type="string" required>
-  Descrição detalhada do erro.
+<ResponseField name="error" type="string">
+  Descrição legível do erro. Vem na maioria dos erros.
 </ResponseField>
+
+Para decidir se a requisição deu certo, confira o campo `response`, e não só o status HTTP.
+
+### Erros de validação
+
+Quando um campo do corpo ou da URL tem valor inválido ou está faltando, a API responde com HTTP 422, `message: "validation_errors"` e o campo `validation`:
+
+```json
+{
+  "response": false,
+  "message": "validation_errors",
+  "error": "O campo nome é obrigatório.",
+  "validation": {
+    "name": ["O campo nome é obrigatório."]
+  }
+}
+```
+
+<ResponseField name="validation" type="object">
+  Mapa em que cada chave é o nome de um campo com problema e cada valor é a lista de mensagens daquele campo. Corrija os campos listados e envie a requisição de novo.
+</ResponseField>
+
+### Campos extras em alguns erros
+
+Alguns erros trazem campos a mais, com o detalhe necessário para resolver o problema. Por exemplo, a falta de permissão (`permission_required`) traz em `permission` a permissão que faltou. A referência de cada endpoint mostra os erros que ele pode devolver.
+
+## Páginas relacionadas
+
+Estas páginas complementam a estrutura de respostas:
+
+- [Paginação](/api-reference/general/pagination): o objeto `meta` das respostas de listagem.
+- [Autenticação e segurança](/api-reference/introduction/authentication#erros-de-autenticação): os erros 401 e 403.

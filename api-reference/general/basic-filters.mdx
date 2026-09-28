@@ -1,134 +1,131 @@
 ---
-title: 'Filtros básico'
+title: 'Filtros básicos'
 icon: 'search'
-description: 'Aprenda a usar filtros simples nos endpoints da API usando query parameters'
+description: 'Parâmetros filter e sort na URL para filtrar e ordenar as listagens da API.'
+keywords: ['filtros', 'filtro básico', 'filter', 'sort', 'ordenação', 'query string', 'trashed', 'excluídos', 'search', 'invalid_filter_query', 'invalid_sort_query']
 ---
 
-<Info>
-Essa documentação é sobre filtros simples aplicados no URL, se você estiver procurando por filtros complexos, consulte a documentação de [Busca Avançada](/api-reference/general/advanced-search).
-</Info>
+Muitas listagens da API aceitam filtros e ordenação simples, enviados como parâmetros na URL. Esta página mostra como filtrar com `filter[campo]`, como ordenar com `sort` e como tratar os erros de filtro ou ordenação não permitidos.
 
-Alguns endpoints da API fornecem filtragem e ordenação simples através de parâmetros de query string. Este sistema é ideal para casos de uso básicos onde você precisa filtrar por campos específicos ou ordenar resultados.
+Para combinar filtros com operadores como "maior que" ou "contém", ou com `and` e `or`, use a [Busca avançada](/api-reference/general/advanced-search), que recebe os filtros no corpo de uma requisição `POST`.
 
-## Como Funciona
+## Filtrar pela URL
 
-O sistema de filtro simples utiliza parâmetros de query string na URL da requisição. Você pode combinar múltiplos filtros e ordenação em uma única requisição.
+Para filtrar, envie o parâmetro `filter` com o nome do campo entre colchetes. Esta requisição completa, com autenticação, lista as metas ativas:
 
-## Filtros
-
-Para aplicar filtros, use o parâmetro `filter` seguido do nome do campo entre colchetes:
-
-```http
-GET /api/endpoint?filter[campo]=valor
+```bash
+curl -g -H "Authorization: Bearer {{token_de_acesso}}" \
+  "https://api.olie.ai/api/management/goals?filter[status]=active"
 ```
 
-### Filtros Múltiplos
+A opção `-g` impede que o `curl` interprete os colchetes da URL.
 
-Você pode aplicar vários filtros simultaneamente:
-
-```http
-GET /api/endpoint?filter[name]=Mike&filter[email]=mike@example.com
-```
-
-### Tipos de Filtros
-
-Os filtros disponíveis variam por endpoint. Alguns exemplos comuns incluem:
-
-- **Filtro exato**: `filter[id]=123`
-- **Filtro por status**: `filter[status]=1`
-- **Filtros customizados**: Alguns endpoints oferecem filtros especiais através de callbacks
-
-<Info>
-Os campos disponíveis para filtragem são definidos por cada endpoint. Consulte a documentação específica do endpoint para ver quais filtros estão disponíveis.
-</Info>
-
-## Ordenação
-
-Para ordenar os resultados, use o parâmetro `sort`:
+Para aplicar vários filtros, repita o parâmetro com outros campos. A API devolve só os itens que atendem a todos os filtros:
 
 ```http
-GET /api/endpoint?sort=campo
+GET /api/management/goals?filter[status]=active&filter[title]=Vendas
 ```
 
-### Ordenação Descendente
+Os filtros aceitos e a forma de comparação variam por endpoint. Nas metas, por exemplo, `filter[title]` busca parte do título e `filter[status]` exige o valor exato. A referência de cada endpoint lista os filtros que ele aceita.
 
-Para ordenar em ordem decrescente, adicione um hífen (`-`) antes do nome do campo:
+## Ordenar os resultados
+
+Para ordenar, envie o parâmetro `sort` com o nome do campo. A ordem padrão é crescente:
 
 ```http
-GET /api/endpoint?sort=-created_at
+GET /api/management/goals?sort=title
 ```
 
-### Múltiplas Ordenações
-
-Alguns endpoints suportam múltiplas ordenações separadas por vírgula:
+Para ordem decrescente, coloque um hífen (`-`) antes do nome do campo:
 
 ```http
-GET /api/endpoint?sort=name,-created_at
+GET /api/management/goals?sort=-created_at
 ```
 
-<Info>
-Os valores possíveis para o campo de ordenação variam por endpoint. Consulte a documentação específica do endpoint para ver quais campos estão disponíveis.
-</Info>
- 
-## Filtros Especiais
-
-### Filtro de Itens Deletados
-
-Alguns endpoints suportam o filtro `trashed` para incluir itens deletados:
+Alguns endpoints aceitam várias ordenações, separadas por vírgula. A API aplica a primeira e usa as seguintes para desempatar:
 
 ```http
-GET /api/endpoint?filter[trashed]=with
+GET /api/management/goals?sort=title,-created_at
 ```
 
-Valores possíveis:
-- `with`: Inclui apenas itens deletados
-- `only`: Retorna apenas itens deletados
-- `without`: Exclui itens deletados (padrão)
+Os campos aceitos em `sort` também variam por endpoint e estão na referência de cada um.
 
-### Filtros com Callbacks
+## Incluir itens excluídos
 
-Alguns endpoints oferecem filtros avançados através de callbacks. Estes filtros podem realizar consultas mais complexas:
+Alguns endpoints aceitam o filtro `trashed`, que controla se os itens excluídos entram na listagem:
 
-<Info>
-O filtro `search` em alguns casos busca o termo em múltiplos campos (nome, email, ID) simultaneamente, para facilitar buscas.
-</Info>
+```http
+GET /api/management/goals?filter[trashed]=with
+```
+
+| Valor | Resultado |
+| --- | --- |
+| `with` | Traz os itens ativos e os excluídos. |
+| `only` | Traz só os itens excluídos. |
+| Sem o filtro | Traz só os itens ativos. |
+
+Na listagem de funis, `trashed` se refere aos funis arquivados.
+
+## Buscar por um termo
+
+Alguns endpoints aceitam o parâmetro `search`, fora de `filter`, que procura um termo em mais de um campo ao mesmo tempo. Na listagem de projetos, por exemplo, `search` procura o termo no nome e no código do projeto:
+
+```http
+GET /api/management/projects?search=CRM
+```
+
+Os campos em que `search` procura estão na referência de cada endpoint.
 
 ## Limitações
 
-O sistema de filtro simples tem algumas limitações:
+Os filtros básicos atendem consultas simples e têm três limites:
 
-- **Operadores limitados**: Geralmente suporta apenas igualdade (`=`) e alguns operadores específicos por campo
-- **Sem operadores lógicos**: Não é possível combinar filtros com `AND` ou `OR` de forma explícita
-- **Sem filtros aninhados**: Não suporta filtros em relacionamentos complexos
+- **Comparação definida pelo endpoint.** Cada filtro compara de um jeito só, exato ou parcial, e você não escolhe o operador.
+- **Só a combinação "e".** Todos os filtros precisam ser atendidos ao mesmo tempo. Não há como pedir um filtro "ou" outro.
+- **Sem filtros em relacionamentos complexos.** Filtros sobre dados ligados ao item, como respostas de formulário, ficam na busca avançada.
 
-<Tip>
-Para necessidades mais complexas de filtragem, use o sistema de [Busca Avançada](/api-reference/general/advanced-search) que oferece operadores relacionais, lógicos e filtros em relacionamentos.
-</Tip>
+Para esses casos, use a [Busca avançada](/api-reference/general/advanced-search).
 
-## Campos Disponíveis
+## Erros de filtro e ordenação
 
-Os campos disponíveis para filtragem e ordenação variam por endpoint. Para descobrir quais campos estão disponíveis:
+Filtros e ordenações fora da lista do endpoint são recusados com HTTP 400. A própria resposta de erro lista os valores aceitos.
 
-1. Consulte a documentação específica do endpoint
-2. Verifique a resposta de erro quando usar um campo inválido
-3. Alguns endpoints expõem metadados sobre campos disponíveis
+### Filtro não permitido
 
-## Tratamento de Erros
+A API responde com `message: "invalid_filter_query"` quando a URL traz um `filter[campo]` que o endpoint não aceita. O campo `allowed_filters` lista os filtros aceitos, e `unknown_filters` mostra os que foram recusados:
 
-Se você usar um campo inválido ou um valor incorreto, a API retornará um erro de validação:
- 
-```json Error
+```json
 {
   "response": false,
-  "message": "validation_error",
-  "error": "The filter field 'campo_invalido' is not allowed."
+  "message": "invalid_filter_query",
+  "error": "Requested filter(s) `owner` are not allowed. Allowed filter(s) are `title, status, type, comparison_mode, periodicity, user_id, funnel_step_id, start_date_gte, end_date_lte, trashed`.",
+  "allowed_filters": ["title", "status", "type", "comparison_mode", "periodicity", "user_id", "funnel_step_id", "start_date_gte", "end_date_lte", "trashed"],
+  "unknown_filters": ["owner"]
 }
-``` 
+```
 
-## Resumo
+Para resolver, troque o filtro recusado por um dos valores de `allowed_filters` ou remova-o da URL.
 
-- Use `filter[campo]=valor` para aplicar filtros
-- Use `sort=campo` ou `sort=-campo` para ordenação
-- Combine múltiplos filtros na mesma requisição 
-- Consulte a documentação do endpoint para campos disponíveis
-- Para filtros complexos, considere usar o sistema de [Busca Avançada](/api-reference/general/advanced-search)
+### Ordenação não permitida
+
+A API responde com `message: "invalid_sort_query"` quando o `sort` usa um campo que o endpoint não aceita. O campo `allowed_sorts` lista as ordenações aceitas, e `unknown_sorts` mostra as que foram recusadas:
+
+```json
+{
+  "response": false,
+  "message": "invalid_sort_query",
+  "error": "Requested sort(s) `cost` is not allowed. Allowed sort(s) are `credits_debited, tokens_used, latency, created_at`.",
+  "allowed_sorts": ["credits_debited", "tokens_used", "latency", "created_at"],
+  "unknown_sorts": ["cost"]
+}
+```
+
+Para resolver, use em `sort` um dos valores de `allowed_sorts`, com ou sem o hífen da ordem decrescente.
+
+## Páginas relacionadas
+
+Estas páginas complementam os filtros básicos:
+
+- [Paginação](/api-reference/general/pagination): os parâmetros `page` e `perPage`, que você pode combinar com os filtros.
+- [Busca avançada](/api-reference/general/advanced-search): filtros com operadores, `and` e `or` e ordenação no corpo de requisições `POST`.
+- [Estrutura de respostas](/api-reference/general/response-structure): o formato comum das respostas de erro.

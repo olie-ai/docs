@@ -16,17 +16,19 @@ Responder um campo do tipo **Anexo(s)** são dois passos, nunca um. O arquivo so
 </Step>
 </Steps>
 
-<Warning>
 Não existe upload junto com a resposta. Mandar um caminho de arquivo, uma URL externa ou o conteúdo em base64 como `answer` não anexa nada.
-</Warning>
 
 ## O upload
 
+O upload é uma requisição autenticada, com corpo `multipart/form-data` e **um único campo, chamado `file`**:
+
 ```bash
-POST /api/management/dynamic-forms-answers-file
+curl -X POST "https://api.olie.ai/api/management/dynamic-forms-answers-file" \
+  -H "Authorization: Bearer {{token_de_acesso}}" \
+  -F "file=@contrato-assinado.pdf"
 ```
 
-O corpo é `multipart/form-data` com **um único campo, chamado `file`**. Exige estar autenticado.
+O arquivo precisa respeitar estes limites:
 
 | Limite | Valor |
 | --- | --- |
@@ -102,30 +104,26 @@ A resposta de um campo `attachment` é sempre uma **lista** de objetos de arquiv
 Ao gravar, a plataforma **descarta os parâmetros da URL** e guarda só o endereço permanente. Na leitura, ela devolve uma URL temporária nova, também de 24 horas. Por isso a `url` que você guardar em outro sistema para de funcionar no dia seguinte — leia de novo em vez de armazenar.
 </Info>
 
-<Tip>
 Mais de um arquivo no mesmo campo exige `is_multiple: true` na definição dele. Ver [Criar e editar formulários pela API](/guides/forms/forms-api#o-campo).
-</Tip>
 
 Arquivos anexados por campo de formulário aparecem também no botão **Arquivos** do cartão. Ver [Conteúdo do projeto](/guides/content/overview).
 
 ## Quem responde de fora
 
-Quem preenche o formulário sem estar logado não alcança o endpoint acima. Existem dois caminhos, com os **mesmos limites de tamanho e extensão** e o mesmo campo `file`:
+Quem preenche o formulário sem ter entrado na plataforma não alcança o endpoint acima. Existem dois caminhos, com os **mesmos limites de tamanho e extensão** e o mesmo campo `file`:
 
 | Contexto | Endpoint | Como autentica |
 | --- | --- | --- |
 | [Publicação de formulário](/guides/forms/public-forms) | `POST /api/management/form-publications/{token}/upload-file` | O token da publicação, no caminho. Limitado a **60 requisições por minuto** |
 | [Link assinado de pivot](/api-reference/general/form-answer-pivot#o-pivot-como-link-de-resposta) | `POST /api/management/dynamic-forms/pivot-accessor/upload-file` | A assinatura do link, nos parâmetros da URL |
 
-<Warning>
-Na publicação, o upload só funciona enquanto a publicação está no ar e dentro da janela de datas. Fora disso a resposta é `403` com `message: "form_is_not_available"`.
-</Warning>
+Na publicação, o upload só funciona enquanto a publicação está no ar e dentro da janela de datas. Fora disso, a resposta é `403` com `message: "form_is_not_available"`.
 
 ## Erros comuns
 
 <AccordionGroup>
 <Accordion title="validation_errors — the file field is required" icon="triangle-exclamation">
-  O campo do `multipart` não se chama `file`, ou a requisição foi enviada como JSON. Precisa ser `multipart/form-data`.
+  O campo do `multipart` não se chama `file`, ou a requisição foi enviada como JSON. Envie como `multipart/form-data`, com o arquivo no campo `file`.
 </Accordion>
 
 <Accordion title="validation_errors — extensão recusada" icon="file-circle-xmark">
@@ -133,7 +131,7 @@ Na publicação, o upload só funciona enquanto a publicação está no ar e den
 </Accordion>
 
 <Accordion title="validation_errors — arquivo grande demais" icon="weight-hanging">
-  Acima de 97.650 KB. Vale conferir também o limite do seu próprio proxy ou gateway, que costuma ser mais baixo que o da plataforma.
+  O arquivo passa de 97.650 KB. Envie um arquivo menor. Confira também o limite do seu próprio proxy ou gateway, que costuma ser mais baixo que o da plataforma.
 </Accordion>
 
 <Accordion title="O anexo some depois de um tempo" icon="link-slash">

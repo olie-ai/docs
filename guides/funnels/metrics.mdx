@@ -30,15 +30,15 @@ No topo de cada coluna do kanban ficam as métricas daquela etapa.
 
 Cada métrica pode ser vista em três períodos: **todo o tempo**, **últimos 7 dias** e **últimos 30 dias**.
 
-<Warning>
-As métricas de tempo consideram apenas as passagens **já concluídas** — aquelas em que o projeto entrou e saiu.
+As métricas de tempo consideram apenas as passagens **já concluídas**, aquelas em que o projeto entrou e saiu. Um projeto que está parado na etapa há três meses não aparece no tempo máximo enquanto não sair.
 
-Um projeto que está parado na etapa há três meses não aparece no tempo máximo enquanto não sair. Se você está caçando gargalo, o tempo médio conta o passado; para ver o presente, olhe também há quanto tempo os cartões atuais estão ali.
-</Warning>
+Por isso, o tempo médio mostra o passado. Para encontrar um gargalo atual, olhe também há quanto tempo os cartões que estão na etapa chegaram ali.
 
 A contagem de entradas funciona de outro jeito: ela inclui todas as entradas do período, tenham elas terminado ou não.
 
 ## Lendo as métricas na prática
+
+Alguns padrões nos números ajudam a identificar o que está acontecendo na etapa.
 
 <AccordionGroup>
 <Accordion title="Tempo médio alto em uma etapa" icon="hourglass">
@@ -62,7 +62,16 @@ A contagem de entradas funciona de outro jeito: ela inclui todas as entradas do 
 
 Além da visão por etapa, o funil tem uma visão consolidada, com um período de análise que você escolhe.
 
-Ela reúne informações gerais do funil, contagens, distribuição dos projetos entre as etapas, resumo por etapa, tempo médio no funil e por etapa, uso de etiquetas e status, atividade no período e anexos.
+Ela reúne:
+
+- informações gerais do funil;
+- contagens;
+- distribuição dos projetos entre as etapas;
+- resumo por etapa;
+- tempo médio no funil e por etapa;
+- uso de etiquetas e status;
+- atividade no período;
+- anexos.
 
 <Note>
 O período de análise do funil é limitado a três meses. Para acompanhar janelas maiores, compare períodos sucessivos.

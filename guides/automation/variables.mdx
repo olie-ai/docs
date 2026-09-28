@@ -4,11 +4,9 @@ description: "Quais dados ficam disponíveis dentro de uma automação e como us
 keywords: ["variável", "variáveis", "contexto", "template", "sintaxe avançada", "query", "twig"]
 ---
 
-Vários campos de uma automação aceitam variáveis. Em vez de escrever "O projeto entrou na etapa", você escreve o nome real do projeto, o cliente, quem moveu e a data.
+Vários campos de uma automação aceitam variáveis. Com elas, em vez de um texto fixo como "O projeto entrou na etapa", a mensagem traz o nome real do projeto, o cliente, quem moveu e a data.
 
-<Info>
-Esta página trata do **que está disponível** dentro de uma automação. Para a linguagem em si — condicionais, laços, filtros — veja [Sintaxe avançada](/guides/advanced/advanced-syntax).
-</Info>
+Esta página trata do **que está disponível** dentro de uma automação. A linguagem em si, com condicionais, laços e filtros, está em [Sintaxe avançada](/guides/advanced/advanced-syntax).
 
 ## A forma básica
 
@@ -64,7 +62,7 @@ Movido por {{ user.name }} ({{ user.email }}).
 ```
 
 <Warning>
-Em automações disparadas por agendamento — projeto ocioso ou data atingida — **não existe `user`**. Proteja o texto antes de usá-lo:
+Em automações disparadas por agendamento — projeto ocioso ou data atingida — **não existe `user`**. Confira se a variável existe antes de usá-la:
 
 ```twig
 {% if user is defined %}Movido por {{ user.name }}.{% endif %}
@@ -141,13 +139,11 @@ Quando o contexto não tem o que você precisa, a função `query` busca. Ela re
 | `user_email` | `user_id` | O e-mail principal de um usuário |
 | `get_form_answers` | [`pivot`](/api-reference/general/form-answer-pivot) | As respostas de um formulário específico |
 
-<Note>
-`project_details` também aceita `id` no lugar de `project_code`. As consultas são resolvidas dentro da sua conta — não há como acessar dados de outra.
-</Note>
+`project_details` também aceita `id` no lugar de `project_code`. As consultas só leem dados da sua conta.
 
-<Warning>
-`project_medias` devolve o **conteúdo publicado no projeto** — a aba **Conteúdo**. Ela não alcança o **Caderno**, que é outro recurso. Nenhuma consulta lê páginas do Caderno; veja [Caderno em automações e integrações](/guides/notebook/automation-and-api).
-</Warning>
+<Note>
+`project_medias` devolve o **conteúdo publicado no projeto**, ou seja, a aba **Conteúdo**. Ela não alcança o **Caderno**, que é outro recurso. Nenhuma consulta lê páginas do Caderno; veja [Caderno em automações e integrações](/guides/notebook/automation-and-api).
+</Note>
 
 <Card title="A função query em detalhe" icon="magnifying-glass" href="/guides/advanced/advanced-syntax#funções-de-consulta">
   Parâmetros opcionais, encadeamento de consultas, limites e o que fazer quando a consulta não devolve nada.
@@ -200,7 +196,7 @@ Somente um conjunto conhecido de blocos, filtros e funções é permitido. Os bl
 
 ## Quando a expressão falha
 
-Um erro de expressão — variável inexistente usada de forma inválida, formato incorreto, limite estourado — faz o componente registrar `template_error` com a mensagem do problema. O que acontece depois depende da ação: a maioria registra o erro e o fluxo segue.
+Um erro de expressão faz o componente registrar `template_error` com a mensagem do problema. As causas mais comuns são uma variável inexistente usada de forma inválida, um formato incorreto ou um limite atingido. O que acontece depois depende da ação: a maioria registra o erro e o fluxo segue.
 
 <AccordionGroup>
 <Accordion title="A mensagem saiu com um pedaço vazio" icon="ghost">

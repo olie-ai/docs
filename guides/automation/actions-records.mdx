@@ -4,7 +4,7 @@ description: "Criar projetos, hierarquias, clientes e contatos e alterar os resp
 keywords: ["ação", "criar projeto", "hierarquia", "cliente", "contato", "atribuídos", "responsáveis"]
 ---
 
-As ações que criam registros novos e mexem em quem é responsável pelo trabalho.
+Esta página reúne as ações que criam registros novos e mudam quem é responsável pelo trabalho.
 
 | Ação | O que faz |
 | --- | --- |
@@ -31,9 +31,9 @@ Cria um projeto novo. O projeto criado é independente do que disparou a automa�
 
 <Tabs>
 <Tab title="A partir de um modelo">
-  Selecione um projeto marcado como modelo. O novo projeto sai com uma cópia completa do modelo: cliente, funis, etiquetas, checklists, respostas de formulário, conteúdo, fórum, grupos e responsáveis.
+  Selecione um projeto marcado como modelo. O novo projeto sai com uma cópia completa do modelo: cliente, funis, etiquetas, checklists, respostas de formulário, conteúdo, Caderno, grupos e responsáveis. Veja [o que vai junto](/guides/projects/project-templates#o-que-vai-junto) em Modelos de projeto.
 
-  Você informa apenas o nome — os outros campos vêm do modelo.
+  Você informa apenas o nome. Os outros campos vêm do modelo.
 </Tab>
 
 <Tab title="Do zero">
@@ -41,9 +41,7 @@ Cria um projeto novo. O projeto criado é independente do que disparou a automa�
 </Tab>
 </Tabs>
 
-<Note>
 O nome é cortado em 191 caracteres. Ao montar nomes com variáveis, considere esse limite antes de concatenar campos longos.
-</Note>
 
 Quando você indica uma etapa de destino, o projeto criado é vinculado a ela **ignorando restrições e bloqueios**. Se por algum motivo ele já estiver naquela etapa, a ação segue sem erro.
 
@@ -78,7 +76,7 @@ Filho número 2
 
 ## Criar cliente
 
-Cadastra um cliente e, opcionalmente, vincula ele a projetos.
+Cadastra um cliente e, se você quiser, vincula o cliente a projetos. As opções ficam organizadas em quatro grupos.
 
 | Grupo de opções | O que contém |
 | --- | --- |
@@ -102,9 +100,7 @@ O formulário desta ação é simplificado: **não há máscaras nem validaçõe
 
 Ligue **Checar se o cliente já existe** e escolha os campos de comparação entre e-mail, telefone e documento.
 
-<Note>
 **Todos** os campos escolhidos precisam coincidir para o cliente ser considerado duplicado. Marcar e-mail e telefone significa "mesmo e-mail **e** mesmo telefone", não "um ou outro".
-</Note>
 
 Encontrando um duplicado, a ação **não cria nada** e segue usando o cliente que já existia — inclusive para o vínculo com projetos. O registro de execução indica que a criação foi evitada.
 
@@ -176,9 +172,7 @@ Em **Substituir**, quem foi removido é excluído do sorteio da mesma execução
 
 Com **Usar usuário aleatório** ligado, a ação sorteia a quantidade indicada dentro da lista, em vez de aplicar a lista inteira. É o caminho para distribuir demanda entre um time.
 
-<Note>
-A quantidade sorteada precisa ser menor ou igual ao tamanho da lista. Pedindo mais usuários do que a lista tem, a ação registra erro de dados inválidos.
-</Note>
+A quantidade sorteada precisa ser menor ou igual ao tamanho da lista. Se você pedir mais usuários do que a lista tem, a ação registra erro de dados inválidos.
 
 ### Lista por expressão
 
@@ -188,7 +182,7 @@ Ligando **Usar sintaxe avançada**, a lista de usuários deixa de ser uma seleç
 {{ project.users|json }}
 ```
 
-É assim que se atribui "quem respondeu o formulário", "o responsável indicado no campo X" ou "quem disparou o gatilho". Veja [Variáveis nas automações](/guides/automation/variables).
+É assim que você atribui "quem respondeu o formulário", "o responsável indicado no campo X" ou "quem disparou o gatilho". Veja [Variáveis nas automações](/guides/automation/variables).
 
 <Warning>
 Se a expressão devolver algo que não é uma lista, devolver uma lista vazia, ou devolver itens sem identificador, a ação registra erro e nenhum responsável é alterado. O registro de execução mostra o texto gerado pela expressão — é a forma mais rápida de descobrir o que saiu errado.

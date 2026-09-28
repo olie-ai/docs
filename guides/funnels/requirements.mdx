@@ -6,11 +6,9 @@ keywords: ["checklist", "obrigatório", "formulário", "campo obrigatório", "re
 
 Restrições controlam o caminho. Checklists e formulários obrigatórios controlam a **qualidade da entrega**: eles impedem que o projeto avance enquanto o trabalho da etapa atual não estiver realmente concluído.
 
-<Info>
-A frase que a interface usa resume bem: itens obrigatórios impedem o projeto de avançar de etapa até que sejam concluídos.
-</Info>
-
 ## O que trava a saída de uma etapa
+
+Dois tipos de item obrigatório travam a saída.
 
 <CardGroup cols={2}>
 <Card title="Checklists obrigatórios" icon="list-check">
@@ -22,15 +20,13 @@ A frase que a interface usa resume bem: itens obrigatórios impedem o projeto de
 </Card>
 </CardGroup>
 
-<Warning>
-A verificação é sobre a etapa **onde o projeto está**, não sobre a etapa de destino. Você não é impedido de entrar em uma etapa por causa dos itens obrigatórios dela — é impedido de sair dela.
-</Warning>
+A verificação vale para a etapa **onde o projeto está**, e não para a etapa de destino. Os itens obrigatórios de uma etapa travam a saída dela, não a entrada.
 
-Quando algo está pendente, a movimentação é recusada com a mensagem "Informações obrigatórias não preenchidas nas etapas atuais", acompanhada da lista do que falta: a etapa, e dentro dela cada checklist e cada campo pendente pelo nome.
+Quando algo está pendente, a movimentação é recusada com a mensagem "Informações obrigatórias não preenchidas nas etapas atuais". A mensagem vem com a lista do que falta: a etapa e, dentro dela, cada checklist e cada campo pendente pelo nome.
 
 ## Checklists da etapa
 
-Você cria os checklists no botão **Checklist da etapa**, dentro da configuração da etapa.
+Você cria os checklists no botão **Checklist da etapa**, dentro da configuração da etapa. Cada item tem quatro configurações.
 
 <AccordionGroup>
 <Accordion title="Nome" icon="tag">
@@ -52,9 +48,7 @@ Você cria os checklists no botão **Checklist da etapa**, dentro da configuraç
 
 Quem executa marca os itens pelo botão **Adicionar informações** do cartão ou na aba **Funil** dos detalhes do projeto. Cada marcação e desmarcação fica registrada no histórico do projeto, com autor e data.
 
-<Note>
-O botão **Checklists do projeto** do cartão abre outra lista: os [checklists avulsos](/guides/projects/overview#checklists-avulsos), que são do projeto, não travam a etapa e aceitam prazo.
-</Note>
+O botão **Checklists do projeto** do cartão abre outra lista: os [checklists avulsos](/guides/projects/overview#checklists-avulsos). Eles pertencem ao projeto, aceitam prazo e não travam a etapa.
 
 <Tip>
 Deixe obrigatório apenas o que de fato impede o próximo passo. Uma etapa com dez itens obrigatórios costuma virar uma etapa onde as pessoas marcam tudo sem ler.
@@ -80,23 +74,15 @@ Existem dois níveis de formulário, e a diferença entre eles determina quando 
 
 ### Como a obrigatoriedade é avaliada
 
-<Steps>
-<Step title="Só contam os campos visíveis">
-  Se o formulário tem lógica condicional e um campo obrigatório está oculto porque a condição não foi satisfeita, ele não é cobrado. A plataforma avalia apenas os campos que estão de fato aparecendo para quem preenche.
-</Step>
+A plataforma segue três regras para decidir se um campo obrigatório está pendente:
 
-<Step title="Só contam os campos sem resposta">
-  Campo respondido deixa de ser pendência. Um campo de múltipla escolha sem nenhuma opção marcada continua contando como vazio.
-</Step>
-
-<Step title="A pendência é listada pelo rótulo do campo">
-  A mensagem de recusa mostra o nome do campo como ele aparece no formulário, para que a pessoa saiba exatamente onde clicar.
-</Step>
-</Steps>
+- **Só contam os campos visíveis.** Se o formulário tem lógica condicional e um campo obrigatório está oculto porque a condição não foi satisfeita, o campo não é cobrado.
+- **Só contam os campos sem resposta.** Campo respondido deixa de ser pendência. Um campo de múltipla escolha sem nenhuma opção marcada continua contando como vazio.
+- **A pendência aparece pelo rótulo do campo.** A mensagem de recusa mostra o nome do campo como ele aparece no formulário, para a pessoa saber onde clicar.
 
 ## Formulários que abrem sozinhos
 
-A etapa pode abrir formulários automaticamente quando o projeto chega, sem depender de alguém lembrar. Isso é configurado em **Mostrar formulários**, na etapa, e vale para os formulários de **Cliente** e de **Contato** — com a opção de não exibir quando o projeto já tem cliente ou contato vinculado.
+A etapa pode abrir formulários automaticamente quando o projeto chega, sem depender de alguém lembrar. Você configura isso em **Mostrar formulários**, na etapa. A opção vale para os formulários de **Cliente** e de **Contato**, e pode deixar de exibir o formulário quando o projeto já tem cliente ou contato vinculado.
 
 Veja [Etapas do funil](/guides/funnels/steps#formulários-ao-mover).
 

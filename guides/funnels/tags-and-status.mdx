@@ -4,14 +4,14 @@ description: "Classifique os projetos do funil com etiquetas e status, marque co
 keywords: ["etiqueta", "etiquetas", "status", "status do funil", "conclusivo", "data de previsão", "previsão realizada"]
 ---
 
-Etiquetas e status são as duas formas de marcar um projeto dentro de um funil. Ambas pertencem ao funil — não existem soltas na conta — e ambas são criadas na tela de edição do funil.
+Etiquetas e status do funil são as duas formas de marcar um projeto dentro de um funil. As duas pertencem ao funil, e não à conta, e são criadas na tela de edição do funil.
 
 <CardGroup cols={2}>
 <Card title="Etiqueta" icon="tags">
   Um projeto pode ter **várias** ao mesmo tempo. Serve para caracterizar: "urgente", "cliente enterprise", "aguardando terceiro".
 </Card>
 
-<Card title="Status" icon="circle-half-stroke">
+<Card title="Status do funil" icon="circle-half-stroke">
   Um projeto tem **um só** por funil. Serve para dizer em que situação ele está: "em negociação", "ganho", "perdido".
 </Card>
 </CardGroup>
@@ -34,17 +34,15 @@ O bloqueio vale nos dois sentidos: o projeto etiquetado não entra na etapa, e o
 
 ## Status do funil
 
-O status responde "como está esse projeto neste processo". Você o cria na seção **Status** do funil, com nome, cor e a opção **Conclusivo**.
+O status do funil responde "como está esse projeto neste processo". Você o cria na seção **Status** do funil, com nome, cor e a opção **Conclusivo**.
 
-<Note>
-O status do funil é diferente do status do projeto em si. Um projeto pode estar em três funis e ter um status diferente em cada um, porque o status pertence ao vínculo entre o projeto e aquele funil.
-</Note>
+O status do funil é diferente do [status do projeto](/guides/fundamentals/glossary#classificação-e-regras), que é um campo global do projeto. Um projeto pode estar em três funis e ter um status do funil diferente em cada um, porque esse status pertence ao vínculo entre o projeto e aquele funil.
 
 Ao trocar o status, a plataforma registra **quando** a troca aconteceu e **quem** a fez. Essa data fica disponível como critério de filtro e de ordenação automática das etapas.
 
 ### Status conclusivo
 
-Marcar um status como **Conclusivo** diz que, ao recebê-lo, o projeto chegou ao fim daquele processo. O efeito prático é sobre a previsão:
+Marcar um status como **Conclusivo** indica que, ao recebê-lo, o projeto chegou ao fim daquele processo. O efeito prático é sobre a previsão.
 
 <CardGroup cols={2}>
 <Card title="Ao aplicar um status conclusivo" icon="flag-checkered">
@@ -80,11 +78,13 @@ Cada vínculo entre projeto e funil tem sua própria **data de previsão** — q
 </Accordion>
 </AccordionGroup>
 
-A data de previsão também funciona como gatilho de automação: é possível disparar ações quando ela é atingida. Veja [Automações](/guides/automation/overview).
+A data de previsão também funciona como gatilho de automação: você pode disparar ações quando ela é atingida. Veja [Gatilhos](/guides/automation/triggers#data-de-projeto-atingida).
 
 ## Onde etiquetas e status são usados
 
-| Recurso | Etiqueta | Status |
+A tabela compara onde cada marca pode ser usada.
+
+| Recurso | Etiqueta | Status do funil |
 | --- | --- | --- |
 | Exibição no cartão | Sim | Sim |
 | Critério de restrição | Sim | Sim |
@@ -96,6 +96,8 @@ A data de previsão também funciona como gatilho de automação: é possível d
 | Vários por projeto | Sim | Não |
 
 ## Ao clonar ou desvincular
+
+Veja o que acontece com as etiquetas e os status nestas duas operações.
 
 - **Clonar o funil** copia todas as etiquetas, todos os status e os bloqueios de etapa configurados neles.
 - **Desvincular o projeto do funil** desfaz as etiquetas daquele funil, junto com os checklists e formulários. O histórico permanece.

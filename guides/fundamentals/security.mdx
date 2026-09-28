@@ -61,6 +61,8 @@ A separação entre empresas é independente das [permissões](/guides/users/rol
 
 ## Acesso à plataforma
 
+Há três formas de acessar a plataforma, cada uma com a própria autenticação:
+
 | Forma de acesso | Como funciona |
 | --- | --- |
 | **Usuário** | E-mail e senha, com **segundo fator (TOTP) opcional**, habilitado por cada usuário no próprio perfil |
@@ -71,9 +73,7 @@ A separação entre empresas é independente das [permissões](/guides/users/rol
 O **token de aplicação** é de nível proprietário: ele passa por qualquer verificação de permissão da plataforma e não pode ser restringido hoje. Trate-o como uma credencial de banco de dados. Para acesso com as permissões de uma pessoa, o caminho é o [MCP](/guides/mcp/overview), que herda exatamente o que aquele usuário enxerga.
 </Warning>
 
-<Note>
-**Não há login corporativo (SSO) hoje** — nem SAML, nem Entra ID, nem provedor equivalente. O controle de quem entra é feito pela [gestão de usuários](/guides/users/user-management) da empresa: o acesso depende de convite, e desabilitar um usuário encerra o acesso dele àquela empresa.
-</Note>
+**Não há login corporativo (SSO) hoje**: nem SAML, nem Entra ID, nem provedor equivalente. O controle de quem entra é feito pela [gestão de usuários](/guides/users/user-management) da empresa. O acesso depende de convite, e desabilitar um usuário encerra o acesso dele àquela empresa.
 
 ## Rastreabilidade
 
@@ -92,6 +92,8 @@ Compromissos de disponibilidade, quando existirem, constam dos [Termos de Uso](h
 </Note>
 
 ## Privacidade e LGPD
+
+Os documentos que valem para o tratamento de dados pessoais e o canal para falar com o encarregado:
 
 <CardGroup cols={3}>
 <Card title="Política de Privacidade" icon="shield" href="https://olie.ai/privacy-policy">

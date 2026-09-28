@@ -4,7 +4,7 @@ description: "A exceção anexada a um projeto, o histórico de respostas para p
 keywords: ["formulário avulso", "versão", "histórico de respostas", "contador", "ciclo", "recorrente", "retrabalho"]
 ---
 
-Três recursos que resolvem casos que o formulário fixo do funil ou da etapa não cobre.
+Esta página cobre três recursos para casos que o formulário do funil e o formulário da etapa não cobrem: o formulário avulso, as versões do formulário e o campo contador.
 
 ## Formulário avulso
 
@@ -24,9 +24,7 @@ Um **formulário avulso** é anexado a um projeto específico, fora do funil e d
 Um projeto pode ter o **mesmo formulário avulso anexado várias vezes** — não há impedimento. Na ação de automação, a opção **Ignorar se já houver esse formulário** existe exatamente por isso: sem ela, cada execução anexa mais uma cópia. Combinada com um gatilho de alto volume, ela enche o projeto de formulários repetidos em pouco tempo.
 </Warning>
 
-<Note>
 Quando o mesmo formulário está anexado mais de uma vez, a ação **Alterar campo de data** usa o **primeiro**, por ordem de criação.
-</Note>
 
 ### O padrão do link avulso
 
@@ -52,9 +50,7 @@ Salvar uma **versão** congela as respostas atuais no histórico. Opcionalmente,
 A opção de **limpar os campos** é o que torna o recurso útil em processos cíclicos. Um funil recorrente — uma rotina semanal, um fechamento mensal — preenche o formulário, guarda a versão e devolve o formulário em branco para o próximo ciclo, sem perder o histórico.
 </Tip>
 
-<Note>
 Salvar versão não tem efeito quando o formulário não está disponível no projeto ou quando ele nunca foi respondido.
-</Note>
 
 ## Contador
 
@@ -70,22 +66,18 @@ Um contador nunca preenchido é tratado como zero.
 
 ### Para que serve
 
-O uso que mais aparece é **medir retrabalho**: quantas vezes o item voltou para correção, quantas vezes a proposta foi reprovada, quantas vezes o cartão entrou no mesmo laço.
+O uso que mais aparece é **medir retrabalho**: quantas vezes o item voltou para correção, quantas vezes a proposta foi reprovada, quantas vezes o projeto entrou no mesmo laço.
 
-<Tip>
-O valor do contador pode alimentar uma [meta manual](/guides/goals/automation) por automação — o caminho para transformar "esse time retrabalha muito" em um número acompanhado ao longo do tempo.
-</Tip>
+O valor do contador também pode alimentar uma [meta manual](/guides/goals/automation) por automação. Assim, "esse time retrabalha muito" vira um número acompanhado ao longo do tempo.
 
 <Warning>
-Duas armadilhas:
+A ação **Atualizar contador** tem dois comportamentos a considerar:
 
 - O contador precisa estar em um formulário **disponível no projeto no momento da execução**. Se o campo existe no cadastro mas nenhum formulário do projeto o contém, a ação não faz nada.
 - Se o **mesmo contador** aparecer em formulários diferentes dentro do projeto, **todos** são atualizados.
 </Warning>
 
-<Note>
-Não confunda com o **contador de alterações da data de previsão**, que é automático e conta reprogramações. Ver [Etiquetas, status e previsão](/guides/funnels/tags-and-status).
-</Note>
+O campo contador é diferente do **contador de alterações da data de previsão**, que é automático e conta reprogramações. Ver [Etiquetas, status e previsão](/guides/funnels/tags-and-status).
 
 ## Exportar
 

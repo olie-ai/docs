@@ -4,13 +4,13 @@ description: "Os oito eventos que podem iniciar uma automação e como configura
 keywords: ["gatilho", "evento", "disparo", "etapa", "etiqueta", "formulário", "data", "ocioso", "execução", "conteúdo", "canal"]
 ---
 
-O gatilho é o evento que aciona a automação. Toda automação tem **exatamente um** e ele é obrigatório: sem gatilho, o editor não deixa adicionar ações nem condições.
+O gatilho é o evento que aciona a automação. Toda automação tem **exatamente um** e ele é obrigatório: sem gatilho, o editor não deixa adicionar ações nem condições. Esta página descreve os oito gatilhos e as opções de cada um.
 
-<Info>
-Os gatilhos disponíveis dependem de onde você cria a automação. Pela área **Automações** você tem todos. Pela etapa do funil, apenas os que envolvem aquela etapa. Veja [Onde criar automações](/guides/automation/overview#onde-criar-automações).
-</Info>
+Os gatilhos disponíveis dependem de onde você cria a automação. Pela área **Automações**, você tem todos. Pela etapa do funil, só os que envolvem aquela etapa. Veja [Onde criar automações](/guides/automation/overview#onde-criar-automações).
 
 ## Visão geral
+
+A tabela resume o evento que aciona cada gatilho e de onde o disparo costuma vir.
 
 | Gatilho | Dispara quando | Origem do disparo |
 | --- | --- | --- |
@@ -38,11 +38,15 @@ Sem **Vindo da etapa**, o gatilho aciona não importa de onde o projeto veio —
 Entrar em uma etapa é diferente de sair dela. Este gatilho olha para o destino, nunca para a origem. Não existe gatilho de "saiu da etapa" — para reagir à saída, use o gatilho de entrada na etapa seguinte.
 </Warning>
 
-O gatilho não dispara quando o projeto já estava na etapa, quando veio de uma etapa diferente da configurada em **Vindo da etapa**, ou quando entrou em uma etapa de mesmo nome em **outro funil**. Etapa é sempre um registro específico de um funil específico.
+O gatilho não dispara quando o projeto:
+
+- já estava na etapa;
+- veio de uma etapa diferente da configurada em **Vindo da etapa**;
+- entrou em uma etapa de mesmo nome em **outro funil**. Etapa é sempre um registro específico de um funil específico.
 
 ## Projeto ocioso em etapa
 
-Aciona quando um projeto fica parado em uma etapa por mais tempo do que você tolera. É o gatilho de cobrança automática: "esse card está há cinco dias sem sair daqui".
+Aciona quando um projeto fica parado em uma etapa por mais tempo do que você tolera. É o gatilho de cobrança automática: "esse projeto está há cinco dias sem sair daqui".
 
 | Opção | Obrigatória | O que faz |
 | --- | --- | --- |
@@ -50,21 +54,21 @@ Aciona quando um projeto fica parado em uma etapa por mais tempo do que você to
 | Tempo ocioso para disparar | Sim | Um número e uma unidade: minutos, horas, dias ou meses |
 | Repetir recorrentemente | Não | Aciona a cada intervalo em vez de uma única vez |
 
-A contagem começa no momento em que o projeto entrou na etapa. Com **Repetir recorrentemente** desligado, o gatilho aciona **uma única vez** por projeto naquela etapa. Ligado, aciona **a cada intervalo** enquanto o projeto continuar parado ali — a cada 5 dias, indefinidamente, até o projeto sair.
+A contagem começa quando o projeto entra na etapa. Com **Repetir recorrentemente** desligado, o gatilho aciona **uma única vez** por projeto naquela etapa. Ligado, aciona **a cada intervalo** enquanto o projeto continuar parado ali — a cada 5 dias, indefinidamente, até o projeto sair.
+
+A verificação roda a cada minuto, então o disparo acontece perto do tempo configurado, não no segundo exato.
+
+O gatilho também vale para os projetos que já estão parados na etapa quando você salva a automação:
 
 <Warning>
-Ao salvar, a automação roda **imediatamente para todos os projetos que já se encaixam na regra**. Se a etapa tem 300 cards parados há mais tempo que o configurado, os 300 disparam de uma vez.
+Ao salvar, a automação roda **imediatamente para todos os projetos que já se encaixam na regra**. Se a etapa tem 300 projetos parados há mais tempo que o configurado, os 300 disparam de uma vez.
 
-Monte com calma e revise antes de salvar, principalmente se a ação for irreversível ou envolver envio de e-mail.
+Revise antes de salvar, principalmente se a ação for irreversível ou envolver envio de e-mail.
 </Warning>
-
-<Note>
-A verificação roda a cada minuto, então o disparo acontece perto do tempo configurado, não no segundo exato.
-</Note>
 
 ## Campo do projeto alterado
 
-Aciona quando um campo específico do projeto muda de valor. É um campo por gatilho.
+Aciona quando um campo específico do projeto muda de valor. É um campo por gatilho, escolhido entre os campos abaixo.
 
 | Campo monitorado | Observação |
 | --- | --- |
@@ -102,12 +106,10 @@ Aciona quando um formulário dinâmico é respondido no projeto, seja no corpo d
 
 Sem restrição de campos, o gatilho aciona sempre que o formulário for respondido. Com restrição:
 
-- **Apenas um campo é suficiente, ligado:** basta **um** dos campos escolhidos ter mudado.
-- **Desligado:** **todos** os campos escolhidos precisam ter mudado na mesma submissão.
+- **Apenas um campo respondido é suficiente, ligado:** o gatilho aciona quando **um** dos campos escolhidos muda.
+- **Desligado:** **todos** os campos escolhidos precisam mudar na mesma submissão.
 
-<Warning>
-Um campo só conta se o valor **mudou** em relação à última resposta. Reenviar o mesmo formulário com os mesmos valores não aciona o gatilho quando há restrição de campos.
-</Warning>
+Com restrição de campos, um campo só conta se o valor **mudou** em relação à última resposta. Reenviar o mesmo formulário com os mesmos valores não aciona o gatilho.
 
 <Note>
 Este é o gatilho com maior potencial de volume: cada salvamento de formulário é uma possível execução. Se a coluna **Execuções** da sua automação está crescendo rápido, ele costuma ser o motivo.
@@ -137,7 +139,7 @@ Em **Usar tempo relativo** você escolhe entre os intervalos prontos ou usa **Te
 </Accordion>
 
 <Accordion title="Datas no passado não são agendadas" icon="clock-rotate-left">
-  Se o momento calculado já passou, nada é agendado. Uma data de ontem com tempo relativo de "2 dias antes" simplesmente não dispara.
+  Se o momento calculado já passou, nada é agendado. Uma data de ontem com tempo relativo de "2 dias antes" não dispara.
 </Accordion>
 
 <Accordion title="Salvar a automação reagenda o que está no futuro" icon="rotate">
@@ -156,7 +158,7 @@ Aciona quando uma execução de tempo — o play/pause que registra quanto tempo
 | Opção | Obrigatória | O que faz |
 | --- | --- | --- |
 | Evento | Sim | **Iniciar**, **Finalizar** ou **Ambos** |
-| Etapa relacionada | Sim | A etapa em que a execução acontece; aceita mais de uma |
+| Etapa relacionada | Sim, sem **Qualquer etapa** | A etapa em que a execução acontece; aceita mais de uma |
 | Qualquer etapa | Não | Aciona independentemente da etapa e desabilita a seleção acima |
 
 <Tip>
@@ -175,6 +177,8 @@ Aciona quando alguém publica um registro no [conteúdo do projeto](/guides/cont
 
 ### Onde o conteúdo chegou
 
+Esta opção define em que parte do conteúdo do projeto a publicação precisa aparecer.
+
 | Opção | O que entra |
 | --- | --- |
 | **Qualquer lugar** | Canal principal, canais internos e linhas externas |
@@ -186,23 +190,25 @@ Com **Linha externa** selecionada, aparece o campo **Integração**. Deixá-lo e
 
 ### Quem enviou
 
+Esta opção filtra pela autoria da publicação.
+
 | Opção | O que entra |
 | --- | --- |
 | **Qualquer pessoa** | Tanto o que chega de fora quanto o que a equipe escreve |
 | **Quem está do outro lado** | Só o que chega de fora pela integração |
 | **Alguém da equipe** | Só o que sai do seu lado, escrito na Olie ou respondido pelo celular na mesma conta |
 
-<Note>
-Mensagens seguidas viram **um acionamento só**. Cada mensagem nova na mesma conversa reinicia a espera: o gatilho dispara depois de cerca de **20 segundos sem mensagem nova** e entrega a sequência inteira — até 20 mensagens — para a automação, em vez de rodar uma vez por mensagem. É o que impede que um cliente mandando cinco linhas seguidas dispare cinco vezes a mesma resposta automática.
-</Note>
+A combinação mais útil é **Linha externa** + **Quem está do outro lado**: aciona só quando o cliente responde, ignorando tudo o que a própria equipe publica. É a base de regras como "cliente respondeu, tire o projeto de Aguardando retorno" ou "cliente respondeu fora do horário, avise o plantão".
+
+### Mensagens seguidas
+
+Mensagens seguidas viram **um acionamento só**, em vez de uma execução por mensagem. Cada mensagem nova na mesma conversa reinicia a espera. O gatilho dispara depois de cerca de **20 segundos sem mensagem nova** e entrega a sequência inteira, até 20 mensagens, para a automação. Assim, um cliente que manda cinco linhas seguidas não recebe cinco vezes a mesma resposta automática.
+
+Conteúdo publicado pela própria automação segue outra regra:
 
 <Warning>
 Conteúdo publicado por uma automação — pela ação [Envia conteúdo do projeto](/guides/automation/actions-integrations#envia-conteúdo-do-projeto), por exemplo — **não aciona** este gatilho. Isso evita que uma automação responda a si mesma sem parar; em troca, automações não se encadeiam por conteúdo.
 </Warning>
-
-<Tip>
-A combinação mais útil é **Linha externa** + **Quem está do outro lado**: aciona só quando o cliente responde, ignorando tudo o que a própria equipe publica. É a base de regras como "cliente respondeu, tire o projeto de Aguardando retorno" ou "cliente respondeu fora do horário, avise o plantão".
-</Tip>
 
 ## Por onde continuar
 

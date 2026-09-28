@@ -6,11 +6,11 @@ keywords: ["formulário público", "publicação", "link público", "embed", "ca
 
 Uma **publicação de formulário** é um formulário disponível em um link aberto, que qualquer pessoa responde sem ter conta na plataforma. É a porta de entrada para quem está fora: cliente, candidato, fornecedor.
 
-O que torna o recurso útil não é o link em si — é que a resposta pode **criar um projeto já vinculado à etapa certa**, com o processo inteiro rodando a partir dali.
+Além de coletar a resposta, a publicação pode **criar um projeto já vinculado à etapa certa**. A partir dali, o processo inteiro roda para esse projeto.
 
 ## Criar uma publicação
 
-Em **Ajustes → Formulários → Publicações de formulários**.
+Você cria a publicação em **Ajustes → Formulários → Publicações de formulários**, nestes passos:
 
 <Steps>
 <Step title="Identifique a publicação">
@@ -19,6 +19,8 @@ Em **Ajustes → Formulários → Publicações de formulários**.
 
 <Step title="Escolha o formulário">
   Qualquer formulário já criado. Ver [Criar um formulário](/guides/forms/creating-forms).
+
+  Campos dos tipos **Usuário**, **Contato**, **Cliente**, **Projeto** e **Contador** não funcionam em publicação de formulário, porque quem responde de fora não tem acesso aos registros da conta.
 </Step>
 
 <Step title="Defina a janela de publicação">
@@ -53,9 +55,7 @@ Este é o bloco que transforma o formulário em entrada de processo. Ative **Ati
 Nomear o projeto por um campo da resposta é o que evita uma coluna cheia de itens chamados "Nova solicitação". Escolha um campo que a pessoa sempre preenche — nome, empresa, assunto.
 </Tip>
 
-<Warning>
-Como quem responde não está autenticado, o campo **Criado por** do projeto fica vazio. Se você precisa saber quem pediu, inclua isso como **campo do formulário**.
-</Warning>
+Como quem responde não está autenticado, o campo **Criado por** do projeto fica vazio. Se você precisa saber quem pediu, inclua essa pergunta como **campo do formulário**.
 
 ## Incorporar em uma página
 
@@ -73,7 +73,7 @@ Os dois publicam um formulário, mas resolvem problemas diferentes:
 
 <CardGroup cols={2}>
 <Card title="Publicação de formulário" icon="globe">
-  Para quem está **fora** da plataforma. Link aberto, sem login.
+  Para quem está **fora** da plataforma. Link aberto, sem conta na plataforma.
 </Card>
 
 <Card title="Solicitação" icon="inbox" href="/guides/forms/requests">

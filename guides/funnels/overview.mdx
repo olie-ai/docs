@@ -7,10 +7,12 @@ keywords: ["funil", "funis", "etapa", "etapas", "kanban", "fluxo", "processo", "
 Um funil é o desenho de um processo da sua operação. Você define por quais etapas o trabalho passa, em que ordem, e o que precisa acontecer em cada uma delas. Os projetos entram no funil, caminham pelas etapas e saem quando o processo termina.
 
 <Info>
-Se você já usou um quadro kanban, a ideia inicial é familiar: colunas e cartões. A diferença é que aqui cada etapa também carrega regras — o que é obrigatório preencher, de onde o projeto pode vir, para onde pode ir e o que acontece automaticamente quando ele chega.
+Se você já usou um quadro kanban, a ideia inicial é familiar: colunas e cartões. Na Olie, cada etapa também carrega regras: o que é obrigatório preencher, de onde o projeto pode vir, para onde pode ir e o que acontece automaticamente quando ele chega.
 </Info>
 
 ## A anatomia de um funil
+
+No quadro, o funil aparece em três peças.
 
 <CardGroup cols={3}>
 <Card title="Funil" icon="filter">
@@ -18,15 +20,15 @@ Se você já usou um quadro kanban, a ideia inicial é familiar: colunas e cart�
 </Card>
 
 <Card title="Etapa" icon="columns-3">
-  Cada fase do processo. É a coluna do quadro e o lugar onde ficam as regras, os checklists e os formulários.
+  Cada passo do processo. É a coluna do quadro e o lugar onde ficam as regras, os checklists e os formulários.
 </Card>
 
 <Card title="Cartão" icon="rectangle-list">
-  Um projeto posicionado em uma etapa. É o que você arrasta de uma coluna para outra.
+  A representação de um projeto no quadro, dentro da coluna da etapa em que ele está. É o que você arrasta de uma coluna para outra.
 </Card>
 </CardGroup>
 
-Um projeto pode estar em mais de um funil ao mesmo tempo. Cada vínculo é independente: o projeto tem uma posição, um status e uma data de previsão **por funil**.
+Um projeto pode estar em mais de um funil ao mesmo tempo. Cada vínculo é independente: o projeto tem uma etapa, um status do funil e uma data de previsão **por funil**.
 
 ## O funil define como você chama as coisas
 
@@ -48,6 +50,8 @@ Esta documentação usa a palavra **projeto** o tempo todo, porque é o termo pa
 </Note>
 
 ## O que um funil controla
+
+Cada funil reúne as configurações abaixo, e cada uma tem um guia próprio.
 
 <AccordionGroup>
 <Accordion title="Etapas e o caminho entre elas" icon="arrow-right-arrow-left">
@@ -95,13 +99,15 @@ Esta documentação usa a palavra **projeto** o tempo todo, porque é o termo pa
 
 ## Onde os funis aparecem
 
+Você encontra os funis em três lugares da plataforma.
+
 <Tabs>
 <Tab title="Kanban">
   A visão principal, em **Funil**. Você escolhe a área de negócio e o funil, e o quadro mostra as etapas como colunas com os cartões dentro. É onde o dia a dia acontece: arrastar, abrir o cartão, preencher formulário, trocar status.
 </Tab>
 
 <Tab title="Lista de funis">
-  Em **Funis** você vê todos os funis da conta com ID, nome, quantidade de etapas, quantidade de projetos, área de negócio e acesso. É de onde se cria, edita, clona e arquiva.
+  Em **Funis** você vê todos os funis da conta com ID, nome, quantidade de etapas, quantidade de projetos, área de negócio e acesso. É dali que você cria, edita, clona e arquiva os funis.
 </Tab>
 
 <Tab title="Áreas de negócio">

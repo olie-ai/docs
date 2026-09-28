@@ -1,85 +1,73 @@
 ---
 title: 'Detalhes'
 icon: 'info-circle'
-description: 'Informações essenciais sobre a configuração e comportamento da API para facilitar sua integração.'
+description: 'URL base, formato das respostas e limite de requisições por minuto da API da Olie.'
+keywords: ['url base', 'base url', 'rate limit', 'limite de requisições', '429', 'X-RateLimit-Limit', 'X-RateLimit-Remaining', 'Retry-After', 'json', 'utf-8']
 ---
 
-# Base URL
+Esta página reúne as regras que valem para todas as requisições à API: a URL base, o formato das respostas e o limite de requisições por minuto.
 
-A URL base para todas as requisições da API é:
+## URL base
+
+Todos os endpoints da API começam com esta URL base:
 
 ```bash
 https://api.olie.ai/api/
 ```
 
-<Tip>
-Todas as requisições devem ser feitas utilizando essa URL base. Todos os endpoints da API começam com esta URL.
-</Tip>
+Por exemplo, a listagem de projetos fica em `https://api.olie.ai/api/management/projects`.
 
-# Formato de resposta
+## Formato de resposta
 
-A API retorna todas as respostas no formato **JSON** com codificação **UTF-8**. Certifique-se de que sua aplicação esteja configurada para processar corretamente esse formato.
+A API retorna todas as respostas em **JSON**, com codificação **UTF-8**. Configure a sua integração para ler esse formato.
 
-<Info>
-As respostas seguem uma estrutura padronizada para facilitar o tratamento dos dados. Para mais detalhes sobre como interpretar as respostas, consulte a [documentação de estrutura de respostas](/api-reference/general/response-structure).
-</Info>
+As respostas seguem uma estrutura padronizada, descrita em [Estrutura de respostas](/api-reference/general/response-structure).
 
-# Rate limit
+## Limite de requisições
 
 O limite padrão é de **160 requisições por minuto**.
 
-A contagem é feita **por identidade autenticada**: cada usuário tem o seu contador e cada aplicação tem o seu. Requisições sem autenticação são contadas por **endereço IP**.
+A API conta as requisições **por identidade autenticada**: cada usuário tem o seu contador, e cada aplicação tem o seu. Requisições sem autenticação são contadas por **endereço IP**.
 
-<Warning>
-O limite **não** é por empresa. Duas aplicações da mesma empresa têm 160 requisições por minuto cada uma, independentes entre si. Consumir o limite de uma não afeta a outra.
-</Warning>
+O limite **não** é por empresa. Duas aplicações da mesma empresa têm 160 requisições por minuto cada uma, e consumir o limite de uma não afeta a outra.
 
-## Teto elevado por empresa
+### Limite maior para uma empresa
 
-O teto de 160 req/min pode ser elevado para uma empresa específica. Esse ajuste só é reconhecido quando a requisição chega com o header `Origin` apontando para o subdomínio da empresa.
+O limite de 160 requisições por minuto pode ser aumentado para uma empresa específica. A API só reconhece esse aumento quando a requisição chega com o cabeçalho `Origin` apontando para o subdomínio da empresa. Uma alteração no limite de uma empresa leva até 5 minutos para passar a valer.
 
-Integrações servidor-a-servidor normalmente não enviam `Origin`. Nesse caso a requisição **fica no teto padrão de 160 req/min**, mesmo que a empresa tenha um teto maior configurado.
+Integrações servidor a servidor normalmente não enviam `Origin`. Nesse caso, a requisição **fica no limite padrão de 160 requisições por minuto**, mesmo que a empresa tenha um limite maior configurado.
 
-<Info>
-O valor efetivamente aplicado à requisição sempre aparece no header `X-RateLimit-Limit` da resposta. Use esse header como fonte da verdade, em vez de assumir 160.
-</Info>
+O limite aplicado a cada requisição aparece no cabeçalho `X-RateLimit-Limit` da resposta. Use esse cabeçalho como referência, em vez de assumir 160.
 
-<Tip>
-Uma alteração no teto de uma empresa fica em cache por até 5 minutos antes de passar a valer.
-</Tip>
+### Limites por tipo de rota
 
-## Limites por tipo de rota
+Nem toda rota usa o mesmo contador. A tabela mostra o limite de cada contexto e o que identifica quem faz a requisição:
 
-Nem toda rota usa o mesmo balde de contagem:
-
-| Contexto | Limite | Contado por |
+| Contexto | Limite por minuto | Contado por |
 | --- | --- | --- |
-| API (`https://api.olie.ai/api/...`) | 160/min (padrão) | usuário ou aplicação; IP quando não autenticado |
-| MCP (`/mcp/...`) | 160/min | usuário; IP nas rotas públicas de descoberta |
-| Webhook de entrada de canal | 120/min | token do webhook |
-| Formulário público | 60/min | usuário ou IP |
-| Login | 8/min | usuário ou IP |
+| API (`https://api.olie.ai/api/...`) | 160 (padrão) | usuário ou aplicação; IP quando não autenticado |
+| MCP (`/mcp/...`) | 160 | usuário; IP nas rotas públicas de descoberta |
+| Webhook de entrada de canal | 120 | token do webhook |
+| Formulário público | 60 | usuário ou IP |
+| Login | 8 | usuário ou IP |
 
-<Info>
-O MCP tem um limitador próprio. Ele **não divide balde** com a API: consumir o limite do MCP não reduz as requisições disponíveis na API, e vice-versa. Veja [MCP](/guides/mcp/overview).
-</Info>
+O MCP tem um contador próprio, separado do da API: consumir o limite do MCP não reduz as requisições disponíveis na API, e vice-versa. Veja [MCP](/guides/mcp/overview).
 
-## Headers de rate limit
+### Cabeçalhos de limite
 
-Todas as respostas bem sucedidas da API incluem headers informativos sobre o rate limit:
+As respostas de sucesso da API trazem dois cabeçalhos sobre o limite:
 
-- `X-RateLimit-Limit`: Indica o número máximo de requisições permitidas por minuto para aquela requisição
-- `X-RateLimit-Remaining`: Indica quantas requisições ainda estão disponíveis no período atual
-- `Retry-After`: Quando o limite é excedido, este header indica quantos segundos você deve aguardar antes de fazer uma nova requisição
+- `X-RateLimit-Limit`: o número máximo de requisições por minuto aplicado àquela requisição.
+- `X-RateLimit-Remaining`: quantas requisições ainda restam no minuto atual.
 
-<Info>
-Monitore os headers `X-RateLimit-Remaining` para evitar exceder o limite e garantir o funcionamento contínuo da sua aplicação.
-</Info>
+Acompanhe o `X-RateLimit-Remaining` para reduzir o ritmo antes de chegar a zero.
+
+### Quando o limite é excedido
+
+Se a integração passar do limite, a API responde com HTTP **429** (Too Many Requests). A resposta traz o cabeçalho `Retry-After`, com quantos segundos esperar antes de uma nova requisição. Aguarde esse tempo e repita a requisição.
 
 <Warning>
-Exceder o limite de taxa resultará em respostas com status HTTP 429 (Too Many Requests). O uso abusivo ou repetido de exceder os limites pode resultar em bloqueio temporário ou suspensão permanente da sua chave de API.
+Exceder o limite de forma abusiva ou repetida pode levar ao bloqueio temporário ou à suspensão permanente do token.
 </Warning>
 
-<Tip>
-Para aplicações que precisam fazer muitas requisições, considere implementar cache ou agrupar múltiplas operações em uma única requisição quando possível.
-</Tip>
+Se a integração precisa de muitas requisições, guarde em cache os dados que não mudam com frequência. Para alterar vários registros de uma vez, use as [operações em lote](/api-reference/general/bulk-operations).

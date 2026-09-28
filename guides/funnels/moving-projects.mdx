@@ -4,7 +4,7 @@ description: "Vincule projetos ao funil, mova entre etapas e entenda cada verifi
 keywords: ["mover", "movimentação", "arrastar", "vincular", "desvincular", "avançar etapa", "kanban"]
 ---
 
-Mover um cartão parece simples, e na maior parte das vezes é: você arrasta e pronto. Mas por trás de cada movimentação a plataforma faz uma sequência de verificações. Entender essa sequência é o que permite ler as mensagens de recusa e saber exatamente o que ajustar.
+Na maior parte das vezes, mover um projeto é arrastar o cartão para outra coluna. A cada movimentação, a plataforma faz uma sequência de verificações antes de aceitar a mudança. Conhecer essa sequência ajuda você a ler as mensagens de recusa e saber o que ajustar.
 
 ## Antes de tudo: vincular ao funil
 
@@ -24,6 +24,8 @@ Um projeto pode estar em vários funis ao mesmo tempo, e cada funil guarda sua p
 
 ## Formas de mover
 
+Você pode mover um projeto de quatro formas.
+
 <Tabs>
 <Tab title="Arrastando">
   O jeito mais comum. Arraste o cartão de uma coluna para outra no kanban.
@@ -36,14 +38,12 @@ Um projeto pode estar em vários funis ao mesmo tempo, e cada funil guarda sua p
 </Tab>
 
 <Tab title="Em massa">
-  Selecione vários cartões de uma etapa e mova todos de uma vez. Itens que já estão no destino são ignorados em vez de interromper a operação inteira.
+  Selecione vários cartões de uma etapa e mova todos de uma vez. Itens que já estão no destino são ignorados, sem interromper a operação inteira.
 
-  <Note>
-  Cada item ainda passa individualmente por todas as verificações. Um lote pode mover uns e recusar outros.
-  </Note>
+  Cada item passa individualmente por todas as verificações, então um lote pode mover uns e recusar outros.
 
   <Info>
-  Você faz **uma operação em massa por vez**. Enquanto um lote seu ainda está sendo processado — mover cartões selecionados, editar em massa ou adicionar conteúdo em vários projetos —, iniciar outro mostra o aviso **Já existe uma operação em massa em andamento, aguarde para fazer outra.** A trava vale só para você: os colegas continuam trabalhando normalmente.
+  Você faz **uma operação em massa por vez**: mover cartões selecionados, editar em massa ou adicionar conteúdo em vários projetos. Se você iniciar outra enquanto um lote seu ainda está sendo processado, a tela mostra o aviso **Já existe uma operação em massa em andamento, aguarde para fazer outra.** A trava vale só para você: os colegas continuam trabalhando normalmente.
   </Info>
 </Tab>
 
@@ -92,6 +92,8 @@ A ordem importa: a primeira verificação que falhar interrompe a movimentação
 
 ## Mensagens de recusa e o que fazer
 
+Quando uma verificação falha, a movimentação é recusada com uma das mensagens abaixo.
+
 | Mensagem | Causa | O que fazer |
 | --- | --- | --- |
 | O funil não está ativo | O funil está inativo | Reative o funil ou verifique o limite do plano |
@@ -104,20 +106,22 @@ A ordem importa: a primeira verificação que falhar interrompe a movimentação
 | Já existe uma operação em massa em andamento | Outro lote seu ainda está sendo processado | Aguarde o primeiro terminar e tente de novo |
 
 <Tip>
-As mensagens de restrição e de itens obrigatórios listam exatamente o que faltou — qual etapa, qual checklist, qual campo. Leia a lista antes de mexer na configuração do funil: quase sempre o ajuste é no projeto, não na regra.
+As mensagens de restrição e de itens obrigatórios listam exatamente o que faltou — qual etapa, qual checklist, qual campo. Leia a lista antes de mexer na configuração do funil. Quase sempre o ajuste é no projeto, e não na regra.
 </Tip>
 
 ## Múltiplas etapas ao mesmo tempo
 
 Quando o funil tem **Múltiplas etapas** ativado, mover o projeto para uma nova etapa não o tira da anterior: ele passa a ocupar as duas. O histórico registra isso como início de etapa simultânea, e não como movimentação.
 
-Para tirá-lo de uma etapa específica, use a desvinculação da etapa.
+Para tirar o projeto de uma etapa específica, [desvincule-o da etapa](#desvincular).
 
 <Warning>
 Se o projeto estiver vinculado a apenas uma etapa, ele não pode ser desvinculado dela. Nesse caso, mova-o para outra etapa ou desvincule-o do funil inteiro.
 </Warning>
 
 ## Desvincular
+
+Existem dois tipos de desvinculação, com efeitos diferentes.
 
 <AccordionGroup>
 <Accordion title="Desvincular de uma etapa" icon="location-dot-slash">
@@ -140,7 +144,7 @@ Toda entrada e saída de etapa é gravada com data, hora e o usuário responsáv
 - O **histórico do projeto**, que mostra quem moveu o quê e quando.
 - As **métricas de etapa**, que calculam tempo de permanência e contagem de entradas. Veja [Métricas](/guides/funnels/metrics).
 
-## Ignorando as regras propositalmente
+## Ignorar as regras para testar fluxos
 
 Existe um modo de administração que ignora restrições, bloqueios, validações de transição e a confirmação de vínculo ao funil. Ele existe para testar fluxos recém-configurados sem precisar montar um caso real.
 

@@ -1,70 +1,64 @@
 ---
 title: "Mencionar usuários com automação"
-description: "Faça menções automáticas para usuários utilizando variáveis do sistema"
+description: "Mencione usuários nas mensagens de uma automação com o filtro mention ou montando o formato da menção"
+keywords: ["menção", "mencionar", "arroba", "mention", "mencionar usuário", "variáveis", "sintaxe avançada"]
 ---
 
-É possível mencionar usuários automaticamente utilizando as variáveis fornecidas pelo sistema.
+Uma automação pode mencionar usuários nas mensagens que escreve, como na ação [Envia conteúdo do projeto](/guides/automation/actions-integrations#envia-conteúdo-do-projeto). A menção é gerada a partir das [variáveis](/guides/automation/variables) da automação, de dois jeitos: com o filtro `mention`, que é o caminho mais simples, ou montando o formato da menção à mão.
 
-## Estrutura da menção
+## Usar o filtro mention
 
-Internamente, o sistema reconhece menções no seguinte formato:
+O filtro `mention` gera a menção no formato correto, sem que você precise montá-lo. Ele funciona com um objeto que contenha o ID de um usuário ou com uma lista de usuários que tenham o ID.
 
-```html
-<u@00000000-0000-0000-0000-000000000000:Nome>
-```
-
-Esse formato é composto por:
-
-- **`<u@`**: Prefixo que indica uma menção de usuário
-- **ID do usuário**: Sequência única de identificação (representada acima por zeros)
-- **`:`**: Separador entre o ID e o nome
-- **Nome do usuário**: Texto exibido na menção
-
-Seguindo essa estrutura, é possível criar menções manualmente utilizando a **sintaxe avançada**.
-
-## Uso direto na sintaxe
-
-Além da montagem manual, a menção pode ser gerada de forma simplificada quando houver acesso a um objeto que contenha o ID de um usuário ou lista de usuários onde os IDs estão presentes. Para isso, utiliza-se o filtro `mention`:
-
-```twig
-{{ user|mention }}
-```
-
-Esse filtro gera automaticamente o formato correto de menção, dispensando a necessidade de construir a tag manualmente.
-
-
-
-<Warning>
-Sempre verifique se a variável do usuário existe antes de usar o filtro `mention` para evitar erros.
-</Warning>
-
-<Tabs>
-<Tab title="Construção manual">
-```twig
-<u@{{ user.id }}:{{ user.name }}>
-```
-
-**Exemplo:**
-```twig
-Olá <u@{{ user.id }}:{{ user.name }}>, você foi designado para esta tarefa.
-```
-</Tab>
-
-<Tab title="Usando o filtro mention">
-```twig
-{{ user|mention }}
-```
-
-**Exemplo:**
 ```twig
 Olá {{ user|mention }}, você tem uma nova tarefa.
 ```
 
-<Tip>
-O filtro `mention` é recomendado por ser mais simples e evitar erros de formatação.
-</Tip>
-</Tab>
-</Tabs>
- 
+Para mencionar os usuários do projeto, aplique o filtro na lista:
 
-[Aprenda mais sobre sintaxe avançada →](/guides/advanced/advanced-syntax)
+```twig
+{{ project.users|mention }}
+```
+
+A variável `user` só existe quando uma pessoa disparou a automação. Em disparos por agendamento, como projeto ocioso ou data atingida, ela não existe. Por isso, confira se a variável existe antes de aplicar o filtro, para evitar erro na mensagem:
+
+```twig
+{% if user is defined %}Olá {{ user|mention }}, você tem uma nova tarefa.{% endif %}
+```
+
+Veja o que cada disparo traz em [Quem disparou](/guides/automation/variables#quem-disparou).
+
+## Montar a menção manualmente
+
+O sistema reconhece menções neste formato:
+
+```text
+<u@00000000-0000-0000-0000-000000000000:Nome>
+```
+
+O formato tem quatro partes:
+
+- **`<u@`**: prefixo que indica uma menção de usuário;
+- **ID do usuário**: identificador único do usuário, representado acima por zeros;
+- **`:`**: separador entre o ID e o nome;
+- **Nome do usuário**: texto exibido na menção.
+
+Com a [sintaxe avançada](/guides/advanced/advanced-syntax), você preenche o ID e o nome com variáveis:
+
+```twig
+Olá <u@{{ user.id }}:{{ user.name }}>, você foi designado para esta tarefa.
+```
+
+O filtro `mention` gera esse mesmo formato e evita erros de digitação na montagem. Prefira o filtro sempre que tiver o objeto do usuário.
+
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Variáveis nas automações" icon="brackets-curly" href="/guides/automation/variables">
+  Os dados disponíveis dentro de uma automação.
+</Card>
+
+<Card title="Sintaxe avançada" icon="code" href="/guides/advanced/advanced-syntax">
+  Condicionais, laços e os outros filtros da linguagem.
+</Card>
+</CardGroup>

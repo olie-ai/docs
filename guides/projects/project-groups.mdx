@@ -35,17 +35,17 @@ Não confunda com o quadro do funil, que tem as visões **kanban**, **lista** e 
 Os grupos são criados na própria visão de Grupos, com **Criar grupo**, e editados ali mesmo.
 
 <Warning>
-Ao excluir um grupo, **todos os projetos vinculados a ele são desvinculados**. Os projetos continuam existindo — o que se perde é o agrupamento.
+Ao excluir um grupo, **todos os projetos vinculados a ele são desvinculados**. Os projetos continuam existindo; só o agrupamento deixa de existir.
 </Warning>
 
 ## Grupos no cartão e em automações
 
 O grupo pode ser exibido no cartão pela [configuração do quadro](/guides/funnels/board-view), entre as informações disponíveis.
 
-Em automações, a ação **Vincular ou desvincular grupo** cuida do vínculo.
+Em automações, a ação [**Vincular ou desvincular grupo**](/guides/automation/actions-projects#vincular-ou-desvincular-grupo) cuida do vínculo. Essa ação alterna o vínculo: vincula o projeto que está fora do grupo e desvincula o que já está dentro.
 
 <Warning>
-Essa ação é uma **alternância**, não uma garantia. Se o projeto já estiver no grupo, ela o **tira**. Quando o que você quer é assegurar a presença no grupo, monte a automação de modo que ela não rode duas vezes sobre o mesmo projeto — ou use uma condição para verificar antes.
+A ação é uma **alternância**, não uma garantia. Se o projeto já estiver no grupo, ela o **tira**. Para garantir que o projeto fique no grupo, monte a automação de modo que ela não rode duas vezes sobre o mesmo projeto, ou use uma condição para verificar antes.
 </Warning>
 
 ## Próximos passos

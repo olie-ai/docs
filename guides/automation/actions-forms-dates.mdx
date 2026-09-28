@@ -4,7 +4,7 @@ description: "Adicionar formulários avulsos, salvar versões, atualizar contado
 keywords: ["ação", "formulário", "formulário avulso", "versão", "contador", "data", "previsão do funil"]
 ---
 
-As ações que mexem em formulários dinâmicos e em campos de data do projeto.
+Esta página reúne as ações que mexem em formulários dinâmicos e em campos de data do projeto.
 
 | Ação | O que faz |
 | --- | --- |
@@ -41,7 +41,7 @@ Congela as respostas atuais do formulário no histórico, criando um registro da
 | Formulário | Sim | O formulário cuja versão será salva |
 | Salvar versão e em seguida limpar os campos | Sim | Zera as respostas depois de salvar |
 
-A opção de limpar os campos é o que torna esta ação útil em processos cíclicos: o formulário é preenchido, a automação guarda a versão e devolve o formulário em branco para o próximo ciclo.
+A opção de limpar os campos serve para processos cíclicos. A equipe preenche o formulário, a automação guarda a versão e devolve o formulário em branco para o próximo ciclo.
 
 **Quando não tem efeito**
 
@@ -58,21 +58,19 @@ Incrementa ou decrementa um campo do tipo contador de um formulário.
 | Ação | Sim | Incrementar ou decrementar |
 | Valor | Sim | Quanto somar ou subtrair; precisa ser maior que zero |
 
-Um contador que nunca foi preenchido é tratado como zero antes da operação.
+Um contador que nunca foi preenchido é tratado como zero antes da operação. Se o mesmo contador aparecer em formulários diferentes dentro do projeto, **todos** são atualizados.
 
 <Warning>
 O contador precisa estar em um formulário **disponível no projeto no momento da execução**. Se o campo existe no cadastro de formulários mas nenhum formulário do projeto o contém, a ação registra `the_counter_is_not_available_at_project_forms` e nada acontece.
 </Warning>
-
-<Note>
-Se o mesmo contador aparecer em formulários diferentes dentro do projeto, **todos** são atualizados.
-</Note>
 
 ## Alterar campo de data
 
 Define uma data — na previsão do funil ou em um campo de formulário. É a ação com mais opções do sistema, então vale montá-la em três decisões.
 
 ### 1. Onde está o campo de data
+
+Primeiro, escolha qual data a ação vai alterar.
 
 | Destino | O que você precisa indicar |
 | --- | --- |
@@ -145,12 +143,10 @@ A opção **Sobrescrever caso já tenha data definida** decide o desfecho:
 - **Ligada:** a data existente é substituída.
 
 <Warning>
-"A automação rodou e a data não mudou" quase sempre é esta opção desligada com uma data já preenchida. Confira no registro de execução — a mensagem do componente diz exatamente isso.
+"A automação rodou e a data não mudou" quase sempre é esta opção desligada com uma data já preenchida. Confira no registro de execução: a mensagem do componente diz exatamente isso.
 </Warning>
 
-<Tip>
-Alterar a previsão do funil dispara o gatilho [Campo do projeto alterado](/guides/automation/triggers#campo-do-projeto-alterado) e reagenda o gatilho [Data de projeto atingida](/guides/automation/triggers#data-de-projeto-atingida). Uma ação, dois efeitos em cadeia.
-</Tip>
+Alterar a previsão do funil também tem efeito em outras automações: dispara o gatilho [Campo do projeto alterado](/guides/automation/triggers#campo-do-projeto-alterado) e reagenda o gatilho [Data de projeto atingida](/guides/automation/triggers#data-de-projeto-atingida).
 
 ## Por onde continuar
 

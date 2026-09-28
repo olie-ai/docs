@@ -4,7 +4,9 @@ description: "Quantos de cada coisa cabem em cada lugar — o mapa que evita a m
 keywords: ["modelo de dados", "cardinalidade", "estrutura", "entidades", "quantos", "relação"]
 ---
 
-Boa parte dos erros de configuração é um erro de cardinalidade: alguém supôs que cabiam vários onde cabe um só. Esta página é o mapa.
+Esta página mostra quantos de cada objeto cabem em cada lugar da Olie, a chamada cardinalidade. Boa parte dos erros de configuração vem daí: supor que cabem vários onde cabe um só.
+
+Na notação do diagrama, `0..N` quer dizer "de zero a vários", e `1..N`, "pelo menos um". Nas tabelas, **N** quer dizer "vários".
 
 ## O desenho geral
 
@@ -28,6 +30,8 @@ Projeto  ──vincula-se a──►  N funis, ocupando 1 ou mais etapas em cada
 
 ## Empresa e usuário
 
+Um usuário pode participar de várias empresas, e cada empresa reúne vários usuários.
+
 | Relação | Quantos |
 | --- | --- |
 | Usuário → empresas | **N**, sempre por convite |
@@ -41,12 +45,16 @@ A conta **Personal** tem as mesmas funcionalidades de uma conta empresa. A difer
 
 ## Área de negócio e funil
 
+A área de negócio agrupa funis. Ela é opcional: um funil pode ficar fora de qualquer área.
+
 | Relação | Quantos |
 | --- | --- |
 | Área de negócio → funis | **N** |
 | Funil → área de negócio | **0 ou 1** — o campo é opcional |
 
 ## Dentro do funil
+
+O que cada funil pode conter:
 
 | Item | Quantos |
 | --- | --- |
@@ -59,6 +67,8 @@ A conta **Personal** tem as mesmas funcionalidades de uma conta empresa. A difer
 | Modelos de configuração de cartão | **N**, com no máximo 1 marcado como padrão |
 
 ## Dentro da etapa
+
+O que cada etapa pode conter. É na etapa que ficam as regras, a execução e os formulários de cada momento do processo.
 
 | Item | Quantos |
 | --- | --- |
@@ -73,6 +83,8 @@ A conta **Personal** tem as mesmas funcionalidades de uma conta empresa. A difer
 
 ## Projeto
 
+As relações do projeto que valem em qualquer funil onde ele está:
+
 | Relação | Quantos |
 | --- | --- |
 | Projeto → cliente | **1** |
@@ -86,9 +98,9 @@ A conta **Personal** tem as mesmas funcionalidades de uma conta empresa. A difer
 
 ### O que existe uma vez por vínculo com funil
 
-Isto é o que mais confunde. Estes itens **não** pertencem ao projeto — pertencem ao par projeto + funil, e por isso existem uma vez para cada funil em que ele está:
+Esta é uma distinção importante. Os itens abaixo **não** pertencem ao projeto: pertencem ao par projeto + funil. Por isso, existem uma vez para cada funil em que o projeto está:
 
-- A **etapa** que ele ocupa naquele funil
+- A **etapa** (ou as etapas) que o projeto ocupa naquele funil
 - O **status do funil**
 - A **data de previsão** e o contador de alterações dela
 - As respostas do **formulário do funil** e dos formulários das etapas daquele funil
@@ -96,6 +108,8 @@ Isto é o que mais confunde. Estes itens **não** pertencem ao projeto — perte
 Ver [o modelo mental](/guides/fundamentals/mental-model).
 
 ## Cliente e contato
+
+Clientes e contatos se relacionam nos dois sentidos: um cliente pode ter vários contatos, e um contato pode estar ligado a vários clientes.
 
 | Relação | Quantos |
 | --- | --- |
@@ -106,7 +120,7 @@ Ver [o modelo mental](/guides/fundamentals/mental-model).
 
 ## Formulários
 
-O ponto que mais gera erro. Um formulário **não pertence a nada** — ele é anexado a lugares, e acumula um conjunto de respostas em cada um.
+Este é o ponto que mais pede atenção. Um formulário **não pertence a nada**: ele é anexado a lugares e acumula um conjunto de respostas em cada um.
 
 | Onde | Quantos por registro |
 | --- | --- |
@@ -122,6 +136,8 @@ Ver [Formulários dinâmicos](/guides/forms/overview) e, para o endereçamento n
 
 ## Etiqueta e status
 
+Etiqueta e status do funil aparecem juntos no cartão, mas se comportam de forma diferente quando o projeto está em mais de um funil.
+
 | | Etiqueta | Status do funil |
 | --- | --- | --- |
 | Quantos por projeto | **N** | **1 por funil** |
@@ -130,10 +146,12 @@ Ver [Formulários dinâmicos](/guides/forms/overview) e, para o endereçamento n
 | Pode ser conclusivo | Não | Sim |
 
 <Note>
-É por isso que o mesmo item pode estar verde em um funil e vermelho em outro — isso é status — e ao mesmo tempo aparecer como "Urgente" nos dois — isso é etiqueta.
+Por isso, o mesmo projeto pode estar verde em um funil e vermelho em outro, porque o status é de cada funil. E, ao mesmo tempo, pode aparecer como "Urgente" nos dois, porque a etiqueta é do projeto.
 </Note>
 
 ## Agente de IA e assistente
+
+O agente de IA é a configuração reutilizável; o assistente de etapa é o que executa o agente em uma etapa.
 
 | | Agente de IA | Assistente de etapa |
 | --- | --- | --- |
@@ -145,6 +163,8 @@ Ver [Formulários dinâmicos](/guides/forms/overview) e, para o endereçamento n
 Ver [Agentes de IA](/guides/ai/agents).
 
 ## Automação
+
+Quantos gatilhos, condições e ações cabem em uma automação, e até onde o encadeamento vai:
 
 | Item | Quantos |
 | --- | --- |

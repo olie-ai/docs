@@ -1,33 +1,45 @@
 ---
 title: "Gerenciamento de usuários"
-description: "Gerencie usuários, convites e acessos na plataforma Olie"
+description: "Convide pessoas para a sua empresa na Olie e habilite ou desabilite o acesso de cada usuário"
+keywords: ["usuários", "convidar usuário", "convite", "desabilitar usuário", "habilitar usuário", "acesso", "empresa Personal", "Aguardando aceite"]
 ---
+
+Esta página mostra como convidar pessoas para a sua empresa na Olie e como habilitar ou desabilitar o acesso de cada usuário. Para definir o que cada pessoa pode fazer, veja [Papéis e permissões](/guides/users/roles-permissions).
 
 ## Como funciona o sistema de usuários
 
-Na Olie, cada usuário é cadastrado individualmente com seu e-mail pessoal, permitindo que ele acesse todo o universo da plataforma tanto de forma pessoal quanto empresarial, participando de múltiplas organizações.
+Na Olie, cada usuário tem um cadastro próprio, feito com o e-mail pessoal. Com esse único cadastro, a pessoa usa a plataforma de forma individual e participa de várias empresas.
 
-<Info>
-Cada usuário cadastrado na Olie possui automaticamente uma empresa chamada **Personal** de acesso exclusivo, permitindo uso individual da plataforma.
-</Info>
+Todo usuário ganha automaticamente uma empresa chamada **Personal**, de acesso exclusivo, para uso individual. As demais empresas são acessadas por convite.
+
+```mermaid
+graph TD
+    A[Usuário Olie] --> B[Empresa Personal]
+    A --> C[Empresa 1]
+    A --> D[Empresa 2]
+    A --> E[Empresa N]
+    
+    B --> B1[Acesso Exclusivo]
+    C --> C1[Via Convite]
+    D --> D1[Via Convite]
+    E --> E1[Via Convite]
+```
 
 ## Convidando novos usuários
 
-Existem dois cenários ao convidar novos usuários para sua empresa na Olie:
+O convite segue um caminho diferente conforme a pessoa já tenha ou não cadastro na Olie. Nos dois casos, ela entra na sua empresa **sem nenhuma permissão**: depois do aceite, atribua um [papel](/guides/users/roles-permissions) com as permissões necessárias.
 
 <Tabs>
 <Tab title="Usuário já cadastrado">
-  ### Usuário já possui conta na Olie
-  
-  Quando o usuário já está cadastrado na plataforma, o processo é simples e rápido.
-  
+  Quando a pessoa já tem cadastro na Olie, ela só precisa aceitar o convite.
+
   <Steps>
   <Step title="Envie o convite">
     Envie um convite usando o e-mail principal da conta do usuário (geralmente o e-mail pessoal).
   </Step>
   
   <Step title="Aguarde a aceitação">
-    O usuário deve aceitar o convite através do site [olie.ai](https://olie.ai/) ou diretamente pelo link enviado no e-mail.
+    O usuário aceita o convite pelo site [olie.ai](https://olie.ai/) ou pelo link enviado no e-mail.
     
     <Note>
     O usuário aparecerá na listagem de usuários com o status **"Aguardando aceite"** até que ele confirme o convite.
@@ -35,7 +47,7 @@ Existem dois cenários ao convidar novos usuários para sua empresa na Olie:
   </Step>
   
   <Step title="Acesso concedido">
-    Após a aceitação, o usuário terá acesso completo à sua empresa conforme as permissões configuradas.
+    Após o aceite, o usuário passa a acessar a sua empresa, dentro das permissões do papel que você atribuir a ele.
     
     <Check>
     O usuário agora pode alternar entre sua empresa Personal e as empresas para as quais foi convidado.
@@ -45,29 +57,23 @@ Existem dois cenários ao convidar novos usuários para sua empresa na Olie:
 </Tab>
 
 <Tab title="Novo usuário">
-  ### Usuário ainda não possui conta
-  
-  Ao enviar um convite para um e-mail que não está vinculado a uma conta Olie, o usuário precisará se cadastrar primeiro.
-  
+  Quando o e-mail convidado não está ligado a nenhum cadastro na Olie, a pessoa precisa se cadastrar primeiro.
+
   <Steps>
   <Step title="Envie o convite">
-    Envie o convite para o e-mail do novo usuário. Recomendamos usar o e-mail pessoal.
-    
-    <Tip>
-    Use o e-mail pessoal do usuário para que ele mantenha acesso mesmo após mudanças de emprego.
-    </Tip>
+    Envie o convite para o e-mail pessoal do novo usuário. Com o e-mail pessoal, a pessoa mantém o cadastro mesmo se mudar de emprego.
   </Step>
   
   <Step title="Cadastro automático">
     O usuário recebe um e-mail com link para se cadastrar no sistema. Ao se cadastrar:
     
-    - Empresa **Personal** é criada automaticamente
-    - Vínculo com sua empresa é estabelecido
-    - Acesso imediato após conclusão do cadastro
-    
-    <Warning>
-    Como o usuário ainda não tem conta, ele **não aparecerá na listagem de usuários**, apenas na **listagem de convites** até concluir o cadastro.
-    </Warning>
+    - a empresa **Personal** dele é criada automaticamente;
+    - o vínculo com a sua empresa é criado;
+    - o acesso é liberado assim que o cadastro termina.
+
+    <Note>
+    Até concluir o cadastro, a pessoa **não aparece na listagem de usuários**, apenas na **listagem de convites**.
+    </Note>
   </Step>
   
   <Step title="Primeiro acesso">
@@ -77,13 +83,9 @@ Existem dois cenários ao convidar novos usuários para sua empresa na Olie:
 </Tab>
 </Tabs>
 
-<Note>
-Para ambos os casos, o usuário terá acesso à empresa, porém sem permissões. Use o papel para atribuir as permissões necessárias.
-</Note>
-
 ## Desabilitando ou habilitando usuários
 
-Você pode controlar o acesso de usuários à sua empresa sem removê-los permanentemente.
+Desabilitar um usuário tira o acesso dele à sua empresa sem excluir os dados nem o histórico. Use quando precisar remover o acesso de alguém temporariamente.
 
 <Steps>
 <Step title="Acesse o painel gerencial">
@@ -114,15 +116,11 @@ Você pode controlar o acesso de usuários à sua empresa sem removê-los perman
 </Step>
 </Steps>
 
-<Warning>
-Desabilitar um usuário não exclui seus dados ou histórico. Use esta funcionalidade quando precisar remover temporariamente o acesso de alguém.
-</Warning>
-
-<Note>
 O status de um usuário com o papel **Property** não pode ser alterado. Ao tentar, a tela avisa: *Não é possível alterar o status de um usuário com o papel "Property".* Para desabilitar essa pessoa, retire antes o papel Property dela.
-</Note>
 
 ## Melhores práticas
+
+Estes cuidados mantêm o acesso à empresa organizado:
 
 <CardGroup cols={2}>
 <Card title="Use e-mails pessoais" icon="envelope">
@@ -142,21 +140,9 @@ O status de um usuário com o papel **Property** não pode ser alterado. Ao tent
 </Card>
 </CardGroup>
 
-## Estrutura de usuários
+## Próximos passos
 
-```mermaid
-graph TD
-    A[Usuário Olie] --> B[Empresa Personal]
-    A --> C[Empresa 1]
-    A --> D[Empresa 2]
-    A --> E[Empresa N]
-    
-    B --> B1[Acesso Exclusivo]
-    C --> C1[Via Convite]
-    D --> D1[Via Convite]
-    E --> E1[Via Convite]
-```
+Depois de convidar as pessoas, continue por estas páginas:
 
-<Tip>
-A estrutura de usuários da Olie permite que cada pessoa tenha uma conta unificada com acesso a múltiplas empresas, facilitando a colaboração entre organizações diferentes.
-</Tip>
+- [Papéis e permissões](/guides/users/roles-permissions): defina o que cada usuário pode fazer.
+- [Tipos de papéis](/guides/users/role-types): entenda como as permissões definem a licença que o usuário ocupa.

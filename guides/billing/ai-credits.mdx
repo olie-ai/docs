@@ -1,23 +1,24 @@
 ---
 title: "Créditos de IA"
-description: "Entenda como funcionam os créditos pré-pagos que abastecem o uso de inteligência artificial"
+description: "Como funcionam os créditos pré-pagos de IA: o que consome saldo, como comprar, recarga automática e o que acontece quando o saldo acaba"
+keywords: ["créditos de IA", "crédito", "saldo", "extrato", "recarga automática", "comprar créditos", "consumo de IA", "créditos insuficientes", "seleção automática de modelos"]
 ---
 
-A Olie usa **créditos** para o uso dos recursos de inteligência artificial, como agentes e assistentes de etapa. O modelo é **pré-pago**: você adiciona créditos ao saldo do seu ambiente e cada uso de IA consome créditos desse saldo.
+A Olie usa **créditos** para o uso dos recursos de inteligência artificial, como agentes e assistentes de etapa. O modelo é **pré-pago**: você adiciona créditos ao saldo da sua empresa e cada uso de IA consome créditos desse saldo.
 
-<Info>
-A maior vantagem do modelo de créditos é a **previsibilidade**: não existe mais fatura-surpresa de IA no fim do mês. Você gasta apenas o que já tem em saldo e decide quando recarregar.
-</Info>
+Com o modelo pré-pago, o gasto com IA fica previsível: você usa o saldo que já comprou e decide quando recarregar.
 
 ## O que são créditos de IA
 
+Três conceitos aparecem em toda esta página:
+
 <CardGroup cols={3}>
 <Card title="Crédito" icon="coins">
-  A unidade pré-paga usada pela IA. Você compra créditos e eles ficam disponíveis no saldo do seu ambiente.
+  A unidade pré-paga usada pela IA. Você compra créditos e eles ficam disponíveis no saldo da sua empresa.
 </Card>
 
 <Card title="Saldo" icon="wallet">
-  A quantidade de créditos que o seu ambiente tem disponível no momento. Cada ambiente tem o seu próprio saldo.
+  A quantidade de créditos que a sua empresa tem disponível no momento. Cada empresa tem o seu próprio saldo.
 </Card>
 
 <Card title="Consumo" icon="gauge-high">
@@ -26,6 +27,8 @@ A maior vantagem do modelo de créditos é a **previsibilidade**: não existe ma
 </CardGroup>
 
 ## Como funciona
+
+O uso de créditos segue um ciclo de compra, uso e recarga:
 
 <Steps>
 <Step title="Adicione créditos">
@@ -41,7 +44,7 @@ A maior vantagem do modelo de créditos é a **previsibilidade**: não existe ma
 </Step>
 
 <Step title="Recarregue quando precisar">
-  Quando o saldo estiver baixo, basta comprar mais créditos — ou deixar a [recarga automática](#recarga-automática) cuidar disso para você.
+  Quando o saldo estiver baixo, compre mais créditos ou deixe a [recarga automática](#recarga-automática) fazer isso por você.
 
   <Check>
   Você sempre sabe quanto tem disponível e gasta apenas o que já pagou.
@@ -73,6 +76,8 @@ O consumo exato de cada execução fica registrado no seu **extrato de créditos
 
 ## Comprando créditos
 
+Para comprar créditos, você precisa de um [método de pagamento](/guides/billing/payment-methods) válido cadastrado e da permissão para comprar créditos (veja [Acompanhando saldo e extrato](#acompanhando-saldo-e-extrato)).
+
 <Steps>
 <Step title="Escolha comprar créditos">
   Acesse a área de créditos de IA e inicie a compra de um pacote.
@@ -90,10 +95,6 @@ O consumo exato de cada execução fica registrado no seu **extrato de créditos
   Conclua o pagamento com o seu método cadastrado. Assim que o pagamento é confirmado, os créditos entram no saldo.
 </Step>
 </Steps>
-
-<Info>
-Para comprar créditos é necessário ter um [método de pagamento](/guides/billing/payment-methods) válido cadastrado.
-</Info>
 
 ## Recarga automática
 
@@ -128,32 +129,26 @@ A recarga automática é opcional e serve para manter o uso da IA sem interrupç
   A recarga automática depende de um [método de pagamento](/guides/billing/payment-methods) válido. Mantenha o seu cadastro atualizado para evitar interrupções.
 </Accordion>
 
-<Accordion title="Ambiente em modo somente leitura" icon="lock">
-  Se o ambiente estiver em [modo somente leitura](/guides/billing/read-only-mode), a recarga automática não é executada. Regularize a situação da assinatura primeiro.
+<Accordion title="Empresa em modo somente leitura" icon="lock">
+  Se a empresa estiver em [modo somente leitura](/guides/billing/read-only-mode), a recarga automática não é executada. Regularize a situação da assinatura primeiro.
 </Accordion>
 </AccordionGroup>
 
 ## Quando o saldo acaba
 
-<Steps>
-<Step title="Novas execuções são bloqueadas">
-  Quando o saldo chega a zero, novas execuções de IA são bloqueadas e você recebe um aviso de créditos insuficientes. Basta recarregar para voltar a usar.
-</Step>
+O saldo é conferido no início de cada execução, e não durante ela. Por isso, a falta de créditos bloqueia só as execuções novas.
 
-<Step title="Execuções em andamento não são interrompidas">
-  Uma execução que já começou nunca é interrompida no meio — nem mesmo quando consome mais créditos do que havia disponível no saldo. Nesse caso, o saldo pode ficar **negativo**, justamente para não impedir a execução de terminar. Essa diferença é abatida automaticamente na sua próxima recarga.
+**Novas execuções são bloqueadas.** Quando o saldo chega a zero, novas execuções de IA são bloqueadas e você recebe um aviso de créditos insuficientes. Para voltar a usar, recarregue o saldo. Na API, a chamada é recusada com HTTP 402; veja os detalhes da resposta em [Agentes de IA](/guides/ai/agents).
 
-  <Note>
-  Na prática, a IA nunca para "no meio do caminho" por falta de créditos: o bloqueio acontece apenas ao iniciar uma nova execução, quando o saldo já está zerado ou negativo.
-  </Note>
-</Step>
-</Steps>
+**Execuções em andamento vão até o fim.** Uma execução que já começou termina normalmente, mesmo quando consome mais créditos do que havia no saldo. Nesse caso, o saldo pode ficar **negativo**, e a diferença é abatida automaticamente na sua próxima recarga.
 
 ## Acompanhando saldo e extrato
 
+Na área de créditos de IA, você acompanha duas informações:
+
 <CardGroup cols={2}>
 <Card title="Saldo atual" icon="wallet">
-  Veja a qualquer momento quantos créditos o seu ambiente tem disponível.
+  Veja a qualquer momento quantos créditos a sua empresa tem disponível.
 </Card>
 
 <Card title="Extrato de créditos" icon="receipt">
@@ -161,13 +156,11 @@ A recarga automática é opcional e serve para manter o uso da IA sem interrupç
 </Card>
 </CardGroup>
 
-<Info>
-O acesso às informações de créditos depende das suas permissões: há uma permissão para **visualizar** saldo e extrato e outra para **comprar** créditos e ajustar a recarga automática. Fale com um administrador do seu ambiente caso alguma opção não esteja disponível para você.
-</Info>
+O acesso a essas informações depende das suas permissões: uma permissão libera **visualizar** saldo e extrato, e outra libera **comprar** créditos e ajustar a recarga automática. Se alguma opção não aparecer para você, fale com quem administra as permissões da sua empresa.
 
 ## Seleção automática de modelos
 
-Você não precisa escolher manualmente qual modelo usar. A Olie oferece perfis de seleção automática que escolhem o melhor modelo para cada tarefa — e essa escolha influencia diretamente quanto crédito é consumido.
+Em vez de fixar um modelo, você pode usar um perfil de seleção automática, que escolhe o modelo a cada execução. O perfil escolhido influencia diretamente quanto crédito é consumido.
 
 <Tabs>
 <Tab title="Padrão">
@@ -198,13 +191,15 @@ Você não precisa escolher manualmente qual modelo usar. A Olie oferece perfis 
   - Escolhe modelos com melhor desempenho e tempo de resposta.
   - Tende a consumir mais créditos.
 
-  <Warning>
+  <Tip>
   Use quando qualidade e velocidade importam mais que economia de créditos.
-  </Warning>
+  </Tip>
 </Tab>
 </Tabs>
 
 ## Boas práticas para economizar créditos
+
+Algumas escolhas na configuração e no uso da IA reduzem o consumo:
 
 <AccordionGroup>
 <Accordion title="Seja objetivo nas instruções" icon="compress">

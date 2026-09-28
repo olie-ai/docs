@@ -6,11 +6,9 @@ keywords: ["receita", "exemplo", "modelo", "caso de uso", "automação pronta"]
 
 Montagens testadas para situações que aparecem em quase toda operação. Cada receita indica o gatilho, as condições e as ações na ordem em que devem aparecer no editor.
 
-<Info>
 Adapte os nomes de etapas, etiquetas e formulários para os da sua conta. A estrutura é o que importa.
-</Info>
 
-## Cobrar um card parado
+## Cobrar um projeto parado
 
 O clássico: avisar a equipe quando algo fica esquecido em uma etapa.
 
@@ -27,13 +25,13 @@ O clássico: avisar a equipe quando algo fica esquecido em uma etapa.
 
 <Step title="Ação — Envia conteúdo do projeto" icon="message">
   ```twig
-  {{ project.users|mention }} este card está parado em "Em análise" há 3 dias. Precisa de alguma coisa para avançar?
+  {{ project.users|mention }} este projeto está parado em "Em análise" há 3 dias. Precisa de alguma coisa para avançar?
   ```
 </Step>
 </Steps>
 
 <Warning>
-Ao salvar, o gatilho dispara imediatamente para todos os cards que já estão parados além do prazo. Se a etapa tiver muitos cards, o primeiro efeito é uma enxurrada de avisos.
+Ao salvar, o gatilho dispara imediatamente para todos os projetos que já estão parados além do prazo. Se a etapa tiver muitos projetos, o primeiro efeito é uma enxurrada de avisos.
 </Warning>
 
 ## Preparar o onboarding de um cliente novo
@@ -46,7 +44,7 @@ Quando a venda fecha, o time de implantação precisa receber o projeto pronto p
 </Step>
 
 <Step title="Ação — Adicionar formulário avulso" icon="clipboard-list">
-  Formulário: "Checklist de onboarding". **Ignorar se já houver esse formulário** ligado, para o card não acumular cópias se voltar para a etapa.
+  Formulário: "Checklist de onboarding". **Ignorar se já houver esse formulário** ligado, para o projeto não acumular cópias se voltar para a etapa.
 </Step>
 
 <Step title="Ação — Alterar usuários atribuídos" icon="user-plus">
@@ -226,14 +224,16 @@ Impede que a mesma pessoa fique com a contagem de tempo aberta em vários projet
 </Steps>
 
 <Warning>
-Esta receita pausa as execuções do usuário **naquele projeto**. Para o efeito valer em toda a operação, ela precisa ser combinada com o desenho do processo — não existe uma ação única que pause execuções em todos os projetos de uma vez.
+Esta receita pausa as execuções do usuário **naquele projeto**. Nenhuma ação pausa, sozinha, as execuções em todos os projetos de uma vez. Para o efeito valer em toda a operação, combine a receita com o desenho do processo.
 </Warning>
 
 ## Antes de ativar qualquer uma
 
+Estes cuidados valem para todas as receitas.
+
 <AccordionGroup>
-<Accordion title="Teste com um projeto de mentira" icon="vial">
-  Crie um projeto de teste, provoque o evento e leia o [registro de execução](/guides/automation/logs). É mais rápido do que descobrir o problema em um card real.
+<Accordion title="Teste antes de ativar" icon="vial">
+  Crie um projeto de teste, provoque o evento e leia o [registro de execução](/guides/automation/logs). É mais rápido do que descobrir o problema em um projeto real.
 </Accordion>
 
 <Accordion title="Cuidado com gatilhos de volume" icon="gauge-high">
@@ -241,7 +241,7 @@ Esta receita pausa as execuções do usuário **naquele projeto**. Para o efeito
 </Accordion>
 
 <Accordion title="Nomeie pela regra, não pelo mecanismo" icon="tag">
-  "Cobrar card parado em análise" é muito mais útil do que "Automação 4" quando alguém abrir a lista daqui a seis meses.
+  "Cobrar projeto parado em análise" é muito mais útil do que "Automação 4" quando alguém abrir a lista daqui a seis meses.
 </Accordion>
 
 <Accordion title="Confira o teto do plano" icon="list-check">

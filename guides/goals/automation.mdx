@@ -1,17 +1,25 @@
 ---
 title: "Metas e automações"
 description: "Atualize o progresso de metas manuais automaticamente usando fluxos de automação"
+keywords: ["meta e automação", "atualizar progresso de meta", "meta manual", "automação de metas", "somar progresso", "Atualizar progresso de meta manual"]
 ---
 
-Metas do tipo **Manual** podem ter o progresso atualizado automaticamente por uma automação. Em vez de lançar números à mão, você cria um fluxo que ajusta a meta sempre que um evento acontece na plataforma — por exemplo, somar 1 a cada vez que um projeto é concluído.
+Metas do tipo **Manual** podem ter o progresso atualizado por uma automação. Em vez de lançar números à mão, você cria uma automação que ajusta a meta sempre que um evento acontece na plataforma. Por exemplo, ela pode somar 1 a cada projeto concluído.
 
-<Info>
-Essa integração funciona apenas com metas do tipo **Manual** e que estejam **ativas**. Metas automáticas já calculam o progresso sozinhas e não precisam (nem aceitam) esse tipo de ação.
-</Info>
+## Antes de começar
+
+A ação funciona apenas com metas do tipo **Manual** que estejam **ativas**. Metas automáticas já calculam o progresso sozinhas e não aceitam essa ação.
+
+Se a meta não atender a essas condições, a execução da automação registra um erro e não altera o progresso:
+
+- `goal_must_be_manual_type`: a meta não é do tipo manual. Escolha uma meta manual na ação.
+- `goal_must_be_active_status`: a meta não está ativa. Ative a meta ou remova a ação.
+
+Esses erros aparecem no registro de execução da automação. Veja como consultá-lo em [Logs e depuração](/guides/automation/logs).
 
 ## A ação "Atualizar progresso de meta manual"
 
-Dentro do construtor de automações, você adiciona a ação de atualização de progresso e configura três coisas:
+No editor de automações, adicione a ação **Atualizar progresso de meta manual** e configure três coisas:
 
 <CardGroup cols={3}>
 <Card title="A meta" icon="bullseye">
@@ -29,6 +37,8 @@ Dentro do construtor de automações, você adiciona a ação de atualização d
 
 ## Operações disponíveis
 
+A ação oferece três operações sobre o progresso:
+
 <AccordionGroup>
 <Accordion title="Definir" icon="equals">
   Substitui o progresso atual pelo valor informado. Use quando você quer fixar a meta em um número específico.
@@ -43,7 +53,7 @@ Dentro do construtor de automações, você adiciona a ação de atualização d
 </Accordion>
 
 <Accordion title="Subtrair" icon="minus">
-  Reduz o progresso atual pelo valor informado. O progresso nunca fica abaixo de zero.
+  Reduz o progresso atual pelo valor informado. O progresso nunca fica abaixo de zero: uma subtração maior que o valor atual resulta em zero.
 
   **Exemplo:** subtrair `1` quando um projeto é cancelado.
 </Accordion>
@@ -75,7 +85,7 @@ O valor aplicado pode ser de duas formas:
 </Step>
 
 <Step title="Monte a automação">
-  Crie um fluxo disparado pelo evento desejado (como a conclusão de um projeto).
+  Crie uma automação com o [gatilho](/guides/automation/triggers) do evento que você quer contar, como a conclusão de um projeto.
 </Step>
 
 <Step title="Adicione a ação de progresso">

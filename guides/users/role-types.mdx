@@ -1,21 +1,22 @@
 ---
 title: "Tipos de papéis"
 description: "Entenda como funcionam os tipos de papéis e a classificação automática de usuários"
+keywords: ["tipos de papéis", "tipo de papel", "tipo de licença", "operacional", "gerencial", "sócio", "classificação de usuários", "licença", "custo por usuário"]
 ---
+
+Esta página explica como a Olie classifica cada usuário em um tipo de papel (operacional, gerencial ou sócio) a partir das permissões dele. Ela mostra também como essa classificação afeta as licenças e o custo da assinatura.
 
 ## O que são tipos de papéis
 
-Os **Tipos de Papéis** são categorias que ajudam a organizar os usuários no sistema com base nas permissões que possuem. Eles definem o nível de acesso e as funções desempenhadas por cada usuário, tornando o gerenciamento mais claro e eficiente.
+Os **tipos de papéis** são categorias que organizam os usuários de acordo com as permissões que eles têm. Cada tipo indica um nível de acesso e as funções que o usuário exerce.
 
-<Info>
-Os tipos de papéis são **calculados automaticamente** pelo sistema. Você não precisa configurá-los manualmente.
-</Info>
+Os tipos de papéis são **calculados automaticamente** pela Olie. Você não os configura: para mudar o tipo de um usuário, mude os papéis ou as permissões dele.
 
 ## Como funcionam os tipos de papéis
 
 ### Classificação automática
 
-O sistema analisa continuamente as permissões atribuídas a cada usuário e os classifica automaticamente no tipo de papel mais adequado.
+A Olie analisa as permissões atribuídas a cada usuário e o classifica automaticamente no tipo de papel correspondente.
 
 ```mermaid
 graph TD
@@ -28,21 +29,19 @@ graph TD
 
 ```
 
+A classificação acontece em três etapas:
+
 <Steps>
 <Step title="Atribuição de papéis">
 Você atribui um ou mais papéis ao usuário normalmente.
 </Step>
 
 <Step title="Análise automática">
-O sistema soma todas as permissões dos papéis atribuídos ao usuário.
-
-<Note>
-Se um usuário tem múltiplos papéis, todas as permissões são consideradas no cálculo.
-</Note>
+A Olie soma as permissões de todos os papéis atribuídos ao usuário. Se ele tem vários papéis, todas as permissões entram no cálculo.
 </Step>
 
 <Step title="Classificação">
-Com base no total de permissões, o sistema classifica o usuário em um dos tipos de papéis disponíveis.
+Com base no total de permissões, a Olie classifica o usuário em um dos tipos de papéis.
 
 <Check>
 A classificação é atualizada automaticamente sempre que os papéis ou permissões do usuário mudam.
@@ -52,14 +51,15 @@ A classificação é atualizada automaticamente sempre que os papéis ou permiss
 
 ### Permissões mínimas
 
-Cada tipo de papel possui um conjunto de permissões mínimas necessárias para que o usuário seja classificado nele.
+Cada tipo de papel tem um conjunto de permissões mínimas para que o usuário seja classificado nele.
+
 <AccordionGroup>
   <Accordion title="Operacional" icon="user">
     **Nível restrito de execução**
     
-    - Visualizar lista de funis de projeto (apenas aqueles com acesso liberado).
-    - Execução de tarefas cotidianas sem permissão para alteração de fluxos.
-    - Acesso restrito a funções administrativas ou de configuração.
+    - Visualizar a lista de funis de projeto, apenas os que têm acesso liberado.
+    - Executar tarefas do dia a dia, sem permissão para alterar fluxos.
+    - Acessar de forma restrita as funções administrativas ou de configuração.
     
     **Ideal para:** Colaboradores que operam no dia a dia da empresa mas não editam os processos.
   </Accordion>
@@ -91,11 +91,11 @@ Cada tipo de papel possui um conjunto de permissões mínimas necessárias para 
 
 ### Cobrança baseada em tipos
 
-Os tipos de papéis têm custos associados, usados para calcular os valores cobrados com base na quantidade de usuários em cada categoria.
+Cada tipo de papel tem um custo, e o valor da assinatura considera quantas licenças de cada tipo a empresa tem. Veja como o valor é composto em [Assinatura e licenças](/guides/billing/subscription-and-licenses).
 
 ## Exemplo prático de classificação
 
-Vamos ver como funciona na prática com a nova hierarquia:
+Os três cenários abaixo mostram como os papéis atribuídos levam a cada tipo:
 
 <Tabs>
 <Tab title="Cenário 1: Operador">
@@ -133,7 +133,7 @@ Ao receber permissão para editar um funil, a classificação de Maria sobe auto
 </Tab>
 
 <Tab title="Cenário 3: Diretor">
-**Carlos - CEO**
+**Carlos - Diretor-presidente**
 
 Papéis atribuídos:
 
@@ -152,6 +152,8 @@ Carlos tem acesso a dados sensíveis de exportação, o que o classifica automat
 </Tabs>
 
 ## Otimizando custos com tipos de papéis
+
+Como cada permissão pode mudar o tipo de papel, a forma de montar os papéis afeta o custo:
 
 <CardGroup cols={2}>
 <Card title="Revise permissões" icon="magnifying-glass">
@@ -173,40 +175,34 @@ Lembre-se que cada expansão de usuários ativos pode renovar seu contrato por m
 
 ## Visualizando tipos de papéis
 
-No painel de usuários, você pode ver claramente o tipo de papel de cada usuário e a ocupação das licenças:
-
-<Frame>
-<div style={{padding: '20px', background: '#f8f9fa', borderRadius: '8px'}}>
-<h4>Exemplo de listagem de usuários:</h4>
-<ul style={{listStyle: 'none', padding: 0}}>
-<li>👤 João Silva - <span style={{color: '#28a745'}}>Operacional</span></li>
-<li>👤 Maria Santos - <span style={{color: '#6c757d'}}>Gerencial</span></li>
-<li>👤 Carlos Oliveira - <span style={{color: '#FA870A'}}>Sócio</span></li>
-</ul>
-</div>
-</Frame>
+No painel de usuários, você vê o tipo de papel de cada usuário (por exemplo, João Silva como Operacional e Maria Santos como Gerencial) e a ocupação das licenças.
 
 ## Perguntas frequentes
 
+As dúvidas mais comuns sobre tipos de papéis e licenças:
+
 <AccordionGroup>
 <Accordion title="O sistema bloqueia a mudança de papel?">
-Sim. Se você tentar atribuir uma permissão que mude o tipo de papel do usuário (ex: de Operacional para Gerencial) e o limite de licenças contratadas estiver esgotado, o sistema não permitirá salvar a alteração.
+Sim, quando o limite de licenças contratadas está esgotado. Nesse caso, a Olie não salva uma permissão que mude o tipo de papel do usuário (por exemplo, de Operacional para Gerencial).
 </Accordion>
 
 <Accordion title="Posso trocar um usuário por outro sem custo?">
-Sim. Você pode inativar um usuário e ativar outro para ocupar a mesma "cadeira" ou licença disponível sem alterar o valor da mensalidade.
+Sim. Você pode inativar um usuário e ativar outro para ocupar a mesma licença, sem alterar o valor da assinatura.
 </Accordion>
 
 <Accordion title="Por que não consigo definir o tipo manualmente?">
-O tipo é um reflexo direto das permissões. Para mudar o tipo, você deve gerenciar os papéis e permissões do usuário; o sistema recalcula a categoria instantaneamente.
+O tipo é um reflexo direto das permissões. Para mudar o tipo, altere os papéis ou as permissões do usuário. A Olie recalcula o tipo na hora.
 </Accordion>
 
 <Accordion title="O que fazer se o sistema der erro de limite ao trocar permissões?">
-Caso o limite esteja em 100%, você deve entrar em contato com o suporte ou gerência de conta para solicitar a troca manual de uma licença de um tipo por outro ou realizar um upgrade.
+Esse erro aparece quando o limite de licenças contratadas está em 100%. Para resolver, fale com o suporte ou com a gerência de conta e peça uma destas opções:
+
+- a troca manual de uma licença de um tipo por outro;
+- um upgrade, com a contratação de mais licenças.
 </Accordion>
 
 <Accordion title="O tipo de papel não aparece no usuário">
-Caso o tipo de papel não apareça no usuário, você deve verificar se o usuário possui permissões suficientes para ser classificado no tipo de papel desejado, acontece quando o usuário não possui nenhuma permissão. Se o usuário possui permissões suficientes, o tipo de papel será calculado automaticamente.
+O tipo de papel não aparece quando o usuário não tem nenhuma permissão. Atribua a ele um papel com as permissões do tipo desejado, e a Olie calcula o tipo automaticamente.
 </Accordion>
 
 <Accordion title="Usuários inativos ocupam uma licença por tipo de papel?">
@@ -214,10 +210,9 @@ Não. Usuários inativos não ocupam uma licença por tipo de papel.
 </Accordion>
 </AccordionGroup>
 
-## Conclusão
+## Próximos passos
 
-Com os **Tipos de Papéis**, o gerenciamento de permissões e custos ocorre de forma integrada e automática.
+Continue por estas páginas:
 
-<Check>
-Mantenha suas permissões organizadas e o sistema cuidará da classificação de faturamento para você! 
-</Check>
+- [Papéis e permissões](/guides/users/roles-permissions): monte os papéis que definem o tipo de cada usuário.
+- [Trial e fluxo de assinatura](/guides/billing/trial-and-subscription-flow#ajustar-suas-licenças): adicione, remova ou troque licenças.

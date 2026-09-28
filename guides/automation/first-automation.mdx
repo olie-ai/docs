@@ -10,9 +10,7 @@ O mesmo caminho vale para qualquer outra combinação de gatilho e ações.
 
 ## Antes de começar
 
-<Info>
-Você precisa da permissão **Criar automações**. Se o botão de nova automação não aparecer para você, fale com quem administra as permissões da sua conta.
-</Info>
+Você precisa da permissão **Criar automações**. Se o botão **Nova automação** não aparecer para você, fale com quem administra as permissões da sua conta.
 
 Tenha em mãos o que a automação vai referenciar — no exemplo, a etapa "Proposta enviada" e a etiqueta "Aguardando retorno" já precisam existir no funil.
 
@@ -53,14 +51,14 @@ Tenha em mãos o que a automação vai referenciar — no exemplo, a etapa "Prop
   ```
 
   <Tip>
-  Não precisa decorar as variáveis: o editor mostra a lista das disponíveis para cada campo que aceita esse recurso. Veja [Variáveis nas automações](/guides/automation/variables).
+  O editor mostra a lista de variáveis disponíveis em cada campo que aceita esse recurso. Veja [Variáveis nas automações](/guides/automation/variables).
   </Tip>
 </Step>
 
 <Step title="Confira a ordem" icon="arrow-down-up-across-line">
   As ações são executadas de cima para baixo, na ordem em que aparecem. Use **Mover para cima** e **Mover para baixo** no menu de cada componente para reordenar.
 
-  Aqui a ordem importa pouco, mas em automações que dependem umas das outras ela é decisiva — por exemplo, colocar o projeto em uma etapa antes de aplicar uma etiqueta daquele funil.
+  Aqui a ordem importa pouco. Ela é decisiva quando uma ação depende do efeito de outra: por exemplo, colocar o projeto em uma etapa antes de aplicar uma etiqueta daquele funil.
 </Step>
 
 <Step title="Salve e ative" icon="floppy-disk">
@@ -84,7 +82,7 @@ Tenha em mãos o que a automação vai referenciar — no exemplo, a etapa "Prop
 
 ## Adicionando uma condição
 
-Suponha que o aviso só deva ser publicado para projetos de um determinado cliente. É aí que entra a condição.
+Suponha que o aviso só deva ser publicado nos projetos marcados com a etiqueta "Cliente estratégico". É aí que entra a condição. Para seguir este exemplo, essa etiqueta precisa existir.
 
 <Steps>
 <Step title="Adicione a condição">
@@ -94,13 +92,11 @@ Suponha que o aviso só deva ser publicado para projetos de um determinado clien
 <Step title="Distribua as ações nos ramos">
   A condição cria dois ramos: **Se verdadeiro** e **Se falso**. Arraste ou adicione a ação de enviar conteúdo dentro de **Se verdadeiro**.
 
-  O que estiver em **Se falso** roda apenas quando a checagem não é atendida. Ramos vazios simplesmente não fazem nada.
+  O que estiver em **Se falso** roda apenas quando a checagem não é atendida. Ramos vazios não fazem nada.
 </Step>
 </Steps>
 
-<Info>
-Uma condição não interrompe a automação por padrão: ela apenas escolhe qual ramo executar, e o fluxo segue para os componentes seguintes. Para fazer uma condição falsa parar o restante do fluxo, existe a opção de bloquear o fluxo — explicada em [Como o fluxo é executado](/guides/automation/anatomy#bloquear-o-fluxo).
-</Info>
+Por padrão, a condição não interrompe a automação: ela escolhe qual ramo executar, e depois o fluxo segue para os componentes seguintes. Para que uma condição falsa pare o restante do fluxo, ligue a opção **Bloquear o fluxo completo dessa automação caso a condição seja falsa**. Veja [Bloquear o fluxo](/guides/automation/anatomy#bloquear-o-fluxo).
 
 ## Erros comuns na primeira automação
 
@@ -110,16 +106,15 @@ Uma condição não interrompe a automação por padrão: ela apenas escolhe qua
 
   - Falta um gatilho, ou falta pelo menos uma ação. Os dois são obrigatórios.
   - Algum componente ficou com configuração incompleta, como uma etiqueta não selecionada.
-  - A conta atingiu o limite de automações do plano. Nesse caso a automação é criada, mas fica inativa.
 </Accordion>
 
 <Accordion title="A automação salvou, mas nada acontece" icon="circle-question">
   Confira nesta ordem:
 
-  1. O status está **Ativo**?
+  1. O status está **Ativo**? Se a conta atingiu o limite de automações ativas do plano, a automação é criada, mas fica inativa. Desative outra automação para liberar espaço ou amplie o plano.
   2. O evento que você provocou é exatamente o do gatilho? Mover um projeto **para dentro** de uma etapa é diferente de tirá-lo dela.
   3. O gatilho está apontando para a etapa, etiqueta ou formulário certo?
-  4. Existe algum registro de execução? Se não existe nenhum, o gatilho não chegou a casar com o evento.
+  4. Existe algum registro de execução? Se não existe nenhum, o evento não correspondeu ao gatilho.
 </Accordion>
 
 <Accordion title="A ação rodou, mas não teve efeito" icon="ban">

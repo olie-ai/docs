@@ -75,9 +75,7 @@ As condições têm a opção de **bloquear o fluxo**. Com ela ligada, quando a 
 O bloqueio só acontece quando a condição é **falsa**. Uma condição verdadeira nunca interrompe o fluxo, independentemente dessa opção.
 </Warning>
 
-<Tip>
-Isso permite uma saída elegante: coloque no ramo "Se falso" o que deve acontecer antes de desistir — um aviso, um registro no conteúdo — e o bloqueio garante que o restante do fluxo não execute.
-</Tip>
+Com isso, o ramo "Se falso" vira o lugar do que deve acontecer antes de a automação parar, como um aviso ou um registro no conteúdo. O bloqueio garante que o restante do fluxo não execute.
 
 Use o bloqueio para escrever regras do tipo "só continue se...":
 
@@ -97,10 +95,10 @@ Use o bloqueio para escrever regras do tipo "só continue se...":
 
 ### Mantenha as condições no nível principal
 
-<Warning>
-Uma condição colocada **dentro de um ramo** de outra condição é avaliada, mas os componentes dentro dos ramos dela **não são executados**. O fluxo suporta um nível de ramificação.
+O fluxo suporta um nível de ramificação. Para encadear duas checagens, coloque as duas condições no nível principal do fluxo, uma após a outra, e ligue **bloquear o fluxo** na primeira.
 
-Para encadear duas checagens, coloque as duas no nível principal do fluxo, uma após a outra, usando **bloquear o fluxo** na primeira.
+<Warning>
+Uma condição colocada **dentro de um ramo** de outra condição é avaliada, mas os componentes dentro dos ramos dela **não são executados**.
 </Warning>
 
 ## Em quais projetos cada componente age
@@ -125,7 +123,7 @@ Com qualquer opção além do projeto do gatilho, **Limitar com filtro** cruza a
 
 ### Nas condições
 
-A condição é verificada em cada projeto da lista, e os resultados viram um só conforme a opção **Quando a condição passa**: **Em todos**, **Em pelo menos um** ou **Em nenhum**. O ramo escolhido executa uma vez. Veja [Verificar em outros projetos](/guides/automation/conditions#verificar-em-outros-projetos).
+A condição é verificada em cada projeto da lista. A opção **Quando a condição passa** define como os resultados viram um só: **Em todos**, **Em pelo menos um** ou **Em nenhum**. O ramo escolhido executa uma vez. Veja [Verificar em outros projetos](/guides/automation/conditions#verificar-em-outros-projetos).
 
 Condições não aceitam **Limitar com filtro** nem a opção **Por filtro**. Quando a regra depende de um filtro, use a condição [Decisor com filtro](/guides/automation/conditions#decisor-com-filtro).
 
@@ -149,7 +147,7 @@ Qualquer outro formato resulta em lista vazia. Como escrever expressões está e
 </Accordion>
 
 <Accordion title="Lista vazia" icon="circle-minus">
-  Acontece, por exemplo, com os irmãos de um projeto que não tem pai, ou com **Por filtro** sem nenhuma regra — um filtro vazio não abre a lista para a conta inteira. A ação não faz nada e registra sucesso com a mensagem `no_projects_in_scope`. A condição só dá verdadeiro com **Em nenhum**.
+  Acontece, por exemplo, com os irmãos de um projeto que não tem pai, ou com **Por filtro** sem nenhuma regra. Um filtro vazio não abre a lista para a conta inteira. A ação não faz nada e registra sucesso com a mensagem `no_projects_in_scope`. A condição só dá verdadeiro com **Em nenhum**.
 </Accordion>
 
 <Accordion title="Falha em um dos projetos" icon="triangle-exclamation">
@@ -181,7 +179,7 @@ Nem todo problema derruba a automação. O comportamento depende do tipo de falh
 </Accordion>
 
 <Accordion title="A condição não conseguiu avaliar" icon="circle-question">
-  Se a condição falha ao avaliar — por exemplo, um filtro salvo que ficou inválido — o erro é registrado, **nenhum dos dois ramos executa** e o fluxo segue para os componentes seguintes.
+  A condição pode falhar ao avaliar, por exemplo, quando um filtro salvo ficou inválido. Nesse caso, o erro é registrado, **nenhum dos dois ramos executa** e o fluxo segue para os componentes seguintes.
 </Accordion>
 </AccordionGroup>
 
@@ -194,10 +192,10 @@ Isso é esperado e útil, mas existe um teto: **uma cadeia pode encadear até ci
 Uma automação, porém, **não aciona a si mesma**: enquanto ela está rodando, o que ela provoca não a dispara outra vez, em nenhum projeto. O encadeamento acontece entre automações diferentes.
 
 <Tip>
-Se uma automação "não terminou" sem motivo aparente, confira se ela está no fim de uma cadeia longa. O sintoma clássico é a automação funcionar quando disparada manualmente e falhar quando disparada por outra.
+Se uma automação "não terminou" sem motivo aparente, confira se ela está no fim de uma cadeia longa. O sintoma clássico é a automação funcionar quando o evento vem de uma pessoa e falhar quando vem de outra automação.
 </Tip>
 
-Cuidado especial com cadeias que voltam ao ponto de partida — uma automação que move o projeto para a etapa A, e outra na etapa A que move de volta. O limite impede o laço infinito, mas as duas gastam execuções do plano até estourar.
+Cuidado especial com cadeias que voltam ao ponto de partida — uma automação que move o projeto para a etapa A, e outra na etapa A que move de volta. O limite impede o laço infinito, mas as duas gastam execuções do plano até a cadeia ser interrompida.
 
 ## O que a automação ignora e o que ela respeita
 

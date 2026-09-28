@@ -6,11 +6,11 @@ keywords: ["limite", "limites", "teto", "máximo", "restrição técnica", "quot
 
 Esta página reúne os números que a plataforma impõe. Cada linha aponta para a página que explica o comportamento em detalhe.
 
-<Info>
-Limites que dependem do plano contratado — quantidade de funis, restrições de etapa, assistentes, automações ativas e volume de execuções — não têm valor fixo aqui. Consulte **Usos e limites** na sua conta.
-</Info>
+Os limites que dependem do plano contratado não têm valor fixo aqui: quantidade de funis, restrições de etapa, assistentes, automações ativas e volume de execuções. Consulte esses valores em **Usos e limites**, na sua conta.
 
 ## Estrutura
+
+Quantos níveis a hierarquia de projetos aceita e quantos formulários cabem em cada lugar.
 
 | Limite | Valor | Onde |
 | --- | --- | --- |
@@ -23,6 +23,8 @@ Limites que dependem do plano contratado — quantidade de funis, restrições d
 | Nome de página do Caderno | 255 caracteres | [Páginas e subpáginas](/guides/notebook/pages) |
 
 ## Automações
+
+Os limites de montagem, de encadeamento e de registro das automações.
 
 | Limite | Valor | Onde |
 | --- | --- | --- |
@@ -40,6 +42,8 @@ O sintoma clássico do limite de encadeamento é uma automação que **funciona 
 
 ## Sintaxe avançada
 
+Os tetos que valem para cada expressão da sintaxe avançada.
+
 | Limite | Valor |
 | --- | --- |
 | Iterações por laço | **1.000** |
@@ -56,23 +60,21 @@ Uma consulta `query` dentro de um `for` conta **uma vez por iteração**. Um la�
 
 ## API
 
+O limite de requisições e as regras de paginação da API.
+
 | Limite | Valor |
 | --- | --- |
 | Rate limit padrão | **160 requisições por minuto**, contadas **por usuário ou por aplicação** |
 | Itens por página, padrão | **30** |
 | Itens por página, máximo | **100** — valores acima são reduzidos automaticamente |
 | Página inicial | **1** — valores inválidos são ajustados |
-| Validade padrão do link assinado de formulário | **24 horas**, quando `expires_at` não é informado |
+| Validade padrão do link assinado de formulário | **24 horas**, se `expires_at` for omitido |
 
 O limite real vem no header `X-RateLimit-Limit`, e o restante em `X-RateLimit-Remaining`. Ao estourar, a resposta é **429** com `Retry-After` em segundos.
 
-<Warning>
 O balde é **por identidade, não por empresa**: cada usuário e cada [aplicação](/guides/integrations/overview#aplicações-e-tokens-de-api) tem os seus próprios 160 por minuto. Duas aplicações da mesma empresa não dividem o mesmo teto, e o consumo de uma pessoa não reduz o da outra. Em chamada sem autenticação, a contagem é por endereço IP.
-</Warning>
 
-<Note>
-O teto de 160 pode ser **elevado por empresa**, sob combinação com a Olie. O valor elevado só vale para as chamadas que chegam **pelo subdomínio da empresa** — é por ele que a plataforma reconhece de qual empresa a requisição veio. Uma chamada que não identifica a origem cai no padrão de 160, mesmo que a empresa tenha um teto maior.
-</Note>
+O teto de 160 pode ser **elevado por empresa**, sob combinação com a Olie. O valor elevado só vale para as chamadas que chegam **pelo subdomínio da empresa**, porque é por ele que a plataforma reconhece de qual empresa a requisição veio. Uma chamada que não identifica a origem cai no padrão de 160, mesmo que a empresa tenha um teto maior.
 
 ### Outros limitadores
 
@@ -93,6 +95,8 @@ Ver [Detalhes da API](/api-reference/introduction/details) e [Paginação](/api-
 
 ## Arquivos
 
+O tamanho e o formato aceitos nos envios de arquivo.
+
 | Limite | Valor | Onde |
 | --- | --- | --- |
 | Anexo de resposta de formulário | **97.650 KB** (cerca de 95 MB) | [Anexos em formulários](/guides/forms/attachments) |
@@ -100,6 +104,8 @@ Ver [Detalhes da API](/api-reference/introduction/details) e [Paginação](/api-
 | Planilha de importação | **50 MB**, e apenas `.xlsx` | — |
 
 ## Métricas e metas
+
+Os períodos de análise das métricas e os valores aceitos nas metas.
 
 | Limite | Valor | Onde |
 | --- | --- | --- |
@@ -116,6 +122,8 @@ As métricas de tempo por etapa consideram **apenas passagens concluídas** — 
 
 ## Cobrança e créditos
 
+Como o plano, as licenças e os créditos de IA limitam o uso da conta.
+
 | Limite | Valor | Onde |
 | --- | --- | --- |
 | Janela para regularizar em modo somente leitura | Cerca de **30 dias** | [Modo somente leitura](/guides/billing/read-only-mode) |
@@ -130,6 +138,8 @@ Se um funil recém-criado aparecer inativo sem explicação, o primeiro lugar a 
 </Tip>
 
 ## Marketplace
+
+As regras de implantação e de publicação de templates.
 
 | Limite | Valor |
 | --- | --- |

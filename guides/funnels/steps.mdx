@@ -6,11 +6,11 @@ keywords: ["etapa", "etapas", "coluna", "avançar", "retroceder", "progresso", "
 
 A etapa é a unidade de trabalho do funil. No quadro ela é uma coluna; na configuração, é onde ficam quase todas as regras. Você edita as etapas dentro do funil, na seção **Etapas**.
 
-<Tip>
-Para reordenar, clique no título da etapa e arraste. A ordem das etapas é a ordem das colunas no kanban.
-</Tip>
+A ordem das etapas é a ordem das colunas no kanban. Para reordenar, clique no título da etapa e arraste.
 
 ## Configurações da etapa
+
+Cada etapa tem as configurações abaixo.
 
 <AccordionGroup>
 <Accordion title="Nome" icon="tag">
@@ -20,7 +20,7 @@ Para reordenar, clique no título da etapa e arraste. A ordem das etapas é a or
 <Accordion title="Avançar para e Retroceder para" icon="arrow-right-arrow-left">
   Definem o caminho padrão a partir desta etapa. Quando alguém usa o avanço rápido no cartão, o projeto vai para a etapa configurada em **Avançar para**; o retrocesso usa **Retroceder para**.
 
-  Escolha **Não mover** quando a etapa não tiver um destino óbvio — em uma etapa final, por exemplo, ou quando a decisão de para onde ir depende do caso e você prefere que a pessoa escolha.
+  Escolha **Não mover** quando a etapa não tiver um destino padrão. É o caso de uma etapa final, ou de uma etapa em que a pessoa decide o destino caso a caso.
 
   <Note>
   Isso é o caminho sugerido, não uma amarra. Arrastar o cartão para qualquer outra coluna continua possível, desde que as [restrições](/guides/funnels/restrictions) permitam.
@@ -88,17 +88,28 @@ Cada etapa decide como seus cartões são empilhados. O botão **Ordenação** o
 <Tab title="Automática">
   Você escolhe uma propriedade e uma direção (crescente ou decrescente), e a etapa se reorganiza sozinha sempre que algo muda.
 
-  São doze propriedades: nome, impacto, status, receita esperada, data de criação, atribuído a, data de ligação na etapa, tempo de espera de resposta do canal, nome do cliente, nome do contato, data de status do funil e data de previsão do funil.
+  Você pode ordenar por doze propriedades:
+
+  - nome;
+  - impacto;
+  - status;
+  - receita esperada;
+  - data de criação;
+  - atribuído a;
+  - data de ligação na etapa;
+  - tempo de espera de resposta do canal;
+  - nome do cliente;
+  - nome do contato;
+  - data de status do funil;
+  - data de previsão do funil.
 
   **Tempo de espera de resposta do canal** considera apenas as conversas que estão [aguardando resposta](/guides/funnels/board-view#conversas-aguardando-resposta). Uma conversa marcada como resolvida deixa de contar até o cliente escrever de novo.
 
-  <Note>
-  Ordenar por **resposta de formulário** existe na busca e na lista de projetos, mas **não** é oferecido aqui: a ordenação automática da etapa precisa de uma propriedade que valha para todos os cartões da coluna, e uma resposta depende de qual formulário está preenchido em cada um. **Etiquetas** também não é uma opção — um projeto pode ter várias, e não há critério único de desempate.
-  </Note>
+  Com a ordenação automática ativada, a ordenação manual fica desativada. Arrastar um cartão continua funcionando visualmente para você, mas a nova ordem não é salva.
 
-  <Warning>
-  Com a ordenação automática ativada, a ordenação manual é desativada. Arrastar um cartão continua funcionando visualmente para você, mas não persiste a nova ordem.
-  </Warning>
+  <Note>
+  Ordenar por **resposta de formulário** existe na busca e na lista de projetos, mas **não** é oferecido aqui. A ordenação automática da etapa precisa de uma propriedade que valha para todos os cartões da coluna, e a resposta depende do formulário preenchido em cada um. **Etiquetas** também não é uma opção: um projeto pode ter várias, e não há critério único de desempate.
+  </Note>
 </Tab>
 </Tabs>
 
@@ -115,17 +126,14 @@ Cada etapa tem botões próprios que abrem configurações com guia dedicado:
 | **Assistentes** | Agentes de IA que rodam na entrada ou na saída — veja [Assistentes de etapa](/guides/funnels/step-assistants) |
 | **Ordenação** | Modo manual ou automático dos cartões |
 
-<Warning>
 Restrições, automações e bloqueios só podem ser criados depois que o funil foi salvo pelo menos uma vez. Em um funil novo, salve antes de configurá-los.
-</Warning>
 
 ## Excluir uma etapa
 
-A exclusão é feita pelo botão de deletar na própria etapa, dentro da edição do funil. Antes de excluir, verifique se a etapa não está referenciada em outro lugar: um **Avançar para** de outra etapa, uma restrição, um bloqueio ou uma automação apontando para ela.
+Você exclui uma etapa pelo botão de exclusão da própria etapa, dentro da edição do funil. Antes de excluir, faça duas verificações:
 
-<Tip>
-Se a etapa ainda tem projetos, mova-os primeiro. Assim você decide para onde eles vão em vez de descobrir depois que ficaram sem posição.
-</Tip>
+- **Projetos na etapa.** Se a etapa ainda tem projetos, mova esses projetos primeiro. Assim você decide para onde eles vão, em vez de descobrir depois que ficaram sem posição.
+- **Referências à etapa.** Confira se nada aponta para ela: um **Avançar para** de outra etapa, uma restrição, um bloqueio ou uma automação.
 
 ## Próximos passos
 

@@ -30,7 +30,7 @@ Como o projeto é único e vive em vários funis, o conteúdo é único também.
 </Card>
 </CardGroup>
 
-O filtro no topo da aba separa as três coisas: tudo, apenas conteúdo enviado por pessoas, ou apenas logs.
+O filtro no topo da aba tem três opções: tudo, só o conteúdo enviado por pessoas ou só os logs.
 
 <Tip>
 A leitura do histórico é **de baixo para cima**: o registro mais antigo fica embaixo. Quando estiver investigando por que um projeto foi parar em algum lugar, comece pelo fim da lista.
@@ -76,16 +76,12 @@ Por padrão, tudo é publicado no canal principal do projeto, misturado na mesma
 
 Ver [Ações: comunicação, IA e execução](/guides/automation/actions-integrations) para as opções completas da ação que publica no conteúdo.
 
-<Note>
-Quem vê e mexe nos canais nomeados é definido pelas permissões do grupo **Canais** no [papel](/guides/users/roles-permissions): visualizar a lista, criar, editar e arquivar canais. Por padrão, só o papel Property recebe essas permissões. Para os demais papéis, marque-as na configuração do papel.
-</Note>
+As permissões do grupo **Canais** no [papel](/guides/users/roles-permissions) definem quem vê e mexe nos canais nomeados: visualizar a lista, criar, editar e arquivar canais. Por padrão, só o papel Property recebe essas permissões. Para os demais papéis, marque-as na configuração do papel.
 
-<Tip>
 Quando a última mensagem de uma linha externa é de quem está do outro lado, o cartão do projeto mostra **Aguardando resposta** no quadro. Veja [conversas aguardando resposta](/guides/funnels/board-view#conversas-aguardando-resposta) para saber como marcar a conversa como resolvida.
-</Tip>
 
 <Warning>
-Quando um projeto tem **mais de um canal externo**, a ação de enviar conteúdo escolhe por qual sair pela **configuração da automação** — e não pela origem da conversa que está sendo respondida. Em funis que recebem por mais de um número ou endereço, nomeie os canais e aponte a automação para o canal certo.
+Quando um projeto tem **mais de um canal externo**, a ação de enviar conteúdo escolhe o canal de saída pela **configuração da automação**. A origem da conversa que está sendo respondida não conta. Em funis que recebem por mais de um número ou endereço, nomeie os canais e aponte a automação para o canal certo.
 </Warning>
 
 ## Arquivos do projeto
@@ -97,6 +93,8 @@ Os [anexos do funil e da etapa](/guides/funnels/attachments) **não aparecem aqu
 </Note>
 
 ## O que a automação alcança
+
+A tabela mostra o que uma automação consegue fazer com o conteúdo do projeto e com o Caderno.
 
 | Operação | Disponível |
 | --- | --- |
@@ -118,6 +116,18 @@ Além do conteúdo e dos logs, o projeto guarda o **histórico de transições**
 
 É o que responde "por que este item demorou tanto" quando a média da etapa não basta. Ver [métricas e tempo por etapa](/guides/funnels/metrics).
 
-## Uma nota sobre a atualização do quadro
+## Quando o quadro mostra alterações de outras pessoas
 
-Nem toda alteração feita por outra pessoa aparece na sua tela imediatamente. O quadro atualiza quando você interage com ele — ao mover um cartão, trocar de funil ou usar o botão de atualizar ao lado da lista, que recarrega apenas aquele funil sem recarregar a página inteira.
+Nem toda alteração feita por outra pessoa aparece na sua tela imediatamente. O quadro atualiza quando você interage com ele: ao mover um cartão, ao trocar de funil ou ao usar o botão de atualizar ao lado da lista. Esse botão recarrega só aquele funil, sem recarregar a página inteira.
+
+## Próximos passos
+
+<CardGroup cols={2}>
+<Card title="Integrações" icon="plug" href="/guides/integrations/overview">
+  Como conectar os canais de comunicação que alimentam as linhas externas.
+</Card>
+
+<Card title="Caderno" icon="book" href="/guides/notebook/overview">
+  Onde fica o texto que vale enquanto ninguém mudar.
+</Card>
+</CardGroup>

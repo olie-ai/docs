@@ -1,42 +1,44 @@
 ---
 title: "Snapshots"
-description: "Entenda como funcionam os snapshots e o versionamento de templates"
+description: "Como funcionam os snapshots, a versão imutável do template, e o que acontece quando você gera uma nova"
+keywords: ["snapshot", "versão do template", "versionamento", "atualizar template", "parceiro", "marketplace"]
 icon: "camera"
 ---
 
+Esta página é para **parceiros** do Marketplace. Um snapshot é uma captura imutável do estado da empresa construtora em um determinado momento. Ele registra todas as configurações do ambiente e funciona como a versão do template publicada no Marketplace.
+
 ## O que é um snapshot
 
-Um snapshot é uma captura imutável do estado da empresa construtora em um determinado momento. Ele registra todas as configurações do ambiente e funciona como a "versão" do template que será publicada no Marketplace.
-
-<Warning>
-O snapshot é imutável. Uma vez gerado, ele representa o estado exato do ambiente no momento da captura e não pode ser alterado.
-</Warning>
+O snapshot é o que o usuário recebe ao implantar o template, e não o estado atual da empresa construtora. Depois de gerado, o snapshot não pode ser alterado: ele representa o ambiente exatamente como estava no momento da captura.
 
 ## Quando gerar um snapshot
 
-Você deve gerar um snapshot quando a empresa construtora estiver pronta para ser submetida como template. O snapshot será vinculado ao template durante o processo de [criação](/guides/marketplace/creating-template) e [submissão](/guides/marketplace/submission-flow).
+Gere um snapshot quando a empresa construtora estiver pronta para ser submetida como template. Você vincula o snapshot ao template na [criação](/guides/marketplace/creating-template) e na [submissão](/guides/marketplace/submission-flow).
 
 ## Versionamento
 
-Cada snapshot gerado é numerado sequencialmente:
+Cada snapshot gerado é numerado em sequência:
 
-- **Snapshot 1** — Primeira versão do template
-- **Snapshot 2** — Segunda versão, após ajustes
-- **Snapshot 3** — Terceira versão, e assim por diante
+- **Snapshot 1**: primeira versão do template.
+- **Snapshot 2**: segunda versão, depois de ajustes.
+- **Snapshot 3**: terceira versão, e assim por diante.
 
-Isso permite que você evolua a empresa construtora e gere novos snapshots conforme necessário, por exemplo, após receber feedback do time Olie durante o [fluxo de submissão](/guides/marketplace/submission-flow).
+A numeração permite evoluir a empresa construtora e gerar novos snapshots quando precisar, por exemplo depois de receber o retorno do time Olie no [fluxo de submissão](/guides/marketplace/submission-flow).
 
-## Regras importantes
+## O que uma alteração afeta
+
+Um snapshot já gerado nunca muda. Isso tem duas consequências:
+
+- **Alterações na empresa construtora não afetam snapshots anteriores.** Uma mudança feita depois do snapshot só aparece em um novo snapshot.
+- **Um snapshot novo não chega a quem já implantou.** Cada implantação é uma cópia independente do snapshot adquirido.
 
 <Warning>
-**Mudanças após o snapshot não afetam snapshots anteriores.** Se você alterar a empresa construtora após gerar um snapshot, essas mudanças só serão refletidas em um novo snapshot. O snapshot já gerado permanece inalterado.
-</Warning>
-
-<Warning>
-**Atualizações do criador não propagam para quem já importou.** Se você publicar um novo snapshot do template, os usuários que já adquiriram e implantaram uma versão anterior **não** receberão as atualizações automaticamente. Cada implantação é uma cópia independente do snapshot adquirido.
+Se você publicar um novo snapshot do template, os usuários que já adquiriram e implantaram uma versão anterior **não** recebem as atualizações automaticamente.
 </Warning>
 
 ## Exemplo de fluxo
+
+O ciclo abaixo mostra como o snapshot se encaixa na criação e na evolução de um template.
 
 <Steps>
 <Step title="Configure a empresa construtora">
@@ -44,7 +46,7 @@ Isso permite que você evolua a empresa construtora e gere novos snapshots confo
 </Step>
 
 <Step title="Gere o snapshot">
-  Quando estiver satisfeito com a configuração, gere o snapshot para capturar o estado atual.
+  Quando a configuração estiver pronta, gere o snapshot no painel do parceiro para capturar o estado atual.
 </Step>
 
 <Step title="Vincule ao template">
@@ -52,6 +54,6 @@ Isso permite que você evolua a empresa construtora e gere novos snapshots confo
 </Step>
 
 <Step title="Evolua se necessário">
-  Se precisar de ajustes, modifique a empresa construtora e gere um novo snapshot com a próxima numeração.
+  Se precisar de ajustes, altere a empresa construtora e gere um novo snapshot, que recebe o próximo número.
 </Step>
 </Steps>
