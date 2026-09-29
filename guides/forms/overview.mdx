@@ -20,9 +20,7 @@ E a consequência que muda tudo: **em cada lugar onde está anexado, ele acumula
 
 O mesmo formulário "Qualificação" pode estar, ao mesmo tempo, no funil de Vendas, na etapa "Proposta enviada" de outro funil e no cadastro de cliente. São três conjuntos de respostas independentes, da mesma definição de campos.
 
-<Warning>
-Por isso a pergunta *"quais são as respostas do formulário Qualificação?"* não tem resposta única. Falta dizer **onde**. É esse endereço que a API chama de [pivot](/api-reference/general/form-answer-pivot).
-</Warning>
+Por isso a pergunta *"quais são as respostas do formulário Qualificação?"* não tem resposta única. Falta dizer **onde**. Esse endereço é o *pivot*: o objeto que diz onde o formulário está anexado ([ver o pivot na API](/api-reference/general/form-answer-pivot)).
 
 ### Grava por endereço, lê tudo junto
 
@@ -48,7 +46,7 @@ O dado se espalha na coleta e se junta na leitura. No rodapé do cartão, o bot�
 
   Quatro objetos aceitam formulário: **projeto**, **cliente**, **contato** e **usuário**. Cada um aceita **um** formulário.
 
-  Guarde aqui o que vale em qualquer processo: quantidade de colaboradores do cliente, budget anual, atividade principal.
+  Guarde aqui o que vale em qualquer processo: quantidade de colaboradores do cliente, orçamento anual, atividade principal.
 
   <Note>
   O formulário do objeto projeto aparece dentro do cartão **independentemente do funil**. Ele está acima de qualquer funil, e o que for respondido vale para todo mundo.
@@ -142,6 +140,8 @@ Um campo só conta como alterado se o **valor mudou** em relação à última re
 </Note>
 
 ## Onde as respostas aparecem
+
+As respostas aparecem em quatro lugares da plataforma:
 
 | Lugar | O que mostra |
 | --- | --- |

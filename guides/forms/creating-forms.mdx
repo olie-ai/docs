@@ -4,7 +4,7 @@ description: "Os tipos de campo disponíveis, as configurações de cada um e a 
 keywords: ["criar formulário", "campo", "tipos de campo", "condicional", "obrigatório", "regex", "validação"]
 ---
 
-Formulários são criados em **Ajustes → Formulários**, e existem por conta própria — você os anexa a lugares depois. Ver [Formulários dinâmicos](/guides/forms/overview).
+Esta página lista os tipos de campo, as configurações de cada campo e a lógica condicional. Você cria formulários em **Ajustes → Formulários**. Eles existem por conta própria, e você os anexa a lugares depois. Ver [Formulários dinâmicos](/guides/forms/overview).
 
 ## Os tipos de campo
 
@@ -20,7 +20,7 @@ Formulários são criados em **Ajustes → Formulários**, e existem por conta p
 | **Contador** | Contador numérico. **Somente leitura** — o valor é alterado apenas por automações |
 
 <Note>
-O campo **Texto com formatação** está em fase beta e aparece marcado como tal na tela de criação.
+O campo **Texto com formatação** está em beta e aparece marcado como tal na tela de criação.
 </Note>
 </Accordion>
 
@@ -34,7 +34,7 @@ O campo **Texto com formatação** está em fase beta e aparece marcado como tal
 Para os três, as opções são cadastradas no próprio campo, uma por linha.
 
 <Tip>
-A escolha entre **Seleção de lista** e **Seleção de única** é de interface, não de comportamento: a primeira rende melhor com muitas opções, a segunda com poucas, porque mostra todas de uma vez.
+**Seleção de lista** e **Seleção de única** se comportam igual e mudam só na interface. A primeira funciona melhor com muitas opções. A segunda, com poucas, porque mostra todas de uma vez.
 </Tip>
 </Accordion>
 
@@ -43,13 +43,11 @@ A escolha entre **Seleção de lista** e **Seleção de única** é de interface
 | --- | --- |
 | **Matriz** | Uma grade em que cada **linha** é uma pergunta e cada **coluna** é um dado a preencher |
 
-É o formato de pergunta em grade: avaliar vários itens pelos mesmos critérios, ou uma escala Likert — as linhas são as afirmações, e uma coluna do tipo **Seleção de única** traz a escala.
+Use a matriz para avaliar vários itens pelos mesmos critérios. Numa escala Likert, por exemplo, as linhas são as afirmações e uma coluna do tipo **Seleção de única** traz a escala.
 
 Cada coluna tem o seu próprio tipo, entre os de texto, número, moeda, data, hora, e-mail, telefone, link e os três de escolha. Uma coluna pode ser obrigatória por conta própria, independentemente das outras.
 
-<Note>
-Um campo de matriz **não pode ser o campo que decide** em uma condicional — a resposta dele é uma grade inteira, não um valor comparável. Ele pode, sim, ser mostrado ou escondido por condicional de outro campo.
-</Note>
+Um campo de matriz **não pode ser o campo que decide** em uma condicional, porque a resposta dele é uma grade inteira, não um valor comparável. Ele pode, sim, ser mostrado ou escondido por condicional de outro campo.
 
 <Warning>
 O tipo de uma coluna que já existe não pode ser trocado depois. Para mudar, remova a coluna e crie outra — lembrando que remover descarta o que já foi respondido nela.
@@ -98,6 +96,8 @@ Arquivos anexados em campo de formulário aparecem também no botão **Arquivos*
 
 ## As configurações de cada campo
 
+Cada campo tem as configurações abaixo. Algumas valem só para certos tipos, indicados em seguida.
+
 | Configuração | O que faz |
 | --- | --- |
 | **Título do campo** | O rótulo. Até 255 caracteres |
@@ -109,9 +109,7 @@ Arquivos anexados em campo de formulário aparecem também no botão **Arquivos*
 | **Múltiplas respostas** | Permite mais de um valor no mesmo campo |
 | **Condicional** | Mostra ou esconde o campo conforme a resposta de outro |
 
-<Note>
-**Múltiplas respostas** não é exclusivo de anexo. Ela está disponível para **Anexo(s)**, **Contato**, **Cliente**, **Projeto**, **Usuário** e **Link**.
-</Note>
+**Múltiplas respostas** está disponível para **Anexo(s)**, **Contato**, **Cliente**, **Projeto**, **Usuário** e **Link**.
 
 ### Validação Regex
 
@@ -149,19 +147,19 @@ Uma árvore de decisão bem montada substitui vários formulários diferentes. E
 
 ### Condicional e obrigatoriedade
 
-<Note>
 Um campo obrigatório que está **oculto** por condicional **não é cobrado**. A plataforma avalia apenas os campos que de fato estão aparecendo para quem preenche. Ver [Checklists e formulários obrigatórios](/guides/funnels/requirements).
-</Note>
 
 ### O campo oculto como decisão de administrador
 
 A condicional também serve para o contrário do que parece: **esconder um campo de quase todo mundo**.
 
-Um campo visível apenas para quem administra, cuja resposta dispara uma automação, é a forma de dar a alguém o poder de corrigir uma rota — mover um projeto que a restrição não deixa voltar, por exemplo — sem dar a essa pessoa permissão para furar as regras do funil.
+Pense num campo visível apenas para quem administra, cuja resposta dispara uma automação. Com ele, essa pessoa pode corrigir uma rota, como mover um projeto que a restrição não deixa voltar. E ela faz isso sem ganhar permissão para furar as regras do funil.
 
 Ver [Padrões de desenho](/guides/implementation/design-patterns).
 
 ## Limites dos campos de texto
+
+A interface limita o tamanho destes campos:
 
 | Campo | Limite na interface |
 | --- | --- |

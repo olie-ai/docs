@@ -1,113 +1,60 @@
 ---
 title: "Hierarquia de projetos"
-description: "Organize seus projetos em estruturas hierárquicas com vínculos pai e filho"
+description: "Organize projetos em uma árvore de pai e filhos, com até quatro níveis, e conheça as regras que a plataforma verifica"
+keywords: ["hierarquia", "projeto pai", "projeto filho", "subprojeto", "raiz", "neto", "bisneto", "árvore de projetos"]
 ---
 
-## O que é a hierarquia de projetos
+A hierarquia de projetos organiza projetos em uma árvore: um projeto pode ter outros projetos abaixo dele, que são os filhos. Use a hierarquia quando um trabalho grande precisa ser dividido em partes menores, cada uma acompanhada como um projeto próprio.
 
-A hierarquia de projetos permite organizar seus projetos em uma estrutura em árvore, onde um projeto pode ter outros projetos como dependentes. Esta funcionalidade é especialmente útil para projetos grandes que precisam ser divididos em partes menores para melhor gerenciamento.
+Esta página explica os níveis, as regras que a plataforma verifica e as operações que mudam a estrutura. Para montar uma árvore inteira de uma vez por automação, veja [Hierarquia de projetos automatizada](/guides/automation/automated-hierarchy).
 
-<Info>
-Imagine uma árvore genealógica, mas para projetos: você tem um projeto principal (pai) que pode ter vários projetos menores (filhos), e esses projetos filhos podem ter seus próprios projetos filhos.
-</Info>
+## Pai, filho, raiz e folha
 
-## Conceitos básicos
+A hierarquia usa quatro termos para descrever a posição de um projeto:
 
-<CardGroup cols={2}>
-<Card title="Projeto pai" icon="diagram-project">
-  Um projeto que possui outros projetos como dependentes diretos. O projeto pai coordena e supervisiona os projetos filhos.
-</Card>
+| Termo | O que é |
+| --- | --- |
+| **Projeto pai** | Um projeto que tem outros projetos diretamente abaixo dele |
+| **Projeto filho** | Um projeto que está diretamente abaixo de um projeto pai. Representa uma parte ou subdivisão do pai |
+| **Projeto raiz** | Um projeto sem pai. É o topo da árvore |
+| **Projeto folha** | Um projeto sem filhos. É o fim de um ramo da árvore |
 
-<Card title="Projeto filho" icon="diagram-subtask">
-  Um projeto que depende diretamente de um projeto pai. Projetos filhos são partes ou subdivisões do projeto pai.
-</Card>
+Um mesmo projeto pode ter mais de um papel: um filho que tem filhos também é pai, e uma raiz sem filhos também é folha.
 
-<Card title="Projeto raiz" icon="tree">
-  Um projeto que não possui pai. É o projeto principal de uma estrutura hierárquica, o ponto de partida da árvore de projetos.
-</Card>
+## Os quatro níveis
 
-<Card title="Projeto folha" icon="leaf">
-  Um projeto que não possui filhos. É o projeto final de uma ramificação da hierarquia.
-</Card>
-</CardGroup>
+A hierarquia aceita até **4 níveis**, numerados de 0 a 3:
 
-### Níveis hierárquicos
+| Nível | Nome | Posição |
+| --- | --- | --- |
+| 0 | Raiz | O topo da árvore, sem pai |
+| 1 | Filho | Diretamente abaixo da raiz |
+| 2 | Neto | Filho de um filho |
+| 3 | Bisneto | Filho de um neto. É o último nível permitido |
 
-A posição do projeto na estrutura:
+Um bisneto não pode ter filhos. O número de filhos por projeto é ilimitado. Os valores estão reunidos em [Limites da plataforma](/guides/fundamentals/limits).
 
-<Steps>
-<Step title="Nível 0 - Raiz">
-  Projeto raiz sem pai, ponto de partida da hierarquia.
-</Step>
+Os quatro níveis acompanham as camadas da operação: estratégico, tático, operacional e microatividade. Veja [o modelo mental](/guides/fundamentals/mental-model) para entender essa relação.
 
-<Step title="Nível 1 - Filho direto">
-  Projeto filho direto do raiz.
-</Step>
+## Regras que a plataforma verifica
 
-<Step title="Nível 2 - Neto">
-  Projeto filho de um filho (neto do raiz).
-</Step>
+A plataforma verifica estas regras automaticamente e recusa a operação que violaria alguma delas:
 
-<Step title="Nível 3 - Bisneto">
-  Projeto filho de um neto (máximo permitido).
-  
-  <Warning>
-  Este é o último nível permitido pelo sistema.
-  </Warning>
-</Step>
-</Steps>
+| Regra | O que significa |
+| --- | --- |
+| Mesma empresa | Pai e filho podem ser quaisquer projetos da mesma empresa |
+| Sem ciclos | Um projeto não pode ficar abaixo de um dos próprios descendentes. Se o projeto A é pai do projeto B, B não pode ser pai de A |
+| Sem autorreferência | Um projeto não pode ser pai de si mesmo |
+| Limite de profundidade | Nenhuma operação pode deixar um projeto abaixo do nível 3 (bisneto) |
 
-## Regras e limitações
+## Ver a estrutura
 
-### Limite de níveis
-
-<Card title="Profundidade máxima" icon="layer-group">
-  O sistema permite até **4 níveis de profundidade** (0 a 3):
-  
-  - **Nível 0**: Projeto raiz
-  - **Nível 1**: Filhos diretos
-  - **Nível 2**: Netos
-  - **Nível 3**: Bisnetos (último nível permitido)
-  
-  <Tip>
-  Este limite mantém a estrutura organizacional simples e gerenciável, evitando hierarquias infinitas e complexas demais.
-  </Tip>
-</Card>
-
-### Regras de relacionamento
-
-O sistema verifica automaticamente estas regras e impede operações que as violariam:
-
-<AccordionGroup>
-<Accordion title="Mesmo ambiente" icon="building">
-  Projetos pai e filho podem se relacionar com quaisquer projetos da mesma empresa.
-</Accordion>
-
-<Accordion title="Sem loops" icon="ban">
-  Não é possível criar dependências circulares. Um projeto não pode ser pai de seu próprio pai.
-  
-  **Exemplo inválido:**
-  - Projeto A é pai de Projeto B
-  - Projeto B não pode ser pai de Projeto A
-</Accordion>
-
-<Accordion title="Sem auto-referência" icon="arrows-rotate">
-  Um projeto não pode ser pai de si mesmo.
-</Accordion>
-
-<Accordion title="Respeitar limite de profundidade" icon="ruler-vertical">
-  Não é possível adicionar filhos se isso ultrapassar o limite de 3 níveis de profundidade.
-</Accordion>
-</AccordionGroup>
-
-## Funcionalidades disponíveis
-
-### Visualizar estrutura
+A hierarquia pode ser consultada de três formas. Os exemplos abaixo usam a obra de um shopping center dividida em etapas construtivas.
 
 <Tabs>
 <Tab title="Filhos diretos">
-  Visualize todos os projetos que dependem diretamente de um projeto específico.
-  
+  Os projetos que estão diretamente abaixo de um projeto específico.
+
   ```mermaid
   flowchart TD
       A[Shopping Center] --> B[Fundação]
@@ -117,8 +64,8 @@ O sistema verifica automaticamente estas regras e impede operações que as viol
 </Tab>
 
 <Tab title="Árvore completa">
-  Visualize toda a estrutura hierárquica, desde o projeto raiz até todos os projetos filhos, netos e bisnetos.
-  
+  A estrutura inteira, do projeto raiz até os filhos, netos e bisnetos.
+
   ```mermaid
   flowchart TD
       A[Shopping Center] --> B[Fundação]
@@ -134,79 +81,39 @@ O sistema verifica automaticamente estas regras e impede operações que as viol
 </Tab>
 
 <Tab title="Caminho hierárquico">
-  Veja o caminho completo desde o projeto raiz até o projeto atual.
-  
-  **Exemplo:**
-  `Shopping Center > Fundação > Escavação`
-  
-  <Info>
-  Nos detalhes do projeto, o código é exibido com seus antecessores em formato de caminho (exemplo: "P1 > P2 > P3").
-  </Info>
+  O caminho do projeto raiz até o projeto atual, como em `Shopping Center > Fundação > Escavação`.
+
+  Nos detalhes do projeto, o código aparece junto com os códigos dos antecessores, no mesmo formato de caminho: `OBR-1 > OBR-2 > OBR-5`.
 </Tab>
 </Tabs>
 
-### Modificar estrutura
+## Mudar a estrutura
 
-<Steps>
-<Step title="Anexar projeto filho">
-  Transforme um projeto independente em filho de outro projeto.
-  
-  <Check>
-  O projeto filho herda o contexto e a organização do projeto pai.
-  </Check>
-</Step>
+A estrutura pode ser reorganizada a qualquer momento. Estas são as operações disponíveis:
 
-<Step title="Remover projeto filho">
-  Transforme um projeto filho em projeto independente, promovendo-o a raiz.
-  
-  <Note>
-  Ao promover um projeto a raiz, todos os seus filhos mantêm a estrutura hierárquica relativa.
-  </Note>
-</Step>
+| Operação | O que faz |
+| --- | --- |
+| Vincular um filho | Coloca um projeto existente diretamente abaixo de outro |
+| Desvincular um filho | Tira o projeto de baixo do pai. O projeto vira raiz e mantém os próprios filhos |
+| Promover a raiz | Desliga o projeto do pai. Os filhos dele acompanham a mudança e mantêm as posições entre si |
+| Mover para outro pai | Coloca o projeto, com toda a descendência dele, abaixo de outro pai |
 
-<Step title="Mover projeto">
-  Mova um projeto de um pai para outro, reorganizando a estrutura.
-  
-  <Warning>
-  Verifique se a movimentação não violará o limite de profundidade antes de confirmar.
-  </Warning>
-</Step>
-</Steps>
+Ao mover um projeto, a plataforma considera a descendência inteira dele. Se algum descendente passaria do nível 3, a movimentação é recusada. Nesse caso, escolha um pai em um nível mais alto ou reduza a profundidade do ramo antes de mover.
 
-## Benefícios da hierarquia
+Reorganizar a hierarquia não altera o conteúdo dos projetos. O filho também não herda dados do pai: vincular, mover ou promover muda só a posição do projeto na árvore.
 
-<CardGroup cols={2}>
-<Card title="Organização clara" icon="sitemap">
-  Estrutura visual clara dos relacionamentos entre projetos, facilitando a compreensão de dependências.
-</Card>
+Para mudar a estrutura, você precisa de permissão para editar o projeto que muda de lugar e, quando houver, o pai envolvido na operação.
 
-<Card title="Gestão eficiente" icon="chart-gantt">
-  Controle centralizado de projetos relacionados com análises consolidadas de progresso e recursos.
-</Card>
+Ao excluir um projeto pai, os filhos dele viram raiz e mantêm os próprios filhos.
 
-<Card title="Flexibilidade" icon="arrows-split-up-and-left">
-  Reorganização fácil da estrutura conforme necessário, adaptando-se a mudanças no escopo.
-</Card>
+## Exemplos por área
 
-<Card title="Relatórios melhorados" icon="chart-line">
-  Visão macro de toda a estrutura organizacional com análises de impacto em projetos relacionados.
-</Card>
-
-<Card title="Comunicação" icon="comments">
-  Melhora a comunicação entre equipes através da clareza na estrutura organizacional.
-</Card>
-
-<Card title="Tomada de decisão" icon="lightbulb">
-  Decisões baseadas na visão completa da estrutura de projetos e suas interdependências.
-</Card>
-</CardGroup>
-
-## Casos de uso comuns
+A mesma estrutura serve a operações diferentes. Os exemplos mostram como cada área costuma dividir o trabalho.
 
 <Tabs>
 <Tab title="Desenvolvimento de software">
-  **Divisão de sistemas complexos em módulos**
-  
+  Um sistema dividido em módulos e funcionalidades:
+
   ```mermaid
   flowchart TD
       A[Sistema ERP] --> B[Módulo Financeiro]
@@ -220,15 +127,11 @@ O sistema verifica automaticamente estas regras e impede operações que as viol
       D --> D1[Controle de Entrada]
       D --> D2[Controle de Saída]
   ```
-  
-  - Controle de versões e releases
-  - Gestão de equipes especializadas
-  - Entregas incrementais
 </Tab>
 
 <Tab title="Construção civil">
-  **Organização de grandes obras**
-  
+  Uma obra dividida por frente de trabalho:
+
   ```mermaid
   flowchart TD
       A[Edifício Residencial] --> B[Infraestrutura]
@@ -242,163 +145,71 @@ O sistema verifica automaticamente estas regras e impede operações que as viol
       D --> D1[Instalações]
       D --> D2[Revestimentos]
   ```
-  
-  - Controle de etapas construtivas
-  - Gestão de equipes por especialidade
-  - Acompanhamento de cronograma físico
 </Tab>
 
 <Tab title="Consultoria">
-  **Projetos por área de expertise**
-  
+  Um projeto de consultoria dividido por frente de atuação, até o nível 3:
+
   ```mermaid
   flowchart TD
-      A[Transformação Digital] --> B[Diagnóstico]
-      A --> C[Estratégia]
-      A --> D[Implementação]
-      B --> B1[Análise de Processos]
-      B --> B2[Mapeamento Tecnológico]
-      C --> C1[Planejamento]
-      C --> C2[Roadmap]
-      D --> D1[Fase Piloto]
-      D --> D2[Rollout]
+      A["Transformação Digital<br/>Nível 0 (raiz)"]
+
+      A --> B["Diagnóstico<br/>Nível 1"]
+      A --> C["Planejamento<br/>Nível 1"]
+      A --> D["Implementação<br/>Nível 1"]
+
+      B --> B1["Análise de Processos<br/>Nível 2"]
+      B --> B2["Avaliação Tecnológica<br/>Nível 2"]
+      B1 --> B1a["Mapeamento Operacional<br/>Nível 3"]
+      B1 --> B1b["Análise de Indicadores<br/>Nível 3"]
+
+      C --> C1["Definição de Objetivos<br/>Nível 2"]
+      C --> C2["Roadmap<br/>Nível 2"]
+      C2 --> C2a["Q1 2026<br/>Nível 3"]
+      C2 --> C2b["Q2 2026<br/>Nível 3"]
+
+      D --> D1["Piloto<br/>Nível 2"]
+      D --> D2["Rollout<br/>Nível 2"]
+      D1 --> D1a["Treinamento da equipe<br/>Nível 3"]
+      D2 --> D2a["Treinamento geral<br/>Nível 3"]
   ```
-  
-  - Controle de diferentes áreas
-  - Gestão multidisciplinar
-  - Entregas por fase
 </Tab>
 
 <Tab title="Marketing">
-  **Campanhas e eventos**
-  
+  Um lançamento dividido em momentos da campanha:
+
   ```mermaid
   flowchart TD
       A[Lançamento de Produto] --> B[Pré-lançamento]
       A --> C[Lançamento]
       A --> D[Pós-lançamento]
       B --> B1[Teaser]
-      B --> B2[PR]
+      B --> B2[Assessoria de imprensa]
       C --> C1[Evento]
       C --> C2[Mídia]
       D --> D1[Remarketing]
       D --> D2[Análise de Resultados]
   ```
-  
-  - Organização de campanhas por canal
-  - Controle de fases de lançamento
-  - Gestão de múltiplos eventos
 </Tab>
 </Tabs>
 
-## Dicas de uso
+## Planejar a estrutura
 
-### Planejamento da estrutura
+Pensar na árvore antes de criar os projetos evita reorganizações por causa do limite de níveis:
 
-<AccordionGroup>
-<Accordion title="1. Identifique o projeto principal">
-  Determine qual será seu projeto raiz. Este deve ser o projeto mais abrangente que engloba todos os outros.
-</Accordion>
+- **Comece pelo projeto raiz.** Ele é o trabalho mais abrangente, que engloba todos os outros.
+- **Defina os filhos diretos.** Eles são as grandes divisões do trabalho, por área ou por momento.
+- **Conte os níveis.** Se a divisão pede mais de quatro níveis, o que ficaria no quinto costuma ser microtarefa, que cabe melhor em um [checklist avulso](/guides/projects/overview#checklists-avulsos). Outra saída é separar o trabalho em mais de uma árvore.
+- **Dê nomes que mostrem a função.** Nomes descritivos, no mesmo padrão entre projetos do mesmo nível, deixam o caminho hierárquico legível.
 
-<Accordion title="2. Defina as divisões principais">
-  Identifique as áreas ou fases principais que serão os filhos diretos do projeto raiz.
-</Accordion>
-
-<Accordion title="3. Considere a profundidade">
-  Lembre-se do limite de 4 níveis. Planeje a estrutura de forma que não ultrapasse este limite.
-  
-  <Tip>
-  Se precisar de mais níveis, considere criar múltiplas árvores de projetos separadas.
-  </Tip>
-</Accordion>
-
-<Accordion title="4. Mantenha a flexibilidade">
-  Estruturas podem ser reorganizadas conforme necessário. Não tenha medo de ajustar a hierarquia ao longo do projeto.
-</Accordion>
-</AccordionGroup>
-
-### Nomenclatura
+## Próximos passos
 
 <CardGroup cols={2}>
-<Card title="Nomes claros" icon="tag">
-  Use nomes descritivos que deixem clara a função de cada projeto na estrutura.
+<Card title="Hierarquia automatizada" icon="sitemap" href="/guides/automation/automated-hierarchy">
+  Monte uma árvore inteira de projetos com uma automação.
 </Card>
 
-<Card title="Consistência" icon="check-double">
-  Mantenha consistência na nomenclatura entre projetos do mesmo nível.
-</Card> 
-
-<Card title="Hierarquia visível" icon="eye">
-  O nome deve refletir a posição na hierarquia quando possível.
+<Card title="Grupos de projetos" icon="layer-group" href="/guides/projects/project-groups">
+  Quando os projetos só precisam ser vistos juntos, sem relação de pai e filho.
 </Card>
 </CardGroup>
-
-### Manutenção
-
-<Steps>
-<Step title="Revise periodicamente">
-  Revise a estrutura regularmente para garantir que ainda reflete a organização atual do trabalho.
-</Step>
-
-<Step title="Reorganize quando necessário">
-  Não hesite em reorganizar a estrutura quando mudanças no escopo exigirem.
-  
-  <Note>
-  Reorganizações são operações seguras e não afetam o conteúdo dos projetos.
-  </Note>
-</Step>
-
-<Step title="Mantenha atualizada">
-  Garanta que a estrutura esteja sempre sincronizada com a realidade do projeto.
-</Step>
-
-<Step title="Documente mudanças">
-  Registre as razões para reorganizações importantes na estrutura.
-</Step>
-</Steps>
-
-## Exemplo prático completo
-
-Vamos ver um exemplo completo de hierarquia de projetos:
-
-```mermaid
-flowchart TD
-    A["🏢 Transformação Digital da Empresa<br/>Nível 0 (Raiz)"]
-
-    A --> B["📊 Fase 1: Diagnóstico<br/>Nível 1"]
-    A --> C["🎯 Fase 2: Planejamento<br/>Nível 1"]
-    A --> D["🚀 Fase 3: Implementação<br/>Nível 1"]
-
-    B --> B1["🔍 Análise de Processos Atuais<br/>Nível 2"]
-    B --> B2["💻 Avaliação Tecnológica<br/>Nível 2"]
-    B1 --> B1a["⚙️ Mapeamento Operacional<br/>Nível 3"]
-    B1 --> B1b["📈 Análise de Indicadores<br/>Nível 3"]
-    B2 --> B2a["🖥️ Infraestrutura<br/>Nível 3"]
-    B2 --> B2b["📱 Sistemas<br/>Nível 3"]
-
-    C --> C1["📋 Definição de Objetivos<br/>Nível 2"]
-    C --> C2["🗺️ Roadmap<br/>Nível 2"]
-    C2 --> C2a["📅 Q1 2026<br/>Nível 3"]
-    C2 --> C2b["📅 Q2 2026<br/>Nível 3"]
-
-    D --> D1["🧪 Piloto<br/>Nível 2"]
-    D --> D2["🌐 Rollout<br/>Nível 2"]
-    D1 --> D1a["👥 Treinamento Equipe<br/>Nível 3"]
-    D1 --> D1b["⚡ Go-Live Piloto<br/>Nível 3"]
-    D2 --> D2a["📢 Comunicação<br/>Nível 3"]
-    D2 --> D2b["🎓 Treinamento Geral<br/>Nível 3"]
-```
-
-<Check>
-Esta estrutura oferece organização clara, permite acompanhamento detalhado de cada fase e facilita a gestão de equipes especializadas.
-</Check>
-
-## Conclusão
-
-A hierarquia de projetos é uma ferramenta poderosa para organizar e gerenciar projetos complexos. Com ela, você pode criar estruturas claras, manter o controle organizacional e obter visões consolidadas de seus projetos relacionados.
-
-<Tip>
-Aproveite essa funcionalidade para melhorar a organização, comunicação e eficiência no gerenciamento de seus projetos, criando estruturas que reflitam a realidade de sua organização.
-</Tip>
-
-[Aprenda a automatizar a criação de hierarquias →](/guides/automation/automated-hierarchy)

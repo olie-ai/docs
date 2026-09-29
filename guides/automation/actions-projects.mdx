@@ -4,7 +4,7 @@ description: "Mover, desvincular, alternar funis e grupos e alterar o status do 
 keywords: ["ação", "etapa", "mover projeto", "funil", "grupo", "status do projeto", "desvincular"]
 ---
 
-As ações que movimentam o projeto pela operação. Uma automação precisa de **pelo menos uma ação** para ser salva.
+Esta página reúne as ações que movimentam o projeto pela operação. Uma automação precisa de **pelo menos uma ação** para ser salva.
 
 | Ação | O que faz |
 | --- | --- |
@@ -30,13 +30,11 @@ Move o projeto para a etapa escolhida.
 
 Com **Vincular ao funil mesmo sem vínculo** desligado, o projeto só é movido se já estiver em alguma etapa daquele funil. Ligado, o vínculo com o funil acontece automaticamente.
 
-<Warning>
-Esta ação **ignora as restrições de entrada e os bloqueios** da etapa de destino. Um card que uma pessoa não conseguiria mover manualmente é movido pela automação sem reclamar. Confira as regras da etapa antes de ativar.
-</Warning>
+Em funis que não permitem o projeto estar em várias etapas ao mesmo tempo, a desvinculação das outras etapas acontece de qualquer forma, independentemente da opção **Desvincular das outras etapas**.
 
-<Note>
-Em funis que não permitem o projeto estar em várias etapas ao mesmo tempo, a desvinculação das outras etapas acontece de qualquer forma, independentemente da opção.
-</Note>
+<Warning>
+Esta ação **ignora as restrições de entrada e os bloqueios** da etapa de destino. Um projeto que uma pessoa não conseguiria mover manualmente é movido pela automação. Confira as regras da etapa antes de ativar.
+</Warning>
 
 **Quando não tem efeito**
 
@@ -61,7 +59,7 @@ Com **Desvincular também do funil** ligado, o projeto sai do funil se aquela er
 **Quando não tem efeito**
 
 - O projeto não está na etapa indicada — a ação registra sucesso e segue.
-- Aquela é a única etapa do projeto no funil e a opção de desvincular do funil está desligada — o log registra que não era possível desvincular.
+- Aquela é a única etapa do projeto no funil e a opção de desvincular do funil está desligada. O registro de execução mostra que não foi possível desvincular.
 
 ## Vincular ou desvincular funil
 
@@ -99,7 +97,7 @@ Muda o status geral do projeto — o mesmo campo que aparece no cabeçalho dele,
 Não confunda com [Editar status do funil](/guides/automation/actions-tags-status#editar-status-do-funil). O status do projeto é único e global; o status do funil é por funil vinculado.
 </Note>
 
-O status do projeto é um dos campos monitorados pelo gatilho [Campo do projeto alterado](/guides/automation/triggers#campo-do-projeto-alterado) — vale lembrar disso ao montar cadeias.
+O status do projeto é um dos campos monitorados pelo gatilho [Campo do projeto alterado](/guides/automation/triggers#campo-do-projeto-alterado). Por isso, esta ação pode acionar outras automações e formar uma cadeia.
 
 ## Por onde continuar
 

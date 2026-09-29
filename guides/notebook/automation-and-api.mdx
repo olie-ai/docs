@@ -4,24 +4,24 @@ description: "O que a automação, a API e o MCP alcançam do Caderno — e o ca
 keywords: ["caderno", "automação", "api", "webhook", "integração", "mcp", "fórum", "exportar"]
 ---
 
-Uma dúvida recorrente: *dá para enviar o conteúdo do Caderno por uma automação?* A resposta curta é **não** — e esta página explica o que dá, o que não dá e por onde ir.
+Uma dúvida recorrente: *dá para enviar o conteúdo do Caderno por uma automação?* A resposta curta é **não**. Esta página mostra o que a automação, a API e o MCP alcançam, o que não alcançam e qual caminho usar no lugar.
 
-## O quadro em uma tabela
+## O que cada recurso alcança
+
+A tabela compara o Caderno com os dois recursos que costumam ocupar o lugar dele nas integrações:
 
 | Recurso | Caderno | Conteúdo do projeto | Respostas de formulário |
 | --- | --- | --- | --- |
 | Ler em uma automação | Não | Sim, pela consulta `project_medias` | Sim, direto no contexto |
-| Escrever por automação | Não | Sim, pela ação **Envia conteúdo do projeto** | Sim, pela ação de responder formulário |
+| Escrever por automação | Não | Sim, pela ação **Envia conteúdo do projeto** | Em parte: **Atualizar contador** e **Alterar campo de data** gravam nesses campos, e um agente de IA acionado por **Executar assistente de etapa** pode preencher formulários |
 | Ler pela API pública | Não | Sim | Sim |
 | Copiar ao clonar um projeto | Sim | Sim | Sim |
 
-<Warning>
-O conteúdo das páginas do Caderno **não está disponível** para automações, nem na referência da API, nem no MCP. A única operação de Caderno exposta fora da interface é copiá-lo junto com um projeto clonado.
-</Warning>
+O conteúdo das páginas do Caderno **não está disponível** para automações, para a API nem para o MCP. A única operação de Caderno disponível fora da interface é copiá-lo junto com um projeto clonado.
 
 ## Por que a automação não alcança o Caderno
 
-Os campos de uma automação que aceitam variáveis — mensagem, assunto e corpo de e-mail, corpo customizado de webhook — leem o que está no **contexto de execução**, e completam o que falta com a função `query`.
+Alguns campos de uma automação aceitam variáveis: a mensagem, o assunto e o corpo de e-mail e o corpo customizado de webhook. Esses campos leem o que está no **contexto de execução** e completam o que falta com a função `query`.
 
 Nenhuma das consultas disponíveis devolve páginas do Caderno. A que mais se aproxima pelo nome é `project_medias`, e ela traz o **conteúdo publicado no projeto** — a aba **Conteúdo**, não o Caderno. A lista completa está em [Variáveis nas automações](/guides/automation/variables#buscando-dados-adicionais).
 
@@ -39,13 +39,20 @@ Na maioria dos casos, o que precisa sair da plataforma é uma informação estru
   {{ project.form_answers|json(true) }}
   ```
 
-  O filtro `json` com `true` devolve o JSON identado — bom para enxergar a estrutura na primeira execução e depois recortar só os campos que interessam:
+  O filtro `json` com `true` devolve o JSON indentado, o que ajuda a enxergar a estrutura na primeira execução. Depois, recorte só o que interessa.
+
+  Para as respostas de um formulário específico, use a consulta `get_form_answers`. Ela precisa do `pivot`, o endereço que diz onde o formulário está anexado, e esse `pivot` vem pronto da consulta `project_dynamic_forms`:
 
   ```twig
-  {% set respostas = query('get_form_answers', { 'pivot': trigger.form_id }) %}
   Projeto {{ project.code }} — {{ project.name }}
-  {{ respostas|json(true) }}
+  {% set formularios = query('project_dynamic_forms', { 'project_code': project.code }) %}
+  {% for f in formularios %}
+    {% set respostas = query('get_form_answers', { 'pivot': f.pivot }) %}
+    {{ respostas.response|json(true) }}
+  {% endfor %}
   ```
+
+  Veja mais exemplos de consulta em [Sintaxe avançada](/guides/advanced/advanced-syntax).
 </Tab>
 
 <Tab title="Enviar o conteúdo do projeto">
@@ -88,7 +95,7 @@ Na referência da API essa opção ainda aparece com o nome técnico **fórum**,
 
 ## O Caderno no MCP
 
-O [MCP da Olie](/guides/mcp/overview) segue a mesma regra da API: o assistente consegue consultar projetos, funis, métricas, formulários e o **conteúdo** dos projetos, e consegue clonar um projeto pedindo que o Caderno venha junto — mas não lê nem escreve as páginas.
+O [MCP da Olie](/guides/mcp/overview) segue a mesma regra da API. O assistente consegue consultar projetos, funis, métricas, formulários e o **conteúdo** dos projetos. Ele também consegue clonar um projeto com o Caderno junto, mas não lê nem escreve as páginas do Caderno.
 
 ## Se o Caderno é mesmo o alvo
 

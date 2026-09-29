@@ -6,11 +6,9 @@ keywords: ["receita", "exemplo", "modelo", "caso de uso", "automação pronta"]
 
 Montagens testadas para situações que aparecem em quase toda operação. Cada receita indica o gatilho, as condições e as ações na ordem em que devem aparecer no editor.
 
-<Info>
 Adapte os nomes de etapas, etiquetas e formulários para os da sua conta. A estrutura é o que importa.
-</Info>
 
-## Cobrar um card parado
+## Cobrar um projeto parado
 
 O clássico: avisar a equipe quando algo fica esquecido em uma etapa.
 
@@ -27,13 +25,13 @@ O clássico: avisar a equipe quando algo fica esquecido em uma etapa.
 
 <Step title="Ação — Envia conteúdo do projeto" icon="message">
   ```twig
-  {{ project.users|mention }} este card está parado em "Em análise" há 3 dias. Precisa de alguma coisa para avançar?
+  {{ project.users|mention }} este projeto está parado em "Em análise" há 3 dias. Precisa de alguma coisa para avançar?
   ```
 </Step>
 </Steps>
 
 <Warning>
-Ao salvar, o gatilho dispara imediatamente para todos os cards que já estão parados além do prazo. Se a etapa tiver muitos cards, o primeiro efeito é uma enxurrada de avisos.
+Ao salvar, o gatilho dispara imediatamente para todos os projetos que já estão parados além do prazo. Se a etapa tiver muitos projetos, o primeiro efeito é uma enxurrada de avisos.
 </Warning>
 
 ## Preparar o onboarding de um cliente novo
@@ -46,7 +44,7 @@ Quando a venda fecha, o time de implantação precisa receber o projeto pronto p
 </Step>
 
 <Step title="Ação — Adicionar formulário avulso" icon="clipboard-list">
-  Formulário: "Checklist de onboarding". **Ignorar se já houver esse formulário** ligado, para o card não acumular cópias se voltar para a etapa.
+  Formulário: "Checklist de onboarding". **Ignorar se já houver esse formulário** ligado, para o projeto não acumular cópias se voltar para a etapa.
 </Step>
 
 <Step title="Ação — Alterar usuários atribuídos" icon="user-plus">
@@ -94,17 +92,13 @@ Aviso preventivo dois dias antes da data prevista — e só para quem ainda não
 </Step>
 </Steps>
 
-<Tip>
-Precisa avisar em dias úteis, e não em intervalo fixo? Use **Tempo relativo customizado** com expressões como `previous friday`. Veja [Tempo relativo customizado](/guides/automation/relative-time).
-</Tip>
-
 ## Criar cliente a partir de um formulário
 
 O formulário de captação é preenchido e o cadastro nasce sozinho, sem duplicar quem já existe.
 
 <Steps>
 <Step title="Gatilho — Formulário editado" icon="bolt">
-  Formulário: "Dados do cliente". **Restringir aos campos**: nome, e-mail e documento, com **Apenas um campo respondido é suficiente** desligado — todos precisam estar preenchidos.
+  Formulário: "Dados do cliente". **Restringir aos campos**: nome, e-mail e documento, com **Apenas um campo respondido é suficiente** desligado. Assim, a automação só aciona quando os três campos mudam de valor na mesma submissão; um campo preenchido antes e que não mudou agora não conta.
 </Step>
 
 <Step title="Ação — Criar cliente" icon="building">
@@ -211,29 +205,13 @@ Notificar um ERP, um canal de mensagens ou uma automação externa quando algo r
 </Step>
 </Steps>
 
-## Garantir uma execução por vez
-
-Impede que a mesma pessoa fique com a contagem de tempo aberta em vários projetos.
-
-<Steps>
-<Step title="Gatilho — Execução de projeto" icon="bolt">
-  Evento: iniciar. **Qualquer etapa** ligado.
-</Step>
-
-<Step title="Ação — Controlar execução de projeto" icon="pause">
-  Tipo: pausar. Usuários alvo: usuário que disparou o gatilho.
-</Step>
-</Steps>
-
-<Warning>
-Esta receita pausa as execuções do usuário **naquele projeto**. Para o efeito valer em toda a operação, ela precisa ser combinada com o desenho do processo — não existe uma ação única que pause execuções em todos os projetos de uma vez.
-</Warning>
-
 ## Antes de ativar qualquer uma
 
+Estes cuidados valem para todas as receitas.
+
 <AccordionGroup>
-<Accordion title="Teste com um projeto de mentira" icon="vial">
-  Crie um projeto de teste, provoque o evento e leia o [registro de execução](/guides/automation/logs). É mais rápido do que descobrir o problema em um card real.
+<Accordion title="Teste antes de ativar" icon="vial">
+  Crie um projeto de teste, provoque o evento e leia o [registro de execução](/guides/automation/logs). É mais rápido do que descobrir o problema em um projeto real.
 </Accordion>
 
 <Accordion title="Cuidado com gatilhos de volume" icon="gauge-high">
@@ -241,11 +219,11 @@ Esta receita pausa as execuções do usuário **naquele projeto**. Para o efeito
 </Accordion>
 
 <Accordion title="Nomeie pela regra, não pelo mecanismo" icon="tag">
-  "Cobrar card parado em análise" é muito mais útil do que "Automação 4" quando alguém abrir a lista daqui a seis meses.
+  "Cobrar projeto parado em análise" é muito mais útil do que "Automação 4" quando alguém abrir a lista daqui a seis meses.
 </Accordion>
 
-<Accordion title="Confira o teto do plano" icon="list-check">
-  Cada conta tem um limite de automações ativas. Ao atingir o limite, a automação é criada mas fica inativa até você liberar espaço.
+<Accordion title="Confira o limite de automações" icon="list-check">
+  Cada conta tem um limite de automações. Quando a conta já está no limite, a automação nova é salva inativa até você liberar espaço.
 </Accordion>
 </AccordionGroup>
 

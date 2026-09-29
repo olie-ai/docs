@@ -19,6 +19,8 @@ Dois caminhos levam ao mesmo lugar:
 
 ## Como configurar
 
+Ao criar o assistente, você define os campos abaixo.
+
 <Steps>
 <Step title="Nome">
   Identifica o assistente nas listas e nos registros de execução.
@@ -47,6 +49,8 @@ Dois caminhos levam ao mesmo lugar:
 
 ## Quando o assistente roda
 
+O campo **Executar quando** aceita três opções.
+
 <CardGroup cols={3}>
 <Card title="Entrar na etapa" icon="arrow-right-to-bracket">
   Dispara quando o projeto é movido para a etapa. É o gatilho mais usado: o item chega e já vem processado.
@@ -61,7 +65,7 @@ Dois caminhos levam ao mesmo lugar:
 </Card>
 </CardGroup>
 
-Assistentes com gatilho automático podem ganhar também a opção **Habilitar execução manual**, que permite rodá-los sob demanda sem perder o disparo automático. Útil para reprocessar um caso específico.
+Assistentes com gatilho automático podem ganhar também a opção **Habilitar execução manual**, que permite rodá-los sob demanda sem perder o disparo automático. A opção serve para reprocessar um caso específico.
 
 <Note>
 Apenas assistentes **ativos** são executados. Um assistente inativo continua salvo e editável, mas nunca dispara.
@@ -80,7 +84,7 @@ O resultado do assistente pode ser gravado de duas formas, e as duas podem ser u
   O resultado é salvo em um campo específico de formulário dinâmico. É a opção avançada: exige indicar qual campo receberá o valor.
 
   <Warning>
-  O resultado precisa ser compatível com o tipo do campo escolhido. Se não for, ele simplesmente não é salvo. Um assistente que devolve texto corrido não preenche um campo de data.
+  O resultado precisa ser compatível com o tipo do campo escolhido. Se não for, o resultado não é salvo. Um assistente que devolve texto corrido não preenche um campo de data.
   </Warning>
 </Tab>
 </Tabs>
@@ -109,13 +113,15 @@ Cada execução gera um registro, acessível pelo botão **Execuções** do assi
 | Sucesso | O agente respondeu e o resultado foi processado |
 | Erro | A execução falhou |
 
-O registro guarda o resultado, o momento da execução e o desfecho de cada destino separadamente — é possível a gravação no conteúdo do projeto dar certo e a gravação no campo de formulário falhar, e o registro mostra isso.
+O registro guarda o resultado, o momento da execução e o desfecho de cada destino separadamente. Se a gravação no conteúdo do projeto der certo e a gravação no campo de formulário falhar, o registro mostra as duas situações.
 
 <Note>
 A execução é assíncrona. O projeto se move na hora e o assistente roda em seguida, em segundo plano. Resultados aparecem alguns instantes depois da movimentação.
 </Note>
 
 ## Custo e limites
+
+Cada execução de um assistente tem custo, e a quantidade de assistentes tem limite.
 
 <Warning>
 Assistentes consomem **créditos de IA**. Um assistente com gatilho automático roda a cada movimentação, então o custo acompanha o volume do funil. Veja [Créditos de IA](/guides/billing/ai-credits).

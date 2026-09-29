@@ -1,25 +1,31 @@
 ---
 title: "Empresa construtora de templates"
-description: "Entenda o que é uma empresa construtora e como usá-la para criar templates completos"
+description: "O que é a empresa construtora, como criá-la e o que entra e o que fica de fora do template montado nela"
+keywords: ["empresa construtora", "criar template", "montar template", "parceiro", "marketplace", "o que entra no template"]
 icon: "building"
 ---
 
+Esta página é para **parceiros** do Marketplace. A empresa construtora é o ambiente isolado onde você monta tudo o que fará parte do seu template. Aqui você vê como criá-la e o que entra e o que fica de fora do template.
+
 ## O que é uma empresa construtora
 
-Uma empresa construtora é um ambiente isolado onde você desenvolve e configura tudo o que fará parte do seu template. Ela é diferente de uma empresa produtiva.
+A empresa construtora funciona como uma empresa comum da Olie, mas existe só para montar templates. Ela é diferente de uma empresa produtiva, a empresa que você usa na operação do dia a dia.
 
-<Warning>
-  A empresa construtora não possui assinatura e existe exclusivamente para a criação de templates. Ela não deve ser utilizada para gestão de projetos do dia a dia. Ela tem um tempo de vida limitado.
-</Warning>
+A empresa construtora tem duas características que a separam de uma empresa produtiva:
+
+- não tem assinatura;
+- não serve para a gestão de projetos do dia a dia.
 
 ## Como criar uma empresa construtora
+
+Você cria a empresa construtora pelo [painel do parceiro](/guides/marketplace/getting-started).
 
 <Steps>
   <Step title="Acesse o painel do parceiro">
     No painel do parceiro, selecione a opção para criar uma nova empresa construtora.
   </Step>
-  <Step title="Configure a empresa">
-    Defina o nome da empresa construtora. Esse nome é apenas para sua organização interna e não aparece no Marketplace.
+  <Step title="Dê um nome à empresa">
+    Defina o nome da empresa construtora. Esse nome serve só para sua organização e não aparece no Marketplace.
   </Step>
   <Step title="Configure o ambiente">
     Dentro da empresa construtora, configure todo o ambiente que fará parte do template.
@@ -28,38 +34,34 @@ Uma empresa construtora é um ambiente isolado onde você desenvolve e configura
 
 ## Configurando a empresa construtora
 
-A empresa construtora funciona da mesma forma que uma empresa produtiva. Você tem liberdade para configurar qualquer objeto de configuração disponível na plataforma — tudo o que você criar será incluído no template.
+Dentro da empresa construtora, você configura qualquer objeto de configuração disponível na plataforma, da mesma forma que numa empresa produtiva. O que é objeto de configuração entra no template; os demais itens ficam de fora.
 
-### O que é incluído no template
+### O que entra no template
 
-Todos os objetos de configuração que você criar na empresa construtora farão parte do template: áreas de negócio, funis, etapas, etiquetas, automações, restrições, agentes de IA, entre outros.
+Todos os objetos de configuração que você criar na empresa construtora fazem parte do template: áreas de negócio, funis, etapas, etiquetas, automações, restrições, agentes de IA, entre outros.
 
-### O que não é incluído no template
+### O que fica de fora do template
 
-Dados de uso comum **não** fazem parte do template:
+Estes itens **não** fazem parte do template:
 
-- Projetos (templates, ou não)
-- Clientes
-- Contatos
-- Usuários
-- Metas
-- Integrações
-- Configurações da empresa
+- projetos, inclusive [projetos templates](/guides/projects/project-templates);
+- clientes;
+- contatos;
+- usuários;
+- metas;
+- integrações;
+- configurações da empresa.
 
-Se algum outro objeto ou configuração se relacionar de alguma forma com os objetos mencionados, eles serão importados mas com suas relações vazias ou nulas, ou seja, uma ação de automação do tipo criar projeto que use um projeto template falhará e virá vazio. Preocupe-se em dar instruções na descrição do seu template de como lidar com esses cenários específicos que requer uma configuração extra do usuário.
+Um objeto de configuração que depende de um desses itens é copiado, mas a referência chega vazia. Por exemplo, uma ação **Criar projeto** que usa um projeto template como base chega com o campo do projeto template vazio, e a ação falha.
 
-<Warning>
-  Apenas objetos de configuração são incluídos no template. Dados operacionais como projetos, clientes, contatos e usuários não são transferidos.
-</Warning>
+Na descrição longa do template, explique o que o usuário precisa configurar depois da implantação para cobrir esses casos.
 
-<Tip>
-  Capriche na configuração da empresa construtora — quanto mais completo e bem estruturado o ambiente, maior o valor do template e a satisfação dos usuários que o implantarem.
-</Tip>
+Quanto mais completo e bem estruturado o ambiente da empresa construtora, menos configuração sobra para quem implanta o template.
 
 <Info>
-  **Funcionalidade futura**: Usuário de teste automático na empresa construtora, permitindo simular o uso do ambiente antes de publicá-lo como template.
+**Funcionalidade futura**: um usuário de teste automático na empresa construtora, para simular o uso do ambiente antes de publicá-lo como template.
 </Info>
 
 ## Próximos passos
 
-Com a empresa construtora configurada, o próximo passo é [gerar um snapshot](/guides/marketplace/snapshots) para capturar o estado atual do ambiente.
+Com a empresa construtora configurada, [gere um snapshot](/guides/marketplace/snapshots) para capturar o estado atual do ambiente.

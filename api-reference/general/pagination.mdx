@@ -1,195 +1,42 @@
 ---
 title: 'Paginação'
 icon: 'list-ul'
-description: 'Como navegar através de grandes conjuntos de dados usando paginação.'
+description: 'Parâmetros page e perPage e o objeto meta usados para navegar pelas listagens da API.'
+keywords: ['paginação', 'page', 'perPage', 'per_page', 'meta', 'listagem', 'próxima página', 'last_page', 'total de itens']
 ---
 
-# Visão geral da paginação
+Os endpoints que retornam listas entregam os resultados em páginas. Esta página mostra como pedir uma página com `page` e `perPage` e como ler o objeto `meta` da resposta para saber quantas páginas e quantos itens existem.
 
-Alguns endpoints que retornam listas de recursos utilizam a paginação para facilitar a navegação em grandes volumes de dados. Com a paginação da API da Olie, você acessa conjuntos menores e mais fáceis de gerenciar, garantindo melhor desempenho e controle sobre os resultados retornados.
+Os filtros que você pode combinar com a paginação estão em [Filtros básicos](/api-reference/general/basic-filters) e [Busca avançada](/api-reference/general/advanced-search).
 
-<Info>
-A paginação melhora a performance da API e facilita o processamento dos dados no lado do cliente.
-</Info>
+As regras desta página valem para as listagens que devolvem o objeto `meta`. Alguns endpoints paginam de outro jeito:
 
-# Estrutura da resposta paginada
+- `POST /api/management/search-activities`, do [registro de alterações](/api-reference/general/audit-log), usa `offset` e devolve 10 registros por vez.
+- `GET /api/management/marketplace/templates` usa `per_page`, com padrão de 15 itens, e devolve os dados da paginação em `pagination`.
+- Os assistentes de etapa trazem os campos de paginação na raiz da resposta, como mostra a [estrutura da resposta paginada](#estrutura-da-resposta-paginada).
 
-Respostas paginadas incluem um objeto `meta` com informações detalhadas sobre a paginação atual:
+## Parâmetros de paginação
 
-```json
-{
-  "...": [/** lista de itens retornados */],
-  "meta": {
-    "current_page": 1,
-    "from": 1,
-    "last_page": 19,
-    "per_page": 30,
-    "to": 30,
-    "total": 546
-  }
-}
-```
-
-# Esquema do atributo `meta`
-
-<ResponseField name="current_page" type="integer">
-Página atual da resposta. Começa em 1.
-</ResponseField>
-
-<ResponseField name="from" type="integer">
-Índice do primeiro item retornado na página atual (baseado em 1).
-</ResponseField>
-
-<ResponseField name="to" type="integer">
-Índice do último item retornado na página atual (baseado em 1).
-</ResponseField>
-
-<ResponseField name="last_page" type="integer">
-Número total de páginas disponíveis com base no total de itens e itens por página.
-</ResponseField>
-
-<ResponseField name="per_page" type="integer">
-Quantidade de itens retornados por página. Valor padrão é `30` e o máximo permitido é `100`. Este valor reflete o parâmetro `perPage` utilizado na requisição (ou o padrão aplicado).
-</ResponseField>
-
-<ResponseField name="total" type="integer">
-Total geral de itens disponíveis na listagem, considerando todos os filtros aplicados.
-</ResponseField>
-
-# Parâmetros de paginação
-
-A paginação é controlada através de dois parâmetros de query que podem ser passados na URL via query params ou no payload de uma requisição `POST`:
+Dois parâmetros controlam a paginação. Nas listagens `GET`, envie os parâmetros na URL. Nas buscas `POST`, como a busca avançada, você também pode enviá-los no corpo da requisição.
 
 <ParamField query="page" type="integer" default="1">
-Número da página que deseja acessar. Deve ser um número inteiro maior ou igual a 1. Se não for fornecido ou for inválido, o padrão é 1.
+Número da página. Aceita inteiros a partir de 1. Se o valor estiver ausente ou for inválido, a API usa 1.
 </ParamField>
 
 <ParamField query="perPage" type="integer" default="30">
-Quantidade de itens retornados por página. Deve ser um número inteiro entre 1 e 100. Se não for fornecido, o padrão é 30. Valores acima de 100 serão automaticamente limitados a 100.
+Quantidade de itens por página, de 1 a 100. Se o valor estiver ausente, a API usa 30. Para valores acima de 100, a API usa 100.
 </ParamField>
 
-<Tip>
-Você pode combinar paginação com filtros para navegar através de subconjuntos específicos de dados.
-</Tip>
+## Estrutura da resposta paginada
 
-# Exemplos práticos
-
-## Navegação básica
-
-As consultas básicas `GET` aceitam paginação via query params, utilizando os parâmetros `page` e `perPage`.
-
-<Tabs>
-  <Tab title="Primeira página (padrão)">
-    ```http
-    GET /api/management/projects
-    ```
-    
-    Retorna a primeira página com 30 itens (valores padrão).
-  </Tab>
-
-  <Tab title="Página específica">
-    ```http
-    GET /api/management/projects?page=5
-    ```
-    
-    Retorna a página 5 com 30 itens por página.
-  </Tab>
-
-  <Tab title="Personalizar itens por página">
-    ```http
-    GET /api/management/projects?perPage=50
-    ```
-    
-    Retorna a primeira página com 50 itens por página.
-  </Tab>
-
-  <Tab title="Combinar page e perPage">
-    ```http
-    GET /api/management/projects?page=2&perPage=50
-    ```
-    
-    Retorna a página 2 com 50 itens por página.
-  </Tab>
-
-  <Tab title="Com filtros simples">
-    ```http
-    GET /api/management/projects?page=2&perPage=20&filter[status]=1
-    ```
-
-    <Tip>
-    Consulte se o endpoint suporta filtros simples.
-    </Tip>
-  </Tab>
-</Tabs>
-
-## Navegação com filtros complexos (busca avançada)
-
-Quando os endpoints suportam filtros complexos, você provavelmente vai querer utilizar o parâmetro `filter` no payload da sua requisição `POST`. Os parâmetros de paginação também podem ser incluídos no payload.
-
-```http
-POST /api/management/projects/search
-{
-  "page": 1,
-  "perPage": 50,
-  "filter": [/** array de filtros complexos */]
-}
-```
-
-<Info>
-Quando os parâmetros `page` e `perPage` são fornecidos no payload de uma requisição `POST`, eles têm precedência sobre os parâmetros de query string, se houver.
-</Info>
-
-Consulte a documentação de [busca avançada](/api-reference/general/advanced-search) para mais informações sobre como utilizar a busca avançada.
-
-## Boas práticas
-
-<Steps>
-<Step title="Use paginação sempre">
-Nunca tente buscar todos os registros de uma só vez. Sempre use paginação para melhor performance.
-</Step>
-
-<Step title="Armazene o meta">
-Guarde as informações do objeto `meta` para implementar navegação inteligente.
-</Step>
-
-<Step title="Implemente cache">
-Considere implementar cache local para páginas visitadas muitas vezes e reduzir requisições.
-</Step> 
-</Steps>
-
-<Warning>
-Não assuma que o número de itens por página (`per_page`) será sempre o mesmo. Sempre use o valor retornado no objeto `meta` para garantir que sua aplicação funcione corretamente.
-</Warning>
-
-## Validação e comportamento
-
-A API valida automaticamente os parâmetros de paginação e aplica correções quando necessário:
-
-- **`page` inválido** (menor que 1 ou não numérico): será ajustado para 1
-- **`perPage` inválido** (menor que 1 ou não numérico): será ajustado para 30 (padrão)
-- **`perPage` maior que 100**: será limitado automaticamente a 100
-
-<Info>
-Mesmo que você envie valores inválidos, a API sempre retornará uma resposta válida, aplicando os valores padrão ou limites quando necessário. O objeto `meta` na resposta sempre refletirá os valores efetivamente utilizados.
-</Info>
-
-## Exemplo de resposta completa
+A resposta paginada traz a lista de itens e um objeto `meta` com os dados da paginação. O nome da lista depende do endpoint: `projects` na listagem de projetos, `goals` na listagem de metas, e assim por diante.
 
 ```json
 {
   "response": true,
-  "data": [
-    {
-      "id": 1,
-      "name": "Projeto A",
-      "status": "ativo"
-    },
-    {
-      "id": 2,
-      "name": "Projeto B",
-      "status": "concluido"
-    }
-    // ... mais 28 itens
+  "projects": [
+    { "id": "019b140c-235d-73ee-96df-3d2afbf7d13d", "code": "P-80", "name": "Implantação do CRM" },
+    { "id": "019b140b-e38e-7207-8016-9bfe6fa1d02f", "code": "P-79", "name": "Treinamento da equipe comercial" }
   ],
   "meta": {
     "current_page": 1,
@@ -202,8 +49,140 @@ Mesmo que você envie valores inválidos, a API sempre retornará uma resposta v
 }
 ```
 
-<Check>
-Com essas informações, você pode implementar uma navegação eficiente e intuitiva através dos dados da API!
-</Check>
+O exemplo mostra só dois projetos, com poucos campos. Uma resposta real traz os 30 projetos da página, com todos os campos.
 
+### Campos do objeto `meta`
 
+O objeto `meta` descreve a página retornada e o total da listagem.
+
+<ResponseField name="current_page" type="integer">
+Página retornada. Começa em 1.
+</ResponseField>
+
+<ResponseField name="from" type="integer">
+Posição do primeiro item da página na listagem completa, contando a partir de 1.
+</ResponseField>
+
+<ResponseField name="to" type="integer">
+Posição do último item da página na listagem completa, contando a partir de 1.
+</ResponseField>
+
+<ResponseField name="last_page" type="integer">
+Número da última página, calculado a partir de `total` e `per_page`.
+</ResponseField>
+
+<ResponseField name="per_page" type="integer">
+Quantidade de itens por página. Reflete o `perPage` enviado na requisição ou o padrão aplicado (30). O máximo é 100.
+</ResponseField>
+
+<ResponseField name="total" type="integer">
+Total de itens da listagem, já com os filtros aplicados.
+</ResponseField>
+
+<Note>
+Três endpoints de assistentes de etapa são exceção. Neles, os campos de paginação (`current_page`, `per_page`, `total` e os demais) vêm na raiz da resposta, ao lado de `data`, e não dentro de `meta`: `GET /api/management/step-assistants`, `GET /api/management/steps/{step}/assistants` e `GET /api/management/steps/{step}/assistants/execution-logs`.
+</Note>
+
+## Exemplos
+
+Os exemplos usam a listagem de projetos e a listagem de metas, que aceitam `page` e `perPage` na URL.
+
+### Pedir uma página pela URL
+
+Esta requisição completa, com autenticação, pede a segunda página da listagem de projetos com 50 itens por página:
+
+```bash
+curl -H "Authorization: Bearer {{token_de_acesso}}" \
+  "https://api.olie.ai/api/management/projects?page=2&perPage=50"
+```
+
+As variações abaixo mostram o efeito de cada parâmetro.
+
+<Tabs>
+  <Tab title="Primeira página (padrão)">
+    ```http
+    GET /api/management/projects
+    ```
+
+    Retorna a primeira página com 30 itens (valores padrão).
+  </Tab>
+
+  <Tab title="Página específica">
+    ```http
+    GET /api/management/projects?page=5
+    ```
+
+    Retorna a página 5 com 30 itens por página.
+  </Tab>
+
+  <Tab title="Itens por página">
+    ```http
+    GET /api/management/projects?perPage=50
+    ```
+
+    Retorna a primeira página com 50 itens por página.
+  </Tab>
+
+  <Tab title="page e perPage juntos">
+    ```http
+    GET /api/management/projects?page=2&perPage=50
+    ```
+
+    Retorna a página 2 com 50 itens por página.
+  </Tab>
+
+  <Tab title="Com filtro básico">
+    ```http
+    GET /api/management/goals?page=2&perPage=20&filter[status]=active
+    ```
+
+    Retorna a página 2 das metas ativas, com 20 itens por página. Os filtros aceitos variam por endpoint: confira na referência de cada um.
+  </Tab>
+</Tabs>
+
+### Paginar uma busca avançada
+
+Na busca avançada, os filtros vão no array `filters` do corpo de uma requisição `POST`. Envie `page` e `perPage` no mesmo corpo:
+
+```http
+POST /api/management/projects/search
+Content-Type: application/json
+
+{
+  "filters": [
+    { "field": "budget", "operator": "greater_than", "value": 10500 }
+  ],
+  "page": 1,
+  "perPage": 50
+}
+```
+
+Se você enviar `page` e `perPage` no corpo de uma requisição `POST` e também na URL, a API usa os valores do corpo. A estrutura dos filtros está em [Busca avançada](/api-reference/general/advanced-search).
+
+## Validação dos parâmetros
+
+A API corrige os valores de `page` e `perPage` fora do intervalo em vez de devolver erro:
+
+| Valor enviado | Valor usado pela API |
+| --- | --- |
+| `page` menor que 1 ou não numérico | 1 |
+| `perPage` menor que 1 ou não numérico | 30 (padrão) |
+| `perPage` maior que 100 | 100 |
+
+A resposta continua válida, e o objeto `meta` mostra os valores que a API usou de fato.
+
+## Percorrer todas as páginas
+
+Para ler uma listagem inteira, peça uma página por vez e use o `meta` de cada resposta para decidir o próximo passo:
+
+- **Avance enquanto houver páginas.** Aumente `page` até `current_page` ser igual a `last_page`.
+- **Leia o tamanho da página no `meta`.** Use o `per_page` da resposta, não o valor que você enviou, porque a API pode ter ajustado o valor.
+- **Guarde em cache as páginas mais consultadas**, se a sua integração lê as mesmas páginas muitas vezes. Isso reduz o número de requisições.
+
+## Páginas relacionadas
+
+Estas páginas complementam a paginação:
+
+- [Estrutura de respostas](/api-reference/general/response-structure): o formato comum das respostas de sucesso e de erro.
+- [Filtros básicos](/api-reference/general/basic-filters): filtros `filter[campo]` na URL.
+- [Busca avançada](/api-reference/general/advanced-search): filtros e ordenação no corpo de requisições `POST`.

@@ -1,33 +1,36 @@
 ---
 title: 'Registro de alterações'
 icon: 'clock-rotate-left'
-description: 'Quem alterou o quê e quando — a trilha de auditoria da plataforma e como consultá-la pela API.'
+description: 'Quem alterou o quê e quando: a trilha de auditoria da plataforma e como consultá-la pela API.'
+keywords: ['registro de alterações', 'auditoria', 'audit log', 'histórico', 'trilha de auditoria', 'search-activities', 'activities', 'causer', 'quem alterou']
 ---
 
-# O que é
+O registro de alterações guarda cada criação, alteração e exclusão dos objetos principais da Olie, com o autor e o momento da ação. Esta página mostra como consultar esse registro pela API, o que ele cobre e quais são os limites dele.
 
-Toda criação, alteração e exclusão dos objetos principais da plataforma é gravada em um registro permanente, com o autor da ação e o momento em que ela aconteceu. **É a fonte de auditoria da Olie**: é aqui que se responde quem mudou determinado dado, e quando.
+## O que é o registro de alterações
 
-É o mesmo registro que alimenta o **histórico do projeto** na interface. O endpoint abaixo dá acesso a ele para qualquer objeto auditado.
+O registro de alterações é **a fonte de auditoria da Olie**: é nele que você descobre quem mudou determinado dado, e quando. Ele é permanente e alimenta o **histórico do projeto** na interface. O endpoint desta página dá acesso ao registro de qualquer objeto auditado.
 
 <Note>
-Não confunda com o [registro de execuções de automação](/guides/automation/logs). Aquele mostra o que uma automação fez em cada disparo, guarda cerca de 100 execuções por automação e descarta as antigas — serve para depurar, não para auditar. O registro de alterações desta página é outra coisa: é a trilha de auditoria, e é permanente.
+O registro de alterações é diferente do [registro de execuções de automação](/guides/automation/logs). O registro de execuções mostra o que uma automação fez em cada disparo e guarda só as cerca de 100 execuções mais recentes de cada automação. Ele serve para depurar, não para auditar.
 </Note>
 
-# O endpoint
+## Consultar o registro
+
+A consulta usa um único endpoint:
 
 ```bash
 POST https://api.olie.ai/api/management/search-activities
 ```
 
-A requisição é autenticada como qualquer outra da API — veja [Autenticação e segurança](/api-reference/introduction/authentication). A consulta é feita no contexto da empresa autenticada.
+A requisição é autenticada como qualquer outra da API: veja [Autenticação e segurança](/api-reference/introduction/authentication). A consulta traz só os registros da empresa autenticada.
 
-## Parâmetros
+### Parâmetros
 
-Todos são enviados no corpo da requisição.
+Envie todos os parâmetros no corpo da requisição.
 
 <ParamField body="subject_type" type="string" required>
-Nome completo da classe do objeto auditado, no formato usado internamente pela plataforma (por exemplo, `App\Models\Project`). É o único parâmetro obrigatório: a busca é sempre por um tipo de objeto de cada vez. Os valores aceitos estão na seção **O que é registrado**, mais abaixo.
+Nome completo da classe do objeto auditado, no formato usado internamente pela plataforma (por exemplo, `App\Models\Project`). É o único parâmetro obrigatório: cada busca cobre um tipo de objeto. Os valores aceitos estão em [O que é registrado](#o-que-é-registrado).
 </ParamField>
 
 <ParamField body="subject_id" type="string | integer">
@@ -35,11 +38,11 @@ Identificador do objeto. Restringe a busca ao histórico daquele registro espec�
 </ParamField>
 
 <ParamField body="event" type="string">
-Tipo de ação. Em alterações de modelo, os valores são `created`, `updated` e `deleted`. Alguns eventos próprios usam nomes compostos — por exemplo `funnel_step.moved` para o movimento de um projeto entre etapas.
+Tipo de ação. Em criações, alterações e exclusões, os valores são `created`, `updated` e `deleted`. Alguns eventos próprios usam nomes compostos, como `funnel_step.moved` para o movimento de um projeto entre etapas.
 </ParamField>
 
 <ParamField body="causer_id" type="string">
-Identificador de quem executou a ação — um usuário ou uma aplicação. Restringe a busca ao que aquele autor fez.
+Identificador de quem executou a ação, um usuário ou uma aplicação. Restringe a busca ao que aquele autor fez.
 </ParamField>
 
 <ParamField body="log_batch_id" type="string">
@@ -50,19 +53,17 @@ Identificador do lote. Uma única operação que altera vários objetos grava to
 Página da listagem, começando em `0`. Cada incremento avança 10 registros.
 </ParamField>
 
-<Warning>
-**Não existe filtro por data.** Para recortar um período, percorra as páginas a partir do registro mais recente e pare quando `created_at` sair da janela desejada.
-</Warning>
+**Não existe filtro por data.** Para recortar um período, percorra as páginas a partir do registro mais recente e pare quando `created_at` sair do período desejado.
 
-## Paginação
+### Paginação
 
-Este endpoint não segue o formato descrito em [Paginação](/api-reference/general/pagination). A resposta traz **10 registros por página**, sempre **da alteração mais recente para a mais antiga**, e não inclui o bloco `meta` nem o total de registros. A navegação é feita só pelo `offset`.
+Este endpoint não segue o formato descrito em [Paginação](/api-reference/general/pagination). A resposta traz **10 registros por página**, sempre **da alteração mais recente para a mais antiga**, e não inclui o objeto `meta` nem o total de registros. Você navega só pelo `offset`.
 
-<Info>
-Como não há total, a última página é aquela em que a resposta vem com menos de 10 registros — ou vazia.
-</Info>
+Como não há total, a última página é a que vem com menos de 10 registros, ou vazia.
 
-## Resposta
+### Resposta
+
+A resposta traz a lista de registros em `activities`:
 
 ```json
 {
@@ -103,7 +104,7 @@ Identificador do objeto alterado.
 </ResponseField>
 
 <ResponseField name="subject" type="object">
-O objeto em si, buscado no momento da consulta. Vem `null` quando o registro foi excluído definitivamente — o histórico permanece, o objeto não.
+O objeto em si, buscado no momento da consulta. Um objeto excluído que ainda pode ser restaurado continua vindo preenchido. Vem `null` quando o objeto foi excluído definitivamente: o histórico permanece, o objeto não.
 </ResponseField>
 
 <ResponseField name="causer_type" type="string">
@@ -130,7 +131,7 @@ Identificador do lote, quando a ação fez parte de uma operação que alterou v
 Data e hora da alteração.
 </ResponseField>
 
-# O que é registrado
+## O que é registrado
 
 Cada linha abaixo é um valor aceito em `subject_type`. Para todos eles, ficam registradas a criação, a alteração e a exclusão.
 
@@ -161,29 +162,28 @@ Cada linha abaixo é um valor aceito em `subject_type`. Para todos eles, ficam r
 O **papel** é a exceção da tabela: nele o registro cobre a criação, a edição e a alteração das permissões do papel — papéis não são excluídos na plataforma.
 </Note>
 
-Além das operações de criação, alteração e exclusão, **os movimentos do projeto entre etapas** também são registrados — com `subject_type` igual a `App\Models\Project` e `event` começando por `funnel_step.`. O registro guarda a etapa de destino e a de origem.
+Além da criação, da alteração e da exclusão, o registro guarda **os movimentos do projeto entre etapas**, com `subject_type` igual a `App\Models\Project` e `event` começando por `funnel_step.`. O registro traz a etapa de origem e a de destino.
 
-<Note>
-Outros objetos também gravam histórico e podem ser consultados da mesma forma — área de negócio, anexos de funil e de etapa, convites, menções e páginas do Caderno, entre outros. A tabela acima cobre o que costuma ser pedido em auditoria.
-</Note>
+Outros objetos também gravam histórico e podem ser consultados da mesma forma, como área de negócio, anexos de funil e de etapa, convites, menções e páginas do Caderno. A tabela cobre o que costuma ser pedido em auditoria.
 
-# Autoria
+## Autoria
 
-Cada registro guarda quem executou a ação, em `causer_type` e `causer_id`: um **usuário**, quando a ação veio da interface ou de uma conexão [MCP](/guides/mcp/overview), ou uma **aplicação**, quando veio de um token de API.
+Cada registro guarda quem executou a ação, em `causer_type` e `causer_id`:
 
-<Warning>
+- um **usuário**, quando a ação veio da interface ou de uma conexão [MCP](/guides/mcp/overview);
+- uma **aplicação**, quando veio de um token de API.
+
 Uma ação executada por uma **automação** roda em segundo plano, fora da sessão de quem a disparou, e por isso é gravada **sem autor**: `causer` vem `null`. Ao montar um relatório de auditoria, trate a ausência de autor como "executado pela plataforma", e não como falha do registro.
-</Warning>
 
-# Limites do registro
+## Limites do registro
 
-Vale conhecer antes de desenhar qualquer relatório em cima destes dados.
+Considere estes limites antes de montar um relatório com estes dados.
 
 <AccordionGroup>
 <Accordion title="Automação: só nome e estado" icon="bolt">
   Na automação, o registro guarda apenas o **título** e se ela está **ativa ou inativa**.
 
-  **Gatilho, condições e ações não entram no histórico.** Uma automação que passou a fazer outra coisa não deixa rastro do que mudou — o registro mostra que alguém a editou, não o que foi editado.
+  **Gatilho, condições e ações não entram no histórico.** Se uma automação passou a fazer outra coisa, o registro mostra que alguém a editou, mas não o que foi editado.
 </Accordion>
 
 <Accordion title="Papéis do usuário: registrados, mas fora desta busca" icon="user-shield">
@@ -199,21 +199,19 @@ Vale conhecer antes de desenhar qualquer relatório em cima destes dados.
 </Accordion>
 
 <Accordion title="Arquivos e mídias" icon="paperclip">
-  O envio e a remoção de mídias gravam histórico, mas sem a empresa — e, pelo mesmo motivo do item dos papéis, **não são retornados por esta busca**.
+  O envio e a remoção de mídias gravam histórico, mas sem a empresa. Pelo mesmo motivo do item dos papéis, esses registros **não são retornados por esta busca**.
 </Accordion>
 </AccordionGroup>
 
-# Retenção
+## Retenção
 
-Os registros de alteração **não são expurgados**: o histórico permanece disponível desde a primeira gravação, sem prazo de descarte.
+Os registros de alteração **não são apagados**: o histórico permanece disponível desde a primeira gravação, sem prazo de descarte. Isso vale só para o registro de alterações. O [registro de execuções de automação](/guides/automation/logs) descarta as execuções antigas e não serve como evidência de auditoria.
 
-<Info>
-Isso vale só para o registro de alterações. O [registro de execuções de automação](/guides/automation/logs) é rotativo e não serve como evidência de auditoria.
-</Info>
+## Exemplos
 
-# Exemplos
+Os exemplos mostram o corpo da requisição para `POST /api/management/search-activities`.
 
-## Histórico de um projeto
+### Histórico de um projeto
 
 ```json
 {
@@ -222,7 +220,7 @@ Isso vale só para o registro de alterações. O [registro de execuções de aut
 }
 ```
 
-## Só os movimentos entre etapas de um projeto
+### Só os movimentos entre etapas de um projeto
 
 ```json
 {
@@ -232,7 +230,7 @@ Isso vale só para o registro de alterações. O [registro de execuções de aut
 }
 ```
 
-## O que uma pessoa alterou nos clientes, segunda página
+### O que uma pessoa alterou nos clientes, segunda página
 
 ```json
 {
@@ -243,6 +241,8 @@ Isso vale só para o registro de alterações. O [registro de execuções de aut
 ```
 
 ## Próximos passos
+
+Estas páginas complementam o registro de alterações:
 
 <CardGroup cols={2}>
 <Card title="Estrutura de respostas" icon="file-text" href="/api-reference/general/response-structure">

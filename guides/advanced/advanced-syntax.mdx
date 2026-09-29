@@ -1,19 +1,12 @@
 ---
 title: "Sintaxe avançada"
-description: "Utilize lógica embutida em templates para criar conteúdos dinâmicos e inteligentes"
+description: "A referência da linguagem de template da Olie: variáveis, condicionais, laços, filtros e a função query"
+keywords: ["sintaxe avançada", "twig", "template", "variável", "expressão", "condicional", "laço", "filtro", "query", "consulta"]
 ---
 
-<Warning>
-Esse recurso requer conhecimento de lógica e normalmente é usada por usuários avançados.
-</Warning>
+A **sintaxe avançada** é a linguagem de template que a Olie aceita nos campos que recebem expressão. Esses campos incluem as mensagens e os campos das automações, o corpo customizado de webhook e o prompt dos assistentes de etapa. Com ela, um texto fixo passa a usar os dados do projeto: você insere variáveis, mostra um trecho conforme uma condição, percorre listas e busca dados com a função `query`.
 
-## Visão geral
-
-É possível utilizar **sintaxe avançada** para deixar os blocos de texto, automações e templates ainda mais inteligentes e adaptáveis ao contexto. Essa funcionalidade permite incorporar lógica condicional, iteração de listas, e até chamadas de funções de consulta.
-
-<Info>
-A sintaxe avançada transforma conteúdos estáticos em templates dinâmicos que se adaptam automaticamente aos dados disponíveis.
-</Info>
+Esta página é a referência da linguagem. Para saber quais dados cada automação recebe, veja [Variáveis nas automações](/guides/automation/variables).
 
 ## Conceitos-chave
 
@@ -22,46 +15,46 @@ A sintaxe avançada transforma conteúdos estáticos em templates dinâmicos que
   Acesse dados com chaves delimitadas por `{{ ... }}`.
   
   **Exemplos:**
-  - `{{ nome }}`
-  - `{{ etapa.atual }}`
-  - `{{ project.data_inicio }}`
+  - `{{ project.name }}`
+  - `{{ project.customer.name }}`
+  - `{{ user.email }}`
 </Card>
 
 <Card title="Condicionais (if/else)" icon="code-branch">
-  Mostre conteúdos diferentes baseado em condições lógicas.
+  Mostre conteúdos diferentes conforme uma condição.
   
   ```twig
-  {% if cliente.vip %}
-    Bem-vindo, cliente especial!
+  {% if project.customer %}
+    Cliente: {{ project.customer.name }}
   {% else %}
-    Olá! Obrigado por estar conosco.
+    Projeto sem cliente vinculado.
   {% endif %}
   ```
 </Card>
 
 <Card title="Loops (for)" icon="rotate">
-  Itere sobre listas e gere blocos repetitivos.
+  Percorra uma lista e repita um trecho para cada item.
   
   ```twig
-  {% for item in pedidos %}
-    Pedido nº {{ item.numero }}
+  {% for u in project.users %}
+    {{ u|mention }}
   {% endfor %}
   ```
 </Card>
 
 <Card title="Filtros" icon="filter">
-  Transforme dados com funções especiais.
+  Transforme um valor antes de exibi-lo.
   
   **Exemplos:**
-  - `{{ nome|upper }}`
-  - `{{ data|date("d/m/Y") }}`
-  - `{{ itens|length }}`
+  - `{{ project.name|upper }}`
+  - `{{ project.created_at|date("d/m/Y") }}`
+  - `{{ project.users|length }}`
 </Card>
 </CardGroup>
 
 ## Variáveis dinâmicas
 
-As variáveis permitem inserir dados dinamicamente no conteúdo.
+Uma variável insere no texto um dado do contexto, como o nome do projeto ou do cliente.
 
 ### Sintaxe básica
 
@@ -77,7 +70,7 @@ As variáveis permitem inserir dados dinamicamente no conteúdo.
   ```
   
   **Resultado:**
-  ```
+  ```text
   Olá, João Silva!
   Seu e-mail é joao@exemplo.com.
   ```
@@ -91,9 +84,9 @@ As variáveis permitem inserir dados dinamicamente no conteúdo.
   ```
   
   **Resultado:**
-  ```
+  ```text
   Projeto: P-1 - Website Institucional
-  Cliente: Acme Corp
+  Cliente: Oficina Norte
   Status: 1
   ```
 </Tab>
@@ -106,8 +99,8 @@ As variáveis permitem inserir dados dinamicamente no conteúdo.
   Total de itens: {{ lista|length }}
   ```
   
-  **Resultado (se lista = ['A', 'B', 'C']):**
-  ```
+  **Resultado:**
+  ```text
   Primeiro item: A
   Último item: C
   Total de itens: 3
@@ -117,31 +110,27 @@ As variáveis permitem inserir dados dinamicamente no conteúdo.
 
 ### Verificação de existência
 
-Antes de usar uma variável, você pode verificar se ela existe:
+Nem toda variável existe em todo contexto. A variável `user`, por exemplo, só existe quando uma pessoa disparou a automação. Para evitar erro, verifique a variável com `is defined` antes de usá-la:
 
 ```twig
-{% if variavel is defined %}
-  A variável existe: {{ variavel }}
+{% if user is defined %}
+  Movido por {{ user.name }}.
 {% else %}
-  A variável não está disponível
+  Disparo sem pessoa associada.
 {% endif %}
 ```
 
-<Tip>
-Use `is defined` para evitar erros quando uma variável pode não estar disponível em todos os contextos.
-</Tip>
-
 ## Condicionais
 
-Condicionais permitem exibir conteúdo diferente baseado em condições.
+Uma condicional mostra um trecho ou outro conforme o valor de um dado.
 
 ### Estrutura if/else
 
 <Tabs>
 <Tab title="If simples">
   ```twig
-  {% if usuario.idade >= 18 %}
-    Você é maior de idade.
+  {% if project.budget >= 100000 %}
+    Projeto com orçamento a partir de R$ 100 mil.
   {% endif %}
   ```
 </Tab>
@@ -160,10 +149,10 @@ Condicionais permitem exibir conteúdo diferente baseado em condições.
   ```twig
   {% if project.impact < 3 %}
     ✅ Projeto de alto impacto
-  {% elseif project.impact < 5 and project.impact > 3 %}
+  {% elseif project.impact < 6 %}
     🚀 Projeto de médio impacto
   {% else %}
-    ⚠️ Projeto de baixo
+    📋 Projeto de baixo impacto
   {% endif %}
   ```
 </Tab>
@@ -171,6 +160,8 @@ Condicionais permitem exibir conteúdo diferente baseado em condições.
 </Tabs>
 
 ### Operadores de comparação
+
+Os operadores abaixo servem dentro de `if` e `elseif`:
 
 <AccordionGroup>
 <Accordion title="Igualdade e diferença" icon="equals">
@@ -182,10 +173,10 @@ Condicionais permitem exibir conteúdo diferente baseado em condições.
 
 <Accordion title="Comparações numéricas" icon="greater-than">
   ```twig
-  {% if idade > 18 %}       {# Maior que #}
-  {% if idade >= 18 %}      {# Maior ou igual #}
-  {% if idade < 18 %}       {# Menor que #}
-  {% if idade <= 18 %}      {# Menor ou igual #}
+  {% if valor > 18 %}       {# Maior que #}
+  {% if valor >= 18 %}      {# Maior ou igual #}
+  {% if valor < 18 %}       {# Menor que #}
+  {% if valor <= 18 %}      {# Menor ou igual #}
   ```
 </Accordion>
 
@@ -210,7 +201,7 @@ Condicionais permitem exibir conteúdo diferente baseado em condições.
 
 ## Loops (for)
 
-Loops permitem iterar sobre listas e arrays para gerar conteúdo repetitivo.
+Um laço (`for`) percorre uma lista e repete um trecho para cada item.
 
 ### Estrutura básica
 
@@ -222,19 +213,21 @@ Loops permitem iterar sobre listas e arrays para gerar conteúdo repetitivo.
 
 <Tabs>
 <Tab title="Lista simples">
+  As etiquetas não vêm no contexto, então o exemplo as busca com [`query`](#funções-de-consulta) antes do laço:
+
   ```twig
-  Membros da equipe:
-  {% for membro in equipe %}
-  - {{ membro.nome }} ({{ membro.cargo }})
+  Etiquetas do projeto:
+  {% set p = query('project_details', { 'project_code': project.code }) %}
+  {% for tag in p.tags %}
+  - {{ tag.name }}
   {% endfor %}
   ```
   
   **Resultado:**
-  ```
-  Membros da equipe:
-  - João Silva (Desenvolvedor)
-  - Maria Santos (Designer)
-  - Carlos Oliveira (Gerente)
+  ```text
+  Etiquetas do projeto:
+  - Aguardando retorno
+  - Prioridade alta
   ```
 </Tab>
 
@@ -248,16 +241,17 @@ Loops permitem iterar sobre listas e arrays para gerar conteúdo repetitivo.
   **Variáveis especiais do loop:**
   - `loop.index` - Índice atual (começa em 1)
   - `loop.index0` - Índice atual (começa em 0)
-  - `loop.first` - True na primeira iteração
-  - `loop.last` - True na última iteração
+  - `loop.first` - `true` na primeira iteração
+  - `loop.last` - `true` na última iteração
   - `loop.length` - Total de itens
 </Tab>
 
 <Tab title="Com condicionais">
   ```twig
-  {% for tarefa in tarefas %}
-    {% if tarefa.status == 'pendente' %}
-      ⏳ {{ tarefa.nome }} - Pendente
+  {% set p = query('project_details', { 'project_code': project.code }) %}
+  {% for tag in p.tags %}
+    {% if tag.name == 'Aguardando retorno' %}
+      ⏳ Projeto aguardando retorno do cliente
     {% endif %}
   {% endfor %}
   ```
@@ -272,13 +266,13 @@ Loops permitem iterar sobre listas e arrays para gerar conteúdo repetitivo.
   {% endfor %}
   ```
   
-  <Info>
-  O bloco `else` é executado se a lista estiver vazia.
-  </Info>
+  O bloco `else` roda quando a lista está vazia.
 </Tab>
 </Tabs>
 
 ### Loops com ranges
+
+Um range, como `1..5`, gera uma sequência numérica para o laço percorrer:
 
 ```twig
 {% for i in 1..5 %}
@@ -287,7 +281,7 @@ Loops permitem iterar sobre listas e arrays para gerar conteúdo repetitivo.
 ```
 
 **Resultado:**
-```
+```text
 Número 1
 Número 2
 Número 3
@@ -295,13 +289,9 @@ Número 4
 Número 5
 ```
 
-<Tip>
-Use ranges para criar sequências numéricas facilmente.
-</Tip>
-
 ## Filtros
 
-Filtros transformam dados antes de exibi-los.
+Um filtro transforma um valor antes de exibi-lo. Ele vem depois de uma barra vertical (`|`), e vários filtros podem ser encadeados.
 
 ### Sintaxe de filtros
 
@@ -321,7 +311,7 @@ Filtros transformam dados antes de exibi-los.
   {{ texto|trim }}              {# Remove espaços #}
   {{ texto|length }}            {# Conta caracteres #}
   {{ texto|json }}              {# Converte para JSON #}
-  {{ texto|json(true) }}        {# Converte para JSON com identação #}
+  {{ texto|json(true) }}        {# Converte para JSON com indentação #}
   ```
 </Tab>
 
@@ -332,7 +322,6 @@ Filtros transformam dados antes de exibi-los.
   
   {{ valor|round }}             {# Arredonda #}
   {{ valor|round(2) }}          {# 2 decimais #}
-  {{ valor|abs }}               {# Valor absoluto #}
   ```
 </Tab>
 
@@ -340,8 +329,11 @@ Filtros transformam dados antes de exibi-los.
   ```twig
   {{ data|date("d/m/Y") }}      {# 21/01/2026 #}
   {{ data|date("d/m/Y H:i") }}  {# 21/01/2026 14:30 #}
-  {{ data|date("F Y") }}        {# Janeiro 2026 #}
+  {{ data|date("F Y") }}        {# January 2026 #}
+  {{ project.created_at|date_modify("+15 days")|date("Y-m-d") }}  {# Soma 15 dias #}
   ```
+
+  Nomes de mês e de dia da semana saem em inglês: `F` vira "January", e `l` vira "Friday". Para um texto em português, use formatos numéricos, como `d/m/Y`.
 </Tab>
 
 <Tab title="Arrays">
@@ -351,29 +343,30 @@ Filtros transformam dados antes de exibi-los.
   {{ lista|last }}              {# Último item #}
   {{ lista|join(', ') }}        {# Une com vírgula #}
   {{ lista|reverse }}           {# Inverte ordem #}
-  {{ lista|sort }}              {# Ordena #}
-  {{ lista|unique }}            {# Remove duplicatas #}
   {{ lista|json }}              {# Converte para JSON #}
-  {{ lista|json(true) }}        {# Converte para JSON com identação #}
+  {{ lista|json(true) }}        {# Converte para JSON com indentação #}
   ```
 </Tab>
 
 <Tab title="Objetos">
   ```twig
   {{ objeto|json }}              {# Converte para JSON #}
-  {{ objeto|json(true) }}        {# Converte para JSON com identação #}
+  {{ objeto|json(true) }}        {# Converte para JSON com indentação #}
   ```
 </Tab>
 </Tabs>
 
-### Filtros especiais da Olie
+### Outros filtros úteis
+
+Estes filtros completam a lista:
 
 <AccordionGroup>
 <Accordion title="mention" icon="at">
-  Cria uma menção de usuário automaticamente.
+  Transforma um usuário, ou uma lista de usuários, em menção.
   
   ```twig
-  {{ usuario|mention }}
+  {{ user|mention }}
+  {{ project.users|mention }}
   ```
   
   [Saiba mais sobre menções →](/guides/automation/mention-users)
@@ -392,16 +385,15 @@ Filtros transformam dados antes de exibi-los.
   
   ```twig
   {{ texto|escape }}
-  {{ texto|e }}  {# Atalho #}
   ```
 </Accordion>
 
 <Accordion title="json" icon="code">
-  Converte para JSON. Muito útil para debugar e exibir dados em formato JSON.
+  Converte para JSON. Serve para inspecionar um dado no registro de execução e para [devolver uma lista](/guides/automation/variables#devolvendo-listas-em-vez-de-texto) em campos que esperam lista.
   
   ```twig
   {{ lista|json }}              {# Converte para JSON #}
-  {{ lista|json(true) }}        {# Converte para JSON com identação #}
+  {{ lista|json(true) }}        {# Converte para JSON com indentação #}
   ```
 </Accordion>
 </AccordionGroup>
@@ -424,6 +416,8 @@ O retorno é uma estrutura de dados, não um texto — por isso `query` quase se
 ```
 
 ### Consultas disponíveis
+
+A tabela lista as consultas, os parâmetros de cada uma e o que elas devolvem:
 
 | Consulta | Parâmetros | Devolve |
 | --- | --- | --- |
@@ -491,7 +485,7 @@ O retorno é uma estrutura de dados, não um texto — por isso `query` quase se
 </Accordion>
 
 <Accordion title="Nome ou parâmetro errado" icon="triangle-exclamation">
-  Um nome de consulta que não existe, ou a falta de um parâmetro obrigatório, interrompe a expressão e registra `template_error`. O [registro de execução](/guides/automation/logs) mostra a mensagem.
+  Um nome de consulta que não existe, ou a falta de um parâmetro obrigatório, interrompe a expressão e registra `template_error`. O [registro de execução](/guides/automation/logs) mostra a mensagem. Corrija o nome ou o parâmetro conforme a tabela de [consultas disponíveis](#consultas-disponíveis).
 </Accordion>
 
 <Accordion title="Escopo e repetição" icon="shield-halved">
@@ -511,17 +505,11 @@ O retorno é uma estrutura de dados, não um texto — por isso `query` quase se
 
 ## Como funciona o mecanismo
 
-Por trás da sintaxe avançada, a plataforma utiliza um mecanismo baseado no **Twig**, uma das engines de templates mais modernas e seguras do ecossistema web.
+A sintaxe avançada é baseada no **Twig**, uma linguagem de templates. A Olie roda as expressões em um ambiente controlado: só um conjunto conhecido de blocos, filtros e funções é permitido, e há limites de laço, consultas e tempo. Os valores estão em [Limites do mecanismo](/guides/automation/variables#limites-do-mecanismo).
 
-<Info>
-O Twig é amplamente adotado por frameworks robustos e foi adaptado aqui para permitir **automação lógica dentro dos conteúdos da plataforma**, de forma controlada e intuitiva.
-</Info>
- 
-## Documentação oficial do Twig
-
-Para usuários avançados ou desenvolvedores, vale a pena conferir a documentação oficial do Twig para explorar todo o potencial da sintaxe:
+A documentação oficial do Twig explica a linguagem em detalhe. Um recurso do Twig que não aparece nesta página pode não estar liberado na Olie.
 
 <Card title="Documentação do Twig" icon="book" href="https://twig.symfony.com/doc/">
-  Acesse a documentação completa do Twig para aprender sobre recursos avançados, filtros adicionais e melhores práticas.
+  A referência completa da linguagem Twig.
 </Card>
  

@@ -1,63 +1,73 @@
 ---
 title: "Criando e editando um template"
-description: "Como criar um template para o Marketplace, configurar metadados e selecionar um snapshot"
+description: "Como criar um template para o Marketplace, preencher nome, descrições, categorias e imagens e vincular o snapshot"
+keywords: ["criar template", "editar template", "descrição do template", "categorias", "imagens do template", "snapshot", "parceiro", "marketplace"]
 icon: "pen-to-square"
 ---
 
+Esta página é para **parceiros** do Marketplace. Ela mostra como criar um template no painel do parceiro e o que preencher em cada campo. O mesmo formulário serve para editar o template depois.
+
+## Antes de começar
+
+Você precisa ter pelo menos uma [empresa construtora](/guides/marketplace/template-builder) com um [snapshot](/guides/marketplace/snapshots) gerado.
+
 ## Criando um template
 
-Para criar um template no Marketplace, você precisa ter pelo menos uma [empresa construtora](/guides/marketplace/template-builder) com um [snapshot](/guides/marketplace/snapshots) gerado.
+A criação acontece no [painel do parceiro](/guides/marketplace/getting-started) e termina com o envio do template para revisão.
 
 <Steps>
 <Step title="Selecione a empresa construtora">
-  Escolha a empresa construtora que contém o ambiente que você deseja publicar como template.
+  Escolha a empresa construtora que contém o ambiente que você quer publicar como template.
 </Step>
 
 <Step title="Defina o nome do template">
-  Escolha um nome claro e descritivo. Esse nome será exibido no grid do Marketplace e é a primeira coisa que os usuários verão.
+  Escolha um nome claro e descritivo. O nome aparece no grid do Marketplace e é a primeira coisa que os usuários veem. Ele aceita até 255 caracteres.
 </Step>
 
 <Step title="Preencha o formulário">
-  Complete os campos de metadados do template (detalhados abaixo).
+  Preencha os [campos do template](#campos-do-template).
 </Step>
 
 <Step title="Selecione o snapshot">
-  Escolha qual snapshot será vinculado ao template para submissão.
+  Escolha o snapshot que será vinculado ao template.
 </Step>
 
 <Step title="Submeta para aprovação">
-  Envie o template para revisão do time Olie. Veja mais detalhes no [fluxo de submissão](/guides/marketplace/submission-flow).
+  Envie o template para revisão do time Olie. Veja o que acontece depois no [fluxo de submissão](/guides/marketplace/submission-flow).
 </Step>
 </Steps>
 
-## Formulário de edição
+## Campos do template
 
-O formulário de criação e edição do template contém os seguintes campos:
+O formulário de criação e edição do template tem os campos abaixo.
 
 ### Descrição curta
 
-Um resumo breve do template que aparece no card do Marketplace. Seja conciso e destaque o principal benefício do template.
+Resumo do template que aparece no grid do Marketplace, com até 500 caracteres. Seja conciso e destaque o principal benefício do template.
 
 ### Descrição longa
 
-Uma descrição detalhada do template que aparece na página individual. Suporta **Markdown**, permitindo formatação rica com títulos, listas, negrito e links.
+Descrição completa do template, exibida na página de detalhes. É obrigatória e aceita **Markdown**, com títulos, listas, negrito e links.
 
-<Tip>
-Use a descrição longa para explicar o que o template oferece, o fluxo de trabalho proposto e o que o usuário pode esperar ao implantá-lo. Quanto mais informação, melhor a decisão do usuário.
-</Tip>
- 
+Use a descrição longa para explicar:
+
+- o que o template oferece;
+- o fluxo de trabalho proposto;
+- o que o usuário pode esperar ao implantá-lo;
+- o que o usuário precisa configurar depois da implantação, como os itens que [ficam de fora do template](/guides/marketplace/template-builder#o-que-fica-de-fora-do-template).
+
 ### Categorias
 
-Selecione uma ou mais categorias para o template. As categorias são gerenciadas pelo time Olie e ajudam os usuários a encontrar templates relevantes. Exemplos: DevOps, CRE, Marketing, Vendas. Se você quiser desbravar uma categoria que ainda não existe, entre em contato.
+Selecione pelo menos uma categoria para o template. O time Olie gerencia as categorias, que ajudam os usuários a encontrar templates relevantes. Exemplos: DevOps, CRE, Marketing e Vendas. Para sugerir uma categoria que ainda não existe, entre em contato com o time Olie.
 
 ### Imagens
 
-Faça upload de imagens que ilustrem o template. A **primeira imagem** será usada como thumbnail no grid do Marketplace.
+Envie imagens que mostrem o template, nos formatos JPEG, JPG, PNG ou WebP, com até 5 MB cada. Não há limite de quantidade. A **primeira imagem** é usada como miniatura no grid do Marketplace.
 
 ### Snapshot
 
-Selecione o snapshot que será vinculado ao template. Esse é o conteúdo que será efetivamente entregue ao usuário quando ele implantar o template.
+Selecione o snapshot vinculado ao template. É o conteúdo do snapshot, e não o estado atual da empresa construtora, que o usuário recebe ao implantar o template.
 
 <Warning>
-Certifique-se de selecionar o snapshot correto antes de submeter. O snapshot define exatamente o que o usuário receberá ao implantar o template.
+Confira o snapshot antes de submeter. Uma alteração feita na empresa construtora depois do snapshot não entra no template até você gerar um novo snapshot e vinculá-lo.
 </Warning>

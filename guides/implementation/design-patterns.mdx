@@ -22,7 +22,7 @@ Quem solicita fica perguntando "e aí, como está?" — e quem executa para de e
 </Step>
 
 <Step title="Ligue as automações">
-  Em cada etapa do funil do executor, crie uma automação com gatilho **Projeto movido de etapa** e ação **Colocar projeto em etapa**, apontando para a etapa espelho correspondente, com a opção de desvincular das outras etapas ligada.
+  Em cada etapa do funil do executor, crie uma automação com gatilho **Projeto movido de etapa** e ação **Colocar projeto em etapa**. Aponte a ação para a etapa espelho correspondente e ligue a opção **Desvincular das outras etapas**.
 </Step>
 
 <Step title="Trave o arrasto manual">
@@ -77,7 +77,7 @@ Vários agentes de IA precisam rodar em sequência sobre o mesmo projeto, e cada
   Uma etapa por agente. Ninguém da operação tem acesso — não há interação humana ali.
 </Step>
 
-<Step title="Um assistente por etapa">
+<Step title="Configure um assistente por etapa">
   Cada [assistente de etapa](/guides/funnels/step-assistants) roda ao entrar na etapa e grava o resultado **em um campo de formulário**, não no conteúdo.
 </Step>
 
@@ -91,7 +91,7 @@ Vários agentes de IA precisam rodar em sequência sobre o mesmo projeto, e cada
 </Steps>
 
 <Warning>
-Encadear por **tempo ocioso** parece mais simples e é frágil: se um agente responde em vinte segundos hoje e em três minutos amanhã, o cartão avança antes de a saída existir. Encadear pelo **preenchimento do campo** não tem esse problema.
+Encadear por **tempo ocioso** parece mais simples, mas é frágil. Se um agente responde em vinte segundos hoje e em três minutos amanhã, o cartão avança antes de a saída existir. Encadear pelo **preenchimento do campo** não tem esse problema.
 </Warning>
 
 ### Agentes especialistas, não um agente grande
@@ -140,9 +140,7 @@ Uma demanda pode surgir **em qualquer momento** do fluxo — pedir apoio ao gere
 </Step>
 </Steps>
 
-<Note>
-Este padrão funciona porque a etiqueta aplicada é **visível em todos os funis** onde o projeto está — e pode disparar automação a partir de qualquer um deles. É um caminho de intersecção que não passa por movimentação de cartão.
-</Note>
+Este padrão funciona porque a etiqueta aplicada é **visível em todos os funis** onde o projeto está, e pode disparar automação a partir de qualquer um deles. É um caminho de intersecção que não passa por movimentação de cartão.
 
 <Warning>
 Aplicar uma etiqueta **não abre um formulário** para quem aplicou. Se o pedido precisa vir acompanhado de informação, o formulário tem de estar na etapa de destino ou ser anexado por automação como formulário avulso.
@@ -159,13 +157,13 @@ Um negócio avança até o fim no comercial enquanto o financeiro nunca liberou 
 ## Dependência hierárquica nos dois sentidos
 
 <Card title="O problema" icon="circle-question">
-A entrega só deveria avançar quando todas as subtarefas terminarem — ou o contrário: a subtarefa só deveria começar quando o projeto pai chegar em determinada fase.
+A entrega só deveria avançar quando todas as subtarefas terminarem — ou o contrário: a subtarefa só deveria começar quando o projeto pai chegar em determinada etapa.
 </Card>
 
 **A solução:** restrição de decisão com **escopo de hierarquia**, escolhendo descendentes ou ancestrais e a profundidade.
 
 <Note>
-A regra é dura em um sentido e generosa no outro: a restrição só aprova se **todos** os projetos do escopo atenderem ao filtro — mas, se **não houver ninguém** no escopo, ela é considerada atendida. Um projeto sem filhos passa por uma restrição de descendentes.
+A regra é dura em um sentido e generosa no outro. A restrição só aprova se **todos** os projetos do escopo atenderem ao filtro. Mas, se **não houver nenhum projeto** no escopo, ela é considerada atendida: um projeto sem filhos passa por uma restrição de descendentes.
 </Note>
 
 ## Etapa de entrada sem ação
@@ -189,7 +187,7 @@ Quando a triagem automática não consegue classificar, o cartão fica preso na 
 A regra geral vale além deste caso: **toda exceção que você quer medir precisa da própria etapa**. Se a exceção acontece "no mesmo lugar" do fluxo normal, você perde a métrica dela e ainda distorce a métrica da etapa que a hospeda.
 
 <Tip>
-O mesmo raciocínio serve para a etapa de falha dos [assistentes de etapa](/guides/funnels/step-assistants): apontar a falha para uma etapa de revisão manual transforma o erro em fila de trabalho, em vez de deixar projetos travados sem ninguém perceber.
+O mesmo raciocínio serve para a etapa de falha dos [assistentes de etapa](/guides/funnels/step-assistants). Apontar a falha para uma etapa de revisão manual transforma o erro em fila de trabalho, em vez de deixar projetos travados sem ninguém perceber.
 </Tip>
 
 ## Campo oculto como saída de emergência

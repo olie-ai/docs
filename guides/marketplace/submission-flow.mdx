@@ -1,75 +1,69 @@
 ---
 title: "Fluxo de submissão e moderação"
-description: "Entenda como funciona a submissão, revisão e aprovação de templates no Marketplace"
+description: "Como funciona a submissão de um template, o que significa cada status da revisão e como resubmeter"
+keywords: ["submeter template", "aprovação", "moderação", "revisão", "alterações solicitadas", "template rejeitado", "resubmeter", "parceiro", "marketplace"]
 icon: "paper-plane"
 ---
 
+Esta página é para **parceiros** do Marketplace. Ela explica o que acontece depois que você submete um template: os status da revisão do time Olie, o que fazer em cada um e como resubmeter.
+
 ## Submetendo um template
 
-Após [criar o template](/guides/marketplace/creating-template) com todos os metadados e selecionar o snapshot, você pode submetê-lo para revisão do time Olie. A submissão inicia o processo de moderação.
+Depois de [criar o template](/guides/marketplace/creating-template), preencher os campos e selecionar o snapshot, submeta o template para a revisão do time Olie. A submissão inicia o processo de moderação.
 
 ## Status do template
 
-Após a submissão, seu template passará por um dos seguintes status:
+Cada submissão é revisada pelo time Olie, e o resultado da revisão muda o status do template. Depois da submissão, o template passa pelos status abaixo.
 
-<CardGroup cols={2}>
-<Card title="Em análise" icon="clock">
-  O template foi submetido e está aguardando revisão pelo time Olie. Nenhuma ação é necessária da sua parte.
-</Card>
-
-<Card title="Aprovado" icon="circle-check">
-  O template foi aprovado e publicado no Marketplace. Usuários já podem visualizá-lo e adquiri-lo.
-</Card>
-
-<Card title="Alterações solicitadas" icon="pen">
-  O moderador revisou o template e solicitou ajustes. Você receberá o feedback com as mudanças necessárias e poderá editar e resubmeter.
-</Card>
-
-<Card title="Rejeitado" icon="circle-xmark">
-  O template foi rejeitado definitivamente pelo time Olie. Não é possível resubmeter um template rejeitado.
-</Card>
-</CardGroup>
+| Status | O que significa | O que você faz |
+| --- | --- | --- |
+| **Em análise** | O template foi submetido e aguarda a revisão do time Olie. | Nada. Aguarde a revisão. |
+| **Aprovado** | O template foi aprovado e publicado no Marketplace. Usuários já podem ver e adquirir o template. | Acompanhe o template no [painel do parceiro](/guides/marketplace/managing-templates). |
+| **Alterações solicitadas** | O moderador revisou o template e pediu ajustes. | Siga o [ciclo de resubmissão](#ciclo-de-resubmissão). |
+| **Rejeitado ou despublicado** | O time Olie rejeitou a submissão, e o template ficou despublicado. | Não é possível resubmeter. Veja o aviso abaixo. |
 
 <Warning>
-A rejeição de um template é definitiva. Se o seu template for rejeitado, você precisará criar um novo template do zero caso deseje publicar o conteúdo no Marketplace.
+A rejeição de uma submissão é definitiva: o template fica despublicado e você não pode resubmetê-lo. Se ainda quiser publicar o conteúdo no Marketplace, crie um novo template e submeta-o para revisão.
 </Warning>
 
 ## Notificações
 
-Você será notificado por e-mail sempre que houver uma mudança de status no seu template (aprovação, solicitação de alterações ou rejeição).
+Você recebe um e-mail sempre que o status do template muda: aprovação, solicitação de alterações ou rejeição.
 
 ## Ciclo de resubmissão
 
-Quando o status do template muda para "Alterações solicitadas", você pode corrigi-lo e resubmeter. O ciclo funciona da seguinte forma:
+Quando o status do template muda para **Alterações solicitadas**, corrija o template e resubmeta seguindo os passos abaixo.
 
 <Steps>
-<Step title="Receba o feedback">
-  Leia o feedback do moderador com as alterações solicitadas. O feedback estará disponível no painel do parceiro.
+<Step title="Leia o feedback">
+  Leia, no painel do parceiro, o feedback do moderador com as alterações solicitadas.
 </Step>
 
 <Step title="Edite a empresa construtora">
-  Faça os ajustes necessários na [empresa construtora](/guides/marketplace/template-builder).
+  Faça os ajustes na [empresa construtora](/guides/marketplace/template-builder).
 </Step>
 
 <Step title="Gere um novo snapshot">
-  Após as alterações, [gere um novo snapshot](/guides/marketplace/snapshots) para capturar o estado atualizado do ambiente.
+  [Gere um novo snapshot](/guides/marketplace/snapshots) para capturar o estado atualizado do ambiente.
 </Step>
 
 <Step title="Atualize o template">
-  Edite o template, selecione o novo snapshot e adicione uma justificativa explicando as alterações realizadas. Aproveite para editar as informações do template, como nome, descrição, categorias, imagens, etc.
+  Edite o template, selecione o novo snapshot e escreva uma justificativa explicando as alterações feitas.
+
+  Se precisar, aproveite para editar também nome, descrições, categorias e imagens.
 </Step>
 
 <Step title="Resubmeta para análise">
-  Envie o template novamente para revisão. O status voltará para "Em análise".
+  Envie o template novamente para revisão. O status volta para **Em análise**.
 </Step>
 </Steps>
 
-<Tip>
-Inclua uma justificativa detalhada ao resubmeter, explicando como você endereçou cada ponto do feedback. Isso agiliza o processo de revisão.
-</Tip>
+O ciclo se repete até o template ser aprovado ou rejeitado.
 
-Esse ciclo se repete até que o template seja aprovado ou rejeitado.
+<Tip>
+Na justificativa, explique como você tratou cada ponto do feedback. Isso agiliza a revisão.
+</Tip>
 
 ## Histórico de submissões
 
-O painel do parceiro mantém um histórico completo das submissões, incluindo feedbacks dos moderadores e justificativas de resubmissão, permitindo acompanhar toda a evolução do template.
+O painel do parceiro guarda o histórico completo das submissões, com os feedbacks dos moderadores e as justificativas de resubmissão. Use o histórico para acompanhar a evolução do template.

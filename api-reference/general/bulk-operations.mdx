@@ -2,9 +2,12 @@
 title: 'Operações em lote'
 icon: 'layer-group'
 description: 'Atualizar vários registros ou mover vários projetos de etapa em uma única requisição.'
+keywords: ['lote', 'operações em lote', 'bulk', 'bulk-update', 'atualização em lote', 'mover vários projetos', 'project-bulk-step-move', 'bulk_operation_in_progress', '409']
 ---
 
-Existem dois endpoints de lote, e eles se comportam de formas **opostas** diante de um erro:
+A API tem dois endpoints para alterar vários registros em uma única requisição: a atualização em lote e a movimentação em lote entre etapas. Esta página mostra o corpo de cada um, como ler o resultado e como tratar os erros.
+
+Os dois endpoints se comportam de formas **opostas** diante de um erro:
 
 | Endpoint | Em caso de erro |
 | --- | --- |
@@ -15,33 +18,41 @@ Existem dois endpoints de lote, e eles se comportam de formas **opostas** diante
 Escolher o endpoint errado muda o que acontece com os dados. Leia as duas seções antes de decidir.
 </Warning>
 
-# Atualização em lote
+## Atualização em lote
+
+A atualização em lote aplica os mesmos valores a todos os registros da lista:
 
 ```http
 POST /api/management/system/bulk-update/{model_name}
 ```
 
-## Modelos aceitos
+### Modelos aceitos
 
-Apenas dois:
+O `model_name` do caminho aceita dois valores:
 
 | `model_name` | O que atualiza |
 | --- | --- |
 | `project` | Projetos. |
 | `answer_pool` | Respostas de formulários dinâmicos. |
 
-Qualquer outro valor devolve **422**, com `message: "validation_errors"` e o detalhe dentro de `validation.model`:
+Qualquer outro valor devolve HTTP **422**, com `message: "validation_errors"` e o motivo em `validation.model`:
 
-- Nome de modelo que existe mas ainda não é suportado (por exemplo `contact`): `messages.model_not_supported_yet`.
-- Nome de modelo que não existe: `Model was not found`.
+- **Modelo ainda não suportado** (por exemplo, `contact`): `messages.model_not_supported_yet`.
+- **Modelo que não existe:** `Model was not found`.
 
-## Corpo da requisição
+Para resolver, use `project` ou `answer_pool` no caminho. Para alterar vários registros de outro tipo, faça uma requisição por registro.
 
-O corpo é um objeto com a lista de `ids` e, no mesmo nível, os campos a aplicar em todos eles.
+### Corpo da requisição
+
+O corpo é um objeto com a lista de `ids` e, no mesmo nível, os campos a aplicar em todos eles. Este exemplo marca três projetos como em andamento, com impacto 8, e troca uma etiqueta por outra:
 
 ```json
 {
-  "ids": ["uuid-1", "uuid-2", "uuid-3"],
+  "ids": [
+    "019b140c-235d-73ee-96df-3d2afbf7d13d",
+    "019b140b-e38e-7207-8016-9bfe6fa1d02f",
+    "019b140b-a1c2-7d44-8e0f-5b6c7d8e9f10"
+  ],
   "status": 1,
   "impact": 8,
   "tags": { "to_add": [12], "to_rem": [7] }
@@ -52,13 +63,11 @@ O corpo é um objeto com a lista de `ids` e, no mesmo nível, os campos a aplica
 Lista dos identificadores a atualizar. Não pode estar vazia e não aceita valores repetidos. **Não há teto de quantidade.**
 </ParamField>
 
-<Warning>
-Como não há teto, um lote muito grande pode estourar o tempo limite da requisição. Prefira lotes moderados e acompanhe o resultado.
-</Warning>
+Como não há teto, um lote muito grande pode passar do tempo limite da requisição. Prefira lotes moderados e acompanhe o resultado.
 
-### Campos de `project`
+#### Campos de `project`
 
-Campos simples, aplicados diretamente no projeto:
+Os campos simples são aplicados diretamente no projeto:
 
 | Campo | Tipo |
 | --- | --- |
@@ -72,16 +81,16 @@ Campos simples, aplicados diretamente no projeto:
 | `is_template` | boolean |
 | `parent_id` | uuid ou `null` |
 
-Relações que usam o formato `{ "to_add": [...], "to_rem": [...] }` — **ambas as chaves devem estar presentes**, mesmo que vazias:
+As relações abaixo usam o formato `{ "to_add": [...], "to_rem": [...] }`. Envie **as duas chaves**, mesmo que uma delas vá vazia:
 
 | Campo | Conteúdo |
 | --- | --- |
 | `funnels` | ids de funis a vincular / desvincular |
 | `groups` | ids de grupos de projeto |
-| `tags` | ids de tags |
+| `tags` | ids de etiquetas |
 | `childrens` | ids de projetos filhos |
 
-Demais relações, com formato próprio:
+As demais relações têm formato próprio:
 
 | Campo | Formato |
 | --- | --- |
@@ -94,35 +103,46 @@ Demais relações, com formato próprio:
 **Campos desconhecidos são ignorados sem aviso.** Um erro de digitação (`statsu` em vez de `status`) não gera erro: a requisição responde 200 com todos os itens em `successCount` e nada é alterado. Confira o resultado relendo um dos registros.
 </Warning>
 
-### Campos de `answer_pool`
+#### Campos de `answer_pool`
+
+Com `answer_pool`, o lote grava as mesmas respostas de formulário em todos os registros da lista. Este exemplo responde o campo 30 do formulário do objeto projeto em dois projetos:
 
 ```json
 {
-  "ids": ["uuid-do-projeto-1", "uuid-do-projeto-2"],
-  "form_answers": [ /* respostas */ ],
+  "ids": [
+    "019b140c-235d-73ee-96df-3d2afbf7d13d",
+    "019b140b-e38e-7207-8016-9bfe6fa1d02f"
+  ],
+  "form_answers": [
+    { "id": 30, "answer": "Indicação" }
+  ],
   "target": {
-    "pivot_class": "App\\Models\\ProjectStepForm",
-    "form_id": 20,
+    "pivot_class": "App\\Models\\Project",
+    "form_id": 21,
     "father_class": "App\\Models\\Project"
   }
 }
 ```
 
 <ParamField body="form_answers" type="array" required>
-As respostas a gravar, no mesmo formato usado na gravação individual.
+As respostas a gravar, no mesmo formato usado na [gravação individual](/api-reference/general/form-answer-pivot#gravar-respostas): cada item tem o `id` do campo e a `answer`.
 </ParamField>
 
 <ParamField body="target" type="object" required>
-Endereço do formulário. Exige `pivot_class`, `form_id` e `father_class`. O identificador de cada item de `ids` é usado como o registro alvo — você não envia `father_id`.
+Endereço do formulário, o [pivot](/api-reference/general/form-answer-pivot). Exige `pivot_class`, `form_id` e `father_class`. A API usa cada item de `ids` como o registro alvo, então você não envia `father_id`.
 </ParamField>
 
-<Info>
-O conceito de `target` (pivot) está detalhado em [Formulários dinâmicos e o pivot](/api-reference/general/form-answer-pivot).
-</Info>
+O lote também grava formulários de etapa e de funil. Nesses casos, os `ids` continuam sendo ids de projeto, e o `target` leva o id da etapa ou do funil:
 
-## Resposta
+| `pivot_class` | Formulário | Campo extra em `target` |
+| --- | --- | --- |
+| `App\Models\Project` | Do objeto projeto | nenhum |
+| `App\Models\ProjectStepForm` | De uma etapa | `funnel_step_id` |
+| `App\Models\ProjectFunnelAssignment` | De um funil | `project_funnel_id` |
 
-A resposta é sempre **200**, mesmo quando itens falham. O que importa está em `result`:
+### Resposta
+
+A resposta tem HTTP **200** mesmo quando alguns itens falham. O resultado do lote está em `result`:
 
 ```json
 {
@@ -131,7 +151,7 @@ A resposta é sempre **200**, mesmo quando itens falham. O que importa está em 
     "successCount": 2,
     "failedCount": 1,
     "fails": [
-      { "id": "uuid-3", "error": "The step has requirements not filled" }
+      { "id": "019b140b-a1c2-7d44-8e0f-5b6c7d8e9f10", "error": "The step has requirements not filled" }
     ]
   }
 }
@@ -149,21 +169,19 @@ Quantos itens falharam.
 Um objeto por falha, com `id` e `error`. Quando a falha é de permissão, o objeto também traz `permission`, com a permissão que faltou.
 </ResponseField>
 
-<Warning>
-**A resposta não lista os itens que deram certo.** Os que passaram são obtidos por diferença: tudo que está em `ids` e não aparece em `fails`.
-</Warning>
+A resposta não lista os itens que deram certo. Para saber quais passaram, compare: são os de `ids` que não aparecem em `fails`.
 
-## Falha no meio do item
+### Falha no meio de um item
 
-O processamento é item a item, mas **não há desfazer por item**. Se um projeto falhar depois de já ter aplicado parte das alterações — por exemplo, o campo simples foi gravado e a relação seguinte estourou — a parte já aplicada permanece.
+A API processa item a item, mas **não desfaz as alterações de um item que falhou**. Se um projeto falhar depois de receber parte das alterações, a parte já aplicada permanece. Por exemplo, o campo simples é gravado e a relação seguinte falha.
 
 <Warning>
-Um `id` em `fails` não significa "nada mudou nesse registro". Significa "a operação não terminou". Releia o registro antes de reprocessá-lo.
+Um `id` em `fails` não significa que nada mudou nesse registro, e sim que a operação não terminou. Releia o registro antes de processá-lo de novo.
 </Warning>
 
-## Concorrência
+### Concorrência
 
-Só um lote por usuário de cada vez. Se outro lote do mesmo usuário estiver em andamento, a requisição responde **409**:
+A API processa um lote por usuário de cada vez. Se outro lote do mesmo usuário estiver em andamento, a requisição responde com HTTP **409**:
 
 ```json
 {
@@ -173,27 +191,28 @@ Só um lote por usuário de cada vez. Se outro lote do mesmo usuário estiver em
 }
 ```
 
-<Info>
-A trava vale por usuário e por empresa, e só é aplicada quando o lote tem mais de um item. Um lote de um item único passa direto.
-</Info>
+A trava vale por usuário e por empresa e só se aplica a lotes com mais de um item. Um lote de um item só nunca recebe 409.
 
-<Tip>
-Ao receber 409, aguarde e repita a requisição. Não rode dois lotes em paralelo com o mesmo token — eles vão se atrapalhar.
-</Tip>
+Ao receber 409, espere o lote anterior terminar e repita a requisição. Com o mesmo token, envie um lote de cada vez.
 
-# Movimentação em lote entre etapas
+## Movimentação em lote entre etapas
+
+A movimentação em lote move vários projetos para a mesma etapa de funil:
 
 ```http
 POST /api/management/project-bulk-step-move
 ```
 
-Move vários projetos para a mesma etapa de funil.
+### Corpo da requisição
 
-## Corpo da requisição
+Este exemplo move dois projetos para a etapa 42 e os desvincula das outras etapas do mesmo funil:
 
 ```json
 {
-  "project_ids": ["uuid-1", "uuid-2"],
+  "project_ids": [
+    "019b140c-235d-73ee-96df-3d2afbf7d13d",
+    "019b140b-e38e-7207-8016-9bfe6fa1d02f"
+  ],
   "step_id": 42,
   "unlink_others": true,
   "force_funnel_link": false
@@ -201,7 +220,7 @@ Move vários projetos para a mesma etapa de funil.
 ```
 
 <ParamField body="project_ids" type="array" required>
-Lista de uuids de projetos.
+Lista de IDs (UUID) dos projetos.
 </ParamField>
 
 <ParamField body="step_id" type="integer" required>
@@ -216,57 +235,34 @@ Quando `true`, desvincula o projeto das outras etapas do mesmo funil.
 Quando `true`, vincula o projeto ao funil da etapa caso ele ainda não esteja vinculado.
 </ParamField>
 
-<Info>
 Projetos que já estão na etapa de destino são ignorados, sem erro.
-</Info>
 
-## Tudo ou nada
+### Tudo ou nada
 
-Este endpoint **para no primeiro erro** e nenhuma das movimentações do lote é confirmada — inclusive as dos projetos processados antes da falha.
+Este endpoint **para no primeiro erro**, e nenhuma movimentação do lote é confirmada, nem a dos projetos processados antes da falha.
 
-A resposta de erro segue o [formato padrão](/api-reference/general/response-structure) e informa **o motivo**, com o detalhe da restrição ou do requisito que barrou a movimentação:
+A resposta de erro segue o [formato padrão](/api-reference/general/response-structure) e informa o motivo, com o detalhe da restrição ou do requisito que barrou a movimentação. As regras por trás desses erros estão em [Restrições de etapa](/guides/funnels/restrictions) e [Requisitos de etapa](/guides/funnels/requirements).
 
-| `message` | Motivo |
-| --- | --- |
-| `step_requirements_not_filled` | A etapa tem requisitos não preenchidos. Acompanha `requirements`. |
-| `incoming_restrictions` | A etapa de destino restringe de onde o projeto pode vir. Acompanha `restrictions`. |
-| `outgoing_restrictions` | A etapa de origem restringe para onde o projeto pode ir. Acompanha `restrictions`. |
-| `blocked_by_existing_step_blocking` | O projeto tem tag ou status que a etapa bloqueia. Acompanha `step_blockings`. |
-| `project_funnel_not_linked_with_project` | O projeto não está vinculado ao funil da etapa. Use `force_funnel_link`. |
-| `project_funnel_not_active` | O funil da etapa está inativo. |
+| `message` | Motivo | Como resolver |
+| --- | --- | --- |
+| `step_requirements_not_filled` | A etapa tem requisitos não preenchidos. Acompanha `requirements`. | Preencha os itens listados em `requirements` antes de mover. |
+| `incoming_restrictions` | A etapa de destino restringe de onde o projeto pode vir. Acompanha `restrictions`. | Mova o projeto a partir de uma etapa aceita em `restrictions` ou ajuste a restrição. |
+| `outgoing_restrictions` | A etapa de origem restringe para onde o projeto pode ir. Acompanha `restrictions`. | Escolha uma etapa de destino aceita em `restrictions` ou ajuste a restrição. |
+| `blocked_by_existing_step_blocking` | O projeto tem etiqueta ou status que a etapa bloqueia. Acompanha `step_blockings`. | Remova a etiqueta ou o status listado em `step_blockings`, ou ajuste o bloqueio. |
+| `project_funnel_not_linked_with_project` | O projeto não está vinculado ao funil da etapa. | Envie `force_funnel_link: true` ou vincule o projeto ao funil antes. |
+| `project_funnel_not_active` | O funil da etapa está inativo. | Ative o funil ou escolha uma etapa de outro funil. |
 
-<Warning>
-**O erro não diz qual projeto falhou.** Ele descreve o motivo, não o culpado.
-</Warning>
+O erro descreve o motivo, mas **não diz qual projeto falhou**. Para descobrir qual projeto barrou o lote, mova um projeto de cada vez com `POST /api/management/funnel-steps/{funnel_step_id}/projects`. O projeto que reproduzir o erro é o responsável.
 
-<Tip>
-Para descobrir qual projeto barrou o lote, mova um a um com `POST /api/management/funnel-steps/{funnel_step}/projects`. O projeto que reproduzir o erro é o responsável.
-</Tip>
+### Concorrência na movimentação
 
-<Info>
-As regras que provocam esses erros estão em [Restrições de etapa](/guides/funnels/restrictions) e [Requisitos de etapa](/guides/funnels/requirements).
-</Info>
+A movimentação em lote usa a mesma trava da atualização em lote: um lote por usuário de cada vez, com HTTP **409** e `bulk_operation_in_progress` quando já existe outro em andamento. Um lote de atualização em curso também bloqueia um lote de movimentação do mesmo usuário, e vice-versa.
 
-## Concorrência
+## Boas práticas
 
-Vale a mesma trava da atualização em lote: um lote por usuário de cada vez, com **409** e `bulk_operation_in_progress` quando já existe outro em andamento. As duas operações compartilham a mesma trava — um lote de atualização em curso bloqueia um lote de movimentação do mesmo usuário.
+Estes cuidados evitam as falhas mais comuns nos lotes:
 
-# Resumo prático
-
-<Steps>
-<Step title="Escolha pelo comportamento de erro">
-Precisa que o lote inteiro seja atômico? Use a movimentação entre etapas. Precisa aplicar o que for possível e tratar o resto depois? Use a atualização em lote.
-</Step>
-
-<Step title="Confira o nome dos campos">
-Na atualização em lote, um campo escrito errado é ignorado sem aviso. Valide o payload antes de rodar sobre muitos registros.
-</Step>
-
-<Step title="Sempre leia o result">
-`successCount` igual ao total não garante que os campos certos foram aplicados — garante apenas que nenhum item lançou erro.
-</Step>
-
-<Step title="Não rode lotes em paralelo">
-Com o mesmo usuário, o segundo lote recebe 409. Enfileire do seu lado.
-</Step>
-</Steps>
+- **Escolha o endpoint pelo comportamento de erro.** Se o lote inteiro precisa dar certo ou falhar junto, use a movimentação entre etapas. Se você quer aplicar o que for possível e tratar o resto depois, use a atualização em lote.
+- **Confira o nome dos campos.** Na atualização em lote, um campo escrito errado é ignorado sem aviso. Valide o corpo antes de rodar sobre muitos registros.
+- **Leia sempre o `result`.** Um `successCount` igual ao total garante só que nenhum item deu erro, e não que os campos certos foram aplicados.
+- **Envie um lote de cada vez.** Com o mesmo usuário, o segundo lote recebe 409. Organize uma fila do seu lado.

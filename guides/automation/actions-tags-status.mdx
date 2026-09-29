@@ -4,7 +4,7 @@ description: "Adicionar e remover etiquetas e alterar o status do funil de um pr
 keywords: ["ação", "etiqueta", "tag", "status do funil", "vincular etiqueta", "remover etiqueta"]
 ---
 
-As ações que classificam o projeto: etiquetas e status de funil.
+Esta página reúne as ações que classificam o projeto: etiquetas e status do funil.
 
 | Ação | O que faz |
 | --- | --- |
@@ -20,15 +20,13 @@ Vincula ao projeto as etiquetas escolhidas.
 | --- | --- | --- |
 | Quais etiquetas serão vinculadas? | Sim | As etiquetas a aplicar; aceita mais de uma, de qualquer funil |
 
-<Warning>
-**A etiqueta só é aplicada se o projeto estiver vinculado ao funil dela.** Você pode escolher qualquer etiqueta na configuração, mas na hora de executar o vínculo com o funil é obrigatório.
-
-Se o projeto não estiver no funil, aquela etiqueta é **silenciosamente ignorada** e a ação segue para as próximas. O log registra o que aconteceu.
-</Warning>
+**A etiqueta só é aplicada se o projeto estiver vinculado ao funil dela.** Você pode escolher qualquer etiqueta na configuração, mas, na hora de executar, o vínculo com o funil é obrigatório. Se o projeto não estiver no funil, a ação ignora aquela etiqueta sem erro e segue para as próximas. O registro de execução mostra o que aconteceu.
 
 Etiquetas que o projeto já possui são ignoradas — a ação não duplica nem gera erro.
 
 **O que pode impedir a aplicação**
+
+Quando a etiqueta não aparece no projeto, confira estas causas:
 
 <AccordionGroup>
 <Accordion title="O projeto não está no funil da etiqueta" icon="link-slash">

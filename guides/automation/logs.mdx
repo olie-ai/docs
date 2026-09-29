@@ -4,7 +4,7 @@ description: "Como ler o registro de execução de uma automação e o que fazer
 keywords: ["log", "registro de execução", "depuração", "erro", "não funcionou", "diagnóstico"]
 ---
 
-Toda vez que uma automação é acionada, ela grava um registro completo do que aconteceu: quem disparou, qual projeto foi afetado, quais componentes rodaram, o resultado de cada um e quanto tempo levou.
+Toda vez que uma automação é acionada, ela grava um registro completo do que aconteceu. O registro mostra quem disparou, qual projeto foi afetado, quais componentes rodaram, o resultado de cada um e quanto tempo levou.
 
 É o primeiro lugar para olhar quando algo não sai como esperado.
 
@@ -16,9 +16,7 @@ Abra a automação e vá em **Registro de execuções**. A lista mostra as **20 
 O histórico não é permanente. Cada automação guarda cerca de **100 registros**; conforme novas execuções acontecem, as antigas são descartadas. Em automações de alto volume, isso pode significar poucas horas de histórico. Não conte com o log como arquivo de auditoria.
 </Warning>
 
-<Note>
-Excluir uma automação apaga o histórico dela. Se você precisa preservar a evidência de uma execução, desative em vez de excluir.
-</Note>
+Excluir uma automação apaga o histórico dela. Se você precisa preservar a evidência de uma execução, desative a automação em vez de excluir.
 
 ## O que cada registro mostra
 
@@ -38,7 +36,7 @@ Excluir uma automação apaga o histórico dela. Se você precisa preservar a ev
 <Accordion title="Resumo da execução" icon="chart-simple">
   Quantos componentes tiveram sucesso, quantos deram erro e o tempo total.
 
-  É a leitura de dois segundos: se o número de erros é zero e mesmo assim nada mudou no projeto, o problema não é falha — é uma ação que rodou sem ter o que fazer.
+  É a leitura mais rápida do registro. Se o número de erros é zero e mesmo assim nada mudou no projeto, o problema não é falha: é uma ação que rodou sem ter o que fazer.
 </Accordion>
 
 <Accordion title="Fluxo de execução" icon="diagram-project">
@@ -67,13 +65,17 @@ Excluir uma automação apaga o histórico dela. Se você precisa preservar a ev
 
 <Steps>
 <Step title="Existe registro de execução?" icon="magnifying-glass">
-  **Não existe nenhum:** o gatilho não chegou a casar com o evento. O problema está antes da execução — automação inativa, gatilho apontando para outra etapa, evento diferente do configurado. Reveja [Gatilhos](/guides/automation/triggers).
+  **Não existe nenhum:** o evento não correspondeu ao gatilho. O problema está antes da execução — automação inativa, gatilho apontando para outra etapa, evento diferente do configurado. Reveja [Gatilhos](/guides/automation/triggers).
 
   **Existe:** siga para o próximo passo.
 </Step>
 
 <Step title="O componente rodou?" icon="list-check">
-  Procure o componente no fluxo de execução. Se ele não aparece, o fluxo não chegou nele: uma condição anterior bloqueou o fluxo, a cadeia de automações atingiu o limite, ou ele está dentro de um ramo que não foi executado.
+  Procure o componente no fluxo de execução. Se ele não aparece, o fluxo não chegou nele por um destes motivos:
+
+  - uma condição anterior bloqueou o fluxo;
+  - a cadeia de automações atingiu o limite;
+  - o componente está dentro de um ramo que não foi executado.
 </Step>
 
 <Step title="Rodou com sucesso ou com erro?" icon="circle-exclamation">
@@ -173,7 +175,7 @@ Excluir uma automação apaga o histórico dela. Se você precisa preservar a ev
   | `project_not_found` | A condição não recebeu projeto | Revise a compatibilidade entre gatilho e condição |
   | `saved_filter_not_found` | O filtro da condição sumiu | Reabra a condição e monte o filtro novamente |
   | `saved_filter_items_not_found` | O filtro está vazio | Adicione ao menos uma regra ao filtro |
-  | `validation_error` | O filtro ficou inválido | Um campo usado no filtro provavelmente foi removido |
+  | `validation_error` | O filtro ficou inválido, geralmente porque um campo usado nele foi removido | Reabra a condição e revise as regras do filtro |
 </Accordion>
 
 <Accordion title="Projetos alvo" icon="sitemap">
@@ -197,7 +199,7 @@ Excluir uma automação apaga o histórico dela. Se você precisa preservar a ev
 
 <AccordionGroup>
 <Accordion title="Nenhum registro de execução aparece" icon="ghost">
-  O gatilho nunca casou com o evento. Confira, nesta ordem:
+  O evento nunca correspondeu ao gatilho. Confira, nesta ordem:
 
   1. A automação está **ativa**?
   2. O evento provocado é exatamente o do gatilho? Entrar em uma etapa é diferente de sair dela.
@@ -217,7 +219,11 @@ Excluir uma automação apaga o histórico dela. Se você precisa preservar a ev
 <Accordion title="Tudo deu sucesso mas nada mudou" icon="circle-check">
   Praticamente sempre é uma opção de "não sobrescrever" ou um pré-requisito não atendido. Leia a **mensagem** de cada componente — ela explica o motivo em texto.
 
-  Os campeões: status do funil que já existia sem a opção de substituir, data já preenchida sem a opção de sobrescrever, etiqueta de um funil ao qual o projeto não está vinculado.
+  Os casos mais frequentes são:
+
+  - status do funil que já existia, sem a opção de substituir;
+  - data já preenchida, sem a opção de sobrescrever;
+  - etiqueta de um funil ao qual o projeto não está vinculado.
 
   Com [projetos alvo](/guides/automation/anatomy#em-quais-projetos-cada-componente-age) definidos, a mensagem `no_projects_in_scope` indica que a lista ficou vazia — os irmãos de um projeto sem pai, por exemplo — e a ação não tinha onde agir.
 </Accordion>

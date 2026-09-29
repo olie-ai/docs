@@ -12,6 +12,8 @@ Se você está lendo a [referência da API](/api-reference/introduction) e encon
 
 ## Estrutura do processo
 
+Os objetos que desenham um processo e o caminho que o projeto percorre nele.
+
 | Termo | Também chamado de | O que é |
 | --- | --- | --- |
 | **Funil** | quadro, board, pipeline, esteira | O desenho de um processo, com suas etapas. Ver [visão geral dos funis](/guides/funnels/overview) |
@@ -20,28 +22,32 @@ Se você está lendo a [referência da API](/api-reference/introduction) e encon
 | **Projeto** | cartão, card — e o que o funil chamar | A unidade que caminha pelos funis. O funil define a palavra que a interface usa |
 | **Termo do projeto** | vocabulário do funil | A configuração que troca "projeto" por ticket, chamado, deal, lead, tarefa, demanda e outros |
 | **Vínculo com o funil** | — | A relação entre um projeto e um funil. É dela que dependem o status, a previsão e o formulário do funil |
-| **Vínculo com a etapa** | posição do cartão | A relação entre um projeto e uma etapa. É o que muda quando você arrasta |
+| **Vínculo com a etapa** | posição do cartão | A relação entre um projeto e uma etapa. É o que muda quando você arrasta o cartão para outra coluna |
 
 ## Classificação e regras
 
+As marcas que classificam o projeto e as regras que controlam por onde ele pode passar.
+
 | Termo | Também chamado de | O que é |
 | --- | --- | --- |
-| **Etiqueta** | tag | Marca aplicável ao projeto. Várias por projeto, e visível em todos os funis onde ele está |
+| **Etiqueta** | tag | Marca que você aplica ao projeto. Um projeto pode ter várias, e cada uma aparece em todos os funis onde ele está |
 | **Status do funil** | status | A situação do projeto **naquele funil**. Um por vínculo. Pinta o cartão |
-| **Status do projeto** | — | Campo global: em execução, concluído, arquivado ou parado. Não confundir com o status do funil |
+| **Status do projeto** | — | Campo global do projeto, que vale em todos os funis: em execução, concluído, arquivado ou parado. Não confundir com o status do funil |
 | **Status conclusivo** | — | Status que marca o fim do processo naquele funil e preenche a previsão realizada |
 | **Restrição** | regra de movimentação, trava | Regra na etapa que aprova ou recusa entrada e saída |
-| **Bloqueio de etapa** | bloqueio de vínculo | Regra na etiqueta ou no status dizendo em quais etapas aquela marca não é permitida |
+| **Bloqueio de etapa** | bloqueio de vínculo | Regra na etiqueta ou no status que define em quais etapas aquela marca não é permitida |
 | **Checklist da etapa** | requisitos | Itens de verificação que travam a saída da etapa quando obrigatórios |
 
 ## Formulários
 
+Os tipos de formulário, os lugares onde eles podem ser anexados e as peças que os compõem.
+
 | Termo | Também chamado de | O que é |
 | --- | --- | --- |
-| **Formulário dinâmico** | formulário, campos customizados | Conjunto de campos que existe por conta própria e é anexado a lugares |
+| **Formulário dinâmico** | formulário, campos customizados | Conjunto de campos que existe por conta própria e é anexado a lugares: a um tipo de objeto, a um funil, a uma etapa ou, como avulso, a um projeto |
 | **Formulário de objeto** | formulário do projeto, do cliente, do contato, do usuário | O formulário que vale para **todos** os registros daquele tipo na conta |
-| **Formulário do funil** | — | Acompanha o projeto do começo ao fim daquele funil |
-| **Formulário da etapa** | — | Existe apenas no contexto de uma etapa |
+| **Formulário do funil** | — | Formulário anexado ao funil, que acompanha o projeto do começo ao fim daquele funil |
+| **Formulário da etapa** | — | Formulário anexado a uma etapa, que existe apenas no contexto dela |
 | **Formulário avulso** | — | Anexado a um projeto específico, fora do funil e da etapa |
 | **Publicação de formulário** | formulário público, link público | Formulário publicado em URL aberta, que pode criar projeto ao ser respondido |
 | **Solicitação** | catálogo de serviço | Formulário disponível por papel, para quem não tem acesso ao funil abrir demanda |
@@ -49,6 +55,8 @@ Se você está lendo a [referência da API](/api-reference/introduction) e encon
 | **Campo** | pergunta | Cada item de um formulário |
 
 ## Conteúdo e documentação
+
+O que fica registrado no projeto e onde a equipe documenta o trabalho.
 
 | Termo | Também chamado de | O que é |
 | --- | --- | --- |
@@ -58,9 +66,11 @@ Se você está lendo a [referência da API](/api-reference/introduction) e encon
 | **Conversa resolvida** | — | Conversa que alguém marcou como encerrada, apagando o aviso de aguardando resposta. Volta a aguardar resposta quando o cliente escreve de novo |
 | **Caderno** | — | Documentação em páginas e subpáginas, com histórico de versões. Ver [o Caderno](/guides/notebook/overview) |
 | **Menção** | arroba | Citação de um usuário no conteúdo do projeto, que o notifica |
-| **Anexo do funil / da etapa** | — | Material de apoio. Diferente dos **Arquivos do projeto**, que são o que foi enviado no cartão |
+| **Anexo do funil / da etapa** | — | Material de apoio anexado ao funil ou à etapa. Não confundir com os **Arquivos do projeto**, que são os arquivos enviados no próprio projeto |
 
 ## Inteligência artificial
+
+As peças que configuram e executam a IA na plataforma.
 
 | Termo | Também chamado de | O que é |
 | --- | --- | --- |
@@ -68,21 +78,25 @@ Se você está lendo a [referência da API](/api-reference/introduction) e encon
 | **Assistente de etapa** | assistente | O agente amarrado a uma etapa, com prompt próprio, momento de execução e destino da saída |
 | **Contexto do agente** | base de conhecimento | Documentos e textos que o agente usa como referência |
 | **Ferramentas** | tools | Capacidades adicionais do agente, como busca na web ou consulta ao projeto |
-| **Crédito de IA** | crédito | Unidade pré-paga consumida a cada execução. Ver [créditos de IA](/guides/billing/ai-credits) |
+| **Crédito de IA** | crédito | Unidade pré-paga consumida a cada execução de IA. Ver [créditos de IA](/guides/billing/ai-credits) |
 
 ## Automação
+
+As partes de uma automação e o que ela registra ao rodar.
 
 | Termo | Também chamado de | O que é |
 | --- | --- | --- |
 | **Automação** | fluxo, regra | Gatilho + condições + ações |
-| **Gatilho** | trigger | O evento que aciona a automação. Um por automação |
-| **Condição** | decisor | A checagem que ramifica o fluxo |
+| **Gatilho** | trigger | O evento que aciona a automação. Cada automação tem exatamente um |
+| **Condição** | decisor | A checagem que divide o fluxo em caminhos diferentes |
 | **Ação** | componente | O que a automação faz |
 | **Sintaxe avançada** | Twig, variáveis, expressão | A linguagem de template usada em campos que aceitam expressão |
 | **Consulta** | `query`, função de consulta | Função da sintaxe avançada que busca dados que não vieram no contexto |
-| **Registro de execução** | log | O que aconteceu quando a automação rodou |
+| **Registro de execução** | log | O registro do que aconteceu em cada vez que a automação rodou |
 
 ## Pessoas e conta
+
+Quem acessa a plataforma, com que permissões e por qual credencial.
 
 | Termo | Também chamado de | O que é |
 | --- | --- | --- |
@@ -96,15 +110,17 @@ Se você está lendo a [referência da API](/api-reference/introduction) e encon
 
 ## Marketplace
 
+Os objetos usados para criar e publicar templates.
+
 | Termo | O que é |
 | --- | --- |
 | **Template** | Cópia dos objetos de configuração de uma empresa construtora |
-| **Empresa construtora** | Ambiente isolado, sem assinatura e com tempo de vida limitado, usado só para montar templates |
+| **Empresa construtora** | Ambiente isolado e sem assinatura, usado só para montar templates |
 | **Snapshot** | Captura imutável do estado de uma empresa construtora. É a "versão" do template |
 
 ## Vocabulário de método
 
-Termos que a Olie usa ao desenhar processos. Não aparecem na interface — são forma de pensar.
+Termos que a Olie usa ao desenhar processos. Eles não aparecem na interface: são formas de pensar o desenho.
 
 | Termo | O que significa |
 | --- | --- |
@@ -113,9 +129,9 @@ Termos que a Olie usa ao desenhar processos. Não aparecem na interface — são
 | **Etapa espelho** | Etapa sem execução, que só reflete o andamento de outro funil para quem precisa acompanhar |
 | **Funil gerencial** | Funil montado só para visão de gestão, sem operação dentro dele |
 | **Esteira de agentes** | Funil dedicado a rodar agentes de IA em sequência, sem interação humana |
-| **Camadas** | Estratégico, tático, operacional e microatividade — e o mapeamento para raiz, filho, neto e bisneto |
+| **Camadas** | Os níveis da operação (estratégico, tático, operacional e microatividade), que correspondem a raiz, filho, neto e bisneto na hierarquia de projetos |
 
-Ver [padrões de desenho](/guides/implementation/design-patterns) para a montagem de cada um.
+Ver [o modelo mental](/guides/fundamentals/mental-model) para esteira, intersecção e camadas, e [padrões de desenho](/guides/implementation/design-patterns) para a montagem da etapa espelho, do funil gerencial e da esteira de agentes.
 
 ## Nomes que aparecem na API
 

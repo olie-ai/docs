@@ -1,114 +1,117 @@
 ---
 title: 'Busca avançada'
 icon: 'brackets-curly'
-description: 'Aprenda a usar filtros complexos, operadores relacionais e lógicos, e ordenações múltiplas nos endpoints que suportam busca avançada'
+description: 'Filtros com operadores, combinação com and e or e ordenação múltipla no corpo de requisições POST de busca.'
+keywords: ['busca avançada', 'filtros', 'filters', 'sorting', 'ordenação', 'operadores', 'operator', 'logical_operator', 'arguments', 'search', 'system/params', 'validation_errors']
 ---
 
-<Info>
-Essa documentação é sobre filtros complexos aplicados no corpo de requisições `POST`, se você estiver procurando por filtros simples, consulte a documentação de [Filtros básico](/api-reference/general/basic-filters).
-</Info>
+A busca avançada filtra e ordena listagens com critérios enviados no corpo de uma requisição `POST`. Esta página mostra a estrutura dos filtros e das ordenações, os operadores aceitos, como descobrir os campos disponíveis e como tratar os erros.
 
-Alguns endpoints da API suportam um sistema de **Busca Avançada** que permite criar consultas complexas com múltiplos filtros, operadores relacionais e lógicos, ordenações múltiplas e filtros em relacionamentos. Este sistema é ideal para casos de uso que exigem consultas sofisticadas.
+A busca avançada está disponível em três endpoints:
 
-## Como Funciona
+- `POST /api/management/projects/search`
+- `POST /api/management/customers/search`
+- `POST /api/management/contacts/search`
 
-O sistema de busca avançada utiliza o corpo da requisição (payload) para enviar uma estrutura JSON com filtros e ordenações. Você pode combinar múltiplos filtros com diferentes operadores e lógicas.
+Para filtros simples enviados na URL, como `filter[status]=active`, veja [Filtros básicos](/api-reference/general/basic-filters).
 
-## Estrutura da Requisição
+## Primeira busca
 
-A requisição deve ser enviada como `POST` com um corpo JSON contendo os seguintes campos:
+Esta requisição completa, com autenticação, busca os projetos com orçamento maior que 10.000:
+
+```bash
+curl -X POST "https://api.olie.ai/api/management/projects/search" \
+  -H "Authorization: Bearer {{token_de_acesso}}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "filters": [
+      { "field": "budget", "operator": "greater_than", "value": 10000 }
+    ]
+  }'
+```
+
+A resposta traz a lista em `projects` e os dados de paginação em `meta`, como descrito em [Paginação](/api-reference/general/pagination).
+
+## Estrutura da requisição
+
+O corpo da requisição é um objeto JSON com quatro campos, todos opcionais:
 
 <ParamField body="filters" type="array">
-Array de objetos de filtro. Cada filtro define um campo, operador, valor e operador lógico. A depender do filtro, argumentos adicionais podem ser necessários.
+Lista de filtros. Cada filtro define o campo, o operador, o valor e como ele se combina com o filtro anterior.
 </ParamField>
 
 <ParamField body="sorting" type="array">
-Array de objetos de ordenação. Cada ordenação define um campo e direção.
+Lista de ordenações, na ordem de prioridade. Cada ordenação define o campo e a direção.
 </ParamField>
 
 <ParamField body="page" type="integer" default="1">
-Número da página a ser retornada. Começa em 1. Consulte a documentação de [Paginação](/api-reference/general/pagination) para mais informações.
+Número da página, a partir de 1. Veja [Paginação](/api-reference/general/pagination).
 </ParamField>
 
 <ParamField body="perPage" type="integer" default="30">
-Quantidade de itens por página. Máximo: 100. Consulte a documentação de [Paginação](/api-reference/general/pagination) para mais informações.
+Quantidade de itens por página, de 1 a 100. Veja [Paginação](/api-reference/general/pagination).
 </ParamField>
 
-## Estrutura de um Filtro
+## Estrutura de um filtro
 
-Cada filtro no array `filters` deve seguir esta estrutura:
+Cada item de `filters` tem estes campos:
 
 <ParamField body="filters[].field" type="string" required>
-Nome do campo a ser filtrado. Deve ser um campo válido definido pelo endpoint.
+Nome do campo a filtrar. Os campos aceitos variam por endpoint: veja [Descobrindo campos disponíveis](#descobrindo-campos-disponíveis).
 </ParamField>
 
-<ParamField body="filters[].operator" type="enum" required>
-Operador relacional a ser aplicado. Veja a seção de [Operadores Relacionais](#operadores-relacionais) abaixo.
+<ParamField body="filters[].operator" type="string" required>
+Operador de comparação. Os valores aceitos estão em [Operadores de comparação](#operadores-de-comparação).
 </ParamField>
 
-<ParamField body="filters[].value" type="mixed">
-Valor a ser comparado. Pode ser string, número, boolean, null ou array dependendo do campo e operador.
+<ParamField body="filters[].value" type="string | number | boolean | array | null">
+Valor a comparar. O tipo depende do campo e do operador.
 </ParamField>
 
 <ParamField body="filters[].logical_operator" type="string" default="and">
-Operador lógico que conecta este filtro ao anterior. Valores: `and` ou `or`. Padrão: `and`.
+Como o filtro se combina com o anterior: `and` ou `or`.
 </ParamField>
 
 <ParamField body="filters[].arguments" type="array">
-Array opcional de argumentos adicionais para filtros que requerem contexto extra (ex: filtros em relacionamentos específicos).
+Argumentos extras que alguns campos exigem, como o campo do formulário em um filtro por resposta de formulário. Veja [Argumentos adicionais](#argumentos-adicionais).
 </ParamField>
 
-## Operadores Relacionais
+## Operadores de comparação
 
-O sistema suporta os seguintes operadores relacionais:
+O campo `operator` aceita os valores da tabela. Nem todo campo aceita todos os operadores: a lista de cada campo está em [Descobrindo campos disponíveis](#descobrindo-campos-disponíveis).
 
-### Operadores de Igualdade
+| Operador | Significado | Grupo |
+| --- | --- | --- |
+| `equals` | Igual a | Igualdade |
+| `not_equals` | Diferente de | Igualdade |
+| `contains` | Contém o texto (busca parcial) | Texto |
+| `not_contains` | Não contém o texto | Texto |
+| `greater_than` | Maior que | Número e data |
+| `greater_than_or_equals` | Maior ou igual a | Número e data |
+| `less_than` | Menor que | Número e data |
+| `less_than_or_equals` | Menor ou igual a | Número e data |
+| `is_null` | Campo vazio (nulo) | Nulo |
+| `is_not_null` | Campo preenchido (não nulo) | Nulo |
 
-- **`equals`** (`=`): Igual a
-- **`not_equals`** (`<>`): Diferente de
+## Combinar filtros com and e or
 
-### Operadores de Texto
+O campo `logical_operator` define como cada filtro se combina com o anterior:
 
-- **`contains`** (`LIKE`): Contém o texto (busca parcial)
-- **`not_contains`** (`NOT LIKE`): Não contém o texto
+- **`and`** (padrão): o item precisa atender aos dois filtros.
+- **`or`**: o item precisa atender a pelo menos um dos dois filtros.
 
-### Operadores Numéricos e de Data
-
-- **`greater_than`** (`>`): Maior que
-- **`greater_than_or_equals`** (`>=`): Maior ou igual a
-- **`less_than`** (`<`): Menor que
-- **`less_than_or_equals`** (`<=`): Menor ou igual a
-
-### Operadores de Nulo
-
-- **`is_null`**: Campo é nulo
-- **`is_not_null`**: Campo não é nulo
-
-<Info>
-Nem todos os campos suportam todos os operadores. Para saber quais operadores estão disponíveis para cada campo, veja a seção de [Descobrindo Campos Disponíveis](#descobrindo-campos-disponíveis) abaixo.
-</Info>
-
-## Operadores Lógicos
-
-Os filtros podem ser combinados usando operadores lógicos:
-
-- **`and`**: Ambos os filtros devem ser verdadeiros (padrão)
-- **`or`**: Pelo menos um dos filtros deve ser verdadeiro
-
-<Warning>
-O primeiro filtro do array sempre usa `AND` implicitamente. O `logical_operator` se aplica a partir do segundo filtro em diante.
-</Warning>
+O `logical_operator` vale a partir do segundo filtro. No primeiro filtro, a API ignora o valor.
 
 <Tip>
-Evite usar diferentes operadores lógicos, use apenas `and` ou `or` para conectar filtros. Mesclar filtros com operadores lógicos diferentes pode resultar em resultados inesperados.
+Use o mesmo operador lógico em todos os filtros da busca, só `and` ou só `or`. Misturar os dois na mesma lista pode trazer resultados diferentes do esperado.
 </Tip>
 
-## Estrutura de Ordenação
+## Estrutura de uma ordenação
 
-Cada ordenação no array `sorting` deve seguir esta estrutura:
+Cada item de `sorting` tem estes campos:
 
 <ParamField body="sorting[].field" type="string" required>
-Nome do campo a ser usado para ordenação. Deve ser um campo válido definido pelo endpoint.
+Nome do campo usado na ordenação. Os campos aceitos variam por endpoint: veja [Descobrindo campos disponíveis](#descobrindo-campos-disponíveis).
 </ParamField>
 
 <ParamField body="sorting[].direction" type="string" required>
@@ -116,238 +119,251 @@ Direção da ordenação: `asc` (crescente) ou `desc` (decrescente).
 </ParamField>
 
 <ParamField body="sorting[].arguments" type="array">
-Array opcional de argumentos adicionais para ordenações que requerem contexto extra (ex: ordenar por campos em relacionamentos específicos).
+Argumentos extras que algumas ordenações exigem.
 </ParamField>
 
-## Argumentos Adicionais
+## Argumentos adicionais
 
-Alguns filtros e ordenações requerem argumentos adicionais para funcionar corretamente. Por exemplo, ao filtrar por um campo em um relacionamento específico, você pode precisar especificar qual relacionamento usar.
+Alguns campos só funcionam com um contexto a mais. Por exemplo, para filtrar projetos pela resposta de um formulário (campo `answer_pool`), você precisa dizer qual campo do formulário comparar. Esse contexto vai em `arguments`.
 
-<Info>
-Os argumentos variam por campo. Para saber quais argumentos são necessários para cada campo, veja a seção de [Descobrindo Campos Disponíveis](#descobrindo-campos-disponíveis) abaixo.
-</Info>
+Os argumentos de cada campo aparecem na resposta do endpoint de metadados, descrita em [Descobrindo campos disponíveis](#descobrindo-campos-disponíveis).
 
-## Exemplos Práticos
+`arguments` é uma lista de objetos, e cada objeto tem três chaves obrigatórias:
+
+| Chave | O que enviar |
+| --- | --- |
+| `argument_key` | O `id` do argumento no endpoint de metadados, como `answer_pool_edge` |
+| `argument_value_id` | O valor do argumento, como o id do campo do formulário |
+| `argument_value_type` | O `modelClass` do argumento no endpoint de metadados, como `App\Models\FormEdge` |
+
+A API lê os argumentos pela posição na lista: o primeiro objeto é o primeiro argumento do campo, e assim por diante. Este filtro busca os projetos cuja resposta ao campo 30 do formulário é "Indicação":
+
+```json
+{
+  "filters": [
+    {
+      "field": "answer_pool",
+      "operator": "equals",
+      "value": "Indicação",
+      "arguments": [
+        {
+          "argument_key": "answer_pool_edge",
+          "argument_value_id": 30,
+          "argument_value_type": "App\\Models\\FormEdge"
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Exemplos
+
+Os exemplos usam a busca de projetos. Na busca de clientes e de contatos, a estrutura é a mesma e só mudam os campos.
 
 <Tabs>
-<Tab title="Filtro Simples">
-Buscar projetos com nome que contém "Joyce" e status igual a "1":
+<Tab title="Dois filtros com and">
+Busca os projetos em andamento (`status` igual a `1`) cujo nome contém "Implantação":
 
 ```http
 POST /api/management/projects/search
+Content-Type: application/json
+
 {
-    "filters": [
-        {
-            "field": "name",
-            "operator": "contains",
-            "value": "Joyce",
-            "logical_operator": "and"
-        },
-        {
-            "field": "status",
-            "operator": "equals",
-            "value": 1,
-            "logical_operator": "and"
-        }
-    ]
+  "filters": [
+    { "field": "name", "operator": "contains", "value": "Implantação" },
+    { "field": "status", "operator": "equals", "value": 1, "logical_operator": "and" }
+  ]
 }
 ```
 </Tab>
 
-<Tab title="Filtros com Operadores Lógicos">
-Buscar projetos criados após uma data OU com orçamento maior que um valor:
+<Tab title="Dois filtros com or">
+Busca os projetos criados a partir de 1º de janeiro de 2026 **ou** com orçamento maior que 10.000:
 
 ```http
 POST /api/management/projects/search
+Content-Type: application/json
+
 {
-    "filters": [
-      {
-            "field": "created_at",
-            "operator": "greater_than",
-            "value": "2024-01-01T00:00:00Z",
-            "logical_operator": "or"
-        },
-        {
-            "field": "budget",
-            "operator": "greater_than",
-            "value": 10000,
-            "logical_operator": "or"
-        }
-    ]
+  "filters": [
+    { "field": "created_at", "operator": "greater_than_or_equals", "value": "2026-01-01T00:00:00Z" },
+    { "field": "budget", "operator": "greater_than", "value": 10000, "logical_operator": "or" }
+  ]
 }
 ```
-</Tab>   
+</Tab>
 
-<Tab title="Consulta Completa">
-Exemplo completo com filtros, ordenação e paginação:
+<Tab title="Filtros, ordenação e paginação">
+Busca os projetos em andamento com "Implantação" no nome e orçamento maior que 10.500, do mais recente para o mais antigo, 30 por página:
 
 ```http
 POST /api/management/projects/search
+Content-Type: application/json
+
 {
-    "filters": [
-        {
-            "field": "name",
-            "operator": "contains",
-            "value": "Joyce",
-            "logical_operator": "and"
-        },
-        {
-            "field": "status",
-            "operator": "equals",
-            "value": 1,
-            "logical_operator": "and"
-        },
-        {
-            "field": "budget",
-            "operator": "greater_than",
-            "value": 10500,
-            "logical_operator": "and"
-        }
-    ],
-    "sorting": [
-        {
-            "field": "created_at",
-            "direction": "desc"
-        }
-    ],
-    "page": 1,
-    "perPage": 30
+  "filters": [
+    { "field": "name", "operator": "contains", "value": "Implantação" },
+    { "field": "status", "operator": "equals", "value": 1, "logical_operator": "and" },
+    { "field": "budget", "operator": "greater_than", "value": 10500, "logical_operator": "and" }
+  ],
+  "sorting": [
+    { "field": "created_at", "direction": "desc" }
+  ],
+  "page": 1,
+  "perPage": 30
 }
 ```
-
 </Tab>
 </Tabs>
 
-## Descobrindo Campos Disponíveis
+## Descobrindo campos disponíveis
 
-Para descobrir quais campos estão disponíveis para filtragem e ordenação em um endpoint específico, você pode usar o endpoint de metadados:
-
+Cada endpoint aceita um conjunto próprio de campos, operadores e argumentos. Para consultar esse conjunto, use o endpoint de metadados:
 
 ```http
-GET /api/management/system/params/{model_class}
+GET /api/management/system/params/{model_name}
 ```
 
-<Tip>
-Substitua `{model_class}` pelo nome da classe do modelo que você deseja descobrir os campos disponíveis. Exemplo: `project`, `customer`, `contact`
-</Tip>
- 
+Troque `{model_name}` pelo objeto da busca: `project`, `customer` ou `contact`. A resposta abaixo, da busca de projetos, mostra três dos filtros e parte das ordenações:
+
 ```json
 {
-    "response": true,
-    "params": {
-        "filters": [
-            {
-                "name": "id",
-                "input_type": "text",
-                "operators": ["equals"],
-                "options": [],
-                "arguments": [],
-                "hydrate": null
-            }, 
-            {
-                "name": "name",
-                "input_type": "text",
-                "operators": ["equals", "not_equals", "contains", "not_contains"],
-                "options": [],
-                "arguments": [],
-                "hydrate": null
-            }, 
-            {
-                "name": "status",
-                "input_type": "text",
-                "operators": [
-                    "equals",
-                    "not_equals"
-                ],
-                /** opções predefinidas para o campo */
-                "options": [
-                    {
-                        "label": "Em andamento",
-                        "value": 1
-                    },
-                    /** outras opções... */
-                    {
-                        "label": "Paralisado",
-                        "value": 4
-                    }
-                ],
-                "arguments": [
-                    { /** argumentos para o campo, quando necessário */ }
-                ],
-                "hydrate": null /** indica o local de carregamento do campo */
-            }, 
-            /** outros campos disponíveis... */
+  "response": true,
+  "params": {
+    "filters": [
+      {
+        "name": "name",
+        "input_type": "text",
+        "operators": ["equals", "not_equals", "contains", "not_contains"],
+        "options": [],
+        "arguments": [],
+        "hydrate": null
+      },
+      {
+        "name": "status",
+        "input_type": "text",
+        "operators": ["equals", "not_equals"],
+        "options": [
+          { "label": "Em andamento", "value": 1 },
+          { "label": "Concluído", "value": 2 },
+          { "label": "Arquivado", "value": 3 },
+          { "label": "Paralisado", "value": 4 }
         ],
-        "sorting": [
-            {
-                "name": "name",
-                "arguments": []
-            },
-            {
-                "name": "impact",
-                "arguments": []
-            },
-            /** outras ordenações... */
-        ]
-    }
-}
-``` 
-
-## Tratamento de Erros
-
-### Campo Inválido
-
-Se você usar um campo que não existe ou não está disponível:
-
-```json
-{
-    "response": false,
-    "message": "validation_error",
-    "validation": {
-        "field": ["The selected field is invalid."]
-    }
-}
-```
-
-### Operador Inválido
-
-Se você usar um operador que não é suportado pelo campo:
-
-```json
-{
-    "response": false,
-    "message": "validation_error",
-    "errors": {
-        "operator": ["The selected operator is invalid."]
-    }
+        "arguments": [],
+        "hydrate": null
+      },
+      {
+        "name": "answer_pool",
+        "input_type": "text",
+        "operators": [
+          "equals", "not_equals", "contains", "not_contains",
+          "greater_than", "greater_than_or_equals", "less_than", "less_than_or_equals",
+          "is_null", "is_not_null"
+        ],
+        "options": [],
+        "arguments": [
+          {
+            "id": "answer_pool_edge",
+            "label": "Campo",
+            "required": true,
+            "modelClass": "App\\Models\\FormEdge",
+            "hydrate": {
+              "route": "/api/management/get-forms",
+              "options": "forms",
+              "key": "id",
+              "label": "label",
+              "children_key": "edges",
+              "children_label": "title"
+            }
+          }
+        ],
+        "hydrate": null
+      }
+    ],
+    "sorting": [
+      { "name": "name", "arguments": [] },
+      { "name": "impact", "arguments": [] },
+      { "name": "created_at", "arguments": [] }
+    ]
+  }
 }
 ```
 
-### Argumentos Faltando
+A resposta real traz todos os filtros e todas as ordenações do objeto.
 
-Se um filtro requer argumentos e eles não foram fornecidos:
+Cada item de `params.filters` descreve um campo que você pode usar em `filters[].field`:
 
-```json Error
+| Campo | O que informa |
+| --- | --- |
+| `name` | O nome a usar em `filters[].field`. |
+| `input_type` | O tipo de valor esperado, como `text`, `number` ou `datetime-local`. |
+| `operators` | Os operadores aceitos por esse campo. |
+| `options` | Os valores fixos aceitos, com rótulo e valor, quando o campo tem uma lista fechada. Envie o `value` da opção. |
+| `arguments` | Os argumentos que o campo aceita. `required: true` indica argumento obrigatório, e `hydrate` diz em qual endpoint buscar os valores possíveis. |
+| `hydrate` | Onde buscar as opções do próprio campo, ou `null` quando não se aplica. |
+
+Os itens de `params.sorting` trazem o `name` a usar em `sorting[].field`.
+
+## Tratamento de erros
+
+Quando um filtro não é válido, a API responde com HTTP 422, `message: "validation_errors"` e o detalhe em `validation`, como em qualquer [erro de validação](/api-reference/general/response-structure#erros-de-validação). Consulte o [endpoint de metadados](#descobrindo-campos-disponíveis) para ver o que o campo aceita.
+
+### Campo inválido
+
+A API recusa o filtro quando `field` não está na lista de campos do endpoint. A mensagem cita o nome enviado e lista os campos disponíveis. No exemplo, a lista de campos está encurtada:
+
+```json
 {
   "response": false,
-  "message": "validation_error",
-  "errors": {
+  "message": "validation_errors",
+  "error": "O campo [nonExistsFilterField] selecionado é inválido. Campos disponíveis: id, code, name, description, impact, status, budget.",
+  "validation": {
+    "field": ["O campo [nonExistsFilterField] selecionado é inválido. Campos disponíveis: id, code, name, description, impact, status, budget."]
+  }
+}
+```
+
+Para resolver, use em `field` um dos valores de `name` em `params.filters`.
+
+### Operador inválido
+
+A API recusa o filtro quando `operator` não é um dos [operadores de comparação](#operadores-de-comparação). A chave em `validation` começa pela posição do filtro na lista `filters`, contando a partir de 0. No exemplo, o erro está no primeiro filtro:
+
+```json
+{
+  "response": false,
+  "message": "validation_errors",
+  "error": "O campo 0.operator selecionado é inválido.",
+  "validation": {
+    "0.operator": ["O campo 0.operator selecionado é inválido."]
+  }
+}
+```
+
+Para resolver, troque o operador por um dos valores de `operators` do campo.
+
+### Argumento obrigatório ausente
+
+A API recusa o filtro quando o campo tem um argumento com `required: true` e o filtro não traz `arguments`. No exemplo, o filtro por resposta de formulário (`answer_pool`) chegou sem o campo do formulário:
+
+```json
+{
+  "response": false,
+  "message": "validation_errors",
+  "error": "Argument zero must be id of edge",
+  "validation": {
     "answer_pool": ["Argument zero must be id of edge"]
   }
 }
 ```
 
-<Tip>
-Dica de ouro: Sempre que enfrentar algum erro, leia com atenção a mensagem de erro e a estrutura da resposta para entender o que está acontecendo, os erros podem ser seu amigo na hora de debugar ;)
-</Tip>
-  
+Para resolver, envie em `arguments` os argumentos obrigatórios listados para o campo no endpoint de metadados.
 
-## Resumo
+## Páginas relacionadas
 
-- Use `POST` com corpo JSON para requisições de busca avançada
-- Defina filtros no array `filters` com campo, operador, valor e operador lógico
-- Defina ordenações no array `sorting` com campo e direção
-- Use operadores relacionais apropriados para cada tipo de campo 
-- Forneça argumentos adicionais quando necessário
-- Use o endpoint de metadados para descobrir campos disponíveis
-- Consulte a documentação específica do endpoint para detalhes
+Estas páginas complementam a busca avançada:
+
+- [Filtros básicos](/api-reference/general/basic-filters): filtros simples com `filter[campo]` na URL.
+- [Paginação](/api-reference/general/pagination): os parâmetros `page` e `perPage` e o objeto `meta`.
+- [Formulários dinâmicos e o pivot](/api-reference/general/form-answer-pivot): o que são os campos e as respostas de formulário.

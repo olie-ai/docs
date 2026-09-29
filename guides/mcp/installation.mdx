@@ -4,17 +4,19 @@ description: "Como conectar o MCP da Olie ao ChatGPT, ao Claude, ao celular e a 
 keywords: ["instalação", "configurar mcp", "conector", "plugin", "chatgpt", "claude", "cursor", "claude code", "oauth", "workspace"]
 ---
 
-A instalação é sempre a mesma ideia: você informa ao assistente o endereço do servidor, faz login na Olie e escolhe o workspace. O que muda de um cliente para outro é apenas onde fica essa tela.
+A instalação é sempre a mesma ideia: você informa ao assistente o endereço do servidor, faz login na Olie e escolhe o workspace, que é a [empresa](/guides/fundamentals/glossary#pessoas-e-conta) na Olie. O que muda de um cliente para outro é apenas onde fica essa tela.
 
 ```text Endereço do servidor MCP
 https://api.olie.ai/mcp/management
 ```
 
-<Warning>
+## Antes de começar
+
 Faça a primeira configuração **no computador**. Os aplicativos de celular não oferecem a tela de criação de conexão, mas exibem as conexões já autorizadas.
-</Warning>
 
 ## ChatGPT
+
+Conectores personalizados dependem do seu tipo de plano no ChatGPT. Se a opção de adicionar um conector não aparecer nas configurações, verifique o plano da sua conta.
 
 <Steps>
 <Step title="Abra a área de conectores" icon="plug">
@@ -38,14 +40,10 @@ Faça a primeira configuração **no computador**. Os aplicativos de celular nã
   Ainda na tela de autorização, selecione o workspace que essa conexão vai enxergar. Confirme para voltar ao ChatGPT.
 
   <Check>
-  A conexão aparece na lista de conectores. A partir daqui, basta perguntar.
+  A conexão aparece na lista de conectores. A partir daqui, você já pode fazer perguntas sobre a sua operação.
   </Check>
 </Step>
 </Steps>
-
-<Note>
-Conectores personalizados dependem do seu tipo de plano no ChatGPT. Se a opção de adicionar um conector não aparecer nas configurações, verifique o plano da sua conta.
-</Note>
 
 ## Claude
 
@@ -59,11 +57,11 @@ Conectores personalizados dependem do seu tipo de plano no ChatGPT. Se a opção
 </Step>
 
 <Step title="Conecte e autorize" icon="key">
-  Clique em conectar. A Olie abre a tela de consentimento, você faz login e escolhe o workspace.
+  Clique no botão de conectar. A Olie abre a tela de consentimento, onde você faz login e escolhe o workspace.
 </Step>
 
 <Step title="Ative na conversa" icon="comment">
-  Com a conexão autorizada, a Olie fica disponível no seletor de ferramentas da conversa.
+  Com a conexão autorizada, a Olie fica disponível no seletor de ferramentas da conversa. Ative a Olie ali para usá-la naquela conversa.
 </Step>
 </Steps>
 
@@ -84,7 +82,7 @@ Não existe uma segunda configuração a fazer. A conexão criada no desktop est
   As mesmas perguntas do desktop funcionam aqui.
 
   <Check>
-  Sua operação fica acessível na palma da mão, sem abrir a plataforma.
+  O assistente responde com os dados da sua conta, como no computador.
   </Check>
 </Step>
 </Steps>
@@ -124,11 +122,9 @@ Não coloque token nem chave nesse arquivo. A autenticação é feita por OAuth 
 
 ## Como funciona a autorização
 
-<Note>
-A conexão usa **OAuth**, o mesmo mecanismo de "entrar com a sua conta" que você já conhece. Nenhum token precisa ser copiado ou guardado: o assistente descobre sozinho, a partir da URL, para onde mandar você autenticar, e cuida da renovação depois.
+A conexão usa **OAuth**, o mesmo mecanismo de "entrar com a sua conta" usado em outros sites e aplicativos. Nenhum token precisa ser copiado ou guardado: a partir da URL, o assistente descobre para onde mandar você autenticar e depois cuida da renovação.
 
-Sua senha nunca passa pelo assistente — o login acontece na própria Olie.
-</Note>
+Sua senha nunca passa pelo assistente, porque o login acontece na própria Olie.
 
 ## Problemas comuns
 

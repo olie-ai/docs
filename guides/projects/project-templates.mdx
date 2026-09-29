@@ -4,9 +4,9 @@ description: "Padronize a criação de projetos com campos já preenchidos, nome
 keywords: ["modelo de projeto", "template", "projeto modelo", "padronização", "criar projeto"]
 ---
 
-Um **modelo de projeto** é um projeto comum marcado como modelo. Quando alguém cria um item novo a partir dele, o projeto nasce com tudo o que o modelo já tinha preenchido.
+Um **modelo de projeto** é um projeto comum marcado como modelo. Quando alguém cria um projeto a partir dele, o projeto novo nasce com tudo o que o modelo já tinha preenchido.
 
-Ele resolve dois problemas diferentes: garantir que nada essencial fique de fora na abertura, e padronizar o nome dos itens para que a busca funcione.
+O modelo serve a dois objetivos: garantir que nada essencial fique de fora na abertura e padronizar o nome dos projetos para facilitar a busca.
 
 ## Criar um modelo
 
@@ -20,7 +20,7 @@ Ele resolve dois problemas diferentes: garantir que nada essencial fique de fora
 </Step>
 
 <Step title="Ofereça no funil">
-  Vá ao funil, abra a edição e selecione o modelo em **Projetos templates**. É essa configuração que faz o modelo aparecer para quem cria itens naquele funil.
+  Vá ao funil, abra a edição e selecione o modelo em **Projetos templates**. É essa configuração que faz o modelo aparecer para quem cria projetos naquele funil.
 </Step>
 </Steps>
 
@@ -29,6 +29,8 @@ Um modelo não é oferecido em todos os funis automaticamente. Ele precisa ser s
 </Note>
 
 ## O que vai junto
+
+O projeto criado a partir do modelo recebe estas partes:
 
 | Vai | Observação |
 | --- | --- |
@@ -41,7 +43,7 @@ Um modelo não é oferecido em todos os funis automaticamente. Ele precisa ser s
 | Grupos | Os agrupamentos aplicados |
 
 <Tip>
-O Caderno é a parte mais subestimada. Um modelo com o Caderno já montado — briefing padrão, checklist de conferência, ata em branco — economiza a montagem manual em todo projeto novo.
+Monte o Caderno no modelo. Com as páginas prontas, como briefing padrão, checklist de conferência e ata em branco, ninguém precisa montá-las à mão em cada projeto novo.
 </Tip>
 
 ## Nome padronizado com variáveis
@@ -52,13 +54,13 @@ No campo de nome do modelo, você pode escrever um padrão usando **variáveis e
 CS - {{descrição}} - {{data da solicitação}}
 ```
 
-Quem criar um item a partir desse modelo vai encontrar dois campos para responder — `descrição` e `data da solicitação` — e o nome final será montado com o prefixo `CS - ` fixo.
+Quem criar um projeto a partir desse modelo vai encontrar dois campos para responder — `descrição` e `data da solicitação` — e o nome final será montado com o prefixo `CS - ` fixo.
 
 <Warning>
-Esses campos servem **exclusivamente para montar o nome do cartão**. Eles não puxam campos de formulário existentes e o valor digitado não fica guardado em nenhum outro lugar além do nome.
+Esses campos servem **exclusivamente para montar o nome do projeto**. Eles não puxam campos de formulário existentes e o valor digitado não fica guardado em nenhum outro lugar além do nome.
 </Warning>
 
-**Por que vale a pena mesmo assim:** com o nome padronizado, a busca do quadro passa a funcionar de verdade. Procurar todos os itens que começam com `CS` ou que contenham uma palavra específica deixa de depender da disciplina de cada pessoa.
+**Por que vale a pena mesmo assim:** com o nome padronizado, a busca do quadro encontra os projetos pelo padrão. Procurar todos os projetos que começam com `CS` ou que contêm uma palavra específica deixa de depender da disciplina de cada pessoa.
 
 ## Modelo em automação
 
@@ -71,16 +73,18 @@ Ver [Ações: cadastros e pessoas](/guides/automation/actions-records) e [Hierar
 A janela de criação de projeto tem dois lados: criar livremente e criar a partir de um modelo. **São duas permissões separadas.**
 
 <Tip>
-Deixar a operação apenas com a permissão de criar a partir de modelo é a forma mais simples de garantir que todo item novo entre no funil com as informações mínimas — sem depender de treinamento nem de cobrança.
+Para garantir que todo projeto novo entre no funil com as informações mínimas, deixe a operação apenas com a permissão de criar a partir de modelo. Assim o padrão não depende de treinamento nem de cobrança.
 </Tip>
 
 ## Quando usar modelo e quando usar clone
 
+Modelo, clone e automação criam projetos já preenchidos. A escolha depende de como os casos começam:
+
 | Situação | Caminho |
 | --- | --- |
-| Todo item daquele tipo começa igual | **Modelo de projeto** |
+| Todo projeto daquele tipo começa igual | **Modelo de projeto** |
 | Cada caso parte de um anterior parecido, com ajustes | **Clonar** um projeto existente |
-| A abertura precisa acontecer sozinha, disparada por um evento | **Automação** com a ação Criar projeto |
+| A abertura precisa acontecer sozinha, disparada por um evento | **Automação** com a ação **Criar projeto** |
 
 ## Próximos passos
 

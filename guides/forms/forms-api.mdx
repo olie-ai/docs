@@ -6,23 +6,23 @@ keywords: ["save-form", "criar formulário API", "campo", "edge", "tipos de camp
 
 Tudo o que a tela **Ajustes → Formulários** faz cabe em um endpoint só. Ele cria e edita a **definição** do formulário: os campos, os tipos, a ordem e as condicionais.
 
-```bash
+```http
 POST /api/management/save-form
 ```
 
 Exige a permissão `dynamic_forms.edit`. Sem ela, a resposta é `403` com `message: "permission_required"`.
 
-<Info>
-Este endpoint não grava **respostas**. Responder um formulário é outro endereço, e depende de saber **onde** o formulário está anexado — ver [Formulários dinâmicos e o pivot](/api-reference/general/form-answer-pivot).
-</Info>
+Este endpoint não grava **respostas**. Responder um formulário é outro endereço, e depende de saber **onde** o formulário está anexado. Ver [Formulários dinâmicos e o pivot](/api-reference/general/form-answer-pivot).
 
 <Warning>
-**O salvamento substitui o formulário inteiro.** Não existe "adicionar um campo": cada chamada descreve o formulário completo, e todo campo ativo que ficar de fora do payload é **apagado em definitivo** — junto com as respostas que já tinham sido dadas nele.
+**O salvamento substitui o formulário inteiro.** Não existe "adicionar um campo": cada chamada descreve o formulário completo. Todo campo ativo que ficar de fora do payload é **apagado em definitivo**, junto com as respostas que já tinham sido dadas nele.
 
 Quem edita pela API precisa sempre **ler o formulário atual, alterar e reenviar tudo**. Ver [O que o salvamento apaga](#o-que-o-salvamento-apaga).
 </Warning>
 
 ## O corpo da requisição
+
+O corpo tem três atributos no primeiro nível:
 
 | Campo | O que faz |
 | --- | --- |
@@ -64,9 +64,7 @@ Cada item de `edges` é um campo do formulário.
 **Envie `index` em todos os campos, sempre.** A coluna tem `0` como padrão e o servidor não atribui posição sozinho. Um payload sem `index` grava o formulário inteiro na posição 0, e a ordem que aparece para quem preenche passa a ser arbitrária.
 </Warning>
 
-<Note>
-`custom_validation` é o padrão **sem delimitadores** — escreva `^[0-9]{5}-[0-9]{3}$`, não `/^[0-9]{5}-[0-9]{3}$/`. Uma expressão inválida devolve `422`.
-</Note>
+`custom_validation` recebe o padrão **sem delimitadores**: escreva `^[0-9]{5}-[0-9]{3}$`, não `/^[0-9]{5}-[0-9]{3}$/`. Uma expressão inválida devolve `422`.
 
 ### Campo novo ou campo existente
 
@@ -81,7 +79,7 @@ Cada item de `edges` é um campo do formulário.
 O texto é descartado depois de salvar — ele só existe durante a requisição, para ligar uma condicional a um campo que ainda não tem número.
 
 <Warning>
-**Dê a cada campo novo um `id` de texto único.** Dois campos novos sem `id` colidem na tabela de referências, e as condicionais de um deles se perdem sem erro nenhum. O mesmo vale para dois campos novos com o mesmo texto.
+**Dê a cada campo novo um `id` de texto único.** Dois campos novos sem `id` colidem na tabela de referências, e a plataforma descarta as condicionais de um deles sem devolver erro. O mesmo vale para dois campos novos com o mesmo texto.
 </Warning>
 
 ## Os tipos de campo
@@ -228,9 +226,7 @@ Colunas também aceitam `required`, `description` e `help_text`.
 **O `type` de uma coluna que já existe não pode ser trocado.** A troca devolve `422`. Para mudar o tipo, remova a coluna e crie outra com `key` diferente — lembrando que remover a coluna descarta o que já foi respondido nela.
 </Warning>
 
-<Note>
-A resposta de uma matriz é um objeto aninhado por chave: `{"atend": {"nota": "Bom", "obs": "..."}}`.
-</Note>
+A resposta de uma matriz é um objeto aninhado por chave, como `{"atend": {"nota": "Bom", "obs": "..."}}`. Ver [o formato da matriz](/guides/forms/answers-format#matrix).
 
 ## Condicionais
 
@@ -239,7 +235,7 @@ A condicional fica **no campo afetado** — o que aparece ou some —, e não no
 | Atributo | O que faz |
 | --- | --- |
 | `conditional_action` | `show` mostra o campo quando as regras batem; `hide` esconde. Padrão: `show` |
-| `logical_operator` | `and` exige todas as regras; `or` basta uma. Padrão: `and` |
+| `logical_operator` | `and` exige todas as regras; `or` exige ao menos uma. Padrão: `and` |
 | `conditionals` | A lista de regras |
 
 Cada regra tem três partes:
@@ -267,21 +263,15 @@ Os operadores disponíveis:
 | `is_empty` | Está vazio |
 | `is_not_empty` | Não está vazio |
 
-<Warning>
-**Envie `value` em todas as regras.** Em `is_empty` e `is_not_empty` o valor é ignorado, mas o atributo precisa estar presente — mande `""`. Uma regra sem `value` derruba a requisição com erro de servidor, não com `422`.
-</Warning>
-
-<Note>
 As condicionais são **substituídas inteiras** a cada salvamento, campo a campo. Omitir `conditionals` em um campo que tinha regras remove todas elas.
-</Note>
+
+Um campo `matrix` **não pode ser o `target_id`** de uma condicional, porque a resposta dele é uma grade, não um valor comparável. A tentativa devolve `422` com `form_edge_conditional_target`. A matriz pode, sim, ser o campo afetado.
+
+Obrigatoriedade e regex **não são verificadas no servidor em campos que têm condicional**. A checagem fica só na interface. Ver [Criar um formulário](/guides/forms/creating-forms#validação-regex).
 
 <Warning>
-Um campo `matrix` **não pode ser o `target_id`** de uma condicional — a resposta dele é uma grade, não um valor comparável. A tentativa devolve `422` com `form_edge_conditional_target`. A matriz pode, sim, ser o campo afetado.
+**Envie `value` em todas as regras.** Em `is_empty` e `is_not_empty` o valor é ignorado, mas o atributo precisa estar presente: mande `""`. Uma regra sem `value` derruba a requisição com erro de servidor, não com `422`.
 </Warning>
-
-<Info>
-Obrigatoriedade e regex **não são verificadas no servidor em campos que têm condicional** — a checagem fica só na interface. Ver [Criar um formulário](/guides/forms/creating-forms#validação-regex).
-</Info>
 
 ## O que o salvamento apaga
 
@@ -295,7 +285,7 @@ O fluxo correto para qualquer edição pela API é sempre o mesmo:
 
 <Steps>
 <Step title="Leia o formulário atual">
-  ```bash
+  ```http
   POST /api/management/get-form
   ```
   com `{ "form_id": 19 }`. A resposta traz o formulário com todos os campos, inclusive os arquivados, e as condicionais de cada um.
@@ -306,7 +296,7 @@ O fluxo correto para qualquer edição pela API é sempre o mesmo:
 </Step>
 
 <Step title="Reenvie tudo">
-  ```bash
+  ```http
   POST /api/management/save-form
   ```
   com o formulário completo — `title` incluído, `index` em cada campo, e os campos que você não quis mexer exatamente como vieram.
@@ -336,15 +326,30 @@ Quando um campo sai do formulário mas as respostas antigas precisam continuar e
 Como `get-form` devolve os arquivados, o fluxo de ler-alterar-reenviar já cuida disso sozinho.
 </Warning>
 
-<Note>
 Em um campo com `action`, os outros atributos são ignorados: arquivar e restaurar não alteram rótulo, tipo nem opções.
-</Note>
 
 ## Exemplos
 
+Esta requisição completa, com autenticação, cria um formulário com um campo só:
+
+```bash
+curl -X POST "https://api.olie.ai/api/management/save-form" \
+  -H "Authorization: Bearer {{token_de_acesso}}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "id": null,
+    "title": "Registro de contato",
+    "edges": [
+      { "id": "create_1", "label": "Telefone de retorno", "type": "phone", "index": 0, "required": true, "options": [] }
+    ]
+  }'
+```
+
+As abas abaixo mostram só o corpo da requisição e a resposta.
+
 <Tabs>
 <Tab title="Payload mínimo">
-Um formulário novo, com um campo só:
+O mesmo formulário da requisição acima:
 
 ```json
 {
@@ -483,11 +488,11 @@ O `id` numérico de cada campo é o que você usa depois para **gravar respostas
 </Accordion>
 
 <Accordion title="form_edge_conditional_value" icon="quote-left">
-  `value` veio com um tipo que não dá para comparar. Aceita texto, número, `null` ou uma lista de textos e números.
+  `value` veio com um tipo que não dá para comparar. Envie texto, número, `null` ou uma lista de textos e números.
 </Accordion>
 
 <Accordion title="permission_required" icon="lock">
-  O token não tem `dynamic_forms.edit`. Anexar formulário a um objeto é outra permissão: `frame_settings.edit.model_forms`.
+  O token não tem `dynamic_forms.edit`. Use o token de um usuário cujo [papel](/guides/users/roles-permissions) tenha essa permissão. Anexar formulário a um objeto é outra permissão: `frame_settings.edit.model_forms`.
 </Accordion>
 
 <Accordion title="Os campos aparecem fora de ordem" icon="arrow-down-a-z">

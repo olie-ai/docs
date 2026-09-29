@@ -4,7 +4,7 @@ description: "Publicar conteúdo, enviar e-mail, disparar webhook, acionar assis
 keywords: ["ação", "conteúdo", "e-mail", "webhook", "assistente de etapa", "meta", "execução", "integração"]
 ---
 
-As ações que falam com pessoas, com outros sistemas e com a inteligência artificial da plataforma.
+Esta página reúne as ações que falam com pessoas, com outros sistemas e com a inteligência artificial da plataforma.
 
 | Ação | O que faz |
 | --- | --- |
@@ -48,12 +48,16 @@ O destino é a aba **Conteúdo** do projeto, não o [Caderno](/guides/notebook/o
   | --- | --- | --- |
   | Integração | Sim | Qual integração de comunicação será usada |
   | Destinatário | Não | O endereço de destino; aceita variáveis. Em branco, usa a conversa que o projeto já tem nessa integração |
-  | Reabrir conversa ativa | Não | Encerra uma conversa ativa em outro projeto e abre uma nova aqui |
+  | Reabrir conversa ativa | Não | Encerra a conversa ativa com o destinatário nessa integração, em qualquer projeto, e abre uma nova aqui |
   | Motivo do encerramento | Não | Nota registrada na conversa encerrada |
 
   **Destinatário em branco:** a mensagem vai para a conversa que o projeto já tem nessa integração, inclusive retomando um atendimento encerrado com o mesmo contato. Isso só funciona quando o projeto conversa com **um único contato** naquela integração — várias conversas com a mesma pessoa, encerradas e reabertas, contam como uma. Se o projeto não tiver conversa nessa integração, ou tiver com mais de um contato, a mensagem não sai e a ação registra erro pedindo um destinatário.
 
   **Destinatário preenchido:** o endereço é mantido **exatamente como a expressão devolver** — a plataforma não normaliza o formato. Se a expressão não devolver nada, a ação registra erro e a mensagem não sai; ela não recorre à conversa que o projeto já tem.
+
+  **Reabrir conversa ativa desligado:** se o destinatário já tem uma conversa ativa neste projeto, a mensagem entra nela. Se a conversa ativa estiver em outro projeto, a mensagem não sai e a ação registra `active_channel_elsewhere`. Para mover a conversa para este projeto, ligue **Reabrir conversa ativa**.
+
+  **Reabrir conversa ativa ligado:** a plataforma encerra a conversa ativa com o destinatário, onde quer que ela esteja. Na conversa encerrada, fica a nota "Canal encerrado", com o **Motivo do encerramento** quando você preenche. Depois, a plataforma abre uma conversa nova neste projeto.
 
   <Note>
   Este destino só aparece quando existe alguma integração de comunicação ativa na conta.
@@ -75,15 +79,9 @@ Envia um e-mail. Assunto e mensagem aceitam variáveis.
 | Assunto | Sim | Assunto do e-mail; aceita variáveis |
 | Mensagem | Sim | Corpo do e-mail; aceita variáveis |
 
-O campo de destinatários também aceita uma expressão que devolve os endereços. Nesse caso, o resultado é separado por vírgula e cada endereço é validado — os inválidos são descartados e os repetidos, unificados.
+O campo de destinatários também aceita uma expressão que devolve os endereços. Nesse caso, o resultado é separado por vírgula e cada endereço é validado: os inválidos são descartados e os repetidos, unificados. Se nenhum endereço válido sobrar, a ação registra `invalid_emails` e nenhum e-mail é enviado.
 
-<Warning>
-Se, depois de calcular a expressão, nenhum endereço válido sobrar, a ação registra `invalid_emails` e nenhum e-mail é enviado.
-</Warning>
-
-<Note>
 O envio é enfileirado, não instantâneo. O registro de execução marca a ação como bem-sucedida quando o e-mail entra na fila, não quando chega na caixa de entrada.
-</Note>
 
 <Tip>
 Envio de e-mail é irreversível. Ao montar automações com gatilhos de alto volume — formulário editado ou projeto ocioso com repetição — pense no número de mensagens antes de ativar.
@@ -115,9 +113,7 @@ A requisição é sempre **`POST`**, com o corpo em JSON:
 Na prática, isso significa que a ação **não serve para chamar uma API que exija autenticação por cabeçalho** — inclusive a [API da própria Olie](/api-reference/introduction/authentication). O destino precisa aceitar uma chamada sem credencial no cabeçalho.
 </Warning>
 
-<Tip>
-Quando o destino exige credencial, aponte o webhook para um endereço intermediário seu — uma função, um endpoint próprio ou uma ferramenta de automação externa. Ele recebe a chamada aberta, confere o que precisar pelo corpo e só então chama a API autenticada.
-</Tip>
+Quando o destino exige credencial, aponte o webhook para um endereço intermediário seu: uma função, um endpoint próprio ou uma ferramenta de automação externa. Esse intermediário recebe a chamada aberta, confere o que precisar pelo corpo e só então chama a API autenticada.
 
 ### Como a chamada é feita
 
@@ -133,9 +129,7 @@ Redirecionamentos não são seguidos — um `301` ou `302` conta como erro, e n�
 
 O erro fica registrado naquele componente e **o fluxo continua** nas ações seguintes.
 
-<Note>
-O endpoint precisa ser **público**. Endereços que apontam para a rede interna — `localhost`, faixas privadas, endereços reservados — são recusados antes do envio. Um webhook para um sistema que roda dentro da sua rede não funciona sem um endereço acessível pela internet.
-</Note>
+O endpoint precisa ser **público**. Endereços que apontam para a rede interna, como `localhost`, faixas privadas e endereços reservados, são recusados antes do envio. Para chamar um sistema que roda dentro da sua rede, exponha um endereço acessível pela internet.
 
 <Tip>
 O editor tem um botão **Testar webhook**. Use antes de salvar para confirmar que o endpoint responde. O teste envia um corpo com `event` igual a `test` e dados de exemplo — não os dados de um projeto real.
@@ -143,11 +137,10 @@ O editor tem um botão **Testar webhook**. Use antes de salvar para confirmar qu
 
 ### A resposta não volta para o fluxo
 
-<Warning>
 **O corpo da resposta não volta para a automação.** O que o endpoint devolve não vira variável e não pode ser usado em uma condição nos passos seguintes. Do retorno, o fluxo aproveita uma única informação: se a chamada respondeu 200 ou não.
-</Warning>
 
-Ou seja: não dá para consultar um sistema externo no meio da automação e continuar com o dado consultado. Para reagir a uma informação de fora, inverta a direção — quem escreve na Olie é o serviço externo:
+Por isso, a automação não consulta um sistema externo no meio do fluxo para continuar com o dado consultado. Para reagir a uma informação de fora, inverta a direção: quem escreve na Olie é o serviço externo.
+
 
 <Steps>
 <Step title="A automação dispara o webhook" icon="paper-plane">
@@ -179,9 +172,7 @@ Aciona um assistente de etapa, a peça de IA que analisa o projeto e produz um r
 | --- | --- | --- |
 | Assistente de etapa | Sim | Qual assistente será executado |
 
-<Note>
-A lista mostra apenas assistentes configurados como **execução manual** ou com a execução manual habilitada. Assistentes que rodam automaticamente na etapa não aparecem aqui — eles já têm gatilho próprio.
-</Note>
+A lista mostra apenas assistentes configurados como **execução manual** ou com a execução manual habilitada. Assistentes que rodam automaticamente na etapa não aparecem aqui, porque já têm gatilho próprio.
 
 <Warning>
 Assistentes consomem créditos de IA da conta. Combinar esta ação com um gatilho de alto volume consome créditos na mesma proporção. Veja [Créditos de IA](/guides/billing/ai-credits).
@@ -199,11 +190,9 @@ Soma, subtrai ou define o progresso de uma meta do tipo manual.
 | --- | --- | --- |
 | Meta | Sim | A meta manual afetada |
 | Ação | Sim | Incrementar, decrementar ou definir |
-| Valor | Sim | Um número ou uma expressão que devolva um número |
+| Valor | Sim | Um número maior que zero ou uma expressão que devolva um número |
 
-<Warning>
-A meta precisa ser do tipo **manual** e estar **ativa**. Metas de outros tipos calculam o próprio progresso e não aceitam esta ação — nesse caso o componente registra erro sem alterar nada.
-</Warning>
+A meta precisa ser do tipo **manual** e estar **ativa**. Metas de outros tipos calculam o próprio progresso e não aceitam esta ação: nesse caso, o componente registra erro sem alterar nada.
 
 O progresso nunca fica abaixo de zero: uma subtração maior que o valor atual resulta em zero.
 
@@ -223,6 +212,8 @@ Inicia ou pausa a contagem de tempo de um projeto para usuários específicos.
 
 ### De onde vêm os usuários
 
+A opção **Usuários alvo** aceita três origens.
+
 | Origem | Comportamento |
 | --- | --- |
 | Usuário que disparou o gatilho | Usa quem causou o evento |
@@ -239,11 +230,9 @@ Ao iniciar, a execução é vinculada à etapa escolhida. Sem etapa selecionada,
 
 ### Pausar
 
-Ao pausar, todas as execuções em andamento daqueles usuários **naquele projeto** são encerradas, registradas como parada programada.
+Ao pausar, todas as execuções em andamento daqueles usuários **naquele projeto**, em qualquer etapa, são encerradas e registradas como parada programada.
 
-<Tip>
-O par mais útil: gatilho [Execução de projeto](/guides/automation/triggers#execução-de-projeto) no evento **Iniciar**, com esta ação em **Pausar** — garantindo que ninguém fique com duas execuções abertas ao mesmo tempo.
-</Tip>
+Você não precisa desta ação para impedir duas execuções abertas ao mesmo tempo. Quando uma pessoa inicia uma execução, a plataforma já encerra as outras execuções abertas dela, em qualquer projeto ou etapa.
 
 ## Por onde continuar
 

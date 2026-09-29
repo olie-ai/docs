@@ -1,151 +1,148 @@
 ---
 title: "Tempo relativo customizado"
-description: "Como customizar o tempo relativo de um gatilho de automação"
+description: "Expressões para disparar uma automação em dias da semana, viradas de mês e horários exatos em relação a uma data do projeto"
+keywords: ["tempo relativo", "tempo relativo customizado", "data relativa", "agendamento", "data de projeto atingida", "expressão de data", "dia da semana"]
 ---
 
-## Utilizando o Poder do Tempo Relativo Customizado
+O **Tempo relativo customizado** define, com uma expressão em inglês, quando uma automação dispara em relação a uma data do projeto. Ele fica no gatilho [Data de projeto atingida](/guides/automation/triggers#data-de-projeto-atingida), dentro da opção **Usar tempo relativo**. Esta página mostra quando usar a expressão, exemplos prontos e o que acontece quando ela é inválida.
 
-A função de tempo relativo padrão é perfeita para agendar ações com intervalos simples, como "5 dias depois" ou "2 horas antes". No entanto, para cenários mais complexos e específicos, o **Tempo Relativo Customizado** oferece um controle muito mais granular e poderoso sobre suas automações.
+## Quando usar
 
-### Quando Usar o Tempo Relativo Customizado?
+Os intervalos prontos de **Usar tempo relativo** resolvem casos simples, como "5 dias depois" ou "2 horas antes". Use o tempo relativo customizado quando o momento do disparo depende de uma regra de calendário que os intervalos prontos não alcançam:
 
-Use esta opção quando precisar de uma lógica que a seleção padrão de "dias/horas/meses" não alcança. Por exemplo:
+- um **dia específico da semana**, como "na próxima segunda-feira";
+- o **início ou o fim de um período**, como "no último dia do mês que vem";
+- uma **ocorrência específica no mês**, como "na terceira quinta-feira do mês";
+- a combinação de unidades de tempo com um **horário exato**.
 
-- Quando a automação precisa ocorrer em um **dia específico da semana** (ex: "na próxima segunda-feira")
-- Quando a data de disparo depende do **início ou fim de um período** (ex: "no último dia do mês que vem")
-- Para agendar ações em **datas recorrentes específicas** dentro de um mês (ex: "na terceira quinta-feira do mês")
-- Para combinar diferentes unidades de tempo e definir **horários exatos**
+## Exemplos
 
-### Exemplos Avançados na Prática
+Todas as expressões são escritas em **inglês**. Uma expressão em português ou em outro idioma não é aceita. Em cada exemplo abaixo, o disparo é calculado a partir da data que o gatilho observa. Os horários, como `09:00`, seguem o horário de Brasília, para todas as contas.
 
-Aqui estão alguns exemplos práticos que demonstram o poder das expressões customizadas. Lembre-se que as expressões devem ser em inglês.
+### Dias da semana
 
-<Warning>
-Todas as expressões devem ser escritas em **inglês**. Expressões em português ou outros idiomas não funcionarão.
-</Warning>
-
-#### **1. Agendando para Dias da Semana Específicos**
-
-Ideal para tarefas semanais, follow-ups e lembretes que devem cair em dias úteis (feriados não são considerados).
+Servem para acompanhamentos e lembretes que precisam cair em um dia da semana específico. A expressão não conhece dias úteis nem feriados, então o disparo pode cair em um feriado.
 
 <Tabs>
 <Tab title="Kick-off do projeto">
-  **Ação:** Criar uma tarefa de kick-off do projeto na primeira segunda-feira após a data de assinatura do contrato.
-  
+  **Quando dispara:** na primeira segunda-feira depois da data de assinatura do contrato.
+
   **Expressão:** `next monday`
 </Tab>
 
 <Tab title="Relatório semanal">
-  **Ação:** Enviar um relatório de resumo na sexta-feira anterior à data de vencimento de um projeto.
-  
+  **Quando dispara:** na sexta-feira anterior à data de vencimento do projeto.
+
   **Expressão:** `previous friday`
 </Tab>
 
 <Tab title="Lembrete com horário">
-  **Ação:** Enviar um lembrete às 09:00 da manhã da próxima quarta-feira.
-  
+  **Quando dispara:** às 9h da próxima quarta-feira.
+
   **Expressão:** `next wednesday 09:00`
 </Tab>
 </Tabs>
 
-#### **2. Trabalhando com Início e Fim de Mês**
+### Início e fim do mês
 
-Perfeito para processos financeiros, fechamentos e relatórios mensais.
+Servem para processos financeiros, fechamentos e relatórios mensais.
 
 <Tabs>
 <Tab title="Faturamento">
-  **Ação:** Gerar uma fatura no primeiro dia do mês seguinte à data da venda.
-  
+  **Quando dispara:** no primeiro dia do mês seguinte à data da venda.
+
   **Expressão:** `first day of next month`
 </Tab>
 
 <Tab title="Fechamento">
-  **Ação:** Enviar um e-mail de lembrete de fechamento no último dia do mês atual.
-  
+  **Quando dispara:** no último dia do mês da data.
+
   **Expressão:** `last day of this month`
 </Tab>
 
 <Tab title="Alerta antecipado">
-  **Ação:** Enviar um alerta de renovação de assinatura 3 dias antes do fim do mês.
-  
+  **Quando dispara:** 3 dias antes do fim do mês, para um aviso de renovação de assinatura.
+
   **Expressão:** `last day of this month -3 days`
 </Tab>
 </Tabs>
 
-#### **3. Prazos e Ocorrências Específicas**
+### Ocorrências específicas no mês
 
-Para situações que exigem uma precisão ainda maior no calendário.
+Servem para compromissos que caem em uma posição fixa do calendário.
 
 <Tabs>
 <Tab title="Reunião mensal">
-  **Ação:** Agendar uma reunião de revisão na segunda terça-feira do mês seguinte.
-  
+  **Quando dispara:** na segunda terça-feira do mês seguinte.
+
   **Expressão:** `second tuesday of next month`
 </Tab>
 
 <Tab title="Pesquisa periódica">
-  **Ação:** Enviar uma pesquisa de satisfação na última sexta-feira do mês.
-  
+  **Quando dispara:** na última sexta-feira do mês, para uma pesquisa de satisfação.
+
   **Expressão:** `last friday of this month`
 </Tab>
 
 <Tab title="Horário específico">
-  **Ação:** Disparar um gatilho exatamente ao meio-dia da data monitorada.
-  
+  **Quando dispara:** ao meio-dia da data observada.
+
   **Expressão:** `noon`
 </Tab>
 </Tabs>
 
-#### **4. Combinando Unidades de Tempo**
+### Unidades de tempo combinadas
 
-Para criar intervalos que não são lineares.
+Servem para intervalos que misturam unidades ou terminam em um horário exato.
 
 <Tabs>
-<Tab title="Follow-up composto">
-  **Ação:** Enviar um e-mail de follow-up 1 semana e 2 dias após um contato inicial (total de 9 dias).
-  
+<Tab title="Acompanhamento composto">
+  **Quando dispara:** 1 semana e 2 dias depois do contato inicial, ou seja, 9 dias depois.
+
   **Expressão:** `+1 week 2 days`
 </Tab>
 
 <Tab title="Prazo com horário">
-  **Ação:** Definir um prazo para às 17h, 15 dias após a data de início.
-  
+  **Quando dispara:** às 17h, 15 dias depois da data de início.
+
   **Expressão:** `+15 days 17:00`
 </Tab>
 </Tabs>
 
-Como você pode ver, o **Tempo Relativo Customizado** transforma a maneira como você pode agendar automações, permitindo que você crie fluxos de trabalho que se adaptam perfeitamente às regras do seu negócio.
+## Quando a expressão é inválida
 
-## O Que Acontece com uma Expressão Inválida?
+Ao salvar o gatilho, a plataforma valida a expressão do campo **Tempo relativo customizado**. A validação impede que uma automação seja salva com um disparo que nunca aconteceria ou que aconteceria no momento errado.
 
-Para garantir que suas automações funcionem de maneira confiável, o sistema realiza uma **validação automática** da sua expressão de tempo relativo customizado no momento em que você tenta salvar o gatilho.
+Se a expressão for inválida, **a automação não é salva** e aparece um erro de validação, geralmente destacando o campo com problema. Para resolver, confira se a expressão está em inglês e segue o formato dos exemplos desta página.
 
-### Validação em Tempo Real
-
-Quando você preenche o campo "Tempo relativo customizado" e clica em salvar, nossa plataforma testa a expressão para garantir que ela seja compreensível e logicamente válida.
-
-Se a expressão estiver incorreta, **a automação não será salva**. Em vez disso, você verá um erro de validação, geralmente destacando o campo problemático. Isso impede que automações com falhas sejam criadas, evitando que ações importantes deixem de ser executadas ou ocorram em momentos inesperados.
-
-### Exemplos de Expressões Inválidas
-
-Aqui estão alguns exemplos comuns de expressões que causariam um erro de validação:
+Os erros mais comuns são estes:
 
 <AccordionGroup>
 <Accordion title="Erro de digitação ou idioma incorreto" icon="language">
-  - `+5 dia` (Inválido. O correto seria `+5 days`)
-  - `next mondai` (Inválido por erro de digitação. O correto é `next monday`)
-  - `próxima segunda` (Inválido. Deve ser em inglês: `next monday`)
+  - `+5 dia`: a unidade precisa estar em inglês. Use `+5 days`.
+  - `next mondai`: erro de digitação. Use `next monday`.
+  - `próxima segunda`: a expressão precisa estar em inglês. Use `next monday`.
 </Accordion>
 
 <Accordion title="Lógica ambígua ou inexistente" icon="triangle-exclamation">
-  - `last week of yesterday` (Inválido por não fazer sentido lógico)
-  - `+2 business days` (Inválido. O sistema não interpreta "dias úteis" por padrão, apenas unidades de tempo diretas como `days`)
+  - `last week of yesterday`: a combinação não tem sentido como data.
+  - `+2 business days`: a expressão não reconhece "dias úteis", só unidades de tempo diretas. Use `days`, como em `+2 days`.
 </Accordion>
 
 <Accordion title="Formato incorreto" icon="xmark">
-  - `five days later` (Inválido. É necessário usar o formato com número e unidade, como `+5 days`)
-  - `10-10-2025` (Inválido. O campo espera uma expressão relativa, não uma data absoluta)
+  - `five days later`: use número e unidade, como em `+5 days`.
+  - `10-10-2025`: o campo espera uma expressão relativa, não uma data fixa.
 </Accordion>
 </AccordionGroup>
 
-**A regra de ouro é:** se a automação não salvar, verifique primeiro a sua expressão no campo customizado. Certifique-se de que ela está escrita em inglês e segue a lógica dos exemplos válidos apresentados neste guia.
+## Por onde continuar
+
+<CardGroup cols={2}>
+<Card title="Gatilhos" icon="bolt" href="/guides/automation/triggers#data-de-projeto-atingida">
+  Como o gatilho de data agenda, reagenda e cancela o disparo.
+</Card>
+
+<Card title="Receitas prontas" icon="book-open" href="/guides/automation/recipes">
+  Montagens completas que usam datas e tempo relativo.
+</Card>
+</CardGroup>

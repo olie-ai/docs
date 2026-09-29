@@ -1,70 +1,71 @@
 ---
 title: "Autenticação e segurança"
 icon: "key"
-description: "Como se autenticar e garantir a segurança das suas requisições."
+description: "Como obter o token de acesso de uma aplicação, enviá-lo nas requisições e cuidar da validade e da segurança dele."
+keywords: ["autenticação", "token", "token de acesso", "bearer", "authorization", "aplicação", "token de API", "401", "403", "expiração", "segurança"]
 ---
 
-# Autenticação 🔑
+Toda requisição à API precisa de um token de acesso. Esta página mostra como enviar o token, como obtê-lo criando uma aplicação na Olie e o que saber sobre validade, troca e permissões do token.
 
-Para fazer requisições, é necessário autenticar cada pedido com as credenciais da sua aplicação.
+## Enviar o token na requisição
 
-As solicitações são autenticadas com um token de acesso da aplicação. O token deve ser passado como um `Bearer token`, no cabeçalho da requisição:
+A API identifica quem faz a chamada pelo token de acesso de uma **aplicação**, a credencial de integração da Olie. Envie o token no cabeçalho `Authorization`, com o prefixo `Bearer ` antes dele:
 
 ```bash cURL
-curl -H "Authorization: Bearer {{token_de_acesso}}" https://api.olie.ai/...
+curl -H "Authorization: Bearer {{token_de_acesso}}" https://api.olie.ai/api/management/projects
 ```
 
-<Warning>
-O prefixo `Bearer ` é obrigatório. Sem ele a requisição é tratada como não autenticada e retorna 401.
-</Warning>
+O prefixo `Bearer ` é obrigatório. Sem ele, a API trata a requisição como não autenticada e responde com HTTP 401.
 
 <Warning>
-  Mantenha seu token de acesso em segurança. Nunca compartilhe ou exponha seu token em repositórios públicos.
+  Mantenha o token em segurança. Nunca compartilhe o token nem o coloque em repositórios públicos.
 </Warning>
 
-# Como obter o token de acesso
+## Obter o token de acesso
+
+O token é gerado quando você cria uma aplicação nos ajustes da empresa.
 
 <Steps>
   <Step title="Acesse a plataforma">
-    Acesse a sua empresa em https://olie.ai/frames e depois vá em **Ajustes**.
+    Entre na sua empresa em https://olie.ai/frames e vá em **Ajustes**.
 
     <Frame>
       ![Menu de Ajustes da Olie](https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/4US0yBiC8q3uPlJhz1vcYgjwdAorK9MZ2VnL-image.png)
     </Frame>
   </Step>
   <Step title="Navegue até Aplicações">
-    Após isso, clique em **"Aplicações"**.
+    Clique em **Aplicações**.
 
     <Frame>
       ![Seção de Aplicações](https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/J016pB2cNgZjxDzMfhm8vysCRaXWnoLPq5Kr-image.png)
     </Frame>
   </Step>
   <Step title="Crie uma aplicação">
-    Crie uma aplicação clicando no botão **"Criar aplicação"** e preencha os campos obrigatórios. Após isso, você verá o token de acesso gerado.
+    Clique em **Criar aplicação** e preencha os campos obrigatórios. A plataforma mostra o token de acesso gerado.
 
     <Frame>
       ![Token de acesso gerado](https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/PkbKmJC7zQ4OZlja3VLyNTDF8YWrox9wd1iX-image.png)
     </Frame>
     <Warning>
-      Guarde o token em um local seguro, pois ele não será exibido novamente.
+      Guarde o token em um local seguro. A plataforma não mostra o token de novo.
     </Warning>
   </Step>
   <Step title="Use o token">
-    Feito isso, você pode usar o token de acesso para fazer requisições à API da Olie.
+    Envie o token no cabeçalho `Authorization` das requisições, como em [Enviar o token na requisição](#enviar-o-token-na-requisição).
 
     <Check>
-      Seu token está pronto para uso! Adicione-o ao cabeçalho Authorization de suas requisições.
+      Se a requisição responder com HTTP 200 e `"response": true`, o token está funcionando.
     </Check>
   </Step>
 </Steps>
 
-# Ciclo de vida do token
+## Ciclo de vida do token
 
-O token nasce junto com a aplicação e não muda mais. Vale a pena planejar a integração sabendo disso.
+O token nasce junto com a aplicação e não muda mais. Planeje a integração considerando as características abaixo.
 
 | Característica | Comportamento |
 | --- | --- |
-| Tokens por aplicação | Um. O token é gerado no momento em que a aplicação é criada. |
+| Tokens por aplicação | Um. O token é gerado quando a aplicação é criada. |
 | Exibição | Uma única vez, na resposta da criação. Depois disso a plataforma não mostra mais o valor. |
 | Validade | 1 ano a partir da criação. |
 | Renovação | Não existe. Não há endpoint para renovar, rotacionar ou gerar um segundo token. |
@@ -72,13 +73,11 @@ O token nasce junto com a aplicação e não muda mais. Vale a pena planejar a i
 | Quantidade de aplicações | Sem limite. |
 | Empresa | O token é fixo na empresa em que a aplicação foi criada. |
 
-<Warning>
-  O token não é exibido novamente. Se ele for perdido, não há como recuperá-lo: é preciso criar outra aplicação.
-</Warning>
+Se você perder o token, não há como recuperá-lo. Crie outra aplicação e use o token novo.
 
-## Como trocar um token
+### Trocar um token
 
-Como não há rotação, a troca é feita substituindo a aplicação:
+Como não há rotação, você troca o token substituindo a aplicação:
 
 <Steps>
   <Step title="Crie uma nova aplicação">
@@ -88,19 +87,21 @@ Como não há rotação, a troca é feita substituindo a aplicação:
     Faça a virada no seu lado e confirme que as chamadas continuam funcionando.
   </Step>
   <Step title="Exclua a aplicação antiga">
-    `DELETE /api/management/applications/{id}` revoga apenas o token daquela aplicação. As demais aplicações da empresa seguem funcionando normalmente.
+    Exclua a aplicação em **Ajustes** > **Aplicações**, com um usuário que tenha a permissão `applications.create`. A exclusão revoga apenas o token daquela aplicação. As demais aplicações da empresa seguem funcionando normalmente.
+
+    O endpoint `DELETE /api/management/applications/{id}` é reservado a pessoas. Uma chamada feita com token de aplicação recebe HTTP 403 com `message: "access_denied_for_applications"`.
   </Step>
 </Steps>
 
 <Tip>
-  Como não há limite de aplicações, dá para manter a antiga e a nova ativas durante a virada e só excluir a antiga depois de confirmar que ninguém mais a usa.
+  Como não há limite de aplicações, você pode manter a antiga e a nova ativas durante a virada. Exclua a antiga só depois de confirmar que ninguém mais a usa.
 </Tip>
 
-## Expiração
+### Expiração
 
-O token expira 1 ano depois de criado. A expiração não gera aviso prévio: a partir dela as requisições passam a responder 401. Registre a data de criação do lado da integração e planeje a substituição antes do vencimento.
+O token expira 1 ano depois de criado, sem aviso prévio. A partir daí, as requisições com esse token respondem com HTTP 401. Registre a data de criação do lado da integração e troque o token antes do vencimento.
 
-# Segurança e permissões
+## Segurança e permissões
 
 Uma aplicação tem **acesso total** dentro da empresa a que pertence. Não existe escopo por permissão: não é possível criar uma aplicação que só leia projetos, ou que não enxergue clientes.
 
@@ -108,31 +109,50 @@ Uma aplicação tem **acesso total** dentro da empresa a que pertence. Não exis
   O token de uma aplicação equivale a um acesso privilegiado à empresa inteira. Trate-o como uma credencial de administrador: nunca o exponha em repositórios, front-ends ou logs.
 </Warning>
 
-O que o token **não** faz:
+O token tem dois limites:
 
-- Não atravessa empresas. Ele só enxerga os dados da empresa em que a aplicação foi criada.
-- Não alcança todos os endpoints. Alguns são reservados a pessoas e recusam aplicações com HTTP 403 e `message: "access_denied_for_applications"`.
+- **Uma empresa só.** O token enxerga apenas os dados da empresa em que a aplicação foi criada.
+- **Nem todos os endpoints.** Alguns endpoints são reservados a pessoas e recusam aplicações com HTTP 403 e `message: "access_denied_for_applications"`.
 
-## Autoria no histórico
+### Autoria no histórico
 
-Tudo que a aplicação altera é registrado no histórico com a **própria aplicação** como autora — e não com o usuário que criou a aplicação. Se você precisa distinguir "quem fez o quê" entre várias integrações, crie uma aplicação por integração.
+Tudo que a aplicação altera fica no [registro de alterações](/api-reference/general/audit-log) com a **própria aplicação** como autora, e não com o usuário que criou a aplicação. Se você precisa distinguir o que cada integração fez, crie uma aplicação por integração.
 
-## Quando usar o MCP
+### Quando usar o MCP
 
-O servidor MCP é outro caminho de acesso e se comporta de forma diferente: a autenticação é via **OAuth** e acontece **como usuário**, não como aplicação. As chamadas passam pelas permissões desse usuário e o histórico registra o nome dele. O MCP também tem limitador de requisições próprio, que não divide balde com a API.
+O servidor MCP é outro caminho de acesso à Olie. Nele, a autenticação é feita por **OAuth** e **como usuário**, não como aplicação. As chamadas passam pelas permissões desse usuário, e o histórico registra o nome dele. O MCP também tem um limite de requisições próprio, separado do limite da API.
 
 Use o MCP quando o acesso deve refletir o que uma pessoa pode fazer, e a API com token de aplicação quando a integração é servidor-a-servidor. Veja [MCP](/guides/mcp/overview).
 
+## Erros de autenticação
+
+Estas respostas indicam problema com o token ou com o acesso da aplicação:
+
+| Resposta | Causa | Como resolver |
+| --- | --- | --- |
+| HTTP 401, `message: "unauthorized"` | O cabeçalho `Authorization` está ausente, sem o prefixo `Bearer ` ou com um token inválido, expirado ou de uma aplicação excluída. | Confira o formato `Authorization: Bearer {{token_de_acesso}}`. Se o token expirou ou a aplicação foi excluída, crie outra aplicação e use o token novo. |
+| HTTP 403, `message: "access_denied_for_applications"` | O endpoint é reservado a pessoas e não aceita token de aplicação. | Faça essa operação pela interface da Olie, com um usuário que tenha permissão para ela. |
+
+Exemplo de resposta 401:
+
+```json
+{
+  "response": false,
+  "message": "unauthorized",
+  "error": "Unauthenticated."
+}
+```
+
 ## Próximos passos
 
-Explore os tópicos abaixo para aprender mais sobre como utilizar a API da Olie:
+Com o token funcionando, veja como consultar e alterar dados pela API:
 
 <CardGroup cols={2}>
   <Card title="Filtros" icon="filter" href="/api-reference/general/basic-filters">
-    Aprenda a usar filtros dinâmicos para refinar suas consultas.
+    Filtre e ordene as listagens pela URL.
   </Card>
   <Card title="Paginação" icon="list" href="/api-reference/general/pagination">
-    Entenda como navegar através de grandes conjuntos de dados.
+    Como percorrer listagens com muitos itens.
   </Card>
   <Card title="Reenvio e duplicidade" icon="rotate-right" href="/api-reference/general/idempotency">
     O que acontece quando uma chamada dá timeout e você reenvia.

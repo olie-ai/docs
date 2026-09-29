@@ -1,36 +1,37 @@
 ---
 title: "Introdução"
 icon: "rocket"
-description: "Documentação completa da API da Olie Flow AI para integração."
+description: "Ponto de partida da API da Olie: o que ela cobre, como fazer a primeira requisição e onde encontrar cada tema."
+keywords: ["api", "introdução", "integração", "começar", "rest", "postman", "endpoints", "api.olie.ai"]
 ---
 
-# Olá 👋
+Esta é a documentação da API da [Olie](https://olie.ai/). Aqui você encontra como autenticar as requisições, como ler as respostas e a referência de cada endpoint, para integrar a Olie com outros sistemas.
 
-Bem vindo(a), esta é a documentação oficial da API da [olie.ai](https://olie.ai/) aqui você poderá encontrar instruções de uso, dicas e referência sobre nossa API.
+## Como a API funciona
 
-# Começando 🚀
+A API oferece as mesmas funções que as interfaces da Olie usam. Todas as requisições usam HTTPS e o domínio [api.olie.ai](https://api.olie.ai).
 
-Nossa API foi projetada para atender todas as demandas da plataforma, com as mesmas funções que usamos em nossas interfaces. Todos os requests são HTTPS via domínio [api.olie.ai](https://api.olie.ai), utilizamos os padrão REST somente em alguns recursos.
+Parte dos recursos segue o padrão REST, como `GET /api/management/projects` para listar projetos. Outros usam um endpoint `POST` com o nome da ação no caminho, como `POST /api/management/get-form`. A referência de cada endpoint mostra o método e o caminho exatos.
 
-# Dica
+## Testar com o Postman
 
-Você pode usar o [Postman](https://www.postman.com/) para explorar, testar e documentar nossa API de forma interativa. Mantemos uma [coleção oficial no Postman](https://www.postman.com/olieai/workspace/olie-s-public-workspace/collection/49535030-f6786f52-3575-41f2-967a-9b4b71270ee8?active-environment=49535030-67d0fe41-9d71-4d0f-9629-297b50a55f03) que é atualizada frequentemente, refletindo todos os endpoints documentados aqui. Use a coleção para executar requisições reais e entender rapidamente a estrutura dos endpoints.
+Você pode explorar e testar a API no [Postman](https://www.postman.com/). A [coleção oficial da Olie no Postman](https://www.postman.com/olieai/workspace/olie-s-public-workspace/collection/49535030-f6786f52-3575-41f2-967a-9b4b71270ee8?active-environment=49535030-67d0fe41-9d71-4d0f-9629-297b50a55f03) traz os endpoints documentados aqui e é atualizada com frequência. Use a coleção para fazer requisições reais e ver a estrutura de cada endpoint.
 
-# Próximos passos
+## Próximos passos
 
-Explore os tópicos abaixo para aprender mais sobre como utilizar a API
+Comece pela autenticação e depois veja como a API responde:
 
 <CardGroup cols={2}>
   <Card title="Autenticação e segurança" icon="key" horizontal href="/api-reference/introduction/authentication">
-    Como se autenticar e garantir a segurança das suas requisições.
+    Como obter o token de acesso e usá-lo nas requisições.
   </Card>
   <Card title="Detalhes" icon="info-circle" horizontal href="/api-reference/introduction/details">
-    Informações essenciais sobre a configuração e comportamento da API para facilitar sua integração.
+    URL base, formato das respostas e limite de requisições.
   </Card>
   <Card title="Estrutura de resposta" icon="code" iconType="regular" horizontal href="/api-reference/general/response-structure">
-    Como interpretar as respostas da API.
+    Como ler as respostas de sucesso e de erro.
   </Card>
   <Card title="Paginação" icon="list" horizontal href="/api-reference/general/pagination">
-    Entenda como navegar através de grandes conjuntos de dados.
+    Como percorrer listagens com muitos itens.
   </Card>
 </CardGroup>

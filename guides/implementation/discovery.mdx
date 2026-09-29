@@ -6,10 +6,10 @@ keywords: ["descoberta", "discovery", "KPI", "indicador", "levantamento", "impla
 
 A primeira pergunta de uma implantação não é "como você trabalha hoje". É **"quais indicadores você quer medir"**.
 
-A diferença não é retórica. A metodologia convencional levanta o processo como ele é, mapeia os artefatos e, no fim, pergunta o que o gestor gostaria de enxergar — descobrindo tarde demais que o processo desenhado não produz aquele número. Começar pelo indicador inverte isso: você sabe desde o início quais etapas precisam existir para que a medição seja possível.
+A diferença não é retórica. Um levantamento que começa pelo processo como ele é só pergunta no fim o que o gestor quer enxergar. Nesse ponto, é comum descobrir que o processo desenhado não produz aquele número. Começar pelo indicador inverte a ordem: você sabe desde o início quais etapas precisam existir para que a medição seja possível.
 
 <Info>
-Quem já implantou um ERP reconhece a lógica: você não começa pelos lançamentos, começa pelo plano de contas e pelo DRE que o cliente quer ver. Depois destrincha a operação.
+Quem já implantou um ERP reconhece a lógica. Você não começa pelos lançamentos: começa pelo plano de contas e pela Demonstração do Resultado do Exercício (DRE) que o cliente quer ver. Depois destrincha a operação.
 </Info>
 
 ## Nível empresa
@@ -37,15 +37,17 @@ Perguntas que definem a estrutura antes de qualquer funil existir.
 <Accordion title="Onde a operação trabalha hoje?" icon="comments">
   Sistema, e-mail, WhatsApp, papel?
 
-  Se a operação já vive no WhatsApp, o desenho mais barato costuma ser deixá-la lá e usar a plataforma como motor por trás — em vez de exigir que todo mundo mude de ferramenta. Ver [Integrações](/guides/integrations/overview).
+  Se a operação já vive no WhatsApp, o desenho mais barato costuma ser deixá-la lá e usar a plataforma como motor por trás. Assim, ninguém precisa mudar de ferramenta. Ver [Integrações](/guides/integrations/overview).
 </Accordion>
 
 <Accordion title="Quais sistemas precisam conversar — e quais não precisam?" icon="plug">
-  A segunda metade da pergunta é a mais esquecida. Dois sistemas que não trocam dados entre si podem não precisar de integração nenhuma: basta uma convenção comum (o mesmo identificador nos dois) e um assistente de IA consultando os dois pelo [MCP](/guides/mcp/overview).
+  A segunda metade da pergunta é a mais esquecida. Dois sistemas que não trocam dados entre si podem dispensar a integração. Uma convenção comum, como o mesmo identificador nos dois, e um assistente de IA consultando os dois pelo [MCP](/guides/mcp/overview) podem resolver.
 </Accordion>
 </AccordionGroup>
 
 ## Nível processo
+
+Perguntas para cada funil, antes de definir as etapas.
 
 <AccordionGroup>
 <Accordion title="Este funil é de qual camada?" icon="layer-group">
@@ -55,9 +57,7 @@ Perguntas que definem a estrutura antes de qualquer funil existir.
 <Accordion title="Quem executa cada etapa? São pessoas diferentes?" icon="users">
   Esta é uma pergunta de qualificação técnica, e vale fazer cedo.
 
-  <Warning>
-  Se **uma única pessoa executa todas as etapas**, o ganho de esteira desaparece — sobra o ganho de registro e de métrica, que é real mas bem menor. A plataforma rende mais onde existe passagem de bastão entre pessoas ou áreas.
-  </Warning>
+  Se **uma única pessoa executa todas as etapas**, o ganho de esteira desaparece. Sobra o ganho de registro e de métrica, que é real, mas bem menor. A plataforma rende mais onde existe passagem de bastão entre pessoas ou áreas.
 </Accordion>
 
 <Accordion title="Quem precisa saber do andamento sem executar nada?" icon="eye">
@@ -105,9 +105,7 @@ Para cada etapa, na ordem:
 
 O levantamento que alimenta os formulários.
 
-<Tip>
-O pedido mais produtivo desta fase é simples: **peça todos os documentos que a equipe preenche hoje**. Planilhas de controle, formulários em Word, briefings, fichas, checklists de conferência. Cada um é candidato a virar um formulário dinâmico.
-</Tip>
+Comece pelo pedido mais produtivo deste nível: **peça todos os documentos que a equipe preenche hoje**, como planilhas de controle, formulários em Word, briefings, fichas e checklists de conferência. Cada um é candidato a virar um formulário dinâmico.
 
 Depois, para cada informação levantada, decida onde ela mora:
 
@@ -121,6 +119,8 @@ Depois, para cada informação levantada, decida onde ela mora:
 Ver [Formulários dinâmicos](/guides/forms/overview) para o detalhe de cada nível.
 
 ## Nível pessoas — por último
+
+Perguntas sobre acesso e papéis. Elas ficam para o fim porque só têm resposta concreta depois que o fluxo existe. Ver [Ordem de implantação](/guides/implementation/order#por-que-os-papéis-ficam-por-último).
 
 <AccordionGroup>
 <Accordion title="Quem pode ver receita e custo?" icon="eye-slash">
@@ -140,6 +140,6 @@ Ver [Formulários dinâmicos](/guides/forms/overview) para o detalhe de cada ní
 
 Vale decidir cedo se a implantação vai **mudar a forma de trabalhar** ou apenas **capturar o que já acontece**.
 
-Implantar sem exigir mudança cultural é consideravelmente mais barato: em vez de treinar a equipe em uma ferramenta nova, você mantém o canal onde ela já está — WhatsApp, formulário público, catálogo de solicitações — e coloca a plataforma como motor invisível. O gestor ganha a visão em tempo real; a operação quase não percebe a troca.
+Implantar sem exigir mudança cultural é consideravelmente mais barato. Em vez de treinar a equipe em uma ferramenta nova, você mantém o canal onde ela já está e coloca a plataforma como motor invisível. Esse canal pode ser o WhatsApp, um formulário público ou o catálogo de solicitações. O gestor ganha a visão em tempo real, e a operação quase não percebe a troca.
 
 Nem sempre é possível. Mas quando é, é a diferença entre uma implantação de semanas e um projeto de mudança organizacional.

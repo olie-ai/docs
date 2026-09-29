@@ -1,23 +1,28 @@
 ---
 title: "Criando e gerenciando metas"
 description: "Aprenda a criar, editar e organizar suas metas, campo a campo"
+keywords: ["criar meta", "nova meta", "editar meta", "excluir meta", "campos da meta", "status da meta", "periodicidade", "data de início"]
 ---
 
 As metas ficam reunidas na seção **Metas**, onde você visualiza todas as metas em uma lista com seu progresso, status e período. É a partir dela que você cria novas metas e acessa os detalhes de cada uma.
 
-<Info>
-Para criar, editar ou excluir metas, é necessário ter permissão de edição de metas. Para apenas visualizar, basta a permissão de visualização. Fale com um administrador do seu ambiente se algum botão não estiver disponível para você.
-</Info>
+## Antes de começar
+
+Para criar, editar ou excluir metas, você precisa da permissão de edição de metas. Para só visualizar, a permissão de visualização é suficiente. Se algum botão não aparecer para você, fale com quem administra as permissões da sua empresa.
+
+Escolha antes o [tipo de meta](/guides/goals/goal-types): é ele que define quais campos aparecem no formulário.
 
 ## Criando uma meta
 
+Siga os passos abaixo para criar uma meta:
+
 <Steps>
 <Step title="Abra a seção Metas">
-  Acesse a lista de metas e clique em **Nova meta**.
+  Em **Metas**, clique em **Nova meta**.
 </Step>
 
 <Step title="Defina o básico">
-  Informe um **título** e, uma **descrição** que ajude a equipe a entender o objetivo da meta.
+  Informe um **título** e uma **descrição** que ajude a equipe a entender o objetivo da meta.
 </Step>
 
 <Step title="Escolha o tipo">
@@ -43,9 +48,11 @@ Para criar, editar ou excluir metas, é necessário ter permissão de edição d
 
 ## Campos da meta
 
+Esta é a referência de cada campo do formulário de meta:
+
 <AccordionGroup>
 <Accordion title="Título e descrição" icon="pen">
-  O **título** identifica a meta na lista (até 90 caracteres). A **descrição** serve para dar contexto à equipe sobre o objetivo.
+  O **título** identifica a meta na lista (até 90 caracteres). A **descrição** dá contexto à equipe sobre o objetivo (até 255 caracteres).
 </Accordion>
 
 <Accordion title="Tipo" icon="shapes">
@@ -57,11 +64,13 @@ Para criar, editar ou excluir metas, é necessário ter permissão de edição d
 </Accordion>
 
 <Accordion title="Data de início e data de fim" icon="calendar-days">
-  A **data de início** define quando a meta passa a contar, ela pode ser no passado, se for possível, vamos tentar preencher o histórico passado. A **data de fim** é opcional: quando você a define, a meta é encerrada automaticamente ao chegar nela e o status concluído é definido. Sem data de fim, a meta segue ativa até você decidir o contrário.
+  A **data de início** define quando a meta passa a contar e pode ser uma data no passado. Nas metas automáticas, a Olie reconstrói os períodos que já se encerraram; nas metas manuais e compostas, o histórico começa a partir de agora (veja [progresso e períodos](/guides/goals/tracking-progress#histórico-de-períodos)).
+
+  A **data de fim** é opcional e precisa ser posterior à data de início. Quando você a define, a meta passa automaticamente para o status **Concluída** ao chegar nessa data. Sem data de fim, a meta segue ativa até você decidir o contrário.
 </Accordion>
 
 <Accordion title="Periodicidade" icon="arrows-rotate">
-  Define se a meta cobre um único período ou se ela se repete em ciclos de uma quantidade de dias. Saiba mais em [progresso e períodos](/guides/goals/tracking-progress).
+  Define se a meta cobre um único período ou se ela se repete em ciclos de uma quantidade de dias, de 1 a 365. Com zero, a meta tem um único período. Saiba mais em [progresso e períodos](/guides/goals/tracking-progress).
 </Accordion>
 
 <Accordion title="Modo de comparação" icon="scale-balanced">
@@ -75,11 +84,11 @@ Para criar, editar ou excluir metas, é necessário ter permissão de edição d
 
 ## Status de uma meta
 
-Toda meta tem um status que indica em que fase ela está:
+Toda meta tem um status que indica a situação dela:
 
 <CardGroup cols={3}>
 <Card title="Ativa" icon="play">
-  A meta está em andamento e tem o progresso atualizado automaticamente.
+  A meta está em andamento. Nos tipos automáticos, o progresso é recalculado pela Olie.
 </Card>
 
 <Card title="Inativa" icon="pause">
@@ -93,26 +102,22 @@ Toda meta tem um status que indica em que fase ela está:
 
 ## Editando e excluindo
 
-<Steps>
-<Step title="Editar">
-  Abra os detalhes da meta (ou use o botão de edição na lista) para ajustar qualquer campo. As alterações passam a valer imediatamente.
+Você edita e exclui metas a partir da lista ou dos detalhes de cada meta.
 
-  <Warning>
-  Mudar o **tipo** ou a **periodicidade** de uma meta que já tem histórico altera a forma como o progresso é contado. O histórico já registrado não é reorganizado, então faça esse tipo de mudança com cuidado.
-  </Warning>
-</Step>
+**Editar:** abra os detalhes da meta, ou use o botão de edição na lista, e ajuste o campo. As alterações passam a valer imediatamente.
 
-<Step title="Excluir">
-  Você pode excluir uma meta a partir da lista. Se a meta fizer parte de uma [meta composta](/guides/goals/composite-goals), o resultado consolidado é recalculado após a remoção.
-</Step>
-</Steps>
+<Warning>
+Mudar o **tipo** ou a **periodicidade** de uma meta que já tem histórico altera a forma como o progresso é contado. O histórico já registrado não é reorganizado, então faça esse tipo de mudança com cuidado.
+</Warning>
+
+**Excluir:** exclua a meta a partir da lista. Se a meta fizer parte de uma [meta composta](/guides/goals/composite-goals), o resultado consolidado é recalculado após a remoção.
 
 ## Encontrando suas metas
 
 Na lista de metas você pode **buscar pelo título** e **filtrar por status** para localizar rapidamente o que procura. Cada meta mostra, de relance, o tipo, o progresso atual, a porcentagem alcançada e o período.
 
 <Tip>
-Use títulos descritivos e padronizados (por exemplo, "Vendas — Janeiro" ou "Projetos criados — Equipe SP") para manter a lista organizada quando você tiver muitas metas.
+Use títulos descritivos e padronizados (por exemplo, "Vendas — Janeiro" ou "Projetos criados — Equipe Comercial") para manter a lista organizada quando você tiver muitas metas.
 </Tip>
 
 [Entenda como o progresso é calculado →](/guides/goals/tracking-progress)

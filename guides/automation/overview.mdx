@@ -4,7 +4,7 @@ description: "Automatize tarefas repetitivas ligando eventos do sistema a açõe
 keywords: ["automação", "automações", "gatilho", "ação", "condição", "fluxo"]
 ---
 
-Uma automação observa algo que acontece na sua operação e reage sozinha. Quando um projeto entra em uma etapa, quando uma etiqueta é vinculada, quando um formulário é respondido ou quando uma data chega, a automação assume e executa o que você configurou: mover o projeto, avisar a equipe, criar um cliente, disparar um webhook.
+Uma automação observa algo que acontece na sua operação e reage sozinha. O evento pode ser um projeto entrando em uma etapa, uma etiqueta vinculada, um formulário respondido ou uma data que chega. A partir daí, a automação executa o que você configurou: mover o projeto, avisar a equipe, criar um cliente, disparar um webhook.
 
 <Info>
 Tudo que uma automação faz, uma pessoa também poderia fazer manualmente. A diferença é que a automação faz na hora certa, sempre do mesmo jeito, sem depender de alguém lembrar.
@@ -59,7 +59,7 @@ Existem dois caminhos, e a diferença entre eles muda quais gatilhos ficam dispo
   Neste caminho os **gatilhos ficam limitados a eventos que envolvem aquela etapa**. Se você precisar de outro gatilho, o próprio editor oferece a opção de criar a automação fora do funil.
 
   <Tip>
-  Criar pela etapa é o caminho mais rápido quando a regra é do tipo "assim que o card chegar aqui, faça X".
+  Criar pela etapa é o caminho mais rápido quando a regra é do tipo "assim que o projeto chegar aqui, faça X".
   </Tip>
 </Tab>
 </Tabs>
@@ -69,7 +69,7 @@ Existem dois caminhos, e a diferença entre eles muda quais gatilhos ficam dispo
 Toda automação tem um status. Uma automação **inativa** continua salva e editável, mas nunca é acionada, mesmo que o evento aconteça.
 
 <Warning>
-Ao salvar, uma automação nova já nasce ativa. Se você está montando algo que envolve muitos projetos de uma vez — como o gatilho de projeto ocioso —, monte com calma e revise antes, porque a primeira execução pode alcançar todos os projetos que já se encaixam na regra.
+Ao salvar, uma automação nova já nasce ativa. A primeira execução pode alcançar todos os projetos que já se encaixam na regra. Por isso, se a automação envolve muitos projetos de uma vez, como o gatilho **Projeto ocioso em etapa**, revise a configuração antes de salvar.
 </Warning>
 
 Desativar é a forma segura de pausar uma regra sem perder a configuração. Excluir remove a automação e o histórico de execuções deixa de estar acessível.
@@ -101,9 +101,9 @@ Ver a lista não é o mesmo que poder editar. É comum dar visualização para a
 </Accordion>
 
 <Accordion title="Automações em cadeia" icon="link">
-  Uma ação pode provocar um evento que aciona outra automação. Isso é esperado e útil, mas existe um limite de encadeamento: a partir de certo ponto a cadeia é interrompida e o registro de execução aponta o motivo.
+  Uma ação pode provocar um evento que aciona outra automação. Isso é esperado e útil, mas uma cadeia encadeia no máximo cinco automações. Na sexta, a execução é interrompida e o registro de execução aponta o motivo (`automation_run_limit_reached`).
 
-  Se você percebeu que uma automação "não terminou", verifique se ela está no fim de uma cadeia longa. Veja [Logs e depuração](/guides/automation/logs).
+  Se uma automação "não terminou", verifique se ela está no fim de uma cadeia longa. Veja [Automações que acionam automações](/guides/automation/anatomy#automações-que-acionam-automações).
 </Accordion>
 
 <Accordion title="Histórico de execuções" icon="clock-rotate-left">

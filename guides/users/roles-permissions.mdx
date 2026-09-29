@@ -1,11 +1,14 @@
 ---
 title: "Papéis e permissões"
-description: "Gerencie acessos e permissões de usuários de forma granular e eficiente"
+description: "Como papéis e permissões definem o que cada usuário pode ver e fazer na sua empresa da Olie"
+keywords: ["papéis", "papel", "permissões", "role", "cargo", "controle de acesso", "Property", "múltiplos papéis"]
 ---
+
+Esta página explica como os papéis e as permissões definem o que cada usuário pode ver e fazer na sua empresa da Olie. Ela mostra também como montar papéis para a sua equipe. Para convidar pessoas, veja [Gerenciamento de usuários](/guides/users/user-management).
 
 ## O que são papéis e permissões
 
-O sistema de **Papéis** e **Permissões** permite gerenciar o acesso e as ações dos usuários dentro da plataforma de forma personalizada e eficiente, oferecendo flexibilidade para configurar as permissões necessárias para cada função.
+Com **papéis** e **permissões**, você define o acesso e as ações de cada usuário na plataforma, de acordo com a função que ele exerce.
 
 <CardGroup cols={2}>
 <Card title="Papéis" icon="user-tag">
@@ -13,19 +16,17 @@ O sistema de **Papéis** e **Permissões** permite gerenciar o acesso e as açõ
 </Card>
 
 <Card title="Permissões" icon="key">
-  Ações que podem ser realizadas no sistema, como "Criar Projeto", "Editar Usuários" ou "Visualizar Relatórios". São pré-definidas e atribuídas aos papéis.
+  Ações que podem ser realizadas no sistema, como criar projetos, editar usuários ou exportar projetos. São pré-definidas e atribuídas aos papéis.
 </Card>
 </CardGroup>
 
 ## Como funciona o sistema
 
-### 1. Papéis personalizáveis
+O sistema tem quatro partes, descritas a seguir.
 
-O proprietário da empresa pode criar papéis personalizados de acordo com a estrutura e necessidades da organização.
+### Papéis personalizáveis
 
-<Info>
-Um papel pode representar um nível de responsabilidade (como "Gerente") ou uma função específica (como "Analista de Dados").
-</Info>
+Quem tem a permissão de gerenciar papéis e permissões pode criar papéis personalizados de acordo com a estrutura e as necessidades da organização. O papel **Property**, do proprietário da empresa, tem essa permissão por padrão, mas você pode dá-la a outros papéis. Um papel pode representar um nível de responsabilidade (como "Gerente") ou uma função específica (como "Analista de Dados").
 
 <Steps>
 <Step title="Identifique as necessidades">
@@ -33,11 +34,7 @@ Um papel pode representar um nível de responsabilidade (como "Gerente") ou uma 
 </Step>
 
 <Step title="Crie os papéis">
-  Crie papéis com nomes descritivos que reflitam claramente a função ou responsabilidade.
-  
-  <Tip>
-  Use nomes consistentes e intuitivos como "Gerente de Projetos", "Designer" ou "Desenvolvedor".
-  </Tip>
+  Crie papéis com nomes que descrevam a função ou a responsabilidade, como "Gerente de Projetos", "Designer" ou "Desenvolvedor". Mantenha o mesmo padrão de nome em todos os papéis.
 </Step>
 
 <Step title="Atribua permissões">
@@ -45,18 +42,20 @@ Um papel pode representar um nível de responsabilidade (como "Gerente") ou uma 
 </Step>
 </Steps>
 
-### 2. Permissões pré-definidas
+### Permissões pré-definidas
 
-O sistema fornece uma lista de permissões fixas que cobrem todas as operações possíveis na plataforma.
+A Olie fornece uma lista fixa de permissões, que cobre as operações da plataforma. Você não cria permissões novas: escolhe quais delas cada papel recebe.
 
 <AccordionGroup>
 <Accordion title="Exemplos de permissões" icon="list-check">
-  - **Visualizar Relatórios**: Permite acesso aos relatórios do sistema
-  - **Criar Projetos**: Permite criar novos projetos
-  - **Editar Usuários**: Permite modificar informações de usuários
-  - **Criar Convites**: Permite convidar novos usuários
-  - **Gerenciar Permissões**: Permite configurar papéis e permissões
-  - **Executar Automações**: Permite criar e executar automações
+  Alguns exemplos, descritos pelo que cada permissão libera:
+
+  - Criar projetos: permite criar novos projetos.
+  - Editar usuários: permite alterar as informações dos usuários.
+  - Criar convites: permite convidar novas pessoas para a empresa.
+  - Gerenciar papéis e permissões: permite criar papéis e escolher as permissões de cada um.
+  - Criar automações: permite criar novas automações.
+  - Exportar projetos: permite exportar a lista de projetos em planilha.
 </Accordion>
 
 <Accordion title="Categorias de permissões" icon="layer-group">
@@ -75,26 +74,24 @@ O sistema fornece uma lista de permissões fixas que cobrem todas as operações
 Canais e integrações estão disponíveis para todas as empresas, mas cada pessoa só consegue usá-los se o papel dela tiver as permissões dos grupos **Canais** e **Integrações**. O papel **Property** já tem todas; nos papéis criados pela sua empresa, você precisa marcá-las.
 </Note>
 
-### 3. Vinculação de papéis e permissões
+### Vinculação de papéis e permissões
 
-Cada papel pode ter uma ou mais permissões atribuídas, oferecendo flexibilidade total no controle de acesso.
+Cada papel pode ter uma ou mais permissões atribuídas.
 
 ```mermaid
 graph LR
-    A[Papel: Gerente] --> B[Criar Projetos]
-    A --> C[Editar Projetos]
-    A --> D[Visualizar Relatórios]
-    A --> E[Gerenciar Equipe]
+    A[Papel: Gerente] --> B[Criar projetos]
+    A --> C[Editar projetos]
+    A --> D[Exportar projetos]
+    A --> E[Criar convites]
     
-    F[Papel: Colaborador] --> G[Visualizar Projetos]
-    F --> H[Executar Tarefas]
+    F[Papel: Colaborador] --> G[Visualizar projetos]
+    F --> H[Criar tarefas]
 ```
 
-<Note>
-Um único papel pode abranger permissões de diferentes áreas do sistema, dependendo do que for necessário para aquela função.
-</Note>
+Um único papel pode reunir permissões de diferentes áreas da plataforma, conforme o que a função exige.
 
-### 4. Usuários com múltiplos papéis
+### Usuários com múltiplos papéis
 
 Um usuário pode ter múltiplos papéis atribuídos, acumulando as permissões de todos eles.
 
@@ -103,9 +100,9 @@ Um usuário pode ter múltiplos papéis atribuídos, acumulando as permissões d
   Quando um usuário possui múltiplos papéis, ele recebe **todas as permissões** de cada um deles.
   
   **Exemplo:**
-  - Papel "Gerente" tem: Criar Projetos, Editar Projetos
-  - Papel "Editor" tem: Editar Conteúdo, Revisar Textos
-  - Usuário com ambos os papéis tem: Todas as 4 permissões
+  - Papel "Gerente" tem: criar projetos e editar projetos.
+  - Papel "Atendimento" tem: visualizar canais e editar canais.
+  - Usuário com ambos os papéis tem as 4 permissões.
 </Tab>
 
 <Tab title="Casos de uso">
@@ -121,17 +118,17 @@ Um usuário pode ter múltiplos papéis atribuídos, acumulando as permissões d
 </Tab>
 
 <Tab title="Exemplo prático">
-  **Cenário:** Maria é Gerente de Projetos e também responsável por revisar conteúdo.
+  **Cenário:** Maria é Gerente de Projetos e também responsável pelo atendimento aos clientes.
   
   - Papel 1: "Gerente de Projetos"
-    - Criar/Editar Projetos
-    - Gerenciar Equipe
-    - Visualizar Relatórios
+    - Criar projetos
+    - Editar projetos
+    - Criar convites
   
-  - Papel 2: "Editor de Conteúdo"
-    - Editar Conteúdo
-    - Revisar Textos
-    - Publicar Artigos
+  - Papel 2: "Atendimento"
+    - Visualizar canais
+    - Editar canais
+    - Visualizar contatos
   
   **Resultado:** Maria tem todas as 6 permissões combinadas.
 </Tab>
@@ -139,47 +136,13 @@ Um usuário pode ter múltiplos papéis atribuídos, acumulando as permissões d
 
 ## Tipos de papéis
 
-Os **Tipos de Papéis** classificam os usuários com base em suas permissões e funções no sistema. Cada tipo reflete um nível de responsabilidade e possui permissões mínimas associadas.
+O **tipo de papel** (operacional, gerencial ou sócio) classifica cada usuário a partir das permissões que ele acumula. A Olie calcula o tipo automaticamente, sem ação manual.
 
-<Warning>
-Os tipos de papéis são calculados **automaticamente pelo sistema** com base nas permissões atribuídas. Não requerem ação manual do usuário.
-</Warning>
-
-<Card title="Importante sobre custos" icon="dollar-sign">
-  Os tipos de papéis são utilizados para calcular os custos relacionados ao uso do sistema, tornando o gerenciamento de acessos e cobranças mais claro e eficiente.
-</Card>
-
-[Leia mais sobre Tipos de Papéis →](/guides/users/role-types)
-
-## Benefícios do sistema
-
-<CardGroup cols={3}>
-<Card title="Controle granular" icon="sliders">
-  Configure exatamente quais ações cada usuário pode realizar, sem precisar dar acesso total.
-</Card>
-
-<Card title="Segurança" icon="lock">
-  Limite o acesso a informações sensíveis apenas para quem realmente precisa.
-</Card>
-
-<Card title="Flexibilidade" icon="wand-magic-sparkles">
-  Combine múltiplos papéis para criar perfis de acesso personalizados.
-</Card>
-
-<Card title="Escalabilidade" icon="up-right-and-down-left-from-center">
-  Crie papéis uma vez e atribua a múltiplos usuários facilmente.
-</Card>
-
-<Card title="Auditoria" icon="clipboard-list">
-  Mantenha controle claro de quem tem acesso a quê na organização.
-</Card>
-
-<Card title="Simplicidade" icon="circle-check">
-  Interface intuitiva para gerenciar permissões sem complexidade técnica.
-</Card>
-</CardGroup>
+O tipo de papel define a licença que o usuário ocupa e, por isso, afeta o valor da assinatura. Antes de dar uma permissão nova a alguém, confira se ela muda o tipo de papel dessa pessoa. Veja as regras em [Tipos de papéis](/guides/users/role-types) e em [Assinatura e licenças](/guides/billing/subscription-and-licenses).
 
 ## Melhores práticas
+
+Estas práticas mantêm os acessos da empresa sob controle:
 
 <AccordionGroup>
 <Accordion title="Princípio do menor privilégio">
@@ -203,10 +166,9 @@ Os tipos de papéis são calculados **automaticamente pelo sistema** com base na
 </Accordion>
 </AccordionGroup>
 
-## Conclusão
+## Próximos passos
 
-Com o sistema de **Papéis e Permissões**, o controle de acesso é centralizado, seguro e flexível, permitindo que a organização configure a plataforma para atender às suas necessidades específicas com precisão e eficiência.
+Continue por estas páginas:
 
-<Check>
-Um sistema bem configurado de papéis e permissões é fundamental para a segurança e eficiência operacional da organização.
-</Check>
+- [Gerenciamento de usuários](/guides/users/user-management): convide pessoas e atribua os papéis.
+- [Tipos de papéis](/guides/users/role-types): veja como as permissões definem o tipo de papel e a licença de cada usuário.
