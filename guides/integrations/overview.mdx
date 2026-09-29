@@ -8,7 +8,11 @@ Esta página mostra os caminhos para trocar informação entre a Olie e outros s
 
 ## Onde fica
 
-Em **Ajustes → Integrações**, com quatro abas:
+No menu de **Ajustes**, o grupo **Integrações** reúne quatro áreas:
+
+<Frame caption="O grupo Integrações no menu de Ajustes">
+  <img src="/images/guides/integrations/ajustes-grupo-integracoes.png" alt="Menu lateral de Ajustes com o grupo Integrações contornado, contendo os itens Aplicações, Webhooks, MCP e Integrações" />
+</Frame>
 
 <CardGroup cols={2}>
 <Card title="Integrações" icon="plug">
@@ -56,7 +60,13 @@ O token de uma [aplicação](/api-reference/introduction/authentication) só lis
 
 ### Criação automática de projeto
 
-O campo **Criar o projeto nesta etapa** define o que acontece quando chega uma mensagem de alguém que ainda não tem projeto aberto.
+O campo **Criar o projeto nesta etapa** define o que acontece quando chega uma mensagem de alguém que ainda não tem projeto aberto. Ele fica na seção **Criação automática de projetos** da integração. Para abrir essa seção, clique em **⋮** > **Editar** na integração.
+
+<Frame caption="Com Não criar projeto automaticamente, mensagens de números novos são ignoradas">
+  <img src="/images/guides/integrations/criar-projeto-nesta-etapa.png" alt="Seção Criação automática de projetos da edição de uma integração, com o campo Criar o projeto nesta etapa contornado e preenchido com Não criar projeto automaticamente" />
+</Frame>
+
+Na lista de integrações, cada conta mostra **Não cria projetos** ou a etapa em que cria.
 
 O destino é uma **etapa**, não um funil. Isso importa porque a etapa é que carrega automações, restrições e assistentes: a mensagem que chega já cai dentro do processo.
 

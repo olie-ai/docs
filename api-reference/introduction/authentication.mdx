@@ -26,26 +26,16 @@ O prefixo `Bearer ` é obrigatório. Sem ele, a API trata a requisição como n�
 O token é gerado quando você cria uma aplicação nos ajustes da empresa.
 
 <Steps>
-  <Step title="Acesse a plataforma">
-    Entre na sua empresa em https://olie.ai/frames e vá em **Ajustes**.
+  <Step title="Abra Aplicações">
+    Entre na sua empresa em https://olie.ai/frames e vá em **Ajustes** > **Integrações** > **Aplicações**.
 
-    <Frame>
-      ![Menu de Ajustes da Olie](https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/4US0yBiC8q3uPlJhz1vcYgjwdAorK9MZ2VnL-image.png)
-    </Frame>
-  </Step>
-  <Step title="Navegue até Aplicações">
-    Clique em **Aplicações**.
-
-    <Frame>
-      ![Seção de Aplicações](https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/J016pB2cNgZjxDzMfhm8vysCRaXWnoLPq5Kr-image.png)
+    <Frame caption="Aplicações fica no grupo Integrações do menu de Ajustes">
+      <img src="/images/api-reference/ajustes-integracoes-aplicacoes.png" alt="Menu lateral de Ajustes com os itens Papéis e Ajustes da empresa e, abaixo, o grupo Integrações com Aplicações contornado, seguido de Webhooks, MCP e Integrações" />
     </Frame>
   </Step>
   <Step title="Crie uma aplicação">
     Clique em **Criar aplicação** e preencha os campos obrigatórios. A plataforma mostra o token de acesso gerado.
 
-    <Frame>
-      ![Token de acesso gerado](https://olie-main.s3.sa-east-1.amazonaws.com/app/frames/baa6959c-9db5-4e36-ab79-7b53dfa63483/media_files/PkbKmJC7zQ4OZlja3VLyNTDF8YWrox9wd1iX-image.png)
-    </Frame>
     <Warning>
       Guarde o token em um local seguro. A plataforma não mostra o token de novo.
     </Warning>
@@ -87,7 +77,7 @@ Como não há rotação, você troca o token substituindo a aplicação:
     Faça a virada no seu lado e confirme que as chamadas continuam funcionando.
   </Step>
   <Step title="Exclua a aplicação antiga">
-    Exclua a aplicação em **Ajustes** > **Aplicações**, com um usuário que tenha a permissão `applications.create`. A exclusão revoga apenas o token daquela aplicação. As demais aplicações da empresa seguem funcionando normalmente.
+    Exclua a aplicação em **Ajustes** > **Integrações** > **Aplicações**, com um usuário que tenha a permissão `applications.create`. A exclusão revoga apenas o token daquela aplicação. As demais aplicações da empresa seguem funcionando normalmente.
 
     O endpoint `DELETE /api/management/applications/{id}` é reservado a pessoas. Uma chamada feita com token de aplicação recebe HTTP 403 com `message: "access_denied_for_applications"`.
   </Step>

@@ -23,6 +23,12 @@ Tenha em mãos o que a automação vai referenciar — no exemplo, a etapa "Prop
   <Tip>
   "Marcar proposta enviada como aguardando retorno" diz muito mais do que "Automação 3" quando alguém abrir a lista daqui a seis meses.
   </Tip>
+
+  O editor tem duas colunas. À esquerda ficam **Detalhes da automação**, o gatilho e as ações, na ordem em que rodam. À direita fica a configuração do item selecionado.
+
+  <Frame caption="O editor de automação: os componentes à esquerda, a configuração do selecionado à direita">
+    <img src="/images/guides/automation/editor-de-automacao.png" alt="Janela Configurar automação. Na coluna esquerda, Detalhes da automação, o gatilho Projeto movido de etapa, duas ações Criar hierarquia de projetos e o botão Adicionar ação ou condição no rodapé. À direita, a configuração da ação selecionada e o botão Salvar" />
+  </Frame>
 </Step>
 
 <Step title="Escolha o gatilho" icon="bolt">
@@ -51,18 +57,22 @@ Tenha em mãos o que a automação vai referenciar — no exemplo, a etapa "Prop
   ```
 
   <Tip>
-  O editor mostra a lista de variáveis disponíveis em cada campo que aceita esse recurso. Veja [Variáveis nas automações](/guides/automation/variables).
+  Nos campos que aceitam variáveis, o botão **Aplicar variável** abre a lista das disponíveis. Veja [Variáveis nas automações](/guides/automation/variables).
   </Tip>
 </Step>
 
 <Step title="Confira a ordem" icon="arrow-down-up-across-line">
-  As ações são executadas de cima para baixo, na ordem em que aparecem. Use **Mover para cima** e **Mover para baixo** no menu de cada componente para reordenar.
+  As ações são executadas de cima para baixo, na ordem em que aparecem. Para reordenar, use **Mover para cima** e **Mover para baixo** no menu **⋯** de cada componente, no canto superior direito da configuração dele.
+
+  <Frame caption="O menu ⋯ de um componente">
+    <img src="/images/guides/automation/menu-do-componente.png" alt="Cabeçalho da configuração da ação Criar hierarquia de projetos com o botão ⋯ contornado e o menu aberto com Definir projetos alvo, Mover para cima, Mover para baixo, Duplicar e Deletar" />
+  </Frame>
 
   Aqui a ordem importa pouco. Ela é decisiva quando uma ação depende do efeito de outra: por exemplo, colocar o projeto em uma etapa antes de aplicar uma etiqueta daquele funil.
 </Step>
 
 <Step title="Salve e ative" icon="floppy-disk">
-  Clique em **Salvar**. Confirme que o **Status ativo** está marcado como **Ativo**.
+  Em **Detalhes da automação**, confirme que o **Status ativo** está marcado como **Ativo**. Depois clique em **Salvar**.
 
   <Check>
   A partir daqui a automação já está valendo para os próximos projetos que entrarem na etapa.
