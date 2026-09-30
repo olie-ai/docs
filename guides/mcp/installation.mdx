@@ -1,10 +1,10 @@
 ---
 title: "Instalação"
-description: "Como conectar o MCP da Olie ao ChatGPT, ao Claude, ao celular e a editores de código"
-keywords: ["instalação", "configurar mcp", "conector", "plugin", "chatgpt", "claude", "cursor", "claude code", "oauth", "workspace"]
+description: "Como conectar a Olie ao ChatGPT e ao Claude pelo catálogo de cada um, ao celular e a editores de código"
+keywords: ["instalação", "configurar mcp", "conector", "plugin", "chatgpt", "claude", "cursor", "claude code", "oauth", "workspace", "olie flow ai", "diretório", "catálogo"]
 ---
 
-A instalação é sempre a mesma ideia: você informa ao assistente o endereço do servidor, faz login na Olie e escolhe o workspace, que é a [empresa](/guides/fundamentals/glossary#pessoas-e-conta) na Olie. O que muda de um cliente para outro é apenas onde fica essa tela.
+No ChatGPT e no Claude, a Olie tem uma página própria no catálogo de cada assistente. Você abre essa página, conecta, entra na Olie e escolhe o workspace, que é a [empresa](/guides/fundamentals/glossary#pessoas-e-conta) na Olie. Nos editores de código e em outros clientes, você informa o endereço do servidor.
 
 ```text Endereço do servidor MCP
 https://api.olie.ai/mcp/management
@@ -12,77 +12,74 @@ https://api.olie.ai/mcp/management
 
 ## Antes de começar
 
-Faça a primeira configuração **no computador**. Os aplicativos de celular não oferecem a tela de criação de conexão, mas exibem as conexões já autorizadas.
+Faça a primeira conexão **no computador**. Os aplicativos de celular exibem as conexões já autorizadas, mas não oferecem a tela de conexão.
 
 ## ChatGPT
 
-Conectores personalizados dependem do seu tipo de plano no ChatGPT. Se a opção de adicionar um conector não aparecer nas configurações, verifique o plano da sua conta.
+A Olie está publicada como plugin **Olie Flow AI** no catálogo do ChatGPT.
 
 <Steps>
-<Step title="Abra a área de conectores" icon="plug">
-  No ChatGPT do desktop, vá em **Configurações** e abra a área de conectores e plugins da sua conta.
+<Step title="Abra a página do plugin" icon="arrow-up-right-from-square">
+  No computador, abra a [página do Olie Flow AI no ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6a31dd76881c8191964e8f46ba95c8c6) com a sua conta.
 </Step>
 
-<Step title="Crie uma nova conexão" icon="plus">
-  Escolha adicionar um conector personalizado. O ChatGPT pede dois campos:
-
-  | Campo | O que preencher |
-  | --- | --- |
-  | Nome | Um nome que você reconheça, como `Olie Flow` |
-  | URL | `https://api.olie.ai/mcp/management` |
+<Step title="Conecte o plugin" icon="plug">
+  Clique no botão de conectar. O ChatGPT abre a tela de consentimento da Olie.
 </Step>
 
-<Step title="Autentique a sua conta" icon="key">
-  Ao salvar, o ChatGPT abre a tela de consentimento da Olie. Faça login com o seu usuário e autorize o acesso.
-</Step>
-
-<Step title="Escolha o workspace" icon="building">
-  Ainda na tela de autorização, selecione o workspace que essa conexão vai enxergar. Confirme para voltar ao ChatGPT.
+<Step title="Entre e escolha o workspace" icon="building">
+  Entre com o seu usuário da Olie, selecione o workspace que essa conexão vai enxergar e autorize o acesso.
 
   <Check>
-  A conexão aparece na lista de conectores. A partir daqui, você já pode fazer perguntas sobre a sua operação.
+  Numa conversa nova, pergunte "Quais são os meus funis na Olie?" e o ChatGPT responde com os funis do workspace escolhido.
   </Check>
 </Step>
 </Steps>
 
 ## Claude
 
+A Olie está publicada como conector **Olie Flow AI** no diretório do Claude.
+
 <Steps>
-<Step title="Abra as configurações de conectores" icon="gear">
-  No Claude, acesse **Settings** e abra a seção de conectores.
+<Step title="Abra a página do conector" icon="arrow-up-right-from-square">
+  No computador, abra a [página do Olie Flow AI no Claude](https://claude.ai/directory/olie-flow-ai) com a sua conta.
 </Step>
 
-<Step title="Adicione um conector personalizado" icon="plus">
-  Informe o nome e a URL `https://api.olie.ai/mcp/management`.
+<Step title="Conecte o conector" icon="plug">
+  Clique no botão de conectar. O Claude abre a tela de consentimento da Olie.
 </Step>
 
-<Step title="Conecte e autorize" icon="key">
-  Clique no botão de conectar. A Olie abre a tela de consentimento, onde você faz login e escolhe o workspace.
+<Step title="Entre e escolha o workspace" icon="building">
+  Entre com o seu usuário da Olie, selecione o workspace que essa conexão vai enxergar e autorize o acesso.
 </Step>
 
 <Step title="Ative na conversa" icon="comment">
-  Com a conexão autorizada, a Olie fica disponível no seletor de ferramentas da conversa. Ative a Olie ali para usá-la naquela conversa.
+  No seletor de ferramentas da conversa, ative a Olie.
+
+  <Check>
+  Pergunte "Quais são os meus funis na Olie?" e o Claude responde com os funis do workspace escolhido.
+  </Check>
 </Step>
 </Steps>
 
 ## No celular
 
-Não existe uma segunda configuração a fazer. A conexão criada no desktop está ligada à sua conta, então ela sincroniza sozinha.
+A conexão criada no computador está ligada à sua conta do assistente, então aparece sozinha no celular.
 
 <Steps>
 <Step title="Abra o aplicativo" icon="mobile">
   Entre no ChatGPT ou no Claude com a mesma conta que você usou no computador.
 </Step>
 
-<Step title="Localize a Olie nas extensões" icon="grid-2">
-  Na conversa, abra a área de extensões e ferramentas. A conexão da Olie aparece na lista, já autorizada.
+<Step title="Localize a Olie nas ferramentas" icon="grid-2">
+  Na conversa, abra a área de ferramentas. A Olie aparece na lista, já autorizada.
 </Step>
 
 <Step title="Pergunte normalmente" icon="comment">
-  As mesmas perguntas do desktop funcionam aqui.
+  As mesmas perguntas do computador funcionam aqui.
 
   <Check>
-  O assistente responde com os dados da sua conta, como no computador.
+  O assistente responde com os dados do mesmo workspace escolhido no computador.
   </Check>
 </Step>
 </Steps>
@@ -103,7 +100,7 @@ claude mcp list
 
 ## Cursor e outros clientes
 
-Clientes que leem um arquivo de configuração aceitam o servidor no formato padrão de MCP remoto:
+Qualquer cliente compatível com MCP remoto aceita o endereço do servidor como conector personalizado. Nos clientes que leem um arquivo de configuração, use o formato padrão:
 
 ```json mcp.json
 {
@@ -134,7 +131,7 @@ Sua senha nunca passa pelo assistente, porque o login acontece na própria Olie.
 </Accordion>
 
 <Accordion title="Os dados são de outro workspace" icon="building">
-  O workspace é definido no momento da autorização e não muda sozinho. Remova a conexão e crie de novo, escolhendo o workspace correto na tela de consentimento. Para acompanhar mais de um workspace, mantenha uma conexão por workspace, com nomes distintos.
+  O workspace é definido no momento da autorização e não muda sozinho. Remova a conexão e crie de novo, escolhendo o workspace correto na tela de consentimento. Para acompanhar outro workspace ao mesmo tempo, adicione o endereço do servidor como conector personalizado, com um nome diferente, e escolha o outro workspace na autorização.
 </Accordion>
 
 <Accordion title="Parou de funcionar depois de um tempo" icon="clock">
