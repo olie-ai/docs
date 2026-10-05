@@ -233,6 +233,23 @@
                             "type": "string",
                             "format": "uri"
                           },
+                          "transcription_status": {
+                            "type": "string",
+                            "description": "Situação da transcrição do áudio. Nulo quando ninguém tentou transcrever: texto, arquivo, áudio que já estava no projeto ou conta com a transcrição desligada. `processing` ainda está processando. `completed` gravou o texto em `transcription`. `no_speech`, `failed` e `too_long` terminam sem texto gravado.",
+                            "nullable": true,
+                            "enum": [
+                              "processing",
+                              "completed",
+                              "no_speech",
+                              "failed",
+                              "too_long"
+                            ]
+                          },
+                          "transcription": {
+                            "type": "string",
+                            "description": "Texto do que foi falado no áudio. Preenchido só quando `transcription_status` é `completed`. Nos outros resultados fica nulo: as frases de áudio sem fala, falha ou acima do limite não são gravadas aqui.",
+                            "nullable": true
+                          },
                           "log": {
                             "type": "string"
                           },
@@ -317,6 +334,8 @@
                       "extension": "<string>",
                       "text": "<string>",
                       "file_url": "<uri>",
+                      "transcription_status": null,
+                      "transcription": null,
                       "log": "<string>",
                       "user_id": "<uuid>",
                       "frame_id": "<uuid>",
@@ -340,6 +359,8 @@
                       "extension": "<string>",
                       "text": "<string>",
                       "file_url": "<uri>",
+                      "transcription_status": null,
+                      "transcription": null,
                       "log": "<string>",
                       "user_id": "<uuid>",
                       "frame_id": "<uuid>",
@@ -445,7 +466,7 @@
           {
             "name": "search",
             "in": "query",
-            "description": "Termo buscado no texto do conteúdo.",
+            "description": "Termo buscado no texto escrito do conteúdo e na transcrição do áudio.",
             "schema": {
               "type": "string"
             },
@@ -540,6 +561,23 @@
                             "type": "string",
                             "description": "Endereço para baixar o arquivo, quando houver."
                           },
+                          "transcription_status": {
+                            "type": "string",
+                            "description": "Situação da transcrição do áudio. Nulo quando ninguém tentou transcrever: texto, arquivo, áudio que já estava no projeto ou conta com a transcrição desligada. `processing` ainda está processando. `completed` gravou o texto em `transcription`. `no_speech`, `failed` e `too_long` terminam sem texto gravado.",
+                            "nullable": true,
+                            "enum": [
+                              "processing",
+                              "completed",
+                              "no_speech",
+                              "failed",
+                              "too_long"
+                            ]
+                          },
+                          "transcription": {
+                            "type": "string",
+                            "description": "Texto do que foi falado no áudio. Preenchido só quando `transcription_status` é `completed`. Nos outros resultados fica nulo: as frases de áudio sem fala, falha ou acima do limite não são gravadas aqui.",
+                            "nullable": true
+                          },
                           "log": {
                             "type": "string",
                             "description": "Conteúdo do registro de atividade, quando a entrada for um log."
@@ -622,10 +660,10 @@
                   "meta": {
                     "current_page": 1,
                     "from": 1,
-                    "to": 2,
+                    "to": 3,
                     "last_page": 1,
                     "per_page": 30,
-                    "total": 2
+                    "total": 3
                   },
                   "medias": [
                     {
@@ -636,6 +674,8 @@
                       "extension": "pdf",
                       "text": null,
                       "file_url": "https://cdn.olie.ai/frames/projects/proposta-comercial.pdf",
+                      "transcription_status": null,
+                      "transcription": null,
                       "log": null,
                       "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
                       "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
@@ -663,6 +703,8 @@
                       "extension": null,
                       "text": "Cliente aprovou o escopo na reunião de hoje.",
                       "file_url": null,
+                      "transcription_status": null,
+                      "transcription": null,
                       "log": null,
                       "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
                       "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
@@ -675,6 +717,35 @@
                       "delivery_error": null,
                       "created_at": "2026-08-18T13:47:35.000000Z",
                       "updated_at": "2026-08-18T13:47:35.000000Z",
+                      "deleted_at": null,
+                      "user": {
+                        "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                        "name": "Usuário",
+                        "avatar_url": null
+                      }
+                    },
+                    {
+                      "id": "019e1a48-6c21-70aa-8b14-2f7c0e91aa04",
+                      "name": "recado-cliente",
+                      "technical_name": "recado-cliente.019e1a48",
+                      "type": 3,
+                      "extension": "ogg",
+                      "text": null,
+                      "file_url": "https://cdn.olie.ai/frames/projects/recado-cliente.ogg",
+                      "transcription_status": "completed",
+                      "transcription": "O orçamento ficou em quinze mil.",
+                      "log": null,
+                      "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                      "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                      "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "channel_id": null,
+                      "direction": null,
+                      "origin": null,
+                      "external_message_id": null,
+                      "task_id": null,
+                      "delivery_error": null,
+                      "created_at": "2026-08-18T14:11:02.000000Z",
+                      "updated_at": "2026-08-18T14:11:02.000000Z",
                       "deleted_at": null,
                       "user": {
                         "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
@@ -913,6 +984,29 @@
                             "type": "string",
                             "description": "Endereço para baixar o arquivo."
                           },
+                          "transcription_status": {
+                            "type": "string",
+                            "description": "Situação da transcrição. Nulo em arquivo (tipo 2). O campo aparece no arquivo que veio do conteúdo do projeto, porque essa origem devolve o registro completo.",
+                            "nullable": true,
+                            "enum": [
+                              "processing",
+                              "completed",
+                              "no_speech",
+                              "failed",
+                              "too_long"
+                            ]
+                          },
+                          "transcription": {
+                            "type": "string",
+                            "description": "Texto falado. Nulo em arquivo. Só um áudio com `transcription_status` `completed` preenche este campo, e áudio não entra nesta lista.",
+                            "nullable": true
+                          },
+                          "transcription_started_at": {
+                            "type": "string",
+                            "description": "Início da tentativa de transcrição. Nulo em arquivo.",
+                            "format": "date-time",
+                            "nullable": true
+                          },
                           "type": {
                             "type": "integer",
                             "description": "Sempre 2: arquivo."
@@ -959,6 +1053,9 @@
                       "extension": "pdf",
                       "text": null,
                       "file_url": "https://cdn.olie.ai/frames/projects/proposta-comercial.pdf",
+                      "transcription_status": null,
+                      "transcription": null,
+                      "transcription_started_at": null,
                       "log": null,
                       "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
                       "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
@@ -5884,6 +5981,29 @@
                             "type": "string",
                             "description": "Endereço para baixar o arquivo, quando houver."
                           },
+                          "transcription_status": {
+                            "type": "string",
+                            "description": "Situação da transcrição do áudio. Nulo quando ninguém tentou transcrever: texto, arquivo, áudio que já estava no projeto ou conta com a transcrição desligada. `processing` ainda está processando. `completed` gravou o texto em `transcription`. `no_speech`, `failed` e `too_long` terminam sem texto gravado.",
+                            "nullable": true,
+                            "enum": [
+                              "processing",
+                              "completed",
+                              "no_speech",
+                              "failed",
+                              "too_long"
+                            ]
+                          },
+                          "transcription": {
+                            "type": "string",
+                            "description": "Texto do que foi falado no áudio. Preenchido só quando `transcription_status` é `completed`. Nos outros resultados fica nulo: as frases de áudio sem fala, falha ou acima do limite não são gravadas aqui.",
+                            "nullable": true
+                          },
+                          "transcription_started_at": {
+                            "type": "string",
+                            "description": "Momento em que a tentativa atual de transcrição começou. A listagem de conteúdos não devolve este campo.",
+                            "format": "date-time",
+                            "nullable": true
+                          },
                           "log": {
                             "type": "string",
                             "description": "Conteúdo do registro de atividade, quando a entrada for um log."
@@ -5942,6 +6062,9 @@
                       "name": "description.4fea17cab04852a3b32d401766a84d5e",
                       "technical_name": "description.4fea17cab04852a3b32d401766a84d5e",
                       "text": "Cada porta pode ser uma porta para outro mundo.",
+                      "transcription_status": null,
+                      "transcription": null,
+                      "transcription_started_at": null,
                       "id": "019bc309-175d-7211-9524-29646278c39f",
                       "updated_at": "2026-01-15T19:01:51.000000Z",
                       "created_at": "2026-01-15T19:01:51.000000Z",
@@ -5965,6 +6088,9 @@
                       "name": "description.4fea17cab04852a3b32d401766a84d5e",
                       "technical_name": "description.4fea17cab04852a3b32d401766a84d5e",
                       "text": "Cada porta pode ser uma porta para outro mundo.",
+                      "transcription_status": null,
+                      "transcription": null,
+                      "transcription_started_at": null,
                       "id": "019bc309-1777-71e5-98c3-bff91d787182",
                       "updated_at": "2026-01-15T19:01:51.000000Z",
                       "created_at": "2026-01-15T19:01:51.000000Z",
@@ -6030,6 +6156,29 @@
                           "type": "string",
                           "description": "Endereço para baixar o arquivo, quando houver."
                         },
+                        "transcription_status": {
+                          "type": "string",
+                          "description": "Situação da transcrição do áudio. Nulo quando ninguém tentou transcrever: texto, arquivo, áudio que já estava no projeto ou conta com a transcrição desligada. `processing` ainda está processando. `completed` gravou o texto em `transcription`. `no_speech`, `failed` e `too_long` terminam sem texto gravado.",
+                          "nullable": true,
+                          "enum": [
+                            "processing",
+                            "completed",
+                            "no_speech",
+                            "failed",
+                            "too_long"
+                          ]
+                        },
+                        "transcription": {
+                          "type": "string",
+                          "description": "Texto do que foi falado no áudio. Preenchido só quando `transcription_status` é `completed`. Nos outros resultados fica nulo: as frases de áudio sem fala, falha ou acima do limite não são gravadas aqui.",
+                          "nullable": true
+                        },
+                        "transcription_started_at": {
+                          "type": "string",
+                          "description": "Momento em que a tentativa atual de transcrição começou. A listagem de conteúdos não devolve este campo.",
+                          "format": "date-time",
+                          "nullable": true
+                        },
                         "log": {
                           "type": "string",
                           "description": "Conteúdo do registro de atividade, quando a entrada for um log."
@@ -6086,6 +6235,9 @@
                     "name": "description.46767bcea2ed5b93a9e55717177d08f0",
                     "technical_name": "description.46767bcea2ed5b93a9e55717177d08f0",
                     "text": "Amigos não mentem",
+                    "transcription_status": null,
+                    "transcription": null,
+                    "transcription_started_at": null,
                     "id": "019bc2e1-e52e-72f5-a30c-f2a6c563188c",
                     "updated_at": "2026-01-15T18:19:02.000000Z",
                     "created_at": "2026-01-15T18:19:02.000000Z",
@@ -6264,6 +6416,375 @@
                 "text": "Texto a ser enviado",
                 "file[0]": "<binary>",
                 "audio": "<binary>"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/medias/{media}/transcription/retry": {
+      "post": {
+        "tags": [
+          "projects",
+          "Conteúdos e arquivos"
+        ],
+        "summary": "Tentar a transcrição de um áudio de novo",
+        "description": "Envia de novo para transcrição um áudio cuja transcrição falhou, ou que permanece em `processing` há mais de 60 segundos. A resposta segue o formato da listagem de conteúdos: traz `transcription_status` `processing` e `transcription` nulo, e não traz `transcription_started_at`.\n\nA transcrição de áudio precisa estar ativa na conta. Sem ela, a resposta é 403 com `message` `feature_disabled` e `feature` `audio_transcription`.\n\nSó entra áudio (`type` 3) com `transcription_status` `failed`, ou `processing` cuja tentativa começou há mais de 60 segundos. `completed`, `no_speech`, `too_long`, status nulo e qualquer conteúdo que não seja áudio respondem 422, com `validation.transcription_status` igual a `This audio cannot be retried.` Uma segunda chamada enquanto a nova tentativa ainda não completou 60 segundos também responde 422.\n\nO usuário precisa da permissão de conteúdo do projeto (`projects.media.{id}`). Um token de aplicação recebe 403 com `message` `access_denied_for_applications`. Áudio de outra conta responde 404 com `message` `media_model_not_found`.",
+        "operationId": "tentarATranscricaoDeUmAudioDeNovo",
+        "parameters": [
+          {
+            "name": "media",
+            "in": "path",
+            "required": true,
+            "description": "ID (UUID) do áudio.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "019e1a48-6c21-70aa-8b14-2f7c0e91aa04"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Áudio recolocado na fila de transcrição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Conteúdo do projeto, no formato do recurso de mídia.",
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre true quando a operação é concluída."
+                    },
+                    "media": {
+                      "type": "object",
+                      "description": "Áudio com a nova tentativa processando.",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "ID (UUID) do conteúdo.",
+                          "format": "uuid"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Nome do conteúdo ou do arquivo."
+                        },
+                        "technical_name": {
+                          "type": "string",
+                          "description": "Nome interno usado no armazenamento."
+                        },
+                        "type": {
+                          "type": "integer",
+                          "description": "Tipo do conteúdo: 1 texto, 2 arquivo, 3 áudio."
+                        },
+                        "extension": {
+                          "type": "string",
+                          "description": "Extensão do arquivo, quando houver."
+                        },
+                        "text": {
+                          "type": "string",
+                          "description": "Texto enviado, quando houver."
+                        },
+                        "file_url": {
+                          "type": "string",
+                          "description": "Endereço para baixar o arquivo, quando houver."
+                        },
+                        "transcription_status": {
+                          "type": "string",
+                          "description": "Situação da transcrição do áudio. Nulo quando ninguém tentou transcrever: texto, arquivo, áudio que já estava no projeto ou conta com a transcrição desligada. `processing` ainda está processando. `completed` gravou o texto em `transcription`. `no_speech`, `failed` e `too_long` terminam sem texto gravado.",
+                          "nullable": true,
+                          "enum": [
+                            "processing",
+                            "completed",
+                            "no_speech",
+                            "failed",
+                            "too_long"
+                          ]
+                        },
+                        "transcription": {
+                          "type": "string",
+                          "description": "Texto do que foi falado no áudio. Preenchido só quando `transcription_status` é `completed`. Nos outros resultados fica nulo: as frases de áudio sem fala, falha ou acima do limite não são gravadas aqui.",
+                          "nullable": true
+                        },
+                        "log": {
+                          "type": "string",
+                          "description": "Conteúdo do registro de atividade, quando a entrada for um log."
+                        },
+                        "user_id": {
+                          "type": "string",
+                          "description": "Usuário que enviou o conteúdo.",
+                          "format": "uuid"
+                        },
+                        "frame_id": {
+                          "type": "string",
+                          "description": "ID (UUID) da conta dona do conteúdo.",
+                          "format": "uuid"
+                        },
+                        "project_id": {
+                          "type": "string",
+                          "description": "Projeto que recebeu o conteúdo.",
+                          "format": "uuid"
+                        },
+                        "channel_id": {
+                          "type": "string",
+                          "description": "ID (UUID) do canal, quando o conteúdo veio de uma conversa.",
+                          "format": "uuid"
+                        },
+                        "direction": {
+                          "type": "string",
+                          "description": "Direção do conteúdo no canal (entrada ou saída), quando aplicável."
+                        },
+                        "origin": {
+                          "type": "string",
+                          "description": "Origem do conteúdo (ex.: integração ou compositor interno)."
+                        },
+                        "external_message_id": {
+                          "type": "string",
+                          "description": "ID da mensagem na integração externa, quando houver."
+                        },
+                        "task_id": {
+                          "type": "string",
+                          "description": "ID (UUID) da tarefa vinculada, quando o conteúdo pertence a uma tarefa.",
+                          "format": "uuid"
+                        },
+                        "delivery_error": {
+                          "type": "string",
+                          "description": "Erro de entrega na integração, quando o envio falhou."
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "Data do envio.",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "description": "Data da última alteração.",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "type": "string",
+                          "description": "Data em que o conteúdo foi removido.",
+                          "format": "date-time"
+                        },
+                        "user": {
+                          "type": "object",
+                          "description": "Quem enviou o conteúdo."
+                        },
+                        "project": {
+                          "type": "object",
+                          "description": "Projeto relacionado, quando carregado."
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "response",
+                    "media"
+                  ]
+                },
+                "example": {
+                  "response": true,
+                  "media": {
+                    "id": "019e1a48-6c21-70aa-8b14-2f7c0e91aa04",
+                    "name": "recado-cliente",
+                    "technical_name": "recado-cliente.019e1a48",
+                    "type": 3,
+                    "extension": "ogg",
+                    "text": null,
+                    "file_url": "https://cdn.olie.ai/frames/projects/recado-cliente.ogg",
+                    "transcription_status": "processing",
+                    "transcription": null,
+                    "log": null,
+                    "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                    "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                    "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                    "channel_id": null,
+                    "direction": null,
+                    "origin": "internal",
+                    "external_message_id": null,
+                    "task_id": null,
+                    "delivery_error": null,
+                    "created_at": "2026-08-18T14:11:02.000000Z",
+                    "updated_at": "2026-08-18T14:11:02.000000Z",
+                    "deleted_at": null,
+                    "user": {
+                      "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                      "name": "Usuário",
+                      "avatar_url": null
+                    },
+                    "project": {
+                      "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "name": "Implantação Acme"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Transcrição desligada, sem permissão de conteúdo ou token de aplicação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre false em respostas de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "`feature_disabled` quando a transcrição está desligada na conta, `permission_required` sem a permissão de conteúdo do projeto, ou `access_denied_for_applications` em token de aplicação.",
+                      "enum": [
+                        "feature_disabled",
+                        "permission_required",
+                        "access_denied_for_applications"
+                      ]
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    },
+                    "feature": {
+                      "type": "string",
+                      "description": "Nome da função desligada. Presente só quando `message` é `feature_disabled`.",
+                      "enum": [
+                        "audio_transcription"
+                      ]
+                    },
+                    "permission": {
+                      "type": "string",
+                      "description": "Permissão exigida. Presente só quando `message` é `permission_required`."
+                    }
+                  },
+                  "required": [
+                    "response",
+                    "message",
+                    "error"
+                  ]
+                },
+                "examples": {
+                  "feature_disabled": {
+                    "summary": "Transcrição desligada na conta",
+                    "value": {
+                      "response": false,
+                      "message": "feature_disabled",
+                      "error": "The [audio_transcription] feature is not enabled for this frame.",
+                      "feature": "audio_transcription"
+                    }
+                  },
+                  "permission_required": {
+                    "summary": "Sem permissão de conteúdo no projeto",
+                    "value": {
+                      "response": false,
+                      "message": "permission_required",
+                      "error": "An permission is required to that action",
+                      "permission": "projects.media.019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf"
+                    }
+                  },
+                  "access_denied_for_applications": {
+                    "summary": "Token de aplicação",
+                    "value": {
+                      "response": false,
+                      "message": "access_denied_for_applications",
+                      "error": "Access denied for applications"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Áudio não encontrado nesta conta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre false em respostas de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro.",
+                      "enum": [
+                        "media_model_not_found"
+                      ]
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    }
+                  },
+                  "required": [
+                    "response",
+                    "message",
+                    "error"
+                  ]
+                },
+                "example": {
+                  "response": false,
+                  "message": "media_model_not_found",
+                  "error": "No query results for model [App\\Models\\Media] 019e1a48-6c21-70aa-8b14-2f7c0e91aa04"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Este áudio não pode ser transcrito de novo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre false em respostas de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro.",
+                      "enum": [
+                        "validation_errors"
+                      ]
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    },
+                    "validation": {
+                      "type": "object",
+                      "description": "Mapa de campo para as mensagens de validação daquele campo.",
+                      "properties": {
+                        "transcription_status": {
+                          "type": "array",
+                          "description": "Motivo da recusa.",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "response",
+                    "message",
+                    "error",
+                    "validation"
+                  ]
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "This audio cannot be retried.",
+                  "validation": {
+                    "transcription_status": [
+                      "This audio cannot be retried."
+                    ]
+                  }
+                }
               }
             }
           }
