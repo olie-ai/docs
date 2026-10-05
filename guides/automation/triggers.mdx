@@ -1,7 +1,7 @@
 ---
 title: "Gatilhos"
 description: "Os oito eventos que podem iniciar uma automação e como configurar cada um"
-keywords: ["gatilho", "evento", "disparo", "etapa", "etiqueta", "formulário", "data", "ocioso", "execução", "conteúdo", "canal"]
+keywords: ["gatilho", "evento", "disparo", "etapa", "etiqueta", "formulário", "data", "ocioso", "execução", "conteúdo", "canal", "transcrição", "áudio"]
 ---
 
 O gatilho é o evento que aciona a automação. Toda automação tem **exatamente um** e ele é obrigatório: sem gatilho, o editor não deixa adicionar ações nem condições. Esta página descreve os oito gatilhos e as opções de cada um.
@@ -201,6 +201,25 @@ A combinação mais útil é **Linha externa** + **Quem está do outro lado**: a
 ### Mensagens seguidas
 
 Mensagens seguidas viram **um acionamento só**, em vez de uma execução por mensagem. Cada mensagem nova na mesma conversa reinicia a espera. O gatilho dispara depois de cerca de **20 segundos sem mensagem nova** e entrega a sequência inteira, até 20 mensagens, para a automação. Assim, um cliente que manda cinco linhas seguidas não recebe cinco vezes a mesma resposta automática.
+
+### Áudio em transcrição
+
+Quando a transcrição de áudio está ativa na conta, o gatilho espera o áudio sair de processando. A sequência em que o áudio entrou, e as mensagens seguintes da mesma conversa, só disparam depois que ele sai de processando. A plataforma encerra como falha um áudio que permanece processando por 10 minutos, e o gatilho segue. Veja [Limites da plataforma](/guides/fundamentals/limits#transcrição-de-áudio).
+
+O texto em `trigger.contents_text` depende do áudio. Enquanto `transcription_status` é `processing`, o gatilho ainda não disparou.
+
+| Situação | `transcription_status` | O que entra no texto |
+| --- | --- | --- |
+| Transcrição pronta | `completed` | O que foi falado |
+| Sem fala | `no_speech` | Não identificamos fala neste áudio. |
+| Falha | `failed` | Não foi possível transcrever este áudio. |
+| Acima de 10 minutos | `too_long` | Este áudio passa do limite de transcrição. |
+
+Cada item de `trigger.contents` traz `id`, `type`, `text`, `transcription_status`, `author` e `created_at`. No áudio, `text` desse item é o mesmo texto da tabela. O campo `text` do conteúdo continua vazio, e a frase dos casos sem transcrição não fica gravada no áudio.
+
+Se a transcrição termina antes da janela de mensagens seguidas, o gatilho ainda espera o restante desses cerca de 20 segundos, contados da publicação do conteúdo.
+
+Com a transcrição desligada, o áudio aciona como qualquer outro conteúdo e o texto dele chega vazio. Se a transcrição é desligada enquanto um áudio ainda está processando, a plataforma abandona a tentativa. O gatilho segue com o texto do áudio vazio.
 
 Conteúdo publicado pela própria automação segue outra regra:
 

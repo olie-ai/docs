@@ -150,8 +150,10 @@ Quando o contexto não tem o que você precisa, a função `query` busca. Ela re
 
 `project_details` também aceita `id` no lugar de `project_code`. As consultas só leem dados da sua conta.
 
+`project_medias` devolve o **conteúdo publicado no projeto**, ou seja, a aba **Conteúdo**. Em um áudio, o que foi falado fica em `transcription`, não em `text`. Veja [a consulta em detalhe](/guides/advanced/advanced-syntax#consultas-disponíveis).
+
 <Note>
-`project_medias` devolve o **conteúdo publicado no projeto**, ou seja, a aba **Conteúdo**. Ela não alcança o **Caderno**, que é outro recurso. Nenhuma consulta lê páginas do Caderno; veja [Caderno em automações e integrações](/guides/notebook/automation-and-api).
+Essa consulta não alcança o **Caderno**, que é outro recurso. Nenhuma consulta lê páginas do Caderno. Veja [Caderno em automações e integrações](/guides/notebook/automation-and-api).
 </Note>
 
 <Card title="A função query em detalhe" icon="magnifying-glass" href="/guides/advanced/advanced-syntax#funções-de-consulta">
