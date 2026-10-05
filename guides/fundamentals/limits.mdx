@@ -103,6 +103,16 @@ O tamanho e o formato aceitos nos envios de arquivo.
 | Extensões aceitas no anexo | Lista fechada — qualquer outra é recusada com `422` | [Anexos em formulários](/guides/forms/attachments) |
 | Planilha de importação | **50 MB**, e apenas `.xlsx` | — |
 
+## Transcrição de áudio
+
+Estes limites valem quando a transcrição de áudio está ativa na conta.
+
+| Limite | Valor | Onde |
+| --- | --- | --- |
+| Duração máxima de um áudio transcrito | **10 minutos** | [Conteúdo do projeto](/guides/content/overview#transcrição-de-áudio) |
+| Áudio que permanece processando | **10 minutos**, e depois a transcrição é encerrada como falha | [Gatilhos](/guides/automation/triggers#áudio-em-transcrição) |
+| Nova tentativa de um áudio processando | Só depois de **60 segundos** do início da tentativa | `POST /api/management/medias/{media}/transcription/retry` |
+
 ## Métricas e metas
 
 Os períodos de análise das métricas e os valores aceitos nas metas.

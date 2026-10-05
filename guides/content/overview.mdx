@@ -1,7 +1,7 @@
 ---
 title: "Conteúdo do projeto"
 description: "A linha do tempo de cada projeto: mensagens, arquivos, áudios, logs e os canais que separam o que é interno do que vai para fora"
-keywords: ["conteúdo", "canal", "canais", "linha do tempo", "logs", "histórico", "arquivos", "chat"]
+keywords: ["conteúdo", "canal", "canais", "linha do tempo", "logs", "histórico", "arquivos", "chat", "transcrição", "áudio"]
 ---
 
 Cada projeto tem uma aba **Conteúdo**: o registro cronológico de tudo o que foi dito, enviado e feito nele. É o lugar que substitui a troca de e-mail interno e concentra a comunicação de um assunto em um lugar só.
@@ -91,6 +91,16 @@ O botão **Arquivos** do cartão reúne tudo o que foi enviado **naquele projeto
 <Note>
 Os [anexos do funil e da etapa](/guides/funnels/attachments) **não aparecem aqui**. Eles são material de apoio do processo, não conteúdo do projeto — e ficam acessíveis a partir do funil e da etapa, respectivamente.
 </Note>
+
+## Transcrição de áudio
+
+Quando a transcrição de áudio está ativa na conta, um áudio novo ganha o texto do que foi falado. O áudio aparece na hora. O texto chega em seguida, e a busca do conteúdo encontra palavras ditas nele, além do que foi escrito.
+
+Áudios que já estavam no projeto, e o histórico recuperado ao abrir um canal, ficam sem transcrição.
+
+A plataforma transcreve áudios de até 10 minutos. Veja [Limites da plataforma](/guides/fundamentals/limits#transcrição-de-áudio).
+
+Se a transcrição falhar, ou se ela permanecer processando por mais de 60 segundos, peça de novo com `POST /api/management/medias/{media}/transcription/retry`. Áudio sem fala, áudio acima do limite e transcrição já concluída ficam de fora. O efeito nas automações está em [Áudio em transcrição](/guides/automation/triggers#áudio-em-transcrição).
 
 ## O que a automação alcança
 
