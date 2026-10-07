@@ -1294,6 +1294,10 @@
                   "clone_assignees": {
                     "type": "boolean",
                     "description": "Copia os responsáveis e seguidores."
+                  },
+                  "funnel_step_id": {
+                    "type": "integer",
+                    "description": "Etapa de funil em que o clone já entra vinculado. A plataforma vincula o projeto ao funil dessa etapa se ainda não estiver vinculado. Independente da opção `funnels`."
                   }
                 }
               },
@@ -1313,7 +1317,8 @@
                 "loose_checklists": true,
                 "loose_form_answers": true,
                 "clone_groups": true,
-                "clone_assignees": true
+                "clone_assignees": true,
+                "funnel_step_id": null
               }
             }
           }
@@ -15842,6 +15847,10 @@
                   "force_funnel_link": {
                     "type": "boolean",
                     "description": "Quando true, vincula o projeto ao funil caso ainda não esteja vinculado, em vez de recusar com `project_funnel_not_linked_with_project`."
+                  },
+                  "skip_if_already_linked": {
+                    "type": "boolean",
+                    "description": "Quando true, se o projeto já estiver na etapa de destino a operação conclui sem erro e sem alteração. Sem esse campo (ou com false), a plataforma recusa com `project_already_linked_to_that_step`."
                   }
                 },
                 "required": [
@@ -15851,7 +15860,8 @@
               "example": {
                 "project_id": null,
                 "unlink_others": true,
-                "force_funnel_link": false
+                "force_funnel_link": false,
+                "skip_if_already_linked": false
               }
             }
           }
