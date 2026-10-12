@@ -1,7 +1,7 @@
 ---
 title: "Assistentes de etapa"
 description: "Configure agentes de IA que rodam quando um projeto entra ou sai de uma etapa e gravam o resultado no projeto"
-keywords: ["assistente", "assistente de etapa", "IA", "agente de IA", "automação", "prompt", "créditos de IA"]
+keywords: ["assistente", "assistente de etapa", "IA", "agente de IA", "automação", "prompt", "créditos de IA", "conversa", "canal", "variáveis do gatilho"]
 ---
 
 Um assistente de etapa é um agente de IA amarrado a uma etapa do funil. Quando o projeto entra ou sai daquela etapa, o assistente roda sozinho, recebe o contexto do projeto e devolve um resultado que é gravado de volta no projeto.
@@ -70,6 +70,31 @@ Assistentes com gatilho automático podem ganhar também a opção **Habilitar e
 <Note>
 Apenas assistentes **ativos** são executados. Um assistente inativo continua salvo e editável, mas nunca dispara.
 </Note>
+
+## Usar no prompt a conversa que disparou a automação
+
+Um assistente pode responder ou classificar a mensagem de um cliente. Para isso, ele precisa ler a conversa em que a mensagem chegou. O prompt recebe esses dados quando a ação [Executar assistente de etapa](/guides/automation/actions-integrations#executar-assistente-de-etapa) roda em uma automação com o gatilho [Conteúdo enviado no projeto](/guides/automation/triggers#conteúdo-enviado-no-projeto).
+
+No campo **Prompt**, abra o menu de variáveis. Em **Gatilho**, estes itens trazem os dados da mensagem:
+
+| Item do menu | O que insere |
+| --- | --- |
+| **ID do canal que disparou** | `trigger.channel_id`, o canal em que a mensagem chegou |
+| **ID da mídia que disparou** | `trigger.media_id`, o conteúdo que disparou |
+| **ID da integração do canal** | `trigger.integration_id`, a integração ligada ao canal |
+| **Escopo do canal (interno/externo)** | `trigger.channel_scope`, o tipo de canal |
+| **Autor do conteúdo (cliente/usuário)** | `trigger.author`: `customer` para quem está do outro lado, `team` para a equipe |
+| **Texto do conteúdo que disparou** | `trigger.contents_text`, o texto das [mensagens seguidas](/guides/automation/triggers#mensagens-seguidas), uma por linha |
+| **Conversa do canal (mais antiga → mais recente)** | Um trecho pronto que lista até 30 mensagens do canal, cada uma com data, hora, **Entrada** ou **Saída** e o texto |
+
+Em **Consultas**, dois itens inserem a [consulta](/guides/automation/variables#buscando-dados-adicionais) `project_medias` já preenchida:
+
+| Item do menu | O que devolve |
+| --- | --- |
+| **Mensagens do canal do gatilho** | Até 30 mensagens do canal que disparou, da mais antiga para a mais recente |
+| **Timeline interna do projeto** | Até 30 conteúdos publicados no projeto fora de canais, da mais antiga para a mais recente |
+
+Nas demais execuções, os dados do canal ficam vazios. Isso vale para o assistente que roda ao entrar ou sair da etapa, para a execução manual e para a automação com outro gatilho. No menu, um ícone ao lado de **Gatilho** e de **Mensagens do canal do gatilho** lembra essa condição.
 
 ## O que fazer com o resultado
 

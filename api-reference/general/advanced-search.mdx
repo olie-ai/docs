@@ -187,7 +187,7 @@ Content-Type: application/json
 
 {
   "filters": [
-    { "field": "created_at", "operator": "greater_than_or_equals", "value": "2026-01-01T00:00:00Z" },
+    { "field": "created_at", "operator": "greater_than_or_equals", "value": "2026-01-01" },
     { "field": "budget", "operator": "greater_than", "value": 10000, "logical_operator": "or" }
   ]
 }
@@ -216,6 +216,34 @@ Content-Type: application/json
 ```
 </Tab>
 </Tabs>
+
+## Filtrar por data de criação
+
+O campo `created_at` filtra pela data de criação nas três buscas: projetos, clientes e contatos. Ele aceita os operadores `equals`, `not_equals`, `greater_than`, `greater_than_or_equals`, `less_than` e `less_than_or_equals`.
+
+Envie só a data, no formato `AAAA-MM-DD`, como `2026-09-30`. A API lê a data no fuso de Brasília (`America/Sao_Paulo`) e a trata como o **dia inteiro**:
+
+| Operador | Com `2026-09-30`, traz o que foi criado… |
+| --- | --- |
+| `equals` | em qualquer horário de 30/09 |
+| `not_equals` | em qualquer dia, menos 30/09 |
+| `greater_than_or_equals` | a partir de 30/09 às 00:00, incluindo a madrugada |
+| `greater_than` | a partir de 01/10 |
+| `less_than_or_equals` | até o fim de 30/09 |
+| `less_than` | até o fim de 29/09 |
+
+Para buscar um mês inteiro, combine `greater_than_or_equals` com o primeiro dia e `less_than_or_equals` com o último. Esta busca traz os projetos criados em setembro de 2026:
+
+```json
+{
+  "filters": [
+    { "field": "created_at", "operator": "greater_than_or_equals", "value": "2026-09-01" },
+    { "field": "created_at", "operator": "less_than_or_equals", "value": "2026-09-30", "logical_operator": "and" }
+  ]
+}
+```
+
+O valor também pode ser data e hora no formato ISO 8601, com ou sem fuso, como `2026-09-30T14:00:00-03:00`. A API converte para o fuso de Brasília. Se o resultado cair à meia-noite em ponto, vale a regra do dia inteiro. Em qualquer outro horário, a comparação é exata com aquele momento.
 
 ## Descobrindo campos disponíveis
 
@@ -297,7 +325,7 @@ Cada item de `params.filters` descreve um campo que você pode usar em `filters[
 | Campo | O que informa |
 | --- | --- |
 | `name` | O nome a usar em `filters[].field`. |
-| `input_type` | O tipo de valor esperado, como `text`, `number` ou `datetime-local`. |
+| `input_type` | O tipo de valor esperado, como `text`, `number`, `date` ou `datetime-local`. |
 | `operators` | Os operadores aceitos por esse campo. |
 | `options` | Os valores fixos aceitos, com rótulo e valor, quando o campo tem uma lista fechada. Envie o `value` da opção. |
 | `arguments` | Os argumentos que o campo aceita. `required: true` indica argumento obrigatório, e `hydrate` diz em qual endpoint buscar os valores possíveis. |
@@ -359,6 +387,23 @@ A API recusa o filtro quando o campo tem um argumento com `required: true` e o f
 ```
 
 Para resolver, envie em `arguments` os argumentos obrigatórios listados para o campo no endpoint de metadados.
+
+### Data inválida
+
+A API recusa um filtro de `created_at` quando o valor não é uma data válida, como `2026-02-30` ou `30/09/2026`. O detalhe fica na chave `filters` de `validation`:
+
+```json
+{
+  "response": false,
+  "message": "validation_errors",
+  "error": "O campo created_at não é uma data válida.",
+  "validation": {
+    "filters": ["O campo created_at não é uma data válida."]
+  }
+}
+```
+
+Para resolver, envie a data no formato `AAAA-MM-DD`, por exemplo `2026-09-30`.
 
 ## Páginas relacionadas
 

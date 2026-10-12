@@ -1,7 +1,7 @@
 ---
 title: "Ações: formulários e datas"
-description: "Adicionar formulários avulsos, salvar versões, atualizar contadores e alterar campos de data"
-keywords: ["ação", "formulário", "formulário avulso", "versão", "contador", "data", "previsão do funil"]
+description: "Adicionar formulários avulsos, preencher campos, salvar versões, atualizar contadores e alterar campos de data"
+keywords: ["ação", "formulário", "formulário avulso", "preencher formulário", "resposta", "versão", "contador", "data", "previsão do funil"]
 ---
 
 Esta página reúne as ações que mexem em formulários dinâmicos e em campos de data do projeto.
@@ -9,11 +9,12 @@ Esta página reúne as ações que mexem em formulários dinâmicos e em campos 
 | Ação | O que faz |
 | --- | --- |
 | [Adicionar formulário avulso](#adicionar-formulário-avulso) | Anexa um formulário ao projeto |
+| [Preencher formulário dinâmico](#preencher-formulário-dinâmico) | Grava respostas em campos de um formulário |
 | [Salvar versão do formulário](#salvar-versão-do-formulário) | Congela as respostas atuais no histórico |
 | [Atualizar contador](#atualizar-contador) | Incrementa ou decrementa um campo contador |
 | [Alterar campo de data](#alterar-campo-de-data) | Define uma data no projeto ou em um formulário |
 
-As ações **Salvar versão do formulário** e **Atualizar contador** procuram o formulário em **todos os lugares do projeto**. Esses lugares são o corpo do projeto, o funil, a etapa e os formulários avulsos. Se o mesmo formulário aparecer em mais de um lugar, todos são afetados. Já **Alterar campo de data** age só na localização que você configura.
+As ações **Salvar versão do formulário** e **Atualizar contador** procuram o formulário em **todos os lugares do projeto**. Esses lugares são o corpo do projeto, o funil, a etapa e os formulários avulsos. Se o mesmo formulário aparecer em mais de um lugar, todos são afetados. Já **Preencher formulário dinâmico** e **Alterar campo de data** agem só na localização que você configura.
 
 ## Adicionar formulário avulso
 
@@ -29,6 +30,56 @@ Com **Ignorar se já houver esse formulário** desligado, cada execução anexa 
 <Warning>
 Combinada com um gatilho de alto volume — formulário editado, projeto ocioso com repetição — esta ação sem a opção de ignorar enche o projeto de formulários repetidos rapidamente.
 </Warning>
+
+## Preencher formulário dinâmico
+
+Preenche ou sobrescreve campos de um formulário dinâmico. Use esta ação para gravar dados que a automação já conhece, como o responsável do projeto, um link ou um valor calculado, sem que ninguém precise abrir o formulário.
+
+A montagem tem três partes: onde está o formulário, quais campos atualizar e o valor de cada campo.
+
+### 1. Onde está o formulário
+
+Em **Onde está o formulário?**, escolha uma das opções.
+
+| Opção | O que você indica |
+| --- | --- |
+| Formulário do projeto | Nada: a ação usa o formulário do corpo do projeto |
+| Formulário de um funil | O funil (**Qual funil?**) |
+| Formulário de uma etapa | A etapa (**Qual etapa?**) |
+| Formulário avulso | O formulário avulso (**Qual formulário?**) |
+| Sintaxe avançada | O formulário (**Qual formulário?**) e uma expressão que localiza onde ele está |
+
+A opção **Sintaxe avançada** serve para formulários fora do próprio projeto. O editor traz modelos prontos para localizar o formulário no cliente ou no contato do projeto, no projeto pai e no projeto que disparou o gatilho.
+
+Se o projeto tiver o mesmo formulário avulso anexado mais de uma vez, a ação preenche o **primeiro**, por ordem de criação. A ação não procura o formulário em outras localizações: se ele não estiver onde você indicou, nada é gravado e o registro de execução mostra `expected_pivot_not_found`.
+
+### 2. Quais campos atualizar
+
+Em **Campos a atualizar**, selecione um ou mais campos do formulário. Cada campo vira um bloco com as próprias opções.
+
+| Opção | Obrigatória | O que faz |
+| --- | --- | --- |
+| Valor | Sim | A resposta gravada no campo, fixa ou em [sintaxe avançada](/guides/advanced/advanced-syntax) |
+| Sobrescrever se já houver resposta | Não | Ligada (padrão), substitui a resposta atual. Desligada, preserva um campo já respondido |
+| Como atualizar a lista | Não | Aparece só em campos de lista; veja abaixo |
+
+Campos do tipo contador não aparecem nesta ação: para eles, use [Atualizar contador](#atualizar-contador). Campos de anexo aceitam só valor fixo. O formato que cada tipo de campo espera está em [Formato das respostas](/guides/forms/answers-format).
+
+Na sintaxe avançada, a variável `current_answer` traz a resposta já gravada no campo. Se um campo for arquivado depois de configurado, a ação ignora esse campo e grava os outros.
+
+### 3. Campos de lista
+
+Campos de múltipla escolha dos tipos usuário, contato, cliente, projeto, link e anexo guardam uma lista. Neles, **Como atualizar a lista** define o que acontece com os itens que já estão lá.
+
+| Modo | O que faz |
+| --- | --- |
+| Substituir | Troca a lista inteira pelo valor informado |
+| Adicionar (sem duplicar) | Acrescenta os itens novos à lista atual; item repetido não entra de novo |
+| Remover itens | Tira da lista os itens informados; item que não está na lista é ignorado |
+
+A opção **Sobrescrever se já houver resposta** só vale no modo **Substituir**. Nos modos **Adicionar (sem duplicar)** e **Remover itens**, a ação altera a lista mesmo com a opção desligada.
+
+Em campos do tipo matriz, você escolhe o que fazer em cada célula: **Manter**, **Definir** ou **Limpar**. Só as células em **Definir** ou **Limpar** mudam.
 
 ## Salvar versão do formulário
 

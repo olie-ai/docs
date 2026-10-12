@@ -1,7 +1,7 @@
 ---
 title: "Gatilhos"
 description: "Os oito eventos que podem iniciar uma automação e como configurar cada um"
-keywords: ["gatilho", "evento", "disparo", "etapa", "etiqueta", "formulário", "data", "ocioso", "execução", "conteúdo", "canal", "transcrição", "áudio"]
+keywords: ["gatilho", "evento", "disparo", "etapa", "etiqueta", "formulário", "data", "ocioso", "execução", "conteúdo", "canal", "transcrição", "áudio", "tempo de espera", "mensagens seguidas"]
 ---
 
 O gatilho é o evento que aciona a automação. Toda automação tem **exatamente um** e ele é obrigatório: sem gatilho, o editor não deixa adicionar ações nem condições. Esta página descreve os oito gatilhos e as opções de cada um.
@@ -200,7 +200,16 @@ A combinação mais útil é **Linha externa** + **Quem está do outro lado**: a
 
 ### Mensagens seguidas
 
-Mensagens seguidas viram **um acionamento só**, em vez de uma execução por mensagem. Cada mensagem nova na mesma conversa reinicia a espera. O gatilho dispara depois de cerca de **20 segundos sem mensagem nova** e entrega a sequência inteira, até 20 mensagens, para a automação. Assim, um cliente que manda cinco linhas seguidas não recebe cinco vezes a mesma resposta automática.
+Mensagens seguidas viram **um acionamento só**, em vez de uma execução por mensagem. Cada mensagem nova na mesma conversa reinicia a espera. O gatilho dispara depois do **tempo de espera sem mensagem nova** e entrega a sequência inteira, até 20 mensagens, para a automação. Assim, um cliente que manda cinco linhas seguidas não recebe cinco vezes a mesma resposta automática.
+
+O tempo de espera é de **20 segundos** por padrão. Para mudar, abra **Ajustes da empresa** e, no cartão **Tempo de espera do gatilho de conteúdo adicionado**, informe um número inteiro entre 3 e 120 em **Tempo de espera (segundos)**. O valor vale para todas as automações da empresa com este gatilho.
+
+O mesmo número tem dois efeitos:
+
+- **Quanto a automação espera antes de rodar.** Valores altos deixam o contato mais tempo sem resposta.
+- **O intervalo máximo entre mensagens para contarem como a mesma fala.** Com 20 segundos, duas mensagens com 15 segundos de intervalo geram uma execução. Com 5 segundos, as mesmas mensagens geram duas execuções.
+
+Por isso, reduzir o tempo só para responder mais rápido pode fazer a automação rodar mais vezes.
 
 ### Áudio em transcrição
 
@@ -217,7 +226,7 @@ O texto em `trigger.contents_text` depende do áudio. Enquanto `transcription_st
 
 Cada item de `trigger.contents` traz `id`, `type`, `text`, `transcription_status`, `author` e `created_at`. No áudio, `text` desse item é o mesmo texto da tabela. O campo `text` do conteúdo continua vazio, e a frase dos casos sem transcrição não fica gravada no áudio.
 
-Se a transcrição termina antes da janela de mensagens seguidas, o gatilho ainda espera o restante desses cerca de 20 segundos, contados da publicação do conteúdo.
+Se a transcrição termina antes da janela de mensagens seguidas, o gatilho ainda espera o restante do tempo de espera, contado da publicação do conteúdo.
 
 Com a transcrição desligada, o áudio aciona como qualquer outro conteúdo e o texto dele chega vazio. Se a transcrição é desligada enquanto um áudio ainda está processando, a plataforma abandona a tentativa. O gatilho segue com o texto do áudio vazio.
 

@@ -58,6 +58,25 @@ O token de uma [aplicação](/api-reference/introduction/authentication) só lis
 **O tipo não muda depois de criada a integração.** Credenciais e configurações são específicas de cada conector, e trocar o tipo invalidaria o que já está gravado — uma atualização com um `type` diferente do atual é recusada. Para mudar de conector, crie uma nova integração.
 </Warning>
 
+### Acompanhar a integração
+
+Na lista e nos detalhes de cada integração, dois indicadores mostram coisas diferentes:
+
+| Indicador | Valores | O que mostra |
+| --- | --- | --- |
+| **Situação** | **Ativa** ou **Pausada** | A sua escolha. Pausada, a integração recusa as mensagens que chegam até você ativar de novo |
+| **Sessão com o provedor** | **Conectada**, **Desconectada**, **Conectando** ou **Desconhecido** | Se a sessão com o provedor está estabelecida. **Desconhecido** quer dizer que o provedor ainda não informou nada |
+
+Os dois indicadores são independentes: uma integração **Ativa** pode estar com a sessão **Desconectada**. Nos detalhes da integração, a sessão mostra também há quanto tempo está no estado atual.
+
+O **Registro de atividade**, nas ações da integração, mostra o que aconteceu nos últimos 30 dias: mensagens recebidas e enviadas, falhas e eventos de conexão. Os eventos ligados a um contato mostram o número dele. Em conversas de grupo, aparece o identificador do grupo no lugar do número. São eles:
+
+- **Mensagem recebida** e **Mensagem enviada**;
+- **O provedor recusou o envio** e **O provedor não entregou a mensagem**;
+- **Contato veio de um anúncio**;
+- **Mensagem repetida ignorada**;
+- **Envio não realizado**, quando falta o conector.
+
 ### Criação automática de projeto
 
 O campo **Criar o projeto nesta etapa** define o que acontece quando chega uma mensagem de alguém que ainda não tem projeto aberto. Ele fica na seção **Criação automática de projetos** da integração. Para abrir essa seção, clique em **⋮** > **Editar** na integração.

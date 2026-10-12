@@ -109,6 +109,19 @@ Quando uma verificação falha, a movimentação é recusada com uma das mensage
 As mensagens de restrição e de itens obrigatórios listam exatamente o que faltou — qual etapa, qual checklist, qual campo. Leia a lista antes de mexer na configuração do funil. Quase sempre o ajuste é no projeto, e não na regra.
 </Tip>
 
+## Vincular o projeto em outro funil
+
+Quando o trabalho continua em outro processo, você leva o mesmo projeto para outro funil, sem criar um projeto novo. Use **Vincular projeto em outro funil**, no menu do cartão no kanban ou nos detalhes do projeto, e escolha o funil e a etapa de destino. O vínculo passa pelas mesmas [verificações](#o-que-a-plataforma-verifica-a-cada-movimentação) de qualquer movimentação.
+
+Por padrão, o projeto continua no funil de onde a ação começou e passa a ocupar os dois. A janela tem duas opções de desvinculação:
+
+| Opção | O que faz |
+| --- | --- |
+| **Desvincular de outras etapas do funil selecionado** | Tira o projeto das outras etapas que ele já ocupa no funil de destino. Desmarcada, o projeto entra na etapa escolhida sem sair das outras |
+| **Desvincular do funil atual** | Depois que o vínculo ao novo funil dá certo, tira o projeto do funil em que a ação começou. Começa sempre desligada, e a plataforma pede confirmação antes de desvincular |
+
+A opção **Desvincular do funil atual** só aparece quando o funil de destino é diferente do atual e você tem a permissão de desvincular projetos. Ligar essa opção tem o mesmo efeito de [desvincular do funil](#desvincular): os dados preenchidos no contexto do funil atual são perdidos.
+
 ## Múltiplas etapas ao mesmo tempo
 
 Quando o funil tem **Múltiplas etapas** ativado, mover o projeto para uma nova etapa não o tira da anterior: ele passa a ocupar as duas. O histórico registra isso como início de etapa simultânea, e não como movimentação.

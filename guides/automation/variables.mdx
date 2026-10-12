@@ -84,6 +84,7 @@ Em automações disparadas por agendamento — projeto ocioso ou data atingida �
 | `trigger.form_id` e `trigger.edges_updated` | Formulário editado |
 | `trigger.event_type` | Execução de projeto |
 | `trigger.trigger_date` | Data de projeto atingida |
+| `trigger.channel_id`, `trigger.media_id`, `trigger.integration_id`, `trigger.channel_scope`, `trigger.author`, `trigger.contents_text` e `trigger.contents` | Conteúdo enviado no projeto |
 
 <Tip>
 Não tem certeza do que veio no evento? Publique `{{ trigger|json(true) }}` no conteúdo do projeto em uma automação de teste e veja tudo o que chegou.
@@ -110,7 +111,7 @@ Automações antigas podem usar `component_<id>_result`, com o resultado da últ
 </Accordion>
 
 <Accordion title="Campos de cadastro" icon="address-card">
-  Todos os campos de criação de cliente, contato e projeto, incluindo respostas de formulário.
+  Todos os campos de criação de cliente, contato e projeto, incluindo respostas de formulário, e os valores da ação [Preencher formulário dinâmico](/guides/automation/actions-forms-dates#preencher-formulário-dinâmico).
 </Accordion>
 
 <Accordion title="Cálculo de datas" icon="calendar">

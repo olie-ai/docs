@@ -25,6 +25,8 @@ POST https://api.olie.ai/api/management/search-activities
 
 A requisição é autenticada como qualquer outra da API: veja [Autenticação e segurança](/api-reference/introduction/authentication). A consulta traz só os registros da empresa autenticada.
 
+Se a requisição usar o token de um usuário, ele precisa da permissão **Visualizar o histórico de alterações dos registros.** Sem ela, a resposta é HTTP 403 com `message: permission_required`. Veja [Papéis e permissões](/guides/users/roles-permissions).
+
 ### Parâmetros
 
 Envie todos os parâmetros no corpo da requisição.
