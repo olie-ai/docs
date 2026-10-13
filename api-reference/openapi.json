@@ -235,19 +235,20 @@
                           },
                           "transcription_status": {
                             "type": "string",
-                            "description": "Situação da transcrição do áudio. Nulo quando ninguém tentou transcrever: texto, arquivo, áudio que já estava no projeto ou conta com a transcrição desligada. `processing` ainda está processando. `completed` gravou o texto em `transcription`. `no_speech`, `failed` e `too_long` terminam sem texto gravado.",
+                            "description": "Situação da transcrição do áudio. Nulo quando ninguém tentou transcrever: texto, arquivo, áudio que já estava no projeto ou conta com a transcrição desligada na configuração da empresa. `processing` ainda está processando. `completed` gravou o texto em `transcription`. `no_speech`, `failed`, `too_long` e `insufficient_credits` terminam sem texto gravado.",
                             "nullable": true,
                             "enum": [
                               "processing",
                               "completed",
                               "no_speech",
                               "failed",
-                              "too_long"
+                              "too_long",
+                              "insufficient_credits"
                             ]
                           },
                           "transcription": {
                             "type": "string",
-                            "description": "Texto do que foi falado no áudio. Preenchido só quando `transcription_status` é `completed`. Nos outros resultados fica nulo: as frases de áudio sem fala, falha ou acima do limite não são gravadas aqui.",
+                            "description": "Texto do que foi falado no áudio. Preenchido só quando `transcription_status` é `completed`. Nos outros resultados fica nulo: as frases de áudio sem fala, falha, acima do limite ou sem créditos não são gravadas aqui.",
                             "nullable": true
                           },
                           "log": {
@@ -563,19 +564,20 @@
                           },
                           "transcription_status": {
                             "type": "string",
-                            "description": "Situação da transcrição do áudio. Nulo quando ninguém tentou transcrever: texto, arquivo, áudio que já estava no projeto ou conta com a transcrição desligada. `processing` ainda está processando. `completed` gravou o texto em `transcription`. `no_speech`, `failed` e `too_long` terminam sem texto gravado.",
+                            "description": "Situação da transcrição do áudio. Nulo quando ninguém tentou transcrever: texto, arquivo, áudio que já estava no projeto ou conta com a transcrição desligada na configuração da empresa. `processing` ainda está processando. `completed` gravou o texto em `transcription`. `no_speech`, `failed`, `too_long` e `insufficient_credits` terminam sem texto gravado.",
                             "nullable": true,
                             "enum": [
                               "processing",
                               "completed",
                               "no_speech",
                               "failed",
-                              "too_long"
+                              "too_long",
+                              "insufficient_credits"
                             ]
                           },
                           "transcription": {
                             "type": "string",
-                            "description": "Texto do que foi falado no áudio. Preenchido só quando `transcription_status` é `completed`. Nos outros resultados fica nulo: as frases de áudio sem fala, falha ou acima do limite não são gravadas aqui.",
+                            "description": "Texto do que foi falado no áudio. Preenchido só quando `transcription_status` é `completed`. Nos outros resultados fica nulo: as frases de áudio sem fala, falha, acima do limite ou sem créditos não são gravadas aqui.",
                             "nullable": true
                           },
                           "log": {
@@ -993,7 +995,8 @@
                               "completed",
                               "no_speech",
                               "failed",
-                              "too_long"
+                              "too_long",
+                              "insufficient_credits"
                             ]
                           },
                           "transcription": {
@@ -5988,19 +5991,20 @@
                           },
                           "transcription_status": {
                             "type": "string",
-                            "description": "Situação da transcrição do áudio. Nulo quando ninguém tentou transcrever: texto, arquivo, áudio que já estava no projeto ou conta com a transcrição desligada. `processing` ainda está processando. `completed` gravou o texto em `transcription`. `no_speech`, `failed` e `too_long` terminam sem texto gravado.",
+                            "description": "Situação da transcrição do áudio. Nulo quando ninguém tentou transcrever: texto, arquivo, áudio que já estava no projeto ou conta com a transcrição desligada na configuração da empresa. `processing` ainda está processando. `completed` gravou o texto em `transcription`. `no_speech`, `failed`, `too_long` e `insufficient_credits` terminam sem texto gravado.",
                             "nullable": true,
                             "enum": [
                               "processing",
                               "completed",
                               "no_speech",
                               "failed",
-                              "too_long"
+                              "too_long",
+                              "insufficient_credits"
                             ]
                           },
                           "transcription": {
                             "type": "string",
-                            "description": "Texto do que foi falado no áudio. Preenchido só quando `transcription_status` é `completed`. Nos outros resultados fica nulo: as frases de áudio sem fala, falha ou acima do limite não são gravadas aqui.",
+                            "description": "Texto do que foi falado no áudio. Preenchido só quando `transcription_status` é `completed`. Nos outros resultados fica nulo: as frases de áudio sem fala, falha, acima do limite ou sem créditos não são gravadas aqui.",
                             "nullable": true
                           },
                           "transcription_started_at": {
@@ -6163,19 +6167,20 @@
                         },
                         "transcription_status": {
                           "type": "string",
-                          "description": "Situação da transcrição do áudio. Nulo quando ninguém tentou transcrever: texto, arquivo, áudio que já estava no projeto ou conta com a transcrição desligada. `processing` ainda está processando. `completed` gravou o texto em `transcription`. `no_speech`, `failed` e `too_long` terminam sem texto gravado.",
+                          "description": "Situação da transcrição do áudio. Nulo quando ninguém tentou transcrever: texto, arquivo, áudio que já estava no projeto ou conta com a transcrição desligada na configuração da empresa. `processing` ainda está processando. `completed` gravou o texto em `transcription`. `no_speech`, `failed`, `too_long` e `insufficient_credits` terminam sem texto gravado.",
                           "nullable": true,
                           "enum": [
                             "processing",
                             "completed",
                             "no_speech",
                             "failed",
-                            "too_long"
+                            "too_long",
+                            "insufficient_credits"
                           ]
                         },
                         "transcription": {
                           "type": "string",
-                          "description": "Texto do que foi falado no áudio. Preenchido só quando `transcription_status` é `completed`. Nos outros resultados fica nulo: as frases de áudio sem fala, falha ou acima do limite não são gravadas aqui.",
+                          "description": "Texto do que foi falado no áudio. Preenchido só quando `transcription_status` é `completed`. Nos outros resultados fica nulo: as frases de áudio sem fala, falha, acima do limite ou sem créditos não são gravadas aqui.",
                           "nullable": true
                         },
                         "transcription_started_at": {
@@ -6434,7 +6439,7 @@
           "Conteúdos e arquivos"
         ],
         "summary": "Tentar a transcrição de um áudio de novo",
-        "description": "Envia de novo para transcrição um áudio cuja transcrição falhou, ou que permanece em `processing` há mais de 60 segundos. A resposta segue o formato da listagem de conteúdos: traz `transcription_status` `processing` e `transcription` nulo, e não traz `transcription_started_at`.\n\nA transcrição de áudio precisa estar ativa na conta. Sem ela, a resposta é 403 com `message` `feature_disabled` e `feature` `audio_transcription`.\n\nSó entra áudio (`type` 3) com `transcription_status` `failed`, ou `processing` cuja tentativa começou há mais de 60 segundos. `completed`, `no_speech`, `too_long`, status nulo e qualquer conteúdo que não seja áudio respondem 422, com `validation.transcription_status` igual a `This audio cannot be retried.` Uma segunda chamada enquanto a nova tentativa ainda não completou 60 segundos também responde 422.\n\nO usuário precisa da permissão de conteúdo do projeto (`projects.media.{id}`). Um token de aplicação recebe 403 com `message` `access_denied_for_applications`. Áudio de outra conta responde 404 com `message` `media_model_not_found`.",
+        "description": "Envia de novo para transcrição um áudio cuja transcrição falhou, ficou sem créditos de IA (`insufficient_credits`), ou permanece em `processing` há mais de 60 segundos. A resposta segue o formato da listagem de conteúdos: traz `transcription_status` `processing` e `transcription` nulo, e não traz `transcription_started_at`.\n\nA configuração da empresa `audio_transcription_enabled` precisa estar ligada. Sem ela, a resposta é 403 com `message` `audio_transcription_disabled`.\n\nSó entra áudio (`type` 3) com `transcription_status` `failed` ou `insufficient_credits`, ou `processing` cuja tentativa começou há mais de 60 segundos. `completed`, `no_speech`, `too_long`, status nulo e qualquer conteúdo que não seja áudio respondem 422, com `validation.transcription_status` igual a `This audio cannot be retried.` Uma segunda chamada enquanto a nova tentativa ainda não completou 60 segundos também responde 422.\n\nO usuário precisa da permissão de conteúdo do projeto (`projects.media.{id}`). Um token de aplicação recebe 403 com `message` `access_denied_for_applications`. Áudio de outra conta responde 404 com `message` `media_model_not_found`.",
         "operationId": "tentarATranscricaoDeUmAudioDeNovo",
         "parameters": [
           {
@@ -6497,19 +6502,20 @@
                         },
                         "transcription_status": {
                           "type": "string",
-                          "description": "Situação da transcrição do áudio. Nulo quando ninguém tentou transcrever: texto, arquivo, áudio que já estava no projeto ou conta com a transcrição desligada. `processing` ainda está processando. `completed` gravou o texto em `transcription`. `no_speech`, `failed` e `too_long` terminam sem texto gravado.",
+                          "description": "Situação da transcrição do áudio. Nulo quando ninguém tentou transcrever: texto, arquivo, áudio que já estava no projeto ou conta com a transcrição desligada na configuração da empresa. `processing` ainda está processando. `completed` gravou o texto em `transcription`. `no_speech`, `failed`, `too_long` e `insufficient_credits` terminam sem texto gravado.",
                           "nullable": true,
                           "enum": [
                             "processing",
                             "completed",
                             "no_speech",
                             "failed",
-                            "too_long"
+                            "too_long",
+                            "insufficient_credits"
                           ]
                         },
                         "transcription": {
                           "type": "string",
-                          "description": "Texto do que foi falado no áudio. Preenchido só quando `transcription_status` é `completed`. Nos outros resultados fica nulo: as frases de áudio sem fala, falha ou acima do limite não são gravadas aqui.",
+                          "description": "Texto do que foi falado no áudio. Preenchido só quando `transcription_status` é `completed`. Nos outros resultados fica nulo: as frases de áudio sem fala, falha, acima do limite ou sem créditos não são gravadas aqui.",
                           "nullable": true
                         },
                         "log": {
@@ -6640,9 +6646,9 @@
                     },
                     "message": {
                       "type": "string",
-                      "description": "`feature_disabled` quando a transcrição está desligada na conta, `permission_required` sem a permissão de conteúdo do projeto, ou `access_denied_for_applications` em token de aplicação.",
+                      "description": "`audio_transcription_disabled` quando a transcrição está desligada na empresa, `permission_required` sem a permissão de conteúdo do projeto, ou `access_denied_for_applications` em token de aplicação.",
                       "enum": [
-                        "feature_disabled",
+                        "audio_transcription_disabled",
                         "permission_required",
                         "access_denied_for_applications"
                       ]
@@ -6650,13 +6656,6 @@
                     "error": {
                       "type": "string",
                       "description": "Descrição legível do erro."
-                    },
-                    "feature": {
-                      "type": "string",
-                      "description": "Nome da função desligada. Presente só quando `message` é `feature_disabled`.",
-                      "enum": [
-                        "audio_transcription"
-                      ]
                     },
                     "permission": {
                       "type": "string",
@@ -6670,13 +6669,12 @@
                   ]
                 },
                 "examples": {
-                  "feature_disabled": {
-                    "summary": "Transcrição desligada na conta",
+                  "audio_transcription_disabled": {
+                    "summary": "Transcrição desligada na empresa",
                     "value": {
                       "response": false,
-                      "message": "feature_disabled",
-                      "error": "The [audio_transcription] feature is not enabled for this frame.",
-                      "feature": "audio_transcription"
+                      "message": "audio_transcription_disabled",
+                      "error": "Audio transcription is disabled for this company."
                     }
                   },
                   "permission_required": {
@@ -55343,6 +55341,109 @@
           "example": "{{project_id}}"
         }
       ]
+    },
+    "/api/management/frame-configurations": {
+      "get": {
+        "tags": [
+          "frames",
+          "Configurações da empresa"
+        ],
+        "summary": "Listar configurações da empresa",
+        "description": "Devolve as configurações da empresa autenticada, com os valores guardados ou o padrão de cada chave. Inclui `audio_transcription_enabled` (boolean, padrão `true`): quando ligada, áudios novos no card são transcritos e consomem créditos de IA. Veja o guia [Transcrição de áudio](https://docs.olie.ai/guides/content/overview#transcrição-de-áudio).",
+        "operationId": "listarConfiguracoesDaEmpresa",
+        "responses": {
+          "200": {
+            "description": "Configurações da empresa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "configurations": {
+                      "type": "object",
+                      "properties": {
+                        "audio_transcription_enabled": {
+                          "type": "boolean",
+                          "description": "Quando `true`, transcreve áudios novos no card e consome créditos de IA. Padrão `true`.",
+                          "default": true
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "required": [
+                    "response",
+                    "configurations"
+                  ]
+                },
+                "example": {
+                  "response": true,
+                  "configurations": {
+                    "audio_transcription_enabled": true,
+                    "remove_inactive_users_from_funnels": false,
+                    "content_added_debounce_seconds": 20
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "frames",
+          "Configurações da empresa"
+        ],
+        "summary": "Salvar configurações da empresa",
+        "description": "Atualiza uma ou mais configurações da empresa. Envie só as chaves que deseja mudar. Para a transcrição de áudio, use `audio_transcription_enabled` (`true` ou `false`). A alteração entra no histórico da empresa. Quem salva precisa da permissão de ver os Ajustes da empresa (`frame_settings.view`).",
+        "operationId": "salvarConfiguracoesDaEmpresa",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "audio_transcription_enabled": {
+                    "type": "boolean",
+                    "description": "Liga ou desliga a transcrição automática de áudios. Padrão `true` quando a chave ainda não foi gravada."
+                  }
+                },
+                "additionalProperties": true
+              },
+              "example": {
+                "audio_transcription_enabled": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Configurações salvas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "response"
+                  ]
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
