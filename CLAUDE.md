@@ -21,3 +21,14 @@ Essenciais:
 
 - `mint dev`: pré-visualização em `localhost:3000`
 - `mint broken-links --files <arquivo>`: checa os links de uma página
+
+## Branches, commits e PRs
+
+- Nunca adicione coautoria nem atribuição de IA (`Co-Authored-By`, "Generated with", links de sessão ou qualquer variante) em commits, PRs, descrições ou qualquer texto escrito.
+- Nunca invente nome de branch. Use o nome que está no card da Olie: ele aparece no conteúdo do card (e no formulário) depois que o card entra na etapa **Não iniciado**. Sem card ou sem nome de branch no card, pergunte antes de criar a branch.
+- Fluxo de um card da Olie (funil **Dev - Olie Principal**):
+  1. Se o card estiver em **Backlog**, mova para **Não iniciado**.
+  2. Pegue o nome da branch no card e faça o checkout dela.
+  3. Mova o card para **Em progresso** e desenvolva.
+  4. Entregue tudo completo: PRs em todos os repositórios envolvidos, atendendo a todas as necessidades do card, e atualize no card o que for preciso (links dos PRs no formulário, documentação etc.).
+  5. Quando todos os PRs estiverem prontos, mova o card para **QA/CR**.
