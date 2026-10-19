@@ -105,12 +105,12 @@ O tamanho e o formato aceitos nos envios de arquivo.
 
 ## Transcrição de áudio
 
-Estes limites valem quando a transcrição de áudio está ativa na conta.
+Estes limites valem quando **Transcrever áudios automaticamente** está ligada.
 
 | Limite | Valor | Onde |
 | --- | --- | --- |
 | Duração máxima de um áudio transcrito | **10 minutos** | [Conteúdo do projeto](/guides/content/overview#transcrição-de-áudio) |
-| Tamanho máximo quando a duração não pode ser lida | **25 MB** | [Conteúdo do projeto](/guides/content/overview#transcrição-de-áudio) |
+| Tamanho máximo quando a duração não dá para medir | **cerca de 25 MB** | [Conteúdo do projeto](/guides/content/overview#transcrição-de-áudio) |
 | Áudio que permanece processando | **10 minutos**, e depois a transcrição é encerrada como falha | [Gatilhos](/guides/automation/triggers#áudio-em-transcrição) |
 | Nova tentativa de um áudio processando | Só depois de **60 segundos** do início da tentativa | `POST /api/management/medias/{media}/transcription/retry` |
 
