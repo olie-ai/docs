@@ -213,7 +213,7 @@ Por isso, reduzir o tempo só para responder mais rápido pode fazer a automaç�
 
 ### Áudio em transcrição
 
-Quando a transcrição de áudio está ativa na conta, o gatilho espera o áudio sair de processando. A sequência em que o áudio entrou, e as mensagens seguintes da mesma conversa, só disparam depois que ele sai de processando. A plataforma encerra como falha um áudio que permanece processando por 10 minutos, e o gatilho segue. Veja [Limites da plataforma](/guides/fundamentals/limits#transcrição-de-áudio).
+Quando **Transcrever áudios automaticamente** está ligada, o gatilho espera o áudio sair de processando. A sequência em que o áudio entrou, e as mensagens seguintes da mesma conversa, só disparam depois que ele sai de processando. A plataforma encerra como falha um áudio que permanece processando por 10 minutos, e o gatilho segue. Veja [Limites da plataforma](/guides/fundamentals/limits#transcrição-de-áudio) e [Transcrição de áudio](/guides/content/overview#transcrição-de-áudio).
 
 O texto em `trigger.contents_text` depende do áudio. Enquanto `transcription_status` é `processing`, o gatilho ainda não disparou.
 
@@ -222,13 +222,14 @@ O texto em `trigger.contents_text` depende do áudio. Enquanto `transcription_st
 | Transcrição pronta | `completed` | O que foi falado |
 | Sem fala | `no_speech` | Não identificamos fala neste áudio. |
 | Falha | `failed` | Não foi possível transcrever este áudio. |
-| Acima de 10 minutos | `too_long` | Este áudio passa do limite de transcrição. |
+| Sem créditos de IA | `insufficient_credits` | Transcrição não realizada: sem créditos de IA |
+| Acima do limite | `too_long` | Este áudio passa do limite de transcrição. |
 
 Cada item de `trigger.contents` traz `id`, `type`, `text`, `transcription_status`, `author` e `created_at`. No áudio, `text` desse item é o mesmo texto da tabela. O campo `text` do conteúdo continua vazio, e a frase dos casos sem transcrição não fica gravada no áudio.
 
 Se a transcrição termina antes da janela de mensagens seguidas, o gatilho ainda espera o restante do tempo de espera, contado da publicação do conteúdo.
 
-Com a transcrição desligada, o áudio aciona como qualquer outro conteúdo e o texto dele chega vazio. Se a transcrição é desligada enquanto um áudio ainda está processando, a plataforma abandona a tentativa. O gatilho segue com o texto do áudio vazio.
+Com a opção desligada, o áudio aciona como qualquer outro conteúdo e o texto dele chega vazio. Se você desliga a opção enquanto um áudio ainda está processando, a tentativa em andamento termina e é cobrada; só os áudios novos deixam de ser transcritos.
 
 Conteúdo publicado pela própria automação segue outra regra:
 
