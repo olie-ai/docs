@@ -96,7 +96,7 @@ Os [anexos do funil e da etapa](/guides/funnels/attachments) **não aparecem aqu
 
 Quando a transcrição de áudio está ativa na conta, um áudio novo ganha o texto do que foi falado. O áudio aparece na hora. O texto chega em seguida, e a busca do conteúdo encontra palavras ditas nele, além do que foi escrito.
 
-A transcrição vem desligada e é liberada por empresa. Para ativar na sua conta, fale com o suporte.
+A transcrição fica ativa por padrão e pode ser desligada na configuração da empresa. Cada transcrição que chega ao provedor, inclusive um áudio sem fala, consome créditos de IA. Se a conta não tiver créditos suficientes, a plataforma encerra a tentativa sem enviar o áudio ao provedor.
 
 O texto aparece abaixo do áudio, com o selo **Gerado por IA**. Enquanto a plataforma processa o áudio, o lugar do texto mostra **Transcrevendo…**. Quando não há texto, aparece uma destas mensagens:
 
@@ -105,12 +105,13 @@ O texto aparece abaixo do áudio, com o selo **Gerado por IA**. Enquanto a plata
 | **Não identificamos fala neste áudio.** | O áudio não tem fala |
 | **Não foi possível transcrever este áudio.** | A transcrição falhou. Clique em **Tentar novamente** para pedir outra |
 | **Este áudio passa do limite de transcrição.** | O áudio tem mais de 10 minutos |
+| **Transcrição não realizada: sem créditos de IA** | A conta não tinha créditos suficientes. Recarregue os créditos e clique em **Tentar novamente** |
 
 Áudios que já estavam no projeto, e o histórico recuperado ao abrir um canal, ficam sem transcrição.
 
 A plataforma transcreve áudios de até 10 minutos. Veja [Limites da plataforma](/guides/fundamentals/limits#transcrição-de-áudio).
 
-Pela API, se a transcrição falhar ou permanecer processando por mais de 60 segundos, peça de novo com `POST /api/management/medias/{media}/transcription/retry`. Áudio sem fala, áudio acima do limite e transcrição já concluída ficam de fora. O efeito nas automações está em [Áudio em transcrição](/guides/automation/triggers#áudio-em-transcrição).
+Pela API, se a transcrição falhar, ficar sem créditos ou permanecer processando por mais de 60 segundos, peça de novo com `POST /api/management/medias/{media}/transcription/retry`. Áudio sem fala, áudio acima do limite e transcrição já concluída ficam de fora. O efeito nas automações está em [Áudio em transcrição](/guides/automation/triggers#áudio-em-transcrição).
 
 ## O que a automação alcança
 

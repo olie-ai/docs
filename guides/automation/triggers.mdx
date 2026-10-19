@@ -223,6 +223,7 @@ O texto em `trigger.contents_text` depende do áudio. Enquanto `transcription_st
 | Sem fala | `no_speech` | Não identificamos fala neste áudio. |
 | Falha | `failed` | Não foi possível transcrever este áudio. |
 | Acima de 10 minutos | `too_long` | Este áudio passa do limite de transcrição. |
+| Sem créditos | `insufficient_credits` | Transcrição não realizada: sem créditos de IA |
 
 Cada item de `trigger.contents` traz `id`, `type`, `text`, `transcription_status`, `author` e `created_at`. No áudio, `text` desse item é o mesmo texto da tabela. O campo `text` do conteúdo continua vazio, e a frase dos casos sem transcrição não fica gravada no áudio.
 
