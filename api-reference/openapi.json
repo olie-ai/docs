@@ -50056,9 +50056,13 @@
                             "description": "Término original, quando o horário foi ajustado depois.",
                             "format": "date-time"
                           },
+                          "duration": {
+                            "type": "integer",
+                            "description": "Duração em segundos. Em uma execução em andamento, a contagem vai até o momento da requisição."
+                          },
                           "project": {
                             "type": "object",
-                            "description": "Projeto da execução."
+                            "description": "Projeto da execução. `customer` traz `id` e `name`, ou `null` quando o projeto não tem cliente."
                           },
                           "user": {
                             "type": "object",
@@ -50099,12 +50103,14 @@
                       "finished_reason": "self_stop",
                       "started_at_real": null,
                       "finished_at_real": null,
+                      "duration": 3600,
                       "project": {
                         "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
                         "code": "SC-1",
                         "name": "Shopping Center",
                         "is_template": false,
-                        "deleted_at": null
+                        "deleted_at": null,
+                        "customer": null
                       },
                       "user": {
                         "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
@@ -50132,12 +50138,14 @@
                       "finished_reason": "step_moved",
                       "started_at_real": null,
                       "finished_at_real": null,
+                      "duration": 3600,
                       "project": {
                         "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
                         "code": "SC-1",
                         "name": "Shopping Center",
                         "is_template": false,
-                        "deleted_at": null
+                        "deleted_at": null,
+                        "customer": null
                       },
                       "user": {
                         "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
@@ -50317,9 +50325,13 @@
                           "description": "Término original, quando o horário foi ajustado depois.",
                           "format": "date-time"
                         },
+                        "duration": {
+                          "type": "integer",
+                          "description": "Duração em segundos. Em uma execução em andamento, a contagem vai até o momento da requisição."
+                        },
                         "project": {
                           "type": "object",
-                          "description": "Projeto da execução."
+                          "description": "Projeto da execução. `customer` traz `id` e `name`, ou `null` quando o projeto não tem cliente."
                         },
                         "user": {
                           "type": "object",
@@ -50353,12 +50365,14 @@
                     "finished_reason": null,
                     "started_at_real": null,
                     "finished_at_real": null,
+                    "duration": 3600,
                     "project": {
                       "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
                       "code": "SC-1",
                       "name": "Shopping Center",
                       "is_template": false,
-                      "deleted_at": null
+                      "deleted_at": null,
+                      "customer": null
                     },
                     "user": {
                       "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
@@ -50518,9 +50532,13 @@
                           "description": "Término original, quando o horário foi ajustado depois.",
                           "format": "date-time"
                         },
+                        "duration": {
+                          "type": "integer",
+                          "description": "Duração em segundos. Em uma execução em andamento, a contagem vai até o momento da requisição."
+                        },
                         "project": {
                           "type": "object",
-                          "description": "Projeto da execução."
+                          "description": "Projeto da execução. `customer` traz `id` e `name`, ou `null` quando o projeto não tem cliente."
                         },
                         "user": {
                           "type": "object",
@@ -50556,12 +50574,14 @@
                         "finished_reason": "self_stop",
                         "started_at_real": null,
                         "finished_at_real": null,
+                        "duration": 3600,
                         "project": {
                           "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
                           "code": "SC-1",
                           "name": "Shopping Center",
                           "is_template": false,
-                          "deleted_at": null
+                          "deleted_at": null,
+                          "customer": null
                         },
                         "user": {
                           "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
@@ -50594,12 +50614,14 @@
                         "finished_reason": "self_stop",
                         "started_at_real": null,
                         "finished_at_real": null,
+                        "duration": 3600,
                         "project": {
                           "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
                           "code": "SC-1",
                           "name": "Shopping Center",
                           "is_template": false,
-                          "deleted_at": null
+                          "deleted_at": null,
+                          "customer": null
                         },
                         "user": {
                           "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
@@ -50910,9 +50932,13 @@
                             "description": "Término original, quando o horário foi ajustado depois.",
                             "format": "date-time"
                           },
+                          "duration": {
+                            "type": "integer",
+                            "description": "Duração em segundos. Em uma execução em andamento, a contagem vai até o momento da requisição."
+                          },
                           "project": {
                             "type": "object",
-                            "description": "Projeto da execução."
+                            "description": "Projeto da execução. `customer` traz `id` e `name`, ou `null` quando o projeto não tem cliente."
                           },
                           "user": {
                             "type": "object",
@@ -50963,10 +50989,12 @@
                     "finished_reason": null,
                     "started_at_real": null,
                     "finished_at_real": null,
+                    "duration": 3600,
                     "project": {
                       "id": "019c2ffd-f4e9-709f-ae34-d4d149e3585d",
                       "code": "AD-1",
-                      "name": "awdawd"
+                      "name": "awdawd",
+                      "customer": null
                     },
                     "user": {
                       "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
@@ -50995,10 +51023,12 @@
                       "finished_reason": "self_stop",
                       "started_at_real": null,
                       "finished_at_real": "2026-03-13T19:20:03.000000Z",
+                      "duration": 3600,
                       "project": {
                         "id": "019c2ffd-f4e9-709f-ae34-d4d149e3585d",
                         "code": "AD-1",
-                        "name": "awdawd"
+                        "name": "awdawd",
+                        "customer": null
                       },
                       "user": {
                         "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
@@ -51026,10 +51056,12 @@
                       "finished_reason": "self_stop",
                       "started_at_real": null,
                       "finished_at_real": null,
+                      "duration": 3600,
                       "project": {
                         "id": "019c2ffd-f4e9-709f-ae34-d4d149e3585d",
                         "code": "AD-1",
-                        "name": "awdawd"
+                        "name": "awdawd",
+                        "customer": null
                       },
                       "user": {
                         "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
@@ -51442,6 +51474,188 @@
         }
       ]
     },
+    "/api/management/project-executions": {
+      "get": {
+        "summary": "Listar execuções da empresa",
+        "description": "Lista as execuções de projeto da empresa, em andamento ou encerradas. Exige a permissão de usar execuções de projeto. A resposta traz só projetos que a pessoa autenticada já pode ver. Projetos modelo e projetos excluídos ficam de fora. Sem a permissão de enxergar os timers das outras pessoas, a lista fica restrita às execuções dela. Pedir `filter[user_id]` de outra pessoa, nesse caso, responde 403.\n\nO período da visão de horas usa `filter[in_range]`, no formato `início,fim`. Envie o fim do dia no segundo valor: uma data sem horário não é estendida até 23:59:59. Se o fim for anterior ao início, ou se o par estiver incompleto, a resposta é 422.\n\n`POST /api/management/generate-user-timecard` e `POST /api/management/generate-report-tasks-by-day` não existem mais.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Página desejada. Padrão `1`.",
+            "schema": { "type": "integer", "default": 1 }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "required": false,
+            "description": "Itens por página. Padrão `30`, máximo `100`.",
+            "schema": { "type": "integer", "default": 30, "maximum": 100 }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "description": "Ordenação por `started_at` ou `finished_at`. O prefixo `-` inverte a ordem, como em `-finished_at`.",
+            "schema": { "type": "string" },
+            "example": "started_at"
+          },
+          {
+            "name": "filter[user_id]",
+            "in": "query",
+            "required": false,
+            "description": "ID (UUID) da pessoa. Ver as execuções de outra pessoa exige a permissão de enxergar os timers das outras pessoas.",
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "filter[project_id]",
+            "in": "query",
+            "required": false,
+            "description": "ID (UUID) do projeto.",
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "filter[funnel_step_id]",
+            "in": "query",
+            "required": false,
+            "description": "ID da etapa do funil.",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "filter[project_funnel_id]",
+            "in": "query",
+            "required": false,
+            "description": "ID do funil. Inclui execuções cuja etapa foi excluída.",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "filter[start_date_gt]",
+            "in": "query",
+            "required": false,
+            "description": "Inclui execuções com `started_at` nessa data ou depois. Não traz uma execução que começou antes e ainda está em andamento.",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "filter[end_date_lt]",
+            "in": "query",
+            "required": false,
+            "description": "Inclui execuções com `finished_at` nessa data ou antes.",
+            "schema": { "type": "string", "format": "date" }
+          },
+          {
+            "name": "filter[is_running]",
+            "in": "query",
+            "required": false,
+            "description": "`true` para execuções em andamento. `false` para as encerradas.",
+            "schema": { "type": "boolean" }
+          },
+          {
+            "name": "filter[in_range]",
+            "in": "query",
+            "required": false,
+            "description": "Par `início,fim` em data e hora. Entram execuções que cruzam o intervalo, inclusive as que começaram antes e ainda estão em andamento.",
+            "schema": { "type": "string" },
+            "example": "2026-04-01 00:00:00,2026-04-30 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Lista paginada de execuções da empresa.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre true quando a operação é concluída."
+                    },
+                    "meta": {
+                      "type": "object",
+                      "description": "Dados da paginação. Veja Paginação em docs.olie.ai/api-reference/general/pagination."
+                    },
+                    "project_executions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string", "format": "uuid" },
+                          "started_at": { "type": "string", "format": "date-time" },
+                          "finished_at": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "`null` enquanto a execução está em andamento."
+                          },
+                          "duration": {
+                            "type": "integer",
+                            "description": "Duração em segundos. Em uma execução em andamento, a contagem vai até o momento da requisição."
+                          },
+                          "project": {
+                            "type": "object",
+                            "properties": {
+                              "id": { "type": "string", "format": "uuid" },
+                              "name": { "type": "string" },
+                              "customer": {
+                                "type": "object",
+                                "nullable": true,
+                                "description": "`null` quando o projeto não tem cliente. Quando existe, traz `id` e `name`, inclusive se o cliente foi excluído.",
+                                "properties": {
+                                  "id": { "type": "string", "format": "uuid" },
+                                  "name": { "type": "string" }
+                                }
+                              }
+                            }
+                          },
+                          "funnel_step": {
+                            "type": "object",
+                            "description": "Etapa e funil. A etapa excluída continua na resposta."
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": ["response", "meta", "project_executions"]
+                },
+                "example": {
+                  "response": true,
+                  "meta": {
+                    "current_page": 1,
+                    "from": 1,
+                    "last_page": 1,
+                    "per_page": 30,
+                    "to": 1,
+                    "total": 1
+                  },
+                  "project_executions": [
+                    {
+                      "id": "a14afcbd-38b1-4b97-8950-02c09547611a",
+                      "started_at": "2026-04-01T13:05:00.000000Z",
+                      "finished_at": "2026-04-01T14:05:00.000000Z",
+                      "duration": 3600,
+                      "project": {
+                        "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                        "name": "Shopping Center",
+                        "customer": { "id": "019e0edb-1111-70c4-9d2d-3a2f175b5ddf", "name": "Cliente Horas" }
+                      },
+                      "funnel_step": { "id": 181, "name": "Execução" }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para listar execuções, ou `filter[user_id]` de outra pessoa sem permissão para ver os timers dela."
+          },
+          "422": {
+            "description": "`filter[in_range]` incompleto, inválido ou com o fim anterior ao início."
+          }
+        },
+        "tags": ["projects", "Execuções"]
+      }
+    },
     "/api/management/project-executions/{project_execution_id}": {
       "get": {
         "summary": "Obter uma execução",
@@ -51509,9 +51723,13 @@
                           "description": "Término original, quando o horário foi ajustado depois.",
                           "format": "date-time"
                         },
+                        "duration": {
+                          "type": "integer",
+                          "description": "Duração em segundos. Em uma execução em andamento, a contagem vai até o momento da requisição."
+                        },
                         "project": {
                           "type": "object",
-                          "description": "Projeto da execução."
+                          "description": "Projeto da execução. `customer` traz `id` e `name`, ou `null` quando o projeto não tem cliente."
                         },
                         "user": {
                           "type": "object",
@@ -51542,12 +51760,14 @@
                     "finished_reason": "self_stop",
                     "started_at_real": null,
                     "finished_at_real": null,
+                    "duration": 3600,
                     "project": {
                       "id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
                       "code": "SC-1",
                       "name": "Shopping Center",
                       "is_template": false,
-                      "deleted_at": null
+                      "deleted_at": null,
+                      "customer": null
                     },
                     "user": {
                       "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
