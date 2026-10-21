@@ -14947,7 +14947,7 @@
                               },
                               "info": {
                                 "type": "string",
-                                "description": "Orientação adicional."
+                                "description": "Orientação adicional. Opcional."
                               },
                               "required": {
                                 "type": "boolean",
@@ -14955,7 +14955,7 @@
                               },
                               "order": {
                                 "type": "integer",
-                                "description": "Posição do item na lista."
+                                "description": "Posição do item na lista. Opcional."
                               }
                             },
                             "required": [
@@ -15092,7 +15092,10 @@
                             ]
                           }
                         }
-                      }
+                      },
+                      "required": [
+                        "name"
+                      ]
                     }
                   },
                   "funnel_status": {
@@ -15137,7 +15140,10 @@
                             ]
                           }
                         }
-                      }
+                      },
+                      "required": [
+                        "name"
+                      ]
                     }
                   },
                   "access": {
@@ -15163,12 +15169,15 @@
                           "type": "boolean",
                           "description": "Concede ver os projetos que criou."
                         }
-                      }
+                      },
+                      "required": [
+                        "id"
+                      ]
                     }
                   },
                   "attachments": {
                     "type": "array",
-                    "description": "Anexos do funil.",
+                    "description": "Anexos do funil. Opcional.",
                     "items": {
                       "type": "object",
                       "properties": {
@@ -15840,11 +15849,11 @@
                   },
                   "unlink_others": {
                     "type": "boolean",
-                    "description": "Quando true, desvincula o projeto das demais etapas do mesmo funil — o comportamento de mover o cartão. Também dispara a checagem de requisitos da etapa de origem."
+                    "description": "Quando true, desvincula o projeto das demais etapas do mesmo funil — o comportamento de mover o cartão. Também dispara a checagem de requisitos da etapa de origem. Opcional; sem o campo, vale false."
                   },
                   "force_funnel_link": {
                     "type": "boolean",
-                    "description": "Quando true, vincula o projeto ao funil caso ainda não esteja vinculado, em vez de recusar com `project_funnel_not_linked_with_project`."
+                    "description": "Quando true, vincula o projeto ao funil caso ainda não esteja vinculado, em vez de recusar com `project_funnel_not_linked_with_project`. Opcional; sem o campo, vale false."
                   },
                   "skip_if_already_linked": {
                     "type": "boolean",
@@ -16059,11 +16068,11 @@
                   },
                   "unlink_others": {
                     "type": "boolean",
-                    "description": "Quando true, desvincula cada projeto das demais etapas do mesmo funil."
+                    "description": "Quando true, desvincula cada projeto das demais etapas do mesmo funil. Opcional; sem o campo, vale false."
                   },
                   "force_funnel_link": {
                     "type": "boolean",
-                    "description": "Quando true, vincula ao funil os projetos que ainda não estiverem vinculados."
+                    "description": "Quando true, vincula ao funil os projetos que ainda não estiverem vinculados. Opcional; sem o campo, vale false."
                   }
                 },
                 "required": [
@@ -20945,58 +20954,94 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "maxLength": 255,
-                    "description": "Nome do contato"
+                    "maxLength": 191,
+                    "description": "Nome do cliente"
                   },
-                  "role": {
+                  "company_name": {
                     "type": "string",
-                    "description": "Cargo do contato"
+                    "maxLength": 100,
+                    "description": "Razão social do cliente"
+                  },
+                  "document_type": {
+                    "type": "integer",
+                    "enum": [
+                      1,
+                      2
+                    ],
+                    "description": "1 = CPF, 2 = CNPJ"
+                  },
+                  "customer_type": {
+                    "type": "integer",
+                    "enum": [
+                      1,
+                      2
+                    ],
+                    "description": "1 = Matriz, 2 = Filial"
+                  },
+                  "document": {
+                    "type": "string",
+                    "maxLength": 40,
+                    "description": "Documento do cliente (CPF ou CNPJ, conforme document_type)"
+                  },
+                  "main_activity": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Atividade principal do cliente"
                   },
                   "email": {
                     "type": "string",
                     "maxLength": 254,
-                    "description": "E-mail do contato",
-                    "format": "email"
+                    "format": "email",
+                    "description": "E-mail do cliente"
                   },
                   "phone": {
                     "type": "string",
                     "maxLength": 30,
-                    "description": "Telefone do contato"
+                    "description": "Telefone do cliente"
+                  },
+                  "address": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Endereço do cliente"
                   },
                   "description": {
                     "type": "string",
                     "maxLength": 255,
-                    "description": "Descrição do contato"
+                    "description": "Descrição do cliente"
                   },
-                  "customers": {
+                  "status": {
+                    "type": "boolean",
+                    "description": "Indica se o cliente está ativo"
+                  },
+                  "parent_id": {
+                    "type": "string",
+                    "nullable": true,
+                    "format": "uuid",
+                    "description": "ID do cliente matriz. Obrigatório quando customer_type = 2 e proibido quando customer_type = 1"
+                  },
+                  "contacts": {
                     "type": "object",
-                    "description": "Clientes vinculados ao contato. Envie to_add (clientes a adicionar) e to_rem (clientes a remover).",
+                    "description": "Contatos vinculados ao cliente. Envie to_add (contatos a vincular) e to_rem (contatos a desvincular).",
                     "properties": {
                       "to_add": {
                         "type": "array",
-                        "description": "IDs dos clientes a adicionar",
+                        "description": "IDs dos contatos a vincular",
                         "items": {
-                          "type": "string",
-                          "format": "uuid"
+                          "type": "integer"
                         }
                       },
                       "to_rem": {
                         "type": "array",
-                        "description": "IDs dos clientes a remover",
+                        "description": "IDs dos contatos a desvincular",
                         "items": {
-                          "type": "string",
-                          "format": "uuid"
+                          "type": "integer"
                         }
                       }
-                    },
-                    "required": [
-                      "to_add",
-                      "to_rem"
-                    ]
+                    }
                   },
                   "tags": {
                     "type": "object",
-                    "description": "Etiquetas do contato. Envie to_add (etiquetas a adicionar) e to_rem (etiquetas a remover).",
+                    "description": "Etiquetas do cliente. Envie to_add (etiquetas a adicionar) e to_rem (etiquetas a remover).",
                     "properties": {
                       "to_add": {
                         "type": "array",
@@ -21083,7 +21128,9 @@
                   }
                 },
                 "required": [
-                  "name"
+                  "name",
+                  "document_type",
+                  "customer_type"
                 ]
               },
               "example": {
@@ -22226,16 +22273,17 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "maxLength": 255,
+                    "maxLength": 191,
                     "description": "Nome do contato"
                   },
                   "role": {
                     "type": "string",
+                    "maxLength": 191,
                     "description": "Cargo/função do contato"
                   },
                   "email": {
                     "type": "string",
-                    "maxLength": 254,
+                    "maxLength": 191,
                     "description": "E-mail do contato",
                     "format": "email"
                   },
