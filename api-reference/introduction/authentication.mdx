@@ -27,7 +27,7 @@ O token é gerado quando você cria uma aplicação nos ajustes da empresa.
 
 <Steps>
   <Step title="Abra Aplicações">
-    Entre na sua empresa em https://olie.ai/frames e vá em **Ajustes** > **Integrações** > **Aplicações**.
+    Entre na sua empresa em https://olie.ai/frames e vá em **Ajustes** > **Integrações** > **API**, na aba **Aplicações**.
 
     <Frame caption="Aplicações fica no grupo Integrações do menu de Ajustes">
       <img src="/images/api-reference/ajustes-integracoes-aplicacoes.png" alt="Menu lateral de Ajustes com os itens Papéis e Ajustes da empresa e, abaixo, o grupo Integrações com Aplicações contornado, seguido de Webhooks, MCP e Integrações" />
@@ -77,7 +77,7 @@ Como não há rotação, você troca o token substituindo a aplicação:
     Faça a virada no seu lado e confirme que as chamadas continuam funcionando.
   </Step>
   <Step title="Exclua a aplicação antiga">
-    Exclua a aplicação em **Ajustes** > **Integrações** > **Aplicações**, com um usuário que tenha a permissão `applications.create`. A exclusão revoga apenas o token daquela aplicação. As demais aplicações da empresa seguem funcionando normalmente.
+    Exclua a aplicação em **Ajustes** > **Integrações** > **API**, na aba **Aplicações**, com um usuário que tenha a permissão `applications.create`. A exclusão revoga apenas o token daquela aplicação. As demais aplicações da empresa seguem funcionando normalmente.
 
     O endpoint `DELETE /api/management/applications/{id}` é reservado a pessoas. Uma chamada feita com token de aplicação recebe HTTP 403 com `message: "access_denied_for_applications"`.
   </Step>
