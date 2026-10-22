@@ -13434,7 +13434,7 @@
           "Ciclo de vida"
         ],
         "summary": "Restaurar um funil",
-        "description": "Traz de volta um funil arquivado, com a configuração que ele tinha. O funil volta a aparecer nas listagens e a aceitar projetos. Ver [Criar e configurar um funil](https://docs.olie.ai/guides/funnels/creating-funnels).",
+        "description": "Traz de volta um funil arquivado, com a configuração que ele tinha. O funil volta a aparecer nas listagens e a aceitar projetos. Se o funil estava ativo e a conta já está no limite de funis ativos, a restauração é recusada com status 402. Ver [Criar e configurar um funil](https://docs.olie.ai/guides/funnels/creating-funnels).",
         "operationId": "restaurarFunil",
         "responses": {
           "200": {
