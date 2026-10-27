@@ -1,7 +1,7 @@
 ---
 title: "Papéis e permissões"
 description: "Como papéis e permissões definem o que cada usuário pode ver e fazer na sua empresa da Olie"
-keywords: ["papéis", "papel", "permissões", "role", "cargo", "controle de acesso", "Property", "múltiplos papéis"]
+keywords: ["papéis", "papel", "permissões", "role", "cargo", "controle de acesso", "Property", "múltiplos papéis", "Studio", "apps"]
 ---
 
 Esta página explica como os papéis e as permissões definem o que cada usuário pode ver e fazer na sua empresa da Olie. Ela mostra também como montar papéis para a sua equipe. Para convidar pessoas, veja [Gerenciamento de usuários](/guides/users/user-management).
@@ -56,6 +56,7 @@ A Olie fornece uma lista fixa de permissões, que cobre as operações da plataf
   - Gerenciar papéis e permissões: permite criar papéis e escolher as permissões de cada um.
   - Criar automações: permite criar novas automações.
   - Exportar projetos: permite exportar a lista de projetos em planilha.
+  - Usar o Studio: permite conversar com o agente e criar apps.
 </Accordion>
 
 <Accordion title="Categorias de permissões" icon="layer-group">
@@ -68,6 +69,7 @@ A Olie fornece uma lista fixa de permissões, que cobre as operações da plataf
   - **Canais**: Visualizar, criar, editar e arquivar os canais de conversa dos projetos
   - **Integrações**: Visualizar, criar, editar e remover integrações, como o WhatsApp
   - **Histórico de alterações**: Visualizar o histórico de alterações dos registros
+  - **Studio**: Usar o Studio para conversar com o agente e criar apps
 </Accordion>
 </AccordionGroup>
 
@@ -143,6 +145,28 @@ Um usuário pode ter múltiplos papéis atribuídos, acumulando as permissões d
   **Resultado:** Maria tem todas as 6 permissões combinadas.
 </Tab>
 </Tabs>
+
+## Acesso ao Studio
+
+O **Studio** é o espaço em que você conversa com o agente e cria apps. Quem entra no Studio e quem abre cada app são acessos diferentes.
+
+O proprietário da empresa sempre usa o Studio, mesmo fora da lista. Nas outras pessoas, o item **Studio** só aparece no menu com a permissão **Usar o Studio (conversar com o agente e criar apps)**, do grupo **Studio**.
+
+Se o item **Studio** aparecer no menu, abra **Ajustes** > **Geral**. Em **Studio**, selecione papéis no campo **Papéis com acesso** e pessoas no campo **Usuários com acesso**. O campo de pessoas libera o Studio para quem você escolher, mesmo que o papel dela não tenha **Usar o Studio**. Se você tiver a permissão **Editar, criar papéis e permissões e atribuir usuários**, clique em **Salvar**.
+
+Você também marca **Usar o Studio (conversar com o agente e criar apps)** em **Ajustes** > **Papéis**.
+
+Os apps criados no Studio têm o próprio compartilhamento. Essa lista não aparece em **Papéis**. Em **Apps**, quem criou o app clica em **Compartilhar** e escolhe quem pode abrir:
+
+| Opção | O que faz |
+| --- | --- |
+| **Só eu** | Ninguém mais vê o app. |
+| **Toda a equipe** | Todos da empresa podem abrir o app. |
+| **Usuários e papéis específicos** | Só as pessoas e os papéis que você escolher, além do proprietário da empresa. |
+
+Sem app publicado, a opção **Usuários e papéis específicos** fica indisponível e a tela mostra **Publique o app para escolher pessoas específicas.**
+
+Quem recebe acesso abre o app mesmo sem acesso ao Studio.
 
 ## Tipos de papéis
 
