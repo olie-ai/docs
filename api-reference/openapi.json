@@ -50673,6 +50673,257 @@
         }
       }
     },
+    "/api/management/channels/open": {
+      "post": {
+        "summary": "Abrir conversa externa",
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "channel": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "audience": {
+                          "type": "string"
+                        },
+                        "integration_id": {
+                          "type": "string"
+                        },
+                        "external_ref": {
+                          "type": "string"
+                        },
+                        "is_active": {
+                          "type": "boolean"
+                        },
+                        "project_id": {
+                          "type": "string"
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "channel": {
+                    "id": "9b2a1c3e-4d5f-6789-abcd-ef0123456789",
+                    "name": "WhatsApp",
+                    "audience": "client",
+                    "integration_id": "6b9e0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d",
+                    "external_ref": "5511999990000@s.whatsapp.net",
+                    "is_active": true,
+                    "project_id": "8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
+                    "frame_id": "7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f",
+                    "created_at": "2026-06-18T12:00:00.000000Z",
+                    "updated_at": "2026-06-18T12:00:00.000000Z"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "project_model_not_found",
+                  "error": "No query results for model [Project]."
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "O destinatário já tem uma conversa ativa em outro projeto. Envie `force_reopen: true` para encerrar essa conversa e abrir uma nova neste projeto.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "conflicting_channel_id": {
+                      "type": "string",
+                      "description": "ID do canal ativo em outro projeto."
+                    },
+                    "conflicting_project_id": {
+                      "type": "string",
+                      "description": "ID do projeto em que a conversa está ativa."
+                    },
+                    "conflicting_project_name": {
+                      "type": "string",
+                      "description": "Nome do projeto em que a conversa está ativa."
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "active_channel_elsewhere",
+                  "error": "The counterpart already has an active conversation in another project.",
+                  "conflicting_channel_id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+                  "conflicting_project_id": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e",
+                  "conflicting_project_name": "Atendimento Maria"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "project_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "integration_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "external_ref": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The given data was invalid.",
+                  "validation": {
+                    "project_id": [
+                      "O campo project id é obrigatório."
+                    ],
+                    "integration_id": [
+                      "O campo integration id é obrigatório."
+                    ],
+                    "external_ref": [
+                      "O campo external ref é obrigatório."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "channels"
+        ],
+        "description": "Abre uma conversa externa em um projeto, pela integração de comunicação informada. A resposta é HTTP 201 com o canal, inclusive quando a conversa ativa deste projeto é reaproveitada.\n\nSe o destinatário já tem uma conversa ativa neste projeto, a chamada devolve esse canal. Se a conversa ativa estiver em outro projeto, a chamada responde HTTP 409 com `message: \"active_channel_elsewhere\"`.\n\nPara mover a conversa para este projeto, envie `force_reopen: true`. Informe `close_reason` para gravar o motivo do encerramento na conversa encerrada.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "project_id",
+                  "integration_id",
+                  "external_ref"
+                ],
+                "properties": {
+                  "project_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Projeto em que a conversa abre."
+                  },
+                  "integration_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Integração de comunicação pela qual a conversa acontece."
+                  },
+                  "external_ref": {
+                    "type": "string",
+                    "description": "Identificador do contato no conector, enviado exatamente como informado.",
+                    "maxLength": 255
+                  },
+                  "force_reopen": {
+                    "type": "boolean",
+                    "description": "Encerra a conversa ativa com o destinatário nessa integração, em qualquer projeto, e abre uma nova neste."
+                  },
+                  "close_reason": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "Nota registrada na conversa encerrada. No máximo 500 caracteres.",
+                    "maxLength": 500
+                  }
+                }
+              },
+              "example": {
+                "project_id": "8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
+                "integration_id": "6b9e0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d",
+                "external_ref": "5511999990000@s.whatsapp.net"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/management/channels/{channel}": {
       "put": {
         "summary": "Atualizar canal",
