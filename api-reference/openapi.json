@@ -50552,11 +50552,13 @@
                         "audience": {
                           "type": "string"
                         },
-                        "connector_type": {
-                          "type": "string"
+                        "integration_id": {
+                          "type": "string",
+                          "nullable": true
                         },
                         "external_ref": {
-                          "type": "string"
+                          "type": "string",
+                          "nullable": true
                         },
                         "is_active": {
                           "type": "boolean"
@@ -50585,8 +50587,8 @@
                     "id": "9b2a1c3e-4d5f-6789-abcd-ef0123456789",
                     "name": "WhatsApp João",
                     "audience": "client",
-                    "connector_type": "fake",
-                    "external_ref": "wpp-5511999999999",
+                    "integration_id": "6b9e0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d",
+                    "external_ref": "5511999990000@s.whatsapp.net",
                     "is_active": true,
                     "project_id": "8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
                     "frame_id": "7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f",
@@ -50598,7 +50600,7 @@
             }
           },
           "422": {
-            "description": "Erro de validação",
+            "description": "Erro de validação. Se o destinatário já tem uma conversa ativa em outro projeto e **Permitir múltiplas conversas ativas com o mesmo contato** está desligado, a resposta traz `conflicting_channel_id`, `conflicting_project_id` e `conflicting_project_name`.",
             "content": {
               "application/json": {
                 "schema": {
@@ -50627,8 +50629,26 @@
                           "items": {
                             "type": "string"
                           }
+                        },
+                        "external_ref": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
                         }
                       }
+                    },
+                    "conflicting_channel_id": {
+                      "type": "string",
+                      "description": "ID do canal ativo em outro projeto."
+                    },
+                    "conflicting_project_id": {
+                      "type": "string",
+                      "description": "ID do projeto em que a conversa está ativa."
+                    },
+                    "conflicting_project_name": {
+                      "type": "string",
+                      "description": "Nome do projeto em que a conversa está ativa."
                     }
                   }
                 },
@@ -50652,21 +50672,67 @@
         "tags": [
           "channels"
         ],
-        "description": "Cria um novo canal em um projeto. O canal nasce restrito à equipe (audiência interna) por padrão; defina `audience` como `client` para um canal visível ao cliente. Um `connector_type` opcional liga o canal a um conector externo.",
+        "description": "Cria um novo canal em um projeto. O canal nasce restrito à equipe (audiência interna) por padrão; defina `audience` como `client` para um canal visível ao cliente. Informe `integration_id` e `external_ref` para ligar o canal a uma integração de comunicação.\n\nSe o destinatário já tem uma conversa ativa em outro projeto, o resultado depende de **Permitir múltiplas conversas ativas com o mesmo contato**. Com a opção ligada na empresa ou na integração, a chamada cria outro canal ativo neste projeto. Com a opção desligada, a chamada responde HTTP 422 com `message: \"validation_errors\"`. Para encerrar essa conversa e ativar este canal, envie `force_takeover: true`.",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": [
+                  "project_id",
+                  "name"
+                ],
                 "properties": {
+                  "project_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Projeto em que o canal é criado."
+                  },
                   "name": {
                     "type": "string",
-                    "description": "Teste do schema para criar canal"
+                    "description": "Nome do canal. No máximo 255 caracteres.",
+                    "maxLength": 255
+                  },
+                  "audience": {
+                    "type": "string",
+                    "enum": [
+                      "internal",
+                      "client"
+                    ],
+                    "description": "Quem vê o canal. `internal` restringe à equipe; `client` deixa visível ao cliente. O padrão é `internal`."
+                  },
+                  "integration_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "nullable": true,
+                    "description": "Integração de comunicação à qual o canal se liga."
+                  },
+                  "external_ref": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "Identificador do contato no conector, enviado exatamente como informado.",
+                    "maxLength": 255
+                  },
+                  "is_active": {
+                    "type": "boolean",
+                    "description": "Se o canal nasce ativo. O padrão é `true`."
+                  },
+                  "force_takeover": {
+                    "type": "boolean",
+                    "description": "Encerra a conversa ativa com o mesmo destinatário e ativa este canal. Se várias conversas ativas com o mesmo contato forem permitidas, só encerra outra conversa ativa neste projeto."
+                  },
+                  "close_reason": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "Nota registrada na conversa encerrada. No máximo 500 caracteres.",
+                    "maxLength": 500
                   }
                 }
               },
               "example": {
-                "name": "teste-nome-canal"
+                "project_id": "8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
+                "name": "WhatsApp João",
+                "audience": "client"
               }
             }
           }
@@ -50771,7 +50837,7 @@
             }
           },
           "409": {
-            "description": "O destinatário já tem uma conversa ativa em outro projeto. Envie `force_reopen: true` para encerrar essa conversa e abrir uma nova neste projeto.",
+            "description": "O destinatário já tem uma conversa ativa em outro projeto, e a empresa ou a integração não permite várias conversas ativas com o mesmo contato. Envie `force_reopen: true` para encerrar essa conversa e abrir uma nova neste projeto.",
             "content": {
               "application/json": {
                 "schema": {
@@ -50875,7 +50941,7 @@
         "tags": [
           "channels"
         ],
-        "description": "Abre uma conversa externa em um projeto, pela integração de comunicação informada. A resposta é HTTP 201 com o canal, inclusive quando a conversa ativa deste projeto é reaproveitada.\n\nSe o destinatário já tem uma conversa ativa neste projeto, a chamada devolve esse canal. Se a conversa ativa estiver em outro projeto, a chamada responde HTTP 409 com `message: \"active_channel_elsewhere\"`.\n\nPara mover a conversa para este projeto, envie `force_reopen: true`. Informe `close_reason` para gravar o motivo do encerramento na conversa encerrada.",
+        "description": "Abre uma conversa externa em um projeto, pela integração de comunicação informada. A resposta é HTTP 201 com o canal, inclusive quando a conversa ativa deste projeto é reaproveitada.\n\nSe o destinatário já tem uma conversa ativa neste projeto, a chamada devolve esse canal. Se a conversa ativa estiver em outro projeto, o resultado depende de **Permitir múltiplas conversas ativas com o mesmo contato**. Com a opção ligada na empresa ou na integração, a chamada abre outra conversa neste projeto. Com a opção desligada, a chamada responde HTTP 409 com `message: \"active_channel_elsewhere\"`.\n\nPara encerrar as conversas ativas do destinatário e abrir uma nova neste projeto, envie `force_reopen: true`. Informe `close_reason` para gravar o motivo do encerramento na conversa encerrada.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -50904,7 +50970,7 @@
                   },
                   "force_reopen": {
                     "type": "boolean",
-                    "description": "Encerra a conversa ativa com o destinatário nessa integração, em qualquer projeto, e abre uma nova neste."
+                    "description": "Encerra todas as conversas ativas com o destinatário nessa integração, em qualquer projeto, e abre uma nova neste."
                   },
                   "close_reason": {
                     "type": "string",
