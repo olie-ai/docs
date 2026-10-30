@@ -144,6 +144,18 @@ O registro guarda o resultado, o momento da execução e o desfecho de cada dest
 A execução é assíncrona. O projeto se move na hora e o assistente roda em seguida, em segundo plano. Resultados aparecem alguns instantes depois da movimentação.
 </Note>
 
+## Pela API
+
+Os assistentes de uma etapa ficam em `/api/management/steps/{step}/assistants`. O campo `execute_on` aceita `moved` (ao entrar na etapa), `unlinked` (ao sair da etapa) e `manual`.
+
+A edição, em `PUT /api/management/steps/{step}/assistants/{assistant}`, exige os mesmos campos obrigatórios da criação: `name`, `funnel_step_id`, `ai_agent_id`, `prompt`, `execute_on` e o destino (`result_as_media` ou `result_as_dynamic_form`). Para mudar um campo só, leia o assistente com `GET`, altere o campo e envie o corpo inteiro.
+
+Para parar um assistente, envie `active: false` nessa mesma edição. Novas execuções deixam de acontecer, e as que já estão na fila terminam normalmente.
+
+<Warning>
+**Salvar o funil inteiro apaga os assistentes que não vierem na requisição.** Em `POST /api/management/project-funnel`, uma etapa sem a chave `assistants` perde todos os assistentes dela. Envie em `assistants` os assistentes que devem continuar, cada um com o seu `id` e o corpo completo da edição. Para alterar só parte do funil, use `PATCH /api/management/project-funnel`, que mantém os assistentes quando a chave não vem.
+</Warning>
+
 ## Custo e limites
 
 Cada execução de um assistente tem custo, e a quantidade de assistentes tem limite.

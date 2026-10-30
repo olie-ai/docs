@@ -125,6 +125,48 @@ Quem atende não escolhe de qual número a resposta sai, e não vê o número do
 Quando um projeto tem **mais de um canal externo**, a ação de enviar conteúdo escolhe por qual sair pela **configuração da automação**, não pela origem da conversa. Em funis que recebem por mais de um número, nomeie os canais e aponte cada automação para o canal certo. Ver [Conteúdo do projeto](/guides/content/overview).
 </Warning>
 
+### Enviar mensagem ao cliente pela API
+
+Para mandar uma mensagem pelo WhatsApp de um projeto, grave um conteúdo no canal externo dele. A plataforma entrega o conteúdo pela integração ligada ao canal.
+
+<Steps>
+<Step title="Encontre o canal do projeto">
+  Chame `GET /api/management/channels?project_id={id}`. O canal externo é o que tem `integration_id` preenchido. Ele precisa estar com `is_active` igual a `true`.
+</Step>
+
+<Step title="Grave a mensagem no canal">
+  Chame `POST /api/management/save-media` com `type` igual a `1` (texto) e o `channel_id` do canal:
+
+  ```json
+  {
+    "type": 1,
+    "text": "Olá! A proposta foi aprovada e o contrato segue hoje por e-mail.",
+    "project_ids": ["01a05e04-a29c-73e3-9e5b-a9df981974df"],
+    "channel_id": "019b6b4d-2f18-7331-b60a-91c7d2e40a55"
+  }
+  ```
+</Step>
+
+<Step title="Confira a entrega">
+  Chame `POST /api/management/projects/{id}/media` com o mesmo `channel_id` no corpo. Nesse endpoint, o campo `direction` do corpo define a ordem da lista (`asc` ou `desc`). Ele não filtra a direção da mensagem.
+</Step>
+</Steps>
+
+O envio é assíncrono: a resposta de `save-media` confirma que o conteúdo foi gravado, não que chegou ao cliente. Cada conteúdo do canal traz estes campos sobre a entrega:
+
+| Campo | O que indica |
+| --- | --- |
+| `direction` | `outbound` para o que saiu da Olie, `inbound` para o que o cliente mandou |
+| `origin` | `internal` para o que foi escrito na Olie. `provider` e `imported` são mensagens que já existiam no WhatsApp e nunca são reenviadas |
+| `external_message_id` | O identificador que o provedor devolveu ao aceitar o envio |
+| `delivery_error` | O motivo da falha, preenchido depois de três tentativas sem sucesso. Fica `null` quando a entrega deu certo |
+
+A requisição é recusada com HTTP 422 em dois casos: o canal está inativo ou pertence a outro projeto.
+
+<Warning>
+**Prefira `channel_id` a `channel_name`.** O `channel_name` procura no projeto um canal com aquele nome. Se nenhum existir, ele cria um canal **interno** com esse nome, e a mensagem não sai da plataforma.
+</Warning>
+
 ## Aplicações e tokens de API
 
 Em **Ajustes → Integrações → API**, na aba **Aplicações**, você cria o token usado pela [API](/api-reference/introduction/authentication). Dois cuidados valem para todo token.
