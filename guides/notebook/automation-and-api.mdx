@@ -14,10 +14,10 @@ A tabela compara o Caderno com os dois recursos que costumam ocupar o lugar dele
 | --- | --- | --- | --- |
 | Ler em uma automação | Não | Sim, pela consulta `project_medias` | Sim, direto no contexto |
 | Escrever por automação | Não | Sim, pela ação **Envia conteúdo do projeto** | Sim, pela ação [**Preencher formulário dinâmico**](/guides/automation/actions-forms-dates#preencher-formulário-dinâmico). **Atualizar contador** e **Alterar campo de data** também gravam nesses campos, e um agente de IA acionado por **Executar assistente de etapa** pode preencher formulários |
-| Ler pela API pública | Não | Sim | Sim |
+| Ler pela API | Só com o acesso de uma pessoa, não com token de aplicação | Sim | Sim |
 | Copiar ao clonar um projeto | Sim | Sim | Sim |
 
-O conteúdo das páginas do Caderno **não está disponível** para automações, para a API nem para o MCP. A única operação de Caderno disponível fora da interface é copiá-lo junto com um projeto clonado.
+O conteúdo das páginas do Caderno **não está disponível** para automações nem para o MCP. Na API, ele só é alcançado com o acesso de uma pessoa, como mostra [O Caderno na API](#o-caderno-na-api).
 
 ## Por que a automação não alcança o Caderno
 
@@ -79,7 +79,17 @@ Na maioria dos casos, o que precisa sair da plataforma é uma informação estru
 
 ## O Caderno na API
 
-A [referência da API](/api-reference/introduction) não expõe endpoints para ler ou escrever páginas do Caderno. A única operação disponível é ao **clonar um projeto**: o corpo da requisição aceita `forum`, que copia o Caderno do projeto de origem para o clone.
+As páginas do Caderno são lidas e gravadas pelas mesmas rotas que a interface usa. Essas rotas são reservadas a pessoas, ou seja, à sessão de um usuário. Com token de [aplicação](/api-reference/introduction/authentication), elas respondem HTTP 403 com `message: "access_denied_for_applications"`. Elas também não aparecem na [referência da API](/api-reference/introduction).
+
+| Rota | O que faz |
+| --- | --- |
+| `POST /api/management/get-forum` | Devolve o Caderno de um registro e a lista de páginas. O corpo leva `model_class` (por exemplo, `App\Models\Project`) e `model_id` |
+| `GET /api/management/get-thread-data/{forum_id}/{thread_id}` | Devolve o conteúdo de uma página |
+| `POST /api/management/save-thread-data/{forum_id}/{thread_id}` | Grava uma nova versão da página, enviada como arquivo JSON no campo `file` |
+
+A pessoa precisa ter permissão de edição no registro: `projects.edit.{id}` para projeto, por exemplo.
+
+Com token de aplicação, a única operação disponível é ao **clonar um projeto**: o corpo da requisição aceita `forum`, que copia o Caderno do projeto de origem para o clone.
 
 ```json Trecho do corpo de POST /api/management/projects/{project}/clone
 {
@@ -95,7 +105,7 @@ Na referência da API essa opção ainda aparece com o nome técnico **fórum**,
 
 ## O Caderno no MCP
 
-O [MCP da Olie](/guides/mcp/overview) segue a mesma regra da API. O assistente consegue consultar projetos, funis, métricas, formulários e o **conteúdo** dos projetos. Ele também consegue clonar um projeto com o Caderno junto, mas não lê nem escreve as páginas do Caderno.
+O [MCP da Olie](/guides/mcp/overview) não tem ferramenta de Caderno. O assistente consegue consultar projetos, funis, métricas, formulários e o **conteúdo** dos projetos. Ele também consegue clonar um projeto com o Caderno junto, mas não lê nem escreve as páginas do Caderno.
 
 ## Se o Caderno é mesmo o alvo
 

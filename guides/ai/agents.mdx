@@ -27,6 +27,8 @@ Os agentes ficam em **Ajustes → Agentes de IA**. Cada agente tem os campos aba
 Escreva as **instruções para o agente** como definição de papel, não como tarefa. "Você é um analista de suporte experiente; seja conciso; nunca invente informação que não esteja no chamado" é instrução de agente. "Classifique este chamado" é instrução de assistente.
 </Tip>
 
+Pela API, `PUT /api/management/ai/agents/{agent}` altera só os campos enviados. O `status` do agente não muda por essa rota: o campo é ignorado. Para parar as execuções de um agente, desative os assistentes de etapa que usam esse agente, como mostra [Assistentes de etapa pela API](/guides/funnels/step-assistants#pela-api).
+
 ## Escolher o modelo
 
 A lista de modelos vem com busca e filtros por capacidade:
@@ -59,6 +61,8 @@ A lista **não é fixa**. Ela vem do catálogo do [agregador de modelos que a Ol
 | Modelos podem sair da lista | Um modelo aposentado pelo provedor deixa de ser oferecido; um agente que apontava para ele precisa de um novo modelo padrão |
 | A lista pode demorar alguns minutos para refletir uma mudança | O catálogo é guardado em cache curto |
 
+Pela API, a mesma lista vem de `GET /api/management/ai/available-models`. Ao criar ou editar o agente, use o `id` do modelo em `default_model` e o `internal_provider` dele em `default_provider`.
+
 Acima do catálogo ficam os três **perfis de seleção automática**: automática, baseada em custo e baseada em performance. Eles não são um modelo específico, porque a escolha acontece a cada execução. Ver [Seleção automática de modelos](/guides/billing/ai-credits#seleção-automática-de-modelos).
 
 ## Ferramentas
@@ -74,7 +78,7 @@ Ferramentas permitem ao agente **consultar e agir** na plataforma, em vez de ape
 - consultar e responder formulários dinâmicos;
 - pesquisar na internet.
 
-A lista completa está em `GET /api/management/ai/available-tools`, que também indica se cada ferramenta apenas lê dados ou também escreve.
+A lista completa está em `GET /api/management/ai/available-tools`, que também indica se cada ferramenta apenas lê dados ou também escreve. Pela API, o campo `tools` do agente recebe o `name` de cada ferramenta dessa lista, como `get-project-details-tool`. Um nome fora da lista é recusado com HTTP 422.
 
 <Warning>
 Cada ferramenta acionada é uma ida a mais ao modelo. Isso **aumenta o tempo e o custo** da execução. Habilite apenas o que o agente precisa para a tarefa dele.
@@ -154,6 +158,18 @@ Em **Chamadas de ferramenta**, cada chamada aparece marcada como **executada**, 
 <Note>
 Uma execução que termina sem resposta, ou que acaba com o agente ainda pedindo ferramentas, é registrada como **Falhou**. No segundo caso, um aviso acima das chamadas indica que a resposta está incompleta. Os créditos do que o modelo já processou são debitados mesmo assim.
 </Note>
+
+### Limites de cada execução
+
+Toda execução, de agente ou de [assistente de etapa](/guides/funnels/step-assistants), roda dentro destes limites:
+
+| Limite | Valor |
+| --- | --- |
+| Tempo total da execução | 85 segundos |
+| Tempo de cada ida ao modelo | 80 segundos |
+| Idas ao modelo por execução | Até 20, contando cada rodada de ferramentas |
+
+Ao estourar o tempo, a execução termina como **Falhou**. Uma falha do provedor do modelo também encerra a execução como **Falhou**. Nenhum desses casos ganha nova tentativa automática.
 
 Esse registro completo fica com quem administra os agentes. Quem opera o funil vê apenas a saída no formulário ou no conteúdo do projeto: não vê o prompt nem o modelo. Essa pessoa também não consegue alterar a instrução de entrada, porque o prompt do assistente monta essa instrução com [sintaxe avançada](/guides/advanced/advanced-syntax) a partir dos dados do projeto.
 
