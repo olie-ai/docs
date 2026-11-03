@@ -46583,9 +46583,42 @@
                             "description": "Término original, quando o horário foi ajustado depois.",
                             "format": "date-time"
                           },
+                          "duration": {
+                            "type": "integer",
+                            "description": "Duração da execução em segundos. Se ainda estiver em andamento, conta até o momento da resposta."
+                          },
                           "project": {
                             "type": "object",
-                            "description": "Projeto da execução."
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "is_template": {
+                                "type": "boolean"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              },
+                              "customer": {
+                                "type": "object",
+                                "nullable": true,
+                                "description": "Cliente do projeto, quando houver.",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
                           },
                           "user": {
                             "type": "object",
@@ -46738,6 +46771,24 @@
               "type": "integer"
             },
             "example": 0
+          },
+          {
+            "name": "filter[project_funnel_id]",
+            "in": "query",
+            "description": "ID do funil da etapa. Aceita vários separados por vírgula.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[in_range]",
+            "in": "query",
+            "description": "Início e fim separados por vírgula. Retorna execuções que ocupam algum tempo nesse intervalo, inclusive as que começaram antes e ainda estavam abertas.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
           },
           {
             "name": "filter[start_date_gt]",
@@ -47869,6 +47920,33 @@
             "example": "string"
           },
           {
+            "name": "filter[project_id]",
+            "in": "query",
+            "description": "ID (UUID) do projeto. Aceita vários separados por vírgula.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[project_funnel_id]",
+            "in": "query",
+            "description": "ID do funil da etapa. Aceita vários separados por vírgula.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[in_range]",
+            "in": "query",
+            "description": "Início e fim separados por vírgula. Retorna execuções que ocupam algum tempo nesse intervalo, inclusive as que começaram antes e ainda estavam abertas.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
             "name": "filter[start_date_gt]",
             "in": "query",
             "description": "Filtra execuções que começaram depois da data usada no filtro",
@@ -48286,9 +48364,43 @@
                           "description": "Término original, quando o horário foi ajustado depois.",
                           "format": "date-time"
                         },
+                        "duration": {
+                          "type": "integer",
+                          "description": "Duração da execução em segundos. Se ainda estiver em andamento, conta até o momento da resposta."
+                        },
                         "project": {
                           "type": "object",
-                          "description": "Projeto da execução."
+                          "description": "Projeto da execução.",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "code": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "is_template": {
+                              "type": "boolean"
+                            },
+                            "deleted_at": {
+                              "nullable": true
+                            },
+                            "customer": {
+                              "type": "object",
+                              "nullable": true,
+                              "description": "Cliente do projeto, quando houver.",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
                         },
                         "user": {
                           "type": "object",
@@ -50427,20 +50539,20 @@
                     }
                   },
                   {
-                    "description": "Payload para `POST /export/project_execution`. Exporta todas as colunas do catálogo. Exige `project_id` e/ou `user_id` (ao menos um).",
+                    "description": "Payload para `POST /export/project_execution`. Exporta todas as colunas do catálogo. Sem `project_id` nem `user_id`, exporta as execuções da empresa com as mesmas regras de visibilidade da listagem. Com um deles (ou os dois), a exportação fica restrita a esse projeto e/ou usuário, desde que você possa vê-lo. A coluna de custo só é preenchida se você tiver acesso a custos.",
                     "title": "Export Project Execution",
                     "type": "object",
                     "properties": {
                       "project_id": {
                         "type": "string",
                         "example": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7",
-                        "description": "UUID do projeto. Obrigatório se `user_id` não for enviado. Requer permissão de view no projeto.",
+                        "description": "UUID do projeto. Opcional. Requer permissão de view no projeto.",
                         "format": "uuid"
                       },
                       "user_id": {
                         "type": "string",
                         "example": "ee989a1d-afe3-4ff7-f4fb-bec440e8b372",
-                        "description": "UUID do usuário. Obrigatório se `project_id` não for enviado. Requer permissão de view no usuário.",
+                        "description": "UUID do usuário. Opcional. Requer permissão de view no usuário.",
                         "format": "uuid"
                       },
                       "filter": {
@@ -50448,14 +50560,22 @@
                         "example": {
                           "is_running": false
                         },
-                        "description": "Filtros Spatie QueryBuilder. Campos: `user_id`, `funnel_step_id`, `start_date_gt`, `end_date_lt`, `is_running`.",
+                        "description": "Filtros Spatie QueryBuilder. Campos: `user_id`, `project_id`, `funnel_step_id`, `project_funnel_id`, `start_date_gt`, `end_date_lt`, `is_running`, `in_range`.",
                         "properties": {
                           "user_id": {
                             "type": "string",
                             "format": "uuid"
                           },
+                          "project_id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
                           "funnel_step_id": {
                             "type": "integer"
+                          },
+                          "project_funnel_id": {
+                            "type": "integer",
+                            "description": "ID do funil da etapa. Aceita vários separados por vírgula."
                           },
                           "start_date_gt": {
                             "type": "string",
@@ -50468,6 +50588,11 @@
                           "is_running": {
                             "type": "boolean",
                             "example": false
+                          },
+                          "in_range": {
+                            "type": "string",
+                            "description": "Início e fim separados por vírgula. Retorna execuções que ocupam algum tempo nesse intervalo.",
+                            "example": "2026-10-01T00:00:00-03:00,2026-10-31T23:59:59-03:00"
                           }
                         }
                       },
@@ -50475,6 +50600,13 @@
                         "type": "string",
                         "example": "-started_at",
                         "description": "Ordenação Spatie (`campo` ou `-campo`). Campos: `started_at`, `finished_at`."
+                      },
+                      "filters": {
+                        "type": "array",
+                        "description": "Busca avançada (mesmo formato do `POST /project-executions/search`). Quando enviada e não vazia, substitui o `filter` Spatie.",
+                        "items": {
+                          "type": "object"
+                        }
                       }
                     }
                   },
