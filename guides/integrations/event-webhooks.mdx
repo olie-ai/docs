@@ -32,9 +32,28 @@ Na aba **Envios** de cada webhook você vê cada tentativa: evento, status (**Na
 
 Se um envio falhou, use **Reenviar**. O **ID do evento** (`event_id`) permanece o mesmo; a tentativa nova ganha um id de entrega diferente.
 
-A Olie retenta falhas transitórias (timeout, 5xx, alguns 4xx como 408 e 429) com backoff, até 10 tentativas por entrega. Redirecionamentos (3xx) e a maioria dos 4xx, inclusive 410, encerram a entrega sem nova tentativa.
+### Quando a Olie tenta de novo
 
-Se o destino falhar em dias consecutivos com tentativa, a Olie **desativa o webhook automaticamente** e avisa quem pode editar webhooks. Corrija a URL e use **Ativar** de novo.
+O primeiro POST sai assim que o evento é publicado. Se a resposta for transitória — timeout, 5xx, ou 408 / 425 / 429 — a Olie agenda outra tentativa na mesma entrega, até **10** no total. Em **429**, se o destino mandar `Retry-After`, esse intervalo prevalece sobre a tabela abaixo.
+
+Redirecionamentos (3xx) e a maioria dos 4xx, inclusive **410**, encerram a entrega na hora: não há nova tentativa automática.
+
+| Tentativa | Espera depois da anterior |
+| --- | --- |
+| 1 | Imediata |
+| 2 | 10 segundos |
+| 3 | 1 minuto |
+| 4 | 5 minutos |
+| 5 | 30 minutos |
+| 6 | 2 horas |
+| 7 | 6 horas |
+| 8 | 12 horas |
+| 9 | 24 horas |
+| 10 | 24 horas |
+
+Se as 10 tentativas falharem, aquela linha de **Envios** fica **Falhou**. O próximo evento da conta ainda gera uma entrega nova, enquanto o webhook estiver **Ativo**.
+
+Se o destino falhar em **dias em que houve tentativa** (até 5 dias assim), a Olie **desativa o webhook automaticamente** e avisa quem pode editar webhooks. Dia sem envio não conta. Um **2xx** zera essa contagem. Corrija a URL e use **Ativar** de novo.
 
 ## O que o seu sistema recebe
 
