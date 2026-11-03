@@ -32,7 +32,7 @@ Aciona quando um projeto **entra** em uma etapa específica.
 | Etapa de destino | Sim | A etapa em que o projeto precisa entrar para acionar a automação |
 | Vindo da etapa | Não | Restringe o disparo a projetos que vieram de uma etapa específica |
 
-Sem **Vindo da etapa**, o gatilho aciona não importa de onde o projeto veio — inclusive de lugar nenhum, no caso de um projeto que acabou de ser vinculado ao funil.
+Sem **Vindo da etapa**, o gatilho aciona não importa de onde o projeto veio — inclusive de lugar nenhum, no caso de um projeto que acabou de ser vinculado ao funil. Isso vale também para o projeto criado já dentro da etapa, pela interface, pela API, por integração ou por automação.
 
 <Warning>
 Entrar em uma etapa é diferente de sair dela. Este gatilho olha para o destino, nunca para a origem. Não existe gatilho de "saiu da etapa" — para reagir à saída, use o gatilho de entrada na etapa seguinte.
@@ -54,7 +54,7 @@ Aciona quando um projeto fica parado em uma etapa por mais tempo do que você to
 | Tempo ocioso para disparar | Sim | Um número e uma unidade: minutos, horas, dias ou meses |
 | Repetir recorrentemente | Não | Aciona a cada intervalo em vez de uma única vez |
 
-A contagem começa quando o projeto entra na etapa. Com **Repetir recorrentemente** desligado, o gatilho aciona **uma única vez** por projeto naquela etapa. Ligado, aciona **a cada intervalo** enquanto o projeto continuar parado ali — a cada 5 dias, indefinidamente, até o projeto sair.
+A contagem começa quando o projeto entra na etapa. Editar o projeto, responder formulários ou trocar mensagens não zera a contagem: ela só recomeça quando o projeto sai e volta para a etapa. Com **Repetir recorrentemente** desligado, o gatilho aciona **uma única vez** por projeto naquela etapa. Ligado, aciona **a cada intervalo** enquanto o projeto continuar parado ali — a cada 5 dias, indefinidamente, até o projeto sair.
 
 A verificação roda a cada minuto, então o disparo acontece perto do tempo configurado, não no segundo exato.
 
@@ -150,6 +150,8 @@ Em **Usar tempo relativo** você escolhe entre os intervalos prontos ou usa **Te
   Agendamentos de projetos removidos são descartados sem disparar.
 </Accordion>
 </AccordionGroup>
+
+Com um campo de [formulário avulso](/guides/forms/loose-forms), o agendamento é um só por projeto e por campo. Quando o mesmo formulário avulso aparece mais de uma vez no projeto, vale a última data alterada em qualquer uma das cópias. O disparo não informa de qual cópia veio a data.
 
 ## Execução de projeto
 

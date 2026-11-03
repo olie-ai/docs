@@ -32,6 +32,15 @@ Ao configurar uma etiqueta, você pode marcar em quais etapas ela **bloqueia o v
 
 O bloqueio vale nos dois sentidos: o projeto etiquetado não entra na etapa, e o projeto que já está na etapa não recebe a etiqueta. Veja [Restrições e bloqueios](/guides/funnels/restrictions#bloqueios-de-etapa).
 
+### Aplicar etiquetas pela API
+
+Pela API, a etiqueta de um projeto é sempre identificada pelo ID numérico da etiqueta do funil. Esses IDs vêm na lista `tags` de `POST /api/management/get-project-funnels`, com o `project_funnel_id` no corpo. Há dois caminhos:
+
+- Em `PUT /api/management/projects/{project}`, envie `tags` com as listas `to_add` e `to_rem`. As duas são obrigatórias e podem vir vazias: `{"tags": {"to_add": [12], "to_rem": []}}`.
+- Em `POST /api/management/toggle-funnel-tag`, envie `project_id` e `funnel_tag_id`. A chamada alterna: aplica a etiqueta se o projeto não a tem e remove se já tem.
+
+A etiqueta precisa ser de um funil ao qual o projeto está vinculado. Se não for, a chamada responde HTTP 404. Se um bloqueio de etapa impedir a etiqueta, a resposta traz `message: "blocked_by_existing_step_blocking"`.
+
 ## Status do funil
 
 O status do funil responde "como está esse projeto neste processo". Você o cria na seção **Status** do funil, com nome, cor e a opção **Conclusivo**.

@@ -43,6 +43,16 @@ Estes campos existem em qualquer projeto, sem nenhum formulário configurado, e 
 
 Tudo o que não estiver nesta lista é [formulário dinâmico](/guides/forms/overview).
 
+Pela API, os responsáveis do campo **Atribuído a** são os usuários com papel `assignee` no projeto. Para mudar, envie `users` em `PUT /api/management/projects/{project}`, com um item por usuário e `action` igual a `add` ou `remove`:
+
+```json
+{
+  "users": [
+    { "user_id": "019a7c31-0b4e-7f2a-9c58-6d1e3f8a2b47", "role": "assignee", "action": "add" }
+  ]
+}
+```
+
 ## O que é do projeto e o que é do vínculo
 
 Vale repetir aqui, porque é a distinção mais usada no dia a dia:

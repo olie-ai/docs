@@ -271,6 +271,16 @@ A resposta gravada, ou `null` quando o campo nunca foi respondido naquele endere
 O `pivot_class` que produziu a resposta — útil para conferir que você leu o endereço certo.
 </ResponseField>
 
+### Ler respostas de muitos projetos
+
+O `get-form-answers` lê um endereço por chamada, e nenhuma rota devolve em JSON as respostas de todos os formulários de vários projetos de uma vez. Para ler em volume, escolha um destes caminhos:
+
+| Caminho | O que traz |
+| --- | --- |
+| `POST /api/management/get-step-data` | Os projetos de cada etapa pedida. Cada projeto vem com `form_answers`, que reúne as respostas do formulário do projeto e do formulário do funil. Formulários de etapa e avulsos ficam de fora. O padrão é 20 projetos por etapa: pagine com `offset` e `limit` em cada item de `steps` |
+| `POST /api/management/projects/search` | Os projetos filtrados. Cada um vem com `form_answers` só do formulário do projeto |
+| `POST /api/management/spreadsheet-operations/export/form_answer` | Uma planilha com as respostas de um formulário, informado em `form_id`, com uma linha por lugar onde ele foi respondido. A exportação é assíncrona: acompanhe em `GET /api/management/spreadsheet-operations/{operation}` e baixe em `GET /api/management/spreadsheet-operations/{operation}/download` |
+
 ## Gravar respostas
 
 ```bash
@@ -295,6 +305,97 @@ Na escrita o pivot vai **dentro de `target`**, e `father_class` / `father_id` pa
   ]
 }
 ```
+
+O `father_class` e o `father_id` dependem do `pivot_class`. Nos formulários de objeto, eles apontam para o próprio registro. No funil, na etapa e no formulário avulso, eles apontam para o projeto. Veja o `target` de cada tipo:
+
+<Tabs>
+<Tab title="Projeto">
+```json
+{
+  "pivot_class": "App\\Models\\Project",
+  "form_id": 21,
+  "id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+  "father_class": "App\\Models\\Project",
+  "father_id": "01a05e04-a29c-73e3-9e5b-a9df981974df"
+}
+```
+</Tab>
+
+<Tab title="Cliente">
+```json
+{
+  "pivot_class": "App\\Models\\Customer",
+  "form_id": 25,
+  "id": "019a7c31-5e2b-7d40-8f16-3b9e2a4c7d10",
+  "father_class": "App\\Models\\Customer",
+  "father_id": "019a7c31-5e2b-7d40-8f16-3b9e2a4c7d10"
+}
+```
+</Tab>
+
+<Tab title="Contato">
+```json
+{
+  "pivot_class": "App\\Models\\Contact",
+  "form_id": 26,
+  "id": 418,
+  "father_class": "App\\Models\\Contact",
+  "father_id": 418
+}
+```
+</Tab>
+
+<Tab title="Usuário">
+```json
+{
+  "pivot_class": "App\\Models\\FrameRelationship",
+  "form_id": 27,
+  "id": 57,
+  "father_class": "App\\Models\\FrameRelationship",
+  "father_id": 57
+}
+```
+</Tab>
+
+<Tab title="Funil">
+```json
+{
+  "pivot_class": "App\\Models\\ProjectFunnelAssignment",
+  "form_id": 19,
+  "project_id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+  "project_funnel_id": 14,
+  "father_class": "App\\Models\\Project",
+  "father_id": "01a05e04-a29c-73e3-9e5b-a9df981974df"
+}
+```
+</Tab>
+
+<Tab title="Etapa">
+```json
+{
+  "pivot_class": "App\\Models\\ProjectStepForm",
+  "form_id": 20,
+  "project_id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+  "funnel_step_id": 73,
+  "father_class": "App\\Models\\Project",
+  "father_id": "01a05e04-a29c-73e3-9e5b-a9df981974df"
+}
+```
+</Tab>
+
+<Tab title="Avulso">
+```json
+{
+  "pivot_class": "App\\Models\\ProjectLooseForm",
+  "form_id": 22,
+  "project_id": "01a05e04-a29c-73e3-9e5b-a9df981974df",
+  "id": 3,
+  "father_class": "App\\Models\\Project",
+  "father_id": "01a05e04-a29c-73e3-9e5b-a9df981974df"
+}
+```
+</Tab>
+</Tabs>
 
 <ParamField body="form_answers" type="array" required>
 Cada item precisa de `id` — o identificador do campo, obtido na leitura — e `answer`. Campos não enviados permanecem como estavam. O formato de `answer` depende do tipo do campo. Ver [Formato da resposta de cada campo](/guides/forms/answers-format).
