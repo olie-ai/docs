@@ -8,7 +8,7 @@ Esta página reúne as ações que falam com pessoas, com outros sistemas e com 
 
 | Ação | O que faz |
 | --- | --- |
-| [Envia conteúdo do projeto](#envia-conteúdo-do-projeto) | Publica uma mensagem no conteúdo do projeto |
+| [Envia conteúdo do projeto](#envia-conteúdo-do-projeto) | Publica texto e arquivos no conteúdo do projeto |
 | [Enviar um e-mail](#enviar-um-e-mail) | Envia e-mail para endereços fixos ou calculados |
 | [Disparar webhook](#disparar-webhook) | Notifica um sistema externo |
 | [Executar assistente de etapa](#executar-assistente-de-etapa) | Aciona um assistente de IA |
@@ -17,7 +17,7 @@ Esta página reúne as ações que falam com pessoas, com outros sistemas e com 
 
 ## Envia conteúdo do projeto
 
-Publica uma mensagem no conteúdo do projeto. É a ação mais usada para comunicar o que a automação fez.
+Publica texto e arquivos no conteúdo do projeto. É a ação mais usada para comunicar o que a automação fez.
 
 <Note>
 O destino é a aba **Conteúdo** do projeto, não o [Caderno](/guides/notebook/overview) — são recursos diferentes, e o Caderno não recebe escrita por automação.
@@ -25,8 +25,29 @@ O destino é a aba **Conteúdo** do projeto, não o [Caderno](/guides/notebook/o
 
 | Opção | Obrigatória | O que faz |
 | --- | --- | --- |
-| Mensagem | Sim | O texto publicado; aceita variáveis |
-| Destino | Não | Onde a mensagem é publicada |
+| Mensagem | Condicional | O texto publicado; aceita variáveis. Obrigatória se não houver **Arquivos anexados (opcional)** |
+| Arquivos anexados (opcional) | Não | Arquivos de etapa ou de funil já vinculados, ou campos de anexo de formulário. Cada arquivo vira uma mensagem separada no mesmo destino. |
+| Onde está o formulário? | Condicional | De onde ler os arquivos do campo de anexo. Obrigatória quando há campo de formulário em **Arquivos anexados (opcional)** |
+| Destino | Não | Onde o texto e os arquivos são publicados |
+
+Sem mensagem e sem arquivo, a ação não salva. Com arquivo e mensagem em branco, só os arquivos vão para o destino — a ação não cria um registro de texto vazio.
+
+### Arquivos anexados
+
+Em **Arquivos anexados (opcional)**, escolha arquivos já ligados a uma etapa ou a um funil, ou campos de anexo de um formulário. A lista agrupa **Anexos de etapa**, anexos por funil e campos por formulário. Só entram arquivos: links de etapa ou de funil não podem ser selecionados.
+
+Quando você inclui um campo de anexo, preencha **Onde está o formulário?**. A ação envia só os arquivos respondidos nesse lugar. O mesmo campo respondido em outro lugar do projeto não entra.
+
+| Opção | O que você indica |
+| --- | --- |
+| Formulário do projeto | Nada além do lugar |
+| Formulário de um funil | O funil (**Qual funil?**) |
+| Formulário de uma etapa | A etapa (**Qual etapa?**) |
+| Formulário avulso | Nada além do lugar |
+
+Se o projeto tiver o mesmo formulário avulso mais de uma vez, os arquivos enviados são os do primeiro, por ordem de criação. Sem o lugar completo, a ação não salva. Na execução, um arquivo que não puder ser enviado é omitido e os demais seguem; o registro marca `some_attachments_could_not_be_sent`.
+
+Os anexos de funil e de etapa continuam sendo material de apoio do processo. Ao enviá-los por esta ação, a plataforma grava uma cópia no conteúdo do projeto — veja [Anexos do funil e da etapa](/guides/funnels/attachments) e [Arquivos do projeto](/guides/content/overview#arquivos-do-projeto).
 
 ### Os três destinos
 
