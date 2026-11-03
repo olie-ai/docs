@@ -48937,8 +48937,50 @@
               }
             }
           },
+          "403": {
+            "description": "Sem permissão para enviar papéis no convite, ou tentativa de conceder Property sem ser dono",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre false em respostas de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "permission_required",
+                        "cant_grant_property"
+                      ],
+                      "description": "`permission_required` quando falta a permissão `Editar, criar papéis e permissões e atribuir usuários`, ou quando uma Aplicação (token de API) envia `role_ids`. `cant_grant_property` quando `role_ids` inclui Property e quem autentica não tem Property na empresa."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    },
+                    "permission": {
+                      "type": "string",
+                      "description": "Permissão exigida. Presente só quando `message` é `permission_required`."
+                    }
+                  },
+                  "required": [
+                    "response",
+                    "message",
+                    "error"
+                  ]
+                },
+                "example": {
+                  "response": false,
+                  "message": "cant_grant_property",
+                  "error": "Only a frame owner can grant the Property (owner) role or the * privilege"
+                }
+              }
+            }
+          },
           "422": {
-            "description": "Convite já enviado para este e-mail",
+            "description": "Convite já enviado para o e-mail, ou `role_ids` inválidos para a empresa",
             "headers": {
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -48968,14 +49010,30 @@
                       "type": "boolean"
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "enum": [
+                        "invite_already_sent",
+                        "validation_errors"
+                      ],
+                      "description": "`invite_already_sent` quando já existe convite pendente para o e-mail nesta empresa. `validation_errors` quando algum `role_ids` não é de um papel global nem da empresa atual."
                     },
                     "error": {
                       "type": "string"
                     },
                     "email": {
                       "type": "string",
-                      "format": "email"
+                      "format": "email",
+                      "description": "E-mail do convite duplicado. Presente só quando `message` é `invite_already_sent`."
+                    },
+                    "validation": {
+                      "type": "object",
+                      "description": "Mapa campo → mensagens. Presente só quando `message` é `validation_errors`.",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
                     }
                   }
                 },
@@ -49010,10 +49068,10 @@
                   },
                   "role_ids": {
                     "type": "array",
-                    "description": "Lista de IDs de papéis (roles) que serão atribuídos ao convidado ao aceitar o convite.",
+                    "description": "Lista de IDs de papéis atribuídos ao convidado ao aceitar o convite. Cada ID precisa ser de um papel global ou da empresa atual. Enviar este campo exige a permissão `Editar, criar papéis e permissões e atribuir usuários`. Uma Aplicação (token de API) pode criar o convite, mas não pode incluir `role_ids` — nesse caso a resposta é 403 com `permission_required`. Incluir o papel Property só é aceito quando quem autentica já tem Property na empresa.",
                     "items": {
                       "type": "integer",
-                      "description": "ID do papel (role) a ser associado ao convidado."
+                      "description": "ID do papel a ser associado ao convidado."
                     }
                   },
                   "funnel_access": {
