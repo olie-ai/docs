@@ -16513,7 +16513,7 @@
           "Anexos"
         ],
         "summary": "Listar anexos de etapas",
-        "description": "Lista todos os anexos de etapa cadastrados na conta — arquivos, links e vídeos — do mais recente para o mais antigo, com o usuário que enviou cada um. A lista não é recortada por etapa: ela é a biblioteca de onde os anexos são vinculados às etapas. O link de download de arquivo é temporário e expira. Ver [Anexos do funil e da etapa](https://docs.olie.ai/guides/funnels/attachments).",
+        "description": "Lista todos os anexos de etapa cadastrados na conta — arquivos, links e vídeos — do mais recente para o mais antigo, com o usuário que enviou cada um. A lista não é recortada por etapa: ela é a biblioteca de onde os anexos são vinculados às etapas. Com `only_linked=true`, a lista fica só nos anexos já vinculados a pelo menos uma etapa. O link de download de arquivo é temporário e expira. Ver [Anexos do funil e da etapa](https://docs.olie.ai/guides/funnels/attachments).",
         "operationId": "obterAnexosDaEtapa",
         "responses": {
           "200": {
@@ -16660,7 +16660,18 @@
               }
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "only_linked",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Quando true, retorna só anexos já vinculados a uma etapa. Omitido ou false, retorna a biblioteca inteira da conta."
+          }
+        ]
       }
     },
     "/api/management/update-required-step-attachment": {
@@ -35980,7 +35991,7 @@
                                       "properties": {
                                         "message": {
                                           "type": "string",
-                                          "description": "Texto publicado; aceita variáveis."
+                                          "description": "Texto publicado; aceita variáveis. Obrigatório quando não há vínculo de arquivo (StepAttachment, FunnelAttachment ou FormEdge de anexo) em relations."
                                         },
                                         "destination_mode": {
                                           "type": "string",
@@ -36012,22 +36023,44 @@
                                         "close_reason": {
                                           "type": "string",
                                           "description": "Motivo registrado ao encerrar a conversa."
+                                        },
+                                        "form_location": {
+                                          "type": "string",
+                                          "enum": [
+                                            "project",
+                                            "project_funnel",
+                                            "project_step_form",
+                                            "project_loose_form"
+                                          ],
+                                          "description": "Onde ler o campo de anexo do formulário. Obrigatório quando relations inclui FormEdge; com project_funnel ou project_step_form, inclua também o vínculo form_location_model."
                                         }
-                                      },
-                                      "required": [
-                                        "message"
-                                      ]
+                                      }
                                     },
                                     "relations": {
                                       "type": "array",
-                                      "description": "Sem vínculos.",
+                                      "description": "Opcional. Arquivos a enviar: StepAttachment ou FunnelAttachment (arquivo vinculado, não link/url) ou FormEdge do tipo attachment. Com FormEdge, use form_location; em project_funnel ou project_step_form, acrescente form_location_model (ProjectFunnel, FunnelStep ou Form). Vínculos de arquivo ficam sem discriminator; o lugar do formulário usa discriminator form_location_model.",
                                       "items": {
                                         "description": "Vínculo com um objeto da conta.",
                                         "type": "object",
                                         "properties": {
                                           "model_type": {
                                             "type": "string",
+                                            "enum": [
+                                              "App\\Models\\StepAttachment",
+                                              "App\\Models\\FunnelAttachment",
+                                              "App\\Models\\FormEdge",
+                                              "App\\Models\\ProjectFunnel",
+                                              "App\\Models\\FunnelStep",
+                                              "App\\Models\\Form"
+                                            ],
                                             "description": "Tipo do objeto vinculado."
+                                          },
+                                          "model_id": {
+                                            "description": "ID do objeto vinculado."
+                                          },
+                                          "discriminator": {
+                                            "type": "string",
+                                            "description": "Papel do vínculo. Use form_location_model para o lugar do formulário; omita nos arquivos."
                                           }
                                         }
                                       }
@@ -39397,7 +39430,7 @@
                                       "properties": {
                                         "message": {
                                           "type": "string",
-                                          "description": "Texto publicado; aceita variáveis."
+                                          "description": "Texto publicado; aceita variáveis. Obrigatório quando não há vínculo de arquivo (StepAttachment, FunnelAttachment ou FormEdge de anexo) em relations."
                                         },
                                         "destination_mode": {
                                           "type": "string",
@@ -39429,22 +39462,44 @@
                                         "close_reason": {
                                           "type": "string",
                                           "description": "Motivo registrado ao encerrar a conversa."
+                                        },
+                                        "form_location": {
+                                          "type": "string",
+                                          "enum": [
+                                            "project",
+                                            "project_funnel",
+                                            "project_step_form",
+                                            "project_loose_form"
+                                          ],
+                                          "description": "Onde ler o campo de anexo do formulário. Obrigatório quando relations inclui FormEdge; com project_funnel ou project_step_form, inclua também o vínculo form_location_model."
                                         }
-                                      },
-                                      "required": [
-                                        "message"
-                                      ]
+                                      }
                                     },
                                     "relations": {
                                       "type": "array",
-                                      "description": "Sem vínculos.",
+                                      "description": "Opcional. Arquivos a enviar: StepAttachment ou FunnelAttachment (arquivo vinculado, não link/url) ou FormEdge do tipo attachment. Com FormEdge, use form_location; em project_funnel ou project_step_form, acrescente form_location_model (ProjectFunnel, FunnelStep ou Form). Vínculos de arquivo ficam sem discriminator; o lugar do formulário usa discriminator form_location_model.",
                                       "items": {
                                         "description": "Vínculo com um objeto da conta.",
                                         "type": "object",
                                         "properties": {
                                           "model_type": {
                                             "type": "string",
+                                            "enum": [
+                                              "App\\Models\\StepAttachment",
+                                              "App\\Models\\FunnelAttachment",
+                                              "App\\Models\\FormEdge",
+                                              "App\\Models\\ProjectFunnel",
+                                              "App\\Models\\FunnelStep",
+                                              "App\\Models\\Form"
+                                            ],
                                             "description": "Tipo do objeto vinculado."
+                                          },
+                                          "model_id": {
+                                            "description": "ID do objeto vinculado."
+                                          },
+                                          "discriminator": {
+                                            "type": "string",
+                                            "description": "Papel do vínculo. Use form_location_model para o lugar do formulário; omita nos arquivos."
                                           }
                                         }
                                       }
