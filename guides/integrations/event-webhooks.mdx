@@ -1,0 +1,158 @@
+---
+title: "Webhooks de eventos"
+description: "Cadastre URLs que recebem avisos assinados quando projetos, clientes e contatos mudam na conta"
+keywords: ["webhook", "webhooks", "evento", "HMAC", "assinatura", "integração", "API", "secret", "reenvio"]
+---
+
+Webhooks de eventos avisam o sistema da sua empresa quando algo muda nesta conta: um projeto criado, um cliente editado, uma mudança de etapa. Você cadastra a URL, escolhe os eventos e a Olie envia um POST assinado para esse endereço — sem montar uma automação.
+
+Esta página cobre o cadastro na interface, o formato do aviso e como o seu servidor confere que o POST veio da Olie. A ação **Disparar webhook** das automações é outro mecanismo; veja [Ações: comunicação, IA e execução](/guides/automation/actions-integrations#disparar-webhook).
+
+## Onde fica
+
+Em **Ajustes → Integrações → API**, abra a aba **Webhooks**.
+
+Para ver e gerenciar webhooks, o papel precisa das permissões do grupo **Webhooks** (visualizar, criar, editar e excluir). Se a aba não aparecer, a funcionalidade ainda não está liberada para a sua empresa, ou o seu papel não tem essas permissões.
+
+## Cadastrar um webhook
+
+1. Clique em **Novo webhook**.
+2. Informe a **URL de destino**. Use um endereço público em HTTP ou HTTPS. Endereços internos, de localhost ou de metadata de nuvem são recusados.
+3. Dê um **Nome** só para você reconhecer o webhook na lista.
+4. Em **Quais eventos enviar**, escolha **Tudo o que acontecer nesta conta** ou **Só alguns eventos** (por objeto ou por evento).
+5. Clique em **Criar webhook**.
+
+Na criação, a Olie mostra o **Secret** uma única vez. Copie e guarde no seu servidor. Depois dessa tela ele some. Se precisar de um valor novo, use **Trocar secret** no menu de ações — o secret antigo deixa de valer na hora.
+
+Use **Enviar teste** para disparar o evento `webhook.test` e conferir se a URL responde. O histórico aparece na aba **Envios**.
+
+## Histórico e reenvio
+
+Na aba **Envios** de cada webhook você vê cada tentativa: evento, status (**Na fila**, **Entregue** ou **Falhou**), código HTTP, tempo, payload e resposta do destino. Filtre por status ou por evento.
+
+Se um envio falhou, use **Reenviar**. O **ID do evento** (`event_id`) permanece o mesmo; a tentativa nova ganha um id de entrega diferente.
+
+A Olie retenta falhas transitórias (timeout, 5xx, alguns 4xx como 408 e 429) com backoff, até 10 tentativas por entrega. Redirecionamentos (3xx) e a maioria dos 4xx, inclusive 410, encerram a entrega sem nova tentativa.
+
+Se o destino falhar em dias consecutivos com tentativa, a Olie **desativa o webhook automaticamente** e avisa quem pode editar webhooks. Corrija a URL e use **Ativar** de novo.
+
+## O que o seu sistema recebe
+
+Cada aviso é um `POST` JSON. A Olie **não** segue redirects. O corpo e a assinatura usam exatamente os mesmos bytes.
+
+### Cabeçalhos
+
+| Cabeçalho | Conteúdo |
+| --- | --- |
+| `X-Olie-Webhook-Event` | Nome do evento (ex.: `project.updated`) |
+| `X-Olie-Webhook-Id` | Id estável do fato (`event_id`). Retry e reenvio repetem este valor |
+| `X-Olie-Webhook-Delivery` | Id desta tentativa de envio |
+| `X-Olie-Webhook-Timestamp` | Unix em segundos, do momento deste POST |
+| `X-Olie-Webhook-Signature` | `sha256=` + HMAC-SHA256 em hex |
+| `Content-Type` | `application/json` |
+
+### Corpo
+
+```json
+{
+  "event_id": "0b6f2c1a-…",
+  "event": "project.updated",
+  "occurred_at": "2026-10-27T18:00:00.000Z",
+  "frame_id": "baa6959c-…",
+  "webhook_id": "9c1e…",
+  "object": "project",
+  "data": {},
+  "previous": { "name": "nome antigo" },
+  "updated_fields": ["name"],
+  "context": {}
+}
+```
+
+| Campo | Quando aparece | Significado |
+| --- | --- | --- |
+| `event_id` | Sempre | Id estável do evento |
+| `event` | Sempre | Slug do evento |
+| `occurred_at` | Sempre | Quando o fato aconteceu (UTC) |
+| `frame_id` | Sempre | Conta de origem |
+| `webhook_id` | Sempre | Assinatura que recebe o POST |
+| `object` | Sempre | Tipo do objeto em `data` (`project`, `customer`, `contact`, `webhook`) |
+| `data` | Sempre | Objeto no mesmo formato da API pública |
+| `previous` | Só em `*.updated` | Valores anteriores dos campos que mudaram |
+| `updated_fields` | Só em `*.updated` | Nomes dos campos que mudaram |
+| `context` | Só em eventos de funil | Etapa, funil ou `type` da movimentação |
+
+Em exclusão, `data` traz o último estado do objeto. Em `webhook.test`, `data` descreve o próprio webhook.
+
+## Conferir a assinatura
+
+O secret **não** viaja no POST. O seu servidor guarda o secret e valida cada chamada.
+
+1. Leia `X-Olie-Webhook-Timestamp` e o **corpo bruto** da requisição (os mesmos bytes, sem re-serializar o JSON).
+2. Monte a string `{timestamp}.{corpo_bruto}`.
+3. Calcule `HMAC-SHA256` com o secret e compare com o valor de `X-Olie-Webhook-Signature` depois do prefixo `sha256=`, em tempo constante.
+4. Rejeite se o timestamp estiver velho demais. Uma tolerância de **5 minutos** costuma bastar.
+
+Exemplo em Node.js:
+
+```javascript
+const crypto = require('crypto');
+
+function verifyOlieWebhook({ secret, timestamp, rawBody, signatureHeader }) {
+  const expected =
+    'sha256=' +
+    crypto
+      .createHmac('sha256', secret)
+      .update(`${timestamp}.${rawBody}`)
+      .digest('hex');
+
+  const a = Buffer.from(expected);
+  const b = Buffer.from(signatureHeader || '');
+
+  if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) {
+    return false;
+  }
+
+  const ageSec = Math.abs(Date.now() / 1000 - Number(timestamp));
+  return ageSec <= 300;
+}
+```
+
+Retry e reenvio são POSTs novos: timestamp novo, `X-Olie-Webhook-Delivery` novo, `event_id` igual e HMAC recalculado.
+
+## Catálogo de eventos
+
+Estes são os eventos que a entrega atual envia. Na interface, você também pode assinar `project.*`, `customer.*`, `contact.*` ou todos os eventos da conta.
+
+| Slug | Objeto | O que aconteceu |
+| --- | --- | --- |
+| `project.created` | Projeto | Criado |
+| `project.updated` | Projeto | Editado |
+| `project.deleted` | Projeto | Deletado |
+| `project.restored` | Projeto | Restaurado |
+| `project.step_moved` | Projeto | Mudou de etapa |
+| `project.step_unlinked` | Projeto | Saiu de uma etapa |
+| `project.funnel_linked` | Projeto | Entrou em um funil |
+| `project.funnel_unlinked` | Projeto | Saiu de um funil |
+| `customer.created` | Cliente | Criado |
+| `customer.updated` | Cliente | Editado |
+| `customer.deleted` | Cliente | Arquivado |
+| `customer.restored` | Cliente | Restaurado |
+| `contact.created` | Contato | Criado |
+| `contact.updated` | Contato | Editado |
+| `contact.deleted` | Contato | Arquivado |
+| `contact.restored` | Contato | Restaurado |
+| `webhook.test` | Sistema | Evento de teste |
+
+Um arraste de etapa pode gerar `project.step_moved` e `project.step_unlinked` juntos. Assinaturas amplas (`project.*` ou todos os eventos) recebem os dois POSTs.
+
+## Páginas relacionadas
+
+<CardGroup cols={2}>
+<Card title="Integrações" icon="puzzle-piece" href="/guides/integrations/overview">
+  Canais, aplicações, webhooks e a API no mesmo mapa.
+</Card>
+
+<Card title="Disparar webhook (automação)" icon="satellite-dish" href="/guides/automation/actions-integrations#disparar-webhook">
+  Ação de automação com corpo customizado, sem HMAC deste fluxo.
+</Card>
+</CardGroup>
