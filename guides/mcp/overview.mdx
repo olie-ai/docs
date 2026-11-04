@@ -63,7 +63,7 @@ O transporte é **HTTP** e a autenticação é feita por **OAuth**. Ao conectar,
 
 Para conectar, você precisa de três coisas:
 
-- **Uma conta na Olie.** A conexão autentica com o seu usuário. Você não precisa de token de API nem de permissão de administrador para conectar.
+- **Uma conta na Olie** com a permissão **Gerar token de acesso ao servidor MCP** na empresa que você vai autorizar. Sem essa permissão, a empresa não aparece na tela de consentimento. Você não precisa de token de API.
 - **Um assistente compatível.** ChatGPT, Claude, Claude Code, Cursor ou qualquer cliente que aceite servidores MCP remotos via HTTP.
 - **Um computador para a primeira configuração.** Depois de autorizada, a conexão aparece sozinha no aplicativo do celular.
 
@@ -77,7 +77,7 @@ O MCP autentica **como você**, e não como a conta inteira. Isso muda bastante 
 </Card>
 
 <Card title="Autorização revogável" icon="key">
-  Você autoriza uma vez, entrando com a sua conta na própria Olie, e pode remover a conexão pelo assistente a qualquer momento.
+  Você autoriza uma vez, entrando com a sua conta na própria Olie, e pode remover a conexão pelo assistente a qualquer momento. Quem tem **Revogar todos os acessos MCP de todos os usuários** também encerra todos os acessos MCP da empresa em **Ajustes** → **Integrações** → **API**, na aba **MCP**. O botão **Revogar todos os tokens MCP** corta inclusive as conexões OAuth com ChatGPT e Claude.
 </Card>
 </CardGroup>
 
@@ -86,6 +86,8 @@ Não confunda o MCP com o **token de API**. O token de aplicação descrito em [
 </Warning>
 
 Uma conexão enxerga **um workspace por vez**, escolhido no momento da autorização. Se você trabalha em mais de um, configure uma conexão para cada, com nomes diferentes.
+
+Se o seu papel perder **Gerar token de acesso ao servidor MCP** depois da autorização, a conexão que já existe continua funcionando. Autorizar de novo ou escolher outro workspace na tela de consentimento pede a permissão outra vez.
 
 ## Consultar é diferente de alterar
 

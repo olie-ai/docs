@@ -14,6 +14,8 @@ https://api.olie.ai/mcp/management
 
 Faça a primeira conexão **no computador**. Os aplicativos de celular exibem as conexões já autorizadas, mas não oferecem a tela de conexão.
 
+Confirme que o seu papel na empresa tem a permissão **Gerar token de acesso ao servidor MCP**. Sem ela, a empresa não entra na lista da tela de consentimento. Quem administra a conta marca essa permissão em [Papéis e permissões](/guides/users/roles-permissions).
+
 ## ChatGPT
 
 A Olie está publicada como plugin **Olie Flow AI** no catálogo do ChatGPT.
@@ -128,6 +130,10 @@ Sua senha nunca passa pelo assistente, porque o login acontece na própria Olie.
 <AccordionGroup>
 <Accordion title="O assistente diz que não tem acesso à Olie" icon="plug-circle-xmark">
   Confirme que a conexão está ativada **naquela conversa**. Em vários clientes, adicionar o conector não o liga automaticamente em todos os chats — é preciso selecioná-lo no seletor de ferramentas.
+</Accordion>
+
+<Accordion title="A empresa não aparece na tela de consentimento" icon="building-lock">
+  A lista só mostra empresas em que você é colaborador ativo, a empresa está habilitada e o seu papel tem **Gerar token de acesso ao servidor MCP**. Peça a quem administra a conta para marcar essa permissão no seu papel.
 </Accordion>
 
 <Accordion title="Os dados são de outro workspace" icon="building">
