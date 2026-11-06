@@ -29025,9 +29025,13 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "description": "Contextos do agente, na ordem de aplicação. Esta resposta não traz a chave `response`.",
+                  "description": "Contextos do agente, na ordem de aplicação.",
                   "type": "object",
                   "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Indicador de sucesso da requisição; sempre verdadeiro nesta resposta."
+                    },
                     "contexts": {
                       "type": "array",
                       "description": "Contextos do agente, ordenados por `order`.",
@@ -29090,6 +29094,7 @@
                   }
                 },
                 "example": {
+                  "response": true,
                   "contexts": [
                     {
                       "id": "019b6b55-1ad4-7290-91cc-6e0b8fa21c37",
@@ -29170,61 +29175,74 @@
                   "description": "Contexto recém-criado.",
                   "type": "object",
                   "properties": {
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "text",
-                        "file"
-                      ],
-                      "description": "Tipo do contexto."
-                    },
-                    "content": {
-                      "type": "string",
-                      "description": "Texto do contexto ou endereço do arquivo armazenado."
-                    },
-                    "mime_type": {
-                      "type": "string",
-                      "description": "Tipo do arquivo enviado; presente apenas em contextos do tipo `file`."
-                    },
-                    "order": {
-                      "type": "integer",
-                      "description": "Posição do contexto na sequência aplicada ao prompt."
-                    },
-                    "is_active": {
+                    "response": {
                       "type": "boolean",
-                      "description": "Indica se o contexto é aplicado ao prompt do agente."
+                      "description": "Indicador de sucesso da requisição; sempre verdadeiro nesta resposta."
                     },
-                    "ai_agent_id": {
-                      "type": "string",
-                      "description": "ID (UUID) do agente dono do contexto.",
-                      "format": "uuid"
-                    },
-                    "updated_at": {
-                      "type": "string",
-                      "description": "Data e hora da última alteração do contexto.",
-                      "format": "date-time"
-                    },
-                    "created_at": {
-                      "type": "string",
-                      "description": "Data e hora de criação do contexto.",
-                      "format": "date-time"
-                    },
-                    "id": {
-                      "type": "string",
-                      "description": "ID (UUID) do contexto.",
-                      "format": "uuid"
+                    "context": {
+                      "type": "object",
+                      "description": "Contexto recém-criado.",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "text",
+                            "file"
+                          ],
+                          "description": "Tipo do contexto."
+                        },
+                        "content": {
+                          "type": "string",
+                          "description": "Texto do contexto ou endereço do arquivo armazenado."
+                        },
+                        "mime_type": {
+                          "type": "string",
+                          "description": "Tipo do arquivo enviado; presente apenas em contextos do tipo `file`."
+                        },
+                        "order": {
+                          "type": "integer",
+                          "description": "Posição do contexto na sequência aplicada ao prompt."
+                        },
+                        "is_active": {
+                          "type": "boolean",
+                          "description": "Indica se o contexto é aplicado ao prompt do agente."
+                        },
+                        "ai_agent_id": {
+                          "type": "string",
+                          "description": "ID (UUID) do agente dono do contexto.",
+                          "format": "uuid"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "description": "Data e hora da última alteração do contexto.",
+                          "format": "date-time"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "Data e hora de criação do contexto.",
+                          "format": "date-time"
+                        },
+                        "id": {
+                          "type": "string",
+                          "description": "ID (UUID) do contexto.",
+                          "format": "uuid"
+                        }
+                      }
                     }
                   }
                 },
                 "example": {
-                  "type": "text",
-                  "content": "Responda sempre em português do Brasil e em no máximo 3 parágrafos.",
-                  "is_active": true,
-                  "order": 2,
-                  "ai_agent_id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
-                  "updated_at": "2026-09-18T12:05:44.000000Z",
-                  "created_at": "2026-09-18T12:05:44.000000Z",
-                  "id": "019b6b60-3c91-7018-86d4-0a2e9b7f5c33"
+                  "response": true,
+                  "context": {
+                    "type": "text",
+                    "content": "Responda sempre em português do Brasil e em no máximo 3 parágrafos.",
+                    "is_active": true,
+                    "order": 2,
+                    "ai_agent_id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                    "updated_at": "2026-09-18T12:05:44.000000Z",
+                    "created_at": "2026-09-18T12:05:44.000000Z",
+                    "id": "019b6b60-3c91-7018-86d4-0a2e9b7f5c33"
+                  }
                 }
               }
             }
@@ -29380,68 +29398,81 @@
                   "description": "Contexto já com as alterações aplicadas.",
                   "type": "object",
                   "properties": {
-                    "id": {
-                      "type": "string",
-                      "description": "ID (UUID) do contexto.",
-                      "format": "uuid"
-                    },
-                    "ai_agent_id": {
-                      "type": "string",
-                      "description": "ID (UUID) do agente dono do contexto.",
-                      "format": "uuid"
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "text",
-                        "file"
-                      ],
-                      "description": "Tipo do contexto: `text` para texto escrito à mão, `file` para arquivo enviado."
-                    },
-                    "content": {
-                      "type": "string",
-                      "description": "Texto do contexto quando o tipo é `text`; endereço temporário para baixar o arquivo quando o tipo é `file`."
-                    },
-                    "mime_type": {
-                      "type": "string",
-                      "description": "Tipo do arquivo enviado; nulo em contextos de texto."
-                    },
-                    "order": {
-                      "type": "integer",
-                      "description": "Posição do contexto na sequência aplicada ao prompt, começando em zero."
-                    },
-                    "is_active": {
+                    "response": {
                       "type": "boolean",
-                      "description": "Indica se o contexto é aplicado ao prompt do agente."
+                      "description": "Indicador de sucesso da requisição; sempre verdadeiro nesta resposta."
                     },
-                    "created_at": {
-                      "type": "string",
-                      "description": "Data e hora de criação do contexto.",
-                      "format": "date-time"
-                    },
-                    "updated_at": {
-                      "type": "string",
-                      "description": "Data e hora da última alteração do contexto.",
-                      "format": "date-time"
-                    },
-                    "deleted_at": {
-                      "type": "string",
-                      "description": "Data e hora da exclusão lógica; nulo enquanto o contexto está ativo.",
-                      "format": "date-time"
+                    "context": {
+                      "type": "object",
+                      "description": "Contexto já com as alterações aplicadas.",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "ID (UUID) do contexto.",
+                          "format": "uuid"
+                        },
+                        "ai_agent_id": {
+                          "type": "string",
+                          "description": "ID (UUID) do agente dono do contexto.",
+                          "format": "uuid"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "text",
+                            "file"
+                          ],
+                          "description": "Tipo do contexto: `text` para texto escrito à mão, `file` para arquivo enviado."
+                        },
+                        "content": {
+                          "type": "string",
+                          "description": "Texto do contexto quando o tipo é `text`; endereço temporário para baixar o arquivo quando o tipo é `file`."
+                        },
+                        "mime_type": {
+                          "type": "string",
+                          "description": "Tipo do arquivo enviado; nulo em contextos de texto."
+                        },
+                        "order": {
+                          "type": "integer",
+                          "description": "Posição do contexto na sequência aplicada ao prompt, começando em zero."
+                        },
+                        "is_active": {
+                          "type": "boolean",
+                          "description": "Indica se o contexto é aplicado ao prompt do agente."
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "Data e hora de criação do contexto.",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "description": "Data e hora da última alteração do contexto.",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "type": "string",
+                          "description": "Data e hora da exclusão lógica; nulo enquanto o contexto está ativo.",
+                          "format": "date-time"
+                        }
+                      }
                     }
                   }
                 },
                 "example": {
-                  "id": "019b6b55-1ad4-7290-91cc-6e0b8fa21c37",
-                  "ai_agent_id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
-                  "type": "text",
-                  "content": "Responda sempre em português do Brasil e em no máximo 3 parágrafos.",
-                  "mime_type": null,
-                  "order": 0,
-                  "is_active": true,
-                  "created_at": "2026-08-14T13:02:11.000000Z",
-                  "updated_at": "2026-09-18T12:09:31.000000Z",
-                  "deleted_at": null
+                  "response": true,
+                  "context": {
+                    "id": "019b6b55-1ad4-7290-91cc-6e0b8fa21c37",
+                    "ai_agent_id": "019b6b1a-4c21-73d6-9f0e-5a1c8d3e7b04",
+                    "type": "text",
+                    "content": "Responda sempre em português do Brasil e em no máximo 3 parágrafos.",
+                    "mime_type": null,
+                    "order": 0,
+                    "is_active": true,
+                    "created_at": "2026-08-14T13:02:11.000000Z",
+                    "updated_at": "2026-09-18T12:09:31.000000Z",
+                    "deleted_at": null
+                  }
                 }
               }
             }
@@ -29557,17 +29588,26 @@
           "contexts"
         ],
         "summary": "Remover contexto do agente",
-        "description": "Remove um contexto do agente e, quando ele é do tipo `file`, apaga também o arquivo armazenado. Responde sem corpo; os demais contextos mantêm a posição que já tinham.",
+        "description": "Remove um contexto do agente e, quando ele é do tipo `file`, apaga também o arquivo armazenado. Os demais contextos mantêm a posição que já tinham.",
         "operationId": "deletarContextoDoAgente",
         "responses": {
-          "204": {
+          "200": {
             "description": "Sucesso",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "description": "Confirmação da exclusão, sem corpo de dados.",
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Indicador de sucesso da requisição; sempre verdadeiro nesta resposta."
+                    }
+                  }
                 },
-                "example": {}
+                "example": {
+                  "response": true
+                }
               }
             }
           },
