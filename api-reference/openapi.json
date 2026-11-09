@@ -54940,7 +54940,2026 @@
           },
           "example": ""
         }
+      ],
+      "delete": {
+        "summary": "Remover o Caderno",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "permission": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "permission_required",
+                  "error": "An permission is required to that action",
+                  "permission": "projects.edit.8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Caderno de outra empresa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "forum_model_not_found",
+                  "error": "No query results for model [App\\Models\\Forum] 3f6b2a1c-9d8e-4f7a-b6c5-d4e3f2a1b0c9"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "forums"
+        ],
+        "description": "Remove o Caderno e deixa o registro sem Caderno. Uma nova chamada de **Obter o Caderno de um registro** para o mesmo registro cria um Caderno novo, vazio. Aceita token de aplicação."
+      }
+    },
+    "/api/management/forums/{forum_id}/threads": {
+      "post": {
+        "summary": "Criar uma página",
+        "responses": {
+          "201": {
+            "description": "Criado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "thread": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "order": {
+                          "type": "integer"
+                        },
+                        "forum_id": {
+                          "type": "string"
+                        },
+                        "parent_id": {
+                          "nullable": true
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "id": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "thread": {
+                    "name": "Escopo e entregas",
+                    "order": 0,
+                    "forum_id": "3f6b2a1c-9d8e-4f7a-b6c5-d4e3f2a1b0c9",
+                    "parent_id": null,
+                    "updated_at": "2026-11-09T14:22:05.000000Z",
+                    "created_at": "2026-11-09T14:22:05.000000Z",
+                    "id": 1204
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "permission": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "permission_required",
+                  "error": "An permission is required to that action",
+                  "permission": "projects.edit.8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Caderno de outra empresa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "forum_model_not_found",
+                  "error": "No query results for model [App\\Models\\Forum] 3f6b2a1c-9d8e-4f7a-b6c5-d4e3f2a1b0c9"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "order": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo order é obrigatório.",
+                  "validation": {
+                    "order": [
+                      "O campo order é obrigatório."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "forums"
+        ],
+        "description": "Cria uma [página](https://docs.olie.ai/guides/notebook/pages#criando-páginas) no Caderno, com o conteúdo vazio (versão 1). Envie `parent_id` para criar uma subpágina. Aceita token de aplicação.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "order": {
+                    "type": "integer"
+                  },
+                  "parent_id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "name": "Escopo e entregas",
+                "order": 0,
+                "parent_id": null
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "forum_id",
+          "in": "path",
+          "required": true,
+          "description": "ID (UUID) do Caderno.",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        }
       ]
+    },
+    "/api/management/forums/{forum_id}/threads/{thread_id}": {
+      "get": {
+        "summary": "Obter uma página",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "thread": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "forum_id": {
+                          "type": "string"
+                        },
+                        "parent_id": {
+                          "nullable": true
+                        },
+                        "order": {
+                          "type": "integer"
+                        },
+                        "editor_type": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        },
+                        "cdn_migrated": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "thread": {
+                    "id": 1202,
+                    "name": "Escopo e entregas",
+                    "forum_id": "3f6b2a1c-9d8e-4f7a-b6c5-d4e3f2a1b0c9",
+                    "parent_id": null,
+                    "order": 1,
+                    "editor_type": "tiptap",
+                    "created_at": "2026-11-03T13:10:00.000000Z",
+                    "updated_at": "2026-11-03T13:10:00.000000Z",
+                    "deleted_at": null,
+                    "cdn_migrated": 0
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Página não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Página não encontrada": {
+                    "value": {
+                      "response": false,
+                      "message": "thread_model_not_found",
+                      "error": "No query results for model [App\\Models\\Thread] 999999"
+                    }
+                  },
+                  "Caderno de outra empresa": {
+                    "value": {
+                      "response": false,
+                      "message": "forum_model_not_found",
+                      "error": "No query results for model [App\\Models\\Forum] 3f6b2a1c-9d8e-4f7a-b6c5-d4e3f2a1b0c9"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "forums"
+        ],
+        "description": "Devolve os dados de uma página do Caderno (nome, posição e página pai), sem o conteúdo. Para o conteúdo, use **Obter o conteúdo de uma página**. Aceita token de aplicação."
+      },
+      "parameters": [
+        {
+          "name": "forum_id",
+          "in": "path",
+          "required": true,
+          "description": "ID (UUID) do Caderno.",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        },
+        {
+          "name": "thread_id",
+          "in": "path",
+          "required": true,
+          "description": "ID da página (número inteiro).",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        }
+      ],
+      "patch": {
+        "summary": "Atualizar uma página",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "thread": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "forum_id": {
+                          "type": "string"
+                        },
+                        "parent_id": {
+                          "type": "integer"
+                        },
+                        "order": {
+                          "type": "integer"
+                        },
+                        "editor_type": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        },
+                        "cdn_migrated": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "thread": {
+                    "id": 1203,
+                    "name": "Wireframes aprovados",
+                    "forum_id": "3f6b2a1c-9d8e-4f7a-b6c5-d4e3f2a1b0c9",
+                    "parent_id": 1202,
+                    "order": 2,
+                    "editor_type": "tiptap",
+                    "created_at": "2026-11-03T13:10:00.000000Z",
+                    "updated_at": "2026-11-09T14:22:05.000000Z",
+                    "deleted_at": null,
+                    "cdn_migrated": 0
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Página não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "thread_model_not_found",
+                  "error": "No query results for model [App\\Models\\Thread] 999999"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Página como pai de si mesma",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Página como pai de si mesma": {
+                    "value": {
+                      "response": false,
+                      "message": "cant_be_self_parent",
+                      "error": "A thread parent can't be it self or theirs own childrens"
+                    }
+                  },
+                  "Página pai não encontrada": {
+                    "value": {
+                      "response": false,
+                      "message": "parent_thread_are_not_found",
+                      "error": "Unable to set thread parent because is isn't found"
+                    }
+                  },
+                  "Validação falhou": {
+                    "value": {
+                      "response": false,
+                      "message": "validation_errors",
+                      "error": "O campo name é obrigatório.",
+                      "validation": {
+                        "name": [
+                          "O campo name é obrigatório."
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "forums"
+        ],
+        "description": "Renomeia, [move](https://docs.olie.ai/guides/notebook/pages#mover-uma-página) ou reordena uma página. `name` é obrigatório em toda chamada, e omitir `parent_id` leva a página para a raiz: para só renomear uma subpágina, reenvie o `parent_id` atual. Aceita token de aplicação.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "parent_id": {
+                    "nullable": true
+                  },
+                  "order": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "name": "Escopo e entregas",
+                "parent_id": null,
+                "order": 0
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remover uma página",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Página não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "thread_model_not_found",
+                  "error": "No query results for model [App\\Models\\Thread] 999999"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Página principal",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "unable_delete_default_thread",
+                  "error": "The default thread can't be deleted"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "forums"
+        ],
+        "description": "[Remove](https://docs.olie.ai/guides/notebook/pages#remover) a página e todas as suas subpáginas. A página principal não pode ser removida. Aceita token de aplicação."
+      }
+    },
+    "/api/management/forums/{forum_id}/threads/{thread_id}/clone": {
+      "post": {
+        "summary": "Duplicar uma página",
+        "responses": {
+          "201": {
+            "description": "Criado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "thread": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "forum_id": {
+                          "type": "string"
+                        },
+                        "parent_id": {
+                          "nullable": true
+                        },
+                        "order": {
+                          "type": "integer"
+                        },
+                        "editor_type": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        },
+                        "cdn_migrated": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "thread": {
+                    "id": 1205,
+                    "name": "Escopo e entregas (2)",
+                    "forum_id": "3f6b2a1c-9d8e-4f7a-b6c5-d4e3f2a1b0c9",
+                    "parent_id": null,
+                    "order": 2,
+                    "editor_type": "tiptap",
+                    "created_at": "2026-11-09T14:22:05.000000Z",
+                    "updated_at": "2026-11-09T14:22:05.000000Z",
+                    "deleted_at": null,
+                    "cdn_migrated": 0
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Página não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Página não encontrada": {
+                    "value": {
+                      "response": false,
+                      "message": "thread_model_not_found",
+                      "error": "No query results for model [App\\Models\\Thread] 999999"
+                    }
+                  },
+                  "Caderno de outra empresa": {
+                    "value": {
+                      "response": false,
+                      "message": "forum_model_not_found",
+                      "error": "No query results for model [App\\Models\\Forum] 3f6b2a1c-9d8e-4f7a-b6c5-d4e3f2a1b0c9"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "forums"
+        ],
+        "description": "[Duplica](https://docs.olie.ai/guides/notebook/pages#duplicar-como-modelo) a página no mesmo Caderno, com o conteúdo atual. A cópia recebe o nome original seguido de um número, como *Escopo e entregas (2)*. Aceita token de aplicação."
+      },
+      "parameters": [
+        {
+          "name": "forum_id",
+          "in": "path",
+          "required": true,
+          "description": "ID (UUID) do Caderno.",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        },
+        {
+          "name": "thread_id",
+          "in": "path",
+          "required": true,
+          "description": "ID da página (número inteiro).",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        }
+      ]
+    },
+    "/api/management/forums/{forum_id}/threads/{thread_id}/content": {
+      "get": {
+        "summary": "Obter o conteúdo de uma página",
+        "parameters": [
+          {
+            "name": "revision",
+            "in": "query",
+            "description": "Número de uma versão anterior. Se omitido, devolve a versão atual.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "content": {
+                      "type": "object",
+                      "properties": {
+                        "thread_id": {
+                          "type": "integer"
+                        },
+                        "revision": {
+                          "type": "integer"
+                        },
+                        "doc": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "content": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "type": "string"
+                                  },
+                                  "attrs": {
+                                    "type": "object",
+                                    "properties": {
+                                      "level": {
+                                        "type": "integer"
+                                      }
+                                    }
+                                  },
+                                  "content": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string"
+                                        },
+                                        "text": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_by": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "content": {
+                    "thread_id": 1202,
+                    "revision": 3,
+                    "doc": {
+                      "type": "doc",
+                      "content": [
+                        {
+                          "type": "heading",
+                          "attrs": {
+                            "level": 2
+                          },
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Briefing"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Implantação prevista para dezembro."
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "updated_at": "2026-11-09T14:22:05.000000Z",
+                    "updated_by": {
+                      "id": "5e4d3c2b-1a0f-4e9d-8c7b-6a5f4e3d2c1b",
+                      "name": "Maria Souza"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Página não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "thread_model_not_found",
+                  "error": "No query results for model [App\\Models\\Thread] 999999"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "forums"
+        ],
+        "description": "Devolve o documento da página e o número da versão (`revision`). Guarde a `revision` para enviar como `base_revision` ao gravar. Ver [Histórico de versões](https://docs.olie.ai/guides/notebook/editing#histórico-de-versões). Aceita token de aplicação."
+      },
+      "parameters": [
+        {
+          "name": "forum_id",
+          "in": "path",
+          "required": true,
+          "description": "ID (UUID) do Caderno.",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        },
+        {
+          "name": "thread_id",
+          "in": "path",
+          "required": true,
+          "description": "ID da página (número inteiro).",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        }
+      ],
+      "put": {
+        "summary": "Salvar o conteúdo de uma página",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "content": {
+                      "type": "object",
+                      "properties": {
+                        "thread_id": {
+                          "type": "integer"
+                        },
+                        "revision": {
+                          "type": "integer"
+                        },
+                        "doc": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "content": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "type": "string"
+                                  },
+                                  "attrs": {
+                                    "type": "object",
+                                    "properties": {
+                                      "level": {
+                                        "type": "integer"
+                                      }
+                                    }
+                                  },
+                                  "content": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string"
+                                        },
+                                        "text": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_by": {
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "content": {
+                    "thread_id": 1202,
+                    "revision": 4,
+                    "doc": {
+                      "type": "doc",
+                      "content": [
+                        {
+                          "type": "heading",
+                          "attrs": {
+                            "level": 2
+                          },
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Briefing"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Implantação prevista para dezembro."
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "updated_at": "2026-11-09T14:22:05.000000Z",
+                    "updated_by": null
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de versão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "current_revision": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "thread_revision_conflict",
+                  "error": "The page was changed by someone else since it was loaded",
+                  "current_revision": 5
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "base_revision": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo base revision é obrigatório.",
+                  "validation": {
+                    "base_revision": [
+                      "O campo base revision é obrigatório."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "forums"
+        ],
+        "description": "Substitui o documento inteiro da página e cria uma versão nova. Se a página mudou depois da `base_revision` enviada, responde 409 com a versão atual em `current_revision`; um documento idêntico ao atual não cria versão. Aceita token de aplicação. A versão gravada por uma aplicação fica com a origem `api` no histórico.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "doc": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "attrs": {
+                              "type": "object",
+                              "properties": {
+                                "level": {
+                                  "type": "integer"
+                                }
+                              }
+                            },
+                            "content": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "type": "string"
+                                  },
+                                  "text": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "base_revision": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "doc": {
+                  "type": "doc",
+                  "content": [
+                    {
+                      "type": "heading",
+                      "attrs": {
+                        "level": 2
+                      },
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "Briefing"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "Implantação prevista para dezembro."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "base_revision": 0
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Editar blocos do conteúdo de uma página",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "content": {
+                      "type": "object",
+                      "properties": {
+                        "thread_id": {
+                          "type": "integer"
+                        },
+                        "revision": {
+                          "type": "integer"
+                        },
+                        "doc": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "content": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "type": "string"
+                                  },
+                                  "attrs": {
+                                    "type": "object",
+                                    "properties": {
+                                      "level": {
+                                        "type": "integer"
+                                      }
+                                    }
+                                  },
+                                  "content": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string"
+                                        },
+                                        "text": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_by": {
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "content": {
+                    "thread_id": 1202,
+                    "revision": 4,
+                    "doc": {
+                      "type": "doc",
+                      "content": [
+                        {
+                          "type": "heading",
+                          "attrs": {
+                            "level": 2
+                          },
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Briefing"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Implantação prevista para dezembro."
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "updated_at": "2026-11-09T14:22:05.000000Z",
+                    "updated_by": null
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de bloco",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "current_revision": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "thread_content_block_conflict",
+                  "error": "The page changed since it was read: some referenced blocks no longer exist with the same content. Read the page again and retry.",
+                  "refs": [
+                    "1:9f2c4a7b"
+                  ],
+                  "current_revision": 5
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Operação inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "context": {
+                      "type": "object",
+                      "properties": {
+                        "operation_index": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "thread_content_invalid_operation",
+                  "error": "Operation #0 is invalid: insert_blocks needs exactly one of after_ref or position.",
+                  "context": {
+                    "operation_index": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "forums"
+        ],
+        "description": "Altera partes da página sem reenviar o documento inteiro: troca de texto, troca, inserção ou remoção de blocos, em Markdown. Os `ref` de bloco (`{índice}:{hash8}`) vêm da leitura da página pelo MCP (`read-notebook-page-tool`); sem eles, use `insert_blocks` com `position` ou `replace_text` sem `ref`. Se a página mudou depois da `base_revision`, as operações são reaplicadas sobre a versão atual, e um bloco alterado no meio do caminho gera 409. Aceita token de aplicação.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "base_revision": {
+                    "type": "integer"
+                  },
+                  "operations": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        },
+                        "position": {
+                          "type": "string"
+                        },
+                        "markdown": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "base_revision": 0,
+                "operations": [
+                  {
+                    "type": "insert_blocks",
+                    "position": "end",
+                    "markdown": "## Próximos passos\n\n- Validar o cronograma"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/forums/{forum_id}/threads/{thread_id}/revisions": {
+      "get": {
+        "summary": "Listar versões de uma página",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número da página da listagem. Começa em 1.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "Itens por página (padrão 30, máximo 100).",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer"
+                        },
+                        "from": {
+                          "type": "integer"
+                        },
+                        "to": {
+                          "type": "integer"
+                        },
+                        "last_page": {
+                          "type": "integer"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "revisions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "revision": {
+                            "type": "integer"
+                          },
+                          "source": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "user": {
+                            "nullable": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "meta": {
+                    "current_page": 1,
+                    "from": 1,
+                    "to": 2,
+                    "last_page": 1,
+                    "per_page": 30,
+                    "total": 2
+                  },
+                  "revisions": [
+                    {
+                      "revision": 2,
+                      "source": "api",
+                      "created_at": "2026-11-09T14:22:05.000000Z",
+                      "updated_at": "2026-11-09T14:22:05.000000Z",
+                      "user": null
+                    },
+                    {
+                      "revision": 1,
+                      "source": "ui",
+                      "created_at": "2026-11-03T13:10:00.000000Z",
+                      "updated_at": "2026-11-03T13:10:00.000000Z",
+                      "user": {
+                        "id": "5e4d3c2b-1a0f-4e9d-8c7b-6a5f4e3d2c1b",
+                        "name": "Maria Souza"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Página não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "thread_model_not_found",
+                  "error": "No query results for model [App\\Models\\Thread] 999999"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "forums"
+        ],
+        "description": "Lista o [histórico de versões](https://docs.olie.ai/guides/notebook/editing#histórico-de-versões) da página, da mais recente para a mais antiga, sem os documentos. Paginação conforme [Paginação](https://docs.olie.ai/api-reference/general/pagination). Aceita token de aplicação."
+      },
+      "parameters": [
+        {
+          "name": "forum_id",
+          "in": "path",
+          "required": true,
+          "description": "ID (UUID) do Caderno.",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        },
+        {
+          "name": "thread_id",
+          "in": "path",
+          "required": true,
+          "description": "ID da página (número inteiro).",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        }
+      ]
+    },
+    "/api/management/forums/{forum_id}/threads/{thread_id}/revisions/{revision}/restore": {
+      "post": {
+        "summary": "Restaurar uma versão de uma página",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "content": {
+                      "type": "object",
+                      "properties": {
+                        "thread_id": {
+                          "type": "integer"
+                        },
+                        "revision": {
+                          "type": "integer"
+                        },
+                        "doc": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "content": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "type": "string"
+                                  },
+                                  "attrs": {
+                                    "type": "object",
+                                    "properties": {
+                                      "level": {
+                                        "type": "integer"
+                                      }
+                                    }
+                                  },
+                                  "content": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string"
+                                        },
+                                        "text": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_by": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "content": {
+                    "thread_id": 1202,
+                    "revision": 6,
+                    "doc": {
+                      "type": "doc",
+                      "content": [
+                        {
+                          "type": "heading",
+                          "attrs": {
+                            "level": 2
+                          },
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Briefing"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Implantação prevista para dezembro."
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "updated_at": "2026-11-09T14:22:05.000000Z",
+                    "updated_by": {
+                      "id": "5e4d3c2b-1a0f-4e9d-8c7b-6a5f4e3d2c1b",
+                      "name": "Maria Souza"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de versão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "current_revision": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "thread_revision_conflict",
+                  "error": "The page was changed by someone else since it was loaded",
+                  "current_revision": 5
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "base_revision": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo base revision é obrigatório.",
+                  "validation": {
+                    "base_revision": [
+                      "O campo base revision é obrigatório."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "forums"
+        ],
+        "description": "Traz de volta o conteúdo de uma versão anterior, gravado como uma versão nova com a origem `restore`. Se a página mudou depois da `base_revision`, responde 409 com `current_revision`. Aceita token de aplicação.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "base_revision": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "base_revision": 0
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "forum_id",
+          "in": "path",
+          "required": true,
+          "description": "ID (UUID) do Caderno.",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        },
+        {
+          "name": "thread_id",
+          "in": "path",
+          "required": true,
+          "description": "ID da página (número inteiro).",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        },
+        {
+          "name": "revision",
+          "in": "path",
+          "required": true,
+          "description": "Número da versão a restaurar.",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        }
+      ]
+    },
+    "/api/management/rich-text/attachments": {
+      "post": {
+        "summary": "Enviar um anexo do editor de texto",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "integer"
+                    },
+                    "file": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "success": 1,
+                  "file": {
+                    "url": "https://cdn.olie.ai/app/frames/7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f/forum_medias/1731162125-wireframe.png?X-Amz-Expires=3600&X-Amz-Signature=..."
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "file": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo file é obrigatório.",
+                  "validation": {
+                    "file": [
+                      "O campo file é obrigatório."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "forums"
+        ],
+        "description": "Envia um arquivo para inserir no editor de texto rico ([imagens no Caderno](https://docs.olie.ai/guides/notebook/editing#imagens), formulários e conteúdos). Devolve em `file.url` um link temporário do arquivo. Corpo `multipart/form-data`. Aceita token de aplicação."
+      }
     }
   },
   "components": {
