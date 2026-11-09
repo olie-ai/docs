@@ -16666,10 +16666,11 @@
             "name": "only_linked",
             "in": "query",
             "required": false,
+            "description": "Quando true, retorna só anexos já vinculados a uma etapa. Omitido ou false, retorna a biblioteca inteira da conta.",
             "schema": {
               "type": "boolean"
             },
-            "description": "Quando true, retorna só anexos já vinculados a uma etapa. Omitido ou false, retorna a biblioteca inteira da conta."
+            "example": true
           }
         ]
       }
@@ -36095,9 +36096,6 @@
                                             ],
                                             "description": "Tipo do objeto vinculado."
                                           },
-                                          "model_id": {
-                                            "description": "ID do objeto vinculado."
-                                          },
                                           "discriminator": {
                                             "type": "string",
                                             "description": "Papel do vínculo. Use form_location_model para o lugar do formulário; omita nos arquivos."
@@ -39533,9 +39531,6 @@
                                               "App\\Models\\Form"
                                             ],
                                             "description": "Tipo do objeto vinculado."
-                                          },
-                                          "model_id": {
-                                            "description": "ID do objeto vinculado."
                                           },
                                           "discriminator": {
                                             "type": "string",
@@ -46697,12 +46692,8 @@
                               "is_template": {
                                 "type": "boolean"
                               },
-                              "deleted_at": {
-                                "nullable": true
-                              },
                               "customer": {
                                 "type": "object",
-                                "nullable": true,
                                 "description": "Cliente do projeto, quando houver.",
                                 "properties": {
                                   "id": {
@@ -48125,12 +48116,6 @@
                           "finished_reason": {
                             "type": "string"
                           },
-                          "started_at_real": {
-                            "nullable": true
-                          },
-                          "finished_at_real": {
-                            "nullable": true
-                          },
                           "duration": {
                             "type": "integer"
                           },
@@ -48148,9 +48133,6 @@
                               },
                               "is_template": {
                                 "type": "boolean"
-                              },
-                              "deleted_at": {
-                                "nullable": true
                               },
                               "customer": {
                                 "type": "object",
@@ -48173,9 +48155,6 @@
                               },
                               "name": {
                                 "type": "string"
-                              },
-                              "avatar_url": {
-                                "nullable": true
                               }
                             }
                           },
@@ -48479,12 +48458,8 @@
                             "is_template": {
                               "type": "boolean"
                             },
-                            "deleted_at": {
-                              "nullable": true
-                            },
                             "customer": {
                               "type": "object",
-                              "nullable": true,
                               "description": "Cliente do projeto, quando houver.",
                               "properties": {
                                 "id": {
@@ -49117,18 +49092,12 @@
                     },
                     "email": {
                       "type": "string",
-                      "format": "email",
-                      "description": "E-mail do convite duplicado. Presente só quando `message` é `invite_already_sent`."
+                      "description": "E-mail do convite duplicado. Presente só quando `message` é `invite_already_sent`.",
+                      "format": "email"
                     },
                     "validation": {
                       "type": "object",
-                      "description": "Mapa campo → mensagens. Presente só quando `message` é `validation_errors`.",
-                      "additionalProperties": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      }
+                      "description": "Mapa campo → mensagens. Presente só quando `message` é `validation_errors`."
                     }
                   }
                 },
@@ -53150,20 +53119,8 @@
                             "type": "string",
                             "format": "date-time"
                           },
-                          "finished_at": {
-                            "nullable": true
-                          },
                           "hourly_rate": {
                             "type": "integer"
-                          },
-                          "finished_reason": {
-                            "nullable": true
-                          },
-                          "started_at_real": {
-                            "nullable": true
-                          },
-                          "finished_at_real": {
-                            "nullable": true
                           },
                           "duration": {
                             "type": "integer"
@@ -53182,9 +53139,6 @@
                               },
                               "is_template": {
                                 "type": "boolean"
-                              },
-                              "deleted_at": {
-                                "nullable": true
                               },
                               "customer": {
                                 "type": "object",
@@ -53207,9 +53161,6 @@
                               },
                               "name": {
                                 "type": "string"
-                              },
-                              "avatar_url": {
-                                "nullable": true
                               }
                             }
                           },
@@ -53431,20 +53382,8 @@
                             "type": "string",
                             "format": "date-time"
                           },
-                          "finished_at": {
-                            "nullable": true
-                          },
                           "hourly_rate": {
                             "type": "integer"
-                          },
-                          "finished_reason": {
-                            "nullable": true
-                          },
-                          "started_at_real": {
-                            "nullable": true
-                          },
-                          "finished_at_real": {
-                            "nullable": true
                           },
                           "duration": {
                             "type": "integer"
@@ -53463,9 +53402,6 @@
                               },
                               "is_template": {
                                 "type": "boolean"
-                              },
-                              "deleted_at": {
-                                "nullable": true
                               },
                               "customer": {
                                 "type": "object",
@@ -53488,9 +53424,6 @@
                               },
                               "name": {
                                 "type": "string"
-                              },
-                              "avatar_url": {
-                                "nullable": true
                               }
                             }
                           },
@@ -53665,12 +53598,6 @@
                         }
                       }
                     }
-                  },
-                  "project_id": {
-                    "nullable": true
-                  },
-                  "user_id": {
-                    "nullable": true
                   },
                   "page": {
                     "type": "integer"
@@ -54570,6 +54497,450 @@
         ],
         "description": "Encerra todo o compartilhamento de um app do Studio na empresa atual, usado quando o app é excluído. Não faz nada se o app nunca foi compartilhado. Exige acesso ao Studio e não aceita tokens de aplicação."
       }
+    },
+    "/api/management/forums": {
+      "get": {
+        "summary": "Obter o Caderno de um registro",
+        "parameters": [
+          {
+            "name": "model_class",
+            "in": "query",
+            "description": "Tipo do registro: `App\\Models\\Project`, `App\\Models\\Customer`, `App\\Models\\Contact` ou `App\\Models\\FrameRelationship` (usuário).",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "model_id",
+            "in": "query",
+            "description": "ID do registro dono do Caderno.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "forum": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "old_id": {
+                          "nullable": true
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "model_id": {
+                          "type": "string"
+                        },
+                        "model_class": {
+                          "type": "string"
+                        },
+                        "default_thread_id": {
+                          "type": "integer"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        },
+                        "threads": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "forum_id": {
+                                "type": "string"
+                              },
+                              "parent_id": {
+                                "nullable": true
+                              },
+                              "order": {
+                                "type": "integer"
+                              },
+                              "editor_type": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "deleted_at": {
+                                "nullable": true
+                              },
+                              "cdn_migrated": {
+                                "type": "integer"
+                              },
+                              "children": {
+                                "type": "array",
+                                "items": {}
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "forum": {
+                    "id": "3f6b2a1c-9d8e-4f7a-b6c5-d4e3f2a1b0c9",
+                    "old_id": null,
+                    "frame_id": "7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f",
+                    "model_id": "8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
+                    "model_class": "App\\Models\\Project",
+                    "default_thread_id": 1201,
+                    "created_at": "2026-11-03T13:10:00.000000Z",
+                    "updated_at": "2026-11-03T13:10:00.000000Z",
+                    "deleted_at": null,
+                    "threads": [
+                      {
+                        "id": 1201,
+                        "name": "Página principal",
+                        "forum_id": "3f6b2a1c-9d8e-4f7a-b6c5-d4e3f2a1b0c9",
+                        "parent_id": null,
+                        "order": 0,
+                        "editor_type": "tiptap",
+                        "created_at": "2026-11-03T13:10:00.000000Z",
+                        "updated_at": "2026-11-03T13:10:00.000000Z",
+                        "deleted_at": null,
+                        "cdn_migrated": 0,
+                        "children": []
+                      },
+                      {
+                        "id": 1202,
+                        "name": "Escopo e entregas",
+                        "forum_id": "3f6b2a1c-9d8e-4f7a-b6c5-d4e3f2a1b0c9",
+                        "parent_id": null,
+                        "order": 1,
+                        "editor_type": "tiptap",
+                        "created_at": "2026-11-03T13:10:00.000000Z",
+                        "updated_at": "2026-11-03T13:10:00.000000Z",
+                        "deleted_at": null,
+                        "cdn_migrated": 0,
+                        "children": [
+                          {
+                            "id": 1203,
+                            "name": "Wireframes aprovados",
+                            "forum_id": "3f6b2a1c-9d8e-4f7a-b6c5-d4e3f2a1b0c9",
+                            "parent_id": 1202,
+                            "order": 0,
+                            "editor_type": "tiptap",
+                            "created_at": "2026-11-03T13:10:00.000000Z",
+                            "updated_at": "2026-11-03T13:10:00.000000Z",
+                            "deleted_at": null,
+                            "cdn_migrated": 0,
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "permission": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "permission_required",
+                  "error": "An permission is required to that action",
+                  "permission": "projects.edit.8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Registro de outra empresa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "project_model_not_found",
+                  "error": "No query results for model [App\\Models\\Project] 8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "model_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo model id é obrigatório.",
+                  "validation": {
+                    "model_id": [
+                      "O campo model id é obrigatório."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "forums"
+        ],
+        "description": "Devolve o [Caderno](https://docs.olie.ai/guides/notebook/overview) de um projeto, cliente, contato ou usuário, com a árvore de páginas em `threads`. Se o registro ainda não tem Caderno, ele é criado nesta chamada com uma *Página principal* vazia. Exige permissão de edição no registro. Aceita token de aplicação."
+      }
+    },
+    "/api/management/forums/{forum_id}": {
+      "patch": {
+        "summary": "Atualizar o Caderno",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "forum": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "old_id": {
+                          "nullable": true
+                        },
+                        "frame_id": {
+                          "type": "string"
+                        },
+                        "model_id": {
+                          "type": "string"
+                        },
+                        "model_class": {
+                          "type": "string"
+                        },
+                        "default_thread_id": {
+                          "type": "integer"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "deleted_at": {
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "forum": {
+                    "id": "3f6b2a1c-9d8e-4f7a-b6c5-d4e3f2a1b0c9",
+                    "old_id": null,
+                    "frame_id": "7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f",
+                    "model_id": "8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
+                    "model_class": "App\\Models\\Project",
+                    "default_thread_id": 1202,
+                    "created_at": "2026-11-03T13:10:00.000000Z",
+                    "updated_at": "2026-11-09T14:22:05.000000Z",
+                    "deleted_at": null
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Caderno de outra empresa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "forum_model_not_found",
+                  "error": "No query results for model [App\\Models\\Forum] 3f6b2a1c-9d8e-4f7a-b6c5-d4e3f2a1b0c9"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Página de outro Caderno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Página de outro Caderno": {
+                    "value": {
+                      "response": false,
+                      "message": "default_thread_are_not_found",
+                      "error": "The default thread informed are not found in that forum"
+                    }
+                  },
+                  "Página fora da raiz": {
+                    "value": {
+                      "response": false,
+                      "message": "default_thread_must_be_on_root",
+                      "error": "To set a thread as default, it must be on the root of forum, without parents"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "forums"
+        ],
+        "description": "Define qual página é a [página principal](https://docs.olie.ai/guides/notebook/pages#a-página-principal) do Caderno. A página precisa estar na raiz do mesmo Caderno. Aceita token de aplicação.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "default_thread_id": {
+                    "nullable": true
+                  }
+                }
+              },
+              "example": {
+                "default_thread_id": null
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "forum_id",
+          "in": "path",
+          "required": true,
+          "description": "ID (UUID) do Caderno.",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        }
+      ]
     }
   },
   "components": {
