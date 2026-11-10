@@ -19899,23 +19899,30 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); aqui, `validation_errors`."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "validation": {
                       "type": "object",
+                      "description": "Mensagens de validação por campo.",
                       "properties": {
                         "field": {
                           "type": "array",
+                          "description": "Erro do campo de filtro informado, com a lista dos campos aceitos.",
                           "items": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Mensagem de validação."
                           }
                         }
                       }
@@ -20194,15 +20201,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); aqui, `customer_model_not_found`."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -20888,23 +20899,30 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); aqui, `validation_errors`."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "validation": {
                       "type": "object",
+                      "description": "Mensagens de validação por campo.",
                       "properties": {
                         "name": {
                           "type": "array",
+                          "description": "Erros do campo `name`.",
                           "items": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Mensagem de validação."
                           }
                         }
                       }
@@ -21387,15 +21405,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); aqui, `customer_model_not_found`."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -22190,15 +22212,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); aqui, `contact_model_not_found`."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -49955,15 +49981,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); aqui, `invite_model_not_found`."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -50986,18 +51016,23 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro quando já existe uma importação do mesmo tipo na fila ou em andamento.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "service": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador interno de diagnóstico; pode ser ignorado."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); aqui `spreadsheet_import_already_in_progress`."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -51598,21 +51633,31 @@
                       },
                       "filters": {
                         "type": "array",
-                        "description": "Filtros de busca avançada que restringem os usuários exportados; sem eles, exporta todos os visíveis para você.",
+                        "description": "Filtros de busca avançada que restringem os usuários exportados; sem eles, exporta todos os usuários da empresa.",
                         "items": {
                           "type": "object",
                           "description": "Um filtro da busca avançada.",
                           "properties": {
                             "field": {
                               "type": "string",
-                              "description": "Campo a filtrar."
+                              "enum": [
+                                "id",
+                                "status",
+                                "search"
+                              ],
+                              "description": "Campo a filtrar: `id` (só `equals`), `status` (`equals` ou `not_equals`) ou `search` (só `contains`, busca em nome e e-mail)."
                             },
                             "operator": {
                               "type": "string",
-                              "description": "Operador de comparação (ex.: `equals`, `contains`)."
+                              "enum": [
+                                "equals",
+                                "not_equals",
+                                "contains"
+                              ],
+                              "description": "Operador de comparação, conforme o campo escolhido."
                             },
                             "value": {
-                              "description": "Valor comparado; dispensável em operadores como `is_null`."
+                              "description": "Valor comparado; em `status`, use `1` (aguardando resposta), `2` (ativo) ou `3` (inativo)."
                             },
                             "logical_operator": {
                               "type": "string",
@@ -51738,7 +51783,7 @@
                           },
                           "status": {
                             "type": "string",
-                            "description": "Situação da execução (valor exato)."
+                            "description": "Situação da execução, em comparação exata (ex.: `pending`, `completed`, `failed`, `canceled`)."
                           },
                           "model": {
                             "type": "string",
@@ -53617,35 +53662,50 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro quando já existe outra conversa ativa com o mesmo contato na mesma integração.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "validation": {
                       "type": "object",
+                      "description": "Erros de validação por campo: cada chave é o nome de um campo enviado.",
                       "properties": {
                         "external_ref": {
                           "type": "array",
+                          "description": "Mensagens de erro sobre o identificador da outra ponta da conversa.",
                           "items": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Mensagem de erro de validação."
                           }
                         }
                       }
                     },
                     "conflicting_channel_id": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "ID (UUID) do canal ativo que já atende o mesmo contato.",
+                      "format": "uuid",
+                      "nullable": true
                     },
                     "conflicting_project_id": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "ID (UUID) do projeto onde está o canal em conflito.",
+                      "format": "uuid",
+                      "nullable": true
                     },
                     "conflicting_project_name": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Nome do projeto onde está o canal em conflito.",
+                      "nullable": true
                     }
                   }
                 },
@@ -53835,7 +53895,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "description": "Resposta de erro.",
+                  "description": "Resposta de erro quando o token é desconhecido, a integração está pausada ou a assinatura do provedor é inválida.",
                   "properties": {
                     "response": {
                       "type": "boolean",
@@ -53882,15 +53942,6 @@
           "in": "path",
           "required": true,
           "description": "Token de webhook da integração (campo `webhook_token` da integração).",
-          "schema": {
-            "type": "string"
-          },
-          "example": ""
-        },
-        {
-          "name": "external_ref",
-          "in": "path",
-          "required": true,
           "schema": {
             "type": "string"
           },
@@ -54388,23 +54439,30 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro de validação.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "validation": {
                       "type": "object",
+                      "description": "Erros de validação por campo: cada chave é o nome de um campo enviado.",
                       "properties": {
                         "credentials.access_token": {
                           "type": "array",
+                          "description": "Mensagens de erro sobre o Access Token.",
                           "items": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Mensagem de erro de validação."
                           }
                         }
                       }
@@ -56708,18 +56766,23 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro quando o servidor de WhatsApp não devolve um código de pareamento.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "stage": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Etapa da comunicação com o servidor de WhatsApp em que a falha ocorreu."
                     }
                   }
                 },
