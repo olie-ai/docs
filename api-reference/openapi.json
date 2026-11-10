@@ -54160,7 +54160,7 @@
           "name": "external_ref",
           "in": "path",
           "required": true,
-          "description": "Token de webhook da integração (campo `webhook_token` da integração).",
+          "description": "Token de webhook da integração; é o último trecho do `webhook_url` devolvido pela integração.",
           "schema": {
             "type": "string"
           },
