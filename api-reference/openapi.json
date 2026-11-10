@@ -19500,50 +19500,6 @@
         "responses": {
           "200": {
             "description": "Sucesso: Filtro por telefone",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Access-Control-Expose-Headers": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Cache-Control": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "no-cache, private"
-              },
-              "Date": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Fri, 16 Jan 2026 18:11:44 GMT"
-              },
-              "X-Ratelimit-Limit": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 160
-              },
-              "X-Ratelimit-Remaining": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 159
-              },
-              "Transfer-Encoding": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "chunked"
-              }
-            },
             "content": {
               "application/json": {
                 "schema": {
@@ -19898,10 +19854,10 @@
                       "document_type": 2,
                       "customer_type": 1,
                       "parent": null,
-                      "document": "12.345.678/0000-00",
+                      "document": "11.222.333/0001-81",
                       "main_activity": null,
-                      "email": "rp@clienteexemplo.com.br",
-                      "phone": "+5599999999999",
+                      "email": "contato@example.com",
+                      "phone": "+5511999990000",
                       "address": "Av. Exemplo, 456 - Campinas/SP",
                       "description": null,
                       "custom_fields": null,
@@ -19933,6 +19889,48 @@
                     "total": 1
                   },
                   "response": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Campo de filtro inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "field": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo [nome_fantasia] selecionado é inválido. Campos disponíveis: id, name, status, email, phone, company_name, document_type, document, customer_type, main_activity, address, description, created_at, projects, contacts, parent_customer, created_by_user, answer_pool, tags.",
+                  "validation": {
+                    "field": [
+                      "O campo [nome_fantasia] selecionado é inválido. Campos disponíveis: id, name, status, email, phone, company_name, document_type, document, customer_type, main_activity, address, description, created_at, projects, contacts, parent_customer, created_by_user, answer_pool, tags."
+                    ]
+                  }
                 }
               }
             }
@@ -20186,6 +20184,32 @@
                 },
                 "example": {
                   "response": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "customer_model_not_found",
+                  "error": "No query results for model [App\\Models\\Customer] 019b329a-8ef0-71ac-8997-dc62f1486a70"
                 }
               }
             }
@@ -20621,99 +20645,8 @@
         "description": "Cria um cliente na empresa. Um cliente filial precisa informar o cliente matriz em `parent_id`. Na mesma requisição é possível vincular contatos, aplicar etiquetas e responder o formulário dinâmico de clientes.",
         "operationId": "criarCliente",
         "responses": {
-          "200": {
-            "description": "Sucesso (CNPJ)",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Access-Control-Expose-Headers": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Cache-Control": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "no-cache, private"
-              },
-              "Date": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Fri, 16 Jan 2026 18:03:26 GMT"
-              },
-              "X-Ratelimit-Limit": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 160
-              },
-              "X-Ratelimit-Remaining": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 157
-              },
-              "Transfer-Encoding": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "chunked"
-              }
-            }
-          },
           "201": {
             "description": "Sucesso (CNPJ)",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Access-Control-Expose-Headers": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Cache-Control": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "no-cache, private"
-              },
-              "Date": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Fri, 16 Jan 2026 18:03:26 GMT"
-              },
-              "X-Ratelimit-Limit": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 160
-              },
-              "X-Ratelimit-Remaining": {
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 157
-              },
-              "Transfer-Encoding": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "chunked"
-              }
-            },
             "content": {
               "application/json": {
                 "schema": {
@@ -20928,10 +20861,10 @@
                     "company_name": "Cliente Exemplo Comércio LTDA",
                     "document_type": 2,
                     "customer_type": 1,
-                    "document": "12.345.678/0000-00",
+                    "document": "11.222.333/0001-81",
                     "main_activity": null,
-                    "email": "rp@clienteexemplo.com.br",
-                    "phone": "+5591999990000",
+                    "email": "contato@example.com",
+                    "phone": "+5511999990000",
                     "address": "Av. Exemplo, 456 - Campinas/SP",
                     "description": null,
                     "custom_fields": null,
@@ -20945,6 +20878,48 @@
                     "created_by": "019b329a-3f1f-7198-89e5-008dc4e2bd60"
                   },
                   "response": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo nome é obrigatório.",
+                  "validation": {
+                    "name": [
+                      "O campo nome é obrigatório."
+                    ]
+                  }
                 }
               }
             }
@@ -21136,9 +21111,9 @@
                 "document_type": 2,
                 "customer_type": 1,
                 "company_name": "Cliente Exemplo Comércio LTDA",
-                "document": "12.345.678/0002-71",
-                "email": "rp@clienteexemplo.com.br",
-                "phone": "+5591999990000",
+                "document": "11.222.333/0001-81",
+                "email": "contato@example.com",
+                "phone": "+5511999990000",
                 "address": "Av. Exemplo, 456 - Campinas/SP",
                 "status": true,
                 "parent_id": null,
@@ -21402,6 +21377,32 @@
                 },
                 "example": {
                   "response": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "customer_model_not_found",
+                  "error": "No query results for model [App\\Models\\Customer] 019b329a-8ef0-71ac-8997-dc62f1486a70"
                 }
               }
             }
@@ -22179,6 +22180,32 @@
                 },
                 "example": {
                   "response": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "contact_model_not_found",
+                  "error": "No query results for model [App\\Models\\Contact] 159"
                 }
               }
             }
@@ -45492,7 +45519,27 @@
               }
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "filter[name]",
+            "in": "query",
+            "description": "Filtra pelas etiquetas cujo nome contém o trecho informado.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "filter[model]",
+            "in": "query",
+            "description": "Filtra pelo tipo de registro da etiqueta (valor exato), ex.: `App\\Models\\Customer` para clientes ou `App\\Models\\Contact` para contatos.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -48392,7 +48439,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "string"
+            "example": ""
           },
           {
             "name": "filter[project_id]",
@@ -48424,20 +48471,56 @@
           {
             "name": "filter[start_date_gt]",
             "in": "query",
-            "description": "Filtra execuções que começaram depois da data usada no filtro",
+            "description": "Traz as execuções iniciadas a partir desta data (inclusive).",
             "schema": {
               "type": "string"
             },
-            "example": "string"
+            "example": ""
           },
           {
             "name": "filter[end_date_lt]",
             "in": "query",
-            "description": "Filtra execuções que começaram antes da data usada no filtro",
+            "description": "Traz as execuções finalizadas até esta data (inclusive); execuções em andamento ficam de fora.",
             "schema": {
               "type": "string"
             },
-            "example": "string"
+            "example": ""
+          },
+          {
+            "name": "filter[is_running]",
+            "in": "query",
+            "description": "`true` traz só as execuções em andamento; `false`, só as finalizadas.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Ordenação por `started_at` ou `finished_at`; prefixe com `-` para ordem decrescente.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número da página, a partir de 1 (padrão: 1).",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "Itens por página, de 1 a 100 (padrão: 30).",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
           }
         ],
         "responses": {
@@ -49035,20 +49118,6 @@
         "responses": {
           "200": {
             "description": "Sucesso",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Access-Control-Expose-Headers": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              }
-            },
             "content": {
               "application/json": {
                 "schema": {
@@ -49150,7 +49219,6 @@
                   "invites": [
                     {
                       "id": 19,
-                      "token": "585A52F30336EE64616075FC4984D7A0",
                       "email": "user@example.com",
                       "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
                       "is_expired": false,
@@ -49194,9 +49262,9 @@
                     },
                     {
                       "id": 21,
-                      "token": "B2F08265A7B9016EC6C42EF1FEF3A58D",
                       "email": "user2@example.com",
                       "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                      "is_expired": false,
                       "user_id": null,
                       "role_ids": [
                         6,
@@ -49307,26 +49375,6 @@
         "responses": {
           "201": {
             "description": "Sucesso",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Access-Control-Expose-Headers": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Cache-Control": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "no-cache, private"
-              }
-            },
             "content": {
               "application/json": {
                 "schema": {
@@ -49432,10 +49480,13 @@
                   "invites": [
                     {
                       "id": 64,
+                      "email": "user3@example.com",
                       "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
-                      "email": "user4@example.com",
+                      "is_expired": false,
+                      "token": "A45DA91B85AC7F67F5BA8F3CD0FC76E1",
+                      "user_id": null,
                       "role_ids": [
-                        7,
+                        6,
                         1
                       ],
                       "funnel_access": [
@@ -49461,16 +49512,18 @@
                           "step_change": true
                         }
                       ],
-                      "token": "A45DA91B85AC7F67F5BA8F3CD0FC76E1",
-                      "updated_at": "2026-04-29T14:06:40.000000Z",
-                      "created_at": "2026-04-29T14:06:40.000000Z"
+                      "created_at": "2026-04-29T14:06:40.000000Z",
+                      "updated_at": "2026-04-29T14:06:40.000000Z"
                     },
                     {
                       "id": 65,
+                      "email": "user4@example.com",
                       "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
-                      "email": "user5@example.com",
+                      "is_expired": false,
+                      "token": "DC40E84BF55B563D11D314D9BBB39FF2",
+                      "user_id": null,
                       "role_ids": [
-                        7,
+                        6,
                         1
                       ],
                       "funnel_access": [
@@ -49496,9 +49549,8 @@
                           "step_change": true
                         }
                       ],
-                      "token": "DC40E84BF55B563D11D314D9BBB39FF2",
-                      "updated_at": "2026-04-29T14:06:40.000000Z",
-                      "created_at": "2026-04-29T14:06:40.000000Z"
+                      "created_at": "2026-04-29T14:06:40.000000Z",
+                      "updated_at": "2026-04-29T14:06:40.000000Z"
                     }
                   ]
                 }
@@ -49550,7 +49602,7 @@
             }
           },
           "403": {
-            "description": "Sem permissão para enviar papéis no convite, ou tentativa de conceder Property sem ser dono",
+            "description": "Tentativa de conceder o papel de proprietário sem ser proprietário",
             "content": {
               "application/json": {
                 "schema": {
@@ -49582,6 +49634,7 @@
                 },
                 "example": {
                   "response": false,
+                  "service": "App\\Exceptions\\Services\\Permissions\\GrantPropertyRoleException",
                   "message": "cant_grant_property",
                   "error": "Only a frame owner can grant the Property (owner) role or the * privilege"
                 }
@@ -49589,27 +49642,7 @@
             }
           },
           "422": {
-            "description": "Convite já enviado para o e-mail, ou `role_ids` inválidos para a empresa",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Access-Control-Expose-Headers": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "*"
-              },
-              "Cache-Control": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "no-cache, private"
-              }
-            },
+            "description": "Papéis inválidos para a empresa",
             "content": {
               "application/json": {
                 "schema": {
@@ -49647,9 +49680,13 @@
                 },
                 "example": {
                   "response": false,
-                  "message": "invite_already_sent",
-                  "error": "Invite already sent to this email for this frame",
-                  "email": "user3@example.com"
+                  "message": "validation_errors",
+                  "error": "One or more roles are invalid for this frame.",
+                  "validation": {
+                    "role_ids": [
+                      "One or more roles are invalid for this frame."
+                    ]
+                  }
                 }
               }
             }
@@ -49911,6 +49948,32 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "invite_model_not_found",
+                  "error": "No query results for model [App\\Models\\Invite]."
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -49923,6 +49986,7 @@
           "name": "invite",
           "in": "path",
           "required": true,
+          "description": "ID numérico do convite, devolvido na listagem e na criação de convites.",
           "schema": {
             "type": "string"
           },
@@ -50719,7 +50783,7 @@
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "Operação de import criada com sucesso",
             "content": {
               "application/json": {
@@ -50830,40 +50894,164 @@
                 "example": {
                   "response": true,
                   "spreadsheet_operation": {
-                    "id": "c8f6c4a2-31af-f523-ad00-47b2ce67491e",
-                    "action": "export",
+                    "id": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7",
+                    "action": "import",
                     "type": "project",
-                    "status": "completed",
-                    "total_rows": 120,
-                    "processed_rows": 120,
-                    "percentage": 100,
-                    "errors_count": 0,
-                    "metadata": {},
-                    "file_name": "project_2026-06-01-143022.xlsx",
+                    "status": "pending",
+                    "total_rows": null,
+                    "processed_rows": null,
+                    "percentage": null,
+                    "metadata": null,
+                    "file_name": "projetos.xlsx",
                     "initiator_type": "App\\Models\\User",
-                    "initiator_id": "ee989a1d-afe3-4ff7-f4fb-bec440e8b372",
-                    "initiator": {
-                      "id": "7b6c3328-3066-e4e3-ae36-911996a826da",
-                      "name": "string",
-                      "avatar_url": "string"
-                    },
-                    "started_at": "2026-04-23T17:57:57.942Z",
-                    "completed_at": "1980-11-02T01:58:58.018Z",
-                    "created_at": "1950-02-26T12:34:00.424Z",
-                    "updated_at": "1955-03-13T19:55:56.035Z"
+                    "initiator_id": "019c2f4a-8b1e-7c3d-9a52-4e6f1b0d7a11",
+                    "started_at": null,
+                    "completed_at": null,
+                    "created_at": "2026-06-01T14:30:22.000000Z",
+                    "updated_at": "2026-06-01T14:30:22.000000Z"
                   }
                 }
               }
             }
           },
           "401": {
-            "description": "Não autenticado"
+            "description": "Não autenticado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro quando o token está ausente ou é inválido.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
+                }
+              }
+            }
           },
           "403": {
-            "description": "Sem permissão"
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro quando falta permissão para a operação.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    },
+                    "permission": {
+                      "type": "string",
+                      "description": "Permissão que faltou para concluir a requisição.",
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "permission_required",
+                  "error": "An permission is required to that action",
+                  "permission": "spreadsheet_operations.import"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Importação já em andamento",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "service": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "service": "App\\Exceptions\\SpreadsheetOperation\\SpreadsheetOperationException",
+                  "message": "spreadsheet_import_already_in_progress",
+                  "error": "There is already an import operation in progress for type 'project' in this frame"
+                }
+              }
+            }
           },
           "422": {
-            "description": "Campos inválidos"
+            "description": "Campos inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro: `validation_errors` quando o arquivo falta, não é `.xlsx` ou passa de 50 MB; `spreadsheet_operation_type_invalid` quando o `{type}` não existe; `spreadsheet_import_not_supported` quando o tipo não aceita importação.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    },
+                    "validation": {
+                      "type": "object",
+                      "description": "Mapa de campo para lista de mensagens, presente quando `message` é `validation_errors`."
+                    },
+                    "service": {
+                      "type": "string",
+                      "description": "Identificador interno de diagnóstico, presente só nos erros de operação de planilha; pode ser ignorado."
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo file é obrigatório.",
+                  "validation": {
+                    "file": [
+                      "O campo file é obrigatório."
+                    ]
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -50955,13 +51143,105 @@
             }
           },
           "401": {
-            "description": "Não autenticado"
+            "description": "Não autenticado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro quando o token está ausente ou é inválido.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
+                }
+              }
+            }
           },
           "403": {
-            "description": "Sem permissão"
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro quando falta permissão para a operação.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    },
+                    "permission": {
+                      "type": "string",
+                      "description": "Permissão que faltou para concluir a requisição.",
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "permission_required",
+                  "error": "An permission is required to that action",
+                  "permission": "spreadsheet_operations.export"
+                }
+              }
+            }
           },
           "422": {
-            "description": "Campos inválidos"
+            "description": "Tipo inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro quando o `{type}` não existe; `message` vem como `spreadsheet_operation_type_invalid`.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    },
+                    "service": {
+                      "type": "string",
+                      "description": "Identificador interno de diagnóstico, presente só nos erros de operação de planilha; pode ser ignorado."
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "service": "App\\Exceptions\\SpreadsheetOperation\\SpreadsheetOperationException",
+                  "message": "spreadsheet_operation_type_invalid",
+                  "error": "Invalid spreadsheet operation type 'invoice'. Allowed values: project, customer, contact, user, form_answer, answer_history, agent_execution, project_execution"
+                }
+              }
+            }
           }
         }
       },
@@ -51629,7 +51909,8 @@
                     "model": "project"
                   },
                   {
-                    "model": "project_funnel"
+                    "model": "project_funnel",
+                    "id": null
                   }
                 ]
               }
@@ -51638,7 +51919,7 @@
           "required": true
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "Operação de export criada com sucesso",
             "content": {
               "application/json": {
@@ -51759,40 +52040,151 @@
                 "example": {
                   "response": true,
                   "spreadsheet_operation": {
-                    "id": "c8f6c4a2-31af-f523-ad00-47b2ce67491e",
+                    "id": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7",
                     "action": "export",
                     "type": "project",
-                    "status": "completed",
-                    "total_rows": 120,
-                    "processed_rows": 120,
-                    "percentage": 100,
-                    "errors_count": 0,
-                    "metadata": {},
-                    "file_name": "project_2026-06-01-143022.xlsx",
-                    "initiator_type": "App\\Models\\User",
-                    "initiator_id": "ee989a1d-afe3-4ff7-f4fb-bec440e8b372",
-                    "initiator": {
-                      "id": "7b6c3328-3066-e4e3-ae36-911996a826da",
-                      "name": "string",
-                      "avatar_url": "string"
+                    "status": "pending",
+                    "total_rows": null,
+                    "processed_rows": null,
+                    "percentage": null,
+                    "metadata": {
+                      "payload": {
+                        "columns": [
+                          "project.id",
+                          "project.name",
+                          "project.customer"
+                        ],
+                        "dynamic_forms": [
+                          {
+                            "model": "project"
+                          },
+                          {
+                            "model": "project_funnel",
+                            "id": 12
+                          }
+                        ]
+                      }
                     },
-                    "started_at": "2026-04-23T17:57:57.942Z",
-                    "completed_at": "1980-11-02T01:58:58.018Z",
-                    "created_at": "1950-02-26T12:34:00.424Z",
-                    "updated_at": "1955-03-13T19:55:56.035Z"
+                    "file_name": null,
+                    "initiator_type": "App\\Models\\User",
+                    "initiator_id": "019c2f4a-8b1e-7c3d-9a52-4e6f1b0d7a11",
+                    "started_at": null,
+                    "completed_at": null,
+                    "created_at": "2026-06-01T14:30:22.000000Z",
+                    "updated_at": "2026-06-01T14:30:22.000000Z"
                   }
                 }
               }
             }
           },
           "401": {
-            "description": "Não autenticado"
+            "description": "Não autenticado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro quando o token está ausente ou é inválido.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
+                }
+              }
+            }
           },
           "403": {
-            "description": "Sem permissão"
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro quando falta permissão para a operação.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    },
+                    "permission": {
+                      "type": "string",
+                      "description": "Permissão que faltou para concluir a requisição.",
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "permission_required",
+                  "error": "An permission is required to that action",
+                  "permission": "spreadsheet_operations.export"
+                }
+              }
+            }
           },
           "422": {
-            "description": "Campos inválidos"
+            "description": "Campos inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro: `validation_errors` quando o body é inválido (ex.: coluna obrigatória ausente) ou `spreadsheet_operation_type_invalid` quando o `{type}` não existe.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    },
+                    "validation": {
+                      "type": "object",
+                      "description": "Mapa de campo para lista de mensagens, presente quando `message` é `validation_errors`."
+                    },
+                    "service": {
+                      "type": "string",
+                      "description": "Identificador interno de diagnóstico, presente só nos erros de operação de planilha; pode ser ignorado."
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The columns array must include the required column \"project.id\".",
+                  "validation": {
+                    "columns": [
+                      "The columns array must include the required column \"project.id\"."
+                    ]
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -51982,7 +52374,7 @@
                 "example": {
                   "response": true,
                   "spreadsheet_operation": {
-                    "id": "c8f6c4a2-31af-f523-ad00-47b2ce67491e",
+                    "id": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7",
                     "action": "export",
                     "type": "project",
                     "status": "completed",
@@ -51990,32 +52382,127 @@
                     "processed_rows": 120,
                     "percentage": 100,
                     "errors_count": 0,
-                    "metadata": {},
+                    "metadata": {
+                      "payload": {
+                        "columns": [
+                          "project.id",
+                          "project.name",
+                          "project.customer"
+                        ]
+                      }
+                    },
                     "file_name": "project_2026-06-01-143022.xlsx",
                     "initiator_type": "App\\Models\\User",
-                    "initiator_id": "ee989a1d-afe3-4ff7-f4fb-bec440e8b372",
+                    "initiator_id": "019c2f4a-8b1e-7c3d-9a52-4e6f1b0d7a11",
                     "initiator": {
-                      "id": "7b6c3328-3066-e4e3-ae36-911996a826da",
-                      "name": "string",
-                      "avatar_url": "string"
+                      "id": "019c2f4a-8b1e-7c3d-9a52-4e6f1b0d7a11",
+                      "name": "Usuário Exemplo",
+                      "avatar_url": null
                     },
-                    "started_at": "2026-04-23T17:57:57.942Z",
-                    "completed_at": "1980-11-02T01:58:58.018Z",
-                    "created_at": "1950-02-26T12:34:00.424Z",
-                    "updated_at": "1955-03-13T19:55:56.035Z"
+                    "started_at": "2026-06-01T14:30:23.000000Z",
+                    "completed_at": "2026-06-01T14:30:41.000000Z",
+                    "created_at": "2026-06-01T14:30:22.000000Z",
+                    "updated_at": "2026-06-01T14:30:41.000000Z"
                   }
                 }
               }
             }
           },
           "401": {
-            "description": "Não autenticado"
+            "description": "Não autenticado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro quando o token está ausente ou é inválido.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
+                }
+              }
+            }
           },
           "403": {
-            "description": "Sem permissão"
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro quando falta permissão para a operação.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    },
+                    "permission": {
+                      "type": "string",
+                      "description": "Permissão que faltou para concluir a requisição.",
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "permission_required",
+                  "error": "An permission is required to that action",
+                  "permission": "spreadsheet_operations.export"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Não encontrado"
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro quando a operação não existe ou pertence a outra empresa; `message` vem como `spreadsheet_operation_model_not_found`.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "spreadsheet_operation_model_not_found",
+                  "error": "No query results for model [App\\Models\\SpreadsheetOperation] 019dd427-5d13-71bf-9a09-d75aa2bf4bd7"
+                }
+              }
+            }
           }
         }
       },
@@ -52024,11 +52511,12 @@
           "name": "operation",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) da operação de planilha, devolvido ao iniciar a importação ou a exportação.",
           "schema": {
             "type": "string",
             "format": "uuid"
           },
-          "example": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7"
+          "example": ""
         }
       ]
     },
@@ -52157,26 +52645,134 @@
             }
           },
           "401": {
-            "description": "Não autenticado"
+            "description": "Não autenticado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro quando o token está ausente ou é inválido.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
+                }
+              }
+            }
           },
           "403": {
-            "description": "Sem permissão"
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro quando falta permissão para a operação.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    },
+                    "permission": {
+                      "type": "string",
+                      "description": "Permissão que faltou para concluir a requisição.",
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "permission_required",
+                  "error": "An permission is required to that action",
+                  "permission": "spreadsheet_operations.import"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Não encontrado"
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro quando a operação não existe ou pertence a outra empresa; `message` vem como `spreadsheet_operation_model_not_found`.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "spreadsheet_operation_model_not_found",
+                  "error": "No query results for model [App\\Models\\SpreadsheetOperation] 019dd427-5d13-71bf-9a09-d75aa2bf4bd7"
+                }
+              }
+            }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número da página (padrão 1).",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "Itens por página (padrão 30, máximo 100).",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       },
       "parameters": [
         {
           "name": "operation",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) da operação de planilha, devolvido ao iniciar a importação.",
           "schema": {
             "type": "string",
             "format": "uuid"
           },
-          "example": "019dd427-5d13-71bf-9a09-d75aa2bf4bd7"
+          "example": ""
         }
       ]
     },
@@ -52371,10 +52967,10 @@
                   "channels": [
                     {
                       "id": "9b2a1c3e-4d5f-6789-abcd-ef0123456789",
-                      "name": "WhatsApp João",
+                      "name": "WhatsApp do cliente",
                       "audience": "client",
-                      "connector_type": "fake",
-                      "external_ref": "wpp-5511999999999",
+                      "integration_id": "5d2e8f1a-6b3c-4d7e-8f90-1a2b3c4d5e6f",
+                      "external_ref": "ref-exemplo-001",
                       "is_active": true,
                       "project_id": "8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
                       "frame_id": "7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f",
@@ -52385,7 +52981,7 @@
                       "id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
                       "name": "Canal interno",
                       "audience": "internal",
-                      "connector_type": null,
+                      "integration_id": null,
                       "external_ref": null,
                       "is_active": true,
                       "project_id": "8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
@@ -52422,7 +53018,7 @@
                 },
                 "example": {
                   "response": false,
-                  "message": "unauthenticated",
+                  "message": "unauthorized",
                   "error": "Unauthenticated."
                 }
               }
@@ -52971,10 +53567,10 @@
                   "response": true,
                   "channel": {
                     "id": "9b2a1c3e-4d5f-6789-abcd-ef0123456789",
-                    "name": "WhatsApp João (atualizado)",
+                    "name": "WhatsApp do cliente (atualizado)",
                     "audience": "client",
-                    "connector_type": "fake",
-                    "external_ref": "wpp-5511999999999",
+                    "integration_id": "5d2e8f1a-6b3c-4d7e-8f90-1a2b3c4d5e6f",
+                    "external_ref": "ref-exemplo-001",
                     "is_active": true,
                     "project_id": "8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
                     "frame_id": "7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f",
@@ -53010,7 +53606,61 @@
                 "example": {
                   "response": false,
                   "message": "channel_model_not_found",
-                  "error": "No query results for model [Channel]."
+                  "error": "No query results for model [App\\Models\\Channel] 9b2a1c3e-4d5f-6789-abcd-ef0123456789"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Conflito de conversa ativa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "external_ref": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "conflicting_channel_id": {
+                      "type": "string"
+                    },
+                    "conflicting_project_id": {
+                      "type": "string"
+                    },
+                    "conflicting_project_name": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "An active channel already exists in the project \"Projeto Exemplo\" for this integration and counterpart.",
+                  "validation": {
+                    "external_ref": [
+                      "An active channel already exists in the project \"Projeto Exemplo\" for this integration and counterpart."
+                    ]
+                  },
+                  "conflicting_channel_id": "4e5f6a7b-8c9d-4e0f-a1b2-c3d4e5f6a7b8",
+                  "conflicting_project_id": "2c3d4e5f-6a7b-4c8d-9e0f-1a2b3c4d5e6f",
+                  "conflicting_project_name": "Projeto Exemplo"
                 }
               }
             }
@@ -53073,10 +53723,12 @@
               "example": {
                 "name": "",
                 "audience": "internal",
-                "connector_type": null,
+                "integration_id": null,
                 "connector_config": null,
                 "external_ref": null,
-                "is_active": true
+                "is_active": true,
+                "force_takeover": false,
+                "close_reason": null
               }
             }
           }
@@ -53141,7 +53793,7 @@
                 "example": {
                   "response": false,
                   "message": "channel_model_not_found",
-                  "error": "No query results for model [Channel]."
+                  "error": "No query results for model [App\\Models\\Channel] 9b2a1c3e-4d5f-6789-abcd-ef0123456789"
                 }
               }
             }
@@ -53177,8 +53829,8 @@
               }
             }
           },
-          "404": {
-            "description": "Não encontrado",
+          "401": {
+            "description": "Não autorizado",
             "content": {
               "application/json": {
                 "schema": {
@@ -53201,8 +53853,8 @@
                 },
                 "example": {
                   "response": false,
-                  "message": "channel_model_not_found",
-                  "error": "No query results for model [Channel]."
+                  "message": "unauthorized",
+                  "error": "Invalid or inactive integration"
                 }
               }
             }
@@ -53219,9 +53871,7 @@
                 "type": "object",
                 "description": "Corpo no formato definido pelo provedor da integração (mensagens recebidas, confirmações de entrega ou eventos de sessão); a plataforma não define campos próprios."
               },
-              "example": {
-                "message": ""
-              }
+              "example": {}
             }
           }
         }
@@ -53231,7 +53881,16 @@
           "name": "external_ref",
           "in": "path",
           "required": true,
-          "description": "Identificador externo do canal (resolve o webhook de entrada).",
+          "description": "Token de webhook da integração (campo `webhook_token` da integração).",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        },
+        {
+          "name": "external_ref",
+          "in": "path",
+          "required": true,
           "schema": {
             "type": "string"
           },
@@ -53244,7 +53903,249 @@
         "summary": "Listar integrações",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta com a página de integrações.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
+                    },
+                    "meta": {
+                      "type": "object",
+                      "description": "Dados da paginação.",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer",
+                          "description": "Página atual."
+                        },
+                        "from": {
+                          "type": "integer",
+                          "description": "Posição do primeiro item da página; `null` quando a página está vazia.",
+                          "nullable": true
+                        },
+                        "to": {
+                          "type": "integer",
+                          "description": "Posição do último item da página; `null` quando a página está vazia.",
+                          "nullable": true
+                        },
+                        "last_page": {
+                          "type": "integer",
+                          "description": "Número da última página."
+                        },
+                        "per_page": {
+                          "type": "integer",
+                          "description": "Quantidade de itens por página."
+                        },
+                        "total": {
+                          "type": "integer",
+                          "description": "Total de itens encontrados."
+                        }
+                      }
+                    },
+                    "integrations": {
+                      "type": "array",
+                      "description": "Integrações da página atual.",
+                      "items": {
+                        "type": "object",
+                        "description": "Integração da conta.",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "ID (UUID) da integração.",
+                            "format": "uuid"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "Conector da integração: `whatsapp_cloud` (WhatsApp Cloud, Meta), `whatsapp_evolution` (Evolution em servidor próprio), `whatsapp_evolution_managed` (WhatsApp hospedado pela Olie); `fake` e `fake_storage` existem só em ambientes de teste.",
+                            "enum": [
+                              "whatsapp_cloud",
+                              "whatsapp_evolution",
+                              "whatsapp_evolution_managed",
+                              "fake",
+                              "fake_storage"
+                            ]
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Nome que identifica a conexão para a equipe; `null` quando não definido.",
+                            "nullable": true
+                          },
+                          "config": {
+                            "type": "object",
+                            "description": "Configurações da integração; as chaves presentes variam conforme o conector. `null` quando não há configuração.",
+                            "properties": {
+                              "base_url": {
+                                "type": "string",
+                                "description": "Endereço (URL) do servidor Evolution; presente só em `whatsapp_evolution`."
+                              },
+                              "outbound_sender_prefix": {
+                                "type": "boolean",
+                                "description": "Quando `true`, cada mensagem enviada por uma pessoa sai precedida do nome de quem escreveu."
+                              },
+                              "history_import_limit": {
+                                "type": "integer",
+                                "description": "Quantidade de mensagens anteriores recuperadas ao abrir um canal: `0` (desligado), `10`, `25`, `50` ou `100`.",
+                                "enum": [
+                                  0,
+                                  10,
+                                  25,
+                                  50,
+                                  100,
+                                  null
+                                ],
+                                "nullable": true
+                              },
+                              "graph_version": {
+                                "type": "string",
+                                "description": "Versão da Graph API da Meta, no formato `vNN.N` (ex.: `v21.0`); sem valor, usa a versão padrão da plataforma.",
+                                "nullable": true
+                              },
+                              "inbound_funnel_step_id": {
+                                "type": "integer",
+                                "description": "ID da etapa de funil onde um projeto é criado quando chega mensagem de um contato sem conversa ativa; sem valor, essas mensagens são ignoradas.",
+                                "nullable": true
+                              },
+                              "referral_form_id": {
+                                "type": "integer",
+                                "description": "ID do formulário que recebe os dados de origem de campanha (anúncio) da conversa.",
+                                "nullable": true
+                              },
+                              "referral_field_map": {
+                                "type": "object",
+                                "description": "Relação entre cada dado do anúncio e o ID do campo do formulário que o recebe; exige `referral_form_id`.",
+                                "properties": {
+                                  "ctwa_clid": {
+                                    "type": "integer",
+                                    "description": "ID do campo que recebe o identificador do clique no anúncio."
+                                  },
+                                  "source_id": {
+                                    "type": "integer",
+                                    "description": "ID do campo que recebe o ID do anúncio."
+                                  },
+                                  "source_type": {
+                                    "type": "integer",
+                                    "description": "ID do campo que recebe o tipo de origem."
+                                  },
+                                  "headline": {
+                                    "type": "integer",
+                                    "description": "ID do campo que recebe o título do anúncio."
+                                  },
+                                  "body": {
+                                    "type": "integer",
+                                    "description": "ID do campo que recebe o texto do anúncio."
+                                  }
+                                },
+                                "nullable": true
+                              },
+                              "allow_multiple_active_channels": {
+                                "type": "boolean",
+                                "description": "Permite ou não mais de uma conversa ativa com o mesmo contato nesta integração; ausente ou `null`, vale o padrão da conta.",
+                                "nullable": true
+                              }
+                            },
+                            "nullable": true
+                          },
+                          "is_active": {
+                            "type": "boolean",
+                            "description": "Situação escolhida pela conta: `false` indica integração pausada, que recusa as mensagens recebidas."
+                          },
+                          "connection_state": {
+                            "type": "string",
+                            "description": "Estado da sessão com o provedor: `unknown` (o provedor ainda não informou), `connecting`, `connected` ou `disconnected`.",
+                            "enum": [
+                              "unknown",
+                              "connecting",
+                              "connected",
+                              "disconnected"
+                            ]
+                          },
+                          "connection_state_changed_at": {
+                            "type": "string",
+                            "description": "Data em que a sessão entrou no estado atual; `null` se o provedor nunca informou.",
+                            "format": "date-time",
+                            "nullable": true
+                          },
+                          "frame_id": {
+                            "type": "string",
+                            "description": "ID (UUID) da conta à qual a integração pertence.",
+                            "format": "uuid"
+                          },
+                          "webhook_token": {
+                            "type": "string",
+                            "description": "Token que compõe o endereço do webhook de entrada; `null` em integrações que não recebem webhook.",
+                            "nullable": true
+                          },
+                          "webhook_url": {
+                            "type": "string",
+                            "description": "Endereço a cadastrar no provedor para a entrega de mensagens; `null` em integrações que não recebem webhook.",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "description": "Data de criação.",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "description": "Data da última alteração.",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "meta": {
+                    "current_page": 1,
+                    "from": 1,
+                    "to": 2,
+                    "last_page": 1,
+                    "per_page": 30,
+                    "total": 2
+                  },
+                  "integrations": [
+                    {
+                      "id": "b7a4c2d1-9e8f-4a6b-8c3d-2e1f0a9b8c7d",
+                      "type": "whatsapp_evolution_managed",
+                      "name": "Atendimento",
+                      "config": {
+                        "history_import_limit": 25
+                      },
+                      "is_active": true,
+                      "connection_state": "connected",
+                      "connection_state_changed_at": "2026-06-20T09:15:00.000000Z",
+                      "frame_id": "7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f",
+                      "webhook_token": "Hd5wL8rY2cF6jG1aEuI4oT9kQ3vN7mBxZp0sK2tV6qR8nMbW",
+                      "webhook_url": "https://api.olie.ai/api/management/channels/inbound/Hd5wL8rY2cF6jG1aEuI4oT9kQ3vN7mBxZp0sK2tV6qR8nMbW",
+                      "created_at": "2026-06-20T09:00:00.000000Z",
+                      "updated_at": "2026-06-20T09:15:00.000000Z"
+                    },
+                    {
+                      "id": "5d2e8f1a-6b3c-4d7e-8f90-1a2b3c4d5e6f",
+                      "type": "whatsapp_cloud",
+                      "name": "WhatsApp oficial",
+                      "config": {
+                        "graph_version": "v21.0"
+                      },
+                      "is_active": true,
+                      "connection_state": "unknown",
+                      "connection_state_changed_at": null,
+                      "frame_id": "7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f",
+                      "webhook_token": "Qm7xT2vB9nK4sH8dL1wR6yC0fJ5gAeU3iO7tZ2pV9kMbXc1N",
+                      "webhook_url": "https://api.olie.ai/api/management/channels/inbound/Qm7xT2vB9nK4sH8dL1wR6yC0fJ5gAeU3iO7tZ2pV9kMbXc1N",
+                      "created_at": "2026-06-18T12:00:00.000000Z",
+                      "updated_at": "2026-06-18T12:00:00.000000Z"
+                    }
+                  ]
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -53255,13 +54156,273 @@
             "BearerAuth": []
           }
         ],
-        "description": "Lista as integrações da conta, das mais recentes para as mais antigas, com [paginação](https://docs.olie.ai/api-reference/general/pagination). Aceita os filtros `type` e `is_active`. As credenciais nunca são retornadas; veja [Integrações](https://docs.olie.ai/guides/integrations/overview)."
+        "description": "Lista as integrações da conta, das mais recentes para as mais antigas, com [paginação](https://docs.olie.ai/api-reference/general/pagination). Aceita os filtros `type` e `is_active`. As credenciais nunca são retornadas; veja [Integrações](https://docs.olie.ai/guides/integrations/overview).",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filtra pelo conector: `whatsapp_cloud`, `whatsapp_evolution` ou `whatsapp_evolution_managed`.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "is_active",
+            "in": "query",
+            "description": "Filtra pela situação: `true` (ativas) ou `false` (pausadas).",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número da página a ser retornada. Começa em 1.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "Quantidade de itens exibidos por página.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ]
       },
       "post": {
         "summary": "Criar integração (WhatsApp Cloud)",
         "responses": {
-          "200": {
-            "description": "200"
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta com a integração criada.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
+                    },
+                    "integration": {
+                      "type": "object",
+                      "description": "Integração criada.",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "ID (UUID) da integração.",
+                          "format": "uuid"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Conector da integração: `whatsapp_cloud` (WhatsApp Cloud, Meta), `whatsapp_evolution` (Evolution em servidor próprio), `whatsapp_evolution_managed` (WhatsApp hospedado pela Olie); `fake` e `fake_storage` existem só em ambientes de teste.",
+                          "enum": [
+                            "whatsapp_cloud",
+                            "whatsapp_evolution",
+                            "whatsapp_evolution_managed",
+                            "fake",
+                            "fake_storage"
+                          ]
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Nome que identifica a conexão para a equipe; `null` quando não definido.",
+                          "nullable": true
+                        },
+                        "config": {
+                          "type": "object",
+                          "description": "Configurações da integração; as chaves presentes variam conforme o conector. `null` quando não há configuração.",
+                          "properties": {
+                            "base_url": {
+                              "type": "string",
+                              "description": "Endereço (URL) do servidor Evolution; presente só em `whatsapp_evolution`."
+                            },
+                            "outbound_sender_prefix": {
+                              "type": "boolean",
+                              "description": "Quando `true`, cada mensagem enviada por uma pessoa sai precedida do nome de quem escreveu."
+                            },
+                            "history_import_limit": {
+                              "type": "integer",
+                              "description": "Quantidade de mensagens anteriores recuperadas ao abrir um canal: `0` (desligado), `10`, `25`, `50` ou `100`.",
+                              "enum": [
+                                0,
+                                10,
+                                25,
+                                50,
+                                100,
+                                null
+                              ],
+                              "nullable": true
+                            },
+                            "graph_version": {
+                              "type": "string",
+                              "description": "Versão da Graph API da Meta, no formato `vNN.N` (ex.: `v21.0`); sem valor, usa a versão padrão da plataforma.",
+                              "nullable": true
+                            },
+                            "inbound_funnel_step_id": {
+                              "type": "integer",
+                              "description": "ID da etapa de funil onde um projeto é criado quando chega mensagem de um contato sem conversa ativa; sem valor, essas mensagens são ignoradas.",
+                              "nullable": true
+                            },
+                            "referral_form_id": {
+                              "type": "integer",
+                              "description": "ID do formulário que recebe os dados de origem de campanha (anúncio) da conversa.",
+                              "nullable": true
+                            },
+                            "referral_field_map": {
+                              "type": "object",
+                              "description": "Relação entre cada dado do anúncio e o ID do campo do formulário que o recebe; exige `referral_form_id`.",
+                              "properties": {
+                                "ctwa_clid": {
+                                  "type": "integer",
+                                  "description": "ID do campo que recebe o identificador do clique no anúncio."
+                                },
+                                "source_id": {
+                                  "type": "integer",
+                                  "description": "ID do campo que recebe o ID do anúncio."
+                                },
+                                "source_type": {
+                                  "type": "integer",
+                                  "description": "ID do campo que recebe o tipo de origem."
+                                },
+                                "headline": {
+                                  "type": "integer",
+                                  "description": "ID do campo que recebe o título do anúncio."
+                                },
+                                "body": {
+                                  "type": "integer",
+                                  "description": "ID do campo que recebe o texto do anúncio."
+                                }
+                              },
+                              "nullable": true
+                            },
+                            "allow_multiple_active_channels": {
+                              "type": "boolean",
+                              "description": "Permite ou não mais de uma conversa ativa com o mesmo contato nesta integração; ausente ou `null`, vale o padrão da conta.",
+                              "nullable": true
+                            }
+                          },
+                          "nullable": true
+                        },
+                        "is_active": {
+                          "type": "boolean",
+                          "description": "Situação escolhida pela conta: `false` indica integração pausada, que recusa as mensagens recebidas."
+                        },
+                        "connection_state": {
+                          "type": "string",
+                          "description": "Estado da sessão com o provedor: `unknown` (o provedor ainda não informou), `connecting`, `connected` ou `disconnected`.",
+                          "enum": [
+                            "unknown",
+                            "connecting",
+                            "connected",
+                            "disconnected"
+                          ]
+                        },
+                        "connection_state_changed_at": {
+                          "type": "string",
+                          "description": "Data em que a sessão entrou no estado atual; `null` se o provedor nunca informou.",
+                          "format": "date-time",
+                          "nullable": true
+                        },
+                        "frame_id": {
+                          "type": "string",
+                          "description": "ID (UUID) da conta à qual a integração pertence.",
+                          "format": "uuid"
+                        },
+                        "webhook_token": {
+                          "type": "string",
+                          "description": "Token que compõe o endereço do webhook de entrada; `null` em integrações que não recebem webhook.",
+                          "nullable": true
+                        },
+                        "webhook_url": {
+                          "type": "string",
+                          "description": "Endereço a cadastrar no provedor para a entrega de mensagens; `null` em integrações que não recebem webhook.",
+                          "nullable": true
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "Data de criação.",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "description": "Data da última alteração.",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "integration": {
+                    "id": "5d2e8f1a-6b3c-4d7e-8f90-1a2b3c4d5e6f",
+                    "type": "whatsapp_cloud",
+                    "name": "WhatsApp oficial",
+                    "config": {
+                      "graph_version": "v21.0"
+                    },
+                    "is_active": true,
+                    "connection_state": "unknown",
+                    "connection_state_changed_at": null,
+                    "frame_id": "7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f",
+                    "webhook_token": "Qm7xT2vB9nK4sH8dL1wR6yC0fJ5gAeU3iO7tZ2pV9kMbXc1N",
+                    "webhook_url": "https://api.olie.ai/api/management/channels/inbound/Qm7xT2vB9nK4sH8dL1wR6yC0fJ5gAeU3iO7tZ2pV9kMbXc1N",
+                    "created_at": "2026-06-18T12:00:00.000000Z",
+                    "updated_at": "2026-06-18T12:00:00.000000Z"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validação falhou",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "credentials.access_token": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo credentials.access token é obrigatório.",
+                  "validation": {
+                    "credentials.access_token": [
+                      "O campo credentials.access token é obrigatório."
+                    ]
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -53390,8 +54551,11 @@
               },
               "example": {
                 "type": "whatsapp_cloud",
-                "external_ref": "5517999990000",
-                "config": {},
+                "name": "WhatsApp oficial",
+                "external_ref": "ref-exemplo-001",
+                "config": {
+                  "graph_version": "v21.0"
+                },
                 "credentials": {
                   "phone_number_id": "123456789012345",
                   "access_token": "EAAG-exemplo-token",
@@ -55046,7 +56210,187 @@
         "summary": "Atualizar integração",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta com a integração atualizada.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
+                    },
+                    "integration": {
+                      "type": "object",
+                      "description": "Integração após a atualização.",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "ID (UUID) da integração.",
+                          "format": "uuid"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Conector da integração: `whatsapp_cloud` (WhatsApp Cloud, Meta), `whatsapp_evolution` (Evolution em servidor próprio), `whatsapp_evolution_managed` (WhatsApp hospedado pela Olie); `fake` e `fake_storage` existem só em ambientes de teste.",
+                          "enum": [
+                            "whatsapp_cloud",
+                            "whatsapp_evolution",
+                            "whatsapp_evolution_managed",
+                            "fake",
+                            "fake_storage"
+                          ]
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Nome que identifica a conexão para a equipe; `null` quando não definido.",
+                          "nullable": true
+                        },
+                        "config": {
+                          "type": "object",
+                          "description": "Configurações da integração; as chaves presentes variam conforme o conector. `null` quando não há configuração.",
+                          "properties": {
+                            "base_url": {
+                              "type": "string",
+                              "description": "Endereço (URL) do servidor Evolution; presente só em `whatsapp_evolution`."
+                            },
+                            "outbound_sender_prefix": {
+                              "type": "boolean",
+                              "description": "Quando `true`, cada mensagem enviada por uma pessoa sai precedida do nome de quem escreveu."
+                            },
+                            "history_import_limit": {
+                              "type": "integer",
+                              "description": "Quantidade de mensagens anteriores recuperadas ao abrir um canal: `0` (desligado), `10`, `25`, `50` ou `100`.",
+                              "enum": [
+                                0,
+                                10,
+                                25,
+                                50,
+                                100,
+                                null
+                              ],
+                              "nullable": true
+                            },
+                            "graph_version": {
+                              "type": "string",
+                              "description": "Versão da Graph API da Meta, no formato `vNN.N` (ex.: `v21.0`); sem valor, usa a versão padrão da plataforma.",
+                              "nullable": true
+                            },
+                            "inbound_funnel_step_id": {
+                              "type": "integer",
+                              "description": "ID da etapa de funil onde um projeto é criado quando chega mensagem de um contato sem conversa ativa; sem valor, essas mensagens são ignoradas.",
+                              "nullable": true
+                            },
+                            "referral_form_id": {
+                              "type": "integer",
+                              "description": "ID do formulário que recebe os dados de origem de campanha (anúncio) da conversa.",
+                              "nullable": true
+                            },
+                            "referral_field_map": {
+                              "type": "object",
+                              "description": "Relação entre cada dado do anúncio e o ID do campo do formulário que o recebe; exige `referral_form_id`.",
+                              "properties": {
+                                "ctwa_clid": {
+                                  "type": "integer",
+                                  "description": "ID do campo que recebe o identificador do clique no anúncio."
+                                },
+                                "source_id": {
+                                  "type": "integer",
+                                  "description": "ID do campo que recebe o ID do anúncio."
+                                },
+                                "source_type": {
+                                  "type": "integer",
+                                  "description": "ID do campo que recebe o tipo de origem."
+                                },
+                                "headline": {
+                                  "type": "integer",
+                                  "description": "ID do campo que recebe o título do anúncio."
+                                },
+                                "body": {
+                                  "type": "integer",
+                                  "description": "ID do campo que recebe o texto do anúncio."
+                                }
+                              },
+                              "nullable": true
+                            },
+                            "allow_multiple_active_channels": {
+                              "type": "boolean",
+                              "description": "Permite ou não mais de uma conversa ativa com o mesmo contato nesta integração; ausente ou `null`, vale o padrão da conta.",
+                              "nullable": true
+                            }
+                          },
+                          "nullable": true
+                        },
+                        "is_active": {
+                          "type": "boolean",
+                          "description": "Situação escolhida pela conta: `false` indica integração pausada, que recusa as mensagens recebidas."
+                        },
+                        "connection_state": {
+                          "type": "string",
+                          "description": "Estado da sessão com o provedor: `unknown` (o provedor ainda não informou), `connecting`, `connected` ou `disconnected`.",
+                          "enum": [
+                            "unknown",
+                            "connecting",
+                            "connected",
+                            "disconnected"
+                          ]
+                        },
+                        "connection_state_changed_at": {
+                          "type": "string",
+                          "description": "Data em que a sessão entrou no estado atual; `null` se o provedor nunca informou.",
+                          "format": "date-time",
+                          "nullable": true
+                        },
+                        "frame_id": {
+                          "type": "string",
+                          "description": "ID (UUID) da conta à qual a integração pertence.",
+                          "format": "uuid"
+                        },
+                        "webhook_token": {
+                          "type": "string",
+                          "description": "Token que compõe o endereço do webhook de entrada; `null` em integrações que não recebem webhook.",
+                          "nullable": true
+                        },
+                        "webhook_url": {
+                          "type": "string",
+                          "description": "Endereço a cadastrar no provedor para a entrega de mensagens; `null` em integrações que não recebem webhook.",
+                          "nullable": true
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "description": "Data de criação.",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "description": "Data da última alteração.",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "integration": {
+                    "id": "5d2e8f1a-6b3c-4d7e-8f90-1a2b3c4d5e6f",
+                    "type": "whatsapp_cloud",
+                    "name": "WhatsApp oficial",
+                    "config": {
+                      "graph_version": "v21.0"
+                    },
+                    "is_active": false,
+                    "connection_state": "unknown",
+                    "connection_state_changed_at": null,
+                    "frame_id": "7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f",
+                    "webhook_token": "Qm7xT2vB9nK4sH8dL1wR6yC0fJ5gAeU3iO7tZ2pV9kMbXc1N",
+                    "webhook_url": "https://api.olie.ai/api/management/channels/inbound/Qm7xT2vB9nK4sH8dL1wR6yC0fJ5gAeU3iO7tZ2pV9kMbXc1N",
+                    "created_at": "2026-06-18T12:00:00.000000Z",
+                    "updated_at": "2026-06-18T15:30:00.000000Z"
+                  },
+                  "response": true
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -55198,7 +56542,7 @@
                 }
               },
               "example": {
-                "external_ref": "5517988887777",
+                "name": "WhatsApp oficial",
                 "is_active": false
               }
             }
@@ -55221,7 +56565,24 @@
         "summary": "Remover integração",
         "responses": {
           "200": {
-            "description": "200"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Confirmação da remoção da integração.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
+                    }
+                  }
+                },
+                "example": {
+                  "response": true
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -55265,10 +56626,111 @@
             }
           },
           "409": {
-            "description": "A integração já está conectada"
+            "description": "A integração já está conectada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro quando a integração não pode iniciar um pareamento.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "whatsapp_already_connected",
+                  "error": "Este WhatsApp já está conectado."
+                }
+              }
+            }
           },
           "422": {
-            "description": "Número inválido ou código indisponível"
+            "description": "Número inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Resposta de erro quando o número enviado é inválido.",
+                  "properties": {
+                    "response": {
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    },
+                    "validation": {
+                      "type": "object",
+                      "description": "Erros de validação por campo: cada chave é o nome de um campo enviado.",
+                      "additionalProperties": {
+                        "type": "array",
+                        "description": "Mensagens de erro do campo.",
+                        "items": {
+                          "type": "string",
+                          "description": "Mensagem de erro de validação."
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo number deve ser um número de telefone válido.",
+                  "validation": {
+                    "number": [
+                      "O campo number deve ser um número de telefone válido."
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "424": {
+            "description": "Código de pareamento indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "stage": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "evolution_pairing_code_unavailable",
+                  "error": "Não foi possível gerar o código de pareamento agora. Tente novamente ou conecte pelo QR code.",
+                  "stage": "connect"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -55297,7 +56759,7 @@
                 ]
               },
               "example": {
-                "number": "+55 (11) 99999-8888"
+                "number": "+5511999990000"
               }
             }
           }
