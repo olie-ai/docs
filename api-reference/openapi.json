@@ -54528,82 +54528,124 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta com o Caderno.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "forum": {
                       "type": "object",
+                      "description": "Caderno do registro.",
                       "properties": {
                         "id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) do Caderno.",
+                          "format": "uuid"
                         },
                         "old_id": {
+                          "type": "integer",
+                          "description": "Uso interno da plataforma; pode ser ignorado.",
                           "nullable": true
                         },
                         "frame_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) da empresa.",
+                          "format": "uuid"
                         },
                         "model_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID do registro dono do Caderno."
                         },
                         "model_class": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Tipo do registro dono do Caderno."
                         },
                         "default_thread_id": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "ID da página principal do Caderno.",
+                          "nullable": true
                         },
                         "created_at": {
                           "type": "string",
+                          "description": "Data de criação.",
                           "format": "date-time"
                         },
                         "updated_at": {
                           "type": "string",
+                          "description": "Data da última alteração.",
                           "format": "date-time"
                         },
                         "deleted_at": {
+                          "type": "string",
+                          "description": "Data de remoção; `null` para Caderno ativo.",
+                          "format": "date-time",
                           "nullable": true
                         },
                         "threads": {
                           "type": "array",
+                          "description": "Páginas da raiz, em ordem, cada uma com suas subpáginas em `children`.",
                           "items": {
                             "type": "object",
+                            "description": "Página do Caderno.",
                             "properties": {
                               "id": {
-                                "type": "integer"
+                                "type": "integer",
+                                "description": "ID da página."
                               },
                               "name": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Nome da página."
                               },
                               "forum_id": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "ID (UUID) do Caderno da página.",
+                                "format": "uuid"
                               },
                               "parent_id": {
+                                "type": "integer",
+                                "description": "ID da página pai; `null` quando a página está na raiz.",
                                 "nullable": true
                               },
                               "order": {
-                                "type": "integer"
+                                "type": "integer",
+                                "description": "Posição da página entre as irmãs (crescente)."
                               },
                               "editor_type": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Editor da página: `tiptap` (atual) ou `editorjs` (anterior, somente leitura).",
+                                "enum": [
+                                  "tiptap",
+                                  "editorjs"
+                                ]
                               },
                               "created_at": {
                                 "type": "string",
+                                "description": "Data de criação.",
                                 "format": "date-time"
                               },
                               "updated_at": {
                                 "type": "string",
+                                "description": "Data da última alteração dos dados da página.",
                                 "format": "date-time"
                               },
                               "deleted_at": {
+                                "type": "string",
+                                "description": "Data de remoção; `null` para página ativa.",
+                                "format": "date-time",
                                 "nullable": true
                               },
                               "cdn_migrated": {
-                                "type": "integer"
+                                "type": "integer",
+                                "description": "Uso interno da plataforma; pode ser ignorado."
                               },
                               "children": {
                                 "type": "array",
-                                "items": {}
+                                "description": "Subpáginas, no mesmo formato da página (recursivo).",
+                                "items": {
+                                  "type": "object",
+                                  "description": "Subpágina, com os mesmos campos da página e a lista `children`."
+                                }
                               }
                             }
                           }
@@ -54677,18 +54719,24 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "permission": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Permissão que faltou ao usuário.",
+                      "nullable": true
                     }
                   }
                 },
@@ -54707,15 +54755,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -54733,24 +54785,29 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "validation": {
                       "type": "object",
-                      "properties": {
-                        "model_id": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
+                      "description": "Erros por campo: cada chave é um campo e o valor, a lista de mensagens.",
+                      "additionalProperties": {
+                        "type": "array",
+                        "description": "Mensagens de erro do campo.",
+                        "items": {
+                          "type": "string",
+                          "description": "Mensagem de erro."
                         }
                       }
                     }
@@ -54786,40 +54843,58 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta com o Caderno.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "forum": {
                       "type": "object",
+                      "description": "Caderno atualizado.",
                       "properties": {
                         "id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) do Caderno.",
+                          "format": "uuid"
                         },
                         "old_id": {
+                          "type": "integer",
+                          "description": "Uso interno da plataforma; pode ser ignorado.",
                           "nullable": true
                         },
                         "frame_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) da empresa.",
+                          "format": "uuid"
                         },
                         "model_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID do registro dono do Caderno."
                         },
                         "model_class": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Tipo do registro dono do Caderno."
                         },
                         "default_thread_id": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "ID da página principal do Caderno.",
+                          "nullable": true
                         },
                         "created_at": {
                           "type": "string",
+                          "description": "Data de criação.",
                           "format": "date-time"
                         },
                         "updated_at": {
                           "type": "string",
+                          "description": "Data da última alteração.",
                           "format": "date-time"
                         },
                         "deleted_at": {
+                          "type": "string",
+                          "description": "Data de remoção; `null` para Caderno ativo.",
+                          "format": "date-time",
                           "nullable": true
                         }
                       }
@@ -54849,15 +54924,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -54875,15 +54954,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -54916,11 +54999,15 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "description": "Dados do Caderno a alterar.",
                 "properties": {
                   "default_thread_id": {
+                    "type": "integer",
+                    "description": "ID da página que passa a ser a página principal. Precisa ser uma página da raiz deste Caderno.",
                     "nullable": true
                   }
-                }
+                },
+                "additionalProperties": false
               },
               "example": {
                 "default_thread_id": null
@@ -54950,9 +55037,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Confirmação da remoção.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     }
                   }
                 },
@@ -54968,18 +55057,24 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "permission": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Permissão que faltou ao usuário.",
+                      "nullable": true
                     }
                   }
                 },
@@ -54998,15 +55093,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -55035,35 +55134,47 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta com a página criada.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "thread": {
                       "type": "object",
+                      "description": "Página criada.",
                       "properties": {
-                        "name": {
-                          "type": "string"
+                        "id": {
+                          "type": "integer",
+                          "description": "ID da página."
                         },
-                        "order": {
-                          "type": "integer"
+                        "name": {
+                          "type": "string",
+                          "description": "Nome da página."
                         },
                         "forum_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) do Caderno da página.",
+                          "format": "uuid"
                         },
                         "parent_id": {
+                          "type": "integer",
+                          "description": "ID da página pai; `null` quando a página está na raiz.",
                           "nullable": true
                         },
-                        "updated_at": {
-                          "type": "string",
-                          "format": "date-time"
+                        "order": {
+                          "type": "integer",
+                          "description": "Posição da página entre as irmãs (crescente)."
                         },
                         "created_at": {
                           "type": "string",
+                          "description": "Data de criação.",
                           "format": "date-time"
                         },
-                        "id": {
-                          "type": "integer"
+                        "updated_at": {
+                          "type": "string",
+                          "description": "Data da última alteração dos dados da página.",
+                          "format": "date-time"
                         }
                       }
                     }
@@ -55090,18 +55201,24 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "permission": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Permissão que faltou ao usuário.",
+                      "nullable": true
                     }
                   }
                 },
@@ -55120,15 +55237,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -55146,24 +55267,29 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "validation": {
                       "type": "object",
-                      "properties": {
-                        "order": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
+                      "description": "Erros por campo: cada chave é um campo e o valor, a lista de mensagens.",
+                      "additionalProperties": {
+                        "type": "array",
+                        "description": "Mensagens de erro do campo.",
+                        "items": {
+                          "type": "string",
+                          "description": "Mensagem de erro."
                         }
                       }
                     }
@@ -55192,17 +55318,28 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "description": "Dados da nova página.",
                 "properties": {
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Nome da página."
                   },
                   "order": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Posição da página entre as irmãs (0 ou mais).",
+                    "minimum": 0
                   },
                   "parent_id": {
+                    "type": "integer",
+                    "description": "ID da página pai, para criar uma subpágina. Se não existir neste Caderno, a página é criada na raiz.",
                     "nullable": true
                   }
-                }
+                },
+                "required": [
+                  "name",
+                  "order"
+                ],
+                "additionalProperties": false
               },
               "example": {
                 "name": "Escopo e entregas",
@@ -55236,44 +55373,65 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta com a página.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "thread": {
                       "type": "object",
+                      "description": "Página do Caderno.",
                       "properties": {
                         "id": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "ID da página."
                         },
                         "name": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Nome da página."
                         },
                         "forum_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) do Caderno da página.",
+                          "format": "uuid"
                         },
                         "parent_id": {
+                          "type": "integer",
+                          "description": "ID da página pai; `null` quando a página está na raiz.",
                           "nullable": true
                         },
                         "order": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Posição da página entre as irmãs (crescente)."
                         },
                         "editor_type": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Editor da página: `tiptap` (atual) ou `editorjs` (anterior, somente leitura).",
+                          "enum": [
+                            "tiptap",
+                            "editorjs"
+                          ]
                         },
                         "created_at": {
                           "type": "string",
+                          "description": "Data de criação.",
                           "format": "date-time"
                         },
                         "updated_at": {
                           "type": "string",
+                          "description": "Data da última alteração dos dados da página.",
                           "format": "date-time"
                         },
                         "deleted_at": {
+                          "type": "string",
+                          "description": "Data de remoção; `null` para página ativa.",
+                          "format": "date-time",
                           "nullable": true
                         },
                         "cdn_migrated": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Uso interno da plataforma; pode ser ignorado."
                         }
                       }
                     }
@@ -55303,15 +55461,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -55371,44 +55533,65 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta com a página.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "thread": {
                       "type": "object",
+                      "description": "Página do Caderno.",
                       "properties": {
                         "id": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "ID da página."
                         },
                         "name": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Nome da página."
                         },
                         "forum_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) do Caderno da página.",
+                          "format": "uuid"
                         },
                         "parent_id": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "ID da página pai; `null` quando a página está na raiz.",
+                          "nullable": true
                         },
                         "order": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Posição da página entre as irmãs (crescente)."
                         },
                         "editor_type": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Editor da página: `tiptap` (atual) ou `editorjs` (anterior, somente leitura).",
+                          "enum": [
+                            "tiptap",
+                            "editorjs"
+                          ]
                         },
                         "created_at": {
                           "type": "string",
+                          "description": "Data de criação.",
                           "format": "date-time"
                         },
                         "updated_at": {
                           "type": "string",
+                          "description": "Data da última alteração dos dados da página.",
                           "format": "date-time"
                         },
                         "deleted_at": {
+                          "type": "string",
+                          "description": "Data de remoção; `null` para página ativa.",
+                          "format": "date-time",
                           "nullable": true
                         },
                         "cdn_migrated": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Uso interno da plataforma; pode ser ignorado."
                         }
                       }
                     }
@@ -55438,15 +55621,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -55464,15 +55651,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -55517,17 +55708,28 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "description": "Dados da página.",
                 "properties": {
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Nome da página (até 255 caracteres). Obrigatório em toda chamada.",
+                    "maxLength": 255
                   },
                   "parent_id": {
+                    "type": "integer",
+                    "description": "ID da nova página pai. Se omitido ou `null`, a página vai para a raiz.",
                     "nullable": true
                   },
                   "order": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Nova posição entre as irmãs (0 ou mais). Se omitido, a posição não muda.",
+                    "minimum": 0
                   }
-                }
+                },
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false
               },
               "example": {
                 "name": "Escopo e entregas",
@@ -55547,9 +55749,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Confirmação da remoção.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     }
                   }
                 },
@@ -55565,15 +55769,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -55591,15 +55799,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -55628,44 +55840,65 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta com a cópia.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "thread": {
                       "type": "object",
+                      "description": "Página criada pela duplicação.",
                       "properties": {
                         "id": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "ID da página."
                         },
                         "name": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Nome da página."
                         },
                         "forum_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) do Caderno da página.",
+                          "format": "uuid"
                         },
                         "parent_id": {
+                          "type": "integer",
+                          "description": "ID da página pai; `null` quando a página está na raiz.",
                           "nullable": true
                         },
                         "order": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Posição da página entre as irmãs (crescente)."
                         },
                         "editor_type": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Editor da página: `tiptap` (atual) ou `editorjs` (anterior, somente leitura).",
+                          "enum": [
+                            "tiptap",
+                            "editorjs"
+                          ]
                         },
                         "created_at": {
                           "type": "string",
+                          "description": "Data de criação.",
                           "format": "date-time"
                         },
                         "updated_at": {
                           "type": "string",
+                          "description": "Data da última alteração dos dados da página.",
                           "format": "date-time"
                         },
                         "deleted_at": {
+                          "type": "string",
+                          "description": "Data de remoção; `null` para página ativa.",
+                          "format": "date-time",
                           "nullable": true
                         },
                         "cdn_migrated": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Uso interno da plataforma; pode ser ignorado."
                         }
                       }
                     }
@@ -55695,15 +55928,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -55776,74 +56013,62 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta com o conteúdo da página.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "content": {
                       "type": "object",
+                      "description": "Conteúdo da página.",
                       "properties": {
                         "thread_id": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "ID da página."
                         },
                         "revision": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Número da versão do conteúdo; use como `base_revision` na próxima gravação."
                         },
                         "doc": {
                           "type": "object",
+                          "description": "Documento da página no formato JSON do editor (nó raiz `doc`).",
                           "properties": {
                             "type": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Tipo do nó raiz; sempre `doc`."
                             },
                             "content": {
                               "type": "array",
+                              "description": "Blocos de primeiro nível da página (parágrafos, títulos, listas, tabelas, imagens…).",
                               "items": {
                                 "type": "object",
-                                "properties": {
-                                  "type": {
-                                    "type": "string"
-                                  },
-                                  "attrs": {
-                                    "type": "object",
-                                    "properties": {
-                                      "level": {
-                                        "type": "integer"
-                                      }
-                                    }
-                                  },
-                                  "content": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "type": {
-                                          "type": "string"
-                                        },
-                                        "text": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
+                                "description": "Bloco do documento, com `type` e, conforme o tipo, `attrs`, `content` e `marks`."
                               }
                             }
                           }
                         },
                         "updated_at": {
                           "type": "string",
+                          "description": "Data da última gravação do conteúdo.",
                           "format": "date-time"
                         },
                         "updated_by": {
                           "type": "object",
+                          "description": "Pessoa que gravou a versão; `null` quando a gravação veio de uma aplicação.",
                           "properties": {
                             "id": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "ID (UUID) do usuário.",
+                              "format": "uuid"
                             },
                             "name": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Nome do usuário."
                             }
-                          }
+                          },
+                          "nullable": true
                         }
                       }
                     }
@@ -55896,15 +56121,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -55953,65 +56182,61 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta com o conteúdo da página.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "content": {
                       "type": "object",
+                      "description": "Conteúdo da página.",
                       "properties": {
                         "thread_id": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "ID da página."
                         },
                         "revision": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Número da versão do conteúdo; use como `base_revision` na próxima gravação."
                         },
                         "doc": {
                           "type": "object",
+                          "description": "Documento da página no formato JSON do editor (nó raiz `doc`).",
                           "properties": {
                             "type": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Tipo do nó raiz; sempre `doc`."
                             },
                             "content": {
                               "type": "array",
+                              "description": "Blocos de primeiro nível da página (parágrafos, títulos, listas, tabelas, imagens…).",
                               "items": {
                                 "type": "object",
-                                "properties": {
-                                  "type": {
-                                    "type": "string"
-                                  },
-                                  "attrs": {
-                                    "type": "object",
-                                    "properties": {
-                                      "level": {
-                                        "type": "integer"
-                                      }
-                                    }
-                                  },
-                                  "content": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "type": {
-                                          "type": "string"
-                                        },
-                                        "text": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
+                                "description": "Bloco do documento, com `type` e, conforme o tipo, `attrs`, `content` e `marks`."
                               }
                             }
                           }
                         },
                         "updated_at": {
                           "type": "string",
+                          "description": "Data da última gravação do conteúdo.",
                           "format": "date-time"
                         },
                         "updated_by": {
+                          "type": "object",
+                          "description": "Pessoa que gravou a versão; `null` quando a gravação veio de uma aplicação.",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "ID (UUID) do usuário.",
+                              "format": "uuid"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Nome do usuário."
+                            }
+                          },
                           "nullable": true
                         }
                       }
@@ -56062,18 +56287,24 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "current_revision": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "Versão atual da página; leia o conteúdo de novo antes de tentar outra vez.",
+                      "nullable": true
                     }
                   }
                 },
@@ -56092,24 +56323,29 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "validation": {
                       "type": "object",
-                      "properties": {
-                        "base_revision": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
+                      "description": "Erros por campo: cada chave é um campo e o valor, a lista de mensagens.",
+                      "additionalProperties": {
+                        "type": "array",
+                        "description": "Mensagens de erro do campo.",
+                        "items": {
+                          "type": "string",
+                          "description": "Mensagem de erro."
                         }
                       }
                     }
@@ -56138,52 +56374,37 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "description": "Novo conteúdo da página.",
                 "properties": {
                   "doc": {
                     "type": "object",
+                    "description": "Documento da página no formato JSON do editor (nó raiz `doc`).",
                     "properties": {
                       "type": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Tipo do nó raiz; sempre `doc`."
                       },
                       "content": {
                         "type": "array",
+                        "description": "Blocos de primeiro nível da página (parágrafos, títulos, listas, tabelas, imagens…).",
                         "items": {
                           "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string"
-                            },
-                            "attrs": {
-                              "type": "object",
-                              "properties": {
-                                "level": {
-                                  "type": "integer"
-                                }
-                              }
-                            },
-                            "content": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "type": {
-                                    "type": "string"
-                                  },
-                                  "text": {
-                                    "type": "string"
-                                  }
-                                }
-                              }
-                            }
-                          }
+                          "description": "Bloco do documento, com `type` e, conforme o tipo, `attrs`, `content` e `marks`."
                         }
                       }
                     }
                   },
                   "base_revision": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Versão sobre a qual o documento foi editado (a `revision` lida por último).",
+                    "minimum": 0
                   }
-                }
+                },
+                "required": [
+                  "doc",
+                  "base_revision"
+                ],
+                "additionalProperties": false
               },
               "example": {
                 "doc": {
@@ -56227,65 +56448,61 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta com o conteúdo da página.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "content": {
                       "type": "object",
+                      "description": "Conteúdo da página.",
                       "properties": {
                         "thread_id": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "ID da página."
                         },
                         "revision": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Número da versão do conteúdo; use como `base_revision` na próxima gravação."
                         },
                         "doc": {
                           "type": "object",
+                          "description": "Documento da página no formato JSON do editor (nó raiz `doc`).",
                           "properties": {
                             "type": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Tipo do nó raiz; sempre `doc`."
                             },
                             "content": {
                               "type": "array",
+                              "description": "Blocos de primeiro nível da página (parágrafos, títulos, listas, tabelas, imagens…).",
                               "items": {
                                 "type": "object",
-                                "properties": {
-                                  "type": {
-                                    "type": "string"
-                                  },
-                                  "attrs": {
-                                    "type": "object",
-                                    "properties": {
-                                      "level": {
-                                        "type": "integer"
-                                      }
-                                    }
-                                  },
-                                  "content": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "type": {
-                                          "type": "string"
-                                        },
-                                        "text": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
+                                "description": "Bloco do documento, com `type` e, conforme o tipo, `attrs`, `content` e `marks`."
                               }
                             }
                           }
                         },
                         "updated_at": {
                           "type": "string",
+                          "description": "Data da última gravação do conteúdo.",
                           "format": "date-time"
                         },
                         "updated_by": {
+                          "type": "object",
+                          "description": "Pessoa que gravou a versão; `null` quando a gravação veio de uma aplicação.",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "ID (UUID) do usuário.",
+                              "format": "uuid"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Nome do usuário."
+                            }
+                          },
                           "nullable": true
                         }
                       }
@@ -56336,24 +56553,31 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "refs": {
                       "type": "array",
+                      "description": "Blocos que mudaram desde a leitura.",
                       "items": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Bloco no formato `{índice}:{hash8}`."
                       }
                     },
                     "current_revision": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "Versão atual da página."
                     }
                   }
                 },
@@ -56375,21 +56599,27 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "context": {
                       "type": "object",
+                      "description": "Detalhes do erro.",
                       "properties": {
                         "operation_index": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Posição (a partir de 0) da operação com erro no lote."
                         }
                       }
                     }
@@ -56410,34 +56640,85 @@
         "tags": [
           "forums"
         ],
-        "description": "Altera partes da página sem reenviar o documento inteiro: troca de texto, troca, inserção ou remoção de blocos, em Markdown. Os `ref` de bloco (`{índice}:{hash8}`) vêm da leitura da página pelo MCP (`read-notebook-page-tool`); sem eles, use `insert_blocks` com `position` ou `replace_text` sem `ref`. Se a página mudou depois da `base_revision`, as operações são reaplicadas sobre a versão atual, e um bloco alterado no meio do caminho gera 409. Aceita token de aplicação.",
+        "description": "Altera partes da página sem reenviar o documento inteiro: troca de texto, troca, inserção ou remoção de blocos, em Markdown. Os `ref` de bloco (`{índice}:{hash8}`) vêm da leitura da página pelo MCP (`read-notebook-page-tool`); sem eles, use `insert_blocks` com `position` ou `replace_text` sem `ref`. Se a página mudou depois da `base_revision`, as operações são reaplicadas sobre a versão atual, e um bloco alterado no meio do caminho gera erro 409. Aceita token de aplicação.",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
+                "description": "Lote de operações sobre os blocos da página.",
                 "properties": {
                   "base_revision": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Versão sobre a qual as operações foram montadas.",
+                    "minimum": 0
                   },
                   "operations": {
                     "type": "array",
+                    "description": "Operações aplicadas em ordem (até 100).",
+                    "maxItems": 100,
                     "items": {
                       "type": "object",
+                      "description": "Operação sobre os blocos de primeiro nível.",
                       "properties": {
                         "type": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Tipo da operação.",
+                          "enum": [
+                            "replace_text",
+                            "replace_block",
+                            "insert_blocks",
+                            "delete_blocks"
+                          ]
+                        },
+                        "ref": {
+                          "type": "string",
+                          "description": "Bloco alvo, no formato `{índice}:{hash8}`. Obrigatório em `replace_block`; opcional em `replace_text`."
+                        },
+                        "after_ref": {
+                          "type": "string",
+                          "description": "Em `insert_blocks`: insere depois deste bloco. Use este campo ou `position`."
                         },
                         "position": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Em `insert_blocks`: insere no início ou no fim da página. Use este campo ou `after_ref`.",
+                          "enum": [
+                            "start",
+                            "end"
+                          ]
+                        },
+                        "refs": {
+                          "type": "array",
+                          "description": "Em `delete_blocks`: blocos a remover.",
+                          "items": {
+                            "type": "string",
+                            "description": "Bloco no formato `{índice}:{hash8}`."
+                          }
                         },
                         "markdown": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Em `replace_block` e `insert_blocks`: conteúdo novo, em Markdown."
+                        },
+                        "old_text": {
+                          "type": "string",
+                          "description": "Em `replace_text`: trecho a trocar; precisa aparecer uma única vez."
+                        },
+                        "new_text": {
+                          "type": "string",
+                          "description": "Em `replace_text`: texto que entra no lugar."
                         }
-                      }
+                      },
+                      "required": [
+                        "type"
+                      ]
                     }
                   }
-                }
+                },
+                "required": [
+                  "base_revision",
+                  "operations"
+                ],
+                "additionalProperties": false
               },
               "example": {
                 "base_revision": 0,
@@ -56484,53 +56765,91 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta paginada com as versões.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "meta": {
                       "type": "object",
+                      "description": "Metadados da paginação.",
                       "properties": {
                         "current_page": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Página atual."
                         },
                         "from": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Posição do primeiro item da página.",
+                          "nullable": true
                         },
                         "to": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Posição do último item da página.",
+                          "nullable": true
                         },
                         "last_page": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Última página disponível."
                         },
                         "per_page": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Itens por página."
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Total de versões."
                         }
                       }
                     },
                     "revisions": {
                       "type": "array",
+                      "description": "Versões da página.",
                       "items": {
                         "type": "object",
+                        "description": "Versão da página.",
                         "properties": {
                           "revision": {
-                            "type": "integer"
+                            "type": "integer",
+                            "description": "Número da versão."
                           },
                           "source": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Origem da versão: `ui` (interface), `api` (aplicação), `mcp`, `agent` (agente de IA), `restore` (restauração) ou `import` (migração).",
+                            "enum": [
+                              "ui",
+                              "api",
+                              "mcp",
+                              "agent",
+                              "restore",
+                              "import"
+                            ]
                           },
                           "created_at": {
                             "type": "string",
+                            "description": "Data da versão.",
                             "format": "date-time"
                           },
                           "updated_at": {
                             "type": "string",
+                            "description": "Data da última alteração do registro da versão.",
                             "format": "date-time"
                           },
                           "user": {
+                            "type": "object",
+                            "description": "Pessoa que gravou a versão; `null` quando não há pessoa (aplicação, migração).",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "ID (UUID) do usuário.",
+                                "format": "uuid"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Nome do usuário."
+                              }
+                            },
                             "nullable": true
                           }
                         }
@@ -56577,15 +56896,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -56636,74 +56959,62 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta com o conteúdo da página.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "content": {
                       "type": "object",
+                      "description": "Conteúdo da página.",
                       "properties": {
                         "thread_id": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "ID da página."
                         },
                         "revision": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Número da versão do conteúdo; use como `base_revision` na próxima gravação."
                         },
                         "doc": {
                           "type": "object",
+                          "description": "Documento da página no formato JSON do editor (nó raiz `doc`).",
                           "properties": {
                             "type": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Tipo do nó raiz; sempre `doc`."
                             },
                             "content": {
                               "type": "array",
+                              "description": "Blocos de primeiro nível da página (parágrafos, títulos, listas, tabelas, imagens…).",
                               "items": {
                                 "type": "object",
-                                "properties": {
-                                  "type": {
-                                    "type": "string"
-                                  },
-                                  "attrs": {
-                                    "type": "object",
-                                    "properties": {
-                                      "level": {
-                                        "type": "integer"
-                                      }
-                                    }
-                                  },
-                                  "content": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "type": {
-                                          "type": "string"
-                                        },
-                                        "text": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
+                                "description": "Bloco do documento, com `type` e, conforme o tipo, `attrs`, `content` e `marks`."
                               }
                             }
                           }
                         },
                         "updated_at": {
                           "type": "string",
+                          "description": "Data da última gravação do conteúdo.",
                           "format": "date-time"
                         },
                         "updated_by": {
                           "type": "object",
+                          "description": "Pessoa que gravou a versão; `null` quando a gravação veio de uma aplicação.",
                           "properties": {
                             "id": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "ID (UUID) do usuário.",
+                              "format": "uuid"
                             },
                             "name": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Nome do usuário."
                             }
-                          }
+                          },
+                          "nullable": true
                         }
                       }
                     }
@@ -56756,18 +57067,24 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "current_revision": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "Versão atual da página; leia o conteúdo de novo antes de tentar outra vez.",
+                      "nullable": true
                     }
                   }
                 },
@@ -56786,24 +57103,29 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "validation": {
                       "type": "object",
-                      "properties": {
-                        "base_revision": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
+                      "description": "Erros por campo: cada chave é um campo e o valor, a lista de mensagens.",
+                      "additionalProperties": {
+                        "type": "array",
+                        "description": "Mensagens de erro do campo.",
+                        "items": {
+                          "type": "string",
+                          "description": "Mensagem de erro."
                         }
                       }
                     }
@@ -56832,11 +57154,18 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "description": "Dados da restauração.",
                 "properties": {
                   "base_revision": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Versão atual da página, como foi lida por último.",
+                    "minimum": 0
                   }
-                }
+                },
+                "required": [
+                  "base_revision"
+                ],
+                "additionalProperties": false
               },
               "example": {
                 "base_revision": 0
@@ -56888,15 +57217,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta no formato lido pelo editor.",
                   "properties": {
                     "success": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "Sempre `1` em caso de sucesso."
                     },
                     "file": {
                       "type": "object",
+                      "description": "Arquivo enviado.",
                       "properties": {
                         "url": {
                           "type": "string",
+                          "description": "Link temporário (assinado) do arquivo.",
                           "format": "uri"
                         }
                       }
@@ -56918,24 +57251,29 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "validation": {
                       "type": "object",
-                      "properties": {
-                        "file": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
+                      "description": "Erros por campo: cada chave é um campo e o valor, a lista de mensagens.",
+                      "additionalProperties": {
+                        "type": "array",
+                        "description": "Mensagens de erro do campo.",
+                        "items": {
+                          "type": "string",
+                          "description": "Mensagem de erro."
                         }
                       }
                     }
