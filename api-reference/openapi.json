@@ -402,9 +402,9 @@
                   }
                 },
                 "example": {
-                  "response": "<boolean>",
-                  "message": "<string>",
-                  "error": "<string>"
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
                 }
               }
             }
@@ -19462,6 +19462,62 @@
                 "example": {}
               }
             }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "permission": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "permission_required",
+                  "error": "This action is unauthorized.",
+                  "permission": "step_assistants.delete"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "step_assistant_model_not_found",
+                  "error": "No query results for model [App\\Models\\StepAssistant]."
+                }
+              }
+            }
           }
         }
       },
@@ -24856,9 +24912,9 @@
                   }
                 },
                 "example": {
-                  "response": "<boolean>",
-                  "message": "<string>",
-                  "error": "<string>"
+                  "response": false,
+                  "message": "unauthorized",
+                  "error": "Unauthenticated."
                 }
               }
             }
@@ -24893,10 +24949,14 @@
                   }
                 },
                 "example": {
-                  "response": "<boolean>",
-                  "message": "<string>",
-                  "error": "<string>",
-                  "validation": {}
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "O campo form id é obrigatório.",
+                  "validation": {
+                    "form_id": [
+                      "O campo form id é obrigatório."
+                    ]
+                  }
                 }
               }
             }
@@ -32470,7 +32530,7 @@
           "results"
         ],
         "summary": "Deletar um resultado específico de uma meta",
-        "description": "Remove por soft delete um resultado já apurado da meta, sem alterar o progresso atual dela. Nas metas que conseguem recalcular períodos passados (todos os tipos exceto `manual` e `composite`), a rotina automática de atualização regenera o resultado removido. Responde 204 mesmo quando o resultado informado não existe ou pertence a outra meta.",
+        "description": "Remove um resultado já apurado da meta, sem alterar o progresso atual dela. Nas metas que conseguem recalcular períodos passados (todos os tipos exceto `manual` e `composite`), a atualização automática gera o resultado de novo. Responde 204 mesmo quando o resultado informado não existe ou pertence a outra meta.",
         "operationId": "deletarResultadoEspecFicoDeUmaMeta",
         "responses": {
           "204": {
@@ -41872,20 +41932,33 @@
             "application/json": {
               "schema": {
                 "type": "array",
-                "items": {},
-                "example": []
+                "example": [],
+                "items": {}
               },
               "examples": {
                 "Adicionar um ou mais usuários a um squad como membros": {
-                  "value": []
+                  "value": {
+                    "users": [
+                      {
+                        "id": null
+                      }
+                    ]
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "200": {
-            "description": "200"
+          "204": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         }
       },
@@ -41894,10 +41967,11 @@
           "name": "squad",
           "in": "path",
           "required": true,
+          "description": "ID (UUID) do squad.",
           "schema": {
             "type": "string"
           },
-          "example": "string"
+          "example": ""
         }
       ]
     },
@@ -41908,7 +41982,7 @@
           "users"
         ],
         "summary": "Atualizar tipo de um usuário no squad",
-        "description": "Atualiza o tipo de um usuário no squad (MEMBER, LEADER, LEADER_SUBSTITUTE). Ao definir LEADER ou LEADER_SUBSTITUTE, remove automaticamente o tipo anterior de outros usuários.",
+        "description": "Altera o papel de uma pessoa no squad. Ao definir alguém como líder ou líder substituto, quem ocupava esse papel volta a ser membro.",
         "operationId": "atualizarTipoDeUmUsuRioNoSquad",
         "requestBody": {
           "content": {
@@ -41925,7 +41999,7 @@
               "examples": {
                 "Atualizar tipo de um usuário no squad": {
                   "value": {
-                    "type": "sample_text"
+                    "type": "leader"
                   }
                 }
               }
@@ -41933,8 +42007,15 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "200"
+          "204": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         }
       },
@@ -47634,7 +47715,7 @@
           "projects",
           "Execuções"
         ],
-        "description": "Apaga um registro de execução do projeto. O tempo deixa de contar nos totais do painel e nos relatórios. Exige permissão de edição da execução."
+        "description": "Apaga um registro de execução do projeto. O tempo deixa de contar nos totais do painel e nos relatórios."
       },
       "put": {
         "summary": "Atualizar uma execução",
@@ -53131,10 +53212,10 @@
                   "response": true,
                   "channel": {
                     "id": "9b2a1c3e-4d5f-6789-abcd-ef0123456789",
-                    "name": "WhatsApp João",
+                    "name": "WhatsApp Atendimento",
                     "audience": "client",
                     "integration_id": "6b9e0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d",
-                    "external_ref": "5511999990000@s.whatsapp.net",
+                    "external_ref": "ref-exemplo-001",
                     "is_active": true,
                     "project_id": "8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
                     "frame_id": "7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f",
@@ -53342,7 +53423,7 @@
                     "name": "WhatsApp",
                     "audience": "client",
                     "integration_id": "6b9e0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d",
-                    "external_ref": "5511999990000@s.whatsapp.net",
+                    "external_ref": "ref-exemplo-001",
                     "is_active": true,
                     "project_id": "8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
                     "frame_id": "7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f",
@@ -53374,7 +53455,7 @@
                 "example": {
                   "response": false,
                   "message": "project_model_not_found",
-                  "error": "No query results for model [Project]."
+                  "error": "No query results for model [App\\Models\\Project] 8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c"
                 }
               }
             }
@@ -53464,7 +53545,7 @@
                 "example": {
                   "response": false,
                   "message": "validation_errors",
-                  "error": "The given data was invalid.",
+                  "error": "O campo project id é obrigatório. (and 2 more errors)",
                   "validation": {
                     "project_id": [
                       "O campo project id é obrigatório."
@@ -53523,9 +53604,9 @@
                 ]
               },
               "example": {
-                "project_id": "8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
-                "integration_id": "6b9e0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d",
-                "external_ref": "5511999990000@s.whatsapp.net"
+                "project_id": null,
+                "integration_id": null,
+                "external_ref": "ref-exemplo-001"
               }
             }
           }
@@ -56066,6 +56147,36 @@
                       }
                     }
                   ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Filtrar outro usuário sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "permission": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "permission_required",
+                  "error": "This action is unauthorized.",
+                  "permission": "projects_executions.see_timers"
                 }
               }
             }
