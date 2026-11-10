@@ -386,18 +386,22 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Erro retornado quando a requisição não traz um token de acesso válido.",
                   "properties": {
                     "response": {
                       "type": "boolean",
-                      "example": false
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
                       "type": "string",
-                      "example": "unauthorized"
+                      "description": "Identificador do erro (slug); aqui, `unauthorized`.",
+                      "enum": [
+                        "unauthorized"
+                      ]
                     },
                     "error": {
                       "type": "string",
-                      "example": "Unauthenticated."
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -19469,18 +19473,26 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Erro retornado quando quem chama não pode remover assistentes de etapa.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); aqui, `permission_required`.",
+                      "enum": [
+                        "permission_required"
+                      ]
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "permission": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador da permissão que faltou para concluir a ação."
                     }
                   }
                 },
@@ -19499,15 +19511,22 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Erro retornado quando o assistente informado não existe ou não está acessível.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); aqui, `step_assistant_model_not_found`.",
+                      "enum": [
+                        "step_assistant_model_not_found"
+                      ]
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -24526,15 +24545,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Erro retornado quando o objeto informado em `target` não existe ou não está acessível.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -24614,18 +24637,26 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Erro retornado quando o objeto informado não tem relação com o formulário.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
-                    },
-                    "service": {
-                      "type": "string"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); aqui, `father_df_options_has_none_compatible_possibility`.",
+                      "enum": [
+                        "father_df_options_has_none_compatible_possibility"
+                      ]
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
+                    },
+                    "service": {
+                      "type": "string",
+                      "description": "Identificador interno da origem do erro, útil apenas para diagnóstico."
                     }
                   }
                 },
@@ -24896,18 +24927,22 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Erro retornado quando a requisição não traz um token de acesso válido.",
                   "properties": {
                     "response": {
                       "type": "boolean",
-                      "example": false
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
                       "type": "string",
-                      "example": "unauthorized"
+                      "description": "Identificador do erro (slug); aqui, `unauthorized`.",
+                      "enum": [
+                        "unauthorized"
+                      ]
                     },
                     "error": {
                       "type": "string",
-                      "example": "Unauthenticated."
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -24925,25 +24960,33 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Erro de validação retornado quando falta um dado obrigatório ou um valor é inválido.",
                   "properties": {
                     "response": {
                       "type": "boolean",
-                      "example": false
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
                       "type": "string",
-                      "example": "validation_errors"
+                      "description": "Identificador do erro (slug); aqui, `validation_errors`.",
+                      "enum": [
+                        "validation_errors"
+                      ]
                     },
                     "error": {
                       "type": "string",
-                      "example": "O campo [nome_campo] é obrigatório."
+                      "description": "Descrição legível do erro."
                     },
                     "validation": {
                       "type": "object",
-                      "example": {
-                        "[nome_campo]": [
-                          "O campo [nome_campo] é obrigatório."
-                        ]
+                      "description": "Mensagens de validação agrupadas pelo nome do campo recusado.",
+                      "additionalProperties": {
+                        "type": "array",
+                        "description": "Mensagens de validação do campo.",
+                        "items": {
+                          "type": "string",
+                          "description": "Mensagem de validação."
+                        }
                       }
                     }
                   }
@@ -34218,7 +34261,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "description": "Resposta sem corpo (HTTP 204).",
+                  "nullable": true
                 },
                 "example": {}
               }
@@ -41931,9 +41975,31 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "array",
-                "example": [],
-                "items": {}
+                "type": "object",
+                "description": "Pessoas a adicionar ao squad como membros.",
+                "properties": {
+                  "users": {
+                    "type": "array",
+                    "description": "Pessoas a adicionar; ao menos uma.",
+                    "items": {
+                      "type": "object",
+                      "description": "Pessoa a adicionar.",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "ID (UUID) da pessoa; precisa ser da empresa e ainda não estar no squad.",
+                          "format": "uuid"
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "users"
+                ]
               },
               "examples": {
                 "Adicionar um ou mais usuários a um squad como membros": {
@@ -41955,7 +42021,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "description": "Resposta sem corpo (HTTP 204).",
+                  "nullable": true
                 }
               }
             }
@@ -41989,10 +42056,16 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "description": "Novo papel da pessoa no squad.",
                 "properties": {
                   "type": {
                     "type": "string",
-                    "example": "sample_text"
+                    "description": "Papel da pessoa no squad: `leader` (líder), `leader-substitute` (líder substituto) ou `member` (membro). Campo obrigatório.",
+                    "enum": [
+                      "leader",
+                      "leader-substitute",
+                      "member"
+                    ]
                   }
                 }
               },
@@ -42012,7 +42085,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "description": "Resposta sem corpo (HTTP 204).",
+                  "nullable": true
                 }
               }
             }
@@ -53165,43 +53239,66 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Canal criado.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "channel": {
                       "type": "object",
+                      "description": "Canal de conversa do projeto.",
                       "properties": {
                         "id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) do canal.",
+                          "format": "uuid"
                         },
                         "name": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Nome do canal."
                         },
                         "audience": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Quem vê o canal: `internal` (só a equipe) ou `client` (visível ao cliente).",
+                          "enum": [
+                            "internal",
+                            "client"
+                          ]
                         },
                         "integration_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) da integração de comunicação ligada ao canal; `null` quando o canal não usa integração.",
+                          "format": "uuid",
+                          "nullable": true
                         },
                         "external_ref": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Identificador do contato no conector, devolvido exatamente como foi informado; `null` quando o canal não tem destinatário externo.",
+                          "nullable": true
                         },
                         "is_active": {
-                          "type": "boolean"
+                          "type": "boolean",
+                          "description": "Indica se o canal está ativo."
                         },
                         "project_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) do projeto ao qual o canal pertence.",
+                          "format": "uuid"
                         },
                         "frame_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) da empresa dona do canal.",
+                          "format": "uuid"
                         },
                         "created_at": {
                           "type": "string",
+                          "description": "Data de criação do canal.",
                           "format": "date-time"
                         },
                         "updated_at": {
                           "type": "string",
+                          "description": "Data da última alteração do canal.",
                           "format": "date-time"
                         }
                       }
@@ -53355,7 +53452,7 @@
               },
               "example": {
                 "project_id": "8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
-                "name": "WhatsApp João",
+                "name": "WhatsApp Comercial",
                 "audience": "client"
               }
             }
@@ -53373,43 +53470,66 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Conversa aberta: canal novo ou o canal ativo já existente com esse destinatário no projeto.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "channel": {
                       "type": "object",
+                      "description": "Canal de conversa do projeto.",
                       "properties": {
                         "id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) do canal.",
+                          "format": "uuid"
                         },
                         "name": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Nome do canal."
                         },
                         "audience": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Quem vê o canal: `internal` (só a equipe) ou `client` (visível ao cliente).",
+                          "enum": [
+                            "internal",
+                            "client"
+                          ]
                         },
                         "integration_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) da integração de comunicação ligada ao canal; `null` quando o canal não usa integração.",
+                          "format": "uuid",
+                          "nullable": true
                         },
                         "external_ref": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Identificador do contato no conector, devolvido exatamente como foi informado; `null` quando o canal não tem destinatário externo.",
+                          "nullable": true
                         },
                         "is_active": {
-                          "type": "boolean"
+                          "type": "boolean",
+                          "description": "Indica se o canal está ativo."
                         },
                         "project_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) do projeto ao qual o canal pertence.",
+                          "format": "uuid"
                         },
                         "frame_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) da empresa dona do canal.",
+                          "format": "uuid"
                         },
                         "created_at": {
                           "type": "string",
+                          "description": "Data de criação do canal.",
                           "format": "date-time"
                         },
                         "updated_at": {
                           "type": "string",
+                          "description": "Data da última alteração do canal.",
                           "format": "date-time"
                         }
                       }
@@ -53440,15 +53560,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Erro retornado quando o projeto ou a integração informados não existem.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -53507,35 +53631,49 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Erro de validação dos dados enviados.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); aqui, `validation_errors`.",
+                      "enum": [
+                        "validation_errors"
+                      ]
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "validation": {
                       "type": "object",
+                      "description": "Mensagens de validação agrupadas por campo.",
                       "properties": {
                         "project_id": {
                           "type": "array",
+                          "description": "Mensagens sobre o campo `project_id`.",
                           "items": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Mensagem de validação."
                           }
                         },
                         "integration_id": {
                           "type": "array",
+                          "description": "Mensagens sobre o campo `integration_id`.",
                           "items": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Mensagem de validação."
                           }
                         },
                         "external_ref": {
                           "type": "array",
+                          "description": "Mensagens sobre o campo `external_ref`.",
                           "items": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Mensagem de validação."
                           }
                         }
                       }
@@ -56157,18 +56295,26 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Erro retornado ao filtrar execuções de outra pessoa sem ter acesso aos timers dos outros.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); aqui, `permission_required`.",
+                      "enum": [
+                        "permission_required"
+                      ]
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "permission": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador da permissão que faltou para concluir a ação."
                     }
                   }
                 },
