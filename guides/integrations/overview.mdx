@@ -27,8 +27,8 @@ No menu de **Ajustes**, o grupo **Integrações** tem dois itens: **Integraçõe
   A conexão com ChatGPT e Claude.
 </Card>
 
-<Card title="Webhooks" icon="bell">
-  Notificações de eventos nativos da plataforma.
+<Card title="Webhooks" icon="bell" href="/guides/integrations/event-webhooks">
+  Avisos assinados quando projetos, clientes e contatos mudam.
 </Card>
 </CardGroup>
 
@@ -185,19 +185,19 @@ Existem dois mecanismos diferentes com o mesmo nome:
 
 <Tabs>
 <Tab title="Disparar webhook por automação">
-  **Disponível hoje.** A ação **Disparar webhook** chama uma URL externa quando a automação roda, levando os dados do disparo e um corpo customizado que aceita [sintaxe avançada](/guides/advanced/advanced-syntax).
+  A ação **Disparar webhook** chama uma URL externa quando a automação roda, levando os dados do disparo e um corpo customizado que aceita [sintaxe avançada](/guides/advanced/advanced-syntax).
 
   Há um botão de teste no editor. Uma falha na chamada é registrada e **o fluxo continua** nas ações seguintes.
 
   Ver [Ações: comunicação, IA e execução](/guides/automation/actions-integrations).
 </Tab>
 
-<Tab title="Webhooks de eventos nativos">
-  **Em breve.** A aba Webhooks existe e está marcada como tal.
+<Tab title="Webhooks de eventos">
+  Você cadastra URLs em **Ajustes → Integrações → API → Webhooks**. A Olie envia um POST assinado (HMAC) quando projetos, clientes ou contatos mudam — inclusive criação sem funil e mudança de etapa — sem montar automação.
 
-  São eventos que nenhuma automação pegaria — um projeto criado sem vínculo com funil algum, um usuário novo entrando na conta.
+  O histórico de envios fica na própria assinatura. Dá para testar a URL, trocar o secret e reenviar entregas que falharam.
 
-  Enquanto isso, o caminho para reagir a esses casos é consultar a API periodicamente, ou desenhar o fluxo de modo que o evento passe por uma etapa.
+  Ver [Webhooks de eventos](/guides/integrations/event-webhooks).
 </Tab>
 </Tabs>
 
