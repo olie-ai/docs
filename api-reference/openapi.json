@@ -11653,6 +11653,28 @@
                           ],
                           "description": "Operador da comparação."
                         },
+                        "value": {
+                          "description": "Valor a comparar; o tipo depende do campo e do operador. Em `contains` e `not_contains`, envie um texto, um número, um booleano, uma lista desses valores ou um objeto com `id`. Com lista, `contains` encontra quem tiver ao menos um dos valores; `not_contains` exclui quem tiver qualquer um deles. Detalhes em [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search).",
+                          "nullable": true,
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            },
+                            {
+                              "type": "object"
+                            }
+                          ]
+                        },
                         "logical_operator": {
                           "type": "string",
                           "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`."
@@ -20049,7 +20071,8 @@
                           "description": "Operador de comparação; nem todo campo aceita todos."
                         },
                         "value": {
-                          "description": "Valor a comparar; o tipo depende do campo e do operador.",
+                          "description": "Valor a comparar; o tipo depende do campo e do operador. Em `contains` e `not_contains`, envie um texto, um número, um booleano, uma lista desses valores ou um objeto com `id`. Com lista, `contains` encontra quem tiver ao menos um dos valores; `not_contains` exclui quem tiver qualquer um deles. Detalhes em [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search).",
+                          "nullable": true,
                           "anyOf": [
                             {
                               "type": "string"
@@ -20063,6 +20086,9 @@
                             {
                               "type": "array",
                               "items": {}
+                            },
+                            {
+                              "type": "object"
                             }
                           ]
                         },
