@@ -331,7 +331,7 @@ Cada item de `params.filters` descreve um campo que você pode usar em `filters[
 | `arguments` | Os argumentos que o campo aceita. `required: true` indica argumento obrigatório, e `hydrate` diz em qual endpoint buscar os valores possíveis. |
 | `hydrate` | Onde buscar as opções do próprio campo, ou `null` quando não se aplica. |
 
-Os itens de `params.sorting` trazem o `name` a usar em `sorting[].field`.
+Os itens de `params.sorting` trazem o `name` a usar em `sorting[].field`. Quando a ordenação precisa de contexto, a lista `arguments` vem no mesmo formato dos filtros. Ordenar por resposta do formulário do funil (`project_funnel_assignments_answer_pool`) exige o id do funil e o id do campo, nessa ordem.
 
 ## Tratamento de erros
 
