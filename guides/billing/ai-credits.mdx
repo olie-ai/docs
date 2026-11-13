@@ -1,10 +1,10 @@
 ---
 title: "Créditos de IA"
 description: "Como funcionam os créditos pré-pagos de IA: o que consome saldo, como comprar, recarga automática e o que acontece quando o saldo acaba"
-keywords: ["créditos de IA", "crédito", "saldo", "extrato", "recarga automática", "comprar créditos", "consumo de IA", "créditos insuficientes", "seleção automática de modelos"]
+keywords: ["créditos de IA", "crédito", "saldo", "extrato", "histórico de transações", "recarga automática", "comprar créditos", "consumo de IA", "créditos insuficientes", "seleção automática de modelos", "Studio"]
 ---
 
-A Olie usa **créditos** para o uso dos recursos de inteligência artificial, como agentes, assistentes de etapa e a transcrição de áudios. O modelo é **pré-pago**: você adiciona créditos ao saldo da sua empresa e cada uso de IA consome créditos desse saldo.
+A Olie usa **créditos** para o uso dos recursos de inteligência artificial, como agentes, assistentes de etapa, a transcrição de áudios e o **Studio**. O modelo é **pré-pago**: você adiciona créditos ao saldo da sua empresa e cada uso de IA consome créditos desse saldo.
 
 Com o modelo pré-pago, o gasto com IA fica previsível: você usa o saldo que já comprou e decide quando recarregar.
 
@@ -36,11 +36,11 @@ O uso de créditos segue um ciclo de compra, uso e recarga:
 </Step>
 
 <Step title="Use a IA">
-  Utilize agentes e assistentes de etapa normalmente. Não é preciso fazer nada a cada uso.
+  Utilize agentes, assistentes de etapa e o **Studio** normalmente. Não é preciso fazer nada a cada uso.
 </Step>
 
 <Step title="O consumo é descontado">
-  Cada execução desconta créditos do saldo automaticamente, e o lançamento aparece no seu extrato.
+  Cada execução desconta créditos do saldo automaticamente, e o lançamento aparece no **Histórico de transações**.
 </Step>
 
 <Step title="Recarregue quando precisar">
@@ -54,7 +54,7 @@ O uso de créditos segue um ciclo de compra, uso e recarga:
 
 ## O que consome créditos
 
-O consumo acontece sempre que a IA é executada — em **agentes**, **assistentes de etapa** e na **transcrição de áudio**. O quanto cada uso consome varia de acordo com alguns fatores:
+O consumo acontece sempre que a IA é executada — em **agentes**, **assistentes de etapa**, na **transcrição de áudio** e no **Studio**. O quanto cada uso consome varia de acordo com alguns fatores:
 
 <AccordionGroup>
 <Accordion title="O modelo escolhido" icon="brain">
@@ -72,15 +72,19 @@ O consumo acontece sempre que a IA é executada — em **agentes**, **assistente
 <Accordion title="Transcrição de áudio" icon="microphone">
   Cada áudio processado consome créditos, inclusive quando a plataforma não identifica fala. Áudio acima do limite ou falha antes do provedor não debita. Você desliga a cobrança em **Ajustes da empresa** → **Transcrever áudios automaticamente**. Ver [Transcrição de áudio](/guides/content/overview#transcrição-de-áudio).
 </Accordion>
+
+<Accordion title="Studio" icon="sparkles">
+  Cada resposta do **Studio** consome créditos do saldo da empresa. Sem saldo, a nova resposta não começa. O lançamento aparece no **Histórico de transações** como **Studio**. O acesso ao Studio continua sendo só a permissão; veja [Acesso ao Studio](/guides/users/roles-permissions#acesso-ao-studio).
+</Accordion>
 </AccordionGroup>
 
 <Note>
-O consumo exato de cada execução fica registrado no seu **extrato de créditos**, para que você acompanhe em detalhes onde os créditos foram usados.
+O consumo exato de cada execução fica registrado no **Histórico de transações**, para que você acompanhe em detalhes onde os créditos foram usados.
 </Note>
 
 ## Comprando créditos
 
-Para comprar créditos, você precisa de um [método de pagamento](/guides/billing/payment-methods) válido cadastrado e da permissão para comprar créditos (veja [Acompanhando saldo e extrato](#acompanhando-saldo-e-extrato)).
+Para comprar créditos, você precisa de um [método de pagamento](/guides/billing/payment-methods) válido cadastrado e da permissão para comprar créditos (veja [Acompanhando saldo e histórico](#acompanhando-saldo-e-histórico)).
 
 <Steps>
 <Step title="Escolha comprar créditos">
@@ -146,7 +150,7 @@ O saldo é conferido no início de cada execução, e não durante ela. Por isso
 
 **Execuções em andamento vão até o fim.** Uma execução que já começou termina normalmente, mesmo quando consome mais créditos do que havia no saldo. Nesse caso, o saldo pode ficar **negativo**, e a diferença é abatida automaticamente na sua próxima recarga.
 
-## Acompanhando saldo e extrato
+## Acompanhando saldo e histórico
 
 Em **Ajustes** > **Cobrança** > **Créditos de IA**, você acompanha duas informações:
 
@@ -155,14 +159,14 @@ Em **Ajustes** > **Cobrança** > **Créditos de IA**, você acompanha duas infor
   Veja a qualquer momento quantos créditos a sua empresa tem disponível.
 </Card>
 
-<Card title="Extrato de créditos" icon="receipt">
-  Acompanhe o histórico de movimentações: compras, consumos, bônus e demais ajustes no saldo.
+<Card title="Histórico de transações" icon="receipt">
+  Acompanhe as movimentações: compras, consumos, bônus e demais ajustes no saldo.
 </Card>
 </CardGroup>
 
-Os créditos que um template do Marketplace dá como bônus entram no saldo na implantação e aparecem no extrato com o tipo **Bônus** ([ver o bônus do template](/guides/marketplace/marketplace-user-guide#bônus-do-template)).
+Os créditos que um template do Marketplace dá como bônus entram no saldo na implantação e aparecem no **Histórico de transações** com o tipo **Bônus** ([ver o bônus do template](/guides/marketplace/marketplace-user-guide#bônus-do-template)).
 
-O acesso a essas informações depende das suas permissões: uma permissão libera **visualizar** saldo e extrato, e outra libera **comprar** créditos e ajustar a recarga automática. Se alguma opção não aparecer para você, fale com quem administra as permissões da sua empresa.
+O acesso a essas informações depende das suas permissões: uma permissão libera **visualizar** saldo e histórico de créditos de IA, e outra libera **comprar** créditos e ajustar a recarga automática. Se alguma opção não aparecer para você, fale com quem administra as permissões da sua empresa.
 
 ## Seleção automática de modelos
 
@@ -221,7 +225,7 @@ Algumas escolhas na configuração e no uso da IA reduzem o consumo:
 </Accordion>
 
 <Accordion title="Acompanhe o consumo" icon="chart-line">
-  Consulte o extrato com regularidade para identificar onde os créditos estão sendo gastos e ajustar o uso conforme necessário.
+  Consulte o **Histórico de transações** com regularidade para identificar onde os créditos estão sendo gastos e ajustar o uso conforme necessário.
 </Accordion>
 </AccordionGroup>
 
