@@ -6352,7 +6352,7 @@
           "projects",
           "Conteúdos e arquivos"
         ],
-        "description": "Envia um conteúdo — texto, áudio ou arquivo — para um ou mais projetos. Cada projeto informado recebe uma entrada própria: quando mais de uma é criada, a resposta traz `medias` (lista) no lugar de `media` (objeto).\n\nÁudio e arquivos são enviados como `multipart/form-data`. Menções escritas no texto disparam as notificações correspondentes — veja [Menções](https://docs.olie.ai/guides/fundamentals/mentions). Projetos que já foram mesclados não aceitam novos conteúdos.",
+        "description": "Envia um conteúdo — texto, áudio ou arquivo — para um ou mais projetos. Cada projeto informado recebe uma entrada própria: quando mais de uma é criada, a resposta traz `medias` (lista) no lugar de `media` (objeto).\n\nÁudio e arquivos são enviados como `multipart/form-data`. Menções escritas no texto disparam as notificações correspondentes — veja [Menções](https://docs.olie.ai/guides/fundamentals/mentions). Projetos que já foram mesclados não aceitam novos conteúdos. Em canal externo com a janela de resposta fechada (WhatsApp Cloud, depois de 24 horas sem mensagem do cliente), o envio é recusado com HTTP 422 e `message: \"channel_reply_window_closed\"`; para falar com o cliente, use Enviar template pelo canal.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -53070,6 +53070,11 @@
                             "description": "ID (UUID) da integração pela qual o canal envia e recebe mensagens; `null` em canal sem integração.",
                             "format": "uuid"
                           },
+                          "integration_type": {
+                            "type": "string",
+                            "description": "Conector da integração do canal (`whatsapp_cloud`, `whatsapp_evolution` ou `whatsapp_evolution_managed`); `null` em canal sem integração.",
+                            "nullable": true
+                          },
                           "external_ref": {
                             "type": "string",
                             "description": "Identificador opaco da outra ponta da conversa no provedor; `null` em canal sem integração."
@@ -53097,6 +53102,45 @@
                             "type": "string",
                             "description": "Data da última alteração.",
                             "format": "date-time"
+                          },
+                          "capabilities": {
+                            "type": "object",
+                            "description": "O que o canal pode fazer agora, conforme a integração dele e o estado da conversa.",
+                            "properties": {
+                              "reply_window": {
+                                "type": "object",
+                                "description": "Janela de resposta do provedor; `null` quando o provedor não tem janela (Evolution, WhatsApp hospedado pela Olie ou canal sem integração).",
+                                "properties": {
+                                  "hours": {
+                                    "type": "integer",
+                                    "description": "Duração da janela em horas, contada a partir da última mensagem do cliente (24 no WhatsApp Cloud)."
+                                  },
+                                  "open": {
+                                    "type": "boolean",
+                                    "description": "Indica se a janela está aberta agora; fechada, só um template chega ao cliente."
+                                  },
+                                  "closes_at": {
+                                    "type": "string",
+                                    "description": "Quando a janela fecha (ou fechou), em ISO 8601; `null` quando o cliente ainda não escreveu no canal.",
+                                    "format": "date-time",
+                                    "nullable": true
+                                  }
+                                },
+                                "nullable": true
+                              },
+                              "free_text": {
+                                "type": "boolean",
+                                "description": "Indica se o canal aceita agora mensagem livre (texto, arquivo ou áudio); `false` com a janela de resposta fechada."
+                              },
+                              "templates": {
+                                "type": "boolean",
+                                "description": "Indica se o canal envia templates aprovados (WhatsApp Cloud conectado pela Meta)."
+                              },
+                              "typing": {
+                                "type": "boolean",
+                                "description": "Indica se o canal mostra ao cliente que alguém está digitando."
+                              }
+                            }
                           }
                         }
                       }
@@ -53195,7 +53239,7 @@
         "tags": [
           "channels"
         ],
-        "description": "Lista os canais da conta, dos mais recentes para os mais antigos, com [paginação](https://docs.olie.ai/api-reference/general/pagination). Use `project_id` para trazer só os canais de um projeto. O canal externo é o que tem `integration_id` preenchido; veja [Integrações](https://docs.olie.ai/guides/integrations/overview)."
+        "description": "Lista os canais da conta, dos mais recentes para os mais antigos, com [paginação](https://docs.olie.ai/api-reference/general/pagination). Use `project_id` para trazer só os canais de um projeto. O canal externo é o que tem `integration_id` preenchido; veja [Integrações](https://docs.olie.ai/guides/integrations/overview). Cada canal traz em `capabilities` o que ele aceita agora: mensagem livre, templates e indicação de digitação, além da janela de resposta."
       },
       "post": {
         "summary": "Criar canal",
@@ -53238,6 +53282,11 @@
                           "description": "ID (UUID) da integração de comunicação ligada ao canal; `null` quando o canal não usa integração.",
                           "format": "uuid"
                         },
+                        "integration_type": {
+                          "type": "string",
+                          "description": "Conector da integração do canal (`whatsapp_cloud`, `whatsapp_evolution` ou `whatsapp_evolution_managed`); `null` em canal sem integração.",
+                          "nullable": true
+                        },
                         "external_ref": {
                           "type": "string",
                           "description": "Identificador do contato no conector, devolvido exatamente como foi informado; `null` quando o canal não tem destinatário externo."
@@ -53265,6 +53314,45 @@
                           "type": "string",
                           "description": "Data da última alteração do canal.",
                           "format": "date-time"
+                        },
+                        "capabilities": {
+                          "type": "object",
+                          "description": "O que o canal pode fazer agora, conforme a integração dele e o estado da conversa.",
+                          "properties": {
+                            "reply_window": {
+                              "type": "object",
+                              "description": "Janela de resposta do provedor; `null` quando o provedor não tem janela (Evolution, WhatsApp hospedado pela Olie ou canal sem integração).",
+                              "properties": {
+                                "hours": {
+                                  "type": "integer",
+                                  "description": "Duração da janela em horas, contada a partir da última mensagem do cliente (24 no WhatsApp Cloud)."
+                                },
+                                "open": {
+                                  "type": "boolean",
+                                  "description": "Indica se a janela está aberta agora; fechada, só um template chega ao cliente."
+                                },
+                                "closes_at": {
+                                  "type": "string",
+                                  "description": "Quando a janela fecha (ou fechou), em ISO 8601; `null` quando o cliente ainda não escreveu no canal.",
+                                  "format": "date-time",
+                                  "nullable": true
+                                }
+                              },
+                              "nullable": true
+                            },
+                            "free_text": {
+                              "type": "boolean",
+                              "description": "Indica se o canal aceita agora mensagem livre (texto, arquivo ou áudio); `false` com a janela de resposta fechada."
+                            },
+                            "templates": {
+                              "type": "boolean",
+                              "description": "Indica se o canal envia templates aprovados (WhatsApp Cloud conectado pela Meta)."
+                            },
+                            "typing": {
+                              "type": "boolean",
+                              "description": "Indica se o canal mostra ao cliente que alguém está digitando."
+                            }
+                          }
                         }
                       }
                     }
@@ -53474,6 +53562,11 @@
                           "description": "ID (UUID) da integração de comunicação ligada ao canal; `null` quando o canal não usa integração.",
                           "format": "uuid"
                         },
+                        "integration_type": {
+                          "type": "string",
+                          "description": "Conector da integração do canal (`whatsapp_cloud`, `whatsapp_evolution` ou `whatsapp_evolution_managed`); `null` em canal sem integração.",
+                          "nullable": true
+                        },
                         "external_ref": {
                           "type": "string",
                           "description": "Identificador do contato no conector, devolvido exatamente como foi informado; `null` quando o canal não tem destinatário externo."
@@ -53501,6 +53594,45 @@
                           "type": "string",
                           "description": "Data da última alteração do canal.",
                           "format": "date-time"
+                        },
+                        "capabilities": {
+                          "type": "object",
+                          "description": "O que o canal pode fazer agora, conforme a integração dele e o estado da conversa.",
+                          "properties": {
+                            "reply_window": {
+                              "type": "object",
+                              "description": "Janela de resposta do provedor; `null` quando o provedor não tem janela (Evolution, WhatsApp hospedado pela Olie ou canal sem integração).",
+                              "properties": {
+                                "hours": {
+                                  "type": "integer",
+                                  "description": "Duração da janela em horas, contada a partir da última mensagem do cliente (24 no WhatsApp Cloud)."
+                                },
+                                "open": {
+                                  "type": "boolean",
+                                  "description": "Indica se a janela está aberta agora; fechada, só um template chega ao cliente."
+                                },
+                                "closes_at": {
+                                  "type": "string",
+                                  "description": "Quando a janela fecha (ou fechou), em ISO 8601; `null` quando o cliente ainda não escreveu no canal.",
+                                  "format": "date-time",
+                                  "nullable": true
+                                }
+                              },
+                              "nullable": true
+                            },
+                            "free_text": {
+                              "type": "boolean",
+                              "description": "Indica se o canal aceita agora mensagem livre (texto, arquivo ou áudio); `false` com a janela de resposta fechada."
+                            },
+                            "templates": {
+                              "type": "boolean",
+                              "description": "Indica se o canal envia templates aprovados (WhatsApp Cloud conectado pela Meta)."
+                            },
+                            "typing": {
+                              "type": "boolean",
+                              "description": "Indica se o canal mostra ao cliente que alguém está digitando."
+                            }
+                          }
                         }
                       }
                     }
@@ -53770,6 +53902,11 @@
                           "description": "ID (UUID) da integração pela qual o canal envia e recebe mensagens; `null` em canal sem integração.",
                           "format": "uuid"
                         },
+                        "integration_type": {
+                          "type": "string",
+                          "description": "Conector da integração do canal (`whatsapp_cloud`, `whatsapp_evolution` ou `whatsapp_evolution_managed`); `null` em canal sem integração.",
+                          "nullable": true
+                        },
                         "external_ref": {
                           "type": "string",
                           "description": "Identificador opaco da outra ponta da conversa no provedor; `null` em canal sem integração."
@@ -53797,6 +53934,45 @@
                           "type": "string",
                           "description": "Data da última alteração.",
                           "format": "date-time"
+                        },
+                        "capabilities": {
+                          "type": "object",
+                          "description": "O que o canal pode fazer agora, conforme a integração dele e o estado da conversa.",
+                          "properties": {
+                            "reply_window": {
+                              "type": "object",
+                              "description": "Janela de resposta do provedor; `null` quando o provedor não tem janela (Evolution, WhatsApp hospedado pela Olie ou canal sem integração).",
+                              "properties": {
+                                "hours": {
+                                  "type": "integer",
+                                  "description": "Duração da janela em horas, contada a partir da última mensagem do cliente (24 no WhatsApp Cloud)."
+                                },
+                                "open": {
+                                  "type": "boolean",
+                                  "description": "Indica se a janela está aberta agora; fechada, só um template chega ao cliente."
+                                },
+                                "closes_at": {
+                                  "type": "string",
+                                  "description": "Quando a janela fecha (ou fechou), em ISO 8601; `null` quando o cliente ainda não escreveu no canal.",
+                                  "format": "date-time",
+                                  "nullable": true
+                                }
+                              },
+                              "nullable": true
+                            },
+                            "free_text": {
+                              "type": "boolean",
+                              "description": "Indica se o canal aceita agora mensagem livre (texto, arquivo ou áudio); `false` com a janela de resposta fechada."
+                            },
+                            "templates": {
+                              "type": "boolean",
+                              "description": "Indica se o canal envia templates aprovados (WhatsApp Cloud conectado pela Meta)."
+                            },
+                            "typing": {
+                              "type": "boolean",
+                              "description": "Indica se o canal mostra ao cliente que alguém está digitando."
+                            }
+                          }
                         }
                       }
                     }
@@ -54285,6 +54461,14 @@
                               "allow_multiple_active_channels": {
                                 "type": "boolean",
                                 "description": "Permite ou não mais de uma conversa ativa com o mesmo contato nesta integração; ausente ou `null`, vale o padrão da conta."
+                              },
+                              "onboarding": {
+                                "type": "string",
+                                "description": "Como a integração foi conectada; `embedded_signup` quando foi pela conexão com a Meta na plataforma."
+                              },
+                              "waba_id": {
+                                "type": "string",
+                                "description": "ID da conta comercial do WhatsApp (WABA) na Meta; presente só em integração conectada pela Meta."
                               }
                             }
                           },
@@ -54329,6 +54513,31 @@
                             "type": "string",
                             "description": "Data da última alteração.",
                             "format": "date-time"
+                          },
+                          "capabilities": {
+                            "type": "object",
+                            "description": "O que a integração pode fazer, independentemente da conversa; o estado da janela de cada conversa fica em `capabilities` do canal.",
+                            "properties": {
+                              "reply_window": {
+                                "type": "object",
+                                "description": "Janela de resposta do provedor; `null` quando o provedor não tem janela.",
+                                "properties": {
+                                  "hours": {
+                                    "type": "integer",
+                                    "description": "Duração da janela em horas, contada a partir da última mensagem do cliente (24 no WhatsApp Cloud)."
+                                  }
+                                },
+                                "nullable": true
+                              },
+                              "templates": {
+                                "type": "boolean",
+                                "description": "Indica se a integração envia templates aprovados; só no WhatsApp Cloud conectado pela Meta, que conhece a conta comercial (WABA)."
+                              },
+                              "typing": {
+                                "type": "boolean",
+                                "description": "Indica se a integração mostra ao cliente que alguém está digitando."
+                              }
+                            }
                           }
                         }
                       }
@@ -54594,6 +54803,31 @@
                           "type": "string",
                           "description": "Data da última alteração.",
                           "format": "date-time"
+                        },
+                        "capabilities": {
+                          "type": "object",
+                          "description": "O que a integração pode fazer, independentemente da conversa; o estado da janela de cada conversa fica em `capabilities` do canal.",
+                          "properties": {
+                            "reply_window": {
+                              "type": "object",
+                              "description": "Janela de resposta do provedor; `null` quando o provedor não tem janela.",
+                              "properties": {
+                                "hours": {
+                                  "type": "integer",
+                                  "description": "Duração da janela em horas, contada a partir da última mensagem do cliente (24 no WhatsApp Cloud)."
+                                }
+                              },
+                              "nullable": true
+                            },
+                            "templates": {
+                              "type": "boolean",
+                              "description": "Indica se a integração envia templates aprovados; só no WhatsApp Cloud conectado pela Meta, que conhece a conta comercial (WABA)."
+                            },
+                            "typing": {
+                              "type": "boolean",
+                              "description": "Indica se a integração mostra ao cliente que alguém está digitando."
+                            }
+                          }
                         }
                       }
                     }
@@ -56559,6 +56793,14 @@
                             "allow_multiple_active_channels": {
                               "type": "boolean",
                               "description": "Permite ou não mais de uma conversa ativa com o mesmo contato nesta integração; ausente ou `null`, vale o padrão da conta."
+                            },
+                            "onboarding": {
+                              "type": "string",
+                              "description": "Como a integração foi conectada; `embedded_signup` quando foi pela conexão com a Meta na plataforma."
+                            },
+                            "waba_id": {
+                              "type": "string",
+                              "description": "ID da conta comercial do WhatsApp (WABA) na Meta; presente só em integração conectada pela Meta."
                             }
                           }
                         },
@@ -56603,6 +56845,31 @@
                           "type": "string",
                           "description": "Data da última alteração.",
                           "format": "date-time"
+                        },
+                        "capabilities": {
+                          "type": "object",
+                          "description": "O que a integração pode fazer, independentemente da conversa; o estado da janela de cada conversa fica em `capabilities` do canal.",
+                          "properties": {
+                            "reply_window": {
+                              "type": "object",
+                              "description": "Janela de resposta do provedor; `null` quando o provedor não tem janela.",
+                              "properties": {
+                                "hours": {
+                                  "type": "integer",
+                                  "description": "Duração da janela em horas, contada a partir da última mensagem do cliente (24 no WhatsApp Cloud)."
+                                }
+                              },
+                              "nullable": true
+                            },
+                            "templates": {
+                              "type": "boolean",
+                              "description": "Indica se a integração envia templates aprovados; só no WhatsApp Cloud conectado pela Meta, que conhece a conta comercial (WABA)."
+                            },
+                            "typing": {
+                              "type": "boolean",
+                              "description": "Indica se a integração mostra ao cliente que alguém está digitando."
+                            }
+                          }
                         }
                       }
                     }
@@ -60807,61 +61074,104 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta com os templates que o canal pode enviar.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "templates": {
                       "type": "array",
+                      "description": "Templates aprovados e enviáveis pelo canal; lista vazia quando não há nenhum.",
                       "items": {
                         "type": "object",
+                        "description": "Template aprovado que o canal pode enviar.",
                         "properties": {
                           "name": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Nome do template no provedor; é o `name` usado no envio."
                           },
                           "language": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Código do idioma do template (ex.: `pt_BR`); é o `language` usado no envio."
                           },
                           "category": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Categoria do template no provedor (`UTILITY`, `MARKETING` ou `AUTHENTICATION`).",
+                            "nullable": true
                           },
                           "status": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Situação do template no provedor; sempre `APPROVED`, pois só aprovados são listados.",
+                            "enum": [
+                              "APPROVED"
+                            ]
                           },
                           "components": {
                             "type": "array",
+                            "description": "Componentes do template como o provedor os descreve (cabeçalho, corpo, rodapé e botões).",
                             "items": {
                               "type": "object",
+                              "description": "Componente do template.",
                               "properties": {
                                 "type": {
-                                  "type": "string"
+                                  "type": "string",
+                                  "description": "Tipo do componente: `HEADER`, `BODY`, `FOOTER` ou `BUTTONS`."
                                 },
                                 "format": {
-                                  "type": "string"
+                                  "type": "string",
+                                  "description": "Formato do cabeçalho; sempre `TEXT` nos templates listados."
                                 },
                                 "text": {
-                                  "type": "string"
+                                  "type": "string",
+                                  "description": "Texto do componente, com os marcadores `{{n}}`."
+                                },
+                                "buttons": {
+                                  "type": "array",
+                                  "description": "Botões do template; nenhum deles tem parâmetro.",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "Botão do template.",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string",
+                                        "description": "Tipo do botão: `QUICK_REPLY`, `PHONE_NUMBER` ou `URL` (com endereço fixo)."
+                                      },
+                                      "text": {
+                                        "type": "string",
+                                        "description": "Texto do botão."
+                                      }
+                                    }
+                                  }
                                 }
                               }
                             }
                           },
                           "header_text": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Texto do cabeçalho com os marcadores `{{n}}`; `null` quando o template não tem cabeçalho.",
+                            "nullable": true
                           },
                           "body_text": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Texto do corpo com os marcadores `{{n}}`."
                           },
                           "footer_text": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Texto do rodapé; `null` quando o template não tem rodapé.",
+                            "nullable": true
                           },
                           "parameters": {
                             "type": "object",
+                            "description": "Quantos valores o envio precisa informar em cada parte do template.",
                             "properties": {
                               "header": {
-                                "type": "integer"
+                                "type": "integer",
+                                "description": "Quantidade de valores de `parameters.header` no envio (0 ou 1)."
                               },
                               "body": {
-                                "type": "integer"
+                                "type": "integer",
+                                "description": "Quantidade de valores de `parameters.body` no envio."
                               }
                             }
                           }
@@ -60940,15 +61250,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro quando o canal não existe nesta conta.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -60966,18 +61280,27 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro quando o canal não oferece o recurso pedido.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "capability": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Recurso que o canal não oferece; aqui, `templates`.",
+                      "enum": [
+                        "templates",
+                        "typing"
+                      ]
                     }
                   }
                 },
@@ -60996,15 +61319,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro quando o provedor recusa a consulta dos templates; tente de novo mais tarde.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -61045,118 +61372,178 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta com o template enviado e gravado na conversa.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "media": {
                       "type": "object",
+                      "description": "Mensagem gravada na conversa com o texto do template já preenchido; `null` quando o template foi entregue e não pôde ser gravado.",
                       "properties": {
                         "id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) do conteúdo.",
+                          "format": "uuid"
                         },
                         "name": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Nome interno do conteúdo."
                         },
                         "technical_name": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Nome técnico do conteúdo."
                         },
                         "type": {
-                          "type": "integer"
+                          "type": "integer",
+                          "description": "Tipo do conteúdo; `1` = texto."
                         },
                         "extension": {
+                          "type": "string",
+                          "description": "Extensão do arquivo; `null` em texto.",
                           "nullable": true
                         },
                         "text": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Texto como o cliente lê: cabeçalho, corpo e rodapé do template, com os marcadores preenchidos."
                         },
                         "file_url": {
+                          "type": "string",
+                          "description": "Endereço do arquivo; `null` em texto.",
                           "nullable": true
                         },
                         "transcription_status": {
+                          "type": "string",
+                          "description": "Situação da transcrição de áudio; `null` em texto.",
                           "nullable": true
                         },
                         "transcription": {
+                          "type": "string",
+                          "description": "Transcrição de áudio; `null` em texto.",
                           "nullable": true
                         },
                         "log": {
+                          "type": "integer",
+                          "description": "Tipo de registro automático; `null` em mensagem.",
                           "nullable": true
                         },
                         "user_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) de quem enviou o template.",
+                          "format": "uuid"
                         },
                         "frame_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) da conta.",
+                          "format": "uuid"
                         },
                         "project_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) do projeto do canal.",
+                          "format": "uuid"
                         },
                         "channel_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "ID (UUID) do canal por onde o template saiu.",
+                          "format": "uuid"
                         },
                         "direction": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Sempre `outbound` (saiu da Olie).",
+                          "enum": [
+                            "outbound"
+                          ]
                         },
                         "origin": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Sempre `internal` (escrito na Olie).",
+                          "enum": [
+                            "internal"
+                          ]
                         },
                         "external_message_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Identificador que o provedor devolveu ao aceitar o template."
                         },
                         "task_id": {
+                          "type": "string",
+                          "description": "Sempre `null`.",
                           "nullable": true
                         },
                         "delivery_error": {
+                          "type": "string",
+                          "description": "Sempre `null`: o template só é gravado depois que o provedor o aceita.",
                           "nullable": true
                         },
                         "created_at": {
                           "type": "string",
+                          "description": "Data de criação.",
                           "format": "date-time"
                         },
                         "updated_at": {
                           "type": "string",
+                          "description": "Data da última alteração.",
                           "format": "date-time"
                         },
                         "deleted_at": {
+                          "type": "string",
+                          "description": "Data de exclusão; `null` em conteúdo ativo.",
                           "nullable": true
                         },
                         "user": {
                           "type": "object",
+                          "description": "Pessoa que enviou o template.",
                           "properties": {
                             "id": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "ID (UUID) da pessoa.",
+                              "format": "uuid"
                             },
                             "old_id": {
+                              "type": "integer",
+                              "description": "Identificador legado.",
                               "nullable": true
                             },
                             "name": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Nome da pessoa."
                             },
                             "description": {
+                              "type": "string",
+                              "description": "Descrição do perfil.",
                               "nullable": true
                             },
                             "email": {
                               "type": "string",
-                              "format": "email"
+                              "description": "E-mail da pessoa."
                             },
                             "avatar_url": {
+                              "type": "string",
+                              "description": "Endereço da foto de perfil.",
                               "nullable": true
                             },
                             "status": {
-                              "type": "integer"
+                              "type": "integer",
+                              "description": "Situação da conta da pessoa."
                             },
                             "lang": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Idioma da pessoa."
                             },
                             "email_verified_at": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Data de verificação do e-mail.",
+                              "nullable": true
                             }
                           }
                         }
-                      }
+                      },
+                      "nullable": true
                     },
                     "recorded": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "`true` quando a mensagem foi gravada na conversa."
                     }
                   }
                 },
@@ -61219,15 +61606,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro quando o canal não existe nesta conta.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -61245,24 +61636,29 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro de validação.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "validation": {
                       "type": "object",
-                      "properties": {
-                        "parameters.body": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
+                      "description": "Mapa de campo para as mensagens de validação daquele campo. Campos possíveis: `name` (ausente, ou template inexistente, não aprovado ou que não pode ser enviado pela Olie), `language`, `parameters.header` e `parameters.body` (formato, ou quantidade diferente da que o template pede), `channel_id` (canal inativo) e `project_id` (projeto do canal excluído ou mesclado).",
+                      "additionalProperties": {
+                        "type": "array",
+                        "description": "Mensagens de validação do campo.",
+                        "items": {
+                          "type": "string",
+                          "description": "Mensagem de validação."
                         }
                       }
                     }
@@ -61311,15 +61707,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro quando o provedor recusa o template (ou não consegue listá-lo); nada foi enviado nem gravado.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -61341,26 +61741,46 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "description": "Template a enviar e os valores dos marcadores.",
+                "required": [
+                  "name",
+                  "language"
+                ],
+                "additionalProperties": false,
                 "properties": {
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Nome do template, como vem em Listar templates do canal (até 512 caracteres).",
+                    "maxLength": 512
                   },
                   "language": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Idioma do template, como vem em Listar templates do canal (até 20 caracteres).",
+                    "maxLength": 20
                   },
                   "parameters": {
                     "type": "object",
+                    "description": "Valores dos marcadores `{{n}}`; o valor na posição n preenche `{{n}}`. Omita as partes sem marcador.",
+                    "additionalProperties": false,
                     "properties": {
                       "header": {
                         "type": "array",
+                        "description": "Valores do cabeçalho; no máximo 1.",
+                        "maxItems": 1,
                         "items": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Valor do marcador (até 60 caracteres).",
+                          "maxLength": 60
                         }
                       },
                       "body": {
                         "type": "array",
+                        "description": "Valores do corpo, na ordem dos marcadores; no máximo 100.",
+                        "maxItems": 100,
                         "items": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Valor do marcador (até 1024 caracteres).",
+                          "maxLength": 1024
                         }
                       }
                     }
@@ -61408,9 +61828,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta quando o aviso foi aceito para envio ao provedor.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true`."
                     }
                   }
                 },
@@ -61426,15 +61848,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro quando o canal não existe nesta conta.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -61452,18 +61878,27 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta de erro quando o canal não oferece o recurso pedido.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "capability": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Recurso que o canal não oferece; aqui, `typing`.",
+                      "enum": [
+                        "templates",
+                        "typing"
+                      ]
                     }
                   }
                 },
@@ -61482,15 +61917,19 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "description": "Resposta quando o limite de 30 chamadas por minuto por pessoa e canal foi atingido.",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "wait_seconds": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "Segundos até uma nova chamada ser aceita."
                     }
                   }
                 },
