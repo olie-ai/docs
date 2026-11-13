@@ -11689,6 +11689,27 @@
                             "desc"
                           ],
                           "description": "Direção da ordenação."
+                        },
+                        "arguments": {
+                          "type": "array",
+                          "description": "Argumentos extras exigidos por algumas ordenações, no mesmo formato dos filtros. Consulte o endpoint de metadados.",
+                          "items": {
+                            "type": "object",
+                            "description": "Um argumento da ordenação.",
+                            "properties": {
+                              "argument_key": {
+                                "type": "string",
+                                "description": "O `id` do argumento no endpoint de metadados."
+                              },
+                              "argument_value_id": {
+                                "description": "Valor do argumento, como o id do funil ou do campo do formulário."
+                              },
+                              "argument_value_type": {
+                                "type": "string",
+                                "description": "O `modelClass` do argumento no endpoint de metadados."
+                              }
+                            }
+                          }
                         }
                       }
                     }
@@ -44244,7 +44265,7 @@
                               },
                               "arguments": {
                                 "type": "array",
-                                "description": "Argumentos adicionais para a ordenação (geralmente vazio)",
+                                "description": "Argumentos adicionais da ordenação. Vazio na maioria dos campos; obrigatório em ordenações como resposta do formulário do funil, data de status do funil e data de previsão do funil.",
                                 "items": {
                                   "type": "object"
                                 }
@@ -44983,7 +45004,36 @@
                       },
                       {
                         "name": "project_funnel_assignments_answer_pool",
-                        "arguments": []
+                        "arguments": [
+                          {
+                            "id": "project_funnel_assignments_answer_pool_project_funnel",
+                            "label": "Funil de Projetos",
+                            "required": true,
+                            "modelClass": "App\\Models\\ProjectFunnel",
+                            "hydrate": {
+                              "route": "/api/management/get-project-funnels",
+                              "options": "project_funnels",
+                              "key": "id",
+                              "label": "name",
+                              "children_key": null,
+                              "children_label": null
+                            }
+                          },
+                          {
+                            "id": "project_funnel_assignments_answer_pool_edge",
+                            "label": "Campo",
+                            "required": true,
+                            "modelClass": "App\\Models\\FormEdge",
+                            "hydrate": {
+                              "route": "/api/management/get-forms",
+                              "options": "forms",
+                              "key": "id",
+                              "label": "label",
+                              "children_key": "edges",
+                              "children_label": "title"
+                            }
+                          }
+                        ]
                       },
                       {
                         "name": "customer__name",
@@ -44995,7 +45045,41 @@
                       },
                       {
                         "name": "project_funnel_assignments__statuses_at",
-                        "arguments": []
+                        "arguments": [
+                          {
+                            "id": "project_funnel_assignments__statuses_at_project_funnel",
+                            "label": "Funil de Projetos",
+                            "required": true,
+                            "modelClass": "App\\Models\\ProjectFunnel",
+                            "hydrate": {
+                              "route": "/api/management/get-project-funnels",
+                              "options": "project_funnels",
+                              "key": "id",
+                              "label": "name",
+                              "children_key": null,
+                              "children_label": null
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "name": "project_funnel_assignments__forecast_date",
+                        "arguments": [
+                          {
+                            "id": "project_funnel_assignments__forecast_date_project_funnel",
+                            "label": "Funil de Projetos",
+                            "required": true,
+                            "modelClass": "App\\Models\\ProjectFunnel",
+                            "hydrate": {
+                              "route": "/api/management/get-project-funnels",
+                              "options": "project_funnels",
+                              "key": "id",
+                              "label": "name",
+                              "children_key": null,
+                              "children_label": null
+                            }
+                          }
+                        ]
                       }
                     ]
                   }
@@ -57258,14 +57342,6 @@
                       "error": "An permission is required to that action",
                       "permission": "frame_settings.view"
                     }
-                  },
-                  "Studio desativado na empresa": {
-                    "value": {
-                      "response": false,
-                      "message": "feature_disabled",
-                      "error": "The [studio] feature is not enabled for this frame.",
-                      "feature": "studio"
-                    }
                   }
                 }
               }
@@ -60889,7 +60965,28 @@
         "tags": [
           "forums"
         ],
-        "description": "Envia um arquivo para inserir no editor de texto rico ([imagens no Caderno](https://docs.olie.ai/guides/notebook/editing#imagens), formulários e conteúdos). Devolve em `file.url` um link temporário do arquivo. Corpo `multipart/form-data`. Aceita token de aplicação."
+        "description": "Envia um arquivo para inserir no editor de texto rico ([imagens no Caderno](https://docs.olie.ai/guides/notebook/editing#imagens), formulários e conteúdos). Devolve em `file.url` um link temporário do arquivo. Corpo `multipart/form-data`. Aceita token de aplicação.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "description": "Arquivo a enviar.",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Arquivo a inserir no editor (imagem ou outro anexo)."
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        }
       }
     }
   },
