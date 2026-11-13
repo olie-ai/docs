@@ -86,6 +86,7 @@ As rotas do Caderno seguem o padrão REST e aceitam tanto a sessão de uma pesso
 | --- | --- |
 | `GET /api/management/forums?model_class=&model_id=` | Devolve o Caderno de um registro com a lista de páginas. Cria o Caderno, com uma página principal, se o registro ainda não tiver um. `model_class` é, por exemplo, `App\Models\Project` |
 | `PATCH /api/management/forums/{forum_id}` | Define a página principal (`default_thread_id`) |
+| `DELETE /api/management/forums/{forum_id}` | Remove o Caderno |
 | `POST /api/management/forums/{forum_id}/threads` | Cria uma página vazia (`name`, `order`, `parent_id`) |
 | `GET /api/management/forums/{forum_id}/threads/{thread_id}` | Devolve os dados de uma página |
 | `PATCH /api/management/forums/{forum_id}/threads/{thread_id}` | Renomeia ou move uma página |
@@ -96,6 +97,7 @@ As rotas do Caderno seguem o padrão REST e aceitam tanto a sessão de uma pesso
 | `PATCH /api/management/forums/{forum_id}/threads/{thread_id}/content` | Edita blocos da página com operações em Markdown. Exige `base_revision` |
 | `GET /api/management/forums/{forum_id}/threads/{thread_id}/revisions` | Lista as versões da página |
 | `POST /api/management/forums/{forum_id}/threads/{thread_id}/revisions/{revision}/restore` | Restaura uma versão antiga como versão nova |
+| `POST /api/management/rich-text/attachments` | Envia um arquivo para o editor (`multipart/form-data` com `file`) |
 
 A criação da página não recebe conteúdo: crie a página e depois grave o conteúdo pela rota `content`.
 
@@ -126,7 +128,7 @@ O [MCP da Olie](/guides/mcp/overview) tem quatro ferramentas de Caderno, para pr
 | `get-notebook-tool` | Devolve a árvore de páginas do Caderno |
 | `read-notebook-page-tool` | Lê uma página em blocos de Markdown |
 | `edit-notebook-page-tool` | Edita blocos da página: troca um trecho de texto, substitui, insere ou apaga blocos |
-| `create-notebook-page-tool` | Cria uma página. Cria também o Caderno, se o registro ainda não tiver um |
+| `create-notebook-page-tool` | Cria uma página, opcionalmente já com conteúdo em Markdown. Cria também o Caderno, se o registro ainda não tiver um |
 
 O assistente precisa da mesma permissão de edição que a tela do Caderno exige.
 
