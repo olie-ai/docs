@@ -64,8 +64,8 @@ Nome do campo a filtrar. Os campos aceitos variam por endpoint: veja [Descobrind
 Operador de comparação. Os valores aceitos estão em [Operadores de comparação](#operadores-de-comparação).
 </ParamField>
 
-<ParamField body="filters[].value" type="string | number | boolean | array | null">
-Valor a comparar. O tipo depende do campo e do operador.
+<ParamField body="filters[].value" type="string | number | boolean | array | object | null">
+Valor a comparar. O tipo depende do campo e do operador. Em `contains` e `not_contains`, você também pode enviar uma lista ou um objeto com `id` — veja [Contém e não contém com vários valores](#contém-e-não-contém-com-vários-valores).
 </ParamField>
 
 <ParamField body="filters[].logical_operator" type="string" default="and">
@@ -84,14 +84,34 @@ O campo `operator` aceita os valores da tabela. Nem todo campo aceita todos os o
 | --- | --- | --- |
 | `equals` | Igual a | Igualdade |
 | `not_equals` | Diferente de | Igualdade |
-| `contains` | Contém o texto (busca parcial) | Texto |
-| `not_contains` | Não contém o texto | Texto |
+| `contains` | Contém o texto (busca parcial); com lista, casa com ao menos um dos valores | Texto |
+| `not_contains` | Não contém o texto; com lista, exclui quem tiver qualquer um dos valores | Texto |
 | `greater_than` | Maior que | Número e data |
 | `greater_than_or_equals` | Maior ou igual a | Número e data |
 | `less_than` | Menor que | Número e data |
 | `less_than_or_equals` | Menor ou igual a | Número e data |
 | `is_null` | Campo vazio (nulo) | Nulo |
 | `is_not_null` | Campo preenchido (não nulo) | Nulo |
+
+## Contém e não contém com vários valores
+
+Nos operadores `contains` e `not_contains`, o `value` aceita um texto, um número, um booleano, uma lista desses valores ou um objeto com a chave `id`.
+
+Com uma lista em `contains`, o item precisa conter **ao menos um** dos valores. Com uma lista em `not_contains`, o item precisa **não conter nenhum** deles. Esta busca traz os projetos cujo nome contém "Implantação" ou "Manutenção":
+
+```json
+{
+  "filters": [
+    {
+      "field": "name",
+      "operator": "contains",
+      "value": ["Implantação", "Manutenção"]
+    }
+  ]
+}
+```
+
+O objeto com a chave `id` é o formato que a interface envia em campos com hydrate. Se `id` for um texto, a API compara esse texto de forma literal, sem busca parcial. Se `id` for uma lista, valem as mesmas regras de lista acima.
 
 ## Combinar filtros com and e or
 
@@ -404,6 +424,23 @@ A API recusa um filtro de `created_at` quando o valor não é uma data válida, 
 ```
 
 Para resolver, envie a data no formato `AAAA-MM-DD`, por exemplo `2026-09-30`.
+
+### Valor inválido em contains ou not_contains
+
+A API recusa o filtro quando `contains` ou `not_contains` recebe um array que não é uma lista de textos, números ou booleanos — por exemplo uma lista de objetos. O detalhe fica na chave `filters` de `validation`:
+
+```json
+{
+  "response": false,
+  "message": "validation_errors",
+  "error": "O valor do filtro contains/not_contains deve ser um escalar, uma lista de escalares ou um objeto com id.",
+  "validation": {
+    "filters": ["O valor do filtro contains/not_contains deve ser um escalar, uma lista de escalares ou um objeto com id."]
+  }
+}
+```
+
+Para resolver, envie um texto, um número, um booleano, uma lista desses valores ou um objeto com a chave `id`.
 
 ## Páginas relacionadas
 
