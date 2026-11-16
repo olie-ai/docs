@@ -61834,7 +61834,7 @@
                     "value": {
                       "response": false,
                       "message": "validation_errors",
-                      "error": "The template expects exactly these parameters here: nome, evento, data. (and 1 more error)",
+                      "error": "The template expects exactly these parameters here: nome, evento, data.",
                       "validation": {
                         "parameters.body": [
                           "The template expects exactly these parameters here: nome, evento, data."
