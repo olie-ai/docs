@@ -11655,7 +11655,6 @@
                         },
                         "value": {
                           "description": "Valor a comparar; o tipo depende do campo e do operador. Em `contains` e `not_contains`, envie um texto, um número, um booleano, uma lista desses valores ou um objeto com `id`. Com lista, `contains` encontra quem tiver ao menos um dos valores; `not_contains` exclui quem tiver qualquer um deles. Detalhes em [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search).",
-                          "nullable": true,
                           "anyOf": [
                             {
                               "type": "string"
@@ -11716,8 +11715,8 @@
                           "type": "array",
                           "description": "Argumentos extras exigidos por algumas ordenações, no mesmo formato dos filtros. Consulte o endpoint de metadados.",
                           "items": {
-                            "type": "object",
                             "description": "Um argumento da ordenação.",
+                            "type": "object",
                             "properties": {
                               "argument_key": {
                                 "type": "string",
@@ -20072,7 +20071,6 @@
                         },
                         "value": {
                           "description": "Valor a comparar; o tipo depende do campo e do operador. Em `contains` e `not_contains`, envie um texto, um número, um booleano, uma lista desses valores ou um objeto com `id`. Com lista, `contains` encontra quem tiver ao menos um dos valores; `not_contains` exclui quem tiver qualquer um deles. Detalhes em [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search).",
-                          "nullable": true,
                           "anyOf": [
                             {
                               "type": "string"
@@ -42010,7 +42008,8 @@
               "application/json": {
                 "schema": {
                   "type": "object"
-                }
+                },
+                "example": {}
               }
             }
           }
@@ -42073,7 +42072,8 @@
               "application/json": {
                 "schema": {
                   "type": "object"
-                }
+                },
+                "example": {}
               }
             }
           }
@@ -53098,8 +53098,7 @@
                           },
                           "integration_type": {
                             "type": "string",
-                            "description": "Conector da integração do canal (`whatsapp_cloud`, `whatsapp_evolution` ou `whatsapp_evolution_managed`); `null` em canal sem integração.",
-                            "nullable": true
+                            "description": "Conector da integração do canal (`whatsapp_cloud`, `whatsapp_evolution` ou `whatsapp_evolution_managed`); `null` em canal sem integração."
                           },
                           "external_ref": {
                             "type": "string",
@@ -53148,11 +53147,9 @@
                                   "closes_at": {
                                     "type": "string",
                                     "description": "Quando a janela fecha (ou fechou), em ISO 8601; `null` quando o cliente ainda não escreveu no canal.",
-                                    "format": "date-time",
-                                    "nullable": true
+                                    "format": "date-time"
                                   }
-                                },
-                                "nullable": true
+                                }
                               },
                               "free_text": {
                                 "type": "boolean",
@@ -53310,8 +53307,7 @@
                         },
                         "integration_type": {
                           "type": "string",
-                          "description": "Conector da integração do canal (`whatsapp_cloud`, `whatsapp_evolution` ou `whatsapp_evolution_managed`); `null` em canal sem integração.",
-                          "nullable": true
+                          "description": "Conector da integração do canal (`whatsapp_cloud`, `whatsapp_evolution` ou `whatsapp_evolution_managed`); `null` em canal sem integração."
                         },
                         "external_ref": {
                           "type": "string",
@@ -53360,11 +53356,9 @@
                                 "closes_at": {
                                   "type": "string",
                                   "description": "Quando a janela fecha (ou fechou), em ISO 8601; `null` quando o cliente ainda não escreveu no canal.",
-                                  "format": "date-time",
-                                  "nullable": true
+                                  "format": "date-time"
                                 }
-                              },
-                              "nullable": true
+                              }
                             },
                             "free_text": {
                               "type": "boolean",
@@ -53590,8 +53584,7 @@
                         },
                         "integration_type": {
                           "type": "string",
-                          "description": "Conector da integração do canal (`whatsapp_cloud`, `whatsapp_evolution` ou `whatsapp_evolution_managed`); `null` em canal sem integração.",
-                          "nullable": true
+                          "description": "Conector da integração do canal (`whatsapp_cloud`, `whatsapp_evolution` ou `whatsapp_evolution_managed`); `null` em canal sem integração."
                         },
                         "external_ref": {
                           "type": "string",
@@ -53640,11 +53633,9 @@
                                 "closes_at": {
                                   "type": "string",
                                   "description": "Quando a janela fecha (ou fechou), em ISO 8601; `null` quando o cliente ainda não escreveu no canal.",
-                                  "format": "date-time",
-                                  "nullable": true
+                                  "format": "date-time"
                                 }
-                              },
-                              "nullable": true
+                              }
                             },
                             "free_text": {
                               "type": "boolean",
@@ -53930,8 +53921,7 @@
                         },
                         "integration_type": {
                           "type": "string",
-                          "description": "Conector da integração do canal (`whatsapp_cloud`, `whatsapp_evolution` ou `whatsapp_evolution_managed`); `null` em canal sem integração.",
-                          "nullable": true
+                          "description": "Conector da integração do canal (`whatsapp_cloud`, `whatsapp_evolution` ou `whatsapp_evolution_managed`); `null` em canal sem integração."
                         },
                         "external_ref": {
                           "type": "string",
@@ -53980,11 +53970,9 @@
                                 "closes_at": {
                                   "type": "string",
                                   "description": "Quando a janela fecha (ou fechou), em ISO 8601; `null` quando o cliente ainda não escreveu no canal.",
-                                  "format": "date-time",
-                                  "nullable": true
+                                  "format": "date-time"
                                 }
-                              },
-                              "nullable": true
+                              }
                             },
                             "free_text": {
                               "type": "boolean",
@@ -54552,8 +54540,7 @@
                                     "type": "integer",
                                     "description": "Duração da janela em horas, contada a partir da última mensagem do cliente (24 no WhatsApp Cloud)."
                                   }
-                                },
-                                "nullable": true
+                                }
                               },
                               "templates": {
                                 "type": "boolean",
@@ -54842,8 +54829,7 @@
                                   "type": "integer",
                                   "description": "Duração da janela em horas, contada a partir da última mensagem do cliente (24 no WhatsApp Cloud)."
                                 }
-                              },
-                              "nullable": true
+                              }
                             },
                             "templates": {
                               "type": "boolean",
@@ -56884,8 +56870,7 @@
                                   "type": "integer",
                                   "description": "Duração da janela em horas, contada a partir da última mensagem do cliente (24 no WhatsApp Cloud)."
                                 }
-                              },
-                              "nullable": true
+                              }
                             },
                             "templates": {
                               "type": "boolean",
@@ -61099,8 +61084,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
                   "description": "Resposta com os templates que o canal pode enviar.",
+                  "type": "object",
                   "properties": {
                     "response": {
                       "type": "boolean",
@@ -61110,8 +61095,8 @@
                       "type": "array",
                       "description": "Templates aprovados e enviáveis pelo canal; lista vazia quando não há nenhum.",
                       "items": {
-                        "type": "object",
                         "description": "Template aprovado que o canal pode enviar.",
+                        "type": "object",
                         "properties": {
                           "name": {
                             "type": "string",
@@ -61123,22 +61108,21 @@
                           },
                           "category": {
                             "type": "string",
-                            "description": "Categoria do template no provedor (`UTILITY`, `MARKETING` ou `AUTHENTICATION`).",
-                            "nullable": true
+                            "description": "Categoria do template no provedor (`UTILITY`, `MARKETING` ou `AUTHENTICATION`)."
                           },
                           "status": {
                             "type": "string",
-                            "description": "Situação do template no provedor; sempre `APPROVED`, pois só aprovados são listados.",
                             "enum": [
                               "APPROVED"
-                            ]
+                            ],
+                            "description": "Situação do template no provedor; sempre `APPROVED`, pois só aprovados são listados."
                           },
                           "components": {
                             "type": "array",
                             "description": "Componentes do template como o provedor os descreve (cabeçalho, corpo, rodapé e botões).",
                             "items": {
-                              "type": "object",
                               "description": "Componente do template.",
+                              "type": "object",
                               "properties": {
                                 "type": {
                                   "type": "string",
@@ -61150,22 +61134,26 @@
                                 },
                                 "text": {
                                   "type": "string",
-                                  "description": "Texto do componente, com os marcadores `{{n}}`."
+                                  "description": "Texto do componente, com os marcadores (`{{1}}` ou `{{nome}}`)."
                                 },
                                 "buttons": {
                                   "type": "array",
-                                  "description": "Botões do template; nenhum deles tem parâmetro.",
+                                  "description": "Botões do template. Só o botão de URL pode ter marcador (`{{1}}` no fim da URL).",
                                   "items": {
-                                    "type": "object",
                                     "description": "Botão do template.",
+                                    "type": "object",
                                     "properties": {
                                       "type": {
                                         "type": "string",
-                                        "description": "Tipo do botão: `QUICK_REPLY`, `PHONE_NUMBER` ou `URL` (com endereço fixo)."
+                                        "description": "Tipo do botão: `QUICK_REPLY`, `PHONE_NUMBER` ou `URL`."
                                       },
                                       "text": {
                                         "type": "string",
                                         "description": "Texto do botão."
+                                      },
+                                      "url": {
+                                        "type": "string",
+                                        "description": "Endereço do botão de URL; com `{{1}}` quando o fim do endereço é preenchido no envio."
                                       }
                                     }
                                   }
@@ -61173,23 +61161,29 @@
                               }
                             }
                           },
+                          "parameter_format": {
+                            "type": "string",
+                            "enum": [
+                              "POSITIONAL",
+                              "NAMED"
+                            ],
+                            "description": "Formato dos marcadores: `POSITIONAL` (`{{1}}`, `{{2}}`…) ou `NAMED` (`{{nome}}`)."
+                          },
                           "header_text": {
                             "type": "string",
-                            "description": "Texto do cabeçalho com os marcadores `{{n}}`; `null` quando o template não tem cabeçalho.",
-                            "nullable": true
+                            "description": "Texto do cabeçalho com os marcadores; `null` quando o template não tem cabeçalho."
                           },
                           "body_text": {
                             "type": "string",
-                            "description": "Texto do corpo com os marcadores `{{n}}`."
+                            "description": "Texto do corpo com os marcadores."
                           },
                           "footer_text": {
                             "type": "string",
-                            "description": "Texto do rodapé; `null` quando o template não tem rodapé.",
-                            "nullable": true
+                            "description": "Texto do rodapé; `null` quando o template não tem rodapé."
                           },
                           "parameters": {
                             "type": "object",
-                            "description": "Quantos valores o envio precisa informar em cada parte do template.",
+                            "description": "O que o envio precisa informar em cada parte do template.",
                             "properties": {
                               "header": {
                                 "type": "integer",
@@ -61198,6 +61192,44 @@
                               "body": {
                                 "type": "integer",
                                 "description": "Quantidade de valores de `parameters.body` no envio."
+                              },
+                              "header_names": {
+                                "type": "array",
+                                "description": "Marcadores do cabeçalho, na ordem em que os valores vão em lista. Posicional: `\"1\"`, `\"2\"`…",
+                                "items": {
+                                  "type": "string",
+                                  "description": "Nome do marcador."
+                                }
+                              },
+                              "body_names": {
+                                "type": "array",
+                                "description": "Marcadores do corpo, na ordem em que os valores vão em lista: primeira aparição no texto (nomeado) ou numérica (posicional).",
+                                "items": {
+                                  "type": "string",
+                                  "description": "Nome do marcador."
+                                }
+                              },
+                              "buttons": {
+                                "type": "array",
+                                "description": "Botões de URL dinâmica; cada um pede um valor em `parameters.buttons` no envio.",
+                                "items": {
+                                  "type": "object",
+                                  "description": "Botão de URL dinâmica.",
+                                  "properties": {
+                                    "index": {
+                                      "type": "integer",
+                                      "description": "Posição do botão no template (a partir de 0); é o `index` usado no envio."
+                                    },
+                                    "text": {
+                                      "type": "string",
+                                      "description": "Texto do botão."
+                                    },
+                                    "url": {
+                                      "type": "string",
+                                      "description": "Endereço do botão, com `{{1}}` no ponto preenchido pelo envio."
+                                    }
+                                  }
+                                }
                               }
                             }
                           }
@@ -61238,31 +61270,78 @@
                           ]
                         }
                       ],
+                      "parameter_format": "POSITIONAL",
                       "header_text": "Pedido {{1}}",
                       "body_text": "Olá, {{1}}! Seu pedido {{2}} foi enviado e chega até {{3}}.",
                       "footer_text": "Equipe Exemplo",
                       "parameters": {
                         "header": 1,
-                        "body": 3
+                        "body": 3,
+                        "header_names": [
+                          "1"
+                        ],
+                        "body_names": [
+                          "1",
+                          "2",
+                          "3"
+                        ],
+                        "buttons": []
                       }
                     },
                     {
-                      "name": "retomar_atendimento",
+                      "name": "inscricao_confirmada",
                       "language": "pt_BR",
-                      "category": "MARKETING",
+                      "category": "UTILITY",
                       "status": "APPROVED",
                       "components": [
                         {
+                          "type": "HEADER",
+                          "format": "TEXT",
+                          "text": "Inscrição confirmada"
+                        },
+                        {
                           "type": "BODY",
-                          "text": "Podemos continuar o seu atendimento? Responda esta mensagem."
+                          "text": "Olá, {{nome}}! Sua inscrição em {{evento}} está confirmada para {{data}}."
+                        },
+                        {
+                          "type": "FOOTER",
+                          "text": "Equipe Exemplo"
+                        },
+                        {
+                          "type": "BUTTONS",
+                          "buttons": [
+                            {
+                              "type": "URL",
+                              "text": "Ver evento",
+                              "url": "https://exemplo.com/evento/{{1}}"
+                            },
+                            {
+                              "type": "QUICK_REPLY",
+                              "text": "Recebi"
+                            }
+                          ]
                         }
                       ],
-                      "header_text": null,
-                      "body_text": "Podemos continuar o seu atendimento? Responda esta mensagem.",
-                      "footer_text": null,
+                      "parameter_format": "NAMED",
+                      "header_text": "Inscrição confirmada",
+                      "body_text": "Olá, {{nome}}! Sua inscrição em {{evento}} está confirmada para {{data}}.",
+                      "footer_text": "Equipe Exemplo",
                       "parameters": {
                         "header": 0,
-                        "body": 0
+                        "body": 3,
+                        "header_names": [],
+                        "body_names": [
+                          "nome",
+                          "evento",
+                          "data"
+                        ],
+                        "buttons": [
+                          {
+                            "index": 0,
+                            "text": "Ver evento",
+                            "url": "https://exemplo.com/evento/{{1}}"
+                          }
+                        ]
                       }
                     }
                   ]
@@ -61373,7 +61452,7 @@
         "tags": [
           "channels"
         ],
-        "description": "Lista os templates (modelos de mensagem) aprovados que o canal pode enviar, consultados na hora no provedor. Só o WhatsApp Cloud conectado pela Meta tem templates — o canal informa isso em `capabilities.templates`; veja [Integrações](https://docs.olie.ai/guides/integrations/overview). Ficam de fora os templates com parâmetros nomeados, com cabeçalho que não é texto ou com botão que recebe parâmetro."
+        "description": "Lista os templates (modelos de mensagem) aprovados que o canal pode enviar, consultados na hora no provedor. Só o WhatsApp Cloud com conta de negócio (`waba_id`) tem templates — o canal informa isso em `capabilities.templates`; veja [Integrações](https://docs.olie.ai/guides/integrations/overview). O campo `parameters` diz o que o envio precisa: os marcadores de cabeçalho e corpo (posicionais `{{1}}` ou nomeados `{{nome}}`) e os botões de URL dinâmica. Ficam de fora templates com cabeçalho de mídia ou localização e com botão que pede outro tipo de parâmetro (copiar código, senha, flow)."
       },
       "parameters": [
         {
@@ -61397,8 +61476,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
                   "description": "Resposta com o template enviado e gravado na conversa.",
+                  "type": "object",
                   "properties": {
                     "response": {
                       "type": "boolean",
@@ -61427,8 +61506,7 @@
                         },
                         "extension": {
                           "type": "string",
-                          "description": "Extensão do arquivo; `null` em texto.",
-                          "nullable": true
+                          "description": "Extensão do arquivo; `null` em texto."
                         },
                         "text": {
                           "type": "string",
@@ -61436,23 +61514,19 @@
                         },
                         "file_url": {
                           "type": "string",
-                          "description": "Endereço do arquivo; `null` em texto.",
-                          "nullable": true
+                          "description": "Endereço do arquivo; `null` em texto."
                         },
                         "transcription_status": {
                           "type": "string",
-                          "description": "Situação da transcrição de áudio; `null` em texto.",
-                          "nullable": true
+                          "description": "Situação da transcrição de áudio; `null` em texto."
                         },
                         "transcription": {
                           "type": "string",
-                          "description": "Transcrição de áudio; `null` em texto.",
-                          "nullable": true
+                          "description": "Transcrição de áudio; `null` em texto."
                         },
                         "log": {
                           "type": "integer",
-                          "description": "Tipo de registro automático; `null` em mensagem.",
-                          "nullable": true
+                          "description": "Tipo de registro automático; `null` em mensagem."
                         },
                         "user_id": {
                           "type": "string",
@@ -61476,17 +61550,17 @@
                         },
                         "direction": {
                           "type": "string",
-                          "description": "Sempre `outbound` (saiu da Olie).",
                           "enum": [
                             "outbound"
-                          ]
+                          ],
+                          "description": "Sempre `outbound` (saiu da Olie)."
                         },
                         "origin": {
                           "type": "string",
-                          "description": "Sempre `internal` (escrito na Olie).",
                           "enum": [
                             "internal"
-                          ]
+                          ],
+                          "description": "Sempre `internal` (escrito na Olie)."
                         },
                         "external_message_id": {
                           "type": "string",
@@ -61494,13 +61568,11 @@
                         },
                         "task_id": {
                           "type": "string",
-                          "description": "Sempre `null`.",
-                          "nullable": true
+                          "description": "Sempre `null`."
                         },
                         "delivery_error": {
                           "type": "string",
-                          "description": "Sempre `null`: o template só é gravado depois que o provedor o aceita.",
-                          "nullable": true
+                          "description": "Sempre `null`: o template só é gravado depois que o provedor o aceita."
                         },
                         "created_at": {
                           "type": "string",
@@ -61514,8 +61586,7 @@
                         },
                         "deleted_at": {
                           "type": "string",
-                          "description": "Data de exclusão; `null` em conteúdo ativo.",
-                          "nullable": true
+                          "description": "Data de exclusão; `null` em conteúdo ativo."
                         },
                         "user": {
                           "type": "object",
@@ -61528,8 +61599,7 @@
                             },
                             "old_id": {
                               "type": "integer",
-                              "description": "Identificador legado.",
-                              "nullable": true
+                              "description": "Identificador legado."
                             },
                             "name": {
                               "type": "string",
@@ -61537,8 +61607,7 @@
                             },
                             "description": {
                               "type": "string",
-                              "description": "Descrição do perfil.",
-                              "nullable": true
+                              "description": "Descrição do perfil."
                             },
                             "email": {
                               "type": "string",
@@ -61546,8 +61615,7 @@
                             },
                             "avatar_url": {
                               "type": "string",
-                              "description": "Endereço da foto de perfil.",
-                              "nullable": true
+                              "description": "Endereço da foto de perfil."
                             },
                             "status": {
                               "type": "integer",
@@ -61559,13 +61627,11 @@
                             },
                             "email_verified_at": {
                               "type": "string",
-                              "description": "Data de verificação do e-mail.",
-                              "nullable": true
+                              "description": "Data de verificação do e-mail."
                             }
                           }
                         }
-                      },
-                      "nullable": true
+                      }
                     },
                     "recorded": {
                       "type": "boolean",
@@ -61621,6 +61687,47 @@
                       "media": null,
                       "recorded": false
                     }
+                  },
+                  "Sucesso — template nomeado com botão": {
+                    "value": {
+                      "response": true,
+                      "media": {
+                        "id": "2f3a4b5c-6d7e-4f80-91a2-b3c4d5e6f708",
+                        "name": "description.6f1d2c3b4a5e6f708192a3b4c5d6e7f8",
+                        "technical_name": "description.6f1d2c3b4a5e6f708192a3b4c5d6e7f8",
+                        "type": 1,
+                        "extension": null,
+                        "text": "Inscrição confirmada\nOlá, Cliente! Sua inscrição em Evento Exemplo está confirmada para 20/11.\nEquipe Exemplo",
+                        "file_url": null,
+                        "transcription_status": null,
+                        "transcription": null,
+                        "log": null,
+                        "user_id": "3e4f5a6b-7c8d-4e9f-a0b1-c2d3e4f5a6b7",
+                        "frame_id": "7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f",
+                        "project_id": "8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
+                        "channel_id": "9b2a1c3e-4d5f-6789-abcd-ef0123456789",
+                        "direction": "outbound",
+                        "origin": "internal",
+                        "external_message_id": "wamid.EXEMPLO0123456789",
+                        "task_id": null,
+                        "delivery_error": null,
+                        "created_at": "2026-06-18T15:30:00.000000Z",
+                        "updated_at": "2026-06-18T15:30:00.000000Z",
+                        "deleted_at": null,
+                        "user": {
+                          "id": "3e4f5a6b-7c8d-4e9f-a0b1-c2d3e4f5a6b7",
+                          "old_id": null,
+                          "name": "Pessoa Exemplo",
+                          "description": null,
+                          "email": "pessoa@exemplo.com",
+                          "avatar_url": null,
+                          "status": 1,
+                          "lang": "pt_br",
+                          "email_verified_at": "2026-01-10 12:00:00"
+                        }
+                      },
+                      "recorded": true
+                    }
                   }
                 }
               }
@@ -61661,8 +61768,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
                   "description": "Resposta de erro de validação.",
+                  "type": "object",
                   "properties": {
                     "response": {
                       "type": "boolean",
@@ -61695,10 +61802,10 @@
                     "value": {
                       "response": false,
                       "message": "validation_errors",
-                      "error": "The template expects 3 parameter(s) here, 2 given.",
+                      "error": "The template expects 3 parameter(s) here (1, 2, 3), 2 given.",
                       "validation": {
                         "parameters.body": [
-                          "The template expects 3 parameter(s) here, 2 given."
+                          "The template expects 3 parameter(s) here (1, 2, 3), 2 given."
                         ]
                       }
                     }
@@ -61721,6 +61828,30 @@
                       "message": "channel_capability_not_supported",
                       "error": "This channel does not support templates.",
                       "capability": "templates"
+                    }
+                  },
+                  "Marcador nomeado ou botão faltando": {
+                    "value": {
+                      "response": false,
+                      "message": "validation_errors",
+                      "error": "The template expects exactly these parameters here: nome, evento, data. (and 1 more error)",
+                      "validation": {
+                        "parameters.body": [
+                          "The template expects exactly these parameters here: nome, evento, data."
+                        ]
+                      }
+                    }
+                  },
+                  "Botão dinâmico sem valor": {
+                    "value": {
+                      "response": false,
+                      "message": "validation_errors",
+                      "error": "The template expects a value for the buttons at positions: 0.",
+                      "validation": {
+                        "parameters.buttons": [
+                          "The template expects a value for the buttons at positions: 0."
+                        ]
+                      }
                     }
                   }
                 }
@@ -61761,69 +61892,137 @@
         "tags": [
           "channels"
         ],
-        "description": "Envia um template aprovado ao cliente pelo canal e grava a mensagem na conversa, com a janela de resposta aberta ou fechada. O valor na posição n de `parameters.header` ou `parameters.body` preenche o marcador `{{n}}`, na quantidade que o template pede (campo `parameters` em Listar templates do canal). Quando o provedor entrega e a gravação falha, a resposta é 201 com `recorded: false` e `media: null` — não reenvie, o cliente já recebeu.",
+        "description": "Envia um template aprovado ao cliente pelo canal e grava a mensagem na conversa, com a janela de resposta aberta ou fechada. Em `parameters.header` e `parameters.body`, informe os valores como lista, na ordem de `parameters.*_names` de Listar templates do canal, ou como objeto nome → valor; em `parameters.buttons`, informe o fim da URL de cada botão dinâmico pela posição dele. Todos os marcadores e botões que o template pede são obrigatórios, e nenhum a mais. Quando o provedor entrega e a gravação falha, a resposta é 201 com `recorded: false` e `media: null` — não reenvie, o cliente já recebeu.",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
                 "description": "Template a enviar e os valores dos marcadores.",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "maxLength": 512,
+                    "description": "Nome do template, como vem em Listar templates do canal (até 512 caracteres)."
+                  },
+                  "language": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "description": "Idioma do template, como vem em Listar templates do canal (até 20 caracteres)."
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "description": "Valores do template. Informe exatamente os marcadores e botões que o template pede (campo `parameters` em Listar templates do canal); omita as partes sem marcador.",
+                    "properties": {
+                      "header": {
+                        "description": "Valores do cabeçalho; no máximo 1.",
+                        "oneOf": [
+                          {
+                            "type": "array",
+                            "description": "Valores na ordem do template.",
+                            "maxItems": 1,
+                            "items": {
+                              "type": "string",
+                              "maxLength": 60,
+                              "description": "Valor do marcador (até 60 caracteres)."
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "description": "Valores por nome do marcador (letras minúsculas, dígitos e `_`, até 60).",
+                            "maxProperties": 1,
+                            "additionalProperties": {
+                              "type": "string",
+                              "maxLength": 60,
+                              "description": "Valor do marcador (até 60 caracteres)."
+                            },
+                            "x-propertyNames": {
+                              "pattern": "^[a-z0-9_]{1,60}$",
+                              "description": "Nome do marcador."
+                            }
+                          }
+                        ]
+                      },
+                      "body": {
+                        "description": "Valores do corpo; no máximo 100.",
+                        "oneOf": [
+                          {
+                            "type": "array",
+                            "description": "Valores na ordem do template.",
+                            "maxItems": 100,
+                            "items": {
+                              "type": "string",
+                              "maxLength": 1024,
+                              "description": "Valor do marcador (até 1024 caracteres)."
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "description": "Valores por nome do marcador (letras minúsculas, dígitos e `_`, até 60).",
+                            "maxProperties": 100,
+                            "additionalProperties": {
+                              "type": "string",
+                              "maxLength": 1024,
+                              "description": "Valor do marcador (até 1024 caracteres)."
+                            },
+                            "x-propertyNames": {
+                              "pattern": "^[a-z0-9_]{1,60}$",
+                              "description": "Nome do marcador."
+                            }
+                          }
+                        ]
+                      },
+                      "buttons": {
+                        "type": "array",
+                        "maxItems": 10,
+                        "description": "Sufixo da URL de cada botão dinâmico (`parameters.buttons` em Listar templates do canal); no máximo 10.",
+                        "items": {
+                          "type": "object",
+                          "description": "Valor de um botão de URL dinâmica.",
+                          "properties": {
+                            "index": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 9,
+                              "description": "Posição do botão no template (0 a 9), sem repetir."
+                            },
+                            "value": {
+                              "type": "string",
+                              "maxLength": 2000,
+                              "description": "Texto que substitui `{{1}}` na URL do botão (até 2000 caracteres)."
+                            }
+                          },
+                          "required": [
+                            "index",
+                            "value"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
                 "required": [
                   "name",
                   "language"
                 ],
-                "additionalProperties": false,
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "Nome do template, como vem em Listar templates do canal (até 512 caracteres).",
-                    "maxLength": 512
-                  },
-                  "language": {
-                    "type": "string",
-                    "description": "Idioma do template, como vem em Listar templates do canal (até 20 caracteres).",
-                    "maxLength": 20
-                  },
-                  "parameters": {
-                    "type": "object",
-                    "description": "Valores dos marcadores `{{n}}`; o valor na posição n preenche `{{n}}`. Omita as partes sem marcador.",
-                    "additionalProperties": false,
-                    "properties": {
-                      "header": {
-                        "type": "array",
-                        "description": "Valores do cabeçalho; no máximo 1.",
-                        "maxItems": 1,
-                        "items": {
-                          "type": "string",
-                          "description": "Valor do marcador (até 60 caracteres).",
-                          "maxLength": 60
-                        }
-                      },
-                      "body": {
-                        "type": "array",
-                        "description": "Valores do corpo, na ordem dos marcadores; no máximo 100.",
-                        "maxItems": 100,
-                        "items": {
-                          "type": "string",
-                          "description": "Valor do marcador (até 1024 caracteres).",
-                          "maxLength": 1024
-                        }
-                      }
-                    }
-                  }
-                }
+                "additionalProperties": false
               },
               "example": {
-                "name": "pedido_enviado",
+                "name": "inscricao_confirmada",
                 "language": "pt_BR",
                 "parameters": {
-                  "header": [
-                    "#1234"
-                  ],
-                  "body": [
-                    "Cliente",
-                    "#1234",
-                    "20/11"
+                  "body": {
+                    "nome": "Cliente",
+                    "evento": "Evento Exemplo",
+                    "data": "20/11"
+                  },
+                  "buttons": [
+                    {
+                      "index": 0,
+                      "value": "evento-123"
+                    }
                   ]
                 }
               }
