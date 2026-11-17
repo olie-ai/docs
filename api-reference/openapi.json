@@ -61130,7 +61130,7 @@
                                 },
                                 "format": {
                                   "type": "string",
-                                  "description": "Formato do cabeçalho; sempre `TEXT` nos templates listados."
+                                  "description": "Formato do cabeçalho: `TEXT`, `IMAGE`, `VIDEO` ou `DOCUMENT`."
                                 },
                                 "text": {
                                   "type": "string",
@@ -61157,6 +61157,10 @@
                                       }
                                     }
                                   }
+                                },
+                                "example": {
+                                  "type": "object",
+                                  "description": "Exemplo que o provedor guardou na aprovação do template (num cabeçalho de mídia, a referência do arquivo de exemplo)."
                                 }
                               }
                             }
@@ -61168,6 +61172,18 @@
                               "NAMED"
                             ],
                             "description": "Formato dos marcadores: `POSITIONAL` (`{{1}}`, `{{2}}`…) ou `NAMED` (`{{nome}}`)."
+                          },
+                          "header_format": {
+                            "type": "string",
+                            "enum": [
+                              "TEXT",
+                              "IMAGE",
+                              "VIDEO",
+                              "DOCUMENT",
+                              null
+                            ],
+                            "description": "Formato do cabeçalho: `TEXT`, `IMAGE`, `VIDEO` ou `DOCUMENT`; `null` quando o template não tem cabeçalho. Com imagem, vídeo ou documento, o envio pede `header_media`.",
+                            "nullable": true
                           },
                           "header_text": {
                             "type": "string",
@@ -62118,6 +62134,38 @@
                       }
                     },
                     "additionalProperties": false
+                  },
+                  "header_media": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "description": "Arquivo do projeto para o cabeçalho de imagem, vídeo ou documento (`header_format` em Listar templates do canal), como vem em Listar anexos para cabeçalho de template. Obrigatório quando o cabeçalho é de mídia; proibido nos outros casos. Para um arquivo novo, use Enviar template com cabeçalho de arquivo novo.",
+                    "properties": {
+                      "model_type": {
+                        "type": "string",
+                        "enum": [
+                          "App\\Models\\StepAttachment",
+                          "App\\Models\\FunnelAttachment",
+                          "App\\Models\\FormEdge"
+                        ],
+                        "description": "Origem do arquivo: anexo de etapa, anexo de funil ou campo de anexo de formulário."
+                      },
+                      "model_id": {
+                        "type": "integer",
+                        "description": "ID do anexo ou do campo do formulário."
+                      },
+                      "answer_id": {
+                        "type": "integer",
+                        "description": "Só para `FormEdge`: ID da resposta que contém o arquivo."
+                      },
+                      "file_index": {
+                        "type": "integer",
+                        "description": "Só para `FormEdge`: posição do arquivo dentro da resposta (a partir de 0)."
+                      }
+                    },
+                    "required": [
+                      "model_type",
+                      "model_id"
+                    ]
                   }
                 },
                 "required": [
@@ -62309,9 +62357,15 @@
           {
             "name": "header_format",
             "in": "query",
+            "required": false,
             "description": "Opcional. Mostra só arquivos de um formato: IMAGE, VIDEO ou DOCUMENT.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "IMAGE",
+                "VIDEO",
+                "DOCUMENT"
+              ]
             },
             "example": ""
           }
@@ -62322,42 +62376,67 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "Arquivos do projeto do canal que podem ser o cabeçalho de mídia de um template.",
                   "type": "object",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "attachments": {
                       "type": "array",
+                      "description": "Arquivos disponíveis; lista vazia quando não há nenhum.",
                       "items": {
                         "type": "object",
+                        "description": "Arquivo disponível para o cabeçalho.",
                         "properties": {
                           "model_type": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Origem do arquivo (`App\\Models\\StepAttachment`, `App\\Models\\FunnelAttachment` ou `App\\Models\\FormEdge`); vai em `header_media.model_type` no envio."
                           },
                           "model_id": {
-                            "type": "integer"
+                            "type": "integer",
+                            "description": "ID do anexo ou do campo do formulário; vai em `header_media.model_id`."
                           },
                           "answer_id": {
+                            "type": "integer",
+                            "description": "Só em campo de formulário: ID da resposta; vai em `header_media.answer_id`.",
                             "nullable": true
                           },
                           "file_index": {
+                            "type": "integer",
+                            "description": "Só em campo de formulário: posição do arquivo na resposta; vai em `header_media.file_index`.",
                             "nullable": true
                           },
                           "source": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": [
+                              "step",
+                              "funnel",
+                              "form"
+                            ],
+                            "description": "De onde vem o arquivo: etapa, funil ou formulário."
                           },
                           "source_name": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Nome da etapa, do funil ou do campo do formulário."
                           },
                           "name": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Nome do arquivo."
                           },
                           "extension": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Extensão do arquivo, em minúsculas."
                           },
                           "header_format": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": [
+                              "IMAGE",
+                              "VIDEO",
+                              "DOCUMENT"
+                            ],
+                            "description": "Formato de cabeçalho que o arquivo atende."
                           }
                         }
                       }
@@ -62410,16 +62489,20 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "Resposta de erro quando o canal não existe nesta conta.",
                   "type": "object",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     }
                   }
                 },
@@ -62436,25 +62519,30 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "Resposta de erro de validação.",
                   "type": "object",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Identificador do erro (slug); é o campo a ser tratado pelo cliente."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro."
                     },
                     "validation": {
                       "type": "object",
-                      "properties": {
-                        "header_format": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
+                      "description": "Mapa de campo para as mensagens de validação daquele campo. Campos possíveis: `name` (ausente, ou template inexistente, não aprovado ou que não pode ser enviado pela Olie), `language`, `parameters.header` e `parameters.body` (formato, ou quantidade diferente da que o template pede), `channel_id` (canal inativo) e `project_id` (projeto do canal excluído ou mesclado).",
+                      "additionalProperties": {
+                        "type": "array",
+                        "description": "Mensagens de validação do campo.",
+                        "items": {
+                          "type": "string",
+                          "description": "Mensagem de validação."
                         }
                       }
                     }
@@ -62477,7 +62565,7 @@
         "tags": [
           "channels"
         ],
-        "description": "Lista os arquivos do projeto do canal que podem ser o cabeçalho de imagem, vídeo ou documento de um template: anexos das etapas e dos funis em que o projeto está agora e arquivos respondidos em campos de anexo dos formulários do projeto. Cada item traz a referência usada em `header_media` no envio de template e o formato de cabeçalho que o arquivo atende."
+        "description": "Lista os arquivos do projeto do canal que podem ser o cabeçalho de imagem, vídeo ou documento de um template: anexos das etapas e dos funis em que o projeto está agora e arquivos respondidos em campos de anexo dos formulários do projeto. Cada item traz a referência para `header_media` no envio de template e o formato de cabeçalho que o arquivo atende."
       },
       "parameters": [
         {
