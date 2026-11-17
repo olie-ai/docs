@@ -12,12 +12,12 @@ Esta página cobre o cadastro na interface, o formato do aviso e como o seu serv
 
 Em **Ajustes → Integrações → API**, abra a aba **Webhooks**.
 
-Para ver e gerenciar webhooks, o papel precisa das permissões do grupo **Webhooks** (visualizar, criar, editar e excluir). Se a aba não aparecer, a funcionalidade ainda não está liberada para a sua empresa, ou o seu papel não tem essas permissões.
+Para ver e gerenciar webhooks, o papel precisa das permissões do grupo **Webhooks** (visualizar, criar, editar e excluir). Se a aba não aparecer, confira se o seu papel tem essas permissões.
 
 ## Cadastrar um webhook
 
 1. Clique em **Novo webhook**.
-2. Informe a **URL de destino**. Use um endereço público em HTTP ou HTTPS. Endereços internos, de localhost ou de metadata de nuvem são recusados.
+2. Informe a **URL de destino**. Use um endereço público em **HTTPS**. Endereços em HTTP, internos, de localhost ou de metadata de nuvem são recusados.
 3. Dê um **Nome** só para você reconhecer o webhook na lista.
 4. Em **Quais eventos enviar**, escolha **Tudo o que acontecer nesta conta** ou **Só alguns eventos** (por objeto ou por evento).
 5. Clique em **Criar webhook**.
@@ -53,7 +53,9 @@ Redirecionamentos (3xx) e a maioria dos 4xx, inclusive **410**, encerram a entre
 
 Se as 10 tentativas falharem, aquela linha de **Envios** fica **Falhou**. O próximo evento da conta ainda gera uma entrega nova, enquanto o webhook estiver **Ativo**.
 
-Se o destino falhar em **dias em que houve tentativa** (até 5 dias assim), a Olie **desativa o webhook automaticamente** e avisa quem pode editar webhooks. Dia sem envio não conta. Um **2xx** zera essa contagem. Corrija a URL e use **Ativar** de novo.
+A Olie **desativa o webhook automaticamente** quando ele completa **5 dias com falha**. Um dia conta como dia com falha quando pelo menos um envio daquele dia termina como **Falhou**, depois de esgotar as tentativas ou por erro permanente. Cada dia conta uma vez só, por mais envios que falhem nele. Os dias não precisam ser seguidos: dia sem envio não conta e não zera a contagem. Um envio entregue com **2xx** zera a contagem. A falha do envio de teste (**Testar**) não conta. Envio encerrado porque o webhook foi pausado também não conta.
+
+Quando o webhook é desativado, a Olie avisa por e-mail quem pode editar webhooks. Corrija a URL e use **Ativar** de novo.
 
 ## O que o seu sistema recebe
 
@@ -91,7 +93,7 @@ Cada aviso é um `POST` JSON. A Olie **não** segue redirects. O corpo e a assin
 | --- | --- | --- |
 | `event_id` | Sempre | Id estável do evento |
 | `event` | Sempre | Slug do evento |
-| `occurred_at` | Sempre | Quando o fato aconteceu (UTC) |
+| `occurred_at` | Sempre | Quando o fato aconteceu (UTC). Se vários avisos chegarem fora de ordem, ordene por este campo |
 | `frame_id` | Sempre | Conta de origem |
 | `webhook_id` | Sempre | Assinatura que recebe o POST |
 | `object` | Sempre | Tipo do objeto em `data` (`project`, `customer`, `contact`, `webhook`) |
