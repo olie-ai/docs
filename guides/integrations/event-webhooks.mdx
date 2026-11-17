@@ -53,7 +53,9 @@ Redirecionamentos (3xx) e a maioria dos 4xx, inclusive **410**, encerram a entre
 
 Se as 10 tentativas falharem, aquela linha de **Envios** fica **Falhou**. O próximo evento da conta ainda gera uma entrega nova, enquanto o webhook estiver **Ativo**.
 
-Se o destino falhar em **dias em que houve tentativa** (até 5 dias assim), a Olie **desativa o webhook automaticamente** e avisa quem pode editar webhooks. Dia sem envio não conta. Um **2xx** zera essa contagem. Corrija a URL e use **Ativar** de novo.
+A Olie **desativa o webhook automaticamente** quando ele completa **5 dias com falha**. Um dia conta como dia com falha quando pelo menos um envio daquele dia termina como **Falhou**, depois de esgotar as tentativas ou por erro permanente. Cada dia conta uma vez só, por mais envios que falhem nele. Os dias não precisam ser seguidos: dia sem envio não conta e não zera a contagem. Um envio entregue com **2xx** zera a contagem. A falha do envio de teste (**Testar**) não conta. Envio encerrado porque o webhook foi pausado também não conta.
+
+Quando o webhook é desativado, a Olie avisa por e-mail quem pode editar webhooks. Corrija a URL e use **Ativar** de novo.
 
 ## O que o seu sistema recebe
 
