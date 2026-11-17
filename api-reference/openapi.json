@@ -61271,6 +61271,7 @@
                         }
                       ],
                       "parameter_format": "POSITIONAL",
+                      "header_format": "TEXT",
                       "header_text": "Pedido {{1}}",
                       "body_text": "Olá, {{1}}! Seu pedido {{2}} foi enviado e chega até {{3}}.",
                       "footer_text": "Equipe Exemplo",
@@ -61323,6 +61324,7 @@
                         }
                       ],
                       "parameter_format": "NAMED",
+                      "header_format": "TEXT",
                       "header_text": "Inscrição confirmada",
                       "body_text": "Olá, {{nome}}! Sua inscrição em {{evento}} está confirmada para {{data}}.",
                       "footer_text": "Equipe Exemplo",
@@ -61340,6 +61342,68 @@
                             "index": 0,
                             "text": "Ver evento",
                             "url": "https://exemplo.com/evento/{{1}}"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "jogo_perto_de_voce",
+                      "language": "pt_BR",
+                      "category": "MARKETING",
+                      "status": "APPROVED",
+                      "components": [
+                        {
+                          "type": "HEADER",
+                          "format": "IMAGE",
+                          "example": {
+                            "header_handle": [
+                              "https://scontent.whatsapp.net/v/exemplo"
+                            ]
+                          }
+                        },
+                        {
+                          "type": "BODY",
+                          "text": "Tem {{evento}} em {{data}} na {{cidade}}! Bora, {{nome}}?"
+                        },
+                        {
+                          "type": "FOOTER",
+                          "text": "Equipe Exemplo"
+                        },
+                        {
+                          "type": "BUTTONS",
+                          "buttons": [
+                            {
+                              "type": "URL",
+                              "text": "Ver jogo",
+                              "url": "https://exemplo.com/game/{{1}}"
+                            },
+                            {
+                              "type": "QUICK_REPLY",
+                              "text": "Parar de receber"
+                            }
+                          ]
+                        }
+                      ],
+                      "parameter_format": "NAMED",
+                      "header_format": "IMAGE",
+                      "header_text": null,
+                      "body_text": "Tem {{evento}} em {{data}} na {{cidade}}! Bora, {{nome}}?",
+                      "footer_text": "Equipe Exemplo",
+                      "parameters": {
+                        "header": 0,
+                        "body": 4,
+                        "header_names": [],
+                        "body_names": [
+                          "evento",
+                          "data",
+                          "cidade",
+                          "nome"
+                        ],
+                        "buttons": [
+                          {
+                            "index": 0,
+                            "text": "Ver jogo",
+                            "url": "https://exemplo.com/game/{{1}}"
                           }
                         ]
                       }
@@ -61728,6 +61792,47 @@
                       },
                       "recorded": true
                     }
+                  },
+                  "Sucesso — cabeçalho com anexo do projeto": {
+                    "value": {
+                      "response": true,
+                      "media": {
+                        "id": "2f3a4b5c-6d7e-4f80-91a2-b3c4d5e6f708",
+                        "name": "banner-evento.png",
+                        "technical_name": "banner-evento",
+                        "type": 2,
+                        "extension": "png",
+                        "text": "Tem Torneio em 20/12 na Campinas! Bora, Cliente?\nEquipe Exemplo",
+                        "file_url": "https://olie-cdn.s3.amazonaws.com/app/frames/7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f/funnel_attachments/banner-evento.png?X-Amz-Expires=86400&X-Amz-Signature=exemplo",
+                        "transcription_status": null,
+                        "transcription": null,
+                        "log": null,
+                        "user_id": "3e4f5a6b-7c8d-4e9f-a0b1-c2d3e4f5a6b7",
+                        "frame_id": "7c0e1d2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f",
+                        "project_id": "8a1f2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
+                        "channel_id": "9b2a1c3e-4d5f-6789-abcd-ef0123456789",
+                        "direction": "outbound",
+                        "origin": "internal",
+                        "external_message_id": "wamid.EXEMPLO0123456789",
+                        "task_id": null,
+                        "delivery_error": null,
+                        "created_at": "2026-06-18T15:30:00.000000Z",
+                        "updated_at": "2026-06-18T15:30:00.000000Z",
+                        "deleted_at": null,
+                        "user": {
+                          "id": "3e4f5a6b-7c8d-4e9f-a0b1-c2d3e4f5a6b7",
+                          "old_id": null,
+                          "name": "Pessoa Exemplo",
+                          "description": null,
+                          "email": "pessoa@exemplo.com",
+                          "avatar_url": null,
+                          "status": 1,
+                          "lang": "pt_br",
+                          "email_verified_at": "2026-01-10 12:00:00"
+                        }
+                      },
+                      "recorded": true
+                    }
                   }
                 }
               }
@@ -61853,6 +61958,18 @@
                         ]
                       }
                     }
+                  },
+                  "Anexo indisponível para a conversa": {
+                    "value": {
+                      "response": false,
+                      "message": "validation_errors",
+                      "error": "The selected file is not available to this conversation.",
+                      "validation": {
+                        "header_media": [
+                          "The selected file is not available to this conversation."
+                        ]
+                      }
+                    }
                   }
                 }
               }
@@ -61892,7 +62009,7 @@
         "tags": [
           "channels"
         ],
-        "description": "Envia um template aprovado ao cliente pelo canal e grava a mensagem na conversa, com a janela de resposta aberta ou fechada. Em `parameters.header` e `parameters.body`, informe os valores como lista, na ordem de `parameters.*_names` de Listar templates do canal, ou como objeto nome → valor; em `parameters.buttons`, informe o fim da URL de cada botão dinâmico pela posição dele. Todos os marcadores e botões que o template pede são obrigatórios, e nenhum a mais. Quando o provedor entrega e a gravação falha, a resposta é 201 com `recorded: false` e `media: null` — não reenvie, o cliente já recebeu.",
+        "description": "Envia um template aprovado ao cliente pelo canal e grava a mensagem na conversa, com a janela de resposta aberta ou fechada. Em `parameters.header` e `parameters.body`, informe os valores como lista, na ordem de `parameters.*_names` de Listar templates do canal, ou como objeto nome → valor; em `parameters.buttons`, informe o fim da URL de cada botão dinâmico pela posição dele. Quando o template tem cabeçalho de imagem, vídeo ou documento (`header_format`), `header_media` é obrigatório: um arquivo do projeto, com a referência de Listar anexos para cabeçalho de template, ou um arquivo novo (veja Enviar template com cabeçalho de arquivo novo). Quando o provedor entrega e a gravação falha, a resposta é 201 com `recorded: false` e `media: null` — não reenvie, o cliente já recebeu.",
         "requestBody": {
           "content": {
             "application/json": {
