@@ -62565,7 +62565,7 @@
         "tags": [
           "channels"
         ],
-        "description": "Lista os arquivos do projeto do canal que podem ser o cabeçalho de imagem, vídeo ou documento de um template: anexos das etapas e dos funis em que o projeto está agora e arquivos respondidos em campos de anexo dos formulários do projeto. Cada item traz a referência para `header_media` no envio de template e o formato de cabeçalho que o arquivo atende."
+        "description": "Lista os arquivos do projeto do canal que podem ser o cabeçalho de imagem, vídeo ou documento de um template: anexos das etapas e dos funis em que o projeto está agora e arquivos respondidos em campos de anexo dos formulários do projeto. Cada item traz a referência a usar em `header_media` no envio de template e o formato de cabeçalho que o arquivo atende."
       },
       "parameters": [
         {
