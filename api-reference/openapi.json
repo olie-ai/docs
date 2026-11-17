@@ -62184,6 +62184,196 @@
           "example": ""
         }
       ]
+    },
+    "/api/management/channels/{channel}/templates/header-attachments": {
+      "get": {
+        "summary": "Listar anexos para cabeçalho de template",
+        "parameters": [
+          {
+            "name": "header_format",
+            "in": "query",
+            "description": "Opcional. Mostra só arquivos de um formato: IMAGE, VIDEO ou DOCUMENT.",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "model_type": {
+                            "type": "string"
+                          },
+                          "model_id": {
+                            "type": "integer"
+                          },
+                          "answer_id": {
+                            "nullable": true
+                          },
+                          "file_index": {
+                            "nullable": true
+                          },
+                          "source": {
+                            "type": "string"
+                          },
+                          "source_name": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "extension": {
+                            "type": "string"
+                          },
+                          "header_format": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "attachments": [
+                    {
+                      "model_type": "App\\Models\\StepAttachment",
+                      "model_id": 512,
+                      "answer_id": null,
+                      "file_index": null,
+                      "source": "step",
+                      "source_name": "Proposta enviada",
+                      "name": "banner-evento.png",
+                      "extension": "png",
+                      "header_format": "IMAGE"
+                    },
+                    {
+                      "model_type": "App\\Models\\FunnelAttachment",
+                      "model_id": 87,
+                      "answer_id": null,
+                      "file_index": null,
+                      "source": "funnel",
+                      "source_name": "Vendas",
+                      "name": "apresentacao.mp4",
+                      "extension": "mp4",
+                      "header_format": "VIDEO"
+                    },
+                    {
+                      "model_type": "App\\Models\\FormEdge",
+                      "model_id": 3301,
+                      "answer_id": 99812,
+                      "file_index": 0,
+                      "source": "form",
+                      "source_name": "Contrato assinado",
+                      "name": "contrato.pdf",
+                      "extension": "pdf",
+                      "header_format": "DOCUMENT"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "channel_model_not_found",
+                  "error": "No query results for model [App\\Models\\Channel] 9b2a1c3e-4d5f-6789-abcd-ef0123456789"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Formato inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "header_format": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "validation_errors",
+                  "error": "The selected header format is invalid.",
+                  "validation": {
+                    "header_format": [
+                      "The selected header format is invalid."
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "channels"
+        ],
+        "description": "Lista os arquivos do projeto do canal que podem ser o cabeçalho de imagem, vídeo ou documento de um template: anexos das etapas e dos funis em que o projeto está agora e arquivos respondidos em campos de anexo dos formulários do projeto. Cada item traz a referência usada em `header_media` no envio de template e o formato de cabeçalho que o arquivo atende."
+      },
+      "parameters": [
+        {
+          "name": "channel",
+          "in": "path",
+          "required": true,
+          "description": "ID (UUID) do canal.",
+          "schema": {
+            "type": "string"
+          },
+          "example": ""
+        }
+      ]
     }
   },
   "components": {
