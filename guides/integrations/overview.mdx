@@ -69,6 +69,8 @@ Na lista e nos detalhes de cada integração, dois indicadores mostram coisas di
 
 Os dois indicadores são independentes: uma integração **Ativa** pode estar com a sessão **Desconectada**. Nos detalhes da integração, a sessão mostra também há quanto tempo está no estado atual.
 
+Se o provedor responder que a conexão desta integração não existe mais, a sessão passa a **Desconectada** e os envios deixam de tentar de novo. Se a integração for **WhatsApp hospedado pela Olie**, use **Reconectar** para voltar a enviar e receber.
+
 O **Registro de atividade**, nas ações da integração, mostra o que aconteceu nos últimos 30 dias: mensagens recebidas e enviadas, falhas e eventos de conexão. Os eventos ligados a um contato mostram o número dele. Em conversas de grupo, aparece o identificador do grupo no lugar do número. São eles:
 
 - **Mensagem recebida** e **Mensagem enviada**;
@@ -159,7 +161,7 @@ O envio é assíncrono: a resposta de `save-media` confirma que o conteúdo foi 
 | `direction` | `outbound` para o que saiu da Olie, `inbound` para o que o cliente mandou |
 | `origin` | `internal` para o que foi escrito na Olie. `provider` e `imported` são mensagens que já existiam no WhatsApp e nunca são reenviadas |
 | `external_message_id` | O identificador que o provedor devolveu ao aceitar o envio |
-| `delivery_error` | O motivo da falha, preenchido depois de três tentativas sem sucesso. Fica `null` quando a entrega deu certo |
+| `delivery_error` | O motivo da falha. Em falhas temporárias, a plataforma tenta de novo até três vezes e só então preenche o campo. Se o provedor disser que a conexão não existe mais, o erro aparece na primeira tentativa e a sessão da integração passa a **Desconectada**. Fica `null` quando a entrega deu certo |
 
 A requisição é recusada com HTTP 422 em dois casos: o canal está inativo ou pertence a outro projeto.
 
