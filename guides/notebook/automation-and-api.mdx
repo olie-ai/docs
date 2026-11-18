@@ -105,10 +105,6 @@ Toda gravação leva a `base_revision`, a versão que você leu. Se outra pessoa
 
 Com a sessão de uma pessoa, ela precisa ter permissão de edição no registro dono do Caderno: `projects.edit.{id}` para projeto, por exemplo. Com token de aplicação, o acesso vale para os registros do workspace do token. Registro de outro workspace responde HTTP 404.
 
-<Note>
-As rotas antigas do Caderno (`get-forum`, `create-thread`, `get-thread-data`, `save-thread-data` e outras) continuam funcionando para pessoas, mas estão obsoletas e não aceitam token de aplicação. Use as rotas acima.
-</Note>
-
 Ao **clonar um projeto**, o corpo da requisição aceita `forum`, que copia o Caderno do projeto de origem para o clone.
 
 ```json Trecho do corpo de POST /api/management/projects/{project}/clone
