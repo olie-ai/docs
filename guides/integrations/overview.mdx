@@ -46,9 +46,11 @@ A plataforma oferece três conectores de WhatsApp. A última coluna mostra o val
 
 | Conector | Como conecta | Valor em `type` na API |
 | --- | --- | --- |
-| **WhatsApp Cloud (Meta)** | Credenciais da API oficial: Phone Number ID, Access Token, App Secret e Verify Token | `whatsapp_cloud` |
+| **WhatsApp oficial (Meta)** | Na plataforma, **Conectar com a Meta**. Pela API, as credenciais oficiais: Phone Number ID, Access Token, App Secret e Verify Token | `whatsapp_cloud` |
 | **Evolution** | Servidor próprio: API Key, instância e endereço do servidor | `whatsapp_evolution` |
 | **WhatsApp hospedado pela Olie** | Leitura de QR Code, sem infraestrutura própria | `whatsapp_evolution_managed` |
+
+Na plataforma, o **WhatsApp oficial (Meta)** conecta pelo fluxo da Meta: escolha o conector, clique em **Conectar com a Meta** e autorize na janela que abre. Quando o número também permanece no app WhatsApp Business do celular (coexistência), o que alguém responde pelo celular também entra no projeto. A forma de pagamento das mensagens é cadastrada por você no WhatsApp Manager. A Olie cuida do webhook — essa conexão não mostra URL nem credenciais para cadastrar na Meta.
 
 O **WhatsApp hospedado pela Olie** não pode ser criado pela API. Ele nasce só pelo fluxo de conexão da plataforma, que aloca o servidor e gera as credenciais da instância. Uma criação com `type: whatsapp_evolution_managed` é recusada.
 
@@ -163,7 +165,7 @@ O envio por `save-media` é assíncrono: a resposta confirma que o conteúdo foi
 | Campo | O que indica |
 | --- | --- |
 | `direction` | `outbound` para o que saiu da Olie, `inbound` para o que o cliente mandou |
-| `origin` | `internal` para o que foi escrito na Olie. `provider` e `imported` são mensagens que já existiam no WhatsApp e nunca são reenviadas |
+| `origin` | `internal` para o que foi escrito na Olie. `provider` e `imported` são mensagens que vieram do WhatsApp — inclusive o que alguém enviou pelo celular em coexistência — e nunca são reenviadas |
 | `external_message_id` | O identificador que o provedor devolveu ao aceitar o envio |
 | `delivery_error` | O motivo da falha. Em falhas temporárias, a plataforma tenta de novo até três vezes e só então preenche o campo. Se o provedor disser que a conexão não existe mais, o erro aparece na primeira tentativa e a sessão da integração passa a **Desconectada**. Fica `null` quando a entrega deu certo |
 
