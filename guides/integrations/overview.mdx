@@ -77,7 +77,7 @@ O **Registro de atividade**, nas ações da integração, mostra o que aconteceu
 - **O provedor recusou o envio** e **O provedor não entregou a mensagem**;
 - **Contato veio de um anúncio**;
 - **Mensagem repetida ignorada**;
-- **Envio não realizado**, quando falta o conector.
+- **Envio não realizado**, quando a mensagem não chega a sair — por exemplo, falta o conector ou a janela de atendimento do **WhatsApp oficial (Meta)** está fechada.
 
 ### Criação automática de projeto
 
@@ -131,13 +131,15 @@ Quando um projeto tem **mais de um canal externo**, a ação de enviar conteúdo
 
 Para mandar uma mensagem pelo WhatsApp de um projeto, grave um conteúdo no canal externo dele. A plataforma entrega o conteúdo pela integração ligada ao canal.
 
+No **WhatsApp oficial (Meta)**, o provedor só aceita texto, arquivo ou áudio livres enquanto a janela de atendimento de 24 horas está aberta. Cada canal traz em `capabilities` o estado dessa janela (`reply_window`, `free_text`) e se o canal envia templates ou mostra digitação. Fora da janela, use a rota de envio de template do canal — `save-media` responde HTTP 422 com `message: "channel_reply_window_closed"`.
+
 <Steps>
 <Step title="Encontre o canal do projeto">
-  Chame `GET /api/management/channels?project_id={id}`. O canal externo é o que tem `integration_id` preenchido. Ele precisa estar com `is_active` igual a `true`.
+  Chame `GET /api/management/channels?project_id={id}`. O canal externo é o que tem `integration_id` preenchido. Ele precisa estar com `is_active` igual a `true`. Confira `capabilities.free_text` antes de enviar texto livre.
 </Step>
 
 <Step title="Grave a mensagem no canal">
-  Chame `POST /api/management/save-media` com `type` igual a `1` (texto) e o `channel_id` do canal:
+  Se `capabilities.free_text` for `true`, chame `POST /api/management/save-media` com `type` igual a `1` (texto) e o `channel_id` do canal:
 
   ```json
   {
@@ -147,6 +149,8 @@ Para mandar uma mensagem pelo WhatsApp de um projeto, grave um conteúdo no cana
     "channel_id": "019b6b4d-2f18-7331-b60a-91c7d2e40a55"
   }
   ```
+
+  Se `free_text` for `false` e `capabilities.templates` for `true`, liste os templates com `GET /api/management/channels/{channel}/templates` e envie um com `POST /api/management/channels/{channel}/templates/send`.
 </Step>
 
 <Step title="Confira a entrega">
@@ -154,7 +158,7 @@ Para mandar uma mensagem pelo WhatsApp de um projeto, grave um conteúdo no cana
 </Step>
 </Steps>
 
-O envio é assíncrono: a resposta de `save-media` confirma que o conteúdo foi gravado, não que chegou ao cliente. Cada conteúdo do canal traz estes campos sobre a entrega:
+O envio por `save-media` é assíncrono: a resposta confirma que o conteúdo foi gravado, não que chegou ao cliente. Cada conteúdo do canal traz estes campos sobre a entrega:
 
 | Campo | O que indica |
 | --- | --- |
@@ -163,7 +167,9 @@ O envio é assíncrono: a resposta de `save-media` confirma que o conteúdo foi 
 | `external_message_id` | O identificador que o provedor devolveu ao aceitar o envio |
 | `delivery_error` | O motivo da falha. Em falhas temporárias, a plataforma tenta de novo até três vezes e só então preenche o campo. Se o provedor disser que a conexão não existe mais, o erro aparece na primeira tentativa e a sessão da integração passa a **Desconectada**. Fica `null` quando a entrega deu certo |
 
-A requisição é recusada com HTTP 422 em dois casos: o canal está inativo ou pertence a outro projeto.
+A requisição `save-media` é recusada com HTTP 422 quando o canal está inativo, pertence a outro projeto ou a janela de atendimento está fechada (`message: "channel_reply_window_closed"`, com `closes_at` e `closed_since`).
+
+Automações e agentes que gravam texto livre com a janela fechada não disparam esse erro na gravação. O envio é pulado e aparece como **Envio não realizado** no **Registro de atividade**.
 
 <Warning>
 **Prefira `channel_id` a `channel_name`.** O `channel_name` procura no projeto um canal com aquele nome. Se nenhum existir, ele cria um canal **interno** com esse nome, e a mensagem não sai da plataforma.
