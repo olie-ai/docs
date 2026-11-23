@@ -5539,7 +5539,7 @@
                         },
                         "logical_operator": {
                           "type": "string",
-                          "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`."
+                          "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`. Cláusulas `or` consecutivas formam um grupo; um `and` fecha o grupo. Detalhes em [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search#combinar-filtros-com-and-e-or)."
                         },
                         "arguments": {
                           "type": "array",
@@ -5853,7 +5853,7 @@
                         },
                         "logical_operator": {
                           "type": "string",
-                          "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`."
+                          "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`. Cláusulas `or` consecutivas formam um grupo; um `and` fecha o grupo. Detalhes em [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search#combinar-filtros-com-and-e-or)."
                         },
                         "arguments": {
                           "type": "array",
@@ -11603,7 +11603,7 @@
                   "message": "validation_errors",
                   "error": "O campo nonExistsFilterField selecionado é inválido.",
                   "validation": {
-                    "field": [
+                    "filters": [
                       "O campo nonExistsFilterField selecionado é inválido."
                     ]
                   },
@@ -11676,7 +11676,7 @@
                         },
                         "logical_operator": {
                           "type": "string",
-                          "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`."
+                          "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`. Cláusulas `or` consecutivas formam um grupo; um `and` fecha o grupo. Detalhes em [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search#combinar-filtros-com-and-e-or)."
                         },
                         "arguments": {
                           "type": "array",
@@ -11713,7 +11713,7 @@
                         },
                         "arguments": {
                           "type": "array",
-                          "description": "Argumentos extras exigidos por algumas ordenações, no mesmo formato dos filtros. Consulte o endpoint de metadados.",
+                          "description": "Argumentos extras exigidos por algumas ordenações, no mesmo formato dos filtros. Em `assigned_to`, o id do usuário também restringe a lista aos projetos atribuídos a esse usuário; um projeto com vários responsáveis aparece uma vez. Consulte o endpoint de metadados.",
                           "items": {
                             "description": "Um argumento da ordenação.",
                             "type": "object",
@@ -20008,7 +20008,7 @@
                       "type": "object",
                       "description": "Mensagens de validação por campo.",
                       "properties": {
-                        "field": {
+                        "filters": {
                           "type": "array",
                           "description": "Erro do campo de filtro informado, com a lista dos campos aceitos.",
                           "items": {
@@ -20025,7 +20025,7 @@
                   "message": "validation_errors",
                   "error": "O campo [nome_fantasia] selecionado é inválido. Campos disponíveis: id, name, status, email, phone, company_name, document_type, document, customer_type, main_activity, address, description, created_at, projects, contacts, parent_customer, created_by_user, answer_pool, tags.",
                   "validation": {
-                    "field": [
+                    "filters": [
                       "O campo [nome_fantasia] selecionado é inválido. Campos disponíveis: id, name, status, email, phone, company_name, document_type, document, customer_type, main_activity, address, description, created_at, projects, contacts, parent_customer, created_by_user, answer_pool, tags."
                     ]
                   }
@@ -20097,7 +20097,7 @@
                             "or",
                             null
                           ],
-                          "description": "Como o filtro se combina com o anterior: `and` (padrão) ou `or`.",
+                          "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`. Cláusulas `or` consecutivas formam um grupo; um `and` fecha o grupo. Detalhes em [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search#combinar-filtros-com-and-e-or).",
                           "default": "and"
                         },
                         "arguments": {
@@ -42894,7 +42894,7 @@
                       "type": "object",
                       "description": "Mensagens de validação agrupadas por campo.",
                       "properties": {
-                        "field": {
+                        "filters": {
                           "type": "array",
                           "description": "Mensagem indicando o campo inválido e listando os campos aceitos.",
                           "items": {
@@ -42911,7 +42911,7 @@
                   "message": "validation_errors",
                   "error": "O campo [campo_inexistente] selecionado é inválido. Campos disponíveis: id, code, name, description, impact, status, budget, funnel_status_at, funnel_forecast_date, funnel_status, funnel_tags, parent, children, customer, contact, assignee, creator, created_at, funnels, funnel_steps, funnel_step_linked_at, completed_percentage, channel_awaiting_reply_since, project_groups, answer_pool, project_step_form_answer_pool, project_funnel_assignments_answer_pool, project_loose_form_answer_pool, name_code.",
                   "validation": {
-                    "field": [
+                    "filters": [
                       "O campo [campo_inexistente] selecionado é inválido. Campos disponíveis: id, code, name, description, impact, status, budget, funnel_status_at, funnel_forecast_date, funnel_status, funnel_tags, parent, children, customer, contact, assignee, creator, created_at, funnels, funnel_steps, funnel_step_linked_at, completed_percentage, channel_awaiting_reply_since, project_groups, answer_pool, project_step_form_answer_pool, project_funnel_assignments_answer_pool, project_loose_form_answer_pool, name_code."
                     ]
                   }
@@ -42974,7 +42974,7 @@
                             "and",
                             "or"
                           ],
-                          "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`."
+                          "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`. Cláusulas `or` consecutivas formam um grupo; um `and` fecha o grupo. Detalhes em [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search#combinar-filtros-com-and-e-or)."
                         },
                         "arguments": {
                           "type": "array",
@@ -51551,7 +51551,7 @@
                                 "or",
                                 null
                               ],
-                              "description": "Como o filtro se combina com o anterior: `and` (padrão) ou `or`."
+                              "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`. Cláusulas `or` consecutivas formam um grupo; um `and` fecha o grupo. Detalhes em [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search#combinar-filtros-com-and-e-or)."
                             },
                             "arguments": {
                               "type": "array",
@@ -51641,7 +51641,7 @@
                                 "or",
                                 null
                               ],
-                              "description": "Como o filtro se combina com o anterior: `and` (padrão) ou `or`."
+                              "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`. Cláusulas `or` consecutivas formam um grupo; um `and` fecha o grupo. Detalhes em [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search#combinar-filtros-com-and-e-or)."
                             },
                             "arguments": {
                               "type": "array",
@@ -51731,7 +51731,7 @@
                                 "or",
                                 null
                               ],
-                              "description": "Como o filtro se combina com o anterior: `and` (padrão) ou `or`."
+                              "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`. Cláusulas `or` consecutivas formam um grupo; um `and` fecha o grupo. Detalhes em [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search#combinar-filtros-com-and-e-or)."
                             },
                             "arguments": {
                               "type": "array",
@@ -51827,7 +51827,7 @@
                                 "or",
                                 null
                               ],
-                              "description": "Como o filtro se combina com o anterior: `and` (padrão) ou `or`."
+                              "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`. Cláusulas `or` consecutivas formam um grupo; um `and` fecha o grupo. Detalhes em [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search#combinar-filtros-com-and-e-or)."
                             },
                             "arguments": {
                               "type": "array",
@@ -52050,7 +52050,7 @@
                                 "or",
                                 null
                               ],
-                              "description": "Como o filtro se combina com o anterior: `and` (padrão) ou `or`."
+                              "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`. Cláusulas `or` consecutivas formam um grupo; um `and` fecha o grupo. Detalhes em [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search#combinar-filtros-com-and-e-or)."
                             },
                             "arguments": {
                               "type": "array",
@@ -56535,7 +56535,7 @@
                       "type": "object",
                       "description": "Mensagens de validação agrupadas por chave.",
                       "properties": {
-                        "field": {
+                        "filters": {
                           "type": "array",
                           "description": "Mensagens sobre o campo de filtro inválido, com a lista de campos disponíveis.",
                           "items": {
@@ -56552,7 +56552,7 @@
                   "message": "validation_errors",
                   "error": "O campo [status] selecionado é inválido. Campos disponíveis: id, user_id, project_id, funnel_step_id, project_funnel_id, started_at, finished_at, is_running, name_code.",
                   "validation": {
-                    "field": [
+                    "filters": [
                       "O campo [status] selecionado é inválido. Campos disponíveis: id, user_id, project_id, funnel_step_id, project_funnel_id, started_at, finished_at, is_running, name_code."
                     ]
                   }
@@ -56620,7 +56620,7 @@
                             "or",
                             null
                           ],
-                          "description": "Como o filtro se combina com o anterior: `and` (padrão) ou `or`."
+                          "description": "Como o filtro se junta ao anterior: `and` (padrão) ou `or`. Cláusulas `or` consecutivas formam um grupo; um `and` fecha o grupo. Detalhes em [Busca avançada](https://docs.olie.ai/api-reference/general/advanced-search#combinar-filtros-com-and-e-or)."
                         }
                       },
                       "required": [
