@@ -4,7 +4,7 @@ description: "Conecte a Olie ao ChatGPT, ao Claude e a outros assistentes para c
 keywords: ["mcp", "model context protocol", "chatgpt", "claude", "conector", "plugin", "integração", "assistente", "ia"]
 ---
 
-O MCP da Olie é um servidor que expõe a sua operação — projetos, clientes, contatos, funis, etapas, formulários e métricas — para assistentes de IA como o ChatGPT e o Claude. Depois de conectado, você pergunta em linguagem natural e o assistente consulta a plataforma na hora, sem que você precise abrir a Olie.
+O MCP da Olie é um servidor que expõe a sua operação — projetos, clientes, contatos, funis, etapas, formulários, métricas e execução de projetos (play/pause de tempo) — para assistentes de IA como o ChatGPT e o Claude. Depois de conectado, você pergunta em linguagem natural e o assistente consulta a plataforma na hora, sem que você precise abrir a Olie.
 
 MCP (Model Context Protocol) é um padrão aberto para conectar assistentes de IA a sistemas externos. Na prática, ele funciona como um plugin: você autoriza uma vez e o assistente passa a enxergar os dados da sua conta.
 
@@ -56,6 +56,10 @@ O transporte é **HTTP** e a autenticação é feita por **OAuth**. Ao conectar,
 
 <Card title="Registrar informação" icon="comment">
   Enviar texto para o conteúdo de um projeto, no canal principal ou em um canal específico, e ler ou preencher os formulários dinâmicos de projetos, clientes, contatos e usuários.
+</Card>
+
+<Card title="Controlar execução de projetos" icon="timer">
+  Iniciar, pausar, ajustar e consultar o tempo trabalhado nos cards — com as mesmas permissões e conflitos da tela.
 </Card>
 </CardGroup>
 
