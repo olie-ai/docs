@@ -6259,7 +6259,7 @@
             }
           },
           "422": {
-            "description": "Erro de validação",
+            "description": "Erro de validação ou janela de atendimento fechada",
             "headers": {
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -6323,25 +6323,54 @@
                     },
                     "validation": {
                       "type": "object",
-                      "description": "Mapa de campo para as mensagens de validação daquele campo.",
-                      "properties": {}
+                      "description": "Mapa de campo para as mensagens de validação daquele campo. Presente quando `message` é `validation_errors`.",
+                      "additionalProperties": {
+                        "type": "array",
+                        "description": "Mensagens de validação do campo.",
+                        "items": {
+                          "type": "string",
+                          "description": "Mensagem de validação."
+                        }
+                      }
+                    },
+                    "closes_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Quando a janela fechou (ISO 8601); `null` se o cliente ainda não escreveu. Presente quando `message` é `channel_reply_window_closed`."
+                    },
+                    "closed_since": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Mesmo instante de `closes_at`. Presente quando `message` é `channel_reply_window_closed`."
                     }
                   },
                   "required": [
                     "response",
                     "message",
-                    "error",
-                    "validation"
+                    "error"
                   ]
                 },
-                "example": {
-                  "response": false,
-                  "message": "validation_errors",
-                  "error": "The texto field is required when type is 1.",
-                  "validation": {
-                    "text": [
-                      "The texto field is required when type is 1."
-                    ]
+                "examples": {
+                  "Campo obrigatório ausente": {
+                    "value": {
+                      "response": false,
+                      "message": "validation_errors",
+                      "error": "The texto field is required when type is 1.",
+                      "validation": {
+                        "text": [
+                          "The texto field is required when type is 1."
+                        ]
+                      }
+                    }
+                  },
+                  "Janela de atendimento fechada": {
+                    "value": {
+                      "response": false,
+                      "message": "channel_reply_window_closed",
+                      "error": "The reply window of this channel is closed. Send a template to reach the customer.",
+                      "closes_at": "2026-06-17T09:20:00+00:00",
+                      "closed_since": "2026-06-17T09:20:00+00:00"
+                    }
                   }
                 }
               }
@@ -62256,7 +62285,7 @@
         "tags": [
           "channels"
         ],
-        "description": "Lista os templates (modelos de mensagem) aprovados que o canal pode enviar, consultados na hora no provedor. Só o WhatsApp Cloud com conta de negócio (`waba_id`) tem templates — o canal informa isso em `capabilities.templates`; veja [Integrações](https://docs.olie.ai/guides/integrations/overview). O campo `parameters` diz o que o envio precisa: os marcadores de cabeçalho e corpo (posicionais `{{1}}` ou nomeados `{{nome}}`) e os botões de URL dinâmica. Ficam de fora templates com cabeçalho de mídia ou localização e com botão que pede outro tipo de parâmetro (copiar código, senha, flow)."
+        "description": "Lista os templates (modelos de mensagem) aprovados que o canal pode enviar, consultados na hora no provedor. Só o WhatsApp Cloud com conta de negócio (`waba_id`) tem templates — o canal informa isso em `capabilities.templates`; veja [Integrações](https://docs.olie.ai/guides/integrations/overview). O campo `parameters` diz o que o envio precisa: os marcadores de cabeçalho e corpo (posicionais `{{1}}` ou nomeados `{{nome}}`) e os botões de URL dinâmica. Cabeçalhos de imagem, vídeo ou documento entram na lista (`header_format`); ficam de fora templates com cabeçalho de localização (ou outro formato não suportado) e com botão que pede outro tipo de parâmetro (copiar código, senha, flow)."
       },
       "parameters": [
         {
@@ -62630,7 +62659,7 @@
                     },
                     "validation": {
                       "type": "object",
-                      "description": "Mapa de campo para as mensagens de validação daquele campo. Campos possíveis: `name` (ausente, ou template inexistente, não aprovado ou que não pode ser enviado pela Olie), `language`, `parameters.header` e `parameters.body` (formato, ou quantidade diferente da que o template pede), `channel_id` (canal inativo) e `project_id` (projeto do canal excluído ou mesclado).",
+                      "description": "Mapa de campo para as mensagens de validação daquele campo. Campos possíveis: `name` (ausente, ou template inexistente, não aprovado ou que não pode ser enviado pela Olie), `language`, `parameters.header` e `parameters.body` (formato, ou quantidade/nomes diferentes dos que o template pede), `parameters.buttons` (formato, ou botões dinâmicos a mais ou a menos), `header_media` (obrigatório com cabeçalho de mídia, proibido nos outros casos, ou arquivo/referência inválidos), `channel_id` (canal inativo) e `project_id` (projeto do canal excluído ou mesclado).",
                       "additionalProperties": {
                         "type": "array",
                         "description": "Mensagens de validação do campo.",
@@ -62749,7 +62778,7 @@
         "tags": [
           "channels"
         ],
-        "description": "Envia um template aprovado ao cliente pelo canal e grava a mensagem na conversa, com a janela de resposta aberta ou fechada. Em `parameters.header` e `parameters.body`, informe os valores como lista, na ordem de `parameters.*_names` de Listar templates do canal, ou como objeto nome → valor; em `parameters.buttons`, informe o fim da URL de cada botão dinâmico pela posição dele. Quando o template tem cabeçalho de imagem, vídeo ou documento (`header_format`), `header_media` é obrigatório: um arquivo do projeto, com a referência de Listar anexos para cabeçalho de template, ou um arquivo novo (veja Enviar template com cabeçalho de arquivo novo). Quando o provedor entrega e a gravação falha, a resposta é 201 com `recorded: false` e `media: null` — não reenvie, o cliente já recebeu.",
+        "description": "Envia um template aprovado ao cliente pelo canal e grava a mensagem na conversa, com a janela de resposta aberta ou fechada. Em `parameters.header` e `parameters.body`, informe os valores como lista, na ordem de `parameters.*_names` de Listar templates do canal, ou como objeto nome → valor; em `parameters.buttons`, informe o fim da URL de cada botão dinâmico pela posição dele. Quando o template tem cabeçalho de imagem, vídeo ou documento (`header_format`), `header_media` é obrigatório: a referência de Listar anexos para cabeçalho de template (JSON) ou um arquivo novo no campo `header_media` em `multipart/form-data`. Quando o provedor entrega e a gravação falha, a resposta é 201 com `recorded: false` e `media: null` — não reenvie, o cliente já recebeu.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -62858,7 +62887,7 @@
                   },
                   "header_media": {
                     "type": "object",
-                    "description": "Arquivo do projeto para o cabeçalho de imagem, vídeo ou documento (`header_format` em Listar templates do canal), como vem em Listar anexos para cabeçalho de template. Obrigatório quando o cabeçalho é de mídia; proibido nos outros casos. Para um arquivo novo, use Enviar template com cabeçalho de arquivo novo.",
+                    "description": "Arquivo do projeto para o cabeçalho de imagem, vídeo ou documento (`header_format` em Listar templates do canal), como vem em Listar anexos para cabeçalho de template. Obrigatório quando o cabeçalho é de mídia; proibido nos outros casos. Para um arquivo novo, envie a mesma rota como `multipart/form-data` com o arquivo no campo `header_media`.",
                     "properties": {
                       "model_type": {
                         "type": "string",
@@ -62911,6 +62940,123 @@
                     }
                   ]
                 }
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "description": "Mesmos campos do JSON, em `multipart/form-data` com notação em colchetes (`parameters[body][nome]=…`). Use quando o cabeçalho de mídia for um arquivo novo.",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "maxLength": 512,
+                    "description": "Nome do template, como vem em Listar templates do canal (até 512 caracteres)."
+                  },
+                  "language": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "description": "Idioma do template, como vem em Listar templates do canal (até 20 caracteres)."
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "description": "Valores do template. Informe exatamente os marcadores e botões que o template pede (campo `parameters` em Listar templates do canal); omita as partes sem marcador.",
+                    "properties": {
+                      "header": {
+                        "description": "Valores do cabeçalho; no máximo 1.",
+                        "oneOf": [
+                          {
+                            "type": "array",
+                            "description": "Valores na ordem do template.",
+                            "items": {
+                              "type": "string",
+                              "description": "Valor do marcador (até 60 caracteres).",
+                              "maxLength": 60
+                            },
+                            "maxItems": 1
+                          },
+                          {
+                            "description": "Valores por nome do marcador (letras minúsculas, dígitos e `_`, até 60).",
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "string",
+                              "description": "Valor do marcador (até 60 caracteres).",
+                              "maxLength": 60
+                            },
+                            "x-propertyNames": {
+                              "pattern": "^[a-z0-9_]{1,60}$",
+                              "description": "Nome do marcador."
+                            }
+                          }
+                        ]
+                      },
+                      "body": {
+                        "description": "Valores do corpo; no máximo 100.",
+                        "oneOf": [
+                          {
+                            "type": "array",
+                            "description": "Valores na ordem do template.",
+                            "items": {
+                              "type": "string",
+                              "description": "Valor do marcador (até 1024 caracteres).",
+                              "maxLength": 1024
+                            },
+                            "maxItems": 100
+                          },
+                          {
+                            "description": "Valores por nome do marcador (letras minúsculas, dígitos e `_`, até 60).",
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "string",
+                              "description": "Valor do marcador (até 1024 caracteres).",
+                              "maxLength": 1024
+                            },
+                            "x-propertyNames": {
+                              "pattern": "^[a-z0-9_]{1,60}$",
+                              "description": "Nome do marcador."
+                            }
+                          }
+                        ]
+                      },
+                      "buttons": {
+                        "type": "array",
+                        "description": "Sufixo da URL de cada botão dinâmico (`parameters.buttons` em Listar templates do canal); no máximo 10.",
+                        "items": {
+                          "description": "Valor de um botão de URL dinâmica.",
+                          "type": "object",
+                          "properties": {
+                            "index": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 9,
+                              "description": "Posição do botão no template (0 a 9), sem repetir."
+                            },
+                            "value": {
+                              "type": "string",
+                              "maxLength": 2000,
+                              "description": "Texto que substitui `{{1}}` na URL do botão (até 2000 caracteres)."
+                            }
+                          },
+                          "required": [
+                            "index",
+                            "value"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "header_media": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Arquivo novo do cabeçalho (imagem jpeg/png até 5 MB, vídeo mp4/3gp até 16 MB ou PDF até 100 MB). Obrigatório quando o template pede cabeçalho de mídia e você não usa a referência de Listar anexos para cabeçalho de template."
+                  }
+                },
+                "required": [
+                  "name",
+                  "language"
+                ],
+                "additionalProperties": false
               }
             }
           }
@@ -63255,7 +63401,7 @@
                     },
                     "validation": {
                       "type": "object",
-                      "description": "Mapa de campo para as mensagens de validação daquele campo. Campos possíveis: `name` (ausente, ou template inexistente, não aprovado ou que não pode ser enviado pela Olie), `language`, `parameters.header` e `parameters.body` (formato, ou quantidade diferente da que o template pede), `channel_id` (canal inativo) e `project_id` (projeto do canal excluído ou mesclado).",
+                      "description": "Mapa de campo para as mensagens de validação daquele campo. Campo possível: `header_format` (valor fora de `IMAGE`, `VIDEO` ou `DOCUMENT`).",
                       "additionalProperties": {
                         "type": "array",
                         "description": "Mensagens de validação do campo.",
