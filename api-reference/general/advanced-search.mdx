@@ -69,7 +69,7 @@ Valor a comparar. O tipo depende do campo e do operador. Em `contains` e `not_co
 </ParamField>
 
 <ParamField body="filters[].logical_operator" type="string" default="and">
-Como o filtro se combina com o anterior: `and` ou `or`.
+Como o filtro se combina com o anterior: `and` ou `or`. Cláusulas `or` consecutivas formam um grupo; um `and` fecha o grupo — veja [Combinar filtros com and e or](#combinar-filtros-com-and-e-or).
 </ParamField>
 
 <ParamField body="filters[].arguments" type="array">
@@ -122,9 +122,7 @@ O campo `logical_operator` define como cada filtro se combina com o anterior:
 
 O `logical_operator` vale a partir do segundo filtro. No primeiro filtro, a API ignora o valor.
 
-<Tip>
-Use o mesmo operador lógico em todos os filtros da busca, só `and` ou só `or`. Misturar os dois na mesma lista pode trazer resultados diferentes do esperado.
-</Tip>
+Quando você mistura `and` e `or` na mesma lista, a API agrupa as cláusulas `or` consecutivas e trata cada `and` como fechamento do grupo. A lista `[A, B com or, C com and]` equivale a `(A OR B) AND C`. A lista `[A, B com and, C com or]` equivale a `A AND (B OR C)`.
 
 ## Estrutura de uma ordenação
 
@@ -139,7 +137,7 @@ Direção da ordenação: `asc` (crescente) ou `desc` (decrescente).
 </ParamField>
 
 <ParamField body="sorting[].arguments" type="array">
-Argumentos extras que algumas ordenações exigem.
+Argumentos extras que algumas ordenações exigem. Na busca de projetos, a ordenação `assigned_to` aceita o id do usuário: além de ordenar pela data do vínculo, a lista fica restrita aos projetos atribuídos a esse usuário. Um projeto com vários responsáveis aparece uma vez.
 </ParamField>
 
 ## Argumentos adicionais
@@ -232,6 +230,23 @@ Content-Type: application/json
   ],
   "page": 1,
   "perPage": 30
+}
+```
+</Tab>
+
+<Tab title="or e and misturados">
+Busca os projetos com impacto maior que 8 **ou** status em andamento, e cujo nome contém "api". A API agrupa o `or` e aplica o `and` em seguida — equivale a `(impacto > 8 OR status = 1) AND nome contém api`:
+
+```http
+POST /api/management/projects/search
+Content-Type: application/json
+
+{
+  "filters": [
+    { "field": "impact", "operator": "greater_than", "value": 8 },
+    { "field": "status", "operator": "equals", "value": 1, "logical_operator": "or" },
+    { "field": "name", "operator": "contains", "value": "api", "logical_operator": "and" }
+  ]
 }
 ```
 </Tab>
@@ -359,7 +374,7 @@ Quando um filtro não é válido, a API responde com HTTP 422, `message: "valida
 
 ### Campo inválido
 
-A API recusa o filtro quando `field` não está na lista de campos do endpoint. A mensagem cita o nome enviado e lista os campos disponíveis. No exemplo, a lista de campos está encurtada:
+A API recusa o filtro quando `field` não está na lista de campos do endpoint. A mensagem cita o nome enviado e lista os campos disponíveis. O detalhe fica na chave `filters` de `validation`. No exemplo, a lista de campos está encurtada:
 
 ```json
 {
@@ -367,7 +382,7 @@ A API recusa o filtro quando `field` não está na lista de campos do endpoint. 
   "message": "validation_errors",
   "error": "O campo [nonExistsFilterField] selecionado é inválido. Campos disponíveis: id, code, name, description, impact, status, budget.",
   "validation": {
-    "field": ["O campo [nonExistsFilterField] selecionado é inválido. Campos disponíveis: id, code, name, description, impact, status, budget."]
+    "filters": ["O campo [nonExistsFilterField] selecionado é inválido. Campos disponíveis: id, code, name, description, impact, status, budget."]
   }
 }
 ```
@@ -376,20 +391,35 @@ Para resolver, use em `field` um dos valores de `name` em `params.filters`.
 
 ### Operador inválido
 
-A API recusa o filtro quando `operator` não é um dos [operadores de comparação](#operadores-de-comparação). A chave em `validation` começa pela posição do filtro na lista `filters`, contando a partir de 0. No exemplo, o erro está no primeiro filtro:
+A API recusa o filtro em dois casos de operador.
+
+Quando `operator` não é um dos [operadores de comparação](#operadores-de-comparação), a chave em `validation` é a posição do filtro na lista `filters`, contando a partir de 0. No exemplo, o erro está no primeiro filtro:
 
 ```json
 {
   "response": false,
   "message": "validation_errors",
-  "error": "O campo 0.operator selecionado é inválido.",
+  "error": "O campo filters.0.operator selecionado é inválido.",
   "validation": {
-    "0.operator": ["O campo 0.operator selecionado é inválido."]
+    "filters.0.operator": ["O campo filters.0.operator selecionado é inválido."]
   }
 }
 ```
 
-Para resolver, troque o operador por um dos valores de `operators` do campo.
+Quando o operador existe na lista global, mas o campo não o aceita — por exemplo `status` com `greater_than` —, a API também responde 422. O detalhe fica na chave `filters` de `validation`:
+
+```json
+{
+  "response": false,
+  "message": "validation_errors",
+  "error": "The filters.0.operator is not allowed for filter \"status\".",
+  "validation": {
+    "filters": ["The filters.0.operator is not allowed for filter \"status\"."]
+  }
+}
+```
+
+Para resolver, troque o operador por um dos valores de `operators` do campo no [endpoint de metadados](#descobrindo-campos-disponíveis).
 
 ### Argumento obrigatório ausente
 

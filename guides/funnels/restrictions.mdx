@@ -88,6 +88,8 @@ Quando o escopo é hierárquico, você escolhe até onde ir: todos os níveis, a
 
 A restrição só é aprovada se **todos** os projetos do escopo atenderem ao filtro. Se um único descendente não atender, o movimento é recusado.
 
+Se o filtro salvo tiver uma combinação de campo e operador que a [busca avançada](/api-reference/general/advanced-search) não aceita, a restrição não é atendida e o movimento é recusado.
+
 Se não houver nenhum projeto no escopo, a restrição é considerada atendida. É o caso de um projeto sem filhos com escopo "descendentes".
 
 <Tip>
