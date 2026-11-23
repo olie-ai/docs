@@ -1,12 +1,12 @@
 ---
 title: "Webhooks de eventos"
-description: "Cadastre URLs que recebem avisos assinados quando projetos, clientes e contatos mudam na conta"
+description: "Cadastre URLs que recebem avisos assinados quando projetos, clientes e contatos mudam na empresa"
 keywords: ["webhook", "webhooks", "evento", "HMAC", "assinatura", "integração", "API", "secret", "reenvio"]
 ---
 
-Webhooks de eventos avisam o sistema da sua empresa quando algo muda nesta conta: um projeto criado, um cliente editado, uma mudança de etapa. Você cadastra a URL, escolhe os eventos e a Olie envia um POST assinado para esse endereço — sem montar uma automação.
+Webhooks de eventos avisam o sistema da sua empresa quando algo muda nesta empresa: um projeto criado, um cliente editado, uma mudança de etapa. Você cadastra a URL, escolhe os eventos e a Olie envia um POST assinado para esse endereço — sem montar uma automação.
 
-Esta página cobre o cadastro na interface, o formato do aviso e como o seu servidor confere que o POST veio da Olie. A ação **Disparar webhook** das automações é outro mecanismo; veja [Ações: comunicação, IA e execução](/guides/automation/actions-integrations#disparar-webhook).
+Esta página cobre o cadastro na interface, o formato do aviso e como o seu servidor confere que o POST veio da Olie. Com token de [aplicação](/api-reference/introduction/authentication) você lista webhooks, consulta um webhook, vê o catálogo de eventos e o histórico de envios; criar, editar, testar e reenviar fica na interface. A ação **Disparar webhook** das automações é outro mecanismo; veja [Ações: comunicação, IA e execução](/guides/automation/actions-integrations#disparar-webhook).
 
 ## Onde fica
 
@@ -17,20 +17,20 @@ Para ver e gerenciar webhooks, o papel precisa das permissões do grupo **Webhoo
 ## Cadastrar um webhook
 
 1. Clique em **Novo webhook**.
-2. Informe a **URL de destino**. Use um endereço público em **HTTPS**. Endereços em HTTP, internos, de localhost ou de metadata de nuvem são recusados.
+2. Informe a **URL de destino**. Use um endereço público em **HTTPS**. Endereços em HTTP, com usuário e senha na URL, internos, de localhost ou de metadata de nuvem são recusados.
 3. Dê um **Nome** só para você reconhecer o webhook na lista.
 4. Em **Quais eventos enviar**, escolha **Tudo o que acontecer nesta conta** ou **Só alguns eventos** (por objeto ou por evento).
 5. Clique em **Criar webhook**.
 
 Na criação, a Olie mostra o **Secret** uma única vez. Copie e guarde no seu servidor. Depois dessa tela ele some. Se precisar de um valor novo, use **Trocar secret** no menu de ações — o secret antigo deixa de valer na hora.
 
-Use **Enviar teste** para disparar o evento `webhook.test` e conferir se a URL responde. O histórico aparece na aba **Envios**.
+Use **Enviar teste** para disparar o evento `webhook.test` e conferir se a URL responde. O histórico aparece na aba **Envios**. Com o webhook **Pausado** ou **Desativado automaticamente**, **Enviar teste** e **Reenviar** são recusados.
 
 ## Histórico e reenvio
 
 Na aba **Envios** de cada webhook você vê cada tentativa: evento, status (**Na fila**, **Entregue** ou **Falhou**), código HTTP, tempo, payload e resposta do destino. Filtre por status ou por evento.
 
-Se um envio falhou, use **Reenviar**. O **ID do evento** (`event_id`) permanece o mesmo; a tentativa nova ganha um id de entrega diferente.
+Se um envio falhou e o webhook estiver **Ativo**, use **Reenviar**. O **ID do evento** (`event_id`) permanece o mesmo; a tentativa nova ganha um id de entrega diferente.
 
 ### Quando a Olie tenta de novo
 
@@ -51,7 +51,7 @@ Redirecionamentos (3xx) e a maioria dos 4xx, inclusive **410**, encerram a entre
 | 9 | 24 horas |
 | 10 | 24 horas |
 
-Se as 10 tentativas falharem, aquela linha de **Envios** fica **Falhou**. O próximo evento da conta ainda gera uma entrega nova, enquanto o webhook estiver **Ativo**.
+Se as 10 tentativas falharem, aquela linha de **Envios** fica **Falhou**. O próximo evento da empresa ainda gera uma entrega nova, enquanto o webhook estiver **Ativo**.
 
 A Olie **desativa o webhook automaticamente** quando ele completa **5 dias com falha**. Um dia conta como dia com falha quando pelo menos um envio daquele dia termina como **Falhou**, depois de esgotar as tentativas ou por erro permanente. Cada dia conta uma vez só, por mais envios que falhem nele. Os dias não precisam ser seguidos: dia sem envio não conta e não zera a contagem. Um envio entregue com **2xx** zera a contagem. A falha do envio de teste (**Testar**) não conta. Envio encerrado porque o webhook foi pausado também não conta.
 
@@ -70,6 +70,7 @@ Cada aviso é um `POST` JSON. A Olie **não** segue redirects. O corpo e a assin
 | `X-Olie-Webhook-Delivery` | Id desta tentativa de envio |
 | `X-Olie-Webhook-Timestamp` | Unix em segundos, do momento deste POST |
 | `X-Olie-Webhook-Signature` | `sha256=` + HMAC-SHA256 em hex |
+| `User-Agent` | `Olie-Webhooks` |
 | `Content-Type` | `application/json` |
 
 ### Corpo
@@ -94,7 +95,7 @@ Cada aviso é um `POST` JSON. A Olie **não** segue redirects. O corpo e a assin
 | `event_id` | Sempre | Id estável do evento |
 | `event` | Sempre | Slug do evento |
 | `occurred_at` | Sempre | Quando o fato aconteceu (UTC). Se vários avisos chegarem fora de ordem, ordene por este campo |
-| `frame_id` | Sempre | Conta de origem |
+| `frame_id` | Sempre | Empresa de origem |
 | `webhook_id` | Sempre | Assinatura que recebe o POST |
 | `object` | Sempre | Tipo do objeto em `data` (`project`, `customer`, `contact`, `webhook`) |
 | `data` | Sempre | Objeto no mesmo formato da API pública |
@@ -142,7 +143,7 @@ Retry e reenvio são POSTs novos: timestamp novo, `X-Olie-Webhook-Delivery` novo
 
 ## Catálogo de eventos
 
-Estes são os eventos que a entrega atual envia. Na interface, você também pode assinar `project.*`, `customer.*`, `contact.*` ou todos os eventos da conta.
+Estes são os eventos que a entrega atual envia. Na interface, você também pode assinar `project.*`, `customer.*`, `contact.*` ou todos os eventos da empresa.
 
 | Slug | Objeto | O que aconteceu |
 | --- | --- | --- |
