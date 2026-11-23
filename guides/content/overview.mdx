@@ -1,7 +1,7 @@
 ---
 title: "Conteúdo do projeto"
 description: "A linha do tempo de cada projeto: mensagens, arquivos, áudios, logs e os canais que separam o que é interno do que vai para fora"
-keywords: ["conteúdo", "canal", "canais", "linha do tempo", "logs", "histórico", "arquivos", "chat", "transcrição", "áudio"]
+keywords: ["conteúdo", "canal", "canais", "linha do tempo", "logs", "histórico", "arquivos", "chat", "transcrição", "áudio", "janela de atendimento", "template", "whatsapp"]
 ---
 
 Cada projeto tem uma aba **Conteúdo**: o registro cronológico de tudo o que foi dito, enviado e feito nele. É o lugar que substitui a troca de e-mail interno e concentra a comunicação de um assunto em um lugar só.
@@ -73,6 +73,16 @@ Por padrão, tudo é publicado no canal principal do projeto, misturado na mesma
   Este destino só aparece quando existe alguma integração de comunicação ativa na conta.
 </Tab>
 </Tabs>
+
+### Conversa em canal externo
+
+Quando o canal está ligado a uma integração, a aba **Conteúdo** se adapta ao que aquela integração permite agora.
+
+No **WhatsApp oficial (Meta)**, a plataforma mostra a **janela de atendimento** de 24 horas a partir da última mensagem do cliente. Enquanto ela está aberta, o aviso indica quanto tempo falta para fechar. Quando fecha, o envio de texto, arquivo ou áudio livres fica bloqueado e aparece **Enviar template**.
+
+Com templates disponíveis, use **Enviar template aprovado** no compositor. Escolha o template e preencha os parâmetros. Se o cabeçalho for imagem, vídeo ou documento, selecione o arquivo **Do computador** ou **Dos anexos do projeto**.
+
+No **Evolution (servidor próprio)** e no **WhatsApp (hospedado pela Olie)** não há janela de atendimento nem templates: o compositor de texto livre continua. Nessas integrações e no **WhatsApp oficial (Meta)**, o cliente vê que alguém está digitando enquanto você escreve. Canal sem integração segue o compositor comum, sem digitando.
 
 Ver [Ações: comunicação, IA e execução](/guides/automation/actions-integrations) para as opções completas da ação que publica no conteúdo.
 
