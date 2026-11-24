@@ -281,6 +281,16 @@
                             "type": "string",
                             "description": "ID da mensagem na integração externa, quando houver."
                           },
+                          "sender_ref": {
+                            "type": "string",
+                            "description": "Identificador no WhatsApp do participante que escreveu a mensagem; preenchido só em mensagem recebida de grupo.",
+                            "nullable": true
+                          },
+                          "sender_name": {
+                            "type": "string",
+                            "description": "Nome do participante que escreveu a mensagem, como aparece no WhatsApp; preenchido só em mensagem recebida de grupo.",
+                            "nullable": true
+                          },
                           "task_id": {
                             "type": "string",
                             "description": "ID (UUID) da tarefa vinculada, quando o conteúdo pertence a uma tarefa.",
@@ -619,6 +629,16 @@
                           "external_message_id": {
                             "type": "string",
                             "description": "ID da mensagem na integração externa, quando houver."
+                          },
+                          "sender_ref": {
+                            "type": "string",
+                            "description": "Identificador no WhatsApp do participante que escreveu a mensagem; preenchido só em mensagem recebida de grupo.",
+                            "nullable": true
+                          },
+                          "sender_name": {
+                            "type": "string",
+                            "description": "Nome do participante que escreveu a mensagem, como aparece no WhatsApp; preenchido só em mensagem recebida de grupo.",
+                            "nullable": true
                           },
                           "task_id": {
                             "type": "string",
@@ -54683,6 +54703,10 @@
                                 "type": "boolean",
                                 "description": "Permite ou não mais de uma conversa ativa com o mesmo contato nesta integração; ausente ou `null`, vale o padrão da conta."
                               },
+                              "groups_enabled": {
+                                "type": "boolean",
+                                "description": "Opção **Atender grupos**; `true` quando mensagens de grupos de WhatsApp abrem conversas. Ausente equivale a desligada; só existe em integrações Evolution."
+                              },
                               "onboarding": {
                                 "type": "string",
                                 "description": "Como a integração foi conectada; `embedded_signup` quando foi pela conexão com a Meta na plataforma."
@@ -54764,6 +54788,10 @@
                               "typing": {
                                 "type": "boolean",
                                 "description": "Indica se a integração mostra ao cliente que alguém está digitando."
+                              },
+                              "groups": {
+                                "type": "boolean",
+                                "description": "`true` quando o conector trabalha com grupos de WhatsApp (integrações Evolution) e a tela pode oferecer a opção **Atender grupos**; não indica se a opção está ligada."
                               }
                             }
                           }
@@ -54991,6 +55019,10 @@
                             "allow_multiple_active_channels": {
                               "type": "boolean",
                               "description": "Permite ou não mais de uma conversa ativa com o mesmo contato nesta integração; ausente ou `null`, vale o padrão da conta."
+                            },
+                            "groups_enabled": {
+                              "type": "boolean",
+                              "description": "Opção **Atender grupos**; `true` quando mensagens de grupos de WhatsApp abrem conversas. Ausente equivale a desligada; só existe em integrações Evolution."
                             }
                           }
                         },
@@ -55057,6 +55089,10 @@
                             "typing": {
                               "type": "boolean",
                               "description": "Indica se a integração mostra ao cliente que alguém está digitando."
+                            },
+                            "groups": {
+                              "type": "boolean",
+                              "description": "`true` quando o conector trabalha com grupos de WhatsApp (integrações Evolution) e a tela pode oferecer a opção **Atender grupos**; não indica se a opção está ligada."
                             }
                           }
                         }
@@ -55742,6 +55778,16 @@
                         "external_message_id": {
                           "type": "string",
                           "description": "ID da mensagem na integração externa, quando houver."
+                        },
+                        "sender_ref": {
+                          "type": "string",
+                          "description": "Identificador no WhatsApp do participante que escreveu a mensagem; preenchido só em mensagem recebida de grupo.",
+                          "nullable": true
+                        },
+                        "sender_name": {
+                          "type": "string",
+                          "description": "Nome do participante que escreveu a mensagem, como aparece no WhatsApp; preenchido só em mensagem recebida de grupo.",
+                          "nullable": true
                         },
                         "task_id": {
                           "type": "string",
@@ -57028,6 +57074,10 @@
                               "type": "boolean",
                               "description": "Permite ou não mais de uma conversa ativa com o mesmo contato nesta integração; ausente ou `null`, vale o padrão da conta."
                             },
+                            "groups_enabled": {
+                              "type": "boolean",
+                              "description": "Opção **Atender grupos**; `true` quando mensagens de grupos de WhatsApp abrem conversas. Ausente equivale a desligada; só existe em integrações Evolution."
+                            },
                             "onboarding": {
                               "type": "string",
                               "description": "Como a integração foi conectada; `embedded_signup` quando foi pela conexão com a Meta na plataforma."
@@ -57109,6 +57159,10 @@
                             "typing": {
                               "type": "boolean",
                               "description": "Indica se a integração mostra ao cliente que alguém está digitando."
+                            },
+                            "groups": {
+                              "type": "boolean",
+                              "description": "`true` quando o conector trabalha com grupos de WhatsApp (integrações Evolution) e a tela pode oferecer a opção **Atender grupos**; não indica se a opção está ligada."
                             }
                           }
                         }
@@ -57254,6 +57308,10 @@
                       "allow_multiple_active_channels": {
                         "type": "boolean",
                         "description": "Permite ou não mais de uma conversa ativa com o mesmo contato nesta integração; ausente ou `null`, vale o padrão da conta."
+                      },
+                      "groups_enabled": {
+                        "type": "boolean",
+                        "description": "Opção **Atender grupos**: com `true`, mensagens de grupos de WhatsApp abrem e alimentam conversas como as de um contato. Desligada por padrão; só vale em `whatsapp_evolution` e `whatsapp_evolution_managed`."
                       }
                     }
                   },
@@ -57296,7 +57354,7 @@
             }
           }
         },
-        "description": "Atualiza uma integração; envie apenas o que deve mudar. Um grupo `config` ou `credentials` enviado substitui o gravado por inteiro, e o tipo da integração não pode ser alterado. Veja [Integrações](https://docs.olie.ai/guides/integrations/overview)."
+        "description": "Atualiza uma integração; envie apenas o que deve mudar. Um grupo `config` ou `credentials` enviado substitui o gravado por inteiro, e o tipo da integração não pode ser alterado. Nas integrações Evolution, `config.groups_enabled` liga a opção **Atender grupos** (desligada por padrão). Veja [Integrações](https://docs.olie.ai/guides/integrations/overview)."
       },
       "parameters": [
         {
@@ -62587,6 +62645,16 @@
                           "type": "string",
                           "description": "Identificador que o provedor devolveu ao aceitar o template."
                         },
+                        "sender_ref": {
+                          "type": "string",
+                          "description": "Identificador no WhatsApp do participante que escreveu a mensagem; preenchido só em mensagem recebida de grupo.",
+                          "nullable": true
+                        },
+                        "sender_name": {
+                          "type": "string",
+                          "description": "Nome do participante que escreveu a mensagem, como aparece no WhatsApp; preenchido só em mensagem recebida de grupo.",
+                          "nullable": true
+                        },
                         "task_id": {
                           "type": "string",
                           "description": "Sempre `null`."
@@ -63531,7 +63599,8 @@
             "in": "query",
             "description": "Opcional. Filtra pelos grupos cujo nome contém o termo, sem diferenciar maiúsculas (até 255 caracteres).",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "maxLength": 255
             },
             "examples": {
               "Sucesso": {
@@ -63564,33 +63633,52 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "Grupos de WhatsApp de que o número da integração participa.",
                   "type": "object",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `true` em caso de sucesso."
                     },
                     "groups": {
                       "type": "array",
+                      "description": "Grupos ordenados pelo nome, com os grupos sem nome no fim; no máximo 500 itens.",
                       "items": {
                         "type": "object",
+                        "description": "Um grupo de WhatsApp.",
                         "properties": {
                           "id": {
                             "type": "string",
-                            "format": "email"
+                            "description": "Identificador do grupo no WhatsApp (termina em `@g.us`); é o contato usado para abrir a conversa com o grupo."
                           },
                           "subject": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Nome do grupo; `null` quando o grupo não tem nome.",
+                            "nullable": true
                           },
                           "size": {
-                            "type": "integer"
+                            "type": "integer",
+                            "description": "Quantidade de participantes; `null` quando o WhatsApp não informa.",
+                            "nullable": true
                           }
-                        }
+                        },
+                        "required": [
+                          "id",
+                          "subject",
+                          "size"
+                        ]
                       }
                     },
                     "truncated": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "`true` quando havia mais de 500 grupos e a lista foi cortada; refine a busca com `search`."
                     }
-                  }
+                  },
+                  "required": [
+                    "response",
+                    "groups",
+                    "truncated"
+                  ]
                 },
                 "examples": {
                   "Sucesso": {
@@ -63632,21 +63720,31 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "Resposta de erro.",
                   "type": "object",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "`permission_required`."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro, para exibição e logs."
                     },
                     "permission": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Permissão que faltou (`channels.create`)."
                     }
-                  }
+                  },
+                  "required": [
+                    "response",
+                    "message",
+                    "error"
+                  ]
                 },
                 "example": {
                   "response": false,
@@ -63662,18 +63760,27 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "Resposta de erro.",
                   "type": "object",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "`integration_model_not_found`: a integração não existe ou é de outra conta."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro, para exibição e logs."
                     }
-                  }
+                  },
+                  "required": [
+                    "response",
+                    "message",
+                    "error"
+                  ]
                 },
                 "example": {
                   "response": false,
@@ -63688,29 +63795,41 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "Resposta de erro.",
                   "type": "object",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "`validation_errors`."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro, para exibição e logs."
                     },
                     "validation": {
                       "type": "object",
+                      "description": "Mensagens de erro por campo.",
                       "properties": {
                         "search": {
                           "type": "array",
+                          "description": "Erros do parâmetro `search`.",
                           "items": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Mensagem de erro."
                           }
                         }
                       }
                     }
-                  }
+                  },
+                  "required": [
+                    "response",
+                    "message",
+                    "error"
+                  ]
                 },
                 "examples": {
                   "Termo de busca inválido": {
@@ -63768,18 +63887,27 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "Resposta de erro.",
                   "type": "object",
                   "properties": {
                     "response": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Sempre `false` em caso de erro."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "`whatsapp_groups_provider_failed`: o WhatsApp está desconectado ou o servidor Evolution não respondeu."
                     },
                     "error": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Descrição legível do erro, para exibição e logs."
                     }
-                  }
+                  },
+                  "required": [
+                    "response",
+                    "message",
+                    "error"
+                  ]
                 },
                 "example": {
                   "response": false,
@@ -63802,7 +63930,8 @@
           "required": true,
           "description": "ID (UUID) da integração do WhatsApp.",
           "schema": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "example": "{{integration_id}}"
         }
