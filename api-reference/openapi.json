@@ -343,6 +343,8 @@
                       "direction": null,
                       "origin": null,
                       "external_message_id": null,
+                      "sender_ref": null,
+                      "sender_name": null,
                       "task_id": null,
                       "delivery_error": null,
                       "created_at": "<dateTime>",
@@ -368,6 +370,8 @@
                       "direction": null,
                       "origin": null,
                       "external_message_id": null,
+                      "sender_ref": null,
+                      "sender_name": null,
                       "task_id": null,
                       "delivery_error": null,
                       "created_at": "<dateTime>",
@@ -686,6 +690,8 @@
                       "direction": null,
                       "origin": null,
                       "external_message_id": null,
+                      "sender_ref": null,
+                      "sender_name": null,
                       "task_id": null,
                       "delivery_error": null,
                       "created_at": "2026-08-18T14:02:11.000000Z",
@@ -715,6 +721,8 @@
                       "direction": null,
                       "origin": null,
                       "external_message_id": null,
+                      "sender_ref": null,
+                      "sender_name": null,
                       "task_id": null,
                       "delivery_error": null,
                       "created_at": "2026-08-18T13:47:35.000000Z",
@@ -744,6 +752,8 @@
                       "direction": null,
                       "origin": null,
                       "external_message_id": null,
+                      "sender_ref": null,
+                      "sender_name": null,
                       "task_id": null,
                       "delivery_error": null,
                       "created_at": "2026-08-18T14:11:02.000000Z",
@@ -20373,7 +20383,175 @@
         "operationId": "listarConteDosDeProjetosAssociadosAoCliente",
         "responses": {
           "200": {
-            "description": "Lista paginada de conteúdos dos projetos do cliente."
+            "description": "Lista paginada de conteúdos dos projetos do cliente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer"
+                        },
+                        "from": {
+                          "type": "integer"
+                        },
+                        "to": {
+                          "type": "integer"
+                        },
+                        "last_page": {
+                          "type": "integer"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "medias": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "technical_name": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "integer"
+                          },
+                          "extension": {
+                            "type": "string"
+                          },
+                          "text": {
+                            "nullable": true
+                          },
+                          "file_url": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "log": {
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "frame_id": {
+                            "type": "string"
+                          },
+                          "project_id": {
+                            "type": "string"
+                          },
+                          "channel_id": {
+                            "nullable": true
+                          },
+                          "direction": {
+                            "nullable": true
+                          },
+                          "origin": {
+                            "nullable": true
+                          },
+                          "external_message_id": {
+                            "nullable": true
+                          },
+                          "sender_ref": {
+                            "nullable": true
+                          },
+                          "sender_name": {
+                            "nullable": true
+                          },
+                          "task_id": {
+                            "nullable": true
+                          },
+                          "delivery_error": {
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "deleted_at": {
+                            "nullable": true
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "avatar_url": {
+                                "nullable": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "response": true,
+                  "meta": {
+                    "current_page": 1,
+                    "from": 1,
+                    "to": 1,
+                    "last_page": 1,
+                    "per_page": 30,
+                    "total": 1
+                  },
+                  "medias": [
+                    {
+                      "id": "019e1a44-2f6d-70bb-9d21-64c0a3e91f77",
+                      "name": "proposta-comercial",
+                      "technical_name": "proposta-comercial.019e1a44",
+                      "type": 2,
+                      "extension": "pdf",
+                      "text": null,
+                      "file_url": "https://cdn.olie.ai/frames/projects/proposta-comercial.pdf",
+                      "log": null,
+                      "user_id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                      "frame_id": "019c75de-532c-7047-9563-daf1448ca963",
+                      "project_id": "019e0edb-aa7c-70c4-9d2d-3a2f175b5ddf",
+                      "channel_id": null,
+                      "direction": null,
+                      "origin": null,
+                      "external_message_id": null,
+                      "sender_ref": null,
+                      "sender_name": null,
+                      "task_id": null,
+                      "delivery_error": null,
+                      "created_at": "2026-08-18T14:02:11.000000Z",
+                      "updated_at": "2026-08-18T14:02:11.000000Z",
+                      "deleted_at": null,
+                      "user": {
+                        "id": "019c1e87-63f4-71dd-a4e3-6eaea0619c2f",
+                        "name": "Ana Souza",
+                        "avatar_url": null
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           }
         }
       },
@@ -54623,7 +54801,8 @@
                       "capabilities": {
                         "reply_window": null,
                         "templates": false,
-                        "typing": true
+                        "typing": true,
+                        "groups": true
                       }
                     },
                     {
@@ -54650,7 +54829,8 @@
                           "hours": 24
                         },
                         "templates": true,
-                        "typing": true
+                        "typing": true,
+                        "groups": false
                       }
                     }
                   ]
@@ -54906,7 +55086,8 @@
                         "hours": 24
                       },
                       "templates": false,
-                      "typing": true
+                      "typing": true,
+                      "groups": false
                     }
                   }
                 }
@@ -55622,6 +55803,8 @@
                     "direction": null,
                     "origin": "internal",
                     "external_message_id": null,
+                    "sender_ref": null,
+                    "sender_name": null,
                     "task_id": null,
                     "delivery_error": null,
                     "created_at": "2026-08-18T14:11:02.000000Z",
@@ -56958,7 +57141,8 @@
                         "hours": 24
                       },
                       "templates": true,
-                      "typing": true
+                      "typing": true,
+                      "groups": false
                     }
                   },
                   "response": true
@@ -57534,9 +57718,7 @@
                           "status": {
                             "type": "string"
                           },
-                          "disabled_reason": {
-                            "nullable": true
-                          },
+                          "disabled_reason": {},
                           "failure_streak_days": {
                             "type": "integer"
                           },
@@ -57578,15 +57760,11 @@
                               "response_status": {
                                 "type": "integer"
                               },
-                              "error": {
-                                "nullable": true
-                              },
+                              "error": {},
                               "duration_ms": {
                                 "type": "integer"
                               },
-                              "next_retry_at": {
-                                "nullable": true
-                              },
+                              "next_retry_at": {},
                               "created_at": {
                                 "type": "string",
                                 "format": "date-time"
@@ -57710,9 +57888,7 @@
                         "status": {
                           "type": "string"
                         },
-                        "disabled_reason": {
-                          "nullable": true
-                        },
+                        "disabled_reason": {},
                         "failure_streak_days": {
                           "type": "integer"
                         },
@@ -57754,15 +57930,11 @@
                             "response_status": {
                               "type": "integer"
                             },
-                            "error": {
-                              "nullable": true
-                            },
+                            "error": {},
                             "duration_ms": {
                               "type": "integer"
                             },
-                            "next_retry_at": {
-                              "nullable": true
-                            },
+                            "next_retry_at": {},
                             "created_at": {
                               "type": "string",
                               "format": "date-time"
@@ -57946,15 +58118,11 @@
                           "response_status": {
                             "type": "integer"
                           },
-                          "error": {
-                            "nullable": true
-                          },
+                          "error": {},
                           "duration_ms": {
                             "type": "integer"
                           },
-                          "next_retry_at": {
-                            "nullable": true
-                          },
+                          "next_retry_at": {},
                           "created_at": {
                             "type": "string",
                             "format": "date-time"
@@ -62514,6 +62682,8 @@
                         "direction": "outbound",
                         "origin": "internal",
                         "external_message_id": "wamid.EXEMPLO0123456789",
+                        "sender_ref": null,
+                        "sender_name": null,
                         "task_id": null,
                         "delivery_error": null,
                         "created_at": "2026-06-18T15:30:00.000000Z",
@@ -62562,6 +62732,8 @@
                         "direction": "outbound",
                         "origin": "internal",
                         "external_message_id": "wamid.EXEMPLO0123456789",
+                        "sender_ref": null,
+                        "sender_name": null,
                         "task_id": null,
                         "delivery_error": null,
                         "created_at": "2026-06-18T15:30:00.000000Z",
@@ -62603,6 +62775,8 @@
                         "direction": "outbound",
                         "origin": "internal",
                         "external_message_id": "wamid.EXEMPLO0123456789",
+                        "sender_ref": null,
+                        "sender_name": null,
                         "task_id": null,
                         "delivery_error": null,
                         "created_at": "2026-06-18T15:30:00.000000Z",
@@ -62960,123 +63134,6 @@
                     }
                   ]
                 }
-              }
-            },
-            "multipart/form-data": {
-              "schema": {
-                "description": "Mesmos campos do JSON, em `multipart/form-data` com notação em colchetes (`parameters[body][nome]=…`). Use quando o cabeçalho de mídia for um arquivo novo.",
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "maxLength": 512,
-                    "description": "Nome do template, como vem em Listar templates do canal (até 512 caracteres)."
-                  },
-                  "language": {
-                    "type": "string",
-                    "maxLength": 20,
-                    "description": "Idioma do template, como vem em Listar templates do canal (até 20 caracteres)."
-                  },
-                  "parameters": {
-                    "type": "object",
-                    "description": "Valores do template. Informe exatamente os marcadores e botões que o template pede (campo `parameters` em Listar templates do canal); omita as partes sem marcador.",
-                    "properties": {
-                      "header": {
-                        "description": "Valores do cabeçalho; no máximo 1.",
-                        "oneOf": [
-                          {
-                            "type": "array",
-                            "description": "Valores na ordem do template.",
-                            "items": {
-                              "type": "string",
-                              "description": "Valor do marcador (até 60 caracteres).",
-                              "maxLength": 60
-                            },
-                            "maxItems": 1
-                          },
-                          {
-                            "description": "Valores por nome do marcador (letras minúsculas, dígitos e `_`, até 60).",
-                            "type": "object",
-                            "additionalProperties": {
-                              "type": "string",
-                              "description": "Valor do marcador (até 60 caracteres).",
-                              "maxLength": 60
-                            },
-                            "x-propertyNames": {
-                              "pattern": "^[a-z0-9_]{1,60}$",
-                              "description": "Nome do marcador."
-                            }
-                          }
-                        ]
-                      },
-                      "body": {
-                        "description": "Valores do corpo; no máximo 100.",
-                        "oneOf": [
-                          {
-                            "type": "array",
-                            "description": "Valores na ordem do template.",
-                            "items": {
-                              "type": "string",
-                              "description": "Valor do marcador (até 1024 caracteres).",
-                              "maxLength": 1024
-                            },
-                            "maxItems": 100
-                          },
-                          {
-                            "description": "Valores por nome do marcador (letras minúsculas, dígitos e `_`, até 60).",
-                            "type": "object",
-                            "additionalProperties": {
-                              "type": "string",
-                              "description": "Valor do marcador (até 1024 caracteres).",
-                              "maxLength": 1024
-                            },
-                            "x-propertyNames": {
-                              "pattern": "^[a-z0-9_]{1,60}$",
-                              "description": "Nome do marcador."
-                            }
-                          }
-                        ]
-                      },
-                      "buttons": {
-                        "type": "array",
-                        "description": "Sufixo da URL de cada botão dinâmico (`parameters.buttons` em Listar templates do canal); no máximo 10.",
-                        "items": {
-                          "description": "Valor de um botão de URL dinâmica.",
-                          "type": "object",
-                          "properties": {
-                            "index": {
-                              "type": "integer",
-                              "minimum": 0,
-                              "maximum": 9,
-                              "description": "Posição do botão no template (0 a 9), sem repetir."
-                            },
-                            "value": {
-                              "type": "string",
-                              "maxLength": 2000,
-                              "description": "Texto que substitui `{{1}}` na URL do botão (até 2000 caracteres)."
-                            }
-                          },
-                          "required": [
-                            "index",
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        }
-                      }
-                    },
-                    "additionalProperties": false
-                  },
-                  "header_media": {
-                    "type": "string",
-                    "format": "binary",
-                    "description": "Arquivo novo do cabeçalho (imagem jpeg/png até 5 MB, vídeo mp4/3gp até 16 MB ou PDF até 100 MB). Obrigatório quando o template pede cabeçalho de mídia e você não usa a referência de Listar anexos para cabeçalho de template."
-                  }
-                },
-                "required": [
-                  "name",
-                  "language"
-                ],
-                "additionalProperties": false
               }
             }
           }
@@ -63462,6 +63519,292 @@
             "type": "string"
           },
           "example": ""
+        }
+      ]
+    },
+    "/api/management/integrations/{integration}/whatsapp-groups": {
+      "get": {
+        "summary": "Listar grupos do WhatsApp da integração",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Opcional. Filtra pelos grupos cujo nome contém o termo, sem diferenciar maiúsculas (até 255 caracteres).",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "Sucesso": {
+                "value": ""
+              },
+              "Busca sem resultado": {
+                "value": "clientes"
+              },
+              "Termo de busca inválido": {
+                "value": ""
+              },
+              "Integração sem suporte a grupos": {
+                "value": ""
+              },
+              "Integração inativa": {
+                "value": ""
+              },
+              "Atender grupos desligado": {
+                "value": ""
+              },
+              "Endereço do servidor Evolution recusado": {
+                "value": ""
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "email"
+                          },
+                          "subject": {
+                            "type": "string"
+                          },
+                          "size": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    },
+                    "truncated": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "examples": {
+                  "Sucesso": {
+                    "value": {
+                      "response": true,
+                      "groups": [
+                        {
+                          "id": "120363012345678901@g.us",
+                          "subject": "Clientes VIP",
+                          "size": 42
+                        },
+                        {
+                          "id": "120363098765432109@g.us",
+                          "subject": "Equipe comercial",
+                          "size": 8
+                        },
+                        {
+                          "id": "120363011122233344@g.us",
+                          "subject": null,
+                          "size": null
+                        }
+                      ],
+                      "truncated": false
+                    }
+                  },
+                  "Busca sem resultado": {
+                    "value": {
+                      "response": true,
+                      "groups": [],
+                      "truncated": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "permission": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "permission_required",
+                  "error": "This action is unauthorized.",
+                  "permission": "channels.create"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Integração não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "integration_model_not_found",
+                  "error": "No query results for model [App\\Models\\Integration] 5d2e8f1a-6b3c-4d7e-8f90-1a2b3c4d5e6f"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Termo de busca inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "object",
+                      "properties": {
+                        "search": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Termo de busca inválido": {
+                    "value": {
+                      "response": false,
+                      "message": "validation_errors",
+                      "error": "O campo search não pode ser superior a 255 caracteres.",
+                      "validation": {
+                        "search": [
+                          "O campo search não pode ser superior a 255 caracteres."
+                        ]
+                      }
+                    }
+                  },
+                  "Integração sem suporte a grupos": {
+                    "value": {
+                      "response": false,
+                      "message": "whatsapp_groups_not_supported",
+                      "error": "This integration cannot list WhatsApp groups."
+                    }
+                  },
+                  "Integração inativa": {
+                    "value": {
+                      "response": false,
+                      "message": "whatsapp_groups_integration_inactive",
+                      "error": "The integration is inactive and cannot open a conversation."
+                    }
+                  },
+                  "Atender grupos desligado": {
+                    "value": {
+                      "response": false,
+                      "message": "whatsapp_groups_disabled",
+                      "error": "Group conversations are turned off for this integration."
+                    }
+                  },
+                  "Endereço do servidor Evolution recusado": {
+                    "value": {
+                      "response": false,
+                      "message": "unsafe_url",
+                      "error": "The URL resolves to a private, loopback, link-local or reserved address",
+                      "context": {
+                        "url": "http://169.254.169.254/",
+                        "reason": "private_target",
+                        "host": "169.254.169.254",
+                        "ip": "169.254.169.254"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "424": {
+            "description": "WhatsApp não respondeu",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "response": false,
+                  "message": "whatsapp_groups_provider_failed",
+                  "error": "The provider did not list the groups."
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "integrations"
+        ],
+        "description": "Lista os grupos de WhatsApp de que o número da integração participa, para abrir uma conversa com um deles. A lista vem ordenada pelo nome do grupo, com os grupos sem nome no fim, e traz no máximo 500 grupos; quando passa disso, `truncated` vem `true` e é preciso refinar a busca. Só funciona em integração WhatsApp via Evolution ativa e com a opção **Atender grupos** ligada. Veja [Integrações](https://docs.olie.ai/guides/integrations/overview)."
+      },
+      "parameters": [
+        {
+          "name": "integration",
+          "in": "path",
+          "required": true,
+          "description": "ID (UUID) da integração do WhatsApp.",
+          "schema": {
+            "type": "string"
+          },
+          "example": "{{integration_id}}"
         }
       ]
     }
