@@ -54669,6 +54669,10 @@
                                 "type": "integer",
                                 "description": "ID da etapa de funil onde um projeto é criado quando chega mensagem de um contato sem conversa ativa; sem valor, essas mensagens são ignoradas."
                               },
+                              "inbound_group_funnel_step_id": {
+                                "type": "integer",
+                                "description": "ID da etapa de funil onde um projeto é criado quando um grupo de WhatsApp abre uma nova conversa (integrações Evolution com **Atender grupos** ligada); sem valor ou com etapa inválida, vale `inbound_funnel_step_id`. Contatos diretos nunca usam esta etapa."
+                              },
                               "referral_form_id": {
                                 "type": "integer",
                                 "description": "ID do formulário que recebe os dados de origem de campanha (anúncio) da conversa."
@@ -54985,6 +54989,10 @@
                             "inbound_funnel_step_id": {
                               "type": "integer",
                               "description": "ID da etapa de funil onde um projeto é criado quando chega mensagem de um contato sem conversa ativa; sem valor, essas mensagens são ignoradas."
+                            },
+                            "inbound_group_funnel_step_id": {
+                              "type": "integer",
+                              "description": "ID da etapa de funil onde um projeto é criado quando um grupo de WhatsApp abre uma nova conversa (integrações Evolution com **Atender grupos** ligada); sem valor ou com etapa inválida, vale `inbound_funnel_step_id`. Contatos diretos nunca usam esta etapa."
                             },
                             "referral_form_id": {
                               "type": "integer",
@@ -57040,6 +57048,10 @@
                               "type": "integer",
                               "description": "ID da etapa de funil onde um projeto é criado quando chega mensagem de um contato sem conversa ativa; sem valor, essas mensagens são ignoradas."
                             },
+                            "inbound_group_funnel_step_id": {
+                              "type": "integer",
+                              "description": "ID da etapa de funil onde um projeto é criado quando um grupo de WhatsApp abre uma nova conversa (integrações Evolution com **Atender grupos** ligada); sem valor ou com etapa inválida, vale `inbound_funnel_step_id`. Contatos diretos nunca usam esta etapa."
+                            },
                             "referral_form_id": {
                               "type": "integer",
                               "description": "ID do formulário que recebe os dados de origem de campanha (anúncio) da conversa."
@@ -57275,6 +57287,10 @@
                         "type": "integer",
                         "description": "ID da etapa de funil onde um projeto é criado quando chega mensagem de um contato sem conversa ativa; sem valor, essas mensagens são ignoradas."
                       },
+                      "inbound_group_funnel_step_id": {
+                        "type": "integer",
+                        "description": "ID da etapa de funil onde um projeto é criado quando um grupo de WhatsApp abre uma nova conversa (integrações Evolution com **Atender grupos** ligada); sem valor ou com etapa inválida, vale `inbound_funnel_step_id`. Contatos diretos nunca usam esta etapa."
+                      },
                       "referral_form_id": {
                         "type": "integer",
                         "description": "ID do formulário que recebe os dados de origem de campanha (anúncio) da conversa."
@@ -57354,7 +57370,7 @@
             }
           }
         },
-        "description": "Atualiza uma integração; envie apenas o que deve mudar. Um grupo `config` ou `credentials` enviado substitui o gravado por inteiro, e o tipo da integração não pode ser alterado. Nas integrações Evolution, `config.groups_enabled` liga a opção **Atender grupos** (desligada por padrão). Veja [Integrações](https://docs.olie.ai/guides/integrations/overview)."
+        "description": "Atualiza uma integração; envie apenas o que deve mudar. Um grupo `config` ou `credentials` enviado substitui o gravado por inteiro, e o tipo da integração não pode ser alterado. Nas integrações Evolution, `config.groups_enabled` liga a opção **Atender grupos** (desligada por padrão), e `config.inbound_group_funnel_step_id` define a etapa onde nascem os projetos das conversas de grupo; sem ela, vale `config.inbound_funnel_step_id`. Veja [Integrações](https://docs.olie.ai/guides/integrations/overview)."
       },
       "parameters": [
         {
