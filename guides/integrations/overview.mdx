@@ -93,9 +93,23 @@ Na lista de integrações, cada conta mostra **Não cria projetos** ou a etapa e
 
 O destino é uma **etapa**, não um funil. Isso importa porque a etapa é que carrega automações, restrições e assistentes: a mensagem que chega já cai dentro do processo.
 
+Quando **Atender grupos** está ligada, aparece também o campo **Etapa para grupos**. Os projetos abertos por grupos nascem nessa etapa. Se o campo ficar vazio, o grupo usa a mesma etapa de **Criar o projeto nesta etapa**. Contatos diretos nunca usam a etapa de grupos.
+
 <Warning>
-Se nenhuma etapa for escolhida, **mensagens de números sem projeto aberto são ignoradas**. É a configuração que mais passa despercebida ao ligar um canal pela primeira vez.
+Se nenhuma etapa for escolhida, **mensagens de números sem projeto aberto são ignoradas**. É a configuração que mais passa despercebida ao ligar um canal pela primeira vez. A mesma regra vale para grupos quando **Etapa para grupos** está vazia e **Criar o projeto nesta etapa** também.
 </Warning>
+
+### Atender grupos
+
+Nas integrações **Evolution** e **WhatsApp hospedado pela Olie**, a opção **Atender grupos** define se mensagens de grupos do WhatsApp entram na plataforma. Ela fica desligada por padrão. O **WhatsApp oficial (Meta)** não oferece grupos.
+
+Com a opção ligada, cada grupo que mandar mensagem vira uma conversa ligada a um projeto, como um contato. O projeto recebe o nome do grupo. Cada mensagem recebida mostra quem escreveu. IA e automações funcionam como em qualquer conversa.
+
+Com a opção desligada, a mensagem de grupo é descartada e não abre conversa.
+
+Para abrir uma conversa com um grupo a partir do projeto, use **Conversa externa**, escolha **Grupo** e selecione o grupo na lista. A lista aceita busca pelo nome e mostra no máximo 500 grupos.
+
+Pela API, `capabilities.groups` indica se o conector oferece grupos; a opção em si é `config.groups_enabled`. Para listar os grupos, chame `GET /api/management/integrations/{integration}/whatsapp-groups`. Para abrir a conversa, use `POST /api/management/channels/open` com o `id` do grupo.
 
 ### Recuperar histórico
 
@@ -168,6 +182,7 @@ O envio por `save-media` é assíncrono: a resposta confirma que o conteúdo foi
 | `origin` | `internal` para o que foi escrito na Olie. `provider` e `imported` são mensagens que vieram do WhatsApp — inclusive o que alguém enviou pelo celular em coexistência — e nunca são reenviadas |
 | `external_message_id` | O identificador que o provedor devolveu ao aceitar o envio |
 | `delivery_error` | O motivo da falha. Em falhas temporárias, a plataforma tenta de novo até três vezes e só então preenche o campo. Se o provedor disser que a conexão não existe mais, o erro aparece na primeira tentativa e a sessão da integração passa a **Desconectada**. Fica `null` quando a entrega deu certo |
+| `sender_ref` e `sender_name` | Em mensagem recebida de um grupo, identificam o participante que escreveu. Em conversa individual e em mensagem enviada, os dois campos vêm `null` |
 
 A requisição `save-media` é recusada com HTTP 422 quando o canal está inativo, pertence a outro projeto ou a janela de atendimento está fechada (`message: "channel_reply_window_closed"`, com `closes_at` e `closed_since`).
 
